@@ -27,4 +27,13 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  compressHTML: true,
+  vite: {
+    build: {
+      cssMinify: true,
+    },
+  },
 });
