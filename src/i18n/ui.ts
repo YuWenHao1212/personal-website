@@ -18,7 +18,6 @@ export const ui = {
     // Hero
     'hero.greeting': '我是文皓',
     'hero.tagline': '我用 AI 打造產品',
-    'hero.subtitle': '有能力的人，不需要被公司綁住。',
     'hero.description': '在 AI 時代，個人可以創造出以前需要整個團隊才能做到的東西。這不是幻想，我正在實踐。我追求的是自由——思想的自由、財務的自由、時間的自由。',
     'hero.cta.story': '閱讀我的故事',
     'hero.cta.posts': '最新文章',
@@ -81,7 +80,6 @@ export const ui = {
     // Hero
     'hero.greeting': "I'm WenHao",
     'hero.tagline': 'I Build Products with AI',
-    'hero.subtitle': "Capable people don't need to be tied to a company.",
     'hero.description': "In the AI era, individuals can create what previously required entire teams. This isn't a fantasy—I'm living it. I pursue freedom: freedom of thought, financial freedom, and freedom of time.",
     'hero.cta.story': 'Read My Story',
     'hero.cta.posts': 'Latest Posts',
