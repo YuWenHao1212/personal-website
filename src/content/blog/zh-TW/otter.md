@@ -1,11 +1,12 @@
 ---
 title: "讓英語不再成為溝通和學習的障礙 | Otter.AI"
-description: "讓英語不再成為溝通和學習的障礙 | Otter.AI..."
+description: "Otter.ai 是利用 AI 即時產生英文逐字稿的工具。無論是英語會議、學習 Podcast 或線上課程，都能快速產生逐字稿，方便定位重聽、編輯校正、保存筆記或翻譯成中文。"
 pubDate: 2021-03-21
-category: building-products
+category: productivity
 tags: ["otter", "數位工具", "知識管理"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/otter.webp
 ---
 
 在職場中與國際客戶互動需要英語溝通，而許多寶貴的學習資源與課程也都以英語提供。然而，語言能力不足常成為探索這些機會的障礙。

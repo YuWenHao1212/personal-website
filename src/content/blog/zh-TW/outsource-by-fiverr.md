@@ -1,11 +1,12 @@
 ---
 title: "Fiverr: 外包你的工作, 賺回你的時間"
-description: "Fiverr: 外包你的工作, 賺回你的時間..."
+description: "Fiverr 是一個全球自由接案市場，提供平面設計、數位行銷、寫作翻譯、影片動畫、程式設計等服務。以具競爭力價格接觸全球專家，簡化專案管理和付款處理，節省寶貴時間。"
 pubDate: 2020-12-05
 category: building-products
 tags: ["fiverr", "outsource", "外包", "數位工具"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/fiverr.webp
 ---
 
 ## 簡介

@@ -1,11 +1,12 @@
 ---
 title: "一人創業與獨立開發者必學：用Persona找到你的1000位付費用戶"
-description: "一人創業與獨立開發者必學：用Persona找到你的1000位付費用戶..."
+description: "透過建立詳細的用戶畫像（User Persona），幫助獨立開發者克服自我參照偏誤、指導功能優先級、統一團隊認知。找到並精準服務 1000 位願意付費的用戶，就能創造可觀收入。"
 pubDate: 2025-03-18
 category: building-products
 tags: ["No-Code", "Bubble", "一人創業", "no-code development"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/persona.webp
 ---
 
 ## 概述

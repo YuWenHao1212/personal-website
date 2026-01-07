@@ -1,11 +1,12 @@
 ---
 title: "1個我找了10年才找到的記帳工具 - YNAB"
-description: "1個我找了10年才找到的記帳工具 - YNAB..."
+description: "YNAB (You Need A Budget) 是一個讓你重新掌控金錢的理財工具。透過帳戶管理、預算規劃、即時現況追蹤，讓你用上帝視角看待個人財務，主動讓每一塊錢為你工作。"
 pubDate: 2021-10-01
 category: productivity
 tags: ["個人成長", "財務管理", "記帳工具"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/ynab.webp
 ---
 
 這篇文章花了我10年才寫出來。大約從10年前開始我每年都嘗試記帳，希望能掌控自己的財務情況。不過因為整個Workflow牽涉的工具過於複雜，且花許多精力在記錄流水帳完全沒有看到個人財務的全局觀，均以失敗告終。

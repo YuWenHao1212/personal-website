@@ -1,11 +1,12 @@
 ---
 title: "為什麼要使用Jira管理專案"
-description: "為什麼要使用Jira管理專案..."
+description: "Jira 是由 Atlassian 開發的專案管理工具，支援議題追蹤、Scrum/Kanban 敏捷開發、即時儀表板，解決傳統專案管理中會議時間浪費、工具效率不足、團隊主動性下降等問題。"
 pubDate: 2021-02-27
 category: productivity
 tags: ["專案管理", "專案管理工具", "Jira"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/jira.webp
 ---
 
 ## 傳統專案管理常見的問題

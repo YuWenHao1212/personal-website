@@ -667,3 +667,4 @@ Phase 6 (Deploy) ◄───────────────┘
 | 1.6 | 2026-01-07 | Phase 5 & 6: Buttondown integrated, GitHub Actions workflow, staticwebapp.config.json, 404 page |
 | 1.7 | 2026-01-07 | Final testing complete, Lighthouse optimization done (Desktop: 99, 無痕: 100). Only DNS setup remaining for MVP. |
 | 1.8 | 2026-01-07 | Umami Cloud integration complete with custom events (newsletter, category, product, language). 96% complete. |
+| 1.9 | 2026-01-07 | Content polish: 6 featured articles with hero images & descriptions, social links fixed, English version of nocode-to-ai-coding article, product image for AI Resume Advisor |

@@ -1,11 +1,12 @@
 ---
 title: "Miro - 快速規劃並畫出想法的線上工具"
-description: "Miro - 快速規劃並畫出想法的線上工具..."
+description: "Miro 是一個整合流程圖、心智圖、時間軸、組織架構的線上協作白板工具。提供 60+ 模板，支援即時遠程協作，讓 PM、工程師、設計師可以在同一平台上溝通想法。"
 pubDate: 2020-11-28
 category: productivity
 tags: ["flow chart", "mindmap", "miro app", "plan", "visualize", "數位工具"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/miro.webp
 ---
 
 ## 為什麼需要視覺化工具

@@ -1,11 +1,12 @@
 ---
 title: "車用電子產品成本計算"
-description: "車用電子產品成本計算..."
+description: "本文說明車用產品的成本分類：專案開發費用（工程設計、驗證、模治具）與單位成本（材料、製造、報廢、營運費用），幫助你在整個產品生命週期中進行準確的成本估算與管理。"
 pubDate: 2020-11-22
 category: building-products
 tags: ["Automotive", "Project Cost Calculation", "Quotation", "Cost Breakdown", "成本分拆表", "產品報價", "車用產品"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/project-cost.webp
 ---
 
 本文說明車用產品的不同成本分類以及每個類別背後的概念。

@@ -1,11 +1,12 @@
 ---
 title: "Readwise: 自動同步閱讀的重點到筆記本"
-description: "Readwise: 自動同步閱讀的重點到筆記本..."
+description: "Readwise 能自動同步散在網路上各個閱讀 App（Kindle、Instapaper 等）的畫線重點，並自動匯出到 Roam Research、Notion、Evernote 等數位筆記本中，是知識工作者的生產力神器。"
 pubDate: 2020-12-26
 category: productivity
 tags: ["readwise", "學習", "筆紀方法", "知識管理"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/readwise.webp
 ---
 
 ## 前言
