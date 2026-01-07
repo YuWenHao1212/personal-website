@@ -6,6 +6,7 @@ category: building-products
 lang: zh-TW
 featured: true
 heroImage: /images/blog/nocode-to-ai-coding.webp
+translationKey: nocode-to-ai-coding
 ---
 
 我離開工程師這個身份，已經 14 年了。
