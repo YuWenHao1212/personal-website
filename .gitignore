@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Original source images (use optimized webp versions instead)
+public/*.jpg
+public/*.jpeg
+public/*.png
+!public/images/
