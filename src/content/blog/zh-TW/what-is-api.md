@@ -1,11 +1,12 @@
 ---
 title: "API是什麼？從生活案例理解API的運作"
-description: "API是什麼？從生活案例理解API的運作..."
+description: "API（應用程式介面）是一組規則和方法，允許不同的應用程式或服務之間進行通訊。它就像一座橋樑，幫助系統互相交流和交換資料。"
 pubDate: 2025-02-24
 category: building-products
 tags: ["API", "API例子"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/what-is-api/hero.webp
 ---
 
 API（應用程式介面）是一組規則和方法，允許不同的應用程式或服務之間進行通訊。它就像一座橋樑，幫助系統互相交流和交換資料。在我們日常使用的各種應用背後，API扮演著至關重要的角色。
@@ -23,6 +24,11 @@ API的運作包含以下關鍵步驟：
 首先是**請求階段**，使用者透過設備（如手機或電腦）向OpenAI API發送請求，尋求特定資訊或答案。接著是**處理階段**，API接收到請求後，會將其轉發至OpenAI的後端系統，這代表API成功地將需求傳達給負責處理資訊的系統。最後是**回應階段**，後端系統進行運算，生成所需的答案，再由API將結果送回給使用者。
 
 ## 系統組件解析
+
+<figure>
+<img src="/images/blog/what-is-api/api-diagram.webp" alt="API 系統組件圖" />
+<figcaption>API 系統組件圖</figcaption>
+</figure>
 
 在整個API運作過程中，有三個主要組件：
 

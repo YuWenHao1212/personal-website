@@ -1,59 +1,61 @@
 ---
 title: "No-Code 開發實作：Bubble 操作基礎與動態數據"
-description: "No-Code 開發實作：Bubble 操作基礎與動態數據..."
-pubDate: 2025-07-01
+description: "介紹 Bubble 平台的應用定位和核心優勢 Dynamic Data（動態數據），讓應用能根據即時資料、使用者狀態或特定條件動態改變內容和行為，建立真正「活著」的應用程式。"
+pubDate: 2021-09-05
 category: building-products
 tags: ["No-Code", "Bubble", "Bubble.io", "Bubble教學", "no-code development"]
 lang: zh-TW
 featured: false
+heroImage: /images/blog/bubble-dynamic-data/hero.webp
 ---
-
-## 從靜態頁面到動態應用的關鍵要素
 
 **【閱讀地圖】：概念篇 → [基礎操作篇] → 功能開發篇 → 最佳實踐篇 → 專案實戰篇**
 
-In earlier articles, we explored No-Code development thinking and Bubble's three core elements. Before diving into editor operations, let's clarify Bubble's ideal use cases and capability boundaries.
+在前面的文章中，我們了解了 No-Code 開發思維和 Bubble 的三大核心元素。在深入編輯器操作之前，讓我們先明確 Bubble 這個平台的最佳應用場景，以及它的能力邊界。
 
 ## Bubble 的應用定位
 
 ### 不適合的應用場景
 
-Complex computational applications aren't Bubble's strength. Services requiring intricate mathematical calculations, machine learning model training, or big data analysis face limitations due to No-Code constraints. While external computing services can integrate via API, such applications need backend programming support.
+大量運算功能的應用並非 Bubble 的強項。如果需要建立的服務涉及複雜數學運算、機器學習模型訓練，或大數據分析應用，Bubble 的無程式碼限制會成為瓶頸。雖然可透過 API 整合外部運算服務，但此類應用需搭配後端程式開發。
 
-Game development falls outside Bubble's optimal range, particularly games requiring real-time physics engines, sophisticated graphics rendering, or millisecond-level response times.
+遊戲開發不在 Bubble 的最佳應用範圍內，特別是需要即時物理引擎、複雜圖形渲染，或毫秒級回應時間的遊戲。
 
-Static websites or polished landing pages may not be ideal choices either. For company information, product introductions, or marketing pages without user interaction or data processing needs, design tools like Webflow offer superior visual freedom and loading speed.
+純展示性的靜態網站或精美的登陸頁面可能不是 Bubble 的最佳選擇。如果需求僅是展示公司資訊、產品介紹或行銷頁面，而不需要使用者互動和資料處理，Webflow 或其他專門設計工具可能更適合。
 
 ### 最適合的應用類型
 
-Bubble excels at developing applications demanding user interaction and data management. Examples include knowledge service platforms (online courses, expert consultation), social media (Facebook-like activity feeds, friend systems), and marketplace platforms (Airbnb property management, booking systems).
+Bubble 特別適合開發需要使用者互動和資料管理的應用。例如知識服務類平台（線上課程網站、專家諮詢平台）、社群媒體（Facebook 的動態牆、好友系統），以及市場媒合平台（Airbnb 的房源管理、預訂系統）。
 
-These applications share common characteristics: personalized user data, real-time status updates, and complex user interaction mechanisms. Dynamic Data functionality and integrated architecture enable seamless complex feature implementation within one platform.
+這些應用的共同特點是不同使用者都有自己的個人化資料，需要即時狀態更新，或使用者之間需要複雜的互動機制。Bubble 的動態數據功能和整合性架構讓這些複雜功能能在單一平台中無縫銜接。
 
 ## Dynamic Data：Bubble 的核心優勢
 
+現在讓我們深入了解 Bubble 最重要的特色功能——Dynamic Data。這將幫助你理解為什麼 Bubble 能夠建立像 Facebook、Airbnb 這樣複雜的動態應用。
+
 ### 什麼是 Dynamic Data
 
-Dynamic Data represents Bubble's most powerful feature, enabling applications to dynamically modify content and behavior based on real-time data, user status, or specific conditions. This creates truly "living" applications rather than static web displays.
+Dynamic Data（動態數據）是 Bubble 最強大的功能之一，它讓應用能根據即時資料、使用者狀態或特定條件動態改變內容和行為。這個功能使 Bubble 能建立真正「活著」的應用程式，而不僅僅是靜態的網頁展示。
 
-Traditional static websites show users exactly what designers created. Bubble operates differently—designers create a "template" that automatically generates content based on real-time database information. This resembles building an intelligent system delivering personalized experiences for each user.
+在傳統靜態網站中，設計時看到什麼內容，使用者就看到什麼內容。但在 Bubble 中，設計的是一個「模板」，實際顯示的內容會根據資料庫中的即時資料動態生成。這就像建立一個會自動調整的智慧系統，能為每個使用者提供個人化的體驗。
 
-The editor displays "Insert dynamic data" functionality in property panels for text and image elements. Users can insert dynamic content like user IDs, emails, friend counts, unread message quantities, or current time. Image elements similarly display user avatars or company logos dynamically.
+<figure>
+<img src="/images/blog/bubble-dynamic-data/dynamic-data-editor.webp" alt="Bubble 動態數據編輯器" />
+<figcaption>Bubble 的 Insert dynamic data 功能</figcaption>
+</figure>
+
+當選擇一個文字元件時，可在右側屬性面板中看到「Insert dynamic data」按鈕。點擊這個按鈕，就可插入各種動態資料，例如使用者的 id、email、好友數目、未讀訊息數量或現在時間等。同樣地，在圖片元件中，也可動態顯示使用者大頭照或公司 logo。
 
 ### Dynamic Data 如何實現 Facebook 級別的功能
 
-Consider Facebook's approach. Upon login, your activity feed, friend list, and notification counts are dynamically generated—each person sees different content.
+讓我們以 Facebook 為例來理解 Dynamic Data 的威力。當你登入 Facebook 時，你看到的動態牆內容、好友列表、通知數量都是動態生成的，每個人看到的都不一樣。
 
-**Personalized Activity Feed Implementation:** Create a post database storing all posts, then design a "dynamic list" component on the homepage. This list automatically retrieves "posts published only by the current user's friends." When the page loads, the system dynamically displays relevant posts based on logged-in user relationships. Each user sees completely different content, yet you design the template only once.
+**個人化動態牆實現：** 在 Bubble 中，可建立一個「貼文資料庫」來儲存所有貼文，然後在首頁設計一個「動態列表」區塊。這個列表會自動從資料庫中抓取「只有目前使用者的好友發布的貼文」。當頁面載入時，系統會自動根據當前登入使用者的好友關係，動態顯示相關的貼文內容。每個使用者看到的內容都完全不同，但只需設計一次版面模板。
 
-**Real-Time Notification System:** Build a notification database containing content, recipients, and read status. A notification icon automatically calculates and displays "unread notifications belonging to the current user." New notifications update instantly without page refreshing.
+**即時通知系統：** 建立一個「通知資料庫」，包含通知內容、接收者、是否已讀等資訊。在頁面頂部設計一個通知圖示，其旁邊的數字會自動計算並顯示「屬於目前使用者且尚未讀取的通知數量」。當有新通知時，這個數字會即時更新，不需重新整理頁面。
 
-**Friend Recommendation Mechanism:** Facebook recommends people you might know—achievable in Bubble through complex dynamic search. Set search criteria as "find users sharing mutual friends with the current user but not yet friends," and the system automatically filters relationships and generates recommendations.
+**好友推薦機制：** Facebook 會推薦可能認識的人，這在 Bubble 中可透過複雜的動態搜尋實現。可設定搜尋條件為「找出與目前使用者有共同好友，但尚未成為好友的使用者」，系統會自動過濾資料關係並產生推薦清單。
 
 ## 從靜態設計到動態體驗
 
-Through Dynamic Data, Bubble elevates web design from static layout arrangement to dynamic experience creation. When designing pages in Bubble, designers simultaneously define application behavior logic and interaction rules. Dynamic Data represents this platform's essential value.
-
-Designers can focus on user experience and business logic without worrying about underlying technical implementation details. Even without programming knowledge, developers create sophisticated interactive applications.
-
-The next article will introduce the component editor, explaining the three major element properties: Appearance, Layout, and Conditional. Through these properties, page elements connect with databases and implement various condition logic. See you then!
+通過 Dynamic Data，Bubble 將網頁設計從靜態的版面編排提升到動態的體驗創造。使用 Bubble 設計時，在設計頁面外觀的同時，也在定義應用的行為邏輯和互動規則。Dynamic Data 是 Bubble 這個平台的核心價值所在。可專注於使用者體驗和業務邏輯的設計，而不需擔心底層的技術實現細節，即使不會寫程式，也能開發出複雜的互動式應用。
