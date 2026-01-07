@@ -2,7 +2,7 @@
 
 **Based on**: PROJECT_CHARTER.md v1.3
 **Created**: 2026-01-07
-**Updated**: 2026-01-07 (based on PLAN_REVIEW.md)
+**Updated**: 2026-01-07 (progress update v1.2)
 **Deadline**: 2026-01-25
 
 ---
@@ -577,31 +577,31 @@ Phase 6 (Deploy) ◄───────────────┘
 ## Checklist Summary
 
 ### Phase 1: Foundation
-- [ ] Tailwind CSS 設定
-- [ ] 色彩系統 + 字型
-- [ ] i18n 設定
-- [ ] 語言偵測 middleware
-- [ ] Header + Footer
-- [ ] LanguageSwitcher
-- [ ] SEO 元件
-- [ ] Root redirect 頁面
+- [x] Tailwind CSS 設定 ✅
+- [x] 色彩系統 + 字型 ✅
+- [x] i18n 設定 ✅
+- [x] 語言偵測 middleware ✅
+- [x] Header + Footer ✅
+- [x] LanguageSwitcher ✅
+- [x] SEO 元件 ✅
+- [x] Root redirect 頁面 ✅
 
 ### Phase 2: Pages
-- [ ] Hero 元件
+- [x] Hero 元件 ✅
 - [ ] FeaturedPosts 元件（含選取邏輯）
-- [ ] ProductCard 元件
-- [ ] NewsletterForm 元件
-- [ ] 首頁（中/英）
-- [ ] About 頁（中/英）
+- [x] ProductCard 元件 ✅
+- [x] NewsletterForm 元件 ✅
+- [x] 首頁（中/英） ✅
+- [x] About 頁（中/英） ✅
 - [ ] Contact 頁（中/英）
-- [ ] Hero 專業照片或 placeholder
+- [x] Hero 專業照片或 placeholder ✅ (`public/images/hero.webp`)
 - [ ] OG 社群分享圖片
 
 ### Phase 3: Blog
-- [ ] Content Collections schema
+- [x] Content Collections schema ✅ (`src/content.config.ts`)
 - [ ] BlogCard 元件
 - [ ] CategoryFilter 元件
-- [ ] 分類名稱翻譯對應
+- [x] 分類名稱翻譯對應 ✅ (`src/i18n/categories.ts`)
 - [ ] Blog 列表頁（中/英）
 - [ ] BlogLayout
 - [ ] VideoEmbed 元件
@@ -635,15 +635,17 @@ Phase 6 (Deploy) ◄───────────────┘
 
 ## Task Count Summary
 
-| Phase | Tasks |
-|-------|-------|
-| Phase 1: Foundation | 14 |
-| Phase 2: Pages | 12 |
-| Phase 3: Blog | 20 |
-| Phase 4: Content | 7 |
-| Phase 5: Integrations | 6 |
-| Phase 6: Deploy | 10 |
-| **Total** | **69** |
+| Phase | Tasks | Done | Remaining |
+|-------|-------|------|-----------|
+| Phase 1: Foundation | 14 | 14 | 0 |
+| Phase 2: Pages | 12 | 7 | 5 |
+| Phase 3: Blog | 20 | 2 | 18 |
+| Phase 4: Content | 7 | 0 | 7 |
+| Phase 5: Integrations | 6 | 0 | 6 |
+| Phase 6: Deploy | 10 | 0 | 10 |
+| **Total** | **69** | **23** | **46** |
+
+**Progress: 33% Complete**
 
 ---
 
@@ -653,3 +655,4 @@ Phase 6 (Deploy) ◄───────────────┘
 |---------|------|---------|
 | 1.0 | 2026-01-07 | Initial implementation plan |
 | 1.1 | 2026-01-07 | Added missing items from PLAN_REVIEW.md: root redirect, reading time, category names, related posts logic, language version link, OG image, multi-language RSS, analytics events |
+| 1.2 | 2026-01-07 | Updated progress: Phase 1 complete, Phase 2 partially complete (7/12), Phase 3 started (2/20) |

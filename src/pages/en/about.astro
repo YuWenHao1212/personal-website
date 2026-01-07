@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'About';
+const description = "I'm WenHao, a solo entrepreneur in the AI era. Proving that capable people don't need to be tied to a company.";
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="py-16 md:py-24">
+    <div class="container-narrow">
+
+      <!-- Hero Section -->
+      <header class="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-16">
+        <img
+          src="/images/hero.webp"
+          alt="WenHao Yu"
+          class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-lg flex-shrink-0"
+        />
+        <div class="text-center md:text-left">
+          <h1 class="text-3xl md:text-4xl font-bold text-ink-900 mb-3">
+            I'm WenHao
+          </h1>
+          <p class="text-xl text-ink-600 mb-4">
+            Solo Entrepreneur in the AI Era
+          </p>
+          <p class="text-ink-500">
+            Proving that capable people don't need to be tied to a company.
+          </p>
+        </div>
+      </header>
+
+      <!-- Story Section -->
+      <section class="mb-16">
+        <div class="bg-cream-50 rounded-2xl p-8 md:p-10">
+          <h2 class="text-xl font-semibold text-ink-900 mb-6">My Story</h2>
+
+          <div class="space-y-4 text-ink-700 leading-relaxed">
+            <p>
+              14 years since I left engineering. In between, I became a PM—managing projects, working with data. Occasionally writing Python scripts, but building a complete product from scratch? The barrier was too high.
+            </p>
+
+            <p>
+              In 2024, I learned No-Code. Thought I found the answer. Mid-2025, Claude Code appeared. I tried it once and couldn't stop.
+            </p>
+
+            <p class="text-lg font-medium text-ink-900 py-2">
+              Six months later, I—someone who's "not an engineer"—launched my own SaaS.
+            </p>
+
+            <p>
+              This transformation made me realize something—the technical barrier is disappearing. What remains is whether you can clearly define "what problem to solve."
+            </p>
+
+            <p>
+              In May 2025, I graduated from Minerva with an MDA degree. Cross-disciplinary data analysis, 15 years of hands-on experience, plus AI tools—these three things together let me do what I couldn't do before.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Belief Section -->
+      <section class="mb-16">
+        <blockquote class="border-l-4 border-accent pl-6 py-4">
+          <p class="text-2xl md:text-3xl font-semibold text-ink-900 mb-4">
+            Capable people don't need to be tied to a company.
+          </p>
+          <p class="text-ink-600">
+            In the AI era, individuals can create what previously required entire teams. This isn't fantasy—I'm living it. What I pursue is freedom—freedom of thought, financial freedom, freedom of time.
+          </p>
+        </blockquote>
+      </section>
+
+      <!-- What I Write Section -->
+      <section class="mb-16">
+        <h2 class="text-xl font-semibold text-ink-900 mb-6">What I Write About</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🤖</span>
+            <h3 class="font-semibold text-ink-900 mt-2 mb-1">AI & Tech</h3>
+            <p class="text-sm text-ink-600">AI industry insights, useful tools, workflow design</p>
+          </div>
+
+          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🚀</span>
+            <h3 class="font-semibold text-ink-900 mt-2 mb-1">Entrepreneurship</h3>
+            <p class="text-sm text-ink-600">Solo business, indie development, idea to launch</p>
+          </div>
+
+          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+            <span class="text-2xl">⚡</span>
+            <h3 class="font-semibold text-ink-900 mt-2 mb-1">Productivity</h3>
+            <p class="text-sm text-ink-600">Knowledge management, note systems, do less achieve more</p>
+          </div>
+
+          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+            <span class="text-2xl">🌱</span>
+            <h3 class="font-semibold text-ink-900 mt-2 mb-1">Thoughts & Life</h3>
+            <p class="text-sm text-ink-600">Values, life reflections, long-term thinking</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="text-center bg-cream-50 rounded-2xl p-8">
+        <h2 class="text-xl font-semibold text-ink-900 mb-3">Let's Connect</h2>
+        <p class="text-ink-600 mb-6">
+          AI, entrepreneurship, or anything interesting
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a
+            href="https://linkedin.com/in/yuwenhao"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-outline"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://facebook.com/yuwenhao"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-outline"
+          >
+            Facebook
+          </a>
+          <a href="/en/contact" class="btn-primary">
+            Contact Me
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import AboutSnippet from '../../components/AboutSnippet.astro';
+
+const title = 'WenHao Yu';
+const description = 'AI 時代的一人公司創業者。分享 AI、創業、生產力與人生思考。';
+
+const products = [
+  {
+    name: 'AI Resume Advisor',
+    description: 'AI 驅動的履歷分析工具，幫助你打造更具競爭力的履歷。',
+    href: 'https://airesumeadvisor.com',
+  },
+  {
+    name: '更多產品',
+    description: '正在開發中的產品與課程，敬請期待。',
+    comingSoon: true,
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <Hero />
+
+  <!-- Featured Posts Section - Placeholder for now -->
+  <section class="py-16">
+    <div class="container-wide">
+      <h2 class="text-2xl md:text-3xl font-bold text-ink-900 mb-8 text-center">
+        精選文章
+      </h2>
+      <div class="bg-cream-50 rounded-xl p-12 text-center text-ink-500">
+        <p>文章系統建置中，敬請期待...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="py-16 bg-cream-50">
+    <div class="container-wide">
+      <h2 class="text-2xl md:text-3xl font-bold text-ink-900 mb-8 text-center">
+        我的產品
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        {products.map((product) => (
+          <ProductCard {...product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <NewsletterForm />
+
+  <AboutSnippet />
+</BaseLayout>

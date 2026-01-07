@@ -1,0 +1,56 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+interface Props {
+  variant?: 'default' | 'compact';
+}
+
+const { variant = 'default' } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class:list={[
+  variant === 'default' ? 'py-16 bg-cream-200' : 'py-8',
+]}>
+  <div class:list={[
+    variant === 'default' ? 'container-narrow text-center' : '',
+  ]}>
+    {variant === 'default' && (
+      <>
+        <h2 class="text-2xl md:text-3xl font-bold text-ink-900 mb-4">
+          {t('newsletter.title')}
+        </h2>
+        <p class="text-ink-600 mb-8 max-w-md mx-auto">
+          {t('newsletter.description')}
+        </p>
+      </>
+    )}
+
+    <form
+      action="https://buttondown.email/api/emails/embed-subscribe/yuwenhao"
+      method="post"
+      target="popupwindow"
+      class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+    >
+      <input
+        type="email"
+        name="email"
+        placeholder={t('newsletter.placeholder')}
+        required
+        class="flex-1 px-4 py-3 rounded-lg border border-cream-300 bg-white text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+      />
+      <button
+        type="submit"
+        class="btn-primary whitespace-nowrap"
+      >
+        {t('newsletter.button')}
+      </button>
+    </form>
+
+    <p class="mt-4 text-sm text-ink-500">
+      {t('newsletter.privacy')}
+    </p>
+  </div>
+</section>

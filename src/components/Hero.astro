@@ -1,0 +1,45 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="py-16 md:py-24 bg-gradient-to-b from-cream-50 to-cream-100">
+  <div class="container-wide">
+    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+      <!-- Photo -->
+      <div class="flex-shrink-0">
+        <div class="relative">
+          <img
+            src="/images/hero.webp"
+            alt="WenHao Yu"
+            width="280"
+            height="280"
+            class="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full object-cover shadow-lg"
+            loading="eager"
+          />
+          <div class="absolute inset-0 rounded-full ring-4 ring-cream-200 ring-offset-4 ring-offset-cream-50"></div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="text-center md:text-left">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-ink-900 mb-4 text-balance">
+          {t('hero.tagline')}
+        </h1>
+        <p class="text-lg md:text-xl text-ink-600 mb-8 max-w-xl">
+          {t('hero.description')}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <a href={`/${lang}/about`} class="btn-primary">
+            {t('hero.cta.story')}
+          </a>
+          <a href={`/${lang}/blog`} class="btn-outline">
+            {t('hero.cta.posts')}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
