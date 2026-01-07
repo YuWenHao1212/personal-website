@@ -41,3 +41,8 @@ Jira由澳洲軟體公司Atlassian於2002年開發，現已成為市值60億美�
 ## 結語
 
 工具早已擺在那裡，關鍵是團隊是否有勇氣拋棄慣性、學習新工具。
+
+## 試用與學習資源
+
+- [Jira 官方免費試用（30天）](https://www.atlassian.com/software/jira/free)
+- 推薦 Udemy 課程學習 Jira 基礎操作和進階功能

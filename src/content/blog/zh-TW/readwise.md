@@ -43,3 +43,7 @@ Readwise 提供兩種訂閱方案：$4.99/月和 $7.99/月（年付）。主要�
 ## 更強大的 Readwise Reader
 
 2022 年底，Readwise 為 Full Plan 訂閱者推出了 Reader 功能，大幅增強知識輸入工作流程。
+
+## 推薦註冊
+
+如果你有興趣嘗試 Readwise，歡迎使用我的推薦連結註冊，可獲得 60 天免費試用：[Readwise 註冊連結](https://readwise.io/yu-wenhao/)

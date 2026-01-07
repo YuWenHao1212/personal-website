@@ -48,3 +48,7 @@ YNAB (You Need A Budget) 是美國知名理財工具，被Wirecutter列為"Best 
 月付11.99美金或年付84美金（7美金/月）。一個月200元台幣的價格，可以找回對金錢的控制感。
 
 透過理財活動得到上帝視角，就能主動的讓每一塊錢為我們工作靠近我們的人生目標。
+
+## 推薦連結
+
+如果你有興趣嘗試 YNAB，可以透過我的推薦連結註冊，獲得 34 天免費試用：[YNAB 註冊連結](https://ynab.com/referral/?ref=Yu9IQQkJbGlXQIch&utm_source=customer_referral)
