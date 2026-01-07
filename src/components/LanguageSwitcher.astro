@@ -12,6 +12,9 @@ const t = (key: keyof typeof ui['zh-TW']) => ui[currentLang][key];
   href={alternatePath}
   class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-ink-600 hover:text-ink-900 hover:bg-cream-200 rounded-lg transition-colors"
   title={t('language.switch')}
+  data-umami-event="language_switch"
+  data-umami-event-from={currentLang}
+  data-umami-event-to={alternateLang}
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"

@@ -629,8 +629,8 @@ Phase 6 (Deploy) ◄───────────────┘
 - [x] GitHub Actions ✅ (`.github/workflows/azure-static-web-apps.yml`)
 - [x] 404 頁面 ✅ (`src/pages/404.astro`)
 - [ ] DNS 設定 (需在 Azure Portal 設定 custom domain)
-- [ ] Final testing
-- [ ] Lighthouse > 90
+- [x] Final testing ✅ (所有頁面和功能測試通過)
+- [x] Lighthouse > 90 ✅ (Desktop: 99, 無痕模式: 100, Accessibility: 95, Best Practices: 100, SEO: 100)
 
 ---
 
@@ -643,10 +643,16 @@ Phase 6 (Deploy) ◄───────────────┘
 | Phase 3: Blog | 14 | 14 | 0 |
 | Phase 4: Content | 4 | 3 | 1 |
 | Phase 5: Integrations | 3 | 1 | 2 |
-| Phase 6: Deploy | 6 | 3 | 3 |
-| **Total** | **53** | **47** | **6** |
+| Phase 6: Deploy | 6 | 5 | 1 |
+| **Total** | **53** | **49** | **4** |
 
-**Progress: 89% Complete**
+**Progress: 92% Complete**
+
+### Remaining Tasks:
+1. **Phase 4**: 圖片遷移 (Post-MVP)
+2. **Phase 5**: Umami 整合 (Post-MVP)
+3. **Phase 5**: Umami 追蹤事件設定 (Post-MVP)
+4. **Phase 6**: DNS 設定 (yu-wenhao.com → Azure Static Web Apps)
 
 ---
 
@@ -661,3 +667,4 @@ Phase 6 (Deploy) ◄───────────────┘
 | 1.4 | 2026-01-07 | Phase 3 complete (14/14): BlogCard, CategoryFilter, Blog list pages, BlogLayout, VideoEmbed, ReadingTime, RelatedPosts, LanguageVersionLink, Sitemap, RSS feeds |
 | 1.5 | 2026-01-07 | Phase 4 mostly complete: 34 posts migrated from Cockpit, migration script created, categories mapped |
 | 1.6 | 2026-01-07 | Phase 5 & 6: Buttondown integrated, GitHub Actions workflow, staticwebapp.config.json, 404 page |
+| 1.7 | 2026-01-07 | Final testing complete, Lighthouse optimization done (Desktop: 99, 無痕: 100). Only DNS setup remaining for MVP. |

@@ -47,6 +47,8 @@ const comingSoonText = lang === 'zh-TW' ? '即將推出' : 'Coming Soon';
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
+        data-umami-event="product_click"
+        data-umami-event-product={name}
       >
         {ctaText}
         <svg

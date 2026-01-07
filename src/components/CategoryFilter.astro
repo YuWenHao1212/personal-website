@@ -20,6 +20,8 @@ const categories = [
     <button
       type="button"
       data-category={cat.id}
+      data-umami-event="category_click"
+      data-umami-event-category={cat.id}
       class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all bg-cream-100 text-ink-600 hover:bg-cream-200 hover:text-ink-800"
     >
       {cat.name}
