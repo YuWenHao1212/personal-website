@@ -45,9 +45,9 @@ export default {
           'Georgia',
           'serif',
         ],
-        // Clean sans for body - readable, not generic
+        // Clean sans for body - warmer, approachable
         sans: [
-          'Source Sans 3',
+          'Satoshi',
           'Noto Sans TC',
           'system-ui',
           '-apple-system',
