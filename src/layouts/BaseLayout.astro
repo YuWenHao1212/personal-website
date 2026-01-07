@@ -40,6 +40,9 @@ const lang = getLangFromUrl(Astro.url);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <!-- Preload hero image for LCP optimization -->
+    <link rel="preload" as="image" href="/images/hero.webp" type="image/webp" />
+
     <!-- Load fonts asynchronously with font-display: swap -->
     <link
       rel="preload"

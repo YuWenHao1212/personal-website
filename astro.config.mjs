@@ -28,7 +28,7 @@ export default defineConfig({
     },
   },
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
   compressHTML: true,
   vite: {
