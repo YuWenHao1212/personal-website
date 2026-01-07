@@ -1,0 +1,32 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  },
+  "routes": [
+    {
+      "route": "/zh-TW/*",
+      "headers": {
+        "content-language": "zh-TW"
+      }
+    },
+    {
+      "route": "/en/*",
+      "headers": {
+        "content-language": "en"
+      }
+    }
+  ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404.html"
+    }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Content-Security-Policy": "frame-ancestors 'none'"
+  },
+  "mimeTypes": {
+    ".xml": "application/xml"
+  }
+}

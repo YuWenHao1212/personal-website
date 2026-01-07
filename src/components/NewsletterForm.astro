@@ -12,17 +12,17 @@ const t = useTranslations(lang);
 ---
 
 <section class:list={[
-  variant === 'default' ? 'py-16 bg-cream-200' : 'py-8',
+  variant === 'default' ? 'py-10 md:py-14 lg:py-16 bg-cream-200' : 'py-6 md:py-8',
 ]}>
   <div class:list={[
     variant === 'default' ? 'container-narrow text-center' : '',
   ]}>
     {variant === 'default' && (
       <>
-        <h2 class="text-2xl md:text-3xl font-bold text-ink-900 mb-4">
+        <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-ink-900 mb-3 md:mb-4">
           {t('newsletter.title')}
         </h2>
-        <p class="text-ink-600 mb-8 max-w-md mx-auto">
+        <p class="text-sm md:text-base text-ink-600 mb-6 md:mb-8 max-w-md mx-auto">
           {t('newsletter.description')}
         </p>
       </>
@@ -39,17 +39,17 @@ const t = useTranslations(lang);
         name="email"
         placeholder={t('newsletter.placeholder')}
         required
-        class="flex-1 px-4 py-3 rounded-lg border border-cream-300 bg-white text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+        class="flex-1 px-4 py-2.5 md:py-3 rounded-lg border border-cream-300 bg-white text-sm md:text-base text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
       />
       <button
         type="submit"
-        class="btn-primary whitespace-nowrap"
+        class="btn-primary text-sm md:text-base whitespace-nowrap"
       >
         {t('newsletter.button')}
       </button>
     </form>
 
-    <p class="mt-4 text-sm text-ink-500">
+    <p class="mt-3 md:mt-4 text-xs md:text-sm text-ink-500">
       {t('newsletter.privacy')}
     </p>
   </div>

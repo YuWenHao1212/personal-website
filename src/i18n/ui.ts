@@ -44,6 +44,13 @@ export const ui = {
     'footer.copyright': '© {year} WenHao Yu. All rights reserved.',
     'footer.social': '社群連結',
 
+    // Contact
+    'contact.title': '聯繫我',
+    'contact.description': '有任何問題或合作想法，歡迎透過以下方式聯繫我',
+    'contact.social.title': '社群連結',
+    'contact.social.description': '在這些平台上找到我',
+    'contact.response': '我通常會在 1-2 個工作天內回覆',
+
     // 404
     '404.title': '頁面不存在',
     '404.description': '抱歉，找不到你要的頁面',
@@ -88,6 +95,13 @@ export const ui = {
     // Footer
     'footer.copyright': '© {year} WenHao Yu. All rights reserved.',
     'footer.social': 'Connect',
+
+    // Contact
+    'contact.title': 'Contact',
+    'contact.description': 'Have a question or collaboration idea? Feel free to reach out',
+    'contact.social.title': 'Social Links',
+    'contact.social.description': 'Find me on these platforms',
+    'contact.response': 'I typically respond within 1-2 business days',
 
     // 404
     '404.title': 'Page Not Found',

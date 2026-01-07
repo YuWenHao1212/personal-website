@@ -1,0 +1,96 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { categoryNames } from '../i18n/categories';
+import type { Lang } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+
+const categories = [
+  { id: 'all', name: t('blog.categories.all') },
+  { id: 'ai-tech', name: categoryNames['ai-tech'][lang] },
+  { id: 'entrepreneurship', name: categoryNames['entrepreneurship'][lang] },
+  { id: 'productivity', name: categoryNames['productivity'][lang] },
+  { id: 'thoughts-life', name: categoryNames['thoughts-life'][lang] },
+];
+---
+
+<div id="category-filter" class="flex flex-wrap gap-2 justify-center" data-lang={lang}>
+  {categories.map((cat) => (
+    <button
+      type="button"
+      data-category={cat.id}
+      class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all bg-cream-100 text-ink-600 hover:bg-cream-200 hover:text-ink-800"
+    >
+      {cat.name}
+    </button>
+  ))}
+</div>
+
+<script>
+  function initCategoryFilter() {
+    const filterContainer = document.getElementById('category-filter');
+    if (!filterContainer) return;
+
+    const buttons = filterContainer.querySelectorAll('.category-btn');
+    const cards = document.querySelectorAll('[data-post-category]');
+
+    // Get current category from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentCategory = urlParams.get('category') || 'all';
+
+    // Set initial active state
+    buttons.forEach((btn) => {
+      const cat = btn.getAttribute('data-category');
+      if (cat === currentCategory) {
+        btn.classList.remove('bg-cream-100', 'text-ink-600');
+        btn.classList.add('bg-accent', 'text-white', 'shadow-sm');
+      }
+    });
+
+    // Filter posts based on current category
+    filterPosts(currentCategory);
+
+    // Add click handlers
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category') || 'all';
+
+        // Update URL without reload
+        const url = new URL(window.location.href);
+        if (category === 'all') {
+          url.searchParams.delete('category');
+        } else {
+          url.searchParams.set('category', category);
+        }
+        window.history.pushState({}, '', url);
+
+        // Update active state
+        buttons.forEach((b) => {
+          b.classList.remove('bg-accent', 'text-white', 'shadow-sm');
+          b.classList.add('bg-cream-100', 'text-ink-600');
+        });
+        btn.classList.remove('bg-cream-100', 'text-ink-600');
+        btn.classList.add('bg-accent', 'text-white', 'shadow-sm');
+
+        // Filter posts
+        filterPosts(category);
+      });
+    });
+
+    function filterPosts(category: string) {
+      cards.forEach((card) => {
+        const postCategory = card.getAttribute('data-post-category');
+        if (category === 'all' || postCategory === category) {
+          (card as HTMLElement).style.display = '';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    }
+  }
+
+  // Run on page load and after navigation
+  initCategoryFilter();
+  document.addEventListener('astro:after-swap', initCategoryFilter);
+</script>

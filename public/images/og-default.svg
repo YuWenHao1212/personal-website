@@ -1,0 +1,32 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FAF8F5"/>
+
+  <!-- Decorative accent bar -->
+  <rect x="0" y="0" width="8" height="630" fill="#CA8A04"/>
+
+  <!-- Content container -->
+  <g transform="translate(80, 180)">
+    <!-- Name -->
+    <text x="0" y="0" font-family="Georgia, serif" font-size="72" font-weight="600" fill="#1A1A1A">
+      WenHao Yu
+    </text>
+
+    <!-- Tagline -->
+    <text x="0" y="80" font-family="system-ui, sans-serif" font-size="36" fill="#666666">
+      AI 時代的一人公司創業者
+    </text>
+    <text x="0" y="130" font-family="system-ui, sans-serif" font-size="36" fill="#666666">
+      Solo Entrepreneur in the AI Era
+    </text>
+
+    <!-- Website -->
+    <text x="0" y="220" font-family="system-ui, sans-serif" font-size="28" fill="#CA8A04">
+      yu-wenhao.com
+    </text>
+  </g>
+
+  <!-- Decorative elements -->
+  <circle cx="1050" cy="150" r="80" fill="#FEF9C3" opacity="0.6"/>
+  <circle cx="1100" cy="500" r="120" fill="#EBE6DC" opacity="0.4"/>
+</svg>

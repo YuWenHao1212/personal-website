@@ -1,0 +1,90 @@
+---
+import { categoryNames } from '../i18n/categories';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  heroImage?: string;
+  category: 'ai-tech' | 'entrepreneurship' | 'productivity' | 'thoughts-life';
+  slug: string;
+  lang: Lang;
+  featured?: boolean;
+}
+
+const { title, description, pubDate, heroImage, category, slug, lang, featured } = Astro.props;
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString(lang === 'zh-TW' ? 'zh-TW' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+// Category colors for placeholder backgrounds
+const categoryColors: Record<string, string> = {
+  'ai-tech': 'from-blue-100 to-blue-50',
+  'entrepreneurship': 'from-amber-100 to-amber-50',
+  'productivity': 'from-green-100 to-green-50',
+  'thoughts-life': 'from-purple-100 to-purple-50',
+};
+
+// Category icons
+const categoryIcons: Record<string, string> = {
+  'ai-tech': '🤖',
+  'entrepreneurship': '🚀',
+  'productivity': '⚡',
+  'thoughts-life': '🌱',
+};
+---
+
+<a
+  href={`/${lang}/blog/${slug}`}
+  class="group block bg-white border border-cream-200 rounded-xl overflow-hidden hover:shadow-md hover:border-cream-300 transition-all"
+  data-post-category={category}
+>
+  <!-- Image or Placeholder -->
+  <div class="relative h-40 md:h-48 overflow-hidden">
+    {heroImage ? (
+      <img
+        src={heroImage}
+        alt={title}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+      />
+    ) : (
+      <div class={`w-full h-full bg-gradient-to-br ${categoryColors[category]} flex items-center justify-center`}>
+        <span class="text-4xl md:text-5xl opacity-60">
+          {categoryIcons[category]}
+        </span>
+      </div>
+    )}
+    <!-- Badges -->
+    <div class="absolute top-3 left-3 flex flex-wrap gap-2">
+      {featured && (
+        <span class="px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
+          {lang === 'zh-TW' ? '精選' : 'Featured'}
+        </span>
+      )}
+      <span class="px-2.5 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-ink-700 rounded-full shadow-sm">
+        {categoryNames[category][lang]}
+      </span>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-5 md:p-6">
+    <div class="flex items-center gap-2 mb-2 text-xs md:text-sm text-ink-400">
+      <time datetime={pubDate.toISOString()}>
+        {formatDate(pubDate)}
+      </time>
+    </div>
+    <h3 class="text-base md:text-lg font-semibold text-ink-900 group-hover:text-accent transition-colors mb-2 line-clamp-2">
+      {title}
+    </h3>
+    <p class="text-sm text-ink-500 line-clamp-2">
+      {description}
+    </p>
+  </div>
+</a>

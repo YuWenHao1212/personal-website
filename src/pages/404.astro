@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Try to detect language from referrer or default to zh-TW
+const lang = 'zh-TW';
+---
+
+<BaseLayout title="404 - 頁面不存在" description="找不到您要的頁面">
+  <div class="py-20 md:py-28 lg:py-32">
+    <div class="container-narrow text-center">
+      <h1 class="text-6xl md:text-8xl font-bold text-ink-200 mb-4">404</h1>
+      <h2 class="text-xl md:text-2xl font-semibold text-ink-900 mb-4">
+        頁面不存在
+      </h2>
+      <p class="text-ink-600 mb-8">
+        抱歉，您要找的頁面不存在或已被移除。
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/zh-TW/" class="btn-primary">
+          回到首頁
+        </a>
+        <a href="/zh-TW/blog" class="btn-secondary">
+          瀏覽文章
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

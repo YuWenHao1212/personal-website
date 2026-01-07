@@ -1,0 +1,82 @@
+---
+interface Props {
+  url: string;
+  title?: string;
+}
+
+const { url, title = 'Video' } = Astro.props;
+
+// Extract video ID and platform
+function getVideoEmbed(url: string): { platform: string; id: string } | null {
+  // YouTube
+  const youtubeMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if (youtubeMatch) {
+    return { platform: 'youtube', id: youtubeMatch[1] };
+  }
+
+  // Vimeo
+  const vimeoMatch = url.match(/(?:vimeo\.com\/)(\d+)/);
+  if (vimeoMatch) {
+    return { platform: 'vimeo', id: vimeoMatch[1] };
+  }
+
+  // Bilibili
+  const bilibiliMatch = url.match(/(?:bilibili\.com\/video\/)([a-zA-Z0-9]+)/);
+  if (bilibiliMatch) {
+    return { platform: 'bilibili', id: bilibiliMatch[1] };
+  }
+
+  return null;
+}
+
+const video = getVideoEmbed(url);
+---
+
+{video ? (
+  <div class="my-6 md:my-8">
+    <div class="relative w-full pt-[56.25%] rounded-xl overflow-hidden bg-ink-100">
+      {video.platform === 'youtube' && (
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          src={`https://www.youtube.com/embed/${video.id}`}
+          title={title}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        />
+      )}
+      {video.platform === 'vimeo' && (
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          src={`https://player.vimeo.com/video/${video.id}`}
+          title={title}
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        />
+      )}
+      {video.platform === 'bilibili' && (
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          src={`https://player.bilibili.com/player.html?bvid=${video.id}&high_quality=1`}
+          title={title}
+          frameborder="0"
+          allowfullscreen
+          loading="lazy"
+        />
+      )}
+    </div>
+    {title && title !== 'Video' && (
+      <p class="mt-2 text-sm text-ink-500 text-center">{title}</p>
+    )}
+  </div>
+) : (
+  <div class="my-6 md:my-8 p-6 bg-cream-100 rounded-xl text-center text-ink-500">
+    <p>無法載入影片</p>
+    <a href={url} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
+      點此觀看原始連結
+    </a>
+  </div>
+)}

@@ -1,0 +1,120 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { categoryNames } from '../i18n/categories';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit = 4 } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+
+// Get all blog posts for current language
+const allPosts = await getCollection('blog', ({ data }) => data.lang === lang);
+
+// Sort: featured first, then by date
+const sortedPosts = allPosts.sort((a, b) => {
+  // Featured posts first
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  // Then by date (newest first)
+  return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+});
+
+// Take the top N posts
+const featuredPosts = sortedPosts.slice(0, limit);
+
+// Format date
+function formatDate(date: Date): string {
+  return date.toLocaleDateString(lang === 'zh-TW' ? 'zh-TW' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+// Category colors for placeholder backgrounds
+const categoryColors: Record<string, string> = {
+  'ai-tech': 'from-blue-100 to-blue-50',
+  'entrepreneurship': 'from-amber-100 to-amber-50',
+  'productivity': 'from-green-100 to-green-50',
+  'thoughts-life': 'from-purple-100 to-purple-50',
+};
+
+// Category icons
+const categoryIcons: Record<string, string> = {
+  'ai-tech': '🤖',
+  'entrepreneurship': '🚀',
+  'productivity': '⚡',
+  'thoughts-life': '🌱',
+};
+---
+
+{featuredPosts.length > 0 ? (
+  <div class:list={[
+    "grid gap-4 md:gap-6",
+    featuredPosts.length === 1 ? "grid-cols-1 max-w-md mx-auto" :
+    featuredPosts.length === 2 ? "grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto" :
+    "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+  ]}>
+    {featuredPosts.map((post) => (
+      <a
+        href={`/${lang}/blog/${post.id.split('/').pop()}`}
+        class="group block bg-white border border-cream-200 rounded-xl overflow-hidden hover:shadow-md hover:border-cream-300 transition-all"
+      >
+        <!-- Image or Placeholder -->
+        <div class="relative h-40 md:h-48 overflow-hidden">
+          {post.data.heroImage ? (
+            <img
+              src={post.data.heroImage}
+              alt={post.data.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          ) : (
+            <div class={`w-full h-full bg-gradient-to-br ${categoryColors[post.data.category]} flex items-center justify-center`}>
+              <span class="text-4xl md:text-5xl opacity-60">
+                {categoryIcons[post.data.category]}
+              </span>
+            </div>
+          )}
+          <!-- Badges -->
+          <div class="absolute top-3 left-3 flex flex-wrap gap-2">
+            {post.data.featured && (
+              <span class="px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
+                {lang === 'zh-TW' ? '精選' : 'Featured'}
+              </span>
+            )}
+            <span class="px-2.5 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-ink-700 rounded-full shadow-sm">
+              {categoryNames[post.data.category][lang]}
+            </span>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-5 md:p-6">
+          <div class="flex items-center gap-2 mb-2 text-xs md:text-sm text-ink-400">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {formatDate(post.data.pubDate)}
+            </time>
+          </div>
+          <h3 class="text-base md:text-lg font-semibold text-ink-900 group-hover:text-accent transition-colors mb-2 line-clamp-2">
+            {post.data.title}
+          </h3>
+          <p class="text-sm text-ink-500 line-clamp-2">
+            {post.data.description}
+          </p>
+        </div>
+      </a>
+    ))}
+  </div>
+) : (
+  <div class="bg-cream-50 rounded-xl p-8 md:p-10 lg:p-12 text-center text-ink-500">
+    <p class="text-sm md:text-base">
+      {lang === 'zh-TW' ? '文章系統建置中，敬請期待...' : 'Blog system under construction. Stay tuned...'}
+    </p>
+  </div>
+)}

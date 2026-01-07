@@ -6,130 +6,82 @@ const description = "I'm WenHao, a solo entrepreneur in the AI era. Proving that
 ---
 
 <BaseLayout title={title} description={description}>
-  <article class="py-16 md:py-24">
-    <div class="container-narrow">
+  <div class="py-12 md:py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- Hero Section -->
-      <header class="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-16">
+      <!-- Hero - Compact -->
+      <div class="text-center mb-10 md:mb-14 lg:mb-16">
         <img
           src="/images/hero.webp"
           alt="WenHao Yu"
-          class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-lg flex-shrink-0"
+          width="120"
+          height="120"
+          class="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full mx-auto mb-4 md:mb-6 object-cover shadow-lg"
         />
-        <div class="text-center md:text-left">
-          <h1 class="text-3xl md:text-4xl font-bold text-ink-900 mb-3">
-            I'm WenHao
-          </h1>
-          <p class="text-xl text-ink-600 mb-4">
-            Solo Entrepreneur in the AI Era
-          </p>
-          <p class="text-ink-500">
-            Proving that capable people don't need to be tied to a company.
-          </p>
-        </div>
-      </header>
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-3 tracking-tight text-ink-900">I'm WenHao</h1>
+        <p class="text-lg md:text-xl font-light text-ink-500">Solo Entrepreneur in the AI Era</p>
+      </div>
 
-      <!-- Story Section -->
-      <section class="mb-16">
-        <div class="bg-cream-50 rounded-2xl p-8 md:p-10">
-          <h2 class="text-xl font-semibold text-ink-900 mb-6">My Story</h2>
-
-          <div class="space-y-4 text-ink-700 leading-relaxed">
-            <p>
-              14 years since I left engineering. In between, I became a PM—managing projects, working with data. Occasionally writing Python scripts, but building a complete product from scratch? The barrier was too high.
-            </p>
-
-            <p>
-              In 2024, I learned No-Code. Thought I found the answer. Mid-2025, Claude Code appeared. I tried it once and couldn't stop.
-            </p>
-
-            <p class="text-lg font-medium text-ink-900 py-2">
-              Six months later, I—someone who's "not an engineer"—launched my own SaaS.
-            </p>
-
-            <p>
-              This transformation made me realize something—the technical barrier is disappearing. What remains is whether you can clearly define "what problem to solve."
-            </p>
-
-            <p>
-              In May 2025, I graduated from Minerva with an MDA degree. Cross-disciplinary data analysis, 15 years of hands-on experience, plus AI tools—these three things together let me do what I couldn't do before.
-            </p>
+      <!-- Story -->
+      <div class="mb-10 md:mb-14 lg:mb-16">
+        <div class="rounded-xl p-6 md:p-8 lg:p-10 bg-cream-50">
+          <h2 class="text-lg md:text-xl lg:text-2xl font-semibold mb-4 md:mb-6 text-ink-900">My Story</h2>
+          <div class="space-y-4 text-sm md:text-base lg:text-lg leading-relaxed text-ink-700">
+            <p>14 years since I left engineering. In between, I became a PM—managing projects, working with data. Occasionally writing Python scripts, but building a complete product from scratch? The barrier was too high.</p>
+            <p>In 2024, I learned No-Code. Thought I found the answer. Mid-2025, Claude Code appeared. I tried it once and couldn't stop.</p>
+            <p class="text-base md:text-lg lg:text-xl font-medium py-1 text-ink-900">Six months later, I—someone who's "not an engineer"—launched my own SaaS.</p>
+            <p>This transformation made me realize something—the technical barrier is disappearing. What remains is whether you can clearly define "what problem to solve."</p>
+            <p>In May 2025, I graduated from Minerva with an MDA degree. Cross-disciplinary data analysis, 15 years of hands-on experience, plus AI tools—these three things together let me do what I couldn't do before.</p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Belief Section -->
-      <section class="mb-16">
-        <blockquote class="border-l-4 border-accent pl-6 py-4">
-          <p class="text-2xl md:text-3xl font-semibold text-ink-900 mb-4">
-            Capable people don't need to be tied to a company.
-          </p>
-          <p class="text-ink-600">
-            In the AI era, individuals can create what previously required entire teams. This isn't fantasy—I'm living it. What I pursue is freedom—freedom of thought, financial freedom, freedom of time.
-          </p>
-        </blockquote>
-      </section>
+      <!-- Belief -->
+      <div class="mb-10 md:mb-14 lg:mb-16">
+        <div class="pl-6 md:pl-8 py-4 md:py-6 border-l-4 border-accent">
+          <p class="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 md:mb-4 leading-snug tracking-tight text-ink-900">Capable people don't need to be tied to a company.</p>
+          <p class="text-sm md:text-base lg:text-lg leading-relaxed text-ink-500">In the AI era, individuals can create what previously required entire teams. This isn't fantasy—I'm living it. What I pursue is freedom—freedom of thought, financial freedom, freedom of time.</p>
+        </div>
+      </div>
 
-      <!-- What I Write Section -->
-      <section class="mb-16">
-        <h2 class="text-xl font-semibold text-ink-900 mb-6">What I Write About</h2>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
-            <span class="text-2xl">🤖</span>
-            <h3 class="font-semibold text-ink-900 mt-2 mb-1">AI & Tech</h3>
-            <p class="text-sm text-ink-600">AI industry insights, useful tools, workflow design</p>
+      <!-- Categories -->
+      <div class="mb-10 md:mb-14 lg:mb-16">
+        <h2 class="text-lg md:text-xl lg:text-2xl font-semibold mb-6 md:mb-8 text-ink-900">What I Write About</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
+          <div class="rounded-lg p-4 md:p-5 bg-white border border-cream-300 hover:shadow-md transition-shadow">
+            <div class="text-xl md:text-2xl mb-2">🤖</div>
+            <div class="font-semibold mb-1 text-sm md:text-base text-ink-900">AI & Tech</div>
+            <div class="text-xs md:text-sm leading-relaxed text-ink-500">AI insights, useful tools, workflow design</div>
           </div>
-
-          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
-            <span class="text-2xl">🚀</span>
-            <h3 class="font-semibold text-ink-900 mt-2 mb-1">Entrepreneurship</h3>
-            <p class="text-sm text-ink-600">Solo business, indie development, idea to launch</p>
+          <div class="rounded-lg p-4 md:p-5 bg-white border border-cream-300 hover:shadow-md transition-shadow">
+            <div class="text-xl md:text-2xl mb-2">🚀</div>
+            <div class="font-semibold mb-1 text-sm md:text-base text-ink-900">Entrepreneurship</div>
+            <div class="text-xs md:text-sm leading-relaxed text-ink-500">Solo business, indie dev, idea to launch</div>
           </div>
-
-          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
-            <span class="text-2xl">⚡</span>
-            <h3 class="font-semibold text-ink-900 mt-2 mb-1">Productivity</h3>
-            <p class="text-sm text-ink-600">Knowledge management, note systems, do less achieve more</p>
+          <div class="rounded-lg p-4 md:p-5 bg-white border border-cream-300 hover:shadow-md transition-shadow">
+            <div class="text-xl md:text-2xl mb-2">⚡</div>
+            <div class="font-semibold mb-1 text-sm md:text-base text-ink-900">Productivity</div>
+            <div class="text-xs md:text-sm leading-relaxed text-ink-500">Knowledge mgmt, note systems, do less achieve more</div>
           </div>
-
-          <div class="bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md transition-shadow">
-            <span class="text-2xl">🌱</span>
-            <h3 class="font-semibold text-ink-900 mt-2 mb-1">Thoughts & Life</h3>
-            <p class="text-sm text-ink-600">Values, life reflections, long-term thinking</p>
+          <div class="rounded-lg p-4 md:p-5 bg-white border border-cream-300 hover:shadow-md transition-shadow">
+            <div class="text-xl md:text-2xl mb-2">🌱</div>
+            <div class="font-semibold mb-1 text-sm md:text-base text-ink-900">Thoughts & Life</div>
+            <div class="text-xs md:text-sm leading-relaxed text-ink-500">Values, reflections, long-term thinking</div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- CTA Section -->
-      <section class="text-center bg-cream-50 rounded-2xl p-8">
-        <h2 class="text-xl font-semibold text-ink-900 mb-3">Let's Connect</h2>
-        <p class="text-ink-600 mb-6">
-          AI, entrepreneurship, or anything interesting
-        </p>
+      <!-- CTA -->
+      <div class="text-center rounded-xl p-6 md:p-8 lg:p-10 bg-cream-50">
+        <h2 class="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-ink-900">Let's Connect</h2>
+        <p class="text-sm md:text-base lg:text-lg mb-4 md:mb-6 text-ink-500">AI, entrepreneurship, or anything interesting</p>
         <div class="flex flex-wrap gap-3 justify-center">
-          <a
-            href="https://linkedin.com/in/yuwenhao"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-outline"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://facebook.com/yuwenhao"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-outline"
-          >
-            Facebook
-          </a>
-          <a href="/en/contact" class="btn-primary">
-            Contact Me
-          </a>
+          <a href="https://linkedin.com/in/yuwenhao" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm md:text-base">LinkedIn</a>
+          <a href="https://facebook.com/yuwenhao" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm md:text-base">Facebook</a>
+          <a href="/en/contact" class="btn-primary text-sm md:text-base">Contact Me</a>
         </div>
-      </section>
+      </div>
 
     </div>
-  </article>
+  </div>
 </BaseLayout>

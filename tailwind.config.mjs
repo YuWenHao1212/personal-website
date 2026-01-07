@@ -4,12 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        // James Clear inspired - warm, minimal palette
+        // Editorial Minimalism - warm, sophisticated palette
         cream: {
           50: '#FDFCFA',
           100: '#FAF8F5',
           200: '#F5F1EB',
           300: '#EBE6DC',
+          400: '#DDD5C8',
         },
         ink: {
           50: '#F7F7F7',
@@ -23,34 +24,40 @@ export default {
           800: '#383838',
           900: '#1A1A1A',
         },
+        // Elegant gold accent - warm, sophisticated, distinctive
         accent: {
-          DEFAULT: '#2563EB', // Primary blue
-          hover: '#1D4ED8',
-          light: '#DBEAFE',
+          DEFAULT: '#CA8A04',
+          hover: '#A16207',
+          light: '#FEF9C3',
+          muted: '#EAB308',
+        },
+        // Teal for links - complementary to amber
+        link: {
+          DEFAULT: '#0D9488',
+          hover: '#0F766E',
         },
       },
       fontFamily: {
+        // Editorial serif for headings - distinctive character
+        serif: [
+          'Newsreader',
+          'Noto Serif TC',
+          'Georgia',
+          'serif',
+        ],
+        // Clean sans for body - readable, not generic
         sans: [
-          'Inter',
+          'Source Sans 3',
           'Noto Sans TC',
           'system-ui',
           '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
           'sans-serif',
         ],
-        serif: [
-          'Georgia',
-          'Noto Serif TC',
-          'Times New Roman',
-          'serif',
-        ],
+        // Mono for code
         mono: [
           'JetBrains Mono',
           'Fira Code',
           'Consolas',
-          'Monaco',
           'monospace',
         ],
       },
@@ -60,21 +67,30 @@ export default {
             maxWidth: '70ch',
             color: '#1A1A1A',
             a: {
-              color: '#2563EB',
+              color: '#0D9488',
               textDecoration: 'none',
+              fontWeight: '500',
               '&:hover': {
+                color: '#0F766E',
                 textDecoration: 'underline',
               },
             },
             'h1, h2, h3, h4': {
               color: '#1A1A1A',
+              fontFamily: 'Newsreader, Noto Serif TC, Georgia, serif',
+              fontWeight: '600',
+              letterSpacing: '-0.02em',
+            },
+            strong: {
+              color: '#383838',
               fontWeight: '600',
             },
             code: {
               backgroundColor: '#F5F1EB',
               borderRadius: '0.25rem',
-              padding: '0.125rem 0.25rem',
+              padding: '0.125rem 0.375rem',
               fontWeight: '400',
+              fontSize: '0.875em',
             },
             'code::before': {
               content: '""',
@@ -83,10 +99,34 @@ export default {
               content: '""',
             },
             blockquote: {
-              borderLeftColor: '#2563EB',
+              borderLeftColor: '#CA8A04',
+              borderLeftWidth: '3px',
               fontStyle: 'normal',
+              color: '#434343',
+              backgroundColor: '#FDFCFA',
+              paddingLeft: '1.5rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+            },
+            hr: {
+              borderColor: '#EBE6DC',
             },
           },
+        },
+      },
+      // Subtle animations for editorial feel
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
     },

@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  translationKey?: string;
+}
+
+const { translationKey } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const alternateLang = lang === 'zh-TW' ? 'en' : 'zh-TW';
+
+// Find translated version if translationKey exists
+let translatedPost = null;
+if (translationKey) {
+  const allPosts = await getCollection('blog');
+  translatedPost = allPosts.find(
+    (post) =>
+      post.data.translationKey === translationKey &&
+      post.data.lang === alternateLang
+  );
+}
+---
+
+{translatedPost && (
+  <div class="mb-6 p-4 bg-cream-50 rounded-lg border border-cream-200">
+    <div class="flex items-center gap-3">
+      <span class="text-lg">🌐</span>
+      <p class="text-sm text-ink-600">
+        {t('language.available')}
+        <a
+          href={`/${alternateLang}/blog/${translatedPost.id.split('/').pop()}`}
+          class="ml-2 text-accent hover:text-accent-hover font-medium hover:underline"
+        >
+          {lang === 'zh-TW' ? 'Read in English →' : '閱讀中文版 →'}
+        </a>
+      </p>
+    </div>
+  </div>
+)}

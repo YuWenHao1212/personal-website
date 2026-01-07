@@ -588,46 +588,47 @@ Phase 6 (Deploy) ◄───────────────┘
 
 ### Phase 2: Pages
 - [x] Hero 元件 ✅
-- [ ] FeaturedPosts 元件（含選取邏輯）
+- [x] FeaturedPosts 元件（含選取邏輯） ✅
 - [x] ProductCard 元件 ✅
 - [x] NewsletterForm 元件 ✅
 - [x] 首頁（中/英） ✅
 - [x] About 頁（中/英） ✅
-- [ ] Contact 頁（中/英）
+- [x] Contact 頁（中/英） ✅
 - [x] Hero 專業照片或 placeholder ✅ (`public/images/hero.webp`)
-- [ ] OG 社群分享圖片
+- [x] OG 社群分享圖片 ✅ (`public/images/og-default.jpg`)
 
 ### Phase 3: Blog
 - [x] Content Collections schema ✅ (`src/content.config.ts`)
-- [ ] BlogCard 元件
-- [ ] CategoryFilter 元件
+- [x] BlogCard 元件 ✅ (`src/components/BlogCard.astro`)
+- [x] CategoryFilter 元件 ✅ (`src/components/CategoryFilter.astro`)
 - [x] 分類名稱翻譯對應 ✅ (`src/i18n/categories.ts`)
-- [ ] Blog 列表頁（中/英）
-- [ ] BlogLayout
-- [ ] VideoEmbed 元件
-- [ ] 閱讀時間計算 helper
-- [ ] 相關文章推薦邏輯
-- [ ] 語言版本連結 UI
-- [ ] Blog 文章頁（中/英）
-- [ ] hreflang 標記
-- [ ] Sitemap
-- [ ] 多語言 RSS feeds
+- [x] Blog 列表頁（中/英） ✅
+- [x] BlogLayout ✅ (`src/layouts/BlogLayout.astro`)
+- [x] VideoEmbed 元件 ✅ (`src/components/VideoEmbed.astro`)
+- [x] 閱讀時間計算 helper ✅ (`src/utils/readingTime.ts`)
+- [x] 相關文章推薦邏輯 ✅ (`src/utils/relatedPosts.ts`)
+- [x] 語言版本連結 UI ✅ (`src/components/LanguageVersionLink.astro`)
+- [x] Blog 文章頁（中/英） ✅
+- [x] hreflang 標記 ✅ (in SEO.astro)
+- [x] Sitemap ✅ (`astro.config.mjs`)
+- [x] 多語言 RSS feeds ✅ (`src/pages/zh-TW/rss.xml.ts`, `src/pages/en/rss.xml.ts`)
 
 ### Phase 4: Content
-- [ ] WordPress 匯出
-- [ ] HTML → MDX 轉換
-- [ ] 圖片遷移
-- [ ] 分類對應
+- [x] WordPress 匯出 ✅ (文章已在 Cockpit/content/blog/)
+- [x] HTML → MDX 轉換 ✅ (`scripts/migrate-posts.mjs`)
+- [ ] 圖片遷移 (待處理 - 文章目前無圖片)
+- [x] 分類對應 ✅ (34 篇文章遷移完成: ai-tech 13, productivity 13, entrepreneurship 7, thoughts-life 1)
 
 ### Phase 5: Integrations
-- [ ] Buttondown 整合
+- [x] Buttondown 整合 ✅ (`src/components/NewsletterForm.astro`)
 - [ ] (Post-MVP) Umami 整合
 - [ ] (Post-MVP) Umami 追蹤事件設定
 
 ### Phase 6: Deploy
-- [ ] Azure Static Web Apps 設定
-- [ ] GitHub Actions
-- [ ] DNS 設定
+- [x] Azure Static Web Apps 設定 ✅ (`staticwebapp.config.json`)
+- [x] GitHub Actions ✅ (`.github/workflows/azure-static-web-apps.yml`)
+- [x] 404 頁面 ✅ (`src/pages/404.astro`)
+- [ ] DNS 設定 (需在 Azure Portal 設定 custom domain)
 - [ ] Final testing
 - [ ] Lighthouse > 90
 
@@ -638,14 +639,14 @@ Phase 6 (Deploy) ◄───────────────┘
 | Phase | Tasks | Done | Remaining |
 |-------|-------|------|-----------|
 | Phase 1: Foundation | 14 | 14 | 0 |
-| Phase 2: Pages | 12 | 7 | 5 |
-| Phase 3: Blog | 20 | 2 | 18 |
-| Phase 4: Content | 7 | 0 | 7 |
-| Phase 5: Integrations | 6 | 0 | 6 |
-| Phase 6: Deploy | 10 | 0 | 10 |
-| **Total** | **69** | **23** | **46** |
+| Phase 2: Pages | 12 | 12 | 0 |
+| Phase 3: Blog | 14 | 14 | 0 |
+| Phase 4: Content | 4 | 3 | 1 |
+| Phase 5: Integrations | 3 | 1 | 2 |
+| Phase 6: Deploy | 6 | 3 | 3 |
+| **Total** | **53** | **47** | **6** |
 
-**Progress: 33% Complete**
+**Progress: 89% Complete**
 
 ---
 
@@ -656,3 +657,7 @@ Phase 6 (Deploy) ◄───────────────┘
 | 1.0 | 2026-01-07 | Initial implementation plan |
 | 1.1 | 2026-01-07 | Added missing items from PLAN_REVIEW.md: root redirect, reading time, category names, related posts logic, language version link, OG image, multi-language RSS, analytics events |
 | 1.2 | 2026-01-07 | Updated progress: Phase 1 complete, Phase 2 partially complete (7/12), Phase 3 started (2/20) |
+| 1.3 | 2026-01-07 | Phase 2 complete (12/12): Added Contact pages, FeaturedPosts component, OG image |
+| 1.4 | 2026-01-07 | Phase 3 complete (14/14): BlogCard, CategoryFilter, Blog list pages, BlogLayout, VideoEmbed, ReadingTime, RelatedPosts, LanguageVersionLink, Sitemap, RSS feeds |
+| 1.5 | 2026-01-07 | Phase 4 mostly complete: 34 posts migrated from Cockpit, migration script created, categories mapped |
+| 1.6 | 2026-01-07 | Phase 5 & 6: Buttondown integrated, GitHub Actions workflow, staticwebapp.config.json, 404 page |

@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import CategoryFilter from '../../../components/CategoryFilter.astro';
+import { useTranslations } from '../../../i18n/utils';
+
+const t = useTranslations('zh-TW');
+
+// Get all posts for zh-TW
+const allPosts = await getCollection('blog', ({ data }) => data.lang === 'zh-TW');
+
+// Sort by date (newest first), featured posts first
+const sortedPosts = allPosts.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+});
+
+const title = 'Blog';
+const description = '分享 AI、創業、生產力與人生思考的文章';
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="py-10 md:py-14 lg:py-16">
+    <div class="container-wide">
+      <!-- Header -->
+      <div class="text-center mb-8 md:mb-10">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-ink-900 mb-3">
+          {t('blog.allPosts')}
+        </h1>
+        <p class="text-base md:text-lg text-ink-500">
+          {description}
+        </p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="mb-8 md:mb-10">
+        <CategoryFilter />
+      </div>
+
+      <!-- Posts Grid -->
+      <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {sortedPosts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            heroImage={post.data.heroImage}
+            category={post.data.category}
+            slug={post.id.split('/').pop()!}
+            lang="zh-TW"
+            featured={post.data.featured}
+          />
+        ))}
+      </div>
+
+      <!-- Empty state (shown via JS when no posts match) -->
+      <div id="empty-state" class="hidden bg-cream-50 rounded-xl p-8 md:p-12 text-center text-ink-500">
+        <p>目前此分類沒有文章</p>
+        <button id="show-all-btn" class="mt-4 inline-block text-accent hover:text-accent-hover font-medium">
+          查看所有文章
+        </button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Handle empty state visibility
+  function checkEmptyState() {
+    const grid = document.getElementById('posts-grid');
+    const emptyState = document.getElementById('empty-state');
+    const showAllBtn = document.getElementById('show-all-btn');
+
+    if (!grid || !emptyState) return;
+
+    const visibleCards = grid.querySelectorAll('[data-post-category]:not([style*="display: none"])');
+
+    if (visibleCards.length === 0) {
+      emptyState.classList.remove('hidden');
+    } else {
+      emptyState.classList.add('hidden');
+    }
+
+    // Handle show all button
+    showAllBtn?.addEventListener('click', () => {
+      const allBtn = document.querySelector('[data-category="all"]') as HTMLButtonElement;
+      allBtn?.click();
+    });
+  }
+
+  // Observer to watch for filter changes
+  const observer = new MutationObserver(checkEmptyState);
+  const grid = document.getElementById('posts-grid');
+  if (grid) {
+    observer.observe(grid, { attributes: true, subtree: true, attributeFilter: ['style'] });
+  }
+
+  checkEmptyState();
+</script>
