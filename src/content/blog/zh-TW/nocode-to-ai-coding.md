@@ -5,6 +5,7 @@ pubDate: 2026-01-06
 category: building-products
 lang: zh-TW
 featured: true
+heroImage: /images/blog/nocode-to-ai-coding.webp
 ---
 
 我離開工程師這個身份，已經 14 年了。
