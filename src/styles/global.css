@@ -102,6 +102,62 @@
     @apply font-serif text-xl md:text-2xl text-ink-700 border-l-4 border-accent pl-6 py-2 my-8;
   }
 
+  /* Figure with caption - centered */
+  figure {
+    @apply my-6;
+  }
+
+  figure img {
+    @apply w-full rounded-lg;
+  }
+
+  figcaption {
+    @apply text-center text-sm text-ink-600 mt-2 italic;
+  }
+
+  /* Figure floating left - for inline layout */
+  figure.float-left {
+    float: left;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0.25rem;
+    width: 12rem;
+  }
+
+  @media (min-width: 640px) {
+    figure.float-left {
+      width: 14rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    figure.float-left {
+      width: 16rem;
+    }
+  }
+
+  figure.float-left img {
+    @apply w-full;
+  }
+
+  figure.float-left figcaption {
+    text-align: left;
+    font-size: 0.75rem;
+  }
+
+  /* List items next to float should align properly */
+  figure.float-left + p + ul,
+  figure.float-left + p + ol,
+  figure.float-left + p + p + ul,
+  figure.float-left + p + p + ol {
+    list-style-position: inside;
+  }
+
+  /* Clear float after section */
+  .clear-float {
+    clear: both;
+  }
+
   /* Section divider */
   .divider {
     @apply border-t border-cream-300 my-12;
