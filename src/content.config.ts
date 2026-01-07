@@ -9,7 +9,7 @@ const blogCollection = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
-    category: z.enum(['ai-tech', 'entrepreneurship', 'productivity', 'thoughts-life']),
+    category: z.enum(['building-products', 'productivity', 'life-learning']),
     tags: z.array(z.string()).default([]),
     lang: z.enum(['zh-TW', 'en']),
     translationKey: z.string().optional(),

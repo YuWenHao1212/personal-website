@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
+import BlogCategories from '../../components/BlogCategories.astro';
 import FeaturedPosts from '../../components/FeaturedPosts.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 import AboutSnippet from '../../components/AboutSnippet.astro';
 
 const title = 'WenHao Yu';
-const description = 'Solo entrepreneur in the AI era. Sharing insights on AI, entrepreneurship, productivity & life.';
+const description = 'I build products with AI. Sharing insights on building products, productivity & life.';
 
 const products = [
   {
@@ -25,6 +26,8 @@ const products = [
 
 <BaseLayout title={title} description={description}>
   <Hero />
+
+  <BlogCategories />
 
   <!-- Featured Posts Section -->
   <section class="py-10 md:py-14 lg:py-16">

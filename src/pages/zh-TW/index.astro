@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
+import BlogCategories from '../../components/BlogCategories.astro';
 import FeaturedPosts from '../../components/FeaturedPosts.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 import AboutSnippet from '../../components/AboutSnippet.astro';
 
 const title = 'WenHao Yu';
-const description = 'AI 時代的一人公司創業者。分享 AI、創業、生產力與人生思考。';
+const description = '我用 AI 打造產品。分享產品開發、效率系統與人生思考。';
 
 const products = [
   {
@@ -25,6 +26,8 @@ const products = [
 
 <BaseLayout title={title} description={description}>
   <Hero />
+
+  <BlogCategories />
 
   <!-- Featured Posts Section -->
   <section class="py-10 md:py-14 lg:py-16">

@@ -7,7 +7,7 @@ interface Props {
   description: string;
   pubDate: Date;
   heroImage?: string;
-  category: 'ai-tech' | 'entrepreneurship' | 'productivity' | 'thoughts-life';
+  category: 'building-products' | 'productivity' | 'life-learning';
   slug: string;
   lang: Lang;
   featured?: boolean;
@@ -25,18 +25,16 @@ function formatDate(date: Date): string {
 
 // Category colors for placeholder backgrounds
 const categoryColors: Record<string, string> = {
-  'ai-tech': 'from-blue-100 to-blue-50',
-  'entrepreneurship': 'from-amber-100 to-amber-50',
+  'building-products': 'from-blue-100 to-blue-50',
   'productivity': 'from-green-100 to-green-50',
-  'thoughts-life': 'from-purple-100 to-purple-50',
+  'life-learning': 'from-purple-100 to-purple-50',
 };
 
 // Category icons
 const categoryIcons: Record<string, string> = {
-  'ai-tech': '🤖',
-  'entrepreneurship': '🚀',
+  'building-products': '🚀',
   'productivity': '⚡',
-  'thoughts-life': '🌱',
+  'life-learning': '🌱',
 };
 ---
 

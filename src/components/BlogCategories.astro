@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const categories = [
+  {
+    icon: '🚀',
+    title: t('blogCategories.buildingProducts.title'),
+    description: t('blogCategories.buildingProducts.description'),
+    href: `/${lang}/blog?category=building-products`,
+  },
+  {
+    icon: '⚡',
+    title: t('blogCategories.productivity.title'),
+    description: t('blogCategories.productivity.description'),
+    href: `/${lang}/blog?category=productivity`,
+  },
+  {
+    icon: '🌱',
+    title: t('blogCategories.lifeLearning.title'),
+    description: t('blogCategories.lifeLearning.description'),
+    href: `/${lang}/blog?category=life-learning`,
+  },
+];
+---
+
+<section class="py-10 md:py-14 lg:py-16 bg-cream-50">
+  <div class="container-wide">
+    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-ink-900 mb-6 md:mb-8 text-center">
+      {t('blogCategories.title')}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+      {categories.map((cat) => (
+        <a
+          href={cat.href}
+          class="card group hover:shadow-md transition-all duration-300 text-center p-6"
+          data-umami-event="category_card_click"
+          data-umami-event-category={cat.title}
+        >
+          <div class="text-3xl md:text-4xl mb-3">{cat.icon}</div>
+          <h3 class="text-lg font-semibold text-ink-900 mb-2 group-hover:text-accent transition-colors">
+            {cat.title}
+          </h3>
+          <p class="text-sm text-ink-600">
+            {cat.description}
+          </p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
