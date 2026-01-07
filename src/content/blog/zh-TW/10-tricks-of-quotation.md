@@ -2,7 +2,7 @@
 title: "產品報價: 10個提高說服力的建議"
 description: "產品報價: 10個提高說服力的建議..."
 pubDate: 2020-11-22
-category: entrepreneurship
+category: building-products
 tags: ["Automotive", "Project Cost Calculation", "Quotation", "Cost Breakdown", "成本分拆表", "產品報價", "車用產品"]
 lang: zh-TW
 featured: false

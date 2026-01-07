@@ -2,7 +2,7 @@
 title: "API是什麼？從生活案例理解API的運作"
 description: "API是什麼？從生活案例理解API的運作..."
 pubDate: 2025-02-24
-category: ai-tech
+category: building-products
 tags: ["API", "API例子"]
 lang: zh-TW
 featured: false

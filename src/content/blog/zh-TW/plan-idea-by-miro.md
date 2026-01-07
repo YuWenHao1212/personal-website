@@ -2,7 +2,7 @@
 title: "Miro - 快速規劃並畫出想法的線上工具"
 description: "Miro - 快速規劃並畫出想法的線上工具..."
 pubDate: 2020-11-28
-category: entrepreneurship
+category: productivity
 tags: ["flow chart", "mindmap", "miro app", "plan", "visualize", "數位工具"]
 lang: zh-TW
 featured: false

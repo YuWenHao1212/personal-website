@@ -2,7 +2,7 @@
 title: "No-Code 開發示範：用 Bubble 三大核心元素構建待辦事項應用"
 description: "No-Code 開發示範：用 Bubble 三大核心元素構建待辦事項應用..."
 pubDate: 2025-03-06
-category: ai-tech
+category: building-products
 tags: ["No-Code", "Bubble", "Bubble教學", "bubble平台", "no-code開發", "no-code development"]
 lang: zh-TW
 featured: false

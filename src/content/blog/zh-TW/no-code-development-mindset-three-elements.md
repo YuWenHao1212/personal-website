@@ -2,7 +2,7 @@
 title: "No-Code 開發思維：三大核心元素如何轉化創意為應用"
 description: "No-Code 開發思維：三大核心元素如何轉化創意為應用..."
 pubDate: 2025-03-04
-category: ai-tech
+category: building-products
 tags: ["No-Code", "no-code development", "Bubble", "Bubble教學", "bubble平台"]
 lang: zh-TW
 featured: false

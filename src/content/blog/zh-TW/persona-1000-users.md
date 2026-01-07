@@ -2,7 +2,7 @@
 title: "一人創業與獨立開發者必學：用Persona找到你的1000位付費用戶"
 description: "一人創業與獨立開發者必學：用Persona找到你的1000位付費用戶..."
 pubDate: 2025-03-18
-category: ai-tech
+category: building-products
 tags: ["No-Code", "Bubble", "一人創業", "no-code development"]
 lang: zh-TW
 featured: false

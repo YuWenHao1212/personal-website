@@ -2,7 +2,7 @@
 title: "No-Code開發者指南：使用 HTTP Trigger 自建 API 擴展你的應用功能"
 description: "No-Code開發者指南：使用 HTTP Trigger 自建 API 擴展你的應用功能..."
 pubDate: 2025-02-24
-category: ai-tech
+category: building-products
 tags: ["API", "No-Code", "HTTPTrigger", "ServerlessAPI", "AzureFunctions", "CloudComputing"]
 lang: zh-TW
 featured: false

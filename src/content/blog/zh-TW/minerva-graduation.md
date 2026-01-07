@@ -2,7 +2,7 @@
 title: "Minerva MDA畢業典禮之旅"
 description: "Minerva MDA畢業典禮之旅..."
 pubDate: 2025-06-03
-category: entrepreneurship
+category: building-products
 tags: ["Minerva", "MDA", "Graduation", "文化觀察"]
 lang: zh-TW
 featured: false

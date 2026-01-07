@@ -621,8 +621,8 @@ Phase 6 (Deploy) ◄───────────────┘
 
 ### Phase 5: Integrations
 - [x] Buttondown 整合 ✅ (`src/components/NewsletterForm.astro`)
-- [ ] (Post-MVP) Umami 整合
-- [ ] (Post-MVP) Umami 追蹤事件設定
+- [x] Umami Cloud 整合 ✅ (`src/layouts/BaseLayout.astro`)
+- [x] Umami 追蹤事件設定 ✅ (newsletter_signup, category_click, product_click, language_switch)
 
 ### Phase 6: Deploy
 - [x] Azure Static Web Apps 設定 ✅ (`staticwebapp.config.json`)
@@ -642,17 +642,15 @@ Phase 6 (Deploy) ◄───────────────┘
 | Phase 2: Pages | 12 | 12 | 0 |
 | Phase 3: Blog | 14 | 14 | 0 |
 | Phase 4: Content | 4 | 3 | 1 |
-| Phase 5: Integrations | 3 | 1 | 2 |
+| Phase 5: Integrations | 3 | 3 | 0 |
 | Phase 6: Deploy | 6 | 5 | 1 |
-| **Total** | **53** | **49** | **4** |
+| **Total** | **53** | **51** | **2** |
 
-**Progress: 92% Complete**
+**Progress: 96% Complete**
 
 ### Remaining Tasks:
 1. **Phase 4**: 圖片遷移 (Post-MVP)
-2. **Phase 5**: Umami 整合 (Post-MVP)
-3. **Phase 5**: Umami 追蹤事件設定 (Post-MVP)
-4. **Phase 6**: DNS 設定 (yu-wenhao.com → Azure Static Web Apps)
+2. **Phase 6**: DNS 設定 (yu-wenhao.com → Azure Static Web Apps)
 
 ---
 
@@ -668,3 +666,4 @@ Phase 6 (Deploy) ◄───────────────┘
 | 1.5 | 2026-01-07 | Phase 4 mostly complete: 34 posts migrated from Cockpit, migration script created, categories mapped |
 | 1.6 | 2026-01-07 | Phase 5 & 6: Buttondown integrated, GitHub Actions workflow, staticwebapp.config.json, 404 page |
 | 1.7 | 2026-01-07 | Final testing complete, Lighthouse optimization done (Desktop: 99, 無痕: 100). Only DNS setup remaining for MVP. |
+| 1.8 | 2026-01-07 | Umami Cloud integration complete with custom events (newsletter, category, product, language). 96% complete. |

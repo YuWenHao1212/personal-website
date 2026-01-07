@@ -2,7 +2,7 @@
 title: "2020年我學到的7件事"
 description: "2020年我學到的7件事..."
 pubDate: 2021-01-03
-category: productivity
+category: life-learning
 tags: ["幸福", "學習", "筆紀方法", "被討厭的勇氣", "個人知識管理", "數位工具", "知識管理"]
 lang: zh-TW
 featured: false

@@ -2,7 +2,7 @@
 title: "No-Code 開發思維：6F方法建立產品功能優先級框架"
 description: "No-Code 開發思維：從用戶畫像到功能開發：6F方法建立產品功能優先級框架..."
 pubDate: 2025-06-12
-category: ai-tech
+category: building-products
 tags: ["No-Code", "Bubble", "no-code開發", "bubble平台"]
 lang: zh-TW
 featured: false

@@ -1,25 +1,21 @@
 import type { Lang } from './ui';
 
-export const categories = ['ai-tech', 'entrepreneurship', 'productivity', 'thoughts-life'] as const;
+export const categories = ['building-products', 'productivity', 'life-learning'] as const;
 
 export type Category = typeof categories[number];
 
 export const categoryNames: Record<Category, Record<Lang, string>> = {
-  'ai-tech': {
-    'zh-TW': 'AI & 科技',
-    'en': 'AI & Tech',
-  },
-  'entrepreneurship': {
-    'zh-TW': '創業筆記',
-    'en': 'Entrepreneurship',
+  'building-products': {
+    'zh-TW': '打造產品',
+    'en': 'Building Products',
   },
   'productivity': {
-    'zh-TW': '生產力',
+    'zh-TW': '效率系統',
     'en': 'Productivity',
   },
-  'thoughts-life': {
-    'zh-TW': '思考與生活',
-    'en': 'Thoughts & Life',
+  'life-learning': {
+    'zh-TW': '人生思考',
+    'en': 'Life & Learning',
   },
 };
 

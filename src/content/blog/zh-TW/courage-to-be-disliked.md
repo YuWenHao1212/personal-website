@@ -2,7 +2,7 @@
 title: "被討厭的勇氣"
 description: "被討厭的勇氣..."
 pubDate: 2021-02-07
-category: productivity
+category: life-learning
 tags: ["幸福", "被討厭的勇氣", "阿德勒心理學"]
 lang: zh-TW
 featured: false

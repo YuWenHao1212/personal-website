@@ -2,7 +2,7 @@
 title: "2025最新比較：No-Code還是生成式AI？個人創業者的最佳開發平台選擇"
 description: "2025最新比較：No-Code還是生成式AI？個人創業者的最佳開發平台選擇..."
 pubDate: 2025-03-07
-category: ai-tech
+category: building-products
 tags: ["No-Code", "AI生成式開發", "Bubble", "Webflow", "Cursor", "一人創業", "no-code development"]
 lang: zh-TW
 featured: false

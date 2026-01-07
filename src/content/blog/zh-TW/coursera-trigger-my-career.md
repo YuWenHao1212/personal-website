@@ -2,7 +2,7 @@
 title: "一堂Coursera課程觸發的職場新旅程：從產品經理到數據分析"
 description: "一堂Coursera課程觸發的職場新旅程：從產品經理到數據分析..."
 pubDate: 2025-02-18
-category: productivity
+category: building-products
 tags: ["Coursera", "數據分析", "職涯轉換", "個人成長", "Python"]
 lang: zh-TW
 featured: false

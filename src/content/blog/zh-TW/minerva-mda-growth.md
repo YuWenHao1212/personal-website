@@ -2,7 +2,7 @@
 title: "Minerva MDA與我的成長"
 description: "Minerva MDA與我的成長..."
 pubDate: 2025-05-16
-category: entrepreneurship
+category: building-products
 tags: ["Minerva", "MDA", "Graduation"]
 lang: zh-TW
 featured: false

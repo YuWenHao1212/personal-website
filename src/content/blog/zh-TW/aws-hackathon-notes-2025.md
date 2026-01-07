@@ -2,7 +2,7 @@
 title: "2025/04/27 我的AWS黑客松筆記"
 description: "2025/04/27 我的AWS黑客松筆記..."
 pubDate: 2025-04-30
-category: productivity
+category: building-products
 tags: ["No-Code", "Bubble", "AWS"]
 lang: zh-TW
 featured: false

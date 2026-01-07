@@ -2,7 +2,7 @@
 title: "講話沒重點嗎？邏輯表達三角"
 description: "講話沒重點嗎？我的想法是......"
 pubDate: 2021-12-18
-category: entrepreneurship
+category: productivity
 tags: ["專案管理", "知識管理", "個人成長", "溝通技巧"]
 lang: zh-TW
 featured: false

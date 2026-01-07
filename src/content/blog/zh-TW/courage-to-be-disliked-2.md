@@ -2,7 +2,7 @@
 title: "被討厭的勇氣二部曲 | 人生幸福的行動指南"
 description: "被討厭的勇氣二部曲 | 人生幸福的行動指南..."
 pubDate: 2021-05-15
-category: productivity
+category: life-learning
 tags: ["幸福", "被討厭的勇氣", "個人成長"]
 lang: zh-TW
 featured: false

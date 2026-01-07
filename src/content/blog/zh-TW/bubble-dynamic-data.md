@@ -2,7 +2,7 @@
 title: "No-Code 開發實作：Bubble 操作基礎與動態數據"
 description: "No-Code 開發實作：Bubble 操作基礎與動態數據..."
 pubDate: 2025-07-01
-category: ai-tech
+category: building-products
 tags: ["No-Code", "Bubble", "Bubble.io", "Bubble教學", "no-code development"]
 lang: zh-TW
 featured: false

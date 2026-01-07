@@ -2,7 +2,7 @@
 title: "No-Code革命：零基礎入門Bubble.io全攻略"
 description: "No-Code革命：零基礎入門Bubble.io全攻略 | 從新手到開發者的完整學習地圖與Bubble教學..."
 pubDate: 2025-02-28
-category: ai-tech
+category: building-products
 tags: ["No-Code", "Bubble.io", "Bubble教學", "Bubble", "bubble平台", "no-code開發", "no-code development"]
 lang: zh-TW
 featured: true

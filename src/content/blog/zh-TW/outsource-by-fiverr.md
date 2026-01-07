@@ -2,7 +2,7 @@
 title: "Fiverr: 外包你的工作, 賺回你的時間"
 description: "Fiverr: 外包你的工作, 賺回你的時間..."
 pubDate: 2020-12-05
-category: ai-tech
+category: building-products
 tags: ["fiverr", "outsource", "外包", "數位工具"]
 lang: zh-TW
 featured: false

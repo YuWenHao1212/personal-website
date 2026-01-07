@@ -2,7 +2,7 @@
 title: "幸福能追求得到嗎"
 description: "幸福能追求得到嗎..."
 pubDate: 2020-11-24
-category: thoughts-life
+category: life-learning
 tags: ["幸福", "個人成長"]
 lang: zh-TW
 featured: false

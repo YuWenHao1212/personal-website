@@ -2,7 +2,7 @@
 title: "讓英語不再成為溝通和學習的障礙 | Otter.AI"
 description: "讓英語不再成為溝通和學習的障礙 | Otter.AI..."
 pubDate: 2021-03-21
-category: ai-tech
+category: building-products
 tags: ["otter", "數位工具", "知識管理"]
 lang: zh-TW
 featured: false

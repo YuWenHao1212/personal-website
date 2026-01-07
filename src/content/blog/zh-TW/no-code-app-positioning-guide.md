@@ -2,7 +2,7 @@
 title: "No-Code 開發者必讀：應用定位完整指南（附實例與模板）"
 description: "No-Code 開發者必讀：應用定位完整指南（附實例與模板）..."
 pubDate: 2025-03-17
-category: ai-tech
+category: building-products
 tags: ["Bubble", "No-Code", "no-code development"]
 lang: zh-TW
 featured: false
