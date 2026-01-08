@@ -1,7 +1,7 @@
 ---
 title: "No-Code革命：零基礎入門Bubble.io全攻略"
 description: "在數位創新浪潮中，Bubble.io 無程式碼平台正徹底改變應用開發模式。本系列第一篇文章將帶您穿越技術障礙，從零基礎邁向 Bubble 開發者之路。透過系統化的學習藍圖，您將掌握無需程式碼即可建立專業應用的關鍵技能，快速將商業構想轉化為現實產品。"
-pubDate: 2025-02-28
+pubDate: 2025-03-20
 category: building-products
 tags: ["No-Code", "Bubble.io", "Bubble教學", "Bubble", "bubble平台", "no-code開發", "no-code development"]
 lang: zh-TW
