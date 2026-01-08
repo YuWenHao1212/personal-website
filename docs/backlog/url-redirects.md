@@ -98,10 +98,23 @@
 
 ## 狀態
 
-- [ ] 確認所有文章 slug 對應正確
-- [ ] 建立 `staticwebapp.config.json`
-- [ ] 測試 redirects
-- [ ] 部署到 production
+- [x] 確認所有文章 slug 對應正確
+- [x] 建立 `staticwebapp.config.json` (2026-01-08)
+- [x] DNS 設定完成 (Cloudflare → Azure Static Web Apps)
+- [ ] 測試 redirects (SSL 憑證就緒後)
+- [ ] 驗證所有 301 redirects 正常運作
+
+## DNS 設定記錄 (2026-01-08)
+
+**Azure Static Web App**: `personal-website-yuwenhao`
+**Default hostname**: `agreeable-flower-075253100.1.azurestaticapps.net`
+
+**Cloudflare DNS Records**:
+- TXT `@` → `_xqmoc0bfbycmwnq6qkd8pxjik2fwacu` (Azure 驗證)
+- CNAME `@` → `agreeable-flower-075253100.1.azurestaticapps.net` (DNS only)
+- CNAME `www` → `agreeable-flower-075253100.1.azurestaticapps.net` (DNS only)
+
+> ⚠️ 重要：Cloudflare Proxy 必須關閉 (DNS only)，否則 Azure SSL 無法生效
 
 ---
 

@@ -4,6 +4,41 @@
   },
   "routes": [
     {
+      "route": "/",
+      "redirect": "/zh-TW/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/bubble-three-core-elements-todo-app-tutorial",
+      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial",
+      "statusCode": 301
+    },
+    {
+      "route": "/zh-TW/blog/bubble-three-core-elements-todo-app-tutorial",
+      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog",
+      "redirect": "/zh-TW/blog",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/*",
+      "redirect": "/zh-TW/blog/{*}",
+      "statusCode": 301
+    },
+    {
+      "route": "/about",
+      "redirect": "/zh-TW/about",
+      "statusCode": 301
+    },
+    {
+      "route": "/contact",
+      "redirect": "/zh-TW/contact",
+      "statusCode": 301
+    },
+    {
       "route": "/zh-TW/*",
       "headers": {
         "content-language": "zh-TW"

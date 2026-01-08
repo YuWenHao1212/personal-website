@@ -9,6 +9,8 @@ const { variant = 'default' } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const thankYouUrl = `/${lang}/thank-you`;
 ---
 
 <section class:list={[
@@ -29,15 +31,14 @@ const t = useTranslations(lang);
     )}
 
     <form
-      action="https://buttondown.email/api/emails/embed-subscribe/yuwenhao"
-      method="post"
-      target="popupwindow"
+      id="newsletter-form"
       class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
       data-umami-event="newsletter_signup"
+      data-thank-you-url={thankYouUrl}
     >
       <input
         type="email"
-        name="email"
+        name="email_address"
         placeholder={t('newsletter.placeholder')}
         required
         class="flex-1 px-4 py-2.5 md:py-3 rounded-lg border border-cream-300 bg-white text-sm md:text-base text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
@@ -49,6 +50,30 @@ const t = useTranslations(lang);
         {t('newsletter.button')}
       </button>
     </form>
+
+    <script>
+      const form = document.getElementById('newsletter-form') as HTMLFormElement;
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const thankYouUrl = form.dataset.thankYouUrl || '/zh-TW/thank-you';
+
+        try {
+          await fetch('https://app.kit.com/forms/8951335/subscriptions', {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+          });
+
+          window.location.href = thankYouUrl;
+        } catch (error) {
+          console.error('Newsletter subscription failed:', error);
+          window.location.href = thankYouUrl;
+        }
+      });
+    </script>
 
     <p class="mt-3 md:mt-4 text-xs md:text-sm text-ink-500">
       {t('newsletter.privacy')}
