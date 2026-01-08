@@ -25,27 +25,27 @@ Coursera 成立於 2012 年，由史丹佛大學兩位電腦科學教授吳恩�
 
 ### 單一課程（Courses）
 
-單一課程是最基礎且靈活的學習方式，特別適合想要加強特定技能的學習者。以數據分析領域為例，想掌握 Python 程式技能的學習者可以選擇「Python 資料結構（Python Data Structures）」課程和「使用 Python 進行資料分析（Data Analysis with Python）」課程。這類課程一般收費在 40-80 美元之間，且大多提供免費旁聽選項，讓學習者能在付費前先體驗課程內容。
+單一課程是最基礎且靈活的學習方式，特別適合想要加強特定技能的學習者。以數據分析領域為例，想掌握 Python 程式技能的學習者可以選擇「[Python 資料結構（Python Data Structures）](https://imp.i384100.net/9LyxG5)」課程和「[使用 Python 進行資料分析（Data Analysis with Python）](https://imp.i384100.net/gOaLov)」課程。這類課程一般收費在 40-80 美元之間，且大多提供免費旁聽選項，讓學習者能在付費前先體驗課程內容。
 
 ### 專業學程（Specializations）
 
-專業學程為期望系統性掌握某個領域的學習者提供了完整的學習路徑。「數據科學家的生成式 AI 專業學程（Generative AI for Data Scientists Specialization）」就是一個很好的例子，它包含了三個循序漸進的課程：生成式 AI 導論與應用、生成式 AI 提示工程基礎，以及生成式 AI 數據科學職涯提升。
+專業學程為期望系統性掌握某個領域的學習者提供了完整的學習路徑。「[數據科學家的生成式 AI 專業學程（Generative AI for Data Scientists Specialization）](https://imp.i384100.net/mOorzy)」就是一個很好的例子，它包含了三個循序漸進的課程：生成式 AI 導論與應用、生成式 AI 提示工程基礎，以及生成式 AI 數據科學職涯提升。
 
-「AWS 雲端技術要點（AWS Cloud Technical Essentials）」為技術人員提供 AWS 雲端計算入門，涵蓋計算、儲存、資料庫、網路、安全等核心服務，協助初學者快速掌握 AWS 雲端計算的基礎知識。
+「[AWS 雲端技術要點（AWS Cloud Technical Essentials）](https://imp.i384100.net/YR24kR)」為技術人員提供 AWS 雲端計算入門，涵蓋計算、儲存、資料庫、網路、安全等核心服務，協助初學者快速掌握 AWS 雲端計算的基礎知識。
 
 專業學程的特色是藉由數堂相關、連續的課程讓學習者從基礎理論開始，逐步深入到實際應用，最後培養出完整的專業能力。專業學程採用月費訂閱制，通常每月 49 美元起，學習者可以依照自己的進度靈活安排學習時間。
 
 ### 專業證照（Professional Certificates）
 
-專業證照課程主要針對就業需求設計，特別是獲得大型科技公司認可的證照對求職極具幫助。以 Google 的「數據分析專業證照（Google Data Analytics Professional Certificate）」為例，這個課程不要求學員具備相關背景，從基礎開始教起，幫助學習者在 6 個月內掌握數據分析技能。
+專業證照課程主要針對就業需求設計，特別是獲得大型科技公司認可的證照對求職極具幫助。以 Google 的「[數據分析專業證照（Google Data Analytics Professional Certificate）](https://imp.i384100.net/Xm2oLy)」為例，這個課程不要求學員具備相關背景，從基礎開始教起，幫助學習者在 6 個月內掌握數據分析技能。
 
-類似的還有 Google 的「專案管理專業證照（Google Project Management Professional Certificate）」，以及 IBM 的「生成式 AI 導論與應用（Generative AI: Introduction and Applications）」等，這些證照在業界都具有很高的認可度。專業證照課程通常採用每月 39-49 美元的訂閱制，完成後可獲得受認可的專業證書。
+類似的還有 Google 的「[專案管理專業證照（Google Project Management Professional Certificate）](https://imp.i384100.net/vPE14W)」，以及 IBM 的「[生成式 AI 導論與應用（Generative AI: Introduction and Applications）](https://imp.i384100.net/e1kJA1)」等，這些證照在業界都具有很高的認可度。專業證照課程通常採用每月 39-49 美元的訂閱制，完成後可獲得受認可的專業證書。
 
 ### 實務導向的學習方案
 
-除了傳統的課程形式，Coursera 還提供了更多實務導向的學習選擇。指導專案（Guided Projects）讓學習者能在短時間內透過實作掌握特定技能，例如「使用 Google Sheets 入門試算表（Spreadsheets for Beginners using Google Sheets）」或「使用 Streamlit 和 Python 建立機器學習網頁應用程式（Build a Machine Learning Web App with Streamlit and Python）」等快速上手的專案，通常只需要 2 小時就能完成。
+除了傳統的課程形式，Coursera 還提供了更多實務導向的學習選擇。指導專案（Guided Projects）讓學習者能在短時間內透過實作掌握特定技能，例如「[使用 Google Sheets 入門試算表（Spreadsheets for Beginners using Google Sheets）](https://imp.i384100.net/Z6YJLg)」或「[使用 Streamlit 和 Python 建立機器學習網頁應用程式（Build a Machine Learning Web App with Streamlit and Python）](https://imp.i384100.net/yq4EOv)」等快速上手的專案，通常只需要 2 小時就能完成。
 
-而實作專案（Projects）則提供更深入的實戰經驗，想自己 Fine-Tune 一個大語言模型嗎？「Finetuning Large Language Models」這門課涵蓋 LLM 微調的關鍵技能，與當前 AI 產業需求契合，特別適合中級學習者快速掌握實用技術。
+而實作專案（Projects）則提供更深入的實戰經驗，想自己 Fine-Tune 一個大語言模型嗎？「[Finetuning Large Language Models](https://imp.i384100.net/GKRo1k)」這門課涵蓋 LLM 微調的關鍵技能，與當前 AI 產業需求契合，特別適合中級學習者快速掌握實用技術。
 
 這些實務課程不僅能幫助你建立專業作品集，更為求職之路奠定堅實基礎——試想，若你能獨立完成大語言模型的訓練、建立實用應用並部署至雲端，這樣的實戰能力將成為你進入 AI 產業最有說服力的證明。
 
@@ -57,6 +57,11 @@ Coursera 的學位課程提供了一個全新的高等教育途徑。這些課�
 
 對於不想投入完整碩士學程時間的學習者，學校也提供了彈性的替代方案。例如密西根大學的「數據科學應用 MasterTrack® 證書（Applied Data Science MasterTrack® Certificate）」，讓學習者可以先修習部分碩士課程並獲得證書，未來若決定繼續攻讀完整學位，這些學分也能被認可。
 
+<figure>
+<img src="/images/blog/coursera/mastertrack.webp" alt="MasterTrack 證書課程" />
+<figcaption>MasterTrack 證書課程</figcaption>
+</figure>
+
 ## Coursera 的熱門課程
 
 根據 Coursera 平台的註冊人數和評分數據，以下是平台上最受歡迎的一些課程。這些數據來自課程頁面的公開資訊，可供參考。
@@ -65,24 +70,24 @@ Coursera 的學位課程提供了一個全新的高等教育途徑。這些課�
 
 | 課程名稱 | 提供機構 | 課程時長 | 特色重點 | 評分 |
 |---------|--------|---------|---------|------|
-| Learning How to Learn | Deep Teaching Solutions | 4週 | 最熱門學習方法論課程、實用的學習技巧 | 4.8/5 |
-| Programming for Everybody | 密西根大學 | 8週 | Python 零基礎入門、淺顯易懂的講解 | 4.8/5 |
+| [Learning How to Learn](https://imp.i384100.net/9Ly9v3) | Deep Teaching Solutions | 4週 | 最熱門學習方法論課程、實用的學習技巧 | 4.8/5 |
+| [Programming for Everybody](https://imp.i384100.net/APRk0o) | 密西根大學 | 8週 | Python 零基礎入門、淺顯易懂的講解 | 4.8/5 |
 
 ### 專業學程推薦
 
 | 專業領域學程名稱 | 提供機構 | 課程數量 | 特色重點 | 評分 |
 |----------------|--------|---------|---------|------|
-| Deep Learning | DeepLearning.AI | 5門課程 | AI 領域最完整課程系列、理論實作並重 | 4.9/5 |
-| Data Science Foundations | IBM 和倫敦大學 | 8門課程 | 完整資料科學培訓、IBM 工具實戰 | 4.8/5 |
-| Excel Skills for Business | 麥格理大學 | 4門課程 | 職場必備 Excel 技能、從基礎到高級應用 | 4.8/5 |
+| [Deep Learning](https://imp.i384100.net/zxnXgr) | DeepLearning.AI | 5門課程 | AI 領域最完整課程系列、理論實作並重 | 4.9/5 |
+| [Data Science Foundations](https://imp.i384100.net/APRAqo) | IBM 和倫敦大學 | 8門課程 | 完整資料科學培訓、IBM 工具實戰 | 4.8/5 |
+| [Excel Skills for Business](https://imp.i384100.net/BnRGDy) | 麥格理大學 | 4門課程 | 職場必備 Excel 技能、從基礎到高級應用 | 4.8/5 |
 
 ### 熱門專業證書
 
 | 證書名稱 | 提供機構 | 培訓時長 | 就業方向 | 評分 |
 |---------|--------|---------|---------|------|
-| Google Data Analytics | Google | 6個月 | 資料分析師、商業分析師 | 4.8/5 |
-| Meta Front-End Developer | Meta | 7個月 | 前端工程師、Web 開發者 | 4.7/5 |
-| IBM Data Analyst | IBM | 5個月 | 資料分析師、商業智能分析師 | 4.8/5 |
+| [Google Data Analytics](https://imp.i384100.net/Wy29xA) | Google | 6個月 | 資料分析師、商業分析師 | 4.8/5 |
+| [Meta Front-End Developer](https://imp.i384100.net/4GgLZn) | Meta | 7個月 | 前端工程師、Web 開發者 | 4.7/5 |
+| [IBM Data Analyst](https://imp.i384100.net/MARk0q) | IBM | 5個月 | 資料分析師、商業智能分析師 | 4.8/5 |
 
 這些課程不僅評分優異，更重要的是它們都經過了時間的考驗，幫助無數學習者實現了職業目標。選擇這些熱門課程的好處是，你可以從大量的學習者評價中了解課程的優缺點，同時也能在討論區找到更多同學互相支援。
 
@@ -106,6 +111,11 @@ Coursera 的學習體驗遠超過傳統的線上課程。平台採用多元化�
 
 舉個具體的例子，在準備學校論文實作時，我需要在 Azure 雲端平台上建立一個機器學習 Pipeline，要求能透過 HTTP trigger 的方式提供數據並獲取分析結果。這對我來說是個全新的挑戰。於是我在 Coursera 上找到了相關的實作專案課程，通過動手練習很快就掌握了實現方法。這種針對性的學習方式，不僅節省了時間，更重要的是直接解決了我的實際問題。
 
+<figure>
+<img src="/images/blog/coursera/azure-ml-pipeline.webp" alt="Azure ML Pipeline 實作專案" />
+<figcaption>Azure ML Pipeline 實作專案</figcaption>
+</figure>
+
 ## 彌補技能差距，提升求職競爭力
 
 現代求職市場中，ATS（申請人追蹤系統）已成為企業篩選人才的標準工具。許多求職者嘗試利用 ChatGPT 等 AI 工具來優化履歷，但這存在著根本性的侷限：AI 確實能幫我們以行業專業術語更精準地表達經驗，卻無法憑空創造我們所缺乏的實質技能。
@@ -124,4 +134,4 @@ Coursera 為彌補這些技能差距提供了理想解決方案。平台上還�
 
 現在就行動起來吧！無論你是想要提升職場競爭力、轉換職業跑道，還是純粹對某個領域充滿好奇，不妨立即前往 Coursera 平台，探索適合你的學習路徑。在數位時代，學習從來不是終點，而是一段持續成長的旅程。今天花在自我提升上的時間，將在未來以倍數方式回饋到自己身上。
 
-[立即探索 Coursera](https://www.coursera.org/)
+[立即探索 Coursera](https://imp.i384100.net/qzO0eY)

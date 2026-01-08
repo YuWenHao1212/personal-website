@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'LinkedIn Resume Checker - Chrome Extension';
+const description = '在 LinkedIn 職缺頁一鍵分析履歷匹配度，3 秒知道這份工作值不值得投。';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="container-narrow">
+      <!-- Hero -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-900 mb-4">
+          LinkedIn Resume Checker
+        </h1>
+        <p class="text-lg md:text-xl text-ink-600 max-w-2xl mx-auto">
+          Chrome Extension，一鍵分析你與職缺的匹配度
+        </p>
+      </div>
+
+      <!-- Product Image -->
+      <div class="mb-12">
+        <img
+          src="/images/products/linkedin-resume-checker.webp"
+          alt="LinkedIn Resume Checker 分析結果截圖"
+          class="w-full rounded-xl shadow-lg"
+        />
+      </div>
+
+      <!-- The Story -->
+      <div class="prose prose-lg max-w-none mb-12">
+        <h2>想進外商？</h2>
+        <p>我也想過。</p>
+        <p>
+          但每次打開 LinkedIn，看到那一整頁英文 JD，就開始猶豫。
+        </p>
+        <p>
+          不是看不懂。是看完要花 20 分鐘。分析關鍵字、對照經歷、改履歷，又是 2-3 小時。
+        </p>
+        <p>
+          然後 HR 花 6 秒鐘，忽略你。
+        </p>
+        <p>
+          <strong>問題來了：這份工作，值不值得我花 3 小時？</strong>
+        </p>
+        <p>
+          在全力投入之前，有沒有辦法先知道「我適不適合」？
+        </p>
+
+        <h2>這個問題困擾我很久</h2>
+        <p>於是我自己做了一個 Chrome Extension。</p>
+        <p>打開 LinkedIn 職缺頁，一鍵分析。<strong>3 秒告訴你：</strong></p>
+        <ul>
+          <li>你跟這份工作的匹配度</li>
+          <li>JD 有哪些關鍵字，你有哪些，缺哪些</li>
+          <li>這份工作值不值得你花時間</li>
+        </ul>
+        <p>
+          不用再憑感覺海投。<br />
+          <strong>先篩選，再投入。</strong>
+        </p>
+
+        <h2>免費額度</h2>
+        <p>
+          第一次登入有 <strong>20 次分析額度</strong>。用完每天補 5 次（免費），應該夠用。
+        </p>
+        <p>
+          重度使用者？歡迎用一杯咖啡的價格支持這個 project ☕
+        </p>
+      </div>
+
+      <!-- Download Buttons -->
+      <div class="bg-cream-100 rounded-xl p-8 mb-12">
+        <h3 class="text-xl font-semibold text-ink-900 mb-6 text-center">
+          立即安裝
+        </h3>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://chromewebstore.google.com/detail/ai-resume-advisor-%E2%80%94-linke/iafpieelbhhlmhgjekflneciffoonkgf"
+            class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white border border-cream-300 rounded-lg hover:bg-cream-50 transition-colors"
+            data-umami-event="extension_download"
+            data-umami-event-browser="chrome"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" fill="#4285F4"/>
+              <circle cx="12" cy="12" r="4" fill="white"/>
+              <path d="M12 2C6.48 2 2 6.48 2 12h10V2z" fill="#EA4335"/>
+              <path d="M2 12c0 5.52 4.48 10 10 10V12H2z" fill="#34A853"/>
+              <path d="M12 12v10c5.52 0 10-4.48 10-10H12z" fill="#FBBC05"/>
+            </svg>
+            <span class="font-medium text-ink-900">Chrome 安裝</span>
+          </a>
+          <a
+            href="https://microsoftedge.microsoft.com/addons/detail/ai-resume-advisor-%E2%80%94-linke/ekhlndlifglmicdphldpciifohloeaek"
+            class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white border border-cream-300 rounded-lg hover:bg-cream-50 transition-colors"
+            data-umami-event="extension_download"
+            data-umami-event-browser="edge"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.86 17.86c-.36.13-.74.24-1.13.33a9.6 9.6 0 01-2.42.31c-2.74 0-5.14-1.07-5.14-3.87 0-1.82.89-3.36 2.79-3.85-.64-.32-1.24-.74-1.77-1.24a7.66 7.66 0 01-2.25-5.5 7.78 7.78 0 01.38-2.44A10 10 0 002 12a10 10 0 0019.86 1.86z" fill="#0078D4"/>
+              <path d="M12 2a10 10 0 00-1.18.07 7.78 7.78 0 00-.38 2.44 7.66 7.66 0 002.25 5.5c.53.5 1.13.92 1.77 1.24 1.63-.42 3.54.13 4.68 1.36a4.5 4.5 0 011 2.89c0 2.8-2.4 3.87-5.14 3.87-.83 0-1.64-.11-2.42-.31-.39-.09-.77-.2-1.13-.33A10 10 0 0012 2z" fill="#50E6FF"/>
+            </svg>
+            <span class="font-medium text-ink-900">Edge 安裝</span>
+          </a>
+        </div>
+        <p class="text-sm text-ink-500 text-center mt-4">
+          覺得有用？順手留個五星評價 ⭐
+        </p>
+      </div>
+
+      <!-- Related Product -->
+      <div class="pt-8 border-t border-cream-200">
+        <p class="text-sm text-ink-500 mb-4">想要更完整的履歷分析？</p>
+        <a
+          href="/zh-TW/products/ai-resume-advisor"
+          class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
+        >
+          AI Resume Advisor - 完整履歷分析工具
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

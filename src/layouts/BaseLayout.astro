@@ -86,5 +86,21 @@ const lang = getLangFromUrl(Astro.url);
     </main>
 
     <Footer />
+
+    <!-- External links open in new tab -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('a[href^="http"]');
+        const currentHost = window.location.host;
+
+        links.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href && !href.includes(currentHost)) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+          }
+        });
+      });
+    </script>
   </body>
 </html>
