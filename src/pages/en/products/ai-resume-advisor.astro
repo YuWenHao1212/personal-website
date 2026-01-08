@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'AI Resume Advisor - Resume Analysis Tool';
+const description = "Not just polishing—it's a diagnosis. Know your chances before you apply.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="container-narrow">
+      <!-- Hero -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-900 mb-4">
+          AI Resume Advisor
+        </h1>
+        <p class="text-lg md:text-xl text-ink-600 max-w-2xl mx-auto">
+          Not just polishing—it's a diagnosis. Know your chances before you apply.
+        </p>
+      </div>
+
+      <!-- Product Image -->
+      <div class="mb-12">
+        <img
+          src="/images/products/ai-resume-advisor.webp"
+          alt="AI Resume Advisor interface screenshot"
+          class="w-full rounded-xl shadow-lg"
+        />
+      </div>
+
+      <!-- The Story -->
+      <div class="prose prose-lg max-w-none mb-12">
+        <h2>Three Hours vs Six Seconds</h2>
+        <p>Three hours. That's how long you spend tweaking your resume. Adjusting wording, optimizing layout, making sure every keyword is in place.</p>
+        <p>Six seconds. That's how long HR looks at your resume.</p>
+        <p>Then? Radio silence.</p>
+        <p>
+          You tell yourself: the resume must not be good enough. So you revise it again, maybe even ask ChatGPT to polish it. Same result.
+        </p>
+        <p>I've seen this cycle too many times. But I started to wonder: <strong>Is the problem really about "writing"?</strong></p>
+
+        <h2>Two Types of Gaps</h2>
+        <p>There are actually two types of gaps between your resume and a job posting. Most people confuse them—and end up solving the wrong problem.</p>
+
+        <h3>Presentation Gap: You have it, but didn't show it</h3>
+        <p>You have the skill, but your resume doesn't convey it well.</p>
+        <p>
+          For example, say you're a PM. You've led cross-functional projects, but your resume only says "tracked project progress and coordinated with team members." That's too vague—an intern could write the same thing.
+        </p>
+        <p>
+          Try this instead: "Managed 5 cross-functional projects using Jira, coordinating teams across Taiwan, US, and India, improving on-time delivery rate from 70% to 95%."
+        </p>
+        <p>Same experience, completely different impact. In this case, AI writing tools can actually help.</p>
+
+        <h3>Skill Gap: You really don't have it</h3>
+        <p>You simply don't have that skill.</p>
+        <p>
+          A Data Scientist role requires deploying ML models to production—you've only run them in Jupyter Notebook. A PM role needs Agile/Scrum certification and Monte Carlo simulation for risk assessment—you've never touched these tools.
+        </p>
+        <p>No amount of polishing will help. You're missing the skill itself, not just the words.</p>
+
+        <h2>Why Most Resume Tools Don't Work</h2>
+        <p>
+          Most resume tools—including asking ChatGPT to rewrite—only address the first problem. Polishing, keyword optimization, ATS formatting. These are fine, but they only solve half the problem.
+        </p>
+        <p>What about Skill Gaps? No one tells you.</p>
+        <p>
+          So you send 50 applications, get 2 responses. You think it's the wording, so you keep tweaking and applying. But the truth might be: you don't meet the core requirements of 80% of those jobs.
+        </p>
+        <p><strong>You keep polishing the key's appearance, not realizing it doesn't fit the lock.</strong></p>
+
+        <h2>The Right Order: Diagnose First, Then Act</h2>
+        <p>Traditional approach: Write resume → Apply → Wait → Rejected → Revise → Apply again</p>
+        <p>The biggest problem? You never know what went wrong. Words? Skills? You can only guess.</p>
+        <p>But what if you flipped the order?</p>
+        <p><strong>Diagnose gaps → Understand what's missing → Decide whether to apply → Prepare strategically</strong></p>
+        <p>
+          Before applying, you know your odds. You know which skills you have, which you lack. For what's missing, you know how to fill the gap.
+        </p>
+
+        <h2>How AI Resume Advisor Helps</h2>
+        <p><strong>Step 1: See your match score in 3 seconds</strong></p>
+        <p>When browsing LinkedIn jobs, our browser extension shows your match score instantly. No guessing—numbers tell the truth.</p>
+
+        <p><strong>Step 2: Understand both types of gaps</strong></p>
+        <p>Click for the full report (~30 seconds), and you'll see both gaps clearly separated:</p>
+        <ul>
+          <li><strong>Presentation Gap</strong>: You have it but didn't express well → AI helps rewrite</li>
+          <li><strong>Skill Gap</strong>: You actually lack it → Recommended courses to fill the gap</li>
+        </ul>
+
+        <p><strong>Step 3: Build skills, not just polish words</strong></p>
+        <p>For your Skill Gaps, we recommend online courses from Google, IBM, Meta, and top universities.</p>
+        <p>Think of it like a skill tree in a game. You can see where you are, where you want to go, and what skills to unlock in between. Only this time, it's for your real career.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-cream-100 rounded-xl p-8 text-center mb-12">
+        <h3 class="text-xl font-semibold text-ink-900 mb-4">
+          Start Diagnosing Your Resume
+        </h3>
+        <p class="text-ink-600 mb-6">
+          3 seconds to see your match score, 30 seconds for the full diagnosis.
+        </p>
+        <a
+          href="https://airesumeadvisor.com"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors"
+          data-umami-event="product_cta_click"
+          data-umami-event-product="ai-resume-advisor"
+        >
+          Go to AI Resume Advisor
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Related Product -->
+      <div class="pt-8 border-t border-cream-200">
+        <p class="text-sm text-ink-500 mb-4">Want to analyze directly on LinkedIn?</p>
+        <a
+          href="/en/products/linkedin-resume-checker"
+          class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
+        >
+          LinkedIn Resume Checker - Chrome Extension
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

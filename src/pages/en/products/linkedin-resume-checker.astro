@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'LinkedIn Resume Checker - Chrome Extension';
+const description = 'One-click resume match analysis on LinkedIn job pages. Know in 3 seconds if a job is worth your time.';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="container-narrow">
+      <!-- Hero -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-900 mb-4">
+          LinkedIn Resume Checker
+        </h1>
+        <p class="text-lg md:text-xl text-ink-600 max-w-2xl mx-auto">
+          Chrome Extension that analyzes your match with job postings in one click
+        </p>
+      </div>
+
+      <!-- Product Image -->
+      <div class="mb-12">
+        <img
+          src="/images/products/linkedin-resume-checker.webp"
+          alt="LinkedIn Resume Checker analysis result screenshot"
+          class="w-full rounded-xl shadow-lg"
+        />
+      </div>
+
+      <!-- The Story -->
+      <div class="prose prose-lg max-w-none mb-12">
+        <h2>Ever stared at a job posting and wondered...</h2>
+        <p>Is this worth my time?</p>
+        <p>
+          Every time I opened LinkedIn and saw a wall of job requirements, I'd hesitate.
+        </p>
+        <p>
+          Not because I couldn't understand it. But because analyzing would take 20 minutes. Then comparing keywords, matching experience, and revising my resume—another 2-3 hours.
+        </p>
+        <p>
+          Then HR spends 6 seconds and passes.
+        </p>
+        <p>
+          <strong>The question: Is this job worth my 3 hours?</strong>
+        </p>
+        <p>
+          Before going all-in, is there a way to know "Am I even a fit?"
+        </p>
+
+        <h2>This problem bugged me for a while</h2>
+        <p>So I built a Chrome Extension myself.</p>
+        <p>Open a LinkedIn job page, one click to analyze. <strong>In 3 seconds, you'll know:</strong></p>
+        <ul>
+          <li>Your match percentage with this job</li>
+          <li>Which keywords from the JD you have, which you're missing</li>
+          <li>Whether this job is worth your time</li>
+        </ul>
+        <p>
+          No more applying blindly.<br />
+          <strong>Filter first, then commit.</strong>
+        </p>
+
+        <h2>Free Credits</h2>
+        <p>
+          First-time users get <strong>20 analysis credits</strong>. After that, you get 5 free credits daily—should be enough for most people.
+        </p>
+        <p>
+          Heavy user? Feel free to support this project with a cup of coffee ☕
+        </p>
+      </div>
+
+      <!-- Download Buttons -->
+      <div class="bg-cream-100 rounded-xl p-8 mb-12">
+        <h3 class="text-xl font-semibold text-ink-900 mb-6 text-center">
+          Install Now
+        </h3>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://chromewebstore.google.com/detail/ai-resume-advisor-%E2%80%94-linke/iafpieelbhhlmhgjekflneciffoonkgf"
+            class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white border border-cream-300 rounded-lg hover:bg-cream-50 transition-colors"
+            data-umami-event="extension_download"
+            data-umami-event-browser="chrome"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" fill="#4285F4"/>
+              <circle cx="12" cy="12" r="4" fill="white"/>
+              <path d="M12 2C6.48 2 2 6.48 2 12h10V2z" fill="#EA4335"/>
+              <path d="M2 12c0 5.52 4.48 10 10 10V12H2z" fill="#34A853"/>
+              <path d="M12 12v10c5.52 0 10-4.48 10-10H12z" fill="#FBBC05"/>
+            </svg>
+            <span class="font-medium text-ink-900">Install for Chrome</span>
+          </a>
+          <a
+            href="https://microsoftedge.microsoft.com/addons/detail/ai-resume-advisor-%E2%80%94-linke/ekhlndlifglmicdphldpciifohloeaek"
+            class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white border border-cream-300 rounded-lg hover:bg-cream-50 transition-colors"
+            data-umami-event="extension_download"
+            data-umami-event-browser="edge"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.86 17.86c-.36.13-.74.24-1.13.33a9.6 9.6 0 01-2.42.31c-2.74 0-5.14-1.07-5.14-3.87 0-1.82.89-3.36 2.79-3.85-.64-.32-1.24-.74-1.77-1.24a7.66 7.66 0 01-2.25-5.5 7.78 7.78 0 01.38-2.44A10 10 0 002 12a10 10 0 0019.86 1.86z" fill="#0078D4"/>
+              <path d="M12 2a10 10 0 00-1.18.07 7.78 7.78 0 00-.38 2.44 7.66 7.66 0 002.25 5.5c.53.5 1.13.92 1.77 1.24 1.63-.42 3.54.13 4.68 1.36a4.5 4.5 0 011 2.89c0 2.8-2.4 3.87-5.14 3.87-.83 0-1.64-.11-2.42-.31-.39-.09-.77-.2-1.13-.33A10 10 0 0012 2z" fill="#50E6FF"/>
+            </svg>
+            <span class="font-medium text-ink-900">Install for Edge</span>
+          </a>
+        </div>
+        <p class="text-sm text-ink-500 text-center mt-4">
+          Found it useful? Leave a 5-star review ⭐
+        </p>
+      </div>
+
+      <!-- Related Product -->
+      <div class="pt-8 border-t border-cream-200">
+        <p class="text-sm text-ink-500 mb-4">Want a more comprehensive resume analysis?</p>
+        <a
+          href="/en/products/ai-resume-advisor"
+          class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
+        >
+          AI Resume Advisor - Full Resume Analysis Tool
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
