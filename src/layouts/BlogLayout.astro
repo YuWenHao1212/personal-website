@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
 import LanguageVersionLink from '../components/LanguageVersionLink.astro';
@@ -27,6 +28,16 @@ const {
 
 const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
+const alternateLang = lang === 'zh-TW' ? 'en' : 'zh-TW';
+
+// Check if translated version exists
+let hasTranslation = false;
+if (translationKey) {
+  const allPosts = await getCollection('blog');
+  hasTranslation = allPosts.some(
+    (p) => p.data.translationKey === translationKey && p.data.lang === alternateLang
+  );
+}
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString(lang === 'zh-TW' ? 'zh-TW' : 'en-US', {
@@ -37,7 +48,7 @@ function formatDate(date: Date): string {
 }
 ---
 
-<BaseLayout title={title} description={description} image={heroImage}>
+<BaseLayout title={title} description={description} image={heroImage} hideLanguageSwitcher={!hasTranslation}>
   <article class="py-10 md:py-14 lg:py-16">
     <div class="container-prose">
       <!-- Language Version Link -->

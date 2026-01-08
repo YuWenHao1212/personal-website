@@ -2,6 +2,12 @@
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 
+interface Props {
+  hideLanguageSwitcher?: boolean;
+}
+
+const { hideLanguageSwitcher = false } = Astro.props;
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -49,9 +55,11 @@ const currentPath = Astro.url.pathname;
           ))}
         </div>
 
-        <div class="flex items-center gap-2 pl-6 border-l border-cream-300">
-          <LanguageSwitcher />
-        </div>
+        {!hideLanguageSwitcher && (
+          <div class="flex items-center gap-2 pl-6 border-l border-cream-300">
+            <LanguageSwitcher />
+          </div>
+        )}
       </div>
 
       <!-- Mobile Menu Button -->
@@ -102,9 +110,11 @@ const currentPath = Astro.url.pathname;
             {label}
           </a>
         ))}
-        <div class="px-4 py-2">
-          <LanguageSwitcher />
-        </div>
+        {!hideLanguageSwitcher && (
+          <div class="px-4 py-2">
+            <LanguageSwitcher />
+          </div>
+        )}
       </div>
     </div>
   </nav>

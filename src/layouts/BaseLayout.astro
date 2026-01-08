@@ -13,6 +13,7 @@ interface Props {
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
+  hideLanguageSwitcher?: boolean;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   publishedTime,
   modifiedTime,
   noindex = false,
+  hideLanguageSwitcher = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -79,7 +81,7 @@ const lang = getLangFromUrl(Astro.url);
     <script defer src="https://cloud.umami.is/script.js" data-website-id="c55fa19c-7b61-48ba-ba18-8a69f0ce7048"></script>
   </head>
   <body class="min-h-screen flex flex-col">
-    <Header />
+    <Header hideLanguageSwitcher={hideLanguageSwitcher} />
 
     <main class="flex-1">
       <slot />
