@@ -11,7 +11,9 @@ export const ui = {
   'zh-TW': {
     // Navigation
     'nav.home': '首頁',
+    'nav.products': '產品',
     'nav.blog': 'Blog',
+    'nav.picks': '推薦',
     'nav.about': '關於我',
     'nav.contact': '聯繫',
 
@@ -73,7 +75,9 @@ export const ui = {
   'en': {
     // Navigation
     'nav.home': 'Home',
+    'nav.products': 'Products',
     'nav.blog': 'Blog',
+    'nav.picks': 'Picks',
     'nav.about': 'About',
     'nav.contact': 'Contact',
 

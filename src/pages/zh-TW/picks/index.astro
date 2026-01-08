@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = '推薦';
+const description = '我實際使用並推薦的工具和服務，幫助你打造知識系統、經營一人公司、持續學習成長。';
+
+const categories = [
+  {
+    id: 'solo-business',
+    title: '一人公司必備',
+    description: '經營一人公司或 Side Project 需要的基礎建設',
+    icon: '🏢',
+    items: [
+      {
+        name: 'Stripe Atlas',
+        description: '一站式美國公司註冊服務。從 Delaware C-Corp 設立、EIN 申請到銀行開戶，全部線上完成。',
+        href: 'https://stripe.com/atlas',
+        tag: '公司註冊',
+      },
+      {
+        name: 'Mercury',
+        description: '專為新創設計的美國銀行帳戶。介面簡潔，支援多幣種，適合遠端團隊。',
+        href: 'https://mercury.com',
+        tag: '銀行',
+      },
+      {
+        name: 'Fiverr',
+        description: '全球自由工作者平台。找設計師、開發者、文案寫手，按專案付費。',
+        href: 'https://www.fiverr.com',
+        tag: '外包',
+      },
+    ],
+  },
+  {
+    id: 'knowledge-system',
+    title: '打造知識系統',
+    description: '建立第二大腦，讓閱讀和學習產生複利',
+    icon: '🧠',
+    items: [
+      {
+        name: 'Readwise',
+        description: '自動同步 Kindle、Pocket、Twitter 等平台的 Highlight，每日回顧強化記憶。',
+        href: 'https://readwise.io',
+        tag: '閱讀',
+      },
+      {
+        name: 'Readwise Reader',
+        description: 'Read-it-later App，支援 RSS、Newsletter、PDF、YouTube。Highlight 自動同步到 Readwise。',
+        href: 'https://readwise.io/read',
+        tag: '閱讀',
+      },
+      {
+        name: 'Obsidian',
+        description: '本地優先的筆記軟體，用 Markdown 寫作，支援雙向連結。你的第二大腦。',
+        href: 'https://obsidian.md',
+        tag: '筆記',
+      },
+    ],
+  },
+  {
+    id: 'learning',
+    title: '持續學習',
+    description: '向頂尖大學和企業學習，投資自己',
+    icon: '📚',
+    items: [
+      {
+        name: 'Coursera',
+        description: '來自 Google、IBM、史丹佛等頂尖機構的線上課程。很多課程可以免費旁聽。',
+        href: 'https://www.coursera.org',
+        tag: '線上課程',
+      },
+      {
+        name: 'Udemy',
+        description: '實務導向的線上課程平台。常有特價，一門課經常只要 $10-15。',
+        href: 'https://www.udemy.com',
+        tag: '線上課程',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-sm md:text-base uppercase tracking-[0.2em] text-[#8B7355] mb-4">
+          精選推薦
+        </p>
+        <h1 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-[#2C2416] leading-[1.05] tracking-[-0.02em] mb-6">
+          我的工具箱
+        </h1>
+        <p class="text-lg md:text-xl text-[#5C5144] leading-[1.6]">
+          這些是我實際使用並推薦的工具和服務。每一個都經過親身驗證，幫助我打造產品、經營事業、持續成長。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  {categories.map((category, index) => (
+    <section
+      id={category.id}
+      class:list={[
+        'py-20 md:py-24',
+        index % 2 === 0 ? 'bg-[#F5F1EB]' : 'bg-[#FFFDF9]'
+      ]}
+    >
+      <div class="max-w-6xl mx-auto px-6">
+        <!-- Category Header -->
+        <div class="flex items-start gap-4 mb-12">
+          <span class="text-4xl">{category.icon}</span>
+          <div>
+            <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-2">
+              {category.title}
+            </h2>
+            <p class="text-[#5C5144] text-lg">
+              {category.description}
+            </p>
+          </div>
+        </div>
+
+        <!-- Items Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {category.items.map((item) => (
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group block bg-white border border-cream-200 rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-accent/30 hover:-translate-y-2 transition-all duration-300"
+              data-umami-event="picks_click"
+              data-umami-event-item={item.name}
+            >
+              <div class="p-5 md:p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full">
+                    {item.tag}
+                  </span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-ink-400 group-hover:text-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </div>
+
+                <h3 class="text-base md:text-lg font-semibold text-ink-900 group-hover:text-accent transition-colors mb-2">
+                  {item.name}
+                </h3>
+
+                <p class="text-xs md:text-sm text-ink-500 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Disclaimer -->
+  <section class="py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-sm text-[#8B7355] leading-relaxed">
+          <strong class="text-[#5C5144]">聲明：</strong>部分連結為 affiliate link，你透過這些連結購買不會多花錢，但我會獲得一點佣金。這些佣金幫助我持續創作內容。我只推薦我自己實際使用並認為有價值的產品。
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

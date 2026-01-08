@@ -36,6 +36,18 @@ export default {
           DEFAULT: '#0D9488',
           hover: '#0F766E',
         },
+        // Secondary accent - sky blue for variety
+        sky: {
+          50: '#F0F9FF',
+          100: '#E0F2FE',
+          400: '#38BDF8',
+          500: '#0EA5E9',
+        },
+        // Soft purple for life-learning sections
+        lavender: {
+          50: '#FAF5FF',
+          100: '#F3E8FF',
+        },
       },
       fontFamily: {
         // Editorial serif for headings - distinctive character

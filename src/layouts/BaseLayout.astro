@@ -104,5 +104,26 @@ const lang = getLangFromUrl(Astro.url);
         });
       });
     </script>
+
+    <!-- Scroll fade-in animation -->
+    <script>
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.fade-in-section, .stagger-children').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>

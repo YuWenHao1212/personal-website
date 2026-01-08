@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Picks';
+const description = 'Tools and services I actually use and recommend for building knowledge systems, running a solo business, and continuous learning.';
+
+const categories = [
+  {
+    id: 'solo-business',
+    title: 'Solo Business Essentials',
+    description: 'Infrastructure you need for running a one-person business or side project',
+    icon: '🏢',
+    items: [
+      {
+        name: 'Stripe Atlas',
+        description: 'All-in-one US company formation. Delaware C-Corp setup, EIN application, and bank account—all online.',
+        href: 'https://stripe.com/atlas',
+        tag: 'Formation',
+      },
+      {
+        name: 'Mercury',
+        description: 'Banking designed for startups. Clean interface, multi-currency support, perfect for remote teams.',
+        href: 'https://mercury.com',
+        tag: 'Banking',
+      },
+      {
+        name: 'Fiverr',
+        description: 'Global freelancer marketplace. Find designers, developers, copywriters. Pay per project.',
+        href: 'https://www.fiverr.com',
+        tag: 'Outsourcing',
+      },
+    ],
+  },
+  {
+    id: 'knowledge-system',
+    title: 'Building a Knowledge System',
+    description: 'Create your second brain and make reading compound',
+    icon: '🧠',
+    items: [
+      {
+        name: 'Readwise',
+        description: 'Auto-sync highlights from Kindle, Pocket, Twitter. Daily review to reinforce memory.',
+        href: 'https://readwise.io',
+        tag: 'Reading',
+      },
+      {
+        name: 'Readwise Reader',
+        description: 'Read-it-later app supporting RSS, newsletters, PDFs, YouTube. Highlights sync to Readwise.',
+        href: 'https://readwise.io/read',
+        tag: 'Reading',
+      },
+      {
+        name: 'Obsidian',
+        description: 'Local-first note-taking with Markdown and bi-directional links. Your second brain.',
+        href: 'https://obsidian.md',
+        tag: 'Notes',
+      },
+    ],
+  },
+  {
+    id: 'learning',
+    title: 'Continuous Learning',
+    description: 'Learn from top universities and companies, invest in yourself',
+    icon: '📚',
+    items: [
+      {
+        name: 'Coursera',
+        description: 'Online courses from Google, IBM, Stanford and more. Many courses are free to audit.',
+        href: 'https://www.coursera.org',
+        tag: 'Courses',
+      },
+      {
+        name: 'Udemy',
+        description: 'Practical online courses. Frequent sales, often just $10-15 per course.',
+        href: 'https://www.udemy.com',
+        tag: 'Courses',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-sm md:text-base uppercase tracking-[0.2em] text-[#8B7355] mb-4">
+          Curated Picks
+        </p>
+        <h1 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-[#2C2416] leading-[1.05] tracking-[-0.02em] mb-6">
+          My Toolbox
+        </h1>
+        <p class="text-lg md:text-xl text-[#5C5144] leading-[1.6]">
+          These are tools and services I actually use and recommend. Each one is personally vetted and helps me build products, run my business, and keep growing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  {categories.map((category, index) => (
+    <section
+      id={category.id}
+      class:list={[
+        'py-20 md:py-24',
+        index % 2 === 0 ? 'bg-[#F5F1EB]' : 'bg-[#FFFDF9]'
+      ]}
+    >
+      <div class="max-w-6xl mx-auto px-6">
+        <!-- Category Header -->
+        <div class="flex items-start gap-4 mb-12">
+          <span class="text-4xl">{category.icon}</span>
+          <div>
+            <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-2">
+              {category.title}
+            </h2>
+            <p class="text-[#5C5144] text-lg">
+              {category.description}
+            </p>
+          </div>
+        </div>
+
+        <!-- Items Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {category.items.map((item) => (
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group block bg-white border border-cream-200 rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-accent/30 hover:-translate-y-2 transition-all duration-300"
+              data-umami-event="picks_click"
+              data-umami-event-item={item.name}
+            >
+              <div class="p-5 md:p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full">
+                    {item.tag}
+                  </span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-ink-400 group-hover:text-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </div>
+
+                <h3 class="text-base md:text-lg font-semibold text-ink-900 group-hover:text-accent transition-colors mb-2">
+                  {item.name}
+                </h3>
+
+                <p class="text-xs md:text-sm text-ink-500 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Disclaimer -->
+  <section class="py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-sm text-[#8B7355] leading-relaxed">
+          <strong class="text-[#5C5144]">Disclaimer:</strong> Some links are affiliate links. You won't pay more, but I'll earn a small commission. This helps me keep creating content. I only recommend products I actually use and find valuable.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

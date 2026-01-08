@@ -12,7 +12,9 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const navItems = [
+  { href: `/${lang}/products`, label: t('nav.products') },
   { href: `/${lang}/blog`, label: t('nav.blog') },
+  // { href: `/${lang}/picks`, label: t('nav.picks') }, // Hidden until content is ready
   { href: `/${lang}/about`, label: t('nav.about') },
   { href: `/${lang}/contact`, label: t('nav.contact') },
 ];
@@ -20,9 +22,9 @@ const navItems = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-cream-100/80 backdrop-blur-md border-b border-cream-200">
-  <nav class="container-wide">
-    <div class="flex items-center justify-between h-16">
+<header class="sticky top-0 z-50 bg-[#FAF8F5]">
+  <nav class="max-w-6xl mx-auto px-6">
+    <div class="flex items-center justify-between h-20">
       <!-- Logo -->
       <a
         href={`/${lang}/`}
@@ -31,23 +33,23 @@ const currentPath = Astro.url.pathname;
         <img
           src="/images/logo.webp"
           alt="WenHao Yu"
-          width="120"
-          height="48"
-          class="h-10 w-auto"
+          width="140"
+          height="56"
+          class="h-12 w-auto"
         />
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-8">
-        <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-10">
+        <div class="flex items-center gap-8">
           {navItems.map(({ href, label }) => (
             <a
               href={href}
               class:list={[
-                'text-sm font-medium transition-colors',
+                'text-base font-medium transition-colors',
                 currentPath.startsWith(href)
-                  ? 'text-accent'
-                  : 'text-ink-600 hover:text-ink-900',
+                  ? 'text-[#2C2416]'
+                  : 'text-[#5C5144] hover:text-[#2C2416]',
               ]}
             >
               {label}
@@ -56,7 +58,7 @@ const currentPath = Astro.url.pathname;
         </div>
 
         {!hideLanguageSwitcher && (
-          <div class="flex items-center gap-2 pl-6 border-l border-cream-300">
+          <div class="flex items-center">
             <LanguageSwitcher />
           </div>
         )}
@@ -65,7 +67,7 @@ const currentPath = Astro.url.pathname;
       <!-- Mobile Menu Button -->
       <button
         type="button"
-        class="md:hidden p-2 text-ink-600 hover:text-ink-900"
+        class="md:hidden p-2 text-[#2C2416] hover:text-[#8B7355]"
         aria-label="Toggle menu"
         id="mobile-menu-btn"
       >
@@ -95,23 +97,23 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Mobile Navigation -->
-    <div class="hidden md:hidden pb-4" id="mobile-menu">
-      <div class="flex flex-col gap-2 pt-4 border-t border-cream-200">
+    <div class="hidden md:hidden pb-6" id="mobile-menu">
+      <div class="flex flex-col gap-1 pt-4 border-t border-[#E8E4DD]">
         {navItems.map(({ href, label }) => (
           <a
             href={href}
             class:list={[
-              'px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+              'px-4 py-3 text-base font-medium transition-colors',
               currentPath.startsWith(href)
-                ? 'text-accent bg-accent-light'
-                : 'text-ink-600 hover:text-ink-900 hover:bg-cream-200',
+                ? 'text-[#2C2416]'
+                : 'text-[#5C5144] hover:text-[#2C2416]',
             ]}
           >
             {label}
           </a>
         ))}
         {!hideLanguageSwitcher && (
-          <div class="px-4 py-2">
+          <div class="px-4 py-3">
             <LanguageSwitcher />
           </div>
         )}

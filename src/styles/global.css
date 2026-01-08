@@ -69,21 +69,24 @@
     @apply max-w-3xl mx-auto px-4 sm:px-6;
   }
 
-  /* Primary button - warm amber accent */
+  /* Primary button - warm amber accent, pill shape */
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium transition-all duration-200;
   }
 
   .btn-primary {
-    @apply btn bg-accent text-white hover:bg-accent-hover shadow-sm hover:shadow-md;
+    @apply btn bg-accent text-white shadow-sm;
+    @apply hover:bg-accent-hover hover:shadow-lg hover:scale-105;
   }
 
   .btn-secondary {
-    @apply btn bg-cream-300 text-ink-800 hover:bg-cream-400;
+    @apply btn bg-cream-300 text-ink-800;
+    @apply hover:bg-cream-400 hover:shadow-md hover:scale-105;
   }
 
   .btn-outline {
-    @apply btn border-2 border-accent text-accent hover:bg-accent hover:text-white;
+    @apply btn border-2 border-accent text-accent;
+    @apply hover:bg-accent hover:text-white hover:shadow-md hover:scale-105;
   }
 
   /* Links use teal color */
@@ -91,10 +94,10 @@
     @apply text-link font-medium hover:text-link-hover hover:underline;
   }
 
-  /* Card with subtle warmth */
+  /* Card with subtle warmth + lift animation */
   .card {
-    @apply bg-white rounded-xl p-6 shadow-sm border border-cream-200;
-    @apply transition-shadow duration-200 hover:shadow-md;
+    @apply bg-white rounded-xl p-6 shadow-sm border border-cream-200 cursor-pointer;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2 hover:border-accent/30;
   }
 
   /* Editorial quote style */
@@ -174,12 +177,26 @@
     text-wrap: balance;
   }
 
-  /* Animation utilities */
-  .animate-on-scroll {
-    @apply opacity-0 translate-y-4 transition-all duration-500;
+  /* Scroll animation utilities */
+  .fade-in-section {
+    @apply opacity-0 translate-y-6;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
 
-  .animate-on-scroll.visible {
+  .fade-in-section.visible {
     @apply opacity-100 translate-y-0;
   }
+
+  /* Staggered children animation */
+  .stagger-children > * {
+    @apply opacity-0 translate-y-4;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+
+  .stagger-children.visible > *:nth-child(1) { transition-delay: 0ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(2) { transition-delay: 100ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(3) { transition-delay: 200ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(4) { transition-delay: 300ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(5) { transition-delay: 400ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(6) { transition-delay: 500ms; @apply opacity-100 translate-y-0; }
 }

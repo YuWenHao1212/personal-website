@@ -14,42 +14,69 @@ const thankYouUrl = `/${lang}/thank-you`;
 ---
 
 <section class:list={[
-  variant === 'default' ? 'py-10 md:py-14 lg:py-16 bg-cream-200' : 'py-6 md:py-8',
+  variant === 'default' ? 'py-24 md:py-32 bg-[#F5F1EB]' : 'py-6 md:py-8',
 ]}>
   <div class:list={[
-    variant === 'default' ? 'container-narrow text-center' : '',
+    variant === 'default' ? 'max-w-6xl mx-auto px-6' : '',
   ]}>
     {variant === 'default' && (
-      <>
-        <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-ink-900 mb-3 md:mb-4">
+      <div class="max-w-2xl">
+        <h2 class="text-[2rem] md:text-[2.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
           {t('newsletter.title')}
         </h2>
-        <p class="text-sm md:text-base text-ink-600 mb-6 md:mb-8 max-w-md mx-auto">
+        <p class="text-lg text-[#5C5144] mb-10">
           {t('newsletter.description')}
         </p>
-      </>
+
+        <form
+          id="newsletter-form"
+          class="flex flex-col sm:flex-row gap-4"
+          data-umami-event="newsletter_signup"
+          data-thank-you-url={thankYouUrl}
+        >
+          <input
+            type="email"
+            name="email_address"
+            placeholder={t('newsletter.placeholder')}
+            required
+            class="flex-1 px-5 py-4 border-2 border-[#2C2416] bg-[#FFFDF9] text-[#2C2416] placeholder-[#8B7355] focus:outline-none focus:ring-0 text-base"
+          />
+          <button
+            type="submit"
+            class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors whitespace-nowrap"
+          >
+            {t('newsletter.button')}
+          </button>
+        </form>
+
+        <p class="mt-6 text-sm text-[#8B7355]">
+          {t('newsletter.privacy')}
+        </p>
+      </div>
     )}
 
-    <form
-      id="newsletter-form"
-      class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-      data-umami-event="newsletter_signup"
-      data-thank-you-url={thankYouUrl}
-    >
-      <input
-        type="email"
-        name="email_address"
-        placeholder={t('newsletter.placeholder')}
-        required
-        class="flex-1 px-4 py-2.5 md:py-3 rounded-lg border border-cream-300 bg-white text-sm md:text-base text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-      />
-      <button
-        type="submit"
-        class="btn-primary text-sm md:text-base whitespace-nowrap"
+    {variant === 'compact' && (
+      <form
+        id="newsletter-form"
+        class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+        data-umami-event="newsletter_signup"
+        data-thank-you-url={thankYouUrl}
       >
-        {t('newsletter.button')}
-      </button>
-    </form>
+        <input
+          type="email"
+          name="email_address"
+          placeholder={t('newsletter.placeholder')}
+          required
+          class="flex-1 px-4 py-3 rounded-lg border border-cream-300 bg-white text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+        />
+        <button
+          type="submit"
+          class="btn-primary whitespace-nowrap"
+        >
+          {t('newsletter.button')}
+        </button>
+      </form>
+    )}
 
     <script>
       const form = document.getElementById('newsletter-form') as HTMLFormElement;
@@ -74,9 +101,5 @@ const thankYouUrl = `/${lang}/thank-you`;
         }
       });
     </script>
-
-    <p class="mt-3 md:mt-4 text-xs md:text-sm text-ink-500">
-      {t('newsletter.privacy')}
-    </p>
   </div>
 </section>
