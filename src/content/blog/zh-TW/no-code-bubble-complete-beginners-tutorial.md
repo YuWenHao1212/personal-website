@@ -9,6 +9,12 @@ featured: true
 heroImage: /images/blog/no-code-bubble-complete-beginners-tutorial.webp
 ---
 
+> **2026 年更新**：這篇文章寫於 2025 年初，當時 AI Coding 尚未成熟。如今 AI 工具如 Claude Code、Cursor 已大幅降低程式開發門檻，效率遠超 No-Code 平台。如果你是從零開始，我建議直接學習 AI Coding。
+>
+> 👉 推薦閱讀：[離開工程師 14 年，我用 AI 做出一個完整產品](/zh-TW/blog/nocode-to-ai-coding)
+
+---
+
 想像這個場景：你需要建立一個允許使用者預約服務的網站。
 
 **傳統開發方式**可能需要 1-3 個月的時間，涉及多種專業技術與環節：
