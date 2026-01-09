@@ -6,7 +6,7 @@ category: building-products
 tags: ["Microsoft", "Azure", "Startup", "獨立開發者", "免費資源", "OpenAI"]
 lang: zh-TW
 featured: false
-heroImage: /images/blog/microsoft-startup-founders-hub.webp
+heroImage: /images/blog/free-azure-startup-credits.webp
 ---
 
 一個人做產品，最怕的就是成本。

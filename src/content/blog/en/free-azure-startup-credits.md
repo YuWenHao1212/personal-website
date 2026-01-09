@@ -1,12 +1,12 @@
 ---
-title: "Indie Developers: How to Get Free Azure Credits from Microsoft for Startups"
-description: "Microsoft for Startups offers up to $5,000 in free Azure credits for cloud services, OpenAI API, and more. Here's how to apply, verify your business, and maximize these resources."
+title: "Free Azure Credits for Startups: How to Get $5,000 from Microsoft"
+description: "Get $5,000 in free Azure credits through Microsoft for Startups. Step-by-step guide for indie developers: application process, business verification, and maximizing your startup credits."
 pubDate: 2026-01-09
 category: building-products
 tags: ["Microsoft", "Azure", "Startup", "Indie Developer", "Free Resources", "OpenAI"]
 lang: en
 featured: false
-heroImage: /images/blog/microsoft-startup-founders-hub.webp
+heroImage: /images/blog/free-azure-startup-credits.webp
 ---
 
 When you're building a product solo, cost is the biggest concern. Cloud services, APIs, dev tools—everything costs money. You end up burning through cash before earning your first dollar.
