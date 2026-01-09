@@ -33,7 +33,7 @@ Self-Service credits come in two stages. First, you get $1,000 immediately after
 
 These credits work on all Azure services—Azure OpenAI Service, App Service, Blob Storage, databases, and more. For products still in development, $1,000 is actually plenty to get started.
 
-## How to Apply
+## How to Get Free Azure Credits
 
 ### Step 1: Get Your $1,000 Credits
 
@@ -64,6 +64,20 @@ So far, all these costs have been covered by credits.
 Watch the expiration dates carefully. The initial $1,000 lasts 90 days, and the verified $4,000 lasts 180 days. Once expired, they're gone—no extensions. So apply when you have a concrete product plan.
 
 If you don't have a company yet, you have two options: start with $1,000 credits for development, or register a company to unlock the full amount. Next post, I'll cover how to register a US company.
+
+## FAQ
+
+**How long do free Azure credits last?**
+
+The initial $1,000 credits are valid for 90 days. After completing Business Verification, the additional $4,000 credits are valid for 180 days. Credits cannot be extended once expired.
+
+**Can individuals apply for Microsoft for Startups?**
+
+Yes, but only for the initial $1,000 credits. To unlock the full $5,000, you need a registered legal entity. Government agencies, educational institutions, consulting firms, and cryptocurrency mining operations don't qualify.
+
+**Do I need investor backing to apply?**
+
+No. The Self-Service path is open to anyone with a new Azure account. The Investor-Backed path (which offers $100,000+) requires a referral code from a participating investor or accelerator.
 
 ## Conclusion
 
