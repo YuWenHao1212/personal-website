@@ -77,6 +77,15 @@ const lang = getLangFromUrl(Astro.url);
       noindex={noindex}
     />
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KQ8B14HNFB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KQ8B14HNFB');
+    </script>
+
     <!-- Umami Analytics -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="c55fa19c-7b61-48ba-ba18-8a69f0ce7048"></script>
   </head>
