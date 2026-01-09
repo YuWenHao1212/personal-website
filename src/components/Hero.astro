@@ -8,14 +8,14 @@ const thankYouUrl = `/${lang}/thank-you`;
 
 // Newsletter content
 const newsletter = lang === 'zh-TW' ? {
-  cta: '訂閱電子報，我把路上看到的風景寫成信寄給你。',
+  cta: '想少走彎路？我把一路上的心得寫成信寄給你。',
   placeholder: '輸入你的 Email',
-  button: '免費訂閱',
+  button: '寄給我',
   privacy: '不會濫發垃圾郵件，隨時可以退訂。',
 } : {
-  cta: 'Subscribe to my newsletter. I write about what I see along the way.',
+  cta: 'Want to avoid common pitfalls? I share lessons learned along the way.',
   placeholder: 'Enter your email',
-  button: 'Subscribe',
+  button: 'Send Me Letters',
   privacy: 'No spam. Unsubscribe anytime.',
 };
 
@@ -64,7 +64,7 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
         <!-- Content - Left columns -->
         <div class="md:col-span-7 text-center md:text-left order-2 md:order-1">
           <!-- Main headline -->
-          <h1 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-[#2C2416] leading-[1.05] tracking-[-0.02em] mb-6">
+          <h1 class="text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.05] tracking-[-0.02em] mb-6 whitespace-nowrap">
             {t('hero.tagline')}
           </h1>
 

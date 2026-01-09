@@ -57,6 +57,14 @@ const currentPath = Astro.url.pathname;
           ))}
         </div>
 
+        <!-- Newsletter CTA Button -->
+        <a
+          href={`/${lang}/#newsletter-form`}
+          class="px-5 py-2.5 bg-[#E8E4DD] text-[#2C2416] text-base font-medium rounded-full hover:bg-[#D9D4CB] transition-colors"
+        >
+          {t('header.subscribe')}
+        </a>
+
         {!hideLanguageSwitcher && (
           <div class="flex items-center">
             <LanguageSwitcher />
@@ -117,6 +125,15 @@ const currentPath = Astro.url.pathname;
             <LanguageSwitcher />
           </div>
         )}
+        <!-- Mobile Newsletter CTA -->
+        <div class="px-4 py-3">
+          <a
+            href={`/${lang}/#newsletter-form`}
+            class="inline-block px-5 py-2.5 bg-[#E8E4DD] text-[#2C2416] text-base font-medium rounded-full hover:bg-[#D9D4CB] transition-colors"
+          >
+            {t('header.subscribe')}
+          </a>
+        </div>
       </div>
     </div>
   </nav>

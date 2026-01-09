@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-const title = '推薦';
-const description = '我實際使用並推薦的工具和服務，幫助你打造知識系統、經營一人公司、持續學習成長。';
+const title = '推薦工具';
+const description = '我實際使用並推薦的工具，幫助你經營一人公司、提升生產力。';
 
 const categories = [
   {
     id: 'solo-business',
-    title: '一人公司必備',
+    title: '一人公司',
     description: '經營一人公司或 Side Project 需要的基礎建設',
-    icon: '🏢',
+    icon: '🚀',
     items: [
       {
         name: 'Stripe Atlas',
@@ -32,10 +32,10 @@ const categories = [
     ],
   },
   {
-    id: 'knowledge-system',
-    title: '打造知識系統',
-    description: '建立第二大腦，讓閱讀和學習產生複利',
-    icon: '🧠',
+    id: 'productivity',
+    title: '生產力',
+    description: '提升效率、管理知識、持續學習的工具',
+    icon: '⚡',
     items: [
       {
         name: 'Readwise',
@@ -55,14 +55,6 @@ const categories = [
         href: 'https://obsidian.md',
         tag: '筆記',
       },
-    ],
-  },
-  {
-    id: 'learning',
-    title: '持續學習',
-    description: '向頂尖大學和企業學習，投資自己',
-    icon: '📚',
-    items: [
       {
         name: 'Coursera',
         description: '來自 Google、IBM、史丹佛等頂尖機構的線上課程。很多課程可以免費旁聽。',
@@ -86,10 +78,10 @@ const categories = [
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-3xl">
         <p class="text-sm md:text-base uppercase tracking-[0.2em] text-[#8B7355] mb-4">
-          精選推薦
+          Tools I Use
         </p>
         <h1 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-[#2C2416] leading-[1.05] tracking-[-0.02em] mb-6">
-          我的工具箱
+          推薦工具
         </h1>
         <p class="text-lg md:text-xl text-[#5C5144] leading-[1.6]">
           這些是我實際使用並推薦的工具和服務。每一個都經過親身驗證，幫助我打造產品、經營事業、持續成長。

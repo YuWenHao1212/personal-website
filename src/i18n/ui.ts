@@ -19,8 +19,8 @@ export const ui = {
 
     // Hero
     'hero.greeting': '我是文皓',
-    'hero.tagline': '我用 AI 打造產品',
-    'hero.description': '產品人，用 AI 加速從想法到產品的過程。分享實戰心得。',
+    'hero.tagline': '一個人，也能做出產品',
+    'hero.description': '用 AI 加速從想法到上線。分享工具、流程、踩坑經驗。',
     'hero.cta.story': '閱讀我的故事',
     'hero.cta.posts': '最新文章',
 
@@ -41,9 +41,9 @@ export const ui = {
 
     // Newsletter
     'newsletter.title': '訂閱電子報',
-    'newsletter.description': '我把路上看到的風景寫成信寄給你。',
+    'newsletter.description': '想少走彎路？我把一路上的心得寫成信寄給你。',
     'newsletter.placeholder': '輸入你的 Email',
-    'newsletter.button': '免費訂閱',
+    'newsletter.button': '寄給我',
     'newsletter.privacy': '不會濫發垃圾郵件，隨時可以退訂。',
 
     // Blog
@@ -71,6 +71,9 @@ export const ui = {
     // Language
     'language.switch': '切換語言',
     'language.available': '這篇文章也有英文版本',
+
+    // Header CTA
+    'header.subscribe': '訂閱電子報',
   },
   'en': {
     // Navigation
@@ -83,8 +86,8 @@ export const ui = {
 
     // Hero
     'hero.greeting': "I'm WenHao",
-    'hero.tagline': 'I Build Products with AI',
-    'hero.description': 'Product builder accelerating from idea to product with AI. Sharing lessons from the journey.',
+    'hero.tagline': 'One Person Can Ship Products',
+    'hero.description': 'Using AI to go from idea to launch. Sharing tools, workflows, and lessons learned.',
     'hero.cta.story': 'Read My Story',
     'hero.cta.posts': 'Latest Posts',
 
@@ -105,9 +108,9 @@ export const ui = {
 
     // Newsletter
     'newsletter.title': 'Subscribe to My Newsletter',
-    'newsletter.description': 'I write about what I see along the way.',
+    'newsletter.description': 'Want to avoid common pitfalls? I share lessons learned along the way.',
     'newsletter.placeholder': 'Enter your email',
-    'newsletter.button': 'Subscribe',
+    'newsletter.button': 'Send Me Letters',
     'newsletter.privacy': 'No spam. Unsubscribe anytime.',
 
     // Blog
@@ -135,5 +138,8 @@ export const ui = {
     // Language
     'language.switch': 'Switch Language',
     'language.available': 'This article is also available in Chinese',
+
+    // Header CTA
+    'header.subscribe': 'Subscribe',
   },
 } as const;
