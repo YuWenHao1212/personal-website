@@ -6,6 +6,7 @@ category: building-products
 tags: ["Microsoft", "Azure", "Startup", "Indie Developer", "Free Resources", "OpenAI"]
 lang: en
 featured: false
+translationKey: free-azure-startup-credits
 heroImage: /images/blog/free-azure-startup-credits.webp
 ---
 
