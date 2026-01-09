@@ -3,14 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import FeaturedPosts from '../../components/FeaturedPosts.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
-import AboutSnippet from '../../components/AboutSnippet.astro';
 
 const title = 'WenHao Yu';
 const description = 'I build products with AI. Sharing insights on building products, productivity & life.';
+
+const featuredTools = [
+  {
+    title: 'Fiverr: Outsource Your Work, Reclaim Your Time',
+    description: 'The key skill for solo entrepreneurs is outsourcing. Fiverr connects you with global experts at low cost, so you can focus on what matters.',
+    href: '/en/blog/outsource-by-fiverr',
+    image: '/images/blog/fiverr.webp',
+    category: 'Solo Business',
+  },
+  {
+    title: 'Readwise Reader: Your Digital Reading Hub',
+    description: 'A digital bookshelf that connects to your notes. Save articles, subscribe to newsletters, store PDFs — highlights sync automatically.',
+    href: '/en/blog/readwise-reader',
+    image: '/images/blog/readwise-reader.webp',
+    category: 'Productivity',
+  },
+];
 ---
 
 <BaseLayout title={title} description={description}>
-  <!-- Hero with Products showcase -->
+  <!-- Hero with Newsletter + Products -->
   <Hero />
 
   <!-- Featured Posts Section -->
@@ -25,7 +41,116 @@ const description = 'I build products with AI. Sharing insights on building prod
     </div>
   </section>
 
-  <NewsletterForm />
+  <!-- Recommended Tools Section -->
+  <section class="py-24 md:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-12 md:mb-16">
+        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
+          Recommended Tools
+        </h2>
+        <p class="mt-4 text-lg text-[#5C5144]">
+          Tools I actually use and recommend for building a solo business and boosting productivity.
+        </p>
+      </div>
 
-  <AboutSnippet />
+      <!-- Category Tabs -->
+      <div class="flex flex-wrap gap-2 mb-10" id="tools-tabs">
+        <button
+          data-category="All"
+          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-[#2C2416] text-white"
+        >
+          All
+        </button>
+        <button
+          data-category="Solo Business"
+          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-white text-[#5C5144] hover:bg-[#E8E4DD]"
+        >
+          Solo Business
+        </button>
+        <button
+          data-category="Productivity"
+          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-white text-[#5C5144] hover:bg-[#E8E4DD]"
+        >
+          Productivity
+        </button>
+      </div>
+
+      <!-- Tool Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="tools-grid">
+        {featuredTools.map((tool) => (
+          <a
+            href={tool.href}
+            data-category={tool.category}
+            class="tool-card group block bg-white border border-cream-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
+          >
+            <div class="relative overflow-hidden aspect-[16/9]">
+              <img
+                src={tool.image}
+                alt={tool.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+              <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
+                {tool.category}
+              </span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-base font-semibold text-[#2C2416] mb-2 group-hover:text-accent transition-colors line-clamp-2">
+                {tool.title}
+              </h3>
+              <p class="text-sm text-[#5C5144] leading-relaxed line-clamp-2">
+                {tool.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Hidden until more content
+      <div class="text-center">
+        <a
+          href="/en/picks"
+          class="inline-flex items-center text-base font-medium text-[#2C2416] hover:text-accent transition-colors"
+        >
+          View All Tools
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <script>
+    // Tool category filtering
+    const tabs = document.querySelectorAll('#tools-tabs .tab-btn');
+    const cards = document.querySelectorAll('#tools-grid .tool-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const category = tab.getAttribute('data-category');
+
+        // Update tab styles
+        tabs.forEach(t => {
+          t.classList.remove('bg-[#2C2416]', 'text-white');
+          t.classList.add('bg-white', 'text-[#5C5144]', 'hover:bg-[#E8E4DD]');
+        });
+        tab.classList.remove('bg-white', 'text-[#5C5144]', 'hover:bg-[#E8E4DD]');
+        tab.classList.add('bg-[#2C2416]', 'text-white');
+
+        // Filter cards
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (category === 'All' || cardCategory === category) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+
+  <NewsletterForm />
 </BaseLayout>

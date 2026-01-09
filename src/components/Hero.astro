@@ -4,6 +4,22 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+const thankYouUrl = `/${lang}/thank-you`;
+
+// Newsletter content
+const newsletter = lang === 'zh-TW' ? {
+  cta: '訂閱電子報，我把路上看到的風景寫成信寄給你。',
+  placeholder: '輸入你的 Email',
+  button: '免費訂閱',
+  privacy: '不會濫發垃圾郵件，隨時可以退訂。',
+} : {
+  cta: 'Subscribe to my newsletter. I write about what I see along the way.',
+  placeholder: 'Enter your email',
+  button: 'Subscribe',
+  privacy: 'No spam. Unsubscribe anytime.',
+};
+
+// Products data
 const products = lang === 'zh-TW' ? [
   {
     name: 'AI Resume Advisor',
@@ -41,72 +57,102 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
 ---
 
 <section>
-  <!-- Hero: Bold, editorial, warm tones -->
-  <div class="min-h-[70vh] flex items-center bg-[#FAF8F5]">
-    <div class="w-full max-w-6xl mx-auto px-6 py-24 md:py-32">
-      <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
-        <!-- Photo - Left column -->
-        <div class="md:col-span-4 flex justify-center md:justify-start">
+  <!-- Hero: Integrated with Newsletter (雷蒙三十 style) -->
+  <div class="min-h-[80vh] flex items-center bg-[#FAF8F5]">
+    <div class="w-full max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
+        <!-- Content - Left columns -->
+        <div class="md:col-span-7 text-center md:text-left order-2 md:order-1">
+          <!-- Main headline -->
+          <h1 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-[#2C2416] leading-[1.05] tracking-[-0.02em] mb-6">
+            {t('hero.tagline')}
+          </h1>
+
+          <!-- Subtext / Value proposition -->
+          <p class="text-lg md:text-xl text-[#5C5144] mb-8 max-w-xl leading-[1.6]">
+            {t('hero.description')}
+          </p>
+
+          <!-- Newsletter CTA -->
+          <p class="text-base md:text-lg text-[#2C2416] font-medium mb-6">
+            {newsletter.cta}
+          </p>
+
+          <!-- Newsletter Form -->
+          <form
+            id="hero-newsletter-form"
+            class="flex flex-col sm:flex-row gap-3 max-w-lg"
+            data-umami-event="newsletter_signup_hero"
+            data-thank-you-url={thankYouUrl}
+          >
+            <input
+              type="email"
+              name="email_address"
+              placeholder={newsletter.placeholder}
+              required
+              class="flex-1 px-5 py-4 border-2 border-[#2C2416] bg-[#FFFDF9] text-[#2C2416] placeholder-[#8B7355] focus:outline-none focus:ring-0 text-base"
+            />
+            <button
+              type="submit"
+              class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors whitespace-nowrap"
+            >
+              {newsletter.button}
+            </button>
+          </form>
+
+          <p class="mt-4 text-sm text-[#8B7355]">
+            {newsletter.privacy}
+          </p>
+
+          <!-- Secondary CTAs -->
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start mt-8 pt-8 border-t border-[#E8E4DD]">
+            <a
+              href={`/${lang}/about`}
+              class="text-[#5C5144] hover:text-[#2C2416] text-sm font-medium transition-colors flex items-center gap-1"
+            >
+              {t('hero.cta.story')}
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href={`/${lang}/blog`}
+              class="text-[#5C5144] hover:text-[#2C2416] text-sm font-medium transition-colors flex items-center gap-1"
+            >
+              {t('hero.cta.posts')}
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Photo - Right column -->
+        <div class="md:col-span-5 flex justify-center order-1 md:order-2">
           <img
             src="/images/hero.webp"
             alt="WenHao Yu"
-            width="280"
-            height="280"
-            class="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover"
+            width="400"
+            height="400"
+            class="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full object-cover shadow-lg"
             loading="eager"
             fetchpriority="high"
             decoding="async"
           />
         </div>
-
-        <!-- Content - Right columns -->
-        <div class="md:col-span-8 text-center md:text-left">
-          <!-- Overline -->
-          <p class="text-sm md:text-base uppercase tracking-[0.2em] text-[#8B7355] mb-4">
-            {t('hero.greeting')}
-          </p>
-
-          <!-- Main headline - Dramatic size -->
-          <h1 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] font-bold text-[#2C2416] leading-[1.05] tracking-[-0.02em] mb-6">
-            {t('hero.tagline')}
-          </h1>
-
-          <!-- Subtext -->
-          <p class="text-lg md:text-xl text-[#5C5144] mb-10 max-w-xl leading-[1.6]">
-            {t('hero.description')}
-          </p>
-
-          <!-- CTA buttons -->
-          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-            <a
-              href={`/${lang}/about`}
-              class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors"
-            >
-              {t('hero.cta.story')}
-            </a>
-            <a
-              href={`/${lang}/blog`}
-              class="px-8 py-4 border-2 border-[#2C2416] text-[#2C2416] text-base font-medium hover:bg-[#2C2416] hover:text-[#FAF8F5] transition-colors"
-            >
-              {t('hero.cta.posts')}
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Products Section - Grid layout, warm -->
+  <!-- Products Section -->
   <div class="bg-[#F5F1EB] py-24 md:py-32">
     <div class="max-w-6xl mx-auto px-6">
-      <!-- Section header - Left aligned, bold -->
       <div class="mb-16 md:mb-20">
         <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
           {productsTitle}
         </h2>
       </div>
 
-      <!-- Product cards -->
       <div class="grid md:grid-cols-2 gap-8 md:gap-10">
         {products.map((product) => (
           <a
@@ -115,7 +161,6 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
             data-umami-event="hero_product_click"
             data-umami-event-product={product.name}
           >
-            <!-- Product Image -->
             <div class="relative overflow-hidden aspect-[16/10]">
               <img
                 src={product.image}
@@ -123,13 +168,11 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="eager"
               />
-              <!-- Badge -->
               <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
                 {product.badge}
               </span>
             </div>
 
-            <!-- Content -->
             <div class="p-5 md:p-6">
               <h3 class="text-base md:text-lg font-semibold text-ink-900 mb-2 group-hover:text-accent transition-colors">
                 {product.name}
@@ -137,7 +180,6 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
               <p class="text-xs md:text-sm text-ink-500 mb-4 leading-relaxed">
                 {product.description}
               </p>
-              <!-- CTA -->
               <span class="inline-flex items-center text-sm font-medium text-ink-900 group-hover:text-accent transition-colors">
                 {ctaText}
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -150,4 +192,28 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
       </div>
     </div>
   </div>
+
+  <script>
+    const form = document.getElementById('hero-newsletter-form') as HTMLFormElement;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const thankYouUrl = form.dataset.thankYouUrl || '/zh-TW/thank-you';
+
+      try {
+        await fetch('https://app.kit.com/forms/8951335/subscriptions', {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+
+        window.location.href = thankYouUrl;
+      } catch (error) {
+        console.error('Newsletter subscription failed:', error);
+        window.location.href = thankYouUrl;
+      }
+    });
+  </script>
 </section>

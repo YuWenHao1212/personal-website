@@ -13,14 +13,14 @@ export const ui = {
     'nav.home': '首頁',
     'nav.products': '產品',
     'nav.blog': 'Blog',
-    'nav.picks': '推薦',
+    'nav.picks': '推薦工具',
     'nav.about': '關於我',
     'nav.contact': '聯繫',
 
     // Hero
     'hero.greeting': '我是文皓',
     'hero.tagline': '我用 AI 打造產品',
-    'hero.description': '在 AI 時代，個人可以創造出以前需要整個團隊才能做到的東西。這不是幻想，我正在實踐。我追求的是自由——思想的自由、財務的自由、時間的自由。',
+    'hero.description': '產品人，用 AI 加速從想法到產品的過程。分享實戰心得。',
     'hero.cta.story': '閱讀我的故事',
     'hero.cta.posts': '最新文章',
 
@@ -40,11 +40,11 @@ export const ui = {
     'section.about': '關於我',
 
     // Newsletter
-    'newsletter.title': '訂閱我的電子報',
-    'newsletter.description': '每週分享 AI、創業與生產力的深度觀點',
+    'newsletter.title': '訂閱電子報',
+    'newsletter.description': '我把路上看到的風景寫成信寄給你。',
     'newsletter.placeholder': '輸入你的 Email',
-    'newsletter.button': '訂閱',
-    'newsletter.privacy': '不會濫發垃圾郵件，隨時可以退訂',
+    'newsletter.button': '免費訂閱',
+    'newsletter.privacy': '不會濫發垃圾郵件，隨時可以退訂。',
 
     // Blog
     'blog.readMore': '閱讀全文',
@@ -77,14 +77,14 @@ export const ui = {
     'nav.home': 'Home',
     'nav.products': 'Products',
     'nav.blog': 'Blog',
-    'nav.picks': 'Picks',
+    'nav.picks': 'Tools',
     'nav.about': 'About',
     'nav.contact': 'Contact',
 
     // Hero
     'hero.greeting': "I'm WenHao",
     'hero.tagline': 'I Build Products with AI',
-    'hero.description': "In the AI era, individuals can create what previously required entire teams. This isn't a fantasy—I'm living it. I pursue freedom: freedom of thought, financial freedom, and freedom of time.",
+    'hero.description': 'Product builder accelerating from idea to product with AI. Sharing lessons from the journey.',
     'hero.cta.story': 'Read My Story',
     'hero.cta.posts': 'Latest Posts',
 
@@ -105,7 +105,7 @@ export const ui = {
 
     // Newsletter
     'newsletter.title': 'Subscribe to My Newsletter',
-    'newsletter.description': 'Weekly insights on AI, entrepreneurship & productivity',
+    'newsletter.description': 'I write about what I see along the way.',
     'newsletter.placeholder': 'Enter your email',
     'newsletter.button': 'Subscribe',
     'newsletter.privacy': 'No spam. Unsubscribe anytime.',

@@ -14,7 +14,7 @@ const t = useTranslations(lang);
 const navItems = [
   { href: `/${lang}/products`, label: t('nav.products') },
   { href: `/${lang}/blog`, label: t('nav.blog') },
-  // { href: `/${lang}/picks`, label: t('nav.picks') }, // Hidden until content is ready
+  // { href: `/${lang}/picks`, label: t('nav.picks') }, // Hidden until more content
   { href: `/${lang}/about`, label: t('nav.about') },
   { href: `/${lang}/contact`, label: t('nav.contact') },
 ];
@@ -24,7 +24,7 @@ const currentPath = Astro.url.pathname;
 
 <header class="sticky top-0 z-50 bg-[#FAF8F5]">
   <nav class="max-w-6xl mx-auto px-6">
-    <div class="flex items-center justify-between h-20">
+    <div class="flex items-center justify-between h-24">
       <!-- Logo -->
       <a
         href={`/${lang}/`}
@@ -35,7 +35,7 @@ const currentPath = Astro.url.pathname;
           alt="WenHao Yu"
           width="140"
           height="56"
-          class="h-12 w-auto"
+          class="h-16 w-auto"
         />
       </a>
 
@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname;
             <a
               href={href}
               class:list={[
-                'text-base font-medium transition-colors',
+                'text-xl font-medium transition-colors',
                 currentPath.startsWith(href)
                   ? 'text-[#2C2416]'
                   : 'text-[#5C5144] hover:text-[#2C2416]',
