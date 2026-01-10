@@ -763,7 +763,7 @@ Please help me write a response/FB post/Blog article based on this article.`;
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + (window as any).__PANOPTICON_TOKEN__,
+          'X-Panopticon-Token': (window as any).__PANOPTICON_TOKEN__,
         },
         body: JSON.stringify({
           title: currentItem.title,

@@ -22,7 +22,7 @@ module.exports = async function (context, req) {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Panopticon-Token',
   };
 
   // Handle preflight
@@ -31,27 +31,16 @@ module.exports = async function (context, req) {
     return;
   }
 
-  // Verify Bearer token
-  const authHeader = req.headers.authorization || '';
-  const token = authHeader.replace('Bearer ', '');
+  // Verify custom token header (using X-Panopticon-Token instead of Authorization
+  // because Azure SWA intercepts Authorization header)
+  const token = req.headers['x-panopticon-token'] || '';
   const expectedToken = process.env.PANOPTICON_API_TOKEN;
 
   if (!expectedToken || token !== expectedToken) {
     context.res = {
       status: 401,
       headers,
-      body: JSON.stringify({
-        error: 'Unauthorized',
-        debug: {
-          hasExpectedToken: !!expectedToken,
-          expectedTokenLength: expectedToken ? expectedToken.length : 0,
-          receivedTokenLength: token ? token.length : 0,
-          hasAuthHeader: !!authHeader,
-          authHeaderLength: authHeader ? authHeader.length : 0,
-          authHeaderPreview: authHeader ? authHeader.substring(0, 50) : '',
-          tokenPreview: token ? token.substring(0, 50) : '',
-        }
-      }),
+      body: JSON.stringify({ error: 'Unauthorized' }),
     };
     return;
   }
