@@ -2,8 +2,16 @@ name: Sync Panopticon Data
 
 on:
   schedule:
+    # 5 AM Taiwan time (21:00 UTC previous day)
+    - cron: '0 21 * * *'
+    # 5 PM Taiwan time (9:00 UTC)
     - cron: '0 9 * * *'
   workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force refresh even if data exists'
+        type: boolean
+        default: false
 
 jobs:
   sync:
