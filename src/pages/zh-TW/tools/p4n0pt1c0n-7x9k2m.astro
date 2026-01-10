@@ -1,0 +1,884 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ItemCard from '../../../components/panopticon/ItemCard.astro';
+
+// Type definitions
+interface PanopticonData {
+  date: string;
+  generated_at: string;
+  stats: {
+    total_items: number;
+    reddit_posts: number;
+    hn_stories: number;
+    ph_products: number;
+  };
+  items: Array<{
+    id: string;
+    source: 'reddit' | 'hackernews' | 'producthunt';
+    category: string;
+    title: string;
+    url: string;
+    score: number;
+    comments: number;
+    selftext?: string;
+    subreddit?: string;
+    fb_potential: string;
+    blog_potential: string;
+    engagement_score: number;
+  }>;
+}
+
+// Fetch data at build time
+let data: PanopticonData | null = null;
+
+try {
+  const response = await fetch(new URL('/data/panopticon/latest.json', Astro.url.origin));
+  if (response.ok) {
+    data = await response.json();
+  }
+} catch (e) {
+  // Will load client-side instead
+}
+---
+
+<BaseLayout
+  title="Content Discovery"
+  description="Personal content discovery tool"
+  noindex={true}
+  hideLanguageSwitcher={true}
+>
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-ink-900 mb-1">Content Discovery</h1>
+        <p class="text-ink-500" id="date-display">
+          {data ? data.date : 'Loading...'}
+        </p>
+      </div>
+      <button
+        id="refresh-btn"
+        type="button"
+        class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors flex items-center gap-2"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Refresh
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      {data && (
+        <>
+          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-ink-900" id="stat-total">{data.stats.total_items}</div>
+            <div class="text-xs text-ink-500">Total</div>
+          </div>
+          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-orange-600" id="stat-reddit">{data.stats.reddit_posts}</div>
+            <div class="text-xs text-ink-500">Reddit</div>
+          </div>
+          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-amber-600" id="stat-hn">{data.stats.hn_stories}</div>
+            <div class="text-xs text-ink-500">HN</div>
+          </div>
+          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-red-600" id="stat-ph">{data.stats.ph_products}</div>
+            <div class="text-xs text-ink-500">PH</div>
+          </div>
+        </>
+      )}
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="bg-white border border-cream-200 rounded-xl p-4 mb-6">
+      <!-- Search bar -->
+      <div class="mb-4">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search titles and content..."
+          class="w-full px-4 py-2 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
+        />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Source filter -->
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-ink-500">Source:</span>
+          <select id="filter-source" class="px-3 py-1.5 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/20">
+            <option value="all">All</option>
+            <option value="reddit">Reddit</option>
+            <option value="hackernews">HN</option>
+            <option value="producthunt">PH</option>
+          </select>
+        </div>
+
+        <!-- Category filter -->
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-ink-500">Category:</span>
+          <select id="filter-category" class="px-3 py-1.5 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/20">
+            <option value="all">All</option>
+            <option value="indie_hacker">Indie Hacker</option>
+            <option value="product_related">Product Related</option>
+            <option value="tech">Tech</option>
+          </select>
+        </div>
+
+        <!-- High only toggle -->
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="filter-high" class="w-4 h-4 rounded border-cream-300 text-accent focus:ring-accent/20" />
+          <span class="text-sm text-ink-700">High Only</span>
+        </label>
+
+        <!-- Saved filter -->
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="filter-saved" class="w-4 h-4 rounded border-cream-300 text-rose-500 focus:ring-rose-200" />
+          <span class="text-sm text-ink-700">Saved <span id="saved-count" class="text-ink-400">(0)</span></span>
+        </label>
+
+        <!-- Show hidden toggle -->
+        <label id="show-hidden-label" class="hidden items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="filter-show-hidden" class="w-4 h-4 rounded border-cream-300 text-ink-400 focus:ring-ink-200" />
+          <span class="text-sm text-ink-500">Show Hidden <span id="hidden-count">(0)</span></span>
+        </label>
+
+        <!-- Count display -->
+        <div class="ml-auto text-sm text-ink-500">
+          <span id="visible-count">0</span> items
+        </div>
+      </div>
+    </div>
+
+    <!-- Batch actions bar (hidden by default) -->
+    <div id="batch-actions" class="hidden bg-accent/5 border border-accent/20 rounded-xl p-4 mb-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="select-all" class="w-4 h-4 rounded border-cream-300 text-accent focus:ring-accent/20" />
+          <span class="text-sm text-ink-700"><span id="selected-count">0</span> selected</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            id="batch-save"
+            type="button"
+            class="px-3 py-1.5 text-sm font-medium bg-rose-100 text-rose-700 rounded-lg hover:bg-rose-200 transition-colors flex items-center gap-1"
+          >
+            <span>♥</span> Save All
+          </button>
+          <button
+            id="batch-hide"
+            type="button"
+            class="px-3 py-1.5 text-sm font-medium bg-ink-100 text-ink-600 rounded-lg hover:bg-ink-200 transition-colors flex items-center gap-1"
+          >
+            <span>✕</span> Hide All
+          </button>
+          <button
+            id="batch-clear"
+            type="button"
+            class="px-3 py-1.5 text-sm font-medium text-ink-500 rounded-lg hover:bg-cream-100 transition-colors"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Items grid -->
+    <div id="items-container" class="grid gap-4 md:grid-cols-2">
+      {data && data.items.map((item: any) => (
+        <ItemCard
+          id={item.id}
+          source={item.source}
+          category={item.category}
+          title={item.title}
+          url={item.url}
+          score={item.score}
+          comments={item.comments}
+          selftext={item.selftext}
+          subreddit={item.subreddit}
+          fbPotential={item.fb_potential}
+          blogPotential={item.blog_potential}
+          engagementScore={item.engagement_score}
+        />
+      ))}
+    </div>
+
+    <!-- Empty state for saved -->
+    <div id="empty-saved" class="hidden text-center py-12">
+      <div class="text-4xl mb-4">♡</div>
+      <h3 class="text-lg font-medium text-ink-700 mb-2">No saved items yet</h3>
+      <p class="text-sm text-ink-500 mb-4">Click the ♡ button on any card to save it for later reference.</p>
+      <button id="back-to-all" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
+        ← Back to All Items
+      </button>
+    </div>
+
+    <!-- Empty state for no results -->
+    <div id="empty-results" class="hidden text-center py-12">
+      <div class="text-4xl mb-4">🔍</div>
+      <h3 class="text-lg font-medium text-ink-700 mb-2">No items found</h3>
+      <p class="text-sm text-ink-500">Try adjusting your filters or search term.</p>
+    </div>
+
+    <!-- Loading state -->
+    {!data && (
+      <div id="loading-state" class="text-center py-12">
+        <p class="text-ink-500">Loading data...</p>
+      </div>
+    )}
+  </div>
+
+  <!-- Analysis Modal -->
+  <div id="analysis-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="modal-backdrop"></div>
+    <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl md:max-h-[80vh] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 border-b border-cream-200">
+        <h2 class="text-lg font-semibold text-ink-900" id="modal-title">AI Analysis</h2>
+        <button id="modal-close" class="p-2 hover:bg-cream-100 rounded-lg transition-colors">
+          <svg class="w-5 h-5 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <!-- Modal content -->
+      <div class="flex-1 overflow-y-auto p-4" id="modal-content">
+        <div class="flex items-center justify-center py-8">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-accent"></div>
+          <span class="ml-3 text-ink-500">Analyzing...</span>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="p-4 border-t border-cream-200 flex justify-end gap-2">
+        <button id="modal-copy" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
+          Copy with Analysis
+        </button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // API Token for authentication
+  (window as any).__PANOPTICON_TOKEN__ = 'd960abf9d67f1cbcb82c038ccb9820084ce377784626b7ad993a3675328c208d';
+
+  // Types
+  interface AnalysisResult {
+    summary_zh: string;
+    why_popular: string;
+    response_angles: string[];
+    categories: string[];
+    fb_score: number;
+    blog_score: number;
+  }
+
+  interface ItemData {
+    id: string;
+    title: string;
+    url: string;
+    source: string;
+    subreddit?: string;
+    category?: string;
+    selftext: string;
+    score: number;
+    comments: number;
+    fbPotential: string;
+    blogPotential: string;
+  }
+
+  interface PanopticonPrefs {
+    saved: string[];
+    hidden: string[];
+  }
+
+  // localStorage keys
+  const ANALYSIS_CACHE_KEY = 'panopticon-analysis-cache';
+  const PREFS_KEY = 'panopticon-prefs';
+
+  // Get/set preferences
+  function getPrefs(): PanopticonPrefs {
+    try {
+      const stored = localStorage.getItem(PREFS_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch {}
+    return { saved: [], hidden: [] };
+  }
+
+  function setPrefs(prefs: PanopticonPrefs) {
+    try {
+      localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
+    } catch (e) {
+      console.error('Failed to save prefs:', e);
+    }
+  }
+
+  function getCachedAnalysis(itemId: string): AnalysisResult | null {
+    try {
+      const cache = JSON.parse(localStorage.getItem(ANALYSIS_CACHE_KEY) || '{}');
+      return cache[itemId] || null;
+    } catch {
+      return null;
+    }
+  }
+
+  function setCachedAnalysis(itemId: string, analysis: AnalysisResult) {
+    try {
+      const cache = JSON.parse(localStorage.getItem(ANALYSIS_CACHE_KEY) || '{}');
+      cache[itemId] = analysis;
+      localStorage.setItem(ANALYSIS_CACHE_KEY, JSON.stringify(cache));
+    } catch (e) {
+      console.error('Failed to cache analysis:', e);
+    }
+  }
+
+  // Current item being analyzed
+  let currentItem: ItemData | null = null;
+  let currentAnalysis: AnalysisResult | null = null;
+
+  function initPanopticon() {
+    const container = document.getElementById('items-container');
+    const sourceFilter = document.getElementById('filter-source') as HTMLSelectElement;
+    const categoryFilter = document.getElementById('filter-category') as HTMLSelectElement;
+    const highOnlyFilter = document.getElementById('filter-high') as HTMLInputElement;
+    const savedFilter = document.getElementById('filter-saved') as HTMLInputElement;
+    const showHiddenFilter = document.getElementById('filter-show-hidden') as HTMLInputElement;
+    const showHiddenLabel = document.getElementById('show-hidden-label');
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const visibleCount = document.getElementById('visible-count');
+    const savedCountEl = document.getElementById('saved-count');
+    const hiddenCountEl = document.getElementById('hidden-count');
+    const refreshBtn = document.getElementById('refresh-btn');
+    const modal = document.getElementById('analysis-modal');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalClose = document.getElementById('modal-close');
+    const modalContent = document.getElementById('modal-content');
+    const modalTitle = document.getElementById('modal-title');
+    const modalCopy = document.getElementById('modal-copy');
+    const batchActions = document.getElementById('batch-actions');
+    const selectAll = document.getElementById('select-all') as HTMLInputElement;
+    const selectedCountEl = document.getElementById('selected-count');
+    const batchSave = document.getElementById('batch-save');
+    const batchHide = document.getElementById('batch-hide');
+    const batchClear = document.getElementById('batch-clear');
+    const emptySaved = document.getElementById('empty-saved');
+    const emptyResults = document.getElementById('empty-results');
+    const backToAll = document.getElementById('back-to-all');
+
+    if (!container) return;
+
+    let prefs = getPrefs();
+
+    // Update counts
+    function updateCounts() {
+      if (savedCountEl) savedCountEl.textContent = `(${prefs.saved.length})`;
+      if (hiddenCountEl) hiddenCountEl.textContent = `(${prefs.hidden.length})`;
+      if (showHiddenLabel) {
+        showHiddenLabel.classList.toggle('hidden', prefs.hidden.length === 0);
+        showHiddenLabel.classList.toggle('flex', prefs.hidden.length > 0);
+      }
+    }
+
+    // Apply saved/hidden states to cards
+    function applyStates() {
+      const cards = container!.querySelectorAll('.item-card');
+      cards.forEach((card) => {
+        const el = card as HTMLElement;
+        const id = el.dataset.id || '';
+        el.classList.toggle('is-saved', prefs.saved.includes(id));
+        el.classList.toggle('is-hidden', prefs.hidden.includes(id));
+      });
+    }
+
+    // Filter function
+    function applyFilters() {
+      const source = sourceFilter?.value || 'all';
+      const category = categoryFilter?.value || 'all';
+      const highOnly = highOnlyFilter?.checked || false;
+      const savedOnly = savedFilter?.checked || false;
+      const showHidden = showHiddenFilter?.checked || false;
+      const searchTerm = searchInput?.value.toLowerCase() || '';
+
+      const cards = container!.querySelectorAll('.item-card');
+      let count = 0;
+
+      cards.forEach((card) => {
+        const el = card as HTMLElement;
+        const cardId = el.dataset.id || '';
+        const cardSource = el.dataset.source;
+        const cardCategory = el.dataset.category;
+        const cardScore = parseInt(el.dataset.score || '0', 10);
+        const cardTitle = (el.dataset.title || '').toLowerCase();
+        const cardSelftext = (el.dataset.selftext || '').toLowerCase();
+
+        const isSaved = prefs.saved.includes(cardId);
+        const isHidden = prefs.hidden.includes(cardId);
+
+        const sourceMatch = source === 'all' || cardSource === source;
+        const categoryMatch = category === 'all' || cardCategory === category;
+        const scoreMatch = !highOnly || cardScore >= 4;
+        const searchMatch = !searchTerm || cardTitle.includes(searchTerm) || cardSelftext.includes(searchTerm);
+        const savedMatch = !savedOnly || isSaved;
+        const hiddenMatch = showHidden || !isHidden;
+
+        if (sourceMatch && categoryMatch && scoreMatch && searchMatch && savedMatch && hiddenMatch) {
+          el.style.display = '';
+          count++;
+        } else {
+          el.style.display = 'none';
+        }
+      });
+
+      if (visibleCount) {
+        visibleCount.textContent = count.toString();
+      }
+
+      // Show empty states
+      const showSavedEmpty = savedOnly && prefs.saved.length === 0;
+      const showNoResults = !showSavedEmpty && count === 0;
+
+      emptySaved?.classList.toggle('hidden', !showSavedEmpty);
+      emptyResults?.classList.toggle('hidden', !showNoResults);
+      container!.classList.toggle('hidden', showSavedEmpty || showNoResults);
+
+      updateSelectedCount();
+    }
+
+    // Update selected count
+    function updateSelectedCount() {
+      const checkboxes = container!.querySelectorAll('.card-checkbox:checked');
+      const visibleChecked = Array.from(checkboxes).filter((cb) => {
+        const card = (cb as HTMLElement).closest('.item-card') as HTMLElement;
+        return card && card.style.display !== 'none';
+      });
+      const count = visibleChecked.length;
+
+      if (selectedCountEl) selectedCountEl.textContent = count.toString();
+      batchActions?.classList.toggle('hidden', count === 0);
+    }
+
+    // Event listeners for filters
+    sourceFilter?.addEventListener('change', applyFilters);
+    categoryFilter?.addEventListener('change', applyFilters);
+    highOnlyFilter?.addEventListener('change', applyFilters);
+    savedFilter?.addEventListener('change', applyFilters);
+    showHiddenFilter?.addEventListener('change', applyFilters);
+
+    // Debounced search
+    let searchTimeout: ReturnType<typeof setTimeout>;
+    searchInput?.addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(applyFilters, 300);
+    });
+
+    // Back to all button
+    backToAll?.addEventListener('click', () => {
+      if (savedFilter) savedFilter.checked = false;
+      applyFilters();
+    });
+
+    // Checkbox handlers
+    container.querySelectorAll('.card-checkbox').forEach((cb) => {
+      cb.addEventListener('change', updateSelectedCount);
+      cb.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // Select all
+    selectAll?.addEventListener('change', () => {
+      const visibleCards = Array.from(container!.querySelectorAll('.item-card')).filter(
+        (card) => (card as HTMLElement).style.display !== 'none'
+      );
+      visibleCards.forEach((card) => {
+        const cb = card.querySelector('.card-checkbox') as HTMLInputElement;
+        if (cb) cb.checked = selectAll.checked;
+      });
+      updateSelectedCount();
+    });
+
+    // Batch save
+    batchSave?.addEventListener('click', () => {
+      const checkedCards = container!.querySelectorAll('.item-card:has(.card-checkbox:checked)');
+      checkedCards.forEach((card) => {
+        const id = (card as HTMLElement).dataset.id || '';
+        if (!prefs.saved.includes(id)) {
+          prefs.saved.push(id);
+        }
+        // Uncheck
+        const cb = card.querySelector('.card-checkbox') as HTMLInputElement;
+        if (cb) cb.checked = false;
+      });
+      setPrefs(prefs);
+      applyStates();
+      updateCounts();
+      updateSelectedCount();
+    });
+
+    // Batch hide
+    batchHide?.addEventListener('click', () => {
+      const checkedCards = container!.querySelectorAll('.item-card:has(.card-checkbox:checked)');
+      checkedCards.forEach((card) => {
+        const id = (card as HTMLElement).dataset.id || '';
+        if (!prefs.hidden.includes(id)) {
+          prefs.hidden.push(id);
+        }
+        // Uncheck
+        const cb = card.querySelector('.card-checkbox') as HTMLInputElement;
+        if (cb) cb.checked = false;
+      });
+      setPrefs(prefs);
+      applyStates();
+      updateCounts();
+      applyFilters();
+    });
+
+    // Batch clear selection
+    batchClear?.addEventListener('click', () => {
+      container!.querySelectorAll('.card-checkbox').forEach((cb) => {
+        (cb as HTMLInputElement).checked = false;
+      });
+      if (selectAll) selectAll.checked = false;
+      updateSelectedCount();
+    });
+
+    // Save button handlers
+    container.querySelectorAll('.save-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = (btn as HTMLElement).closest('.item-card') as HTMLElement;
+        if (!card) return;
+
+        const id = card.dataset.id || '';
+        const idx = prefs.saved.indexOf(id);
+        if (idx >= 0) {
+          prefs.saved.splice(idx, 1);
+        } else {
+          prefs.saved.push(id);
+        }
+        setPrefs(prefs);
+        card.classList.toggle('is-saved', prefs.saved.includes(id));
+        updateCounts();
+      });
+    });
+
+    // Hide button handlers
+    container.querySelectorAll('.hide-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = (btn as HTMLElement).closest('.item-card') as HTMLElement;
+        if (!card) return;
+
+        const id = card.dataset.id || '';
+        if (!prefs.hidden.includes(id)) {
+          prefs.hidden.push(id);
+          setPrefs(prefs);
+          updateCounts();
+          applyFilters();
+        }
+      });
+    });
+
+    // Initialize states
+    applyStates();
+    updateCounts();
+    applyFilters();
+
+    // Refresh button
+    refreshBtn?.addEventListener('click', async () => {
+      const btn = refreshBtn as HTMLButtonElement;
+      btn.disabled = true;
+      btn.innerHTML = `
+        <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Loading...
+      `;
+
+      try {
+        const res = await fetch('/data/panopticon/latest.json?t=' + Date.now());
+        if (res.ok) {
+          window.location.reload();
+        }
+      } catch (e) {
+        console.error('Refresh failed:', e);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Refresh
+        `;
+      }
+    });
+
+    // Stop propagation for action buttons area
+    container!.querySelectorAll('.card-actions').forEach((actions) => {
+      actions.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // Copy button handlers
+    container.querySelectorAll('.copy-btn').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const button = btn as HTMLButtonElement;
+        const card = button.closest('.item-card') as HTMLElement;
+        if (!card) return;
+
+        const title = card.dataset.title || '';
+        const source = card.dataset.source || '';
+        const subreddit = card.dataset.subreddit || '';
+        const category = card.dataset.category || '';
+        const score = card.dataset.points || '0';
+        const comments = card.dataset.comments || '0';
+        const url = card.dataset.url || '';
+        const selftext = card.dataset.selftext || '';
+
+        const sourceLabel = subreddit ? ` (r/${subreddit})` : category ? ` (${category})` : '';
+
+        const copyText = `## Article Info
+Title: ${title}
+Source: ${source}${sourceLabel}
+Score: ${score} | Comments: ${comments}
+URL: ${url}
+
+## Summary
+${selftext || '(No content)'}
+
+---
+Please help me write a response/FB post/Blog article based on this article.`;
+
+        try {
+          await navigator.clipboard.writeText(copyText);
+          const originalText = button.textContent;
+          button.textContent = 'Copied!';
+          button.classList.add('bg-green-100', 'text-green-700');
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove('bg-green-100', 'text-green-700');
+          }, 1500);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+
+    // Modal functions
+    function openModal() {
+      modal?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal?.classList.add('hidden');
+      document.body.style.overflow = '';
+      currentItem = null;
+      currentAnalysis = null;
+    }
+
+    function renderAnalysis(analysis: AnalysisResult) {
+      if (!modalContent) return;
+
+      const categoryLabels: Record<string, string> = {
+        industry_thoughts: '行業思考',
+        values: '人生價值觀',
+        personal_growth: '個人成長',
+        achievements: '人生成就',
+        testimonials: '客戶證言',
+      };
+
+      modalContent.innerHTML = `
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">中文摘要</h3>
+            <p class="text-ink-900">${analysis.summary_zh}</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">為什麼受歡迎</h3>
+            <p class="text-ink-900">${analysis.why_popular}</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">回應角度建議</h3>
+            <ul class="list-disc list-inside text-ink-900 space-y-1">
+              ${analysis.response_angles.map(a => `<li>${a}</li>`).join('')}
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">內容分類</h3>
+            <div class="flex flex-wrap gap-2">
+              ${analysis.categories.map(c => `<span class="px-2 py-1 text-xs bg-cream-100 text-ink-700 rounded-full">${categoryLabels[c] || c}</span>`).join('')}
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div>
+              <h3 class="text-sm font-medium text-ink-500 mb-1">FB 適合度</h3>
+              <div class="text-2xl font-bold text-accent">${analysis.fb_score}/5</div>
+            </div>
+            <div>
+              <h3 class="text-sm font-medium text-ink-500 mb-1">Blog 適合度</h3>
+              <div class="text-2xl font-bold text-accent">${analysis.blog_score}/5</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Analyze button handlers (and title click)
+    function handleAnalyze(card: HTMLElement) {
+      const itemId = card.dataset.id || '';
+
+      currentItem = {
+        id: itemId,
+        title: card.dataset.title || '',
+        url: card.dataset.url || '',
+        source: card.dataset.source || '',
+        subreddit: card.dataset.subreddit,
+        category: card.dataset.category,
+        selftext: card.dataset.selftext || '',
+        score: parseInt(card.dataset.points || '0', 10),
+        comments: parseInt(card.dataset.comments || '0', 10),
+        fbPotential: card.dataset.fbPotential || '',
+        blogPotential: card.dataset.blogPotential || '',
+      };
+
+      if (modalTitle) {
+        modalTitle.textContent = currentItem.title.slice(0, 50) + (currentItem.title.length > 50 ? '...' : '');
+      }
+
+      // Check cache first
+      const cached = getCachedAnalysis(itemId);
+      if (cached) {
+        currentAnalysis = cached;
+        renderAnalysis(cached);
+        openModal();
+        return;
+      }
+
+      // Show loading state
+      if (modalContent) {
+        modalContent.innerHTML = `
+          <div class="flex items-center justify-center py-8">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-accent"></div>
+            <span class="ml-3 text-ink-500">Analyzing with AI...</span>
+          </div>
+        `;
+      }
+      openModal();
+
+      fetch('/api/panopticon/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + (window as any).__PANOPTICON_TOKEN__,
+        },
+        body: JSON.stringify({
+          title: currentItem.title,
+          selftext: currentItem.selftext,
+          url: currentItem.url,
+          source: currentItem.source,
+          subreddit: currentItem.subreddit,
+          category: currentItem.category,
+          score: currentItem.score,
+          comments: currentItem.comments,
+        }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error('API request failed');
+          return res.json();
+        })
+        .then((analysis: AnalysisResult) => {
+          currentAnalysis = analysis;
+          setCachedAnalysis(itemId, analysis);
+          renderAnalysis(analysis);
+        })
+        .catch((err) => {
+          console.error('Analysis failed:', err);
+          if (modalContent) {
+            modalContent.innerHTML = `
+              <div class="text-center py-8">
+                <p class="text-red-500 mb-2">Analysis failed</p>
+                <p class="text-sm text-ink-500">API may not be configured yet.</p>
+              </div>
+            `;
+          }
+        });
+    }
+
+    container.querySelectorAll('.analyze-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = (btn as HTMLElement).closest('.item-card') as HTMLElement;
+        if (card) handleAnalyze(card);
+      });
+    });
+
+    // Title click for analysis
+    container.querySelectorAll('.card-title').forEach((title) => {
+      title.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = (title as HTMLElement).closest('.item-card') as HTMLElement;
+        if (card) handleAnalyze(card);
+      });
+    });
+
+    // Modal close handlers
+    modalBackdrop?.addEventListener('click', closeModal);
+    modalClose?.addEventListener('click', closeModal);
+
+    // Copy with analysis
+    modalCopy?.addEventListener('click', async () => {
+      if (!currentItem || !currentAnalysis) return;
+
+      const text = `## 文章資訊
+標題: ${currentItem.title}
+來源: ${currentItem.source}${currentItem.subreddit ? ` (r/${currentItem.subreddit})` : currentItem.category ? ` (${currentItem.category})` : ''}
+分數: ${currentItem.score} | 評論: ${currentItem.comments}
+連結: ${currentItem.url}
+
+## 原文摘要
+${currentItem.selftext || '(無內容)'}
+
+## AI 分析
+${currentAnalysis.summary_zh}
+
+為什麼受歡迎: ${currentAnalysis.why_popular}
+
+回應角度:
+${currentAnalysis.response_angles.map(a => `- ${a}`).join('\n')}
+
+---
+請幫我針對這篇文章撰寫回應/FB 貼文/Blog 文章。`;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const btn = modalCopy as HTMLButtonElement;
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 1500);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+
+    // ESC to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  }
+
+  // Initialize
+  initPanopticon();
+  document.addEventListener('astro:after-swap', initPanopticon);
+</script>
+
+<style>
+  .item-card.is-hidden {
+    opacity: 0.5;
+  }
+</style>

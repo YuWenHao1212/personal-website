@@ -1,0 +1,48 @@
+name: Sync Panopticon Data
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up date
+        id: date
+        run: echo "TODAY=$(TZ='Asia/Taipei' date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+
+      - name: Fetch latest data from Cockpit repo
+        env:
+          COCKPIT_TOKEN: ${{ secrets.COCKPIT_REPO_TOKEN }}
+        run: |
+          mkdir -p public/data/panopticon
+
+          HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/data.json \
+            -H "Authorization: token $COCKPIT_TOKEN" \
+            -H "Accept: application/vnd.github.v3.raw" \
+            "https://api.github.com/repos/YuWenHaoPersonal/Cockpit/contents/briefs/content/${{ steps.date.outputs.TODAY }}.json")
+
+          if [ "$HTTP_CODE" = "200" ]; then
+            cp /tmp/data.json public/data/panopticon/latest.json
+            cp /tmp/data.json "public/data/panopticon/${{ steps.date.outputs.TODAY }}.json"
+            echo "Successfully fetched data for ${{ steps.date.outputs.TODAY }}"
+          else
+            echo "No data available for ${{ steps.date.outputs.TODAY }} (HTTP $HTTP_CODE)"
+            if [ ! -f public/data/panopticon/latest.json ]; then
+              echo '{"date":"${{ steps.date.outputs.TODAY }}","stats":{"total_items":0},"items":[]}' > public/data/panopticon/latest.json
+            fi
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add public/data/panopticon/
+          git diff --staged --quiet || git commit -m "chore: sync panopticon data for ${{ steps.date.outputs.TODAY }}"
+          git push

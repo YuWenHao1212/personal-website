@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow hidden tools
+Disallow: /zh-TW/tools/
+Disallow: /en/tools/
+Disallow: /data/panopticon/

@@ -1,0 +1,189 @@
+---
+interface Props {
+  id: string;
+  source: 'reddit' | 'hackernews' | 'producthunt';
+  category: string;
+  title: string;
+  url: string;
+  score: number;
+  comments: number;
+  selftext?: string;
+  subreddit?: string;
+  fbPotential: string;
+  blogPotential: string;
+  engagementScore: number;
+}
+
+const {
+  id,
+  source,
+  category,
+  title,
+  url,
+  score,
+  comments,
+  selftext,
+  subreddit,
+  fbPotential,
+  blogPotential,
+  engagementScore,
+} = Astro.props;
+
+// Source display config
+const sourceConfig: Record<string, { label: string; color: string }> = {
+  reddit: { label: 'Reddit', color: 'bg-orange-100 text-orange-700' },
+  hackernews: { label: 'HN', color: 'bg-amber-100 text-amber-700' },
+  producthunt: { label: 'PH', color: 'bg-red-100 text-red-700' },
+};
+
+const sourceInfo = sourceConfig[source] || sourceConfig.reddit;
+
+// Potential badge colors
+const potentialColors: Record<string, string> = {
+  High: 'bg-green-100 text-green-700',
+  Medium: 'bg-yellow-100 text-yellow-700',
+  Low: 'bg-gray-100 text-gray-500',
+};
+
+// Truncate selftext for display
+const truncatedText = selftext && selftext.length > 150
+  ? selftext.slice(0, 150) + '...'
+  : selftext;
+
+// Build source label
+const sourceLabel = source === 'reddit' && subreddit
+  ? `r/${subreddit}`
+  : sourceInfo.label;
+
+---
+
+<div
+  class="item-card bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md hover:border-accent/30 transition-all"
+  data-source={source}
+  data-category={category}
+  data-score={engagementScore}
+  data-id={id}
+  data-title={title}
+  data-url={url}
+  data-selftext={selftext || ''}
+  data-subreddit={subreddit || ''}
+  data-points={score}
+  data-comments={comments}
+  data-fb-potential={fbPotential}
+  data-blog-potential={blogPotential}
+>
+  <!-- Header with checkbox -->
+  <div class="flex items-start justify-between gap-3 mb-3">
+    <div class="flex items-center gap-2 flex-wrap">
+      <!-- Batch select checkbox -->
+      <input
+        type="checkbox"
+        class="card-checkbox w-4 h-4 rounded border-cream-300 text-accent focus:ring-accent/20 cursor-pointer"
+        title="Select for batch action"
+      />
+      {engagementScore >= 4 && (
+        <span class="text-amber-500" title="High engagement">⭐</span>
+      )}
+      <span class={`px-2 py-0.5 text-xs font-medium rounded-full ${sourceInfo.color}`}>
+        {sourceLabel}
+      </span>
+      <span class="text-xs text-ink-400">
+        {score} pts · {comments} comments
+      </span>
+    </div>
+    <!-- Save indicator (shown when saved) -->
+    <span class="saved-indicator hidden text-rose-500 text-sm" title="Saved">♥</span>
+  </div>
+
+  <!-- Title (clickable for analysis) -->
+  <h3 class="card-title text-base font-semibold text-ink-900 mb-2 line-clamp-2 cursor-pointer hover:text-accent transition-colors">
+    {title}
+  </h3>
+
+  <!-- Selftext preview -->
+  {truncatedText && (
+    <p class="text-sm text-ink-500 mb-3 line-clamp-3">
+      {truncatedText}
+    </p>
+  )}
+
+  <!-- Potential badges -->
+  <div class="flex items-center gap-2 mb-4 text-xs">
+    <span class={`px-2 py-0.5 rounded-full ${potentialColors[fbPotential] || potentialColors.Low}`}>
+      FB: {fbPotential}
+    </span>
+    <span class={`px-2 py-0.5 rounded-full ${potentialColors[blogPotential] || potentialColors.Low}`}>
+      Blog: {blogPotential}
+    </span>
+    <span class="text-ink-400">
+      Score: {engagementScore}/5
+    </span>
+  </div>
+
+  <!-- Actions -->
+  <div class="card-actions flex items-center gap-2 flex-wrap">
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer noopener"
+      class="px-3 py-1.5 text-xs font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
+    >
+      Open
+    </a>
+    <button
+      type="button"
+      class="copy-btn px-3 py-1.5 text-xs font-medium bg-cream-100 text-ink-700 rounded-lg hover:bg-cream-200 transition-colors"
+    >
+      Copy
+    </button>
+    <button
+      type="button"
+      class="analyze-btn px-3 py-1.5 text-xs font-medium bg-ink-100 text-ink-600 rounded-lg hover:bg-ink-200 transition-colors"
+      title="AI Analysis"
+    >
+      Analyze
+    </button>
+    <!-- Spacer -->
+    <div class="flex-1"></div>
+    <!-- Save button -->
+    <button
+      type="button"
+      class="save-btn px-2 py-1.5 text-sm rounded-lg hover:bg-rose-50 transition-colors"
+      title="Save for later"
+    >
+      <span class="save-icon">♡</span>
+    </button>
+    <!-- Hide button -->
+    <button
+      type="button"
+      class="hide-btn px-2 py-1.5 text-sm text-ink-400 rounded-lg hover:bg-red-50 hover:text-red-500 transition-colors"
+      title="Hide this item"
+    >
+      ✕
+    </button>
+  </div>
+</div>
+
+<style>
+  .item-card {
+    container-type: inline-size;
+  }
+  .item-card.is-saved .save-btn .save-icon {
+    color: #f43f5e;
+  }
+  .item-card.is-saved .save-btn .save-icon::after {
+    content: '♥';
+  }
+  .item-card.is-saved .save-btn .save-icon {
+    visibility: hidden;
+    position: relative;
+  }
+  .item-card.is-saved .save-btn .save-icon::after {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+  }
+  .item-card.is-saved .saved-indicator {
+    display: inline;
+  }
+</style>
