@@ -66,7 +66,7 @@ function fetchReddit(subreddit) {
           // Clean HTML entities
           content = content.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
           // Strip HTML tags for selftext
-          const selftext = content.replace(/<[^>]+>/g, '').trim().slice(0, 500);
+          const selftext = content.replace(/<[^>]+>/g, '').trim();
 
           if (title && url) {
             posts.push({
