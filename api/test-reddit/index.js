@@ -40,18 +40,12 @@ function fetchReddit(subreddit) {
       let body = '';
       res.on('data', chunk => body += chunk);
       res.on('end', () => {
-        if (res.statusCode === 200) {
-          // Parse RSS (simple regex extraction)
-          const titles = [];
-          const titleRegex = /<title><!\[CDATA\[(.*?)\]\]><\/title>/g;
-          let match;
-          while ((match = titleRegex.exec(body)) !== null) {
-            titles.push({ title: match[1] });
-          }
-          resolve(titles.slice(1)); // Skip first (feed title)
-        } else {
-          reject(new Error(`Reddit returned ${res.statusCode}: ${body.slice(0, 200)}`));
-        }
+        // Return raw response for debugging
+        resolve({
+          statusCode: res.statusCode,
+          bodyLength: body.length,
+          bodySample: body.slice(0, 500)
+        });
       });
     });
 
