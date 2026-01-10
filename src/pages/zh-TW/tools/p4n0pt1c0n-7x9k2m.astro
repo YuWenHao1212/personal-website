@@ -261,7 +261,7 @@ const data: PanopticonData = latestData as PanopticonData;
 
 <script define:vars={{ itemsData: data?.items || [] }}>
   // Store items data globally for pre-computed analysis lookup
-  (window as any).__PANOPTICON_ITEMS__ = itemsData.reduce((acc, item) => {
+  window.__PANOPTICON_ITEMS__ = itemsData.reduce(function(acc, item) {
     acc[item.id] = item;
     return acc;
   }, {});
