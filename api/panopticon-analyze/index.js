@@ -40,7 +40,15 @@ module.exports = async function (context, req) {
     context.res = {
       status: 401,
       headers,
-      body: JSON.stringify({ error: 'Unauthorized' }),
+      body: JSON.stringify({
+        error: 'Unauthorized',
+        debug: {
+          hasExpectedToken: !!expectedToken,
+          expectedTokenLength: expectedToken ? expectedToken.length : 0,
+          receivedTokenLength: token ? token.length : 0,
+          hasAuthHeader: !!authHeader,
+        }
+      }),
     };
     return;
   }
