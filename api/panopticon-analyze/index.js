@@ -47,6 +47,9 @@ module.exports = async function (context, req) {
           expectedTokenLength: expectedToken ? expectedToken.length : 0,
           receivedTokenLength: token ? token.length : 0,
           hasAuthHeader: !!authHeader,
+          authHeaderLength: authHeader ? authHeader.length : 0,
+          authHeaderPreview: authHeader ? authHeader.substring(0, 50) : '',
+          tokenPreview: token ? token.substring(0, 50) : '',
         }
       }),
     };
