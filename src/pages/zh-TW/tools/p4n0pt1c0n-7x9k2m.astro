@@ -251,9 +251,12 @@ const data: PanopticonData = latestData as PanopticonData;
           <span>♥</span> 收藏
         </button>
         <div class="flex-1"></div>
-        <button id="modal-copy" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
-          📋 Copy with Analysis
+        <button id="modal-copy" class="px-3 py-2 text-sm font-medium text-ink-600 hover:bg-cream-100 rounded-lg transition-colors">
+          📋 Copy
         </button>
+        <a id="modal-open" href="#" target="_blank" rel="noreferrer noopener" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
+          Open ↗
+        </a>
       </div>
     </div>
   </div>
@@ -298,6 +301,7 @@ const data: PanopticonData = latestData as PanopticonData;
   interface PanopticonPrefs {
     saved: string[];
     hidden: string[];
+    viewed: string[];
   }
 
   // localStorage keys
@@ -309,10 +313,13 @@ const data: PanopticonData = latestData as PanopticonData;
     try {
       const stored = localStorage.getItem(PREFS_KEY);
       if (stored) {
-        return JSON.parse(stored);
+        const prefs = JSON.parse(stored);
+        // Ensure viewed array exists (backwards compatibility)
+        if (!prefs.viewed) prefs.viewed = [];
+        return prefs;
       }
     } catch {}
-    return { saved: [], hidden: [] };
+    return { saved: [], hidden: [], viewed: [] };
   }
 
   function setPrefs(prefs: PanopticonPrefs) {
@@ -367,6 +374,7 @@ const data: PanopticonData = latestData as PanopticonData;
     const modalCopy = document.getElementById('modal-copy');
     const modalHide = document.getElementById('modal-hide');
     const modalSave = document.getElementById('modal-save');
+    const modalOpen = document.getElementById('modal-open') as HTMLAnchorElement;
     const batchActions = document.getElementById('batch-actions');
     const selectAll = document.getElementById('select-all') as HTMLInputElement;
     const selectedCountEl = document.getElementById('selected-count');
@@ -391,7 +399,7 @@ const data: PanopticonData = latestData as PanopticonData;
       }
     }
 
-    // Apply saved/hidden states to cards
+    // Apply saved/hidden/viewed states to cards
     function applyStates() {
       const cards = container!.querySelectorAll('.item-card');
       cards.forEach((card) => {
@@ -399,6 +407,7 @@ const data: PanopticonData = latestData as PanopticonData;
         const id = el.dataset.id || '';
         el.classList.toggle('is-saved', prefs.saved.includes(id));
         el.classList.toggle('is-hidden', prefs.hidden.includes(id));
+        el.classList.toggle('is-viewed', prefs.viewed.includes(id));
       });
     }
 
@@ -726,6 +735,18 @@ const data: PanopticonData = latestData as PanopticonData;
         fbPotential: card.dataset.fbPotential || '',
         blogPotential: card.dataset.blogPotential || '',
       };
+
+      // Mark as viewed
+      if (!prefs.viewed.includes(itemId)) {
+        prefs.viewed.push(itemId);
+        setPrefs(prefs);
+        card.classList.add('is-viewed');
+      }
+
+      // Set modal Open link
+      if (modalOpen) {
+        modalOpen.href = currentItem.url;
+      }
 
       if (modalTitle) {
         modalTitle.textContent = currentItem.title.slice(0, 50) + (currentItem.title.length > 50 ? '...' : '');
