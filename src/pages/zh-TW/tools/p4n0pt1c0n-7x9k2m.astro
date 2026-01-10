@@ -259,6 +259,14 @@ const data: PanopticonData = latestData as PanopticonData;
   </div>
 </BaseLayout>
 
+<script define:vars={{ itemsData: data?.items || [] }}>
+  // Store items data globally for pre-computed analysis lookup
+  (window as any).__PANOPTICON_ITEMS__ = itemsData.reduce((acc, item) => {
+    acc[item.id] = item;
+    return acc;
+  }, {});
+</script>
+
 <script>
   // API Token for authentication
   (window as any).__PANOPTICON_TOKEN__ = 'd960abf9d67f1cbcb82c038ccb9820084ce377784626b7ad993a3675328c208d';
@@ -787,7 +795,17 @@ Please help me write a response/FB post/Blog article based on this article.`;
         modalTitle.textContent = currentItem.title.slice(0, 50) + (currentItem.title.length > 50 ? '...' : '');
       }
 
-      // Check cache first
+      // Check for pre-computed analysis from batch processing
+      const itemsStore = (window as any).__PANOPTICON_ITEMS__ || {};
+      const storedItem = itemsStore[itemId];
+      if (storedItem?.ai_analysis) {
+        currentAnalysis = storedItem.ai_analysis;
+        renderAnalysis(storedItem.ai_analysis);
+        openModal();
+        return;
+      }
+
+      // Check localStorage cache (for on-demand analysis)
       const cached = getCachedAnalysis(itemId);
       if (cached) {
         currentAnalysis = cached;
@@ -796,7 +814,7 @@ Please help me write a response/FB post/Blog article based on this article.`;
         return;
       }
 
-      // Show loading state
+      // Fallback: call API for on-demand analysis
       if (modalContent) {
         modalContent.innerHTML = `
           <div class="flex items-center justify-center py-8">
@@ -839,7 +857,7 @@ Please help me write a response/FB post/Blog article based on this article.`;
             modalContent.innerHTML = `
               <div class="text-center py-8">
                 <p class="text-red-500 mb-2">Analysis failed</p>
-                <p class="text-sm text-ink-500">API may not be configured yet.</p>
+                <p class="text-sm text-ink-500">No pre-computed analysis available and API call failed.</p>
               </div>
             `;
           }
