@@ -28,17 +28,9 @@ interface PanopticonData {
   }>;
 }
 
-// Fetch data at build time
-let data: PanopticonData | null = null;
-
-try {
-  const response = await fetch(new URL('/data/panopticon/latest.json', Astro.url.origin));
-  if (response.ok) {
-    data = await response.json();
-  }
-} catch (e) {
-  // Will load client-side instead
-}
+// Import data directly at build time
+import latestData from '../../../../public/data/panopticon/latest.json';
+const data: PanopticonData = latestData as PanopticonData;
 ---
 
 <BaseLayout
