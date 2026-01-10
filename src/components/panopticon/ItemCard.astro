@@ -96,7 +96,7 @@ const sourceLabel = source === 'reddit' && subreddit
   </div>
 
   <!-- Title (clickable for analysis) -->
-  <h3 class="card-title text-base font-semibold text-ink-900 mb-2 line-clamp-2 cursor-pointer hover:text-accent transition-colors">
+  <h3 class="card-title text-base font-bold text-ink-900 mb-2 line-clamp-2 cursor-pointer hover:text-accent transition-colors">
     {title}
   </h3>
 
@@ -125,14 +125,21 @@ const sourceLabel = source === 'reddit' && subreddit
 <style>
   .item-card {
     container-type: inline-size;
+    border-left: 3px solid var(--color-accent, #d97706);
   }
   .item-card.is-saved .saved-indicator {
     display: inline;
   }
+  /* Viewed state: remove border, gray title, slight opacity */
   .item-card.is-viewed {
-    opacity: 0.55;
+    border-left-color: transparent;
+    opacity: 0.65;
+  }
+  .item-card.is-viewed .card-title {
+    font-weight: 400;
+    color: var(--color-ink-500, #6b7280);
   }
   .item-card.is-viewed:hover {
-    opacity: 0.85;
+    opacity: 0.9;
   }
 </style>
