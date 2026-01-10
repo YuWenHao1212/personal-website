@@ -60,89 +60,98 @@ const data: PanopticonData = latestData as PanopticonData;
       </button>
     </div>
 
-    <!-- Stats -->
-    <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      {data && (
-        <>
-          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-ink-900" id="stat-total">{data.stats.total_items}</div>
-            <div class="text-xs text-ink-500">Total</div>
-          </div>
-          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-orange-600" id="stat-reddit">{data.stats.reddit_posts}</div>
-            <div class="text-xs text-ink-500">Reddit</div>
-          </div>
-          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-amber-600" id="stat-hn">{data.stats.hn_stories}</div>
-            <div class="text-xs text-ink-500">HN</div>
-          </div>
-          <div class="bg-white border border-cream-200 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-red-600" id="stat-ph">{data.stats.ph_products}</div>
-            <div class="text-xs text-ink-500">PH</div>
-          </div>
-        </>
-      )}
+    <!-- Source Tabs (clickable stats) -->
+    <div id="source-tabs" class="flex gap-2 mb-4 overflow-x-auto pb-2">
+      <button data-source="all" class="source-tab active flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-accent text-white">
+        All <span class="ml-1 opacity-80">{data?.stats.total_items || 0}</span>
+      </button>
+      <button data-source="reddit" class="source-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-orange-50 text-orange-700 hover:bg-orange-100">
+        Reddit <span class="ml-1 opacity-70">{data?.stats.reddit_posts || 0}</span>
+      </button>
+      <button data-source="hackernews" class="source-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-amber-50 text-amber-700 hover:bg-amber-100">
+        HN <span class="ml-1 opacity-70">{data?.stats.hn_stories || 0}</span>
+      </button>
+      <button data-source="producthunt" class="source-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-red-50 text-red-700 hover:bg-red-100">
+        PH <span class="ml-1 opacity-70">{data?.stats.ph_products || 0}</span>
+      </button>
     </div>
 
-    <!-- Search & Filters -->
-    <div class="bg-white border border-cream-200 rounded-xl p-4 mb-6">
-      <!-- Search bar -->
-      <div class="mb-4">
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search titles and content..."
-          class="w-full px-4 py-2 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
-        />
-      </div>
+    <!-- Subreddit Tabs (shown when Reddit is selected) -->
+    <div id="subreddit-tabs" class="hidden flex gap-2 mb-4 overflow-x-auto pb-2">
+      <button data-subreddit="all" class="subreddit-tab active flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-orange-500 text-white">
+        All Reddit
+      </button>
+      <button data-subreddit="SideProject" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/SideProject
+      </button>
+      <button data-subreddit="indiehackers" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/indiehackers
+      </button>
+      <button data-subreddit="Entrepreneur" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/Entrepreneur
+      </button>
+      <button data-subreddit="startups" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/startups
+      </button>
+      <button data-subreddit="resumes" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/resumes
+      </button>
+      <button data-subreddit="jobs" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/jobs
+      </button>
+      <button data-subreddit="careerguidance" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/careerguidance
+      </button>
+      <button data-subreddit="jobsearchhacks" class="subreddit-tab flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all bg-cream-100 text-ink-600 hover:bg-orange-100 hover:text-orange-700">
+        r/jobsearchhacks
+      </button>
+    </div>
 
+    <!-- Compact Filters -->
+    <div class="bg-white border border-cream-200 rounded-xl p-3 mb-6">
       <div class="flex flex-wrap items-center gap-3">
-        <!-- Source filter -->
-        <div class="flex items-center gap-2">
-          <span class="text-xs text-ink-500">Source:</span>
-          <select id="filter-source" class="px-3 py-1.5 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/20">
-            <option value="all">All</option>
-            <option value="reddit">Reddit</option>
-            <option value="hackernews">HN</option>
-            <option value="producthunt">PH</option>
-          </select>
+        <!-- Search -->
+        <div class="flex-1 min-w-[200px]">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search..."
+            class="w-full px-3 py-1.5 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
+          />
         </div>
 
-        <!-- Category filter -->
+        <!-- Quick filters -->
         <div class="flex items-center gap-2">
-          <span class="text-xs text-ink-500">Category:</span>
-          <select id="filter-category" class="px-3 py-1.5 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/20">
-            <option value="all">All</option>
-            <option value="indie_hacker">Indie Hacker</option>
-            <option value="product_related">Product Related</option>
-            <option value="tech">Tech</option>
-          </select>
+          <button id="filter-high-btn" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-amber-100 hover:text-amber-700 transition-all">
+            ⭐ High
+          </button>
+          <button id="filter-saved-btn" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-rose-100 hover:text-rose-700 transition-all">
+            ♥ Saved <span id="saved-count" class="opacity-70">(0)</span>
+          </button>
+          <button id="filter-unread-btn" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-accent/10 hover:text-accent transition-all">
+            ● Unread
+          </button>
         </div>
 
-        <!-- High only toggle -->
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" id="filter-high" class="w-4 h-4 rounded border-cream-300 text-accent focus:ring-accent/20" />
-          <span class="text-sm text-ink-700">High Only</span>
-        </label>
+        <!-- Hidden toggle -->
+        <button id="filter-hidden-btn" class="hidden filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-400 hover:bg-ink-100 transition-all">
+          Show Hidden <span id="hidden-count">(0)</span>
+        </button>
 
-        <!-- Saved filter -->
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" id="filter-saved" class="w-4 h-4 rounded border-cream-300 text-rose-500 focus:ring-rose-200" />
-          <span class="text-sm text-ink-700">Saved <span id="saved-count" class="text-ink-400">(0)</span></span>
-        </label>
-
-        <!-- Show hidden toggle -->
-        <label id="show-hidden-label" class="hidden items-center gap-2 cursor-pointer">
-          <input type="checkbox" id="filter-show-hidden" class="w-4 h-4 rounded border-cream-300 text-ink-400 focus:ring-ink-200" />
-          <span class="text-sm text-ink-500">Show Hidden <span id="hidden-count">(0)</span></span>
-        </label>
-
-        <!-- Count display -->
-        <div class="ml-auto text-sm text-ink-500">
+        <!-- Count -->
+        <div class="text-sm text-ink-500">
           <span id="visible-count">0</span> items
         </div>
       </div>
     </div>
+
+    <!-- Hidden legacy elements for JS compatibility -->
+    <select id="filter-source" class="hidden"><option value="all">All</option></select>
+    <select id="filter-category" class="hidden"><option value="all">All</option></select>
+    <input type="checkbox" id="filter-high" class="hidden" />
+    <input type="checkbox" id="filter-saved" class="hidden" />
+    <input type="checkbox" id="filter-show-hidden" class="hidden" />
+    <span id="show-hidden-label" class="hidden"></span>
 
     <!-- Batch actions bar (hidden by default) -->
     <div id="batch-actions" class="hidden bg-accent/5 border border-accent/20 rounded-xl p-4 mb-6">
@@ -385,17 +394,33 @@ const data: PanopticonData = latestData as PanopticonData;
     const emptyResults = document.getElementById('empty-results');
     const backToAll = document.getElementById('back-to-all');
 
+    // New UI elements
+    const sourceTabs = document.getElementById('source-tabs');
+    const subredditTabs = document.getElementById('subreddit-tabs');
+    const filterHighBtn = document.getElementById('filter-high-btn');
+    const filterSavedBtn = document.getElementById('filter-saved-btn');
+    const filterUnreadBtn = document.getElementById('filter-unread-btn');
+    const filterHiddenBtn = document.getElementById('filter-hidden-btn');
+
     if (!container) return;
 
     let prefs = getPrefs();
+
+    // Current filter state
+    let currentSource = 'all';
+    let currentSubreddit = 'all';
+    let filterHigh = false;
+    let filterSaved = false;
+    let filterUnread = false;
+    let filterShowHidden = false;
 
     // Update counts
     function updateCounts() {
       if (savedCountEl) savedCountEl.textContent = `(${prefs.saved.length})`;
       if (hiddenCountEl) hiddenCountEl.textContent = `(${prefs.hidden.length})`;
-      if (showHiddenLabel) {
-        showHiddenLabel.classList.toggle('hidden', prefs.hidden.length === 0);
-        showHiddenLabel.classList.toggle('flex', prefs.hidden.length > 0);
+      // Show hidden button if there are hidden items
+      if (filterHiddenBtn) {
+        filterHiddenBtn.classList.toggle('hidden', prefs.hidden.length === 0);
       }
     }
 
@@ -413,11 +438,6 @@ const data: PanopticonData = latestData as PanopticonData;
 
     // Filter function
     function applyFilters() {
-      const source = sourceFilter?.value || 'all';
-      const category = categoryFilter?.value || 'all';
-      const highOnly = highOnlyFilter?.checked || false;
-      const savedOnly = savedFilter?.checked || false;
-      const showHidden = showHiddenFilter?.checked || false;
       const searchTerm = searchInput?.value.toLowerCase() || '';
 
       const cards = container!.querySelectorAll('.item-card');
@@ -427,22 +447,24 @@ const data: PanopticonData = latestData as PanopticonData;
         const el = card as HTMLElement;
         const cardId = el.dataset.id || '';
         const cardSource = el.dataset.source;
-        const cardCategory = el.dataset.category;
+        const cardSubreddit = el.dataset.subreddit || '';
         const cardScore = parseInt(el.dataset.score || '0', 10);
         const cardTitle = (el.dataset.title || '').toLowerCase();
         const cardSelftext = (el.dataset.selftext || '').toLowerCase();
 
         const isSaved = prefs.saved.includes(cardId);
         const isHidden = prefs.hidden.includes(cardId);
+        const isViewed = prefs.viewed.includes(cardId);
 
-        const sourceMatch = source === 'all' || cardSource === source;
-        const categoryMatch = category === 'all' || cardCategory === category;
-        const scoreMatch = !highOnly || cardScore >= 4;
+        const sourceMatch = currentSource === 'all' || cardSource === currentSource;
+        const subredditMatch = currentSubreddit === 'all' || cardSubreddit === currentSubreddit;
+        const scoreMatch = !filterHigh || cardScore >= 4;
         const searchMatch = !searchTerm || cardTitle.includes(searchTerm) || cardSelftext.includes(searchTerm);
-        const savedMatch = !savedOnly || isSaved;
-        const hiddenMatch = showHidden || !isHidden;
+        const savedMatch = !filterSaved || isSaved;
+        const unreadMatch = !filterUnread || !isViewed;
+        const hiddenMatch = filterShowHidden || !isHidden;
 
-        if (sourceMatch && categoryMatch && scoreMatch && searchMatch && savedMatch && hiddenMatch) {
+        if (sourceMatch && subredditMatch && scoreMatch && searchMatch && savedMatch && unreadMatch && hiddenMatch) {
           el.style.display = '';
           count++;
         } else {
@@ -455,7 +477,7 @@ const data: PanopticonData = latestData as PanopticonData;
       }
 
       // Show empty states
-      const showSavedEmpty = savedOnly && prefs.saved.length === 0;
+      const showSavedEmpty = filterSaved && prefs.saved.length === 0;
       const showNoResults = !showSavedEmpty && count === 0;
 
       emptySaved?.classList.toggle('hidden', !showSavedEmpty);
@@ -478,12 +500,122 @@ const data: PanopticonData = latestData as PanopticonData;
       batchActions?.classList.toggle('hidden', count === 0);
     }
 
-    // Event listeners for filters
-    sourceFilter?.addEventListener('change', applyFilters);
-    categoryFilter?.addEventListener('change', applyFilters);
-    highOnlyFilter?.addEventListener('change', applyFilters);
-    savedFilter?.addEventListener('change', applyFilters);
-    showHiddenFilter?.addEventListener('change', applyFilters);
+    // Helper: Update tab styles
+    function updateSourceTabStyles() {
+      sourceTabs?.querySelectorAll('.source-tab').forEach((tab) => {
+        const t = tab as HTMLElement;
+        const isActive = t.dataset.source === currentSource;
+        t.classList.toggle('active', isActive);
+
+        // Reset all to default styles first
+        t.classList.remove('bg-accent', 'text-white', 'bg-orange-500', 'bg-amber-500', 'bg-red-500');
+
+        if (isActive) {
+          if (currentSource === 'all') {
+            t.classList.add('bg-accent', 'text-white');
+          } else if (currentSource === 'reddit') {
+            t.classList.add('bg-orange-500', 'text-white');
+            t.classList.remove('bg-orange-50', 'text-orange-700');
+          } else if (currentSource === 'hackernews') {
+            t.classList.add('bg-amber-500', 'text-white');
+            t.classList.remove('bg-amber-50', 'text-amber-700');
+          } else if (currentSource === 'producthunt') {
+            t.classList.add('bg-red-500', 'text-white');
+            t.classList.remove('bg-red-50', 'text-red-700');
+          }
+        } else {
+          // Restore default colors
+          if (t.dataset.source === 'reddit') {
+            t.classList.add('bg-orange-50', 'text-orange-700');
+          } else if (t.dataset.source === 'hackernews') {
+            t.classList.add('bg-amber-50', 'text-amber-700');
+          } else if (t.dataset.source === 'producthunt') {
+            t.classList.add('bg-red-50', 'text-red-700');
+          }
+        }
+      });
+    }
+
+    function updateSubredditTabStyles() {
+      subredditTabs?.querySelectorAll('.subreddit-tab').forEach((tab) => {
+        const t = tab as HTMLElement;
+        const isActive = t.dataset.subreddit === currentSubreddit;
+        t.classList.toggle('active', isActive);
+
+        if (isActive) {
+          t.classList.add('bg-orange-500', 'text-white');
+          t.classList.remove('bg-cream-100', 'text-ink-600');
+        } else {
+          t.classList.remove('bg-orange-500', 'text-white');
+          t.classList.add('bg-cream-100', 'text-ink-600');
+        }
+      });
+    }
+
+    function updateFilterBtnStyles() {
+      filterHighBtn?.classList.toggle('bg-amber-200', filterHigh);
+      filterHighBtn?.classList.toggle('text-amber-800', filterHigh);
+      filterSavedBtn?.classList.toggle('bg-rose-200', filterSaved);
+      filterSavedBtn?.classList.toggle('text-rose-800', filterSaved);
+      filterUnreadBtn?.classList.toggle('bg-accent/20', filterUnread);
+      filterUnreadBtn?.classList.toggle('text-accent', filterUnread);
+      filterHiddenBtn?.classList.toggle('bg-ink-200', filterShowHidden);
+    }
+
+    // Source tab click handlers
+    sourceTabs?.querySelectorAll('.source-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        currentSource = (tab as HTMLElement).dataset.source || 'all';
+        currentSubreddit = 'all'; // Reset subreddit when changing source
+
+        // Show/hide subreddit tabs
+        if (currentSource === 'reddit') {
+          subredditTabs?.classList.remove('hidden');
+          subredditTabs?.classList.add('flex');
+        } else {
+          subredditTabs?.classList.add('hidden');
+          subredditTabs?.classList.remove('flex');
+        }
+
+        updateSourceTabStyles();
+        updateSubredditTabStyles();
+        applyFilters();
+      });
+    });
+
+    // Subreddit tab click handlers
+    subredditTabs?.querySelectorAll('.subreddit-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        currentSubreddit = (tab as HTMLElement).dataset.subreddit || 'all';
+        updateSubredditTabStyles();
+        applyFilters();
+      });
+    });
+
+    // Filter button handlers
+    filterHighBtn?.addEventListener('click', () => {
+      filterHigh = !filterHigh;
+      updateFilterBtnStyles();
+      applyFilters();
+    });
+
+    filterSavedBtn?.addEventListener('click', () => {
+      filterSaved = !filterSaved;
+      updateFilterBtnStyles();
+      applyFilters();
+    });
+
+    filterUnreadBtn?.addEventListener('click', () => {
+      filterUnread = !filterUnread;
+      updateFilterBtnStyles();
+      applyFilters();
+    });
+
+    filterHiddenBtn?.addEventListener('click', () => {
+      filterShowHidden = !filterShowHidden;
+      updateFilterBtnStyles();
+      applyFilters();
+    });
 
     // Debounced search
     let searchTimeout: ReturnType<typeof setTimeout>;
@@ -494,7 +626,8 @@ const data: PanopticonData = latestData as PanopticonData;
 
     // Back to all button
     backToAll?.addEventListener('click', () => {
-      if (savedFilter) savedFilter.checked = false;
+      filterSaved = false;
+      updateFilterBtnStyles();
       applyFilters();
     });
 
