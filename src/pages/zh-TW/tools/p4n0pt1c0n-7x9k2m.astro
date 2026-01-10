@@ -243,9 +243,16 @@ const data: PanopticonData = latestData as PanopticonData;
         </div>
       </div>
       <!-- Modal footer -->
-      <div class="p-4 border-t border-cream-200 flex justify-end gap-2">
+      <div class="p-4 border-t border-cream-200 flex items-center gap-2">
+        <button id="modal-hide" class="px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-1">
+          <span>🗑️</span> 隱藏
+        </button>
+        <button id="modal-save" class="px-3 py-2 text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1">
+          <span>♥</span> 收藏
+        </button>
+        <div class="flex-1"></div>
         <button id="modal-copy" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
-          Copy with Analysis
+          📋 Copy with Analysis
         </button>
       </div>
     </div>
@@ -350,6 +357,8 @@ const data: PanopticonData = latestData as PanopticonData;
     const modalContent = document.getElementById('modal-content');
     const modalTitle = document.getElementById('modal-title');
     const modalCopy = document.getElementById('modal-copy');
+    const modalHide = document.getElementById('modal-hide');
+    const modalSave = document.getElementById('modal-save');
     const batchActions = document.getElementById('batch-actions');
     const selectAll = document.getElementById('select-all') as HTMLInputElement;
     const selectedCountEl = document.getElementById('selected-count');
@@ -681,29 +690,58 @@ Please help me write a response/FB post/Blog article based on this article.`;
         testimonials: '客戶證言',
       };
 
+      // Get original English content from currentItem
+      const originalTitle = currentItem?.title || '';
+      const originalSelftext = currentItem?.selftext || '';
+
       modalContent.innerHTML = `
         <div class="space-y-4">
+          <!-- English Original -->
           <div>
-            <h3 class="text-sm font-medium text-ink-500 mb-1">中文摘要</h3>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">📄 英文原文</h3>
+            <div class="bg-cream-50 rounded-lg p-3 text-ink-800">
+              <p class="font-medium mb-2">${originalTitle}</p>
+              ${originalSelftext ? `<p class="text-sm text-ink-600 whitespace-pre-wrap">${originalSelftext.length > 500 ? originalSelftext.slice(0, 500) + '...' : originalSelftext}</p>` : '<p class="text-sm text-ink-400 italic">(無內容)</p>'}
+            </div>
+          </div>
+
+          <!-- Chinese Summary -->
+          <div>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">📝 中文摘要</h3>
             <p class="text-ink-900">${analysis.summary_zh}</p>
           </div>
+
+          <!-- Why Popular -->
           <div>
-            <h3 class="text-sm font-medium text-ink-500 mb-1">為什麼受歡迎</h3>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">🔥 為什麼受歡迎</h3>
             <p class="text-ink-900">${analysis.why_popular}</p>
           </div>
+
+          <!-- Response Angles (Collapsible) -->
           <div>
-            <h3 class="text-sm font-medium text-ink-500 mb-1">回應角度建議</h3>
-            <ul class="list-disc list-inside text-ink-900 space-y-1">
-              ${analysis.response_angles.map(a => `<li>${a}</li>`).join('')}
-            </ul>
+            <button id="toggle-angles" class="flex items-center gap-2 text-sm font-medium text-ink-500 hover:text-ink-700 transition-colors">
+              <span>💡 回應角度建議</span>
+              <svg class="w-4 h-4 transform transition-transform" id="angles-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div id="angles-content" class="hidden mt-2">
+              <ul class="list-disc list-inside text-ink-900 space-y-1 pl-2">
+                ${analysis.response_angles.map(a => `<li>${a}</li>`).join('')}
+              </ul>
+            </div>
           </div>
+
+          <!-- Categories -->
           <div>
-            <h3 class="text-sm font-medium text-ink-500 mb-1">內容分類</h3>
+            <h3 class="text-sm font-medium text-ink-500 mb-1">🏷️ 內容分類</h3>
             <div class="flex flex-wrap gap-2">
               ${analysis.categories.map(c => `<span class="px-2 py-1 text-xs bg-cream-100 text-ink-700 rounded-full">${categoryLabels[c] || c}</span>`).join('')}
             </div>
           </div>
-          <div class="flex gap-4">
+
+          <!-- Scores -->
+          <div class="flex gap-6 pt-2">
             <div>
               <h3 class="text-sm font-medium text-ink-500 mb-1">FB 適合度</h3>
               <div class="text-2xl font-bold text-accent">${analysis.fb_score}/5</div>
@@ -715,6 +753,16 @@ Please help me write a response/FB post/Blog article based on this article.`;
           </div>
         </div>
       `;
+
+      // Add toggle handler for response angles
+      const toggleBtn = document.getElementById('toggle-angles');
+      const anglesContent = document.getElementById('angles-content');
+      const anglesArrow = document.getElementById('angles-arrow');
+
+      toggleBtn?.addEventListener('click', () => {
+        anglesContent?.classList.toggle('hidden');
+        anglesArrow?.classList.toggle('rotate-180');
+      });
     }
 
     // Analyze button handlers (and title click)
@@ -854,6 +902,34 @@ ${currentAnalysis.response_angles.map(a => `- ${a}`).join('\n')}
       } catch (err) {
         console.error('Failed to copy:', err);
       }
+    });
+
+    // Modal Hide button
+    modalHide?.addEventListener('click', () => {
+      if (!currentItem) return;
+      const id = currentItem.id;
+      if (!prefs.hidden.includes(id)) {
+        prefs.hidden.push(id);
+        setPrefs(prefs);
+        updateCounts();
+        applyFilters();
+      }
+      closeModal();
+    });
+
+    // Modal Save button
+    modalSave?.addEventListener('click', () => {
+      if (!currentItem) return;
+      const id = currentItem.id;
+      if (!prefs.saved.includes(id)) {
+        prefs.saved.push(id);
+        setPrefs(prefs);
+        // Update card visual state
+        const card = container?.querySelector(`[data-id="${id}"]`);
+        card?.classList.add('is-saved');
+        updateCounts();
+      }
+      closeModal();
     });
 
     // ESC to close modal
