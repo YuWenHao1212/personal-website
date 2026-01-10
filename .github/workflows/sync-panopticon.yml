@@ -51,9 +51,22 @@ jobs:
           fi
 
       - name: Commit and push
+        id: commit
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           git add public/data/panopticon/
-          git diff --staged --quiet || git commit -m "chore: sync panopticon data for ${{ steps.date.outputs.TODAY }}"
-          git push
+          if git diff --staged --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "chore: sync panopticon data for ${{ steps.date.outputs.TODAY }}"
+            git push
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Trigger Azure deployment
+        if: steps.commit.outputs.changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.COCKPIT_REPO_TOKEN }}
+        run: |
+          gh workflow run "Azure Static Web Apps CI/CD" --repo YuWenHao1212/personal-website
