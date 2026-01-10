@@ -26,9 +26,10 @@ module.exports = async function (context, req) {
 
 function fetchReddit(subreddit) {
   return new Promise((resolve, reject) => {
+    // Try RSS feed instead of JSON
     const options = {
       hostname: 'www.reddit.com',
-      path: `/r/${subreddit}/hot.json?limit=5`,
+      path: `/r/${subreddit}/hot.rss`,
       method: 'GET',
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; Panopticon/1.0)'
@@ -40,18 +41,16 @@ function fetchReddit(subreddit) {
       res.on('data', chunk => body += chunk);
       res.on('end', () => {
         if (res.statusCode === 200) {
-          try {
-            const data = JSON.parse(body);
-            const posts = data.data.children.map(child => ({
-              title: child.data.title,
-              score: child.data.score
-            }));
-            resolve(posts);
-          } catch (e) {
-            reject(new Error('Failed to parse Reddit response'));
+          // Parse RSS (simple regex extraction)
+          const titles = [];
+          const titleRegex = /<title><!\[CDATA\[(.*?)\]\]><\/title>/g;
+          let match;
+          while ((match = titleRegex.exec(body)) !== null) {
+            titles.push({ title: match[1] });
           }
+          resolve(titles.slice(1)); // Skip first (feed title)
         } else {
-          reject(new Error(`Reddit returned ${res.statusCode}`));
+          reject(new Error(`Reddit returned ${res.statusCode}: ${body.slice(0, 200)}`));
         }
       });
     });
