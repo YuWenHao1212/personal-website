@@ -9,8 +9,7 @@ module.exports = async function (context, req) {
       headers: { 'Content-Type': 'application/json' },
       body: {
         success: true,
-        count: result.length,
-        sample: result.slice(0, 2)
+        result: result
       }
     };
   } catch (error) {
