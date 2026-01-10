@@ -34,7 +34,10 @@ module.exports = async function (context, req) {
 
     context.res = {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
       body: {
         success: true,
         message: 'Content discovery workflow triggered',
@@ -44,6 +47,7 @@ module.exports = async function (context, req) {
   } catch (error) {
     context.res = {
       status: 500,
+      headers: { 'Access-Control-Allow-Origin': '*' },
       body: { error: error.message }
     };
   }
