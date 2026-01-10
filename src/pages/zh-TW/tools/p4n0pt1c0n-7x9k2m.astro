@@ -201,7 +201,7 @@ const data: PanopticonData = latestData as PanopticonData;
     <div id="empty-saved" class="hidden text-center py-12">
       <div class="text-4xl mb-4">♡</div>
       <h3 class="text-lg font-medium text-ink-700 mb-2">No saved items yet</h3>
-      <p class="text-sm text-ink-500 mb-4">Click the ♡ button on any card to save it for later reference.</p>
+      <p class="text-sm text-ink-500 mb-4">點擊標題查看分析，然後按 ♥ 收藏 以保存項目。</p>
       <button id="back-to-all" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
         ← Back to All Items
       </button>
@@ -552,43 +552,6 @@ const data: PanopticonData = latestData as PanopticonData;
       updateSelectedCount();
     });
 
-    // Save button handlers
-    container.querySelectorAll('.save-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const card = (btn as HTMLElement).closest('.item-card') as HTMLElement;
-        if (!card) return;
-
-        const id = card.dataset.id || '';
-        const idx = prefs.saved.indexOf(id);
-        if (idx >= 0) {
-          prefs.saved.splice(idx, 1);
-        } else {
-          prefs.saved.push(id);
-        }
-        setPrefs(prefs);
-        card.classList.toggle('is-saved', prefs.saved.includes(id));
-        updateCounts();
-      });
-    });
-
-    // Hide button handlers
-    container.querySelectorAll('.hide-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const card = (btn as HTMLElement).closest('.item-card') as HTMLElement;
-        if (!card) return;
-
-        const id = card.dataset.id || '';
-        if (!prefs.hidden.includes(id)) {
-          prefs.hidden.push(id);
-          setPrefs(prefs);
-          updateCounts();
-          applyFilters();
-        }
-      });
-    });
-
     // Initialize states
     applyStates();
     updateCounts();
@@ -621,57 +584,6 @@ const data: PanopticonData = latestData as PanopticonData;
           Refresh
         `;
       }
-    });
-
-    // Stop propagation for action buttons area
-    container!.querySelectorAll('.card-actions').forEach((actions) => {
-      actions.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Copy button handlers
-    container.querySelectorAll('.copy-btn').forEach((btn) => {
-      btn.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        const button = btn as HTMLButtonElement;
-        const card = button.closest('.item-card') as HTMLElement;
-        if (!card) return;
-
-        const title = card.dataset.title || '';
-        const source = card.dataset.source || '';
-        const subreddit = card.dataset.subreddit || '';
-        const category = card.dataset.category || '';
-        const score = card.dataset.points || '0';
-        const comments = card.dataset.comments || '0';
-        const url = card.dataset.url || '';
-        const selftext = card.dataset.selftext || '';
-
-        const sourceLabel = subreddit ? ` (r/${subreddit})` : category ? ` (${category})` : '';
-
-        const copyText = `## Article Info
-Title: ${title}
-Source: ${source}${sourceLabel}
-Score: ${score} | Comments: ${comments}
-URL: ${url}
-
-## Summary
-${selftext || '(No content)'}
-
----
-Please help me write a response/FB post/Blog article based on this article.`;
-
-        try {
-          await navigator.clipboard.writeText(copyText);
-          const originalText = button.textContent;
-          button.textContent = 'Copied!';
-          button.classList.add('bg-green-100', 'text-green-700');
-          setTimeout(() => {
-            button.textContent = originalText;
-            button.classList.remove('bg-green-100', 'text-green-700');
-          }, 1500);
-        } catch (err) {
-          console.error('Failed to copy:', err);
-        }
-      });
     });
 
     // Modal functions
@@ -863,14 +775,6 @@ Please help me write a response/FB post/Blog article based on this article.`;
           }
         });
     }
-
-    container.querySelectorAll('.analyze-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const card = (btn as HTMLElement).closest('.item-card') as HTMLElement;
-        if (card) handleAnalyze(card);
-      });
-    });
 
     // Title click for analysis
     container.querySelectorAll('.card-title').forEach((title) => {

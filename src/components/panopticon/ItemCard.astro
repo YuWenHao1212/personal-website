@@ -121,67 +121,22 @@ const sourceLabel = source === 'reddit' && subreddit
   </div>
 
   <!-- Actions -->
-  <div class="card-actions flex items-center gap-2 flex-wrap">
+  <div class="card-actions flex items-center gap-2">
     <a
       href={url}
       target="_blank"
       rel="noreferrer noopener"
       class="px-3 py-1.5 text-xs font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
     >
-      Open
+      Open ↗
     </a>
-    <button
-      type="button"
-      class="copy-btn px-3 py-1.5 text-xs font-medium bg-cream-100 text-ink-700 rounded-lg hover:bg-cream-200 transition-colors"
-    >
-      Copy
-    </button>
-    <button
-      type="button"
-      class="analyze-btn px-3 py-1.5 text-xs font-medium bg-ink-100 text-ink-600 rounded-lg hover:bg-ink-200 transition-colors"
-      title="AI Analysis"
-    >
-      Analyze
-    </button>
-    <!-- Spacer -->
-    <div class="flex-1"></div>
-    <!-- Save button -->
-    <button
-      type="button"
-      class="save-btn px-2 py-1.5 text-sm rounded-lg hover:bg-rose-50 transition-colors"
-      title="Save for later"
-    >
-      <span class="save-icon">♡</span>
-    </button>
-    <!-- Hide button -->
-    <button
-      type="button"
-      class="hide-btn px-2 py-1.5 text-sm text-ink-400 rounded-lg hover:bg-red-50 hover:text-red-500 transition-colors"
-      title="Hide this item"
-    >
-      ✕
-    </button>
+    <span class="text-xs text-ink-400">點擊標題查看分析</span>
   </div>
 </div>
 
 <style>
   .item-card {
     container-type: inline-size;
-  }
-  .item-card.is-saved .save-btn .save-icon {
-    color: #f43f5e;
-  }
-  .item-card.is-saved .save-btn .save-icon::after {
-    content: '♥';
-  }
-  .item-card.is-saved .save-btn .save-icon {
-    visibility: hidden;
-    position: relative;
-  }
-  .item-card.is-saved .save-btn .save-icon::after {
-    visibility: visible;
-    position: absolute;
-    left: 0;
   }
   .item-card.is-saved .saved-indicator {
     display: inline;
