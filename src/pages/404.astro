@@ -1,26 +1,48 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Try to detect language from referrer or default to zh-TW
-const lang = 'zh-TW';
+// Detect language from URL path or default to zh-TW
+const pathname = Astro.url.pathname;
+const lang = pathname.startsWith('/en/') || pathname.startsWith('/en') ? 'en' : 'zh-TW';
+
+const content = {
+  'zh-TW': {
+    title: '404 - 頁面不存在',
+    description: '找不到您要的頁面',
+    heading: '頁面不存在',
+    message: '抱歉，您要找的頁面不存在或已被移除。',
+    homeButton: '回到首頁',
+    blogButton: '瀏覽文章',
+  },
+  'en': {
+    title: '404 - Page Not Found',
+    description: 'The page you are looking for does not exist',
+    heading: 'Page Not Found',
+    message: 'Sorry, the page you are looking for does not exist or has been removed.',
+    homeButton: 'Go Home',
+    blogButton: 'Browse Blog',
+  },
+};
+
+const t = content[lang];
 ---
 
-<BaseLayout title="404 - 頁面不存在" description="找不到您要的頁面">
+<BaseLayout title={t.title} description={t.description} noindex={true}>
   <div class="py-20 md:py-28 lg:py-32">
     <div class="container-narrow text-center">
       <h1 class="text-6xl md:text-8xl font-bold text-ink-200 mb-4">404</h1>
       <h2 class="text-xl md:text-2xl font-semibold text-ink-900 mb-4">
-        頁面不存在
+        {t.heading}
       </h2>
       <p class="text-ink-600 mb-8">
-        抱歉，您要找的頁面不存在或已被移除。
+        {t.message}
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/zh-TW/" class="btn-primary">
-          回到首頁
+        <a href={`/${lang}/`} class="btn-primary">
+          {t.homeButton}
         </a>
-        <a href="/zh-TW/blog" class="btn-secondary">
-          瀏覽文章
+        <a href={`/${lang}/blog`} class="btn-secondary">
+          {t.blogButton}
         </a>
       </div>
     </div>

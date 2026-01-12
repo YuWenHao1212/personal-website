@@ -34,7 +34,11 @@ const thankYouUrl = `/${lang}/thank-you`;
           data-umami-event="newsletter_signup"
           data-thank-you-url={thankYouUrl}
         >
+          <label for="newsletter-email-default" class="sr-only">
+            {t('newsletter.placeholder')}
+          </label>
           <input
+            id="newsletter-email-default"
             type="email"
             name="email_address"
             placeholder={t('newsletter.placeholder')}
@@ -57,12 +61,16 @@ const thankYouUrl = `/${lang}/thank-you`;
 
     {variant === 'compact' && (
       <form
-        id="newsletter-form"
+        id="newsletter-form-compact"
         class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
         data-umami-event="newsletter_signup"
         data-thank-you-url={thankYouUrl}
       >
+        <label for="newsletter-email-compact" class="sr-only">
+          {t('newsletter.placeholder')}
+        </label>
         <input
+          id="newsletter-email-compact"
           type="email"
           name="email_address"
           placeholder={t('newsletter.placeholder')}
@@ -79,26 +87,28 @@ const thankYouUrl = `/${lang}/thank-you`;
     )}
 
     <script>
-      const form = document.getElementById('newsletter-form') as HTMLFormElement;
+      const forms = document.querySelectorAll('[id^="newsletter-form"]') as NodeListOf<HTMLFormElement>;
 
-      form?.addEventListener('submit', async (e) => {
-        e.preventDefault();
+      forms.forEach(form => {
+        form?.addEventListener('submit', async (e) => {
+          e.preventDefault();
 
-        const formData = new FormData(form);
-        const thankYouUrl = form.dataset.thankYouUrl || '/zh-TW/thank-you';
+          const formData = new FormData(form);
+          const thankYouUrl = form.dataset.thankYouUrl || '/zh-TW/thank-you';
 
-        try {
-          await fetch('https://app.kit.com/forms/8951335/subscriptions', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-          });
+          try {
+            await fetch('https://app.kit.com/forms/8951335/subscriptions', {
+              method: 'POST',
+              body: formData,
+              mode: 'no-cors'
+            });
 
-          window.location.href = thankYouUrl;
-        } catch (error) {
-          console.error('Newsletter subscription failed:', error);
-          window.location.href = thankYouUrl;
-        }
+            window.location.href = thankYouUrl;
+          } catch (error) {
+            console.error('Newsletter subscription failed:', error);
+            window.location.href = thankYouUrl;
+          }
+        });
       });
     </script>
   </div>

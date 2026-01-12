@@ -200,3 +200,21 @@
   .stagger-children.visible > *:nth-child(5) { transition-delay: 400ms; @apply opacity-100 translate-y-0; }
   .stagger-children.visible > *:nth-child(6) { transition-delay: 500ms; @apply opacity-100 translate-y-0; }
 }
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .fade-in-section,
+  .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
