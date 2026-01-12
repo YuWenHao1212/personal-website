@@ -1,0 +1,96 @@
+---
+import XKolGroup from './XKolGroup.astro';
+
+interface XItem {
+  id: string;
+  source: 'x';
+  author: string;
+  author_name: string;
+  category: string;
+  url: string;
+  timestamp: string;
+  original_text: string;
+  metrics: {
+    likes: number;
+    retweets: number;
+    replies: number;
+    views: number;
+  };
+  engagement_score: number;
+  analysis: {
+    translation: string;
+    context_explanation: string;
+    motivation: string;
+    value_types: string[];
+    content_category: string | null;
+    angles: {
+      conventional: string[];
+      contrarian: string[];
+    };
+    title_ideas: string[];
+    investment_signal: string | null;
+    score: number;
+    summary: string;
+  } | null;
+}
+
+interface Props {
+  category: string;
+  items: XItem[];
+}
+
+const { category, items } = Astro.props;
+
+// Category display config
+const categoryConfig: Record<string, { label: string; color: string; bgColor: string }> = {
+  ai_tech: { label: 'AI & Tech', color: 'text-purple-700', bgColor: 'bg-purple-50 border-purple-200' },
+  indie_hacker: { label: 'Indie Hacker', color: 'text-green-700', bgColor: 'bg-green-50 border-green-200' },
+  business: { label: 'Business & Politics', color: 'text-blue-700', bgColor: 'bg-blue-50 border-blue-200' },
+  startup: { label: 'Startup & Investment', color: 'text-amber-700', bgColor: 'bg-amber-50 border-amber-200' },
+  career: { label: 'Career', color: 'text-pink-700', bgColor: 'bg-pink-50 border-pink-200' },
+  philosophy: { label: 'Philosophy & Mindset', color: 'text-indigo-700', bgColor: 'bg-indigo-50 border-indigo-200' },
+  claude_code: { label: 'Claude Code', color: 'text-orange-700', bgColor: 'bg-orange-50 border-orange-200' },
+};
+
+const config = categoryConfig[category] || { label: category, color: 'text-gray-700', bgColor: 'bg-gray-50 border-gray-200' };
+
+// Group items by author
+const itemsByAuthor = items.reduce((acc, item) => {
+  if (!acc[item.author]) {
+    acc[item.author] = {
+      authorName: item.author_name,
+      items: [],
+    };
+  }
+  acc[item.author].items.push(item);
+  return acc;
+}, {} as Record<string, { authorName: string; items: XItem[] }>);
+
+// Sort authors by total engagement
+const sortedAuthors = Object.entries(itemsByAuthor).sort((a, b) => {
+  const aScore = a[1].items.reduce((sum, item) => sum + (item.analysis?.score || item.engagement_score), 0);
+  const bScore = b[1].items.reduce((sum, item) => sum + (item.analysis?.score || item.engagement_score), 0);
+  return bScore - aScore;
+});
+---
+
+<section class={`x-category-section mb-8 rounded-xl border p-4 ${config.bgColor}`} data-x-category={category}>
+  <!-- Category Header -->
+  <h2 class={`text-lg font-bold mb-4 flex items-center gap-2 ${config.color}`}>
+    <span>{config.label}</span>
+    <span class="text-sm font-normal opacity-70">
+      ({items.length} tweets from {Object.keys(itemsByAuthor).length} KOLs)
+    </span>
+  </h2>
+
+  <!-- KOL Groups -->
+  <div class="space-y-6">
+    {sortedAuthors.map(([author, data]) => (
+      <XKolGroup
+        author={author}
+        authorName={data.authorName}
+        items={data.items}
+      />
+    ))}
+  </div>
+</section>

@@ -1,0 +1,143 @@
+---
+interface Props {
+  id: string;
+  author: string;
+  authorName: string;
+  url: string;
+  originalText: string;
+  timestamp: string;
+  metrics: {
+    likes: number;
+    retweets: number;
+    replies: number;
+    views: number;
+  };
+  engagementScore: number;
+  analysis: {
+    translation: string;
+    context_explanation: string;
+    motivation: string;
+    value_types: string[];
+    content_category: string | null;
+    angles: {
+      conventional: string[];
+      contrarian: string[];
+    };
+    title_ideas: string[];
+    investment_signal: string | null;
+    score: number;
+    summary: string;
+  } | null;
+}
+
+const {
+  id,
+  author,
+  authorName,
+  url,
+  originalText,
+  timestamp,
+  metrics,
+  engagementScore,
+  analysis,
+} = Astro.props;
+
+// Format large numbers
+function formatNumber(num: number): string {
+  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return num.toString();
+}
+
+// Truncate text for display
+const truncatedText = originalText.length > 200
+  ? originalText.slice(0, 200) + '...'
+  : originalText;
+
+// Score colors
+const scoreColor = analysis?.score >= 4 || engagementScore >= 4
+  ? 'bg-red-100 text-red-700'
+  : analysis?.score >= 2 || engagementScore >= 2
+  ? 'bg-amber-100 text-amber-700'
+  : 'bg-gray-100 text-gray-500';
+---
+
+<div
+  class="x-item-card bg-white border border-cream-200 rounded-xl p-4 hover:shadow-md hover:border-sky-300 transition-all"
+  data-id={id}
+  data-author={author}
+>
+  <!-- Original Text -->
+  <p class="text-ink-700 text-sm mb-3 leading-relaxed">
+    {truncatedText}
+  </p>
+
+  <!-- Translation -->
+  {analysis?.translation && (
+    <div class="bg-sky-50/50 rounded-lg p-3 mb-3 border-l-2 border-sky-300">
+      <p class="text-ink-600 text-sm">
+        {analysis.translation}
+      </p>
+    </div>
+  )}
+
+  <!-- Transformation Angles (Collapsed by default) -->
+  {analysis?.angles && (analysis.angles.conventional.length > 0 || analysis.angles.contrarian.length > 0) && (
+    <details class="mb-3 group">
+      <summary class="text-xs font-medium text-ink-500 cursor-pointer hover:text-ink-700 flex items-center gap-1">
+        <span class="group-open:rotate-90 transition-transform">▶</span>
+        轉化角度
+      </summary>
+      <div class="mt-2 space-y-1.5 pl-3">
+        {analysis.angles.conventional.map((angle) => (
+          <p class="text-xs text-green-700 bg-green-50 px-2 py-1 rounded">
+            ✅ {angle}
+          </p>
+        ))}
+        {analysis.angles.contrarian.map((angle) => (
+          <p class="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded">
+            💡 {angle}
+          </p>
+        ))}
+      </div>
+    </details>
+  )}
+
+  <!-- Investment Signal -->
+  {analysis?.investment_signal && (
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-2 mb-3">
+      <p class="text-blue-700 text-xs">
+        <span class="font-medium">📈 投資訊號:</span> {analysis.investment_signal}
+      </p>
+    </div>
+  )}
+
+  <!-- Metrics & Actions -->
+  <div class="flex items-center justify-between pt-2 border-t border-cream-100">
+    <div class="flex items-center gap-2 text-xs text-ink-400">
+      <span title="Likes">❤️ {formatNumber(metrics.likes)}</span>
+      <span title="Retweets">🔁 {formatNumber(metrics.retweets)}</span>
+      <span title="Replies">💬 {formatNumber(metrics.replies)}</span>
+      <span title="Views">👀 {formatNumber(metrics.views)}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class={`px-2 py-0.5 rounded text-xs font-medium ${scoreColor}`}>
+        {analysis?.score || engagementScore}
+      </span>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-2.5 py-1 bg-sky-500 text-white text-xs rounded hover:bg-sky-600 transition-colors"
+      >
+        View →
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .x-item-card {
+    container-type: inline-size;
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ItemCard from '../../../components/panopticon/ItemCard.astro';
+import XCategorySection from '../../../components/panopticon/XCategorySection.astro';
 
 // Type definitions
 interface PanopticonData {
@@ -28,9 +29,70 @@ interface PanopticonData {
   }>;
 }
 
+// X (Twitter) data types
+interface XItem {
+  id: string;
+  source: 'x';
+  author: string;
+  author_name: string;
+  category: string;
+  url: string;
+  timestamp: string;
+  original_text: string;
+  metrics: {
+    likes: number;
+    retweets: number;
+    replies: number;
+    views: number;
+  };
+  engagement_score: number;
+  analysis: {
+    translation: string;
+    context_explanation: string;
+    motivation: string;
+    value_types: string[];
+    content_category: string | null;
+    angles: {
+      conventional: string[];
+      contrarian: string[];
+    };
+    title_ideas: string[];
+    investment_signal: string | null;
+    score: number;
+    summary: string;
+  } | null;
+}
+
+interface XData {
+  date: string;
+  hour: string;
+  generated_at: string;
+  stats: {
+    total_fetched: number;
+    total_items: number;
+    analyzed_items: number;
+  };
+  items: XItem[];
+}
+
 // Import data directly at build time
 import latestData from '../../../../public/data/panopticon/latest.json';
+import xLatestData from '../../../../public/data/panopticon/x/latest.json';
 const data: PanopticonData = latestData as PanopticonData;
+const xData: XData = xLatestData as XData;
+
+// Group X items by category
+const xItemsByCategory = xData.items.reduce((acc, item) => {
+  if (!acc[item.category]) {
+    acc[item.category] = [];
+  }
+  acc[item.category].push(item);
+  return acc;
+}, {} as Record<string, XItem[]>);
+
+// Category order
+const categoryOrder = ['ai_tech', 'indie_hacker', 'business', 'startup', 'career', 'philosophy', 'claude_code'];
+const sortedCategories = categoryOrder.filter(cat => xItemsByCategory[cat]?.length > 0);
 ---
 
 <BaseLayout
@@ -64,6 +126,9 @@ const data: PanopticonData = latestData as PanopticonData;
     <div id="source-tabs" class="flex gap-2 mb-4 overflow-x-auto pb-2">
       <button data-source="all" class="source-tab active flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-accent text-white">
         All <span class="ml-1 opacity-80">{data?.stats.total_items || 0}</span>
+      </button>
+      <button data-source="x" class="source-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-50 text-sky-700 hover:bg-sky-100">
+        𝕏 <span class="ml-1 opacity-70">{xData?.stats.total_items || 0}</span>
       </button>
       <button data-source="reddit" class="source-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-orange-50 text-orange-700 hover:bg-orange-100">
         Reddit <span class="ml-1 opacity-70">{data?.stats.reddit_posts || 0}</span>
@@ -108,7 +173,7 @@ const data: PanopticonData = latestData as PanopticonData;
     </div>
 
     <!-- Compact Filters -->
-    <div class="bg-white border border-cream-200 rounded-xl p-3 mb-6">
+    <div id="filters-container" class="bg-white border border-cream-200 rounded-xl p-3 mb-6">
       <div class="flex flex-wrap items-center gap-3">
         <!-- Search -->
         <div class="flex-1 min-w-[200px]">
@@ -186,7 +251,27 @@ const data: PanopticonData = latestData as PanopticonData;
       </div>
     </div>
 
-    <!-- Items grid -->
+    <!-- X Content (hidden by default, shown when X tab is active) -->
+    <div id="x-container" class="hidden">
+      {xData && xData.items.length > 0 ? (
+        <div class="space-y-6">
+          {sortedCategories.map((category) => (
+            <XCategorySection
+              category={category}
+              items={xItemsByCategory[category]}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <div class="text-4xl mb-4">𝕏</div>
+          <h3 class="text-lg font-medium text-ink-700 mb-2">No X data available</h3>
+          <p class="text-sm text-ink-500">X data will be synced automatically.</p>
+        </div>
+      )}
+    </div>
+
+    <!-- Items grid (Reddit/HN/PH) -->
     <div id="items-container" class="grid gap-4 md:grid-cols-2">
       {data && data.items.map((item: any) => (
         <ItemCard
@@ -508,11 +593,14 @@ const data: PanopticonData = latestData as PanopticonData;
         t.classList.toggle('active', isActive);
 
         // Reset all to default styles first
-        t.classList.remove('bg-accent', 'text-white', 'bg-orange-500', 'bg-amber-500', 'bg-red-500');
+        t.classList.remove('bg-accent', 'text-white', 'bg-sky-500', 'bg-orange-500', 'bg-amber-500', 'bg-red-500');
 
         if (isActive) {
           if (currentSource === 'all') {
             t.classList.add('bg-accent', 'text-white');
+          } else if (currentSource === 'x') {
+            t.classList.add('bg-sky-500', 'text-white');
+            t.classList.remove('bg-sky-50', 'text-sky-700');
           } else if (currentSource === 'reddit') {
             t.classList.add('bg-orange-500', 'text-white');
             t.classList.remove('bg-orange-50', 'text-orange-700');
@@ -525,7 +613,9 @@ const data: PanopticonData = latestData as PanopticonData;
           }
         } else {
           // Restore default colors
-          if (t.dataset.source === 'reddit') {
+          if (t.dataset.source === 'x') {
+            t.classList.add('bg-sky-50', 'text-sky-700');
+          } else if (t.dataset.source === 'reddit') {
             t.classList.add('bg-orange-50', 'text-orange-700');
           } else if (t.dataset.source === 'hackernews') {
             t.classList.add('bg-amber-50', 'text-amber-700');
@@ -562,24 +652,43 @@ const data: PanopticonData = latestData as PanopticonData;
       filterHiddenBtn?.classList.toggle('bg-ink-200', filterShowHidden);
     }
 
+    // X container reference
+    const xContainer = document.getElementById('x-container');
+
     // Source tab click handlers
     sourceTabs?.querySelectorAll('.source-tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         currentSource = (tab as HTMLElement).dataset.source || 'all';
         currentSubreddit = 'all'; // Reset subreddit when changing source
 
-        // Show/hide subreddit tabs
-        if (currentSource === 'reddit') {
-          subredditTabs?.classList.remove('hidden');
-          subredditTabs?.classList.add('flex');
-        } else {
+        // Show/hide X container vs items container
+        if (currentSource === 'x') {
+          xContainer?.classList.remove('hidden');
+          container?.classList.add('hidden');
           subredditTabs?.classList.add('hidden');
           subredditTabs?.classList.remove('flex');
+          // Hide filters for X view
+          document.getElementById('filters-container')?.classList.add('hidden');
+        } else {
+          xContainer?.classList.add('hidden');
+          container?.classList.remove('hidden');
+          // Show filters for non-X view
+          document.getElementById('filters-container')?.classList.remove('hidden');
+          // Show/hide subreddit tabs
+          if (currentSource === 'reddit') {
+            subredditTabs?.classList.remove('hidden');
+            subredditTabs?.classList.add('flex');
+          } else {
+            subredditTabs?.classList.add('hidden');
+            subredditTabs?.classList.remove('flex');
+          }
         }
 
         updateSourceTabStyles();
         updateSubredditTabStyles();
-        applyFilters();
+        if (currentSource !== 'x') {
+          applyFilters();
+        }
       });
     });
 

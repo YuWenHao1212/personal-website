@@ -1,0 +1,84 @@
+---
+import XItemCard from './XItemCard.astro';
+
+interface XItem {
+  id: string;
+  source: 'x';
+  author: string;
+  author_name: string;
+  category: string;
+  url: string;
+  timestamp: string;
+  original_text: string;
+  metrics: {
+    likes: number;
+    retweets: number;
+    replies: number;
+    views: number;
+  };
+  engagement_score: number;
+  analysis: {
+    translation: string;
+    context_explanation: string;
+    motivation: string;
+    value_types: string[];
+    content_category: string | null;
+    angles: {
+      conventional: string[];
+      contrarian: string[];
+    };
+    title_ideas: string[];
+    investment_signal: string | null;
+    score: number;
+    summary: string;
+  } | null;
+}
+
+interface Props {
+  author: string;
+  authorName: string;
+  items: XItem[];
+}
+
+const { author, authorName, items } = Astro.props;
+---
+
+<div class="x-kol-group mb-4">
+  <!-- KOL Header -->
+  <div class="flex items-center gap-2 mb-3 pl-1">
+    <a
+      href={`https://x.com/${author}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 group"
+    >
+      <span class="text-sky-500 font-bold text-lg">𝕏</span>
+      <span class="font-semibold text-ink-900 group-hover:text-sky-600 transition-colors">
+        @{author}
+      </span>
+      <span class="text-ink-400 text-sm">
+        {authorName}
+      </span>
+    </a>
+    <span class="text-ink-300 text-xs">
+      ({items.length} tweets)
+    </span>
+  </div>
+
+  <!-- Tweet Cards -->
+  <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+    {items.map((item) => (
+      <XItemCard
+        id={item.id}
+        author={item.author}
+        authorName={item.author_name}
+        url={item.url}
+        originalText={item.original_text}
+        timestamp={item.timestamp}
+        metrics={item.metrics}
+        engagementScore={item.engagement_score}
+        analysis={item.analysis}
+      />
+    ))}
+  </div>
+</div>
