@@ -5,3 +5,6 @@ Allow: /
 Disallow: /zh-TW/tools/
 Disallow: /en/tools/
 Disallow: /data/panopticon/
+
+# Sitemap
+Sitemap: https://yu-wenhao.com/sitemap-index.xml

@@ -9,6 +9,7 @@
       "redirect": "/zh-TW/",
       "statusCode": 301
     },
+
     {
       "route": "/blog/bubble-three-core-elements-todo-app-tutorial",
       "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial",
@@ -20,6 +21,27 @@
       "statusCode": 301
     },
     {
+      "route": "/blog/6f-product-priority-",
+      "redirect": "/zh-TW/blog/6f-product-priority-method",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/article/*",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/category",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/project-management",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+
+    {
       "route": "/blog",
       "redirect": "/zh-TW/blog",
       "statusCode": 301
@@ -29,6 +51,120 @@
       "redirect": "/zh-TW/blog/{*}",
       "statusCode": 301
     },
+
+    {
+      "route": "/otter",
+      "redirect": "/zh-TW/blog/otter",
+      "statusCode": 301
+    },
+    {
+      "route": "/otter/",
+      "redirect": "/zh-TW/blog/otter",
+      "statusCode": 301
+    },
+    {
+      "route": "/ynab",
+      "redirect": "/zh-TW/blog/ynab",
+      "statusCode": 301
+    },
+    {
+      "route": "/ynab/",
+      "redirect": "/zh-TW/blog/ynab",
+      "statusCode": 301
+    },
+    {
+      "route": "/readwise",
+      "redirect": "/zh-TW/blog/readwise",
+      "statusCode": 301
+    },
+    {
+      "route": "/readwise/",
+      "redirect": "/zh-TW/blog/readwise",
+      "statusCode": 301
+    },
+    {
+      "route": "/非暴力溝通",
+      "redirect": "/zh-TW/blog/非暴力溝通",
+      "statusCode": 301
+    },
+    {
+      "route": "/非暴力溝通/",
+      "redirect": "/zh-TW/blog/非暴力溝通",
+      "statusCode": 301
+    },
+    {
+      "route": "/talk-logically",
+      "redirect": "/zh-TW/blog/talk-logically",
+      "statusCode": 301
+    },
+    {
+      "route": "/talk-logically/",
+      "redirect": "/zh-TW/blog/talk-logically",
+      "statusCode": 301
+    },
+    {
+      "route": "/project-management",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/project-management/",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+
+    {
+      "route": "/tag/*",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/author/*",
+      "redirect": "/zh-TW/",
+      "statusCode": 301
+    },
+    {
+      "route": "/feed",
+      "redirect": "/zh-TW/rss.xml",
+      "statusCode": 301
+    },
+    {
+      "route": "/feed/",
+      "redirect": "/zh-TW/rss.xml",
+      "statusCode": 301
+    },
+    {
+      "route": "/feed/atom",
+      "redirect": "/zh-TW/rss.xml",
+      "statusCode": 301
+    },
+    {
+      "route": "/feed/atom/",
+      "redirect": "/zh-TW/rss.xml",
+      "statusCode": 301
+    },
+
+    {
+      "route": "/2022/*",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/2023/*",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/2024/*",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/2025/*",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+
     {
       "route": "/about",
       "redirect": "/zh-TW/about",
