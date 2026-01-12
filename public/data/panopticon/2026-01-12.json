@@ -1,6 +1,6 @@
 {
   "date": "2026-01-12",
-  "generated_at": "2026-01-11 21:26",
+  "generated_at": "2026-01-12 08:32",
   "stats": {
     "total_items": 50,
     "analyzed_items": 50,
@@ -10,25 +10,25 @@
   },
   "items": [
     {
-      "id": "d0ea72da3e90",
+      "id": "cdfa73348b0d",
       "source": "hackernews",
       "category": "tech",
-      "title": "iCloud Photos Downloader",
-      "url": "https://github.com/icloud-photos-downloader/icloud_photos_downloader",
-      "discussion_url": "https://news.ycombinator.com/item?id=46578921",
-      "reply_url": "https://news.ycombinator.com/item?id=46578921",
-      "score": 162,
-      "comments": 77,
+      "title": "The struggle of resizing windows on macOS Tahoe",
+      "url": "https://noheger.at/blog/2026/01/11/the-struggle-of-resizing-windows-on-macos-tahoe/",
+      "discussion_url": "https://news.ycombinator.com/item?id=46579864",
+      "reply_url": "https://news.ycombinator.com/item?id=46579864",
+      "score": 1522,
+      "comments": 617,
       "fb_potential": "High",
       "blog_potential": "High",
       "engagement_score": 5,
       "ai_analysis": {
-        "summary_zh": "這篇貼文介紹了一款 iCloud Photos Downloader 工具，方便用戶批量下載 iCloud 雲端相片，解決 Apple 官方下載受限的問題。該工具引起技術社群關注，討論其功能、隱私與使用經驗。",
-        "why_popular": "許多人有備份 iCloud 相片的需求，但官方下載流程複雜且限制多，這類工具能直接解決痛點，因此在 Hacker News 上受到高度討論。",
+        "summary_zh": "這則貼文討論了在 macOS Tahoe 上調整視窗大小的困難，引起大量用戶共鳴。許多 Mac 用戶對視窗管理體驗有相似的抱怨，因此話題在 Hacker News 上快速發酵。",
+        "why_popular": "視窗大小調整問題是許多 macOS 用戶的共同痛點，容易引發共鳴與討論。該主題涉及日常效率與使用體驗，吸引了大量技術社群參與分享意見和解決方案。",
         "response_angles": [
-          "分享自己備份或管理 iCloud 相片的經驗",
-          "討論第三方工具在隱私和安全上的風險與保障措施",
-          "提出對 Apple 官方下載政策與用戶自由的看法"
+          "分享自己在不同作業系統上調整視窗大小的經驗與比較",
+          "推薦、討論第三方視窗管理工具，例如 Rectangle、Magnet 等",
+          "探討蘋果設計哲學與用戶體驗之間的取捨與矛盾"
         ],
         "categories": [
           "industry_thoughts",
@@ -39,25 +39,25 @@
       }
     },
     {
-      "id": "aab0ebe3bdef",
+      "id": "a514ccbe8178",
       "source": "hackernews",
       "category": "tech",
-      "title": "Ask HN: What are you working on? (January 2026)",
-      "url": "https://news.ycombinator.com/item?id=46577242",
-      "discussion_url": "https://news.ycombinator.com/item?id=46577242",
-      "reply_url": "https://news.ycombinator.com/item?id=46577242",
-      "score": 103,
-      "comments": 362,
+      "title": "CLI agents make self-hosting on a home server easier and fun",
+      "url": "https://fulghum.io/self-hosting",
+      "discussion_url": "https://news.ycombinator.com/item?id=46580326",
+      "reply_url": "https://news.ycombinator.com/item?id=46580326",
+      "score": 480,
+      "comments": 305,
       "fb_potential": "High",
       "blog_potential": "High",
       "engagement_score": 5,
       "ai_analysis": {
-        "summary_zh": "這是一則 Hacker News 社群每月定期的開放討論帖，邀請大家分享目前正在進行的專案、個人開發、創業或學習計畫。回覆內容多元，涵蓋各行各業和不同階段的專案，非常適合尋找靈感或交流經驗。",
-        "why_popular": "這類互動型貼文促進知識交流，讓大家有機會展示自己的工作，尋找合作夥伴或獲得反饋，因此討論度高、參與熱烈。",
+        "summary_zh": "這篇貼文討論了命令列介面（CLI）代理如何讓在家自架伺服器變得更簡單有趣，引起了技術社群的廣泛關注。許多開發者對於自動化、簡化繁瑣流程的工具都有高度興趣，貼文引發了許多討論。",
+        "why_popular": "自架伺服器話題一直深受技術愛好者喜愛，而CLI代理結合自動化和使用者體驗的提升，正好符合當前開發者對效率和便利性的追求。",
         "response_angles": [
-          "分享你最近在做的專案或學習主題，尋求建議或夥伴",
-          "回應他人有趣的專案，給予回饋或提出問題",
-          "總結這次討論中你認為最具啟發性的點，並鼓勵更多人參加"
+          "分享自己使用CLI agents自架伺服器的經驗或遇到的挑戰",
+          "討論CLI agents與圖像化介面的優缺點比較",
+          "探討未來自架自動化工具的趨勢與可能發展"
         ],
         "categories": [
           "industry_thoughts",
@@ -68,25 +68,25 @@
       }
     },
     {
-      "id": "e5980f1db724",
+      "id": "4d9139399ab0",
       "source": "hackernews",
       "category": "tech",
-      "title": "Gentoo Linux 2025 Review",
-      "url": "https://www.gentoo.org/news/2026/01/05/new-year.html",
-      "discussion_url": "https://news.ycombinator.com/item?id=46574769",
-      "reply_url": "https://news.ycombinator.com/item?id=46574769",
-      "score": 261,
-      "comments": 125,
+      "title": "This game is a single 13 KiB file that runs on Windows, Linux and in the Browser",
+      "url": "https://iczelia.net/posts/snake-polyglot/",
+      "discussion_url": "https://news.ycombinator.com/item?id=46580864",
+      "reply_url": "https://news.ycombinator.com/item?id=46580864",
+      "score": 171,
+      "comments": 49,
       "fb_potential": "High",
       "blog_potential": "High",
       "engagement_score": 5,
       "ai_analysis": {
-        "summary_zh": "Gentoo Linux 2025 年度回顧在 Hacker News 上引發熱烈討論，許多用戶關注這個以高度自訂和優化著稱的 Linux 發行版的最新發展。討論涵蓋 Gentoo 的現況、社群活躍度及其在現代 Linux 生態系中的定位。",
-        "why_popular": "Gentoo Linux 擁有忠實用戶群，且每年回顧都能引發資深用戶及新手對開源社群、軟體維護與個人化環境的熱烈討論。",
+        "summary_zh": "這款遊戲僅有 13 KiB 大小，卻能跨平台在 Windows、Linux 以及瀏覽器上運行。極小體積與高效能讓許多網友驚嘆技術實力與極簡設計。",
+        "why_popular": "文章展現了極端的軟體優化和跨平台技術，挑戰現代應用程式動輒上百 MB 的常態，激起開發者和技術愛好者的好奇與討論。",
         "response_angles": [
-          "分享自己使用 Gentoo 的經驗與挑戰",
-          "探討 Gentoo 在現今 Linux 發行版中的獨特價值與定位",
-          "討論 Linux 生態系中個人化、最佳化與可維護性的平衡"
+          "討論現代軟體經常過度膨脹（bloatware），這類極小體積作品帶來的啟發",
+          "分享自己曾接觸過的極小但功能完整的應用程式或遊戲",
+          "探討如何在開發中追求效能與簡潔並兼顧可用性"
         ],
         "categories": [
           "industry_thoughts",
@@ -97,53 +97,25 @@
       }
     },
     {
-      "id": "2c02a95b95ae",
+      "id": "b32f43cce74d",
       "source": "hackernews",
       "category": "tech",
-      "title": "Anthropic: Developing a Claude Code competitor using Claude Code is banned",
-      "url": "https://twitter.com/SIGKITTEN/status/2009697031422652461",
-      "discussion_url": "https://news.ycombinator.com/item?id=46578701",
-      "reply_url": "https://news.ycombinator.com/item?id=46578701",
-      "score": 134,
-      "comments": 69,
+      "title": "Don't fall into the anti-AI hype",
+      "url": "https://antirez.com/news/158",
+      "discussion_url": "https://news.ycombinator.com/item?id=46574276",
+      "reply_url": "https://news.ycombinator.com/item?id=46574276",
+      "score": 918,
+      "comments": 1089,
       "fb_potential": "High",
       "blog_potential": "High",
       "engagement_score": 5,
       "ai_analysis": {
-        "summary_zh": "Anthropic 明確禁止用 Claude Code 來開發與 Claude Code 競爭的產品，這一政策在 Hacker News 引起討論。不少人關注 AI 工具的授權限制與生態圈競爭的倫理問題。",
-        "why_popular": "該話題觸及 AI 產業競爭、開發者權益及平台政策限制，容易引發技術社群對公平與創新的熱議。",
+        "summary_zh": "這則貼文呼籲大家不要輕易相信反 AI 的炒作風潮，鼓勵理性看待 AI 技術的發展。該主題引發大量討論，顯示社群對 AI 正反意見的高度關注。",
+        "why_popular": "AI 是當前最熱門的話題之一，正反聲音都很強烈，這種具有爭議性的立場容易引發共鳴與討論。",
         "response_angles": [
-          "討論 AI 平台對於競業條款的合理性與界線",
-          "分析此舉對開發者生態的潛在影響",
-          "探討 AI 工具授權與創新自由間的平衡"
-        ],
-        "categories": [
-          "industry_thoughts"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "40089268b567",
-      "source": "hackernews",
-      "category": "tech",
-      "title": "Poison Fountain",
-      "url": "https://rnsaffn.com/poison3/",
-      "discussion_url": "https://news.ycombinator.com/item?id=46577464",
-      "reply_url": "https://news.ycombinator.com/item?id=46577464",
-      "score": 144,
-      "comments": 93,
-      "fb_potential": "High",
-      "blog_potential": "High",
-      "engagement_score": 5,
-      "ai_analysis": {
-        "summary_zh": "Poison Fountain 是近期在 Hacker News 上受到關注的話題，雖然原文無內容，但從討論熱度來看，很可能涉及一個具爭議性或具有警示意義的技術議題。社群成員根據標題展開了大量討論，推測與資訊安全、數據汙染或大型語言模型的攻擊有關。",
-        "why_popular": "此貼文受歡迎，因為標題本身具有高度懸疑與警示效果，激發了社群對於資訊安全與技術風險的討論熱情。Hacker News 的用戶對於新穎、潛在危害技術話題特別敏感，因此能快速引發大量互動。",
-        "response_angles": [
-          "分享你對於『Poison Fountain』這類資訊安全威脅的看法與經驗",
-          "討論目前有哪些有效的防範數據汙染或供應鏈攻擊的方法",
-          "延伸思考 AI 時代下，開源社群如何共同防禦這類新型態風險"
+          "分享自己如何理性看待 AI 發展與媒體炒作",
+          "討論 AI 技術帶來的實際好處或潛在風險",
+          "分析目前反 AI 言論常見的誤區或迷思"
         ],
         "categories": [
           "industry_thoughts",
@@ -154,25 +126,25 @@
       }
     },
     {
-      "id": "cdfa73348b0d",
+      "id": "d0ea72da3e90",
       "source": "hackernews",
       "category": "tech",
-      "title": "The struggle of resizing windows on macOS Tahoe",
-      "url": "https://noheger.at/blog/2026/01/11/the-struggle-of-resizing-windows-on-macos-tahoe/",
-      "discussion_url": "https://news.ycombinator.com/item?id=46579864",
-      "reply_url": "https://news.ycombinator.com/item?id=46579864",
-      "score": 59,
-      "comments": 6,
-      "fb_potential": "Medium",
-      "blog_potential": "Medium",
-      "engagement_score": 3,
+      "title": "iCloud Photos Downloader",
+      "url": "https://github.com/icloud-photos-downloader/icloud_photos_downloader",
+      "discussion_url": "https://news.ycombinator.com/item?id=46578921",
+      "reply_url": "https://news.ycombinator.com/item?id=46578921",
+      "score": 417,
+      "comments": 186,
+      "fb_potential": "High",
+      "blog_potential": "High",
+      "engagement_score": 5,
       "ai_analysis": {
-        "summary_zh": "討論 macOS Tahoe（新版本）在視窗調整大小操作上的困難，引發使用者對蘋果操作體驗的吐槽與建議。這種細節上的設計問題很容易引起使用者共鳴與討論。",
-        "why_popular": "許多 macOS 用戶都遇過視窗調整不便的問題，此類日常痛點容易引起共感與熱烈討論。對蘋果產品細節的吐槽一向是科技社群的熱門話題。",
+        "summary_zh": "這則 Hacker News 貼文介紹了一個能夠下載 iCloud 照片的工具。許多使用者都面臨備份、遷移或管理蘋果雲端照片的需求，因此引發廣泛討論。",
+        "why_popular": "蘋果用戶普遍對 iCloud 資料掌控權有需求，而第三方解決方案稀缺，使這類工具格外受到關注與討論。",
         "response_angles": [
-          "分享自己在使用 macOS 窗口管理上的小技巧或替代工具",
-          "討論蘋果設計哲學與用戶體驗之間的矛盾",
-          "提出對未來 macOS 視窗管理功能改進的建議"
+          "分享自己管理 iCloud 照片的經驗與困擾",
+          "討論蘋果對資料存取的政策及其對用戶自由的影響",
+          "比較現有備份工具的優缺點，並提出改進建議"
         ],
         "categories": [
           "industry_thoughts",
@@ -183,25 +155,25 @@
       }
     },
     {
-      "id": "fc76ec0f19e7",
+      "id": "b622fa0dedac",
       "source": "hackernews",
       "category": "tech",
-      "title": "Sampling at negative temperature",
-      "url": "https://cavendishlabs.org/blog/negative-temperature/",
-      "discussion_url": "https://news.ycombinator.com/item?id=46579374",
-      "reply_url": "https://news.ycombinator.com/item?id=46579374",
-      "score": 49,
-      "comments": 18,
-      "fb_potential": "Medium",
-      "blog_potential": "Medium",
-      "engagement_score": 3,
+      "title": "Xfce is great",
+      "url": "https://rubenerd.com/xfce-is-great/",
+      "discussion_url": "https://news.ycombinator.com/item?id=46584173",
+      "reply_url": "https://news.ycombinator.com/item?id=46584173",
+      "score": 160,
+      "comments": 105,
+      "fb_potential": "High",
+      "blog_potential": "High",
+      "engagement_score": 5,
       "ai_analysis": {
-        "summary_zh": "這則貼文討論在負溫度下的取樣（sampling）現象，這是一個物理學和統計學中罕見且具有挑戰性的主題。雖然原貼文未提供內容，但標題已引起許多技術人員和科學愛好者的興趣，促使大家在 Hacker News 上討論相關理論與應用。",
-        "why_popular": "負溫度是一個反直覺且少見的物理概念，能夠激發好奇心並引發知識型社群的討論。這類主題常吸引對前沿科學有興趣的讀者參與交流。",
+        "summary_zh": "這篇貼文簡單表達對 Xfce 桌面環境的高度讚賞，雖然沒有詳細內容，但引發了大量討論。許多使用者分享他們對 Xfce 的喜愛、使用經驗與相關建議。",
+        "why_popular": "Xfce 是輕量級且穩定的 Linux 桌面環境，擁有忠實用戶群。簡單直接的正面評價容易激起共鳴與經驗分享，促使大量討論。",
         "response_angles": [
-          "分享你對負溫度物理意涵的理解或困惑",
-          "討論負溫度在統計取樣、機器學習等領域的潛在應用",
-          "引用或推薦相關的學術資源或科普文章，幫助更多人理解這個主題"
+          "分享自己使用 Xfce 的經驗與優缺點",
+          "探討 Xfce 與其他桌面環境（如 GNOME、KDE）的比較",
+          "推薦適合 Xfce 的插件或個人化工作流"
         ],
         "categories": [
           "industry_thoughts",
@@ -212,25 +184,25 @@
       }
     },
     {
-      "id": "9110096c1a3d",
+      "id": "0c494fa082e2",
       "source": "hackernews",
       "category": "tech",
-      "title": "A set of Idiomatic prod-grade katas for experienced devs transitioning to Go",
-      "url": "https://github.com/MedUnes/go-kata",
-      "discussion_url": "https://news.ycombinator.com/item?id=46531622",
-      "reply_url": "https://news.ycombinator.com/item?id=46531622",
-      "score": 64,
-      "comments": 8,
-      "fb_potential": "Medium",
-      "blog_potential": "Medium",
-      "engagement_score": 3,
+      "title": "I'm making a game engine based on dynamic signed distance fields (SDFs) [video]",
+      "url": "https://www.youtube.com/watch?v=il-TXbn5iMA",
+      "discussion_url": "https://news.ycombinator.com/item?id=46539478",
+      "reply_url": "https://news.ycombinator.com/item?id=46539478",
+      "score": 286,
+      "comments": 35,
+      "fb_potential": "High",
+      "blog_potential": "High",
+      "engagement_score": 5,
       "ai_analysis": {
-        "summary_zh": "這篇貼文介紹了一組專為有經驗的開發者轉換到 Go 語言時，能練習 Go 語言慣用寫法（idiomatic）的實戰練習題。這些題目聚焦於生產等級的程式設計，幫助開發者快速掌握 Go 的核心思維。",
-        "why_popular": "許多開發者對於學習 Go 語言有高度興趣，特別是實用、貼近實戰的練習資源十分稀缺，因此這樣的資源很容易引起討論與分享。",
+        "summary_zh": "這則貼文分享了一位開發者正在製作以動態帶符號距離場（SDF）為基礎的遊戲引擎，並附有相關展示影片。SDF 技術常用於程序化圖形和高效碰撞檢測，受到許多技術愛好者關注。",
+        "why_popular": "SDF 遊戲引擎屬於前沿開發技術，易引發技術討論與好奇心，尤其對於圖形與遊戲開發者社群具有吸引力。此外，附上影片能直接展現成果，進一步提升互動度。",
         "response_angles": [
-          "分享你自己從其他語言轉換到 Go 時遇到的挑戰與心得",
-          "討論為什麼『慣用寫法』對於寫出高品質程式碼很重要",
-          "推薦或詢問更多適合 Go 新手或進階者的學習資源"
+          "請教作者實現 SDF 動態特性的技術細節與挑戰",
+          "討論 SDF 技術相較於傳統遊戲引擎的優缺點",
+          "分享自己在遊戲開發或圖形渲染上的相關經驗"
         ],
         "categories": [
           "industry_thoughts",
@@ -241,54 +213,83 @@
       }
     },
     {
-      "id": "1c66690beac5",
+      "id": "f1d39463543b",
       "source": "hackernews",
       "category": "tech",
-      "title": "\"Scholars Will Call It Nonsense\": The Structure of von Däniken's Argument (1987)",
-      "url": "https://www.penn.museum/sites/expedition/scholars-will-call-it-nonsense/",
-      "discussion_url": "https://news.ycombinator.com/item?id=46578957",
-      "reply_url": "https://news.ycombinator.com/item?id=46578957",
-      "score": 32,
-      "comments": 19,
-      "fb_potential": "Medium",
+      "title": "Himalayas bare and rocky after reduced winter snowfall, scientists warn",
+      "url": "https://www.bbc.com/news/articles/clyndv7zd20o",
+      "discussion_url": "https://news.ycombinator.com/item?id=46583464",
+      "reply_url": "https://news.ycombinator.com/item?id=46583464",
+      "score": 85,
+      "comments": 40,
+      "fb_potential": "High",
       "blog_potential": "Medium",
-      "engagement_score": 3,
+      "engagement_score": 4,
       "ai_analysis": {
-        "summary_zh": "這篇貼文討論 Erich von Däniken 論證結構的批判性文章，聚焦於其理論被學界視為無稽之談。由於 von Däniken 以外星人起源等爭議性主張聞名，該文引發了對科學思辨與偽科學的討論。",
-        "why_popular": "von Däniken 和相關的古代外星人理論在網路上爭議性高，容易激發理性與陰謀論支持者的辯論。Hacker News 用戶對於思辨性和批判性分析特別感興趣。",
+        "summary_zh": "近期冬季降雪減少導致喜馬拉雅山脈裸露且岩石裸現，科學家對此發出警告。這引發了對氣候變遷以及地區生態和水資源影響的擔憂。",
+        "why_popular": "該議題結合了全球氣候變遷的宏觀趨勢與具體地理區域的明顯變化，易引發對環境未來的討論與關注。",
         "response_angles": [
-          "討論科學界如何辨識與反駁偽科學主張",
-          "從媒體素養角度分析大眾為何易受此類理論吸引",
-          "探討批判性思維在當代知識傳播中的重要性"
+          "分享對氣候變遷和極端天氣事件影響自然景觀的看法",
+          "討論喜馬拉雅山脈變化對當地社區和生態系統的影響",
+          "延伸探討如何從個人或社會層面應對氣候變遷"
         ],
         "categories": [
           "industry_thoughts",
-          "personal_growth"
+          "values"
         ],
         "fb_score": 4,
         "blog_score": 5
       }
     },
     {
-      "id": "a98c8ba561c7",
+      "id": "53395ba47e83",
       "source": "hackernews",
       "category": "tech",
-      "title": "guys why does armenian completely break Claude",
-      "url": "https://twitter.com/dyushag/status/1993143599286886525",
-      "discussion_url": "https://news.ycombinator.com/item?id=46579397",
-      "reply_url": "https://news.ycombinator.com/item?id=46579397",
-      "score": 44,
-      "comments": 17,
+      "title": "JRR Tolkien reads from The Hobbit for 30 Minutes (1952)",
+      "url": "https://www.openculture.com/2026/01/j-r-r-tolkien-reads-from-the-hobbit-for-30-minutes-1952.html",
+      "discussion_url": "https://news.ycombinator.com/item?id=46526896",
+      "reply_url": "https://news.ycombinator.com/item?id=46526896",
+      "score": 48,
+      "comments": 3,
       "fb_potential": "Medium",
       "blog_potential": "Medium",
       "engagement_score": 3,
       "ai_analysis": {
-        "summary_zh": "有用戶發現，AI 聊天機器人 Claude 在處理亞美尼亞語時出現明顯錯誤，引發大家討論技術限制與語言支持問題。這篇貼文雖然內容簡短，卻吸引了許多對多語言 AI 技術感興趣的討論者。",
-        "why_popular": "話題結合了 AI 技術的熱點與語言少數族群的需求，容易引起業界技術者和多語言用戶的共鳴與討論。",
+        "summary_zh": "這是一則分享 JRR Tolkien 於 1952 年朗讀《哈比人》的音檔貼文。Tolkien 親自朗讀經典作品，對愛好者和文學迷有特殊意義。貼文在 Hacker News 上獲得了不錯的討論分數。",
+        "why_popular": "JRR Tolkien 親自朗讀《哈比人》極具歷史和文化價值，對於文學愛好者和奇幻小說粉絲來說非常珍貴。這類稀有音檔具備懷舊和收藏雙重吸引力。",
         "response_angles": [
-          "分享自己用 AI 處理小語種語言的經驗或困難",
-          "討論為什麼主流 AI 模型在亞美尼亞語等小語種表現較差的技術原因",
-          "思考如何推動 AI 公司加強對小語種的支持，促進語言多樣性"
+          "分享自己聽完後的感受，或談論 Tolkien 的聲音和朗讀風格",
+          "討論 Tolkien 作品對現代奇幻文學的影響",
+          "推薦其他作家親自朗讀的經典音檔或影片"
+        ],
+        "categories": [
+          "industry_thoughts",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "7a133aab5396",
+      "source": "hackernews",
+      "category": "tech",
+      "title": "39c3: In-house electronics manufacturing from scratch: How hard can it be? [video]",
+      "url": "https://media.ccc.de/v/39c3-in-house-electronics-manufacturing-from-scratch-how-hard-can-it-be",
+      "discussion_url": "https://news.ycombinator.com/item?id=46553137",
+      "reply_url": "https://news.ycombinator.com/item?id=46553137",
+      "score": 58,
+      "comments": 7,
+      "fb_potential": "Medium",
+      "blog_potential": "Medium",
+      "engagement_score": 3,
+      "ai_analysis": {
+        "summary_zh": "這是一段分享如何從零開始自行設計與製造電子產品的影片，來自 39c3（第 33 屆混沌通信大會）。內容聚焦於實際動手建立自家電子製造流程的挑戰與經驗。",
+        "why_popular": "許多硬體愛好者、創業者對於自主掌握電子製造流程非常感興趣，且這類從零開始的實戰經驗分享在技術圈具有高度討論價值。",
+        "response_angles": [
+          "分享自己嘗試過 DIY 電子產品或製造流程的經驗",
+          "討論現代創業團隊是否有必要自建生產線",
+          "提問：有哪些關鍵困難或陷阱值得提前準備？"
         ],
         "categories": [
           "industry_thoughts",
@@ -313,12 +314,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇貼文邀請大家分享今年最自豪的專案及背後原因，不論是否成功或賺錢，重點在於個人成長與學習經驗。作者希望看到大家的回顧與反思。",
-        "why_popular": "話題能引發共鳴，讓人樂於分享自己的故事，並聚焦於成就背後的意義和學習，而不只是結果或金錢收益。",
+        "summary_zh": "這篇貼文邀請大家分享今年最自豪的專案，不論是否賺錢或公開，只要有成就感都歡迎討論。重點在於反思過程與學到的經驗，希望看到各種不同的自我成長故事。",
+        "why_popular": "這種開放式提問鼓勵個人分享成就與反思，能激發共鳴與多元討論，有助於建立社群歸屬感。",
         "response_angles": [
-          "分享自己今年最自豪的專案及背後的學習收穫",
-          "探討專案過程中遇到的挑戰與如何克服",
-          "討論專案帶來的個人成長或價值觀上的改變"
+          "分享自己今年最有成就感的專案，並說明背後的動機或學習收穫",
+          "討論專案雖未獲利或未公開，但帶來哪些寶貴經驗",
+          "回應他人故事、給予鼓勵或提出相關問題深化交流"
         ],
         "categories": [
           "personal_growth",
@@ -343,42 +344,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這則貼文邀請開發者分享非 AI 類型的原創專案，強調對非 AI 創意作品的重視。作者表達對近期 AI 專案氾濫的疲乏，並希望看到更多元的點子。",
-        "why_popular": "在 AI 專案充斥的時代，這種尋找原創、非 AI 作品的呼籲引發共鳴，給予非主流創作者一個被看見的機會。",
+        "summary_zh": "這篇貼文邀請大家分享他們正在開發的非 AI 專案，表達對原創、非 AI 相關點子的懷念，並歡迎自我推廣。發文者希望看到更多多元、有創意的 side project，不侷限於 AI 熱潮。",
+        "why_popular": "AI 專案泛濫已成現象，這篇呼籲回歸非 AI 原創專案，引起共鳴和討論空間。大家渴望看到不同領域、創意多元的作品，產生認同和參與感。",
         "response_angles": [
-          "分享自己正在進行或完成的非 AI 專案，介紹亮點",
-          "討論為什麼現在除了 AI，其他創新也值得重視",
-          "回顧過去有趣但被忽略的非 AI side project"
-        ],
-        "categories": [
-          "industry_thoughts",
-          "personal_growth"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "6b96116731bd",
-      "source": "reddit",
-      "category": "indie_hacker",
-      "subreddit": "SideProject",
-      "title": "300+ apps processed in 2 months: How I automated the Google Play 20-tester rule.",
-      "url": "https://www.reddit.com/r/SideProject/comments/1qa5s59/300_apps_processed_in_2_months_how_i_automated/",
-      "reply_url": "https://www.reddit.com/r/SideProject/comments/1qa5s59/300_apps_processed_in_2_months_how_i_automated/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "As an indie developer, I was frustrated by Google Play's requirement of having 12 testers for 14 days before being allowed to publish. So, I built App Hive , a mutual testing platform designed to automate and manage this process for solo developers. I wanted to share some milestones from the first 2 months of the project: 🚀 800+ Unique Downloads on Google Play. 🐝 30+ Hives (testing groups) formed. ✅ 300+ Apps have successfully completed their 14-day closed test period. How the \"Hive\" Works The app groups 14 developers into a \"Hive.\" In this hive, everyone tests each other's apps daily. It’s built on a \"Proof of Work\" system: Daily Tasks: You open the apps in your hive and take a screenshot. Automated Proofs: You upload the screenshot to the app. The owner of the app receives it, verifying that their app was tested and seeing how it looks on different devices. The UP System: To keep it fair, every user starts with 500 UP to join their first Hive. Completing the 14-day task without any penalty refills your points so you can test your next app for free. Anti-Ghosting &amp; Quality Control We’ve all had testers who vanish on Day 3. I implemented a strict Inactivity Penalty (IP) system: Missing a daily proof or failing to approve others' proofs costs you points. If you hit 10 Inactivity Points, the system automatically kicks you from the Hive and penalizes your Reputation Points (RP). This ensures that only the most dedicated developers stay in the active groups. The goal was to move away from messy Telegram/Reddit threads and create a self-sustaining ecosystem where we help each other grow. App Hive: Closed Testing Tool - Apps on Google Play &#32; submitted by &#32; /u/Evening_Candy9567 [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這位獨立開發者針對 Google Play 上架測試人數規則的痛點，自行開發了 App Hive 自動化互測平台，協助開發者組成互助小組高效完成封閉測試期。短短兩個月內，平台已協助超過 300 款應用順利完成 14 天測試，並有效解決測試人員失聯等問題。",
-        "why_popular": "這篇貼文解決了 indie 開發者廣泛面臨的真實痛點，並展示了明確的成效數據和創新自動化流程，引發同業共鳴和好奇。",
-        "response_angles": [
-          "分享自己在 Google Play 測試流程遇到的困難，討論這類自動化工具的價值",
-          "詢問 App Hive 的技術細節或擴展計畫，如未來是否支援 iOS",
-          "討論如何增強測試品質與社群互信，提出進一步優化建議"
+          "分享自己非 AI 的 side project，介紹其創意與挑戰",
+          "討論為何現今創業生態幾乎被 AI 專案壟斷，並提出觀察或看法",
+          "推薦曾經看過或支持過的有趣非 AI 專案，擴大討論範圍"
         ],
         "categories": [
           "industry_thoughts",
@@ -389,60 +360,91 @@
       }
     },
     {
-      "id": "c483c59badc6",
+      "id": "1086575d87a1",
       "source": "reddit",
       "category": "indie_hacker",
       "subreddit": "SideProject",
-      "title": "Going to open-source: Meelio.io",
-      "url": "https://www.reddit.com/r/SideProject/comments/1q9wp3r/going_to_opensource_meelioio/",
-      "reply_url": "https://www.reddit.com/r/SideProject/comments/1q9wp3r/going_to_opensource_meelioio/?utm_source=share&utm_medium=web2x",
+      "title": "One year, 6 products, 8k revenue",
+      "url": "https://www.reddit.com/r/SideProject/comments/1qamv6n/one_year_6_products_8k_revenue/",
+      "reply_url": "https://www.reddit.com/r/SideProject/comments/1qamv6n/one_year_6_products_8k_revenue/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "After 3.5 years of building Meelio, I'm open sourcing it I built it because I wanted one place for focus, not five different apps. It's been a lot of fun to make (from design to dev, to deployment) Financially, it never took off and total revenue: $10 from one user (which I refunded - not because they asked) Maybe someone finds it useful. Maybe someone wants to contribute. Either way, it deserves to exist beyond my private repo Links: • repo: https://github.com/zainzafar90/meelio • extension: https://chromewebstore.google.com/detail/meelio/cjcgnlglboofgepielbmjcepcdohipaj • site: https://www.meelio.io &#32; submitted by &#32; /u/Odd_Secret3465 [link] &#32; [comments]",
+      "selftext": "started the indie hacker journey in early 2025 Spend the first 3 months building 4 random projects: - ExpenseTracker mobile app (track all expenses from multi cards/banks using gmail) - AI news video generator to generate more AI slop videos :( - AI Story Maker (again trying to surf the AI wave) - MacOS photo importer app (I hate the default photos app) Nothing clicked. I didn’t feel proud of what I was doing. In April, I stumbled upon a Reddit post asking about a simple time tracking app for Mac. The OP couldn’t find what he was looking for. I spent 7 days building the app, reached out to the OP, and asked him to try it out. The next day, I got my first $15 internet dollars. From April to May to June, I improved the app and created a follow-up post in reddit that post brought me the first 11 paying users and $110 in sales Fast forward to today, the little time tracking app now makes a total of more than $7500 In 29 December I release new screen recorder for macOS and got 8 sales ($223 total) from a twitter post. My total revenue stats so far: 4/2025: $15 (first internet money) 5/2025: $0 6/2025: $41 (launch app 1) 7/2025: $389 8/2025: $453 9/2025: $177 10/2025: $1,295 11/2025: $3,326 (blackfriday sales) 12/2025: $1,897 1/2026: $500 (intro tweet for second app) Total: $8,093 I am super proud of myself and wish all the best to everyone here, cheers! Dont quit, release your product! &#32; submitted by &#32; /u/tuanvuvn007 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "作者公開了自己開發 3.5 年的專案 Meelio，主打整合專注於一處而非多個應用程式。雖然財務上並未成功，但他希望這個專案能在開源社群中繼續發展，鼓勵大家使用或貢獻。",
-        "why_popular": "開發者坦誠分享創業過程與開放原始碼的決定，展現真實且無私的精神，容易引發共鳴與支持。開放原始碼也吸引對技術和協作有興趣的群體關注。",
+        "summary_zh": "作者分享自己作為獨立開發者的一年心路歷程，從嘗試多個產品到找到市場需求，最終靠一款 Mac 時間追蹤工具和螢幕錄影工具累積超過 8,000 美元收入。文章強調堅持嘗試、快速迭代與聆聽用戶需求的重要性，並鼓勵大家不要輕言放棄。",
+        "why_popular": "這類個人真實經驗分享容易引發共鳴，尤其是實際收入數據和具體成長曲線，讓讀者看到側項創業的現實與希望。故事結構清楚，從失敗到找到突破點，激勵性強。",
         "response_angles": [
-          "分享自己開發或開源專案的經驗，討論心路歷程",
-          "詢問作者未來是否還有新專案計畫，或對開源貢獻有什麼期待",
-          "討論產品整合專注工具的設計理念，提出改進建議"
+          "分享自己做 side project 或產品開發的經驗、遇到的困難與突破",
+          "討論如何找到市場需求與用戶痛點的方法",
+          "詢問作者更多關於產品推廣和用戶反饋的細節"
         ],
         "categories": [
-          "industry_thoughts",
-          "achievements"
+          "achievements",
+          "personal_growth",
+          "industry_thoughts"
         ],
         "fb_score": 4,
         "blog_score": 5
       }
     },
     {
-      "id": "68e84f9e5461",
+      "id": "8eb7c9f53c80",
       "source": "reddit",
       "category": "indie_hacker",
       "subreddit": "SideProject",
-      "title": "I was spending 4 hours a day commenting on LinkedIn to grow. So we built a tool to do it 10x faster (without being a bot).",
-      "url": "https://www.reddit.com/r/SideProject/comments/1q9x5e9/i_was_spending_4_hours_a_day_commenting_on/",
-      "reply_url": "https://www.reddit.com/r/SideProject/comments/1q9x5e9/i_was_spending_4_hours_a_day_commenting_on/?utm_source=share&utm_medium=web2x",
+      "title": "new app idea coming, what do you think?",
+      "url": "https://www.reddit.com/r/SideProject/comments/1qah9ex/new_app_idea_coming_what_do_you_think/",
+      "reply_url": "https://www.reddit.com/r/SideProject/comments/1qah9ex/new_app_idea_coming_what_do_you_think/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "We all know the LinkedIn \"grind.\" To get any reach, you have to leave 30-50 meaningful comments a day. It’s a full-time job and the \"AI\" bots are making everyone look like spam. I’ve been working on HotTake, a Chrome Extension designed for people who want to stay human but need to be efficient. The Difference: It’s not an automated bot. It’s a human-in-the-loop system that helps you craft intentional responses in seconds rather than minutes. We are doing a soft launch this few days (completely free to test) before we move to a subscription model on Tuesday. Would love for some of you to roast the landing page or tell me if this would actually save your sanity on LinkedIn. Link: https://www.hottake.ly/ &#32; submitted by &#32; /u/fillinggoodman [link] &#32; [comments]",
+      "selftext": "Would you use an app that looks at what's on sale at supermarkets near you and suggests recipes based on the deals? It would automatically build a shopping list with the cheapest options. also manage your budget and show how much you could save. &#32; submitted by &#32; /u/Over-Demand-8617 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "作者發現為了在 LinkedIn 增加曝光，每天需要花上數小時留言，於是開發了一款能幫助用戶快速撰寫真實回應、而非自動產生機器文的 Chrome 擴充工具 HotTake，目前開放免費測試。作者希望大家給予意見或批評 landing page，並詢問這工具是否有實際需求。",
-        "why_popular": "這篇貼文觸及了現代社群經營的痛點（時間成本高、AI留言品質差），並提出具體工具解決方案，激起創業者和內容創作者的共鳴。",
+        "summary_zh": "這則貼文分享了一個新 App 構想：根據附近超市的特價商品，推薦食譜並自動建立最省錢的購物清單，也能管理預算和計算可省下的金額。作者詢問大家是否會使用這樣的應用程式。",
+        "why_popular": "這個想法結合日常消費、食譜推薦與省錢管理，切中許多人在生活中面臨的痛點，因此容易引發共鳴與討論。",
         "response_angles": [
-          "分享自己在 LinkedIn 經營時遇到的留言困難與時間管理問題",
-          "討論 AI 工具如何提升社群互動效率，但又不失去真實感",
-          "針對 HotTake 產品設計或 landing page 提出建議或改進想法"
+          "分享自己目前在購物和規劃餐食時遇到的困難或需求",
+          "建議此 App 可加入哪些額外功能（如飲食偏好、家庭人數設定等）",
+          "討論類似產品的市場現況或可行性，提出競爭優勢建議"
         ],
         "categories": [
           "industry_thoughts",
           "personal_growth"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "a14a6816a48d",
+      "source": "reddit",
+      "category": "indie_hacker",
+      "subreddit": "SideProject",
+      "title": "I put together a directory of 135+ places to launch your product",
+      "url": "https://www.reddit.com/r/SideProject/comments/1qabkyb/i_put_together_a_directory_of_135_places_to/",
+      "reply_url": "https://www.reddit.com/r/SideProject/comments/1qabkyb/i_put_together_a_directory_of_135_places_to/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "Every time I launch something, I end up Googling \"startup directories\" or \"where to post my side project\" and cobbling together a list from old blog posts and Twitter threads. Then I started collecting them in a spreadsheet, which wasn't great. Got tired of it, so I made a simple website: distributionkit.com 135+ platforms, filterable by score (based on domain authority + traffic), pricing, and whether you need an account. Free to use. No signup required. I also plan on adding other features like user accounts, submission tracking, traffic analysis, etc. the idea is to know which ones move the needle and where to focus your energy. If I'm missing any good ones, let me know and I'll add them 🚀 &#32; submitted by &#32; /u/jonphillips06 [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "作者因為每次發佈產品時都需要重複搜尋發佈平台，於是整理出135+個產品發佈網站並做成 distributionkit.com，讓用戶可依多種條件篩選。網站免費使用，無需註冊，且未來還會新增更多功能。",
+        "why_popular": "這類資源型整理對於開發者和創業者非常實用，省下大量搜尋時間，並且作者用自己的痛點出發，容易引起共鳴。",
+        "response_angles": [
+          "分享自己常用的產品發佈平台或推薦補充清單",
+          "給予網站功能優化建議（如新增更多篩選條件或統計數據）",
+          "討論如何衡量不同平台的推廣效益及經驗分享"
+        ],
+        "categories": [
+          "industry_thoughts",
+          "achievements"
         ],
         "fb_score": 4,
         "blog_score": 5
@@ -463,12 +465,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇貼文介紹了一個新的 Reddit 子版人類驗證系統，目的是防止機器人、垃圾訊息與帳號逃避封鎖。用戶僅需透過手機掃臉即可匿名完成驗證，無需提供個人證件，提升社群互動的真實性。",
-        "why_popular": "此貼文針對當前社群普遍關注的機器人與垃圾訊息問題提出創新解決方案，且匿名、人性化的驗證方式降低了用戶疑慮，引發熱烈討論。",
+        "summary_zh": "這篇貼文宣布 r/indiehackers 子版將試行新的真人驗證系統，與 Reddit 前 CTO 合作，透過臉部識別匿名驗證來對抗機器人和垃圾訊息，提升討論品質。驗證過程匿名且不需政府證件，通過後用戶名稱會有“Human Verified”標記。",
+        "why_popular": "這個主題抓住了社群成員對於討論品質與真實參與者的重視，也回應了目前許多平台上 AI 機器人帶來的困擾。",
         "response_angles": [
-          "討論驗證系統對社群品質的實際影響與潛在隱私風險",
-          "分享自己對於匿名人臉驗證技術的看法與期待",
-          "提出建議或改進想法，協助優化驗證流程"
+          "討論真人驗證對社群健康的長期影響",
+          "分享對匿名人臉驗證技術隱私性的看法",
+          "建議驗證流程如何優化或提出替代方案"
         ],
         "categories": [
           "industry_thoughts",
@@ -493,16 +495,46 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "IndieHackers 子版塊宣布了一系列新規則，透過自動管理員和社群討論，提升貼文品質、打擊灌水與自我推廣行為。管理團隊邀請社群成員提出意見，共同制定細則以維護討論價值。",
-        "why_popular": "該貼文回應了社群對品質下降的普遍擔憂，並邀請用戶參與規則制定，增強了社群歸屬感與互動性。",
+        "summary_zh": "這篇貼文宣布了 r/indiehackers 子版的新規則，目的是提升社群內容品質並防止濫用，例如嚴格驗證收入聲明、打擊自我宣傳和低質量貼文。管理團隊邀請社群成員一起討論並細化規則，強調透明和共同維護良好討論環境。",
+        "why_popular": "該貼文觸及社群品質維護與公平性，激起使用者對社群健康發展的共鳴。邀請大眾參與規則制定，也讓大家更有參與感和歸屬感。",
         "response_angles": [
-          "分享過去參與其他社群質量提升的經驗或建議",
-          "討論如何平衡自我推廣與真誠分享之間的界線",
-          "反饋對於現有規則中可能出現灰色地帶的看法"
+          "分享其他社群在防止灌水和自我宣傳方面的經驗或建議",
+          "討論如何平衡自我行銷與有價值的內容貢獻",
+          "回饋現有規則是否過於嚴格或有哪些灰色地帶需進一步明確"
         ],
         "categories": [
           "industry_thoughts",
           "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "589d3e6d157a",
+      "source": "reddit",
+      "category": "indie_hacker",
+      "subreddit": "indiehackers",
+      "title": "[Android] I built a tiny Share target that copies IMAGES to the clipboard (paste into X, WhatsApp, Telegram, etc.) — need testers",
+      "url": "https://www.reddit.com/r/indiehackers/comments/1qaoccr/android_i_built_a_tiny_share_target_that_copies/",
+      "reply_url": "https://www.reddit.com/r/indiehackers/comments/1qaoccr/android_i_built_a_tiny_share_target_that_copies/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "I built a tiny Android app that allows you to copy any images/videos directly to your clipboard (to then paste in X, WhatsApp, Telegram, etc.). I need closed testers so I can make it public I’d really appreciate indie makers joining as testers and having it installed for 14 days 🙏 Thank you!! Join the closed test: https://play.google.com/apps/testing/dev.clipboardpipe Install: https://play.google.com/store/apps/details?id=dev.clipboardpipe If anything breaks or feels janky on your device, reply and tell me what happened and I'll fix it. &#32; submitted by &#32; /u/gsusi [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "一位開發者在 Reddit 上分享自己開發的 Android 小工具，能將圖片或影片直接複製到剪貼簿，方便分享到 X、WhatsApp、Telegram 等平台。目前正在徵求封閉測試者，希望 indie makers 幫忙試用兩週並回饋問題。",
+        "why_popular": "這類工具解決了許多用戶在跨平台分享圖片時的痛點，對於開發者社群而言具有實用性和創新價值，同時也展現出 indy maker 求助社群、共同完善產品的精神。",
+        "response_angles": [
+          "分享自己在 Android 上遇到相同困擾的經驗，並表示願意加入測試",
+          "針對產品設計（如 UI/UX 或穩定性）提出建議或潛在應用場景",
+          "討論跨平台內容分享的難點，延伸到其他平台是否有類似需求"
+        ],
+        "categories": [
+          "industry_thoughts",
+          "achievements"
         ],
         "fb_score": 4,
         "blog_score": 5
@@ -523,16 +555,17 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這位創業者分享了他經營第三個 SaaS 產品一年達到 10 萬美金營收的經驗，詳細解析哪些推廣和產品策略有效、哪些失敗。內容涵蓋實戰經驗和具體操作細節，非常適合正在開發產品或行銷 SaaS 的人參考。",
-        "why_popular": "這篇文章以真實的營運數據和失敗教訓分享，提供許多 SaaS 創業者可以立即實踐的行動建議。內容誠實且具啟發性，容易引起同類讀者共鳴。",
+        "summary_zh": "這位創業者分享了自己經營 SaaS 產品一年達成 10 萬美金營收的經驗，包括有效的推廣方式（如與網紅合作、簡化郵件、口碑行銷、公開透明的經營過程）以及失敗的嘗試（如 SEO、聯盟行銷、開發沒人要的功能）。文章重點在於實戰經驗與具體成長策略分享，對於同樣想經營 SaaS 的人很有參考價值。",
+        "why_popular": "貼文以實際數據與真實經驗為基礎，誠實分享成功與失敗的行銷與產品策略，讓同樣在創業或開發產品的人產生共鳴與學習動力。",
         "response_angles": [
-          "分享自己在推廣或經營 SaaS 產品時遇到的相似經驗或不同做法",
-          "針對作者提到的推廣策略（如贊助內容或去品牌化 email）提出看法或補充建議",
-          "詢問作者關於產品開發流程、用戶回饋或維持口碑的更細節作法"
+          "分享自己在產品推廣或行銷上遇到的相似經驗，討論哪些方法奏效、哪些不行",
+          "針對文中提到的『移除郵件格式提升開信率』深入探討，或提出自己的郵件行銷心得",
+          "詢問作者更多關於如何篩選產品功能、避免浪費開發資源的具體策略"
         ],
         "categories": [
           "industry_thoughts",
-          "achievements"
+          "achievements",
+          "personal_growth"
         ],
         "fb_score": 4,
         "blog_score": 5
@@ -548,47 +581,17 @@
       "reply_url": "https://www.reddit.com/r/indiehackers/comments/1q99oeu/whats_your_tech_and_ops_stack/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "what do you use for ruining and operating your business? I'll go first db + auth supabase frontend vuejs + tailwindcss landing page astrojs payment stripe or polars backend golang on hetzner AI provider mix of claude, chatgpt &amp; gemini design figma crawler apify codebase github + github actions dns cloudflare CDN netlify or github pages analytics pirsch or posthog distribution YouTube, X, LinkedIn, Reddit + instantly SEO ahrefs CRM folk love to see what you use on a day to day basis especially names that are not well known but have proven very valuable to you &#32; submitted by &#32; /u/Odd_Awareness_6935 [link] &#32; [comments]",
+      "selftext": "what do you use for ruining and operating your business? I'll go first db + auth supabase frontend vuejs + tailwindcss landing page astrojs email resend payment stripe or polars backend golang on hetzner AI provider mix of claude, chatgpt &amp; gemini design figma crawler apify codebase github + github actions dns cloudflare CDN netlify or github pages analytics pirsch or posthog distribution YouTube, X, LinkedIn, Reddit + instantly SEO ahrefs CRM folk love to see what you use on a day to day basis especially names that are not well known but have proven very valuable to you &#32; submitted by &#32; /u/Odd_Awareness_6935 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這則貼文詢問大家日常經營和運營業務時會用到哪些技術和工具，並率先分享了自己的完整 tech & ops stack，涵蓋前後端、資料庫、AI、設計、分析、行銷等工具。作者特別想知道大家有哪些不太知名但實用的工具推薦。",
-        "why_popular": "分享技術堆疊是 indie hacker 社群的熱門話題，能讓大家交流最新工具與實務經驗，也容易激發更多討論和工具發掘。",
+        "summary_zh": "這篇貼文詢問 indie hacker 們日常運營業務時使用的技術和營運工具，並分享了自己的完整 tech & ops stack，涵蓋前後端、AI、設計、支付、分析、行銷等工具。作者鼓勵社群分享不為人知但實用的工具，促進彼此交流學習。",
+        "why_popular": "這類話題容易引起共鳴與經驗交流，許多創業者與開發者都關心同儕用什麼工具來提升效率和降低成本。",
         "response_angles": [
-          "分享自己日常用到的獨特或冷門工具，並說明為什麼覺得好用",
-          "詢問原 PO 某些工具選擇的理由（如為何選用 Pirsch 而非 Google Analytics）",
-          "討論不同階段的團隊或個人適合怎樣的 stack、該如何取捨"
-        ],
-        "categories": [
-          "industry_thoughts",
-          "personal_growth"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "1e6414daf674",
-      "source": "reddit",
-      "category": "indie_hacker",
-      "subreddit": "indiehackers",
-      "title": "Don't skip validating your ideas, its the worst",
-      "url": "https://www.reddit.com/r/indiehackers/comments/1q8k3uh/dont_skip_validating_your_ideas_its_the_worst/",
-      "reply_url": "https://www.reddit.com/r/indiehackers/comments/1q8k3uh/dont_skip_validating_your_ideas_its_the_worst/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "I have been seeing many founders trying to get better at validating ideas before building which is great, its what we should do, but that sadly doesnt make it easy. I madde a post recently asking about what issues founders have with assessing demand and getting those first beta testers. What surprised me was how consistent the frustrations were. People are not struggling to come up with questions. They are struggling to find a small number of people who actually care enough to reply honestly. A few things I heard over and over: - Talking to 5 to 10 relevant people beats surveying 100 loosely related ones - Scraping posts or blasting outreach quickly turns into noise - Context matters more than volume. What someone tried, what failed, and why they are frustrated You want someone actively searching for the solution, not mentioning a keyword here or there. That feedback reinforced how I was thinking about leverage at the idea stage. It feels less about speed and automation, and more about helping founders notice the right people and approach them intentionally. I've reflected that thinking into this waitlist for the tool I am building to solve this. The landing page explains the approach I aim to take. If you are struggling with early validation, I would genuinely like to know if this seems beneficial or feels off. What direction should I take this? &#32; submitted by &#32; /u/unkno0wn_dev [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這篇貼文討論了創業者在驗證產品想法時面臨的困難，特別是如何找到真正有興趣並願意回饋的使用者。作者強調與少數相關用戶深入交流的重要性，並分享自己正在開發針對這一痛點的工具。",
-        "why_popular": "該話題直擊許多創業者的共同痛點，並提供具體觀察與解決方向，容易引發共鳴和討論。",
-        "response_angles": [
-          "分享自己在驗證產品想法時遇到的挑戰與經驗",
-          "討論有效尋找核心用戶的具體方法",
-          "針對作者開發的工具提出建議或需求"
+          "分享自己正在用的獨特或小眾工具，並說明為什麼值得推薦",
+          "詢問社群對某些工具（如 pirsch、folk）的使用心得或替代方案",
+          "討論工具選擇背後的原則（如成本、易用性、社群支援）"
         ],
         "categories": [
           "industry_thoughts",
@@ -613,12 +616,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "r/Entrepreneur 社群推出官方 AMA Podcast，首集邀請 REEKON Tools 創辦人 Christian Reed，深入探討從痛點出發創業、硬體產品開發與分銷的挑戰，以及那些昂貴但必要的錯誤。這系列 Podcast 延伸 AMA 互動，並搭配後續現場問答，讓社群成員能深入提問。",
-        "why_popular": "本集內容揭露創業過程中的真實經歷，特別是硬體產品創業的難處，對於有志創業者或對產品開發有興趣的人極具吸引力。此外，Podcast 形式與社群互動結合，增加參與感。",
+        "summary_zh": "這是 r/Entrepreneur 社群推出的首集官方 AMA Podcast，邀請 REEKON Tools 創辦人 Christian Reed 分享從個人痛點創業、硬體產品開發到製造與分銷的真實經歷。內容著重於硬體創業的挑戰、意外與必經錯誤，並預告將有後續 AMA 互動環節。",
+        "why_popular": "這集 Podcast 結合知名創業社群的品牌效應，並深入探討硬體創業的現實挑戰，對有志於創業或產品開發的聽眾極具啟發性。",
         "response_angles": [
-          "分享自己遇過的創業痛點或產品開發難題",
-          "討論硬體與軟體創業在決策上的不同挑戰",
-          "期待後續 AMA，並提出想詢問創辦人的具體問題"
+          "分享自己在產品開發或創業過程中遇到的意外挑戰與學到的教訓",
+          "討論硬體創業與軟體創業在決策上的主要差異",
+          "提出想問嘉賓（Christian Reed）的具體問題或對於 AMA 互動的期待"
         ],
         "categories": [
           "industry_thoughts",
@@ -643,12 +646,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這是一個 Reddit 版主定期發布的徵才與服務交流串，讓創業者可以發布招聘、徵求實習生或提供服務（如設計、SEO 等），以避免主版面被個人廣告淹沒。貼文也提醒大家排序方式，以便找到最新的資訊。",
-        "why_popular": "這類集中式的交流串方便創業者互相連結與合作，是社群中資源共享的重要管道。",
+        "summary_zh": "這是一個r/Entrepreneur每週例行的Marketplace貼文，供成員集中發布招聘、尋找工作或提供服務的資訊，以避免主論壇被廣告淹沒。參與者可在此交換資源、尋找合作或推銷自身服務。",
+        "why_popular": "這種集中資源交換的貼文有助於社群成員互助合作，同時維持主版面整潔，方便大家快速找到需要的機會或人才。",
         "response_angles": [
-          "分享自己正在尋找的人才或服務",
-          "詢問其他創業者需求，建立合作機會",
-          "討論如何提升這類徵才交流串的效率與質量"
+          "分享你正在尋找的合作夥伴或服務，介紹自己的需求",
+          "列出你可以提供的專業服務或技能，尋找潛在客戶",
+          "討論這種每週集中Marketplace的好處與改進建議"
         ],
         "categories": [
           "industry_thoughts",
@@ -673,12 +676,42 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇貼文討論了許多人對『稅務減免』的誤解，認為只要花錢就能抵稅，是一種『神奇』的財務操作。作者強調，實際上花一元只為省下三毛五的稅不合理，只有對業務成長有必要的支出才值得扣抵，並以房地產折舊做為例子解釋差異。",
-        "why_popular": "這個主題揭露了大眾對稅務減免的常見誤解，引起創業者和一般上班族的共鳴與討論，也讓專業知識成為社群交流的焦點。",
+        "summary_zh": "這篇貼文討論了大眾對於『稅務減免（tax write-off）』的誤解，認為許多人過度神化『可以報銷就能省稅』這件事。作者以創業者角度強調，真正的稅務減免其實只是花一塊錢省三毛五，只有對業務真正有幫助的支出才有意義。",
+        "why_popular": "這主題觸及創業圈和一般民眾常見的稅務迷思，引發不少人共鳴和討論。貼文語氣直率，挑戰普遍認知，容易激起辯論。",
         "response_angles": [
-          "分享自己或身邊人對稅務減免的實際經驗和誤區",
-          "討論各種產業（如房地產、電商等）在稅務規劃上的差異與策略",
-          "補充正確的稅務知識，幫助澄清大眾迷思"
+          "分享自己對於稅務減免的理解或經驗，補充正確觀念",
+          "討論不同類型的減稅工具（如房地產折舊、bonus depreciation）與一般開支的差異",
+          "針對大眾對『write-off』過度期待的現象提出看法，或舉例說明常見誤區"
+        ],
+        "categories": [
+          "industry_thoughts",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "232333a8a4c7",
+      "source": "reddit",
+      "category": "indie_hacker",
+      "subreddit": "Entrepreneur",
+      "title": "If you had to start from zero again, what would you focus on first?",
+      "url": "https://www.reddit.com/r/Entrepreneur/comments/1qao4it/if_you_had_to_start_from_zero_again_what_would/",
+      "reply_url": "https://www.reddit.com/r/Entrepreneur/comments/1qao4it/if_you_had_to_start_from_zero_again_what_would/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "A friend of mine runs a GTM-focused agency. Watching how he got early traction challenged a few assumptions I had about starting from zero. I asked him what he’d actually do if he had to start again today. No audience, no brand, no clients. What surprised me wasn’t anything flashy, but how slow and manual the first phase really was. 1) He focused on one free channel He tried a lot over time, but early on it was mostly consistent posting aimed at a very specific buyer. Nothing viral. Just showing up. 2) He kept his online presence extremely simple One page that made it clear who it was for and what problem it solved. No fancy site. 3) Early outreach was very manual He spent a lot of time personally replying to people who engaged but didn’t reach out. No automation. 4) He didn’t judge results quickly He mentioned that most of the benefits only showed up after sticking with it longer than felt comfortable. I’m curious if others here have seen similar patterns, or if this breaks down at some point. &#32; submitted by &#32; /u/illeatmyletter [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "這篇貼文分享了一位GTM（Go-To-Market）代理商創業初期的真實經驗，強調在沒有資源的情況下，專注於單一免費渠道、簡單明確的網路形象、手動回應潛在客戶，以及長期堅持帶來的成果。作者好奇這種緩慢且務實的方法是否適用於其他人，並邀請大家討論自己的觀察。",
+        "why_popular": "貼文打破了快速成長的迷思，展現創業初期務實、低調且重視長期累積的方法，引起許多創業者共鳴。內容真實且具備實操細節，容易讓讀者產生共感與討論慾望。",
+        "response_angles": [
+          "分享自己從零開始時的經驗，是否也遇到一樣的挑戰與收穫。",
+          "討論現代創業環境下，純手動經營與自動化行銷的優缺點。",
+          "延伸思考：如何判斷何時該堅持，何時該調整策略，避免無效努力。"
         ],
         "categories": [
           "industry_thoughts",
@@ -689,61 +722,29 @@
       }
     },
     {
-      "id": "379bec406a52",
+      "id": "d5c9b74ace1e",
       "source": "reddit",
       "category": "indie_hacker",
       "subreddit": "Entrepreneur",
-      "title": "After travelling for 5 years and not working - Honestly don't know what to do. f#@%!!!",
-      "url": "https://www.reddit.com/r/Entrepreneur/comments/1q9n9uo/after_travelling_for_5_years_and_not_working/",
-      "reply_url": "https://www.reddit.com/r/Entrepreneur/comments/1q9n9uo/after_travelling_for_5_years_and_not_working/?utm_source=share&utm_medium=web2x",
+      "title": "If you’ve made 10k plus months on your business, how did you do it?",
+      "url": "https://www.reddit.com/r/Entrepreneur/comments/1qaid4p/if_youve_made_10k_plus_months_on_your_business/",
+      "reply_url": "https://www.reddit.com/r/Entrepreneur/comments/1qaid4p/if_youve_made_10k_plus_months_on_your_business/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "Hey guys, I'm in such a weird situation. I'm 38M. I grew up in Toronto Canada. I had founded a few small businesses before and exited all of them. It was after COVID, I had money in the bank. I went out to live my dream - I travelled/surfed full-time. Did not give a fuck about anything. It was the dream life. Now, 5 years later, I get hit with a huuuuge tax bill ($100k+) from a previous transaction (real estate). It's gonna wipe out a lot of my net worth, so I can't survive on SP500/BTC anymore as I did before. I now live in Mauritius (world-class surf/kitesurf spot) but I can't legally work here. Also, it's a shit market to work in. The population is 1.3M and people are poor. It's paradise leisurely but a nightmare economically. BYOM (Bring your own money). I'm only legally allowed to work in Canada or online. I need to pull income again and refill my net worth. No idea where to start.... Do I become a plumber? I basically need to restart my career... I can start my own business again but honestly don't know what field. I haven't been in Canada for 5 years and now I'm visiting. I feel lost. I have no network....I'm a surfer dude who just came back into the Matrix after a 5-year hiatus. &#32; submitted by &#32; /u/LegitimateDream4942 [link] &#32; [comments]",
+      "selftext": "I’m a freelancer, service based business as a brand and web designer. The goal is always to make more money and scale and reach those 10k months. If you’ve done this, how did you do it!? &#32; submitted by &#32; /u/al_b21 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這位38歲加拿大男子在成功創業並賣掉公司後，花了五年環遊世界享受自由生活，如今因稅務問題面臨財務困境，需要重新開始賺錢卻感到迷惘。他現居毛里求斯，工作機會有限，只能考慮線上或回加拿大發展，對未來方向感到迷失。",
-        "why_popular": "許多人對於『財務自由後如何找回生活重心』以及『人生規劃突遇變故』感同身受，貼文真誠分享焦慮與迷惘，容易引起共鳴與討論。",
+        "summary_zh": "這位品牌與網頁設計的自由工作者，詢問大家如何讓服務型業務達到每月一萬美元以上的收入。貼文希望獲得成功經驗分享，尋找具體可行的成長策略。",
+        "why_popular": "這類財務目標貼文能引發廣大自由工作者和創業者的共鳴，大家都關心如何突破收入瓶頸，並渴望學習他人實戰經驗。",
         "response_angles": [
-          "給予實務建議：如何線上創業或遠端接案，重建收入來源",
-          "討論財務自由後的心理調適與再出發的困難",
-          "分享自己或他人類似的轉型經歷，鼓勵原PO"
+          "分享自己在接案或創業過程中如何擴大客群、提升單價或建立長期合作關係",
+          "討論品牌經營、個人行銷、如何找到高價值客戶的實用方法",
+          "分析時間分配、流程自動化、外包等提升收入效率的策略"
         ],
         "categories": [
           "industry_thoughts",
-          "personal_growth",
-          "values"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "06c164b1b14a",
-      "source": "reddit",
-      "category": "indie_hacker",
-      "subreddit": "Entrepreneur",
-      "title": "Im an engineer, I've patented a new technology (think vacuum tubes>transistors) and Im having a hard time getting VC attention.",
-      "url": "https://www.reddit.com/r/Entrepreneur/comments/1qa2ki7/im_an_engineer_ive_patented_a_new_technology/",
-      "reply_url": "https://www.reddit.com/r/Entrepreneur/comments/1qa2ki7/im_an_engineer_ive_patented_a_new_technology/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "So this tech tackles what reservoir computers have been trying to do for years but can't because they use binary. My engine is physics based and uses the edge of chaos for computation. It will be fundamental for tech infrastructure. Right now it can be stacked in Googles Quantum computers and drastically reduce thermal bottlenecks and give them a path towards scaling. It can be used to monitor heart rhythms to anticipate arrhythmia hours before cardiac arrest, monitor data infrastructure to help isolate data packets and also stop infiltration before it enters a network, used in defense radar to identify threats before a CPU can even begin processing data, used as a robotic limbic system to give it muscle memory, and the list goes on. Currently I hold the patent, I've mapped out the engine fabrication process, and its fab ready. All simulations say it 100% works, and theres a 74% chance that first lot will be successful right out of the press without needing tuning, and a 95% chance it will work with it. My current strategy is to get a foundry to give me a letter feasibility that it can be fabricated full stack on their machines. Hopefully that will increase appeal. Ive got a C Corp. Im posting on LinkedIn, Im trying to get a VC to come to the table. Any suggestions? I feel like Im out of ideas. &#32; submitted by &#32; /u/Plot-twist-time [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這位工程師自創一項突破性物理運算技術，已獲專利並完成製程規劃，強調該技術可應用於量子電腦、醫療、資安及國防等多領域，但目前難以吸引創投關注。他尋求社群建議以提升投資吸引力。",
-        "why_popular": "貼文展現了前沿技術創新的野心與實際落地困難，激發專業討論與共鳴，也引發對創投資金流向和技術推廣難題的深層關注。",
-        "response_angles": [
-          "分享自己或身邊類似技術推廣、創業遇到的困難與突破經驗",
-          "給予具體建議（如尋找產業合作夥伴、參加業界活動、媒體曝光等）",
-          "討論當前創投生態對硬科技/深科技專案的態度與改進方向"
-        ],
-        "categories": [
-          "industry_thoughts",
-          "achievements",
           "personal_growth"
         ],
         "fb_score": 4,
@@ -765,12 +766,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這是一則每季一次的 Reddit r/startups 社群徵集貼文，邀請用戶分享自己正在進行的創業項目、所在位置、現階段、目標與需要社群幫助之處。貼文同時提供新創生命週期模型，幫助創業者自我對齊與定位。",
-        "why_popular": "貼文提供給創業者一個展示與交流的平台，有助於建立社群感及資源互助，並讓參與者找到潛在的合作與支持。清楚的結構和明確的參與指引也降低了新手的參與門檻。",
+        "summary_zh": "這是一篇定期於 r/startups 發佈的徵集貼文，邀請創業者分享自己的新創項目，並按照標準格式介紹產品、目前階段、目標及需要的社群協助。內容同時也引導大家進行網絡交流與資源分享。",
+        "why_popular": "這類貼文能讓創業者彼此曝光、交換經驗並獲得社群回饋，對於尋找合作或解決問題極具吸引力。",
         "response_angles": [
-          "分享自己的創業項目，尋找潛在合作夥伴或用戶",
-          "根據生命週期模型討論目前遇到的挑戰及成長策略",
-          "針對他人分享給予建議或提供資源與經驗"
+          "分享自己的創業項目或想法，尋求社群反饋",
+          "針對他人貼文提供意見或資源，促進交流",
+          "討論不同新創階段遇到的挑戰與解決方案"
         ],
         "categories": [
           "industry_thoughts",
@@ -781,26 +782,26 @@
       }
     },
     {
-      "id": "c9d801c3600b",
+      "id": "2078705f7644",
       "source": "reddit",
       "category": "indie_hacker",
       "subreddit": "startups",
-      "title": "Feedback Friday",
-      "url": "https://www.reddit.com/r/startups/comments/1q80ej9/feedback_friday/",
-      "reply_url": "https://www.reddit.com/r/startups/comments/1q80ej9/feedback_friday/?utm_source=share&utm_medium=web2x",
+      "title": "[Hiring/Seeking/Offering] Jobs / Co-Founders Weekly Thread",
+      "url": "https://www.reddit.com/r/startups/comments/1qalz83/hiringseekingoffering_jobs_cofounders_weekly/",
+      "reply_url": "https://www.reddit.com/r/startups/comments/1qalz83/hiringseekingoffering_jobs_cofounders_weekly/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "Welcome to this week’s Feedback Thread! Please use this thread appropriately to gather feedback: Feel free to request general feedback or specific feedback in a certain area like user experience, usability, design, landing page(s), or code review You may share surveys You may make an additional request for beta testers Promo codes and affiliates links are ONLY allowed if they are for your product in an effort to incentivize people to give you feedback Please refrain from just posting a link Give OTHERS FEEDBACK and ASK THEM TO RETURN THE FAVOR if you are seeking feedback You must use the template below --this context will improve the quality of feedback you receive &#x200B; Template to Follow for Seeking Feedback: Company Name: URL: Purpose of Startup and Product: Technologies Used: Feedback Requested: Seeking Beta-Testers: [yes/no] (this is optional) Additional Comments: &#x200B; &#x200B; &#x200B; This thread is NOT for: General promotion--YOU MUST use the template and be seeking feedback What all the other recurring threads are for Being a jerk &#x200B; &#x200B; Community Reminders Be kind Be constructive if you share feedback/criticism Follow all of our rules You can view all of our recurring themed threads by using our Menu at the top of the sub. Upvote This For Maximum Visibility! &#32; submitted by &#32; /u/AutoModerator [link] &#32; [comments]",
+      "selftext": "[Hiring/Seeking/Offering] Jobs / Co-Founders Weekly Thread This is an experiment. We see there is a demand from the community to: Find Co-Founders Hiring / Seeking Jobs Offering Your Skillset / Looking for Talent Please use the following template: **[SEEKING / HIRING / OFFERING]** (Choose one) **[COFOUNDER / JOB / OFFER]** (Choose one) Company Name: (Optional) Pitch: Preferred Contact Method(s): Link: (Optional) All Other Subreddit Rules Still Apply We understand there will be mild self promotion involved with finding cofounders, recruiting and offering services. If you want to communicate via DM/Chat, put that as the Preferred Contact Method. We don't need to clutter the thread with lots of 'DM me' or 'Please DM' comments. Please make sure to follow all of the other rules, especially don't be rude. Reminder: This is an experiment We may or may not keep posting these. We are looking to improve them. If you have any feedback or suggestions, please share them with the mods via ModMail . &#32; submitted by &#32; /u/AutoModerator [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這是一則每週在 r/startups 社群中發佈的『Feedback Friday』主題貼文，鼓勵創業者按照指定模板分享自己的產品並互相給予回饋。貼文強調社群互助、誠實反饋及良好互動，並明確規範分享內容和方式。",
-        "why_popular": "這類貼文為創業者提供一個低門檻、結構化的交流平台，方便尋求實用意見與資源，促進社群互助氛圍。",
+        "summary_zh": "這是一個 Reddit r/startups 討論區的每週徵才/找夥伴/自我推薦集中串，方便創業者尋找合適的工作機會、合夥人或人才。版主提供了明確的發文模板並強調規則，鼓勵社群成員參與並提出回饋。",
+        "why_popular": "此貼文回應了創業圈對於人才媒合和合作機會的強烈需求，並以固定主題串提供集中且高效的交流方式，降低資訊雜亂。",
         "response_angles": [
-          "分享自己產品並徵求具體回饋",
-          "主動對其他創業者的項目給予建設性建議",
-          "討論社群互助如何幫助新創團隊成長"
+          "分享自己尋找合夥人或人才的經驗與建議",
+          "針對模板或串運作方式提出優化建議",
+          "討論創業社群如何建立更有效的媒合平台"
         ],
         "categories": [
           "industry_thoughts",
@@ -811,26 +812,26 @@
       }
     },
     {
-      "id": "3ef2fbeed694",
+      "id": "38ea60cf23c7",
       "source": "reddit",
       "category": "indie_hacker",
       "subreddit": "startups",
-      "title": "What’s your top tips for solo technical founders trying to get good at sales? [I will not promote]",
-      "url": "https://www.reddit.com/r/startups/comments/1q9xlv6/whats_your_top_tips_for_solo_technical_founders/",
-      "reply_url": "https://www.reddit.com/r/startups/comments/1q9xlv6/whats_your_top_tips_for_solo_technical_founders/?utm_source=share&utm_medium=web2x",
+      "title": "How do you grow and market your startup from zero (I will not promote)",
+      "url": "https://www.reddit.com/r/startups/comments/1qaj8ab/how_do_you_grow_and_market_your_startup_from_zero/",
+      "reply_url": "https://www.reddit.com/r/startups/comments/1qaj8ab/how_do_you_grow_and_market_your_startup_from_zero/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "Left a VC backed startup due to lack of traction. Long story short, engineering team was cracked and we always defaulted to building features and optimizations despite not having enough validation that we were building the right thing (classic mistake). As a result we never got PMF and the VC money IMO didn’t help since it removed any sense of urgency to do the hard thing. I could say a lot more about the downsides of VC but I digress. I’m now trying again with a new venture (solo + bootstrapped) and want to do things differently. Spent 3 weeks building a barebones MVP and now trying my hardest to grind sales (SaaS product for small to medium sized businesses). What are some tips you can give to a technical solo founder trying to get good at sales (you can assume I don’t know much)? I have a pretty good ICP defined and a way to find leads. I don’t have much in the way of warm intros though so I think it’s mostly going to have to be cold outreach. I’m prepared to spend the next few weeks full time grinding on outreach in the hopes of signing my first 10 customers. It’s been tempting to just go back to building since my fear is also that if the product isn’t good enough then my sales efforts won’t be worth much. This was also the same mentality we had at my last startup that made us just keep building forever. &#32; submitted by &#32; /u/almost1it [link] &#32; [comments]",
+      "selftext": "I’m working on a few projects that I’m trying to grow and market. One is a mobile iOS app with over 1000 users, mainly through ASO, the other a project planning SaaS that I’m working on growing. I’m struggling to market both of these products. A lot of places say building in public on X and Reddit is the way to go, but god damn the state of X and some of these subreddits is horrendous. What do you guys think is the best advice for growth from zero? &#32; submitted by &#32; /u/Skyfall106 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這位技術型創業者分享了過去在 VC 支持下因為過度專注開發而失敗的經驗，現在選擇用 bootstrapping 方式創業並主動學習銷售，希望獲得其他創業者的銷售建議。他坦承自己對銷售陌生，願意全力投入冷開發，並反思產品與銷售間的平衡。",
-        "why_popular": "貼文觸及了許多技術創業者常見的困境：產品導向與銷售導向的拉鋸，以及從失敗中學習、轉型的真實經歷，容易引起共鳴與討論。",
+        "summary_zh": "這位創業者分享了自己推廣兩個產品（iOS app 與 SaaS）時遇到的困難，並詢問社群有什麼成長建議。他對於目前主流『公開建立產品』的宣傳方式感到質疑，尋求實際有效的方法。",
+        "why_popular": "許多創業者都面臨從零成長和推廣的困難，這個話題引發共鳴，也鼓勵大家分享實戰經驗和建議。",
         "response_angles": [
-          "分享自己作為技術人如何學習銷售的經驗或推薦實用資源",
-          "討論產品開發與銷售推進之間的心態調整與行動優先順序",
-          "分析 VC 資金對創業初期心態與執行力的優劣，並給予建議"
+          "分享自己推廣產品早期的低成本/創意成長經驗",
+          "討論各種行銷管道的利弊（如 ASO、內容行銷、社群經營）",
+          "分析『build in public』策略在不同平台的適用性與挑戰"
         ],
         "categories": [
           "industry_thoughts",
@@ -841,26 +842,26 @@
       }
     },
     {
-      "id": "bba3dc008aab",
+      "id": "10bbfe1cfc26",
       "source": "reddit",
       "category": "indie_hacker",
       "subreddit": "startups",
-      "title": "I need some advice on a technology company for social good. I will not promote",
-      "url": "https://www.reddit.com/r/startups/comments/1qa2u4b/i_need_some_advice_on_a_technology_company_for/",
-      "reply_url": "https://www.reddit.com/r/startups/comments/1qa2u4b/i_need_some_advice_on_a_technology_company_for/?utm_source=share&utm_medium=web2x",
+      "title": "Will AI agents share the fate of mobile apps? i will not promote",
+      "url": "https://www.reddit.com/r/startups/comments/1qad62d/will_ai_agents_share_the_fate_of_mobile_apps_i/",
+      "reply_url": "https://www.reddit.com/r/startups/comments/1qad62d/will_ai_agents_share_the_fate_of_mobile_apps_i/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "I started a technology company that I will not promote and just have questions. The company has a mission to create software that addresses real world social and environmental challenges. I know I did the whole bad thing of creating a company with no product but if you were me what would you do to find needs in this industry that are a good fit. My assumption was to create the company, go find projects needing help, make bids, and hopefully score one or two. I have tried using my network but I have always worked in big tech and my network is the same as me. Any advice you have would be greatly appreciated. &#32; submitted by &#32; /u/allencoded [link] &#32; [comments]",
+      "selftext": "I especially want to call out startups that focus on developing AI agents. When apps first came to App Store, there were a lot of independent developers that benefited from the empty market, specific apps for specific situations could sell very good. Look at today though, we see a shift towards big app studios, who launch a different app each week, slowly killing the B2C app development with their huge marketing and influence. I believe mobile apps and ai agents have important analogies to look out for. And I believe many agentic solutions (such as voice agents or email readers) will be so common and easy to obtain, sole agent-developing companies will decrease in number in the future. Continuing the analogy, I don't believe there will be monopolies big enough to make developing agents unprofitable. Still, you should look out, what is next after we create all agents? That is the question of 2026. &#32; submitted by &#32; /u/EquivalentRound3193 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "創辦人成立了一家以解決社會和環境問題為使命的科技公司，但目前沒有明確產品，尋求社群對於如何找到合適需求的建議。由於創辦人過去都在大公司工作，現有的人脈網路有限，希望獲得具體的行動建議。",
-        "why_popular": "這類問題結合了理想驅動的創業與現實挑戰，能夠引發同樣關心社會創新與初創困境者的共鳴。",
+        "summary_zh": "這篇貼文將 AI agent 的發展與早期行動應用程式市場做類比，指出最初由獨立開發者主導的藍海，最終被大型工作室壟斷，並預測 AI agent 也將面臨類似趨勢。作者提醒創業者思考，在 AI agent 普及之後，下一步能發展什麼才是關鍵。",
+        "why_popular": "貼文觸及了新興技術（AI agent）與創業趨勢的結合，提出產業發展的前景與挑戰，引發許多創業者和開發者的共鳴與思考。",
         "response_angles": [
-          "分享自己尋找市場需求或做社會創業市場驗證的經驗",
-          "推薦社會企業或公益科技領域的資源、組織或協會",
-          "討論如何從用戶痛點出發，逐步聚焦產品方向"
+          "分享自己對 AI agent 市場藍海/紅海轉變的觀察或親身經驗",
+          "討論哪些領域的 agent 可能還有機會突破現有競爭",
+          "延伸討論『After all agents are built, what’s next?』這個問題，提出創新想法"
         ],
         "categories": [
           "industry_thoughts",
@@ -871,26 +872,26 @@
       }
     },
     {
-      "id": "d136faa64e5f",
+      "id": "0272b3009357",
       "source": "reddit",
       "category": "indie_hacker",
       "subreddit": "startups",
-      "title": "I’m working on IRL social media “I will not promote”",
-      "url": "https://www.reddit.com/r/startups/comments/1qa1uki/im_working_on_irl_social_media_i_will_not_promote/",
-      "reply_url": "https://www.reddit.com/r/startups/comments/1qa1uki/im_working_on_irl_social_media_i_will_not_promote/?utm_source=share&utm_medium=web2x",
+      "title": "I built a childcare marketplace. Tear apart my launch strategy. (I will not promote)",
+      "url": "https://www.reddit.com/r/startups/comments/1qaoezr/i_built_a_childcare_marketplace_tear_apart_my/",
+      "reply_url": "https://www.reddit.com/r/startups/comments/1qaoezr/i_built_a_childcare_marketplace_tear_apart_my/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "I’m building an app where the only way to follow someone is by seeing them in real life. There’s no feed, no posts, and no explore page. You open the app and see accounts of people near you (using an AirDrop-like nearby feature), tap someone you noticed, and follow them because you saw them IRL. The app has its own follower count, with optional links to Instagram, but growth comes purely from real-world presence, not online content. Curious if people would actually use this or if it sounds impractical. &#32; submitted by &#32; /u/Cheap-Airline-6606 [link] &#32; [comments]",
+      "selftext": "Finding childcare is tough. If you have kids, you know. On the other hand, maintaining an up-to-date pipeline of ready-to-enroll families is also difficult for providers. I’ve built a tool that connects families and providers. Simply put, it’s a childcare marketplace. We are pre-launch. Everything is ready. I’ve spoken with both providers and parents, and the platform solves real problems. - Parents will pay for waitlist application credits (free and paid tiers). - Providers will have subscription plans with tiers based on the number of children onboarded per year. Now, how do I launch? I’d like your feedback on the strategy. Bear with me. This is a chicken-and-egg problem: we need providers on the platform for parents to get value from it. To address this, we’re going ultra-local: 1–2 cities (TAM: ~1,700 daycares, ~20k parents per year). Phase 1: Initial Launch For providers: We’ll start with manual outreach: cold calls and manual emails. “Join the platform and fill your first spot for free.” We clean their waitlists and give their openings exposure on the platform (free marketing). For parents: Flyers on city poster cylinders, in playgrounds, community centers, etc… offering 10 to 15 free application credits. Target goals (within 3 months): - Fill 20/30 daycare openings - Onboard 100 daycares - Create 1,000 family profiles Phase 2: Acceleration Once PMF is confirmed and we see initial traction, we’ll launch online acquisition campaigns using this funnel: - Ads - Opt-in page with a free resource (lead capture) - Early adopter offer (providers: freemium until the first spot is filled &amp; parents: free waitlist application credits) - Classic email lead nurturing after that… Finally, I’d like to add that the marketplace is also fed with public data (childcare resource registries and Facebook groups) to showcase available openings to parents and use demonstrated family interest as a sales lever to encourage providers to join. LLMs were amazing in designing this strat",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇貼文介紹了一款只能透過現實生活中遇見對方才能互相關注的社群 APP，沒有動態牆、貼文或探索頁，完全以現實互動取代線上內容。作者好奇這個概念是否實用，邀請討論其可行性。",
-        "why_popular": "這個創新概念顛覆了現有社群媒體運作模式，引發對真實互動與網路連結之間平衡的討論。許多人對於減少線上虛擬交流、回歸現實連結感到好奇。",
+        "summary_zh": "這位創業者分享了自己打造的幼兒托育媒合平台，以及詳細的雙邊市場啟動策略，並誠懇地向社群請益。內容包括針對托育業者和家長的推廣計畫，以及分階段的增長策略。",
+        "why_popular": "該貼文針對雙邊市場啟動的經典『雞生蛋』困境給出具體實操方案，並邀請社群拆解討論，容易引發有經驗者的共鳴與建設性回饋。",
         "response_angles": [
-          "可以討論現代人對真實社交的渴望與困難，這種模式是否能真正促進有意義的關係。",
-          "分析這種設計對於防止網路霸凌、假帳號或虛假行銷的潛在優勢與挑戰。",
-          "從產品開發或用戶增長角度，探討這種成長全靠線下曝光的商業可行性及推廣難點。"
+          "給予雙邊市場啟動建議（如如何更有效獲取早期供應方）",
+          "討論本地化市場進入策略的優缺點",
+          "分享自己在親子相關或平台產品啟動的經驗"
         ],
         "categories": [
           "industry_thoughts",
@@ -915,16 +916,16 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這是一篇給 r/resumes 新手的置頂導讀，詳細說明發文規範、履歷準備與常見錯誤，並提供工具和範本協助用戶正確參與討論。內容結構明確，涵蓋履歷撰寫、格式要求及如何獲得有效回饋。",
-        "why_popular": "這篇文章一站式彙整了新手最常見的問題和資源，能快速幫助新用戶了解規則並有效參與社群，是社群運作不可或缺的指南。",
+        "summary_zh": "這是一篇針對首次使用 r/resumes 版友的指南，詳細說明如何撰寫履歷貼文、選擇產業分類、標題格式，以及貼文注意事項和常見錯誤。內容還附上履歷模板、撰寫指南和投稿流程，協助新手順利發文並獲得有效回饋。",
+        "why_popular": "因為能夠清楚引導新手有效參與社群，降低困惑並提升貼文品質，對初學者極具實用價值。",
         "response_angles": [
-          "分享自己依照這些規則發文後獲得的幫助或回饋經驗",
-          "討論哪些步驟最容易被忽略，提供個人小技巧",
-          "建議可以補充哪些常見問題或進階資源"
+          "分享自己撰寫履歷或求職發文時遇到的困難與經驗",
+          "討論哪些版規最容易被忽略、如何避免常見錯誤",
+          "建議補充其他有用的資源，例如面試準備或職涯規劃"
         ],
         "categories": [
-          "industry_thoughts",
-          "personal_growth"
+          "personal_growth",
+          "industry_thoughts"
         ],
         "fb_score": 4,
         "blog_score": 5
@@ -945,16 +946,76 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇文章由一位資深履歷寫手分享，教大家在聘請專業履歷編寫服務前該注意什麼，包括如何分辨專業與不專業的服務、行情價位、以及常見的陷阱。對沒使用過履歷寫作服務的人來說，這是個全面的指引。",
-        "why_popular": "許多求職者對是否該花錢找人寫履歷感到疑惑，這篇由業界人士現身說法、提供實用建議，正好解答了大家的痛點與疑慮。",
+        "summary_zh": "這篇文章以專業履歷撰寫師的角度，分享在聘請履歷寫手前應該注意的事項，包括如何判斷對方是否合格、服務流程、價格與常見陷阱。內容詳盡，幫助讀者避免浪費時間與金錢在無效的履歷服務上。",
+        "why_popular": "許多人對於履歷寫作感到困惑或不安，這類實用且來自業界專家的經驗分享，能直接解答他們的疑慮，且具有明顯的實用價值。",
         "response_angles": [
-          "分享自己是否曾經聘請履歷寫手的經驗與心得",
-          "討論如何判斷一位履歷寫手是否專業（例如看哪些指標）",
-          "延伸討論，自己在找工作時遇過哪些求職陷阱或不專業服務"
+          "分享自己曾經聘請履歷寫手的經驗與成果",
+          "討論如何分辨專業與不專業的履歷服務",
+          "延伸探討履歷之外，職涯服務還有哪些容易被誤導的地方"
         ],
         "categories": [
           "industry_thoughts",
           "personal_growth"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "6f74f6d1fc17",
+      "source": "reddit",
+      "category": "product_related",
+      "subreddit": "resumes",
+      "title": "[9 years, unemployed stay at home mom, credentialing data coordinator, NJ]",
+      "url": "https://www.reddit.com/r/resumes/comments/1qan04u/9_years_unemployed_stay_at_home_mom_credentialing/",
+      "reply_url": "https://www.reddit.com/r/resumes/comments/1qan04u/9_years_unemployed_stay_at_home_mom_credentialing/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "Please help review improve my resume, I’ve been out of work since I had my baby. I’m thinking of taking a part time credentialing data coordinator job. &#32; submitted by &#32; /u/Existing_Switch_4995 [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "這位九年沒有工作的全職媽媽，準備重返職場，尋求大家協助修改履歷，並考慮申請兼職的資歷資料協調員職位。她希望獲得實用的建議來提升求職成功率。",
+        "why_popular": "重返職場的話題容易引起共鳴，特別是對於長時間脫離職場的家長，這類真實故事容易激發他人分享經驗與建議。",
+        "response_angles": [
+          "分享自己或朋友重返職場的經驗與心路歷程",
+          "給予履歷修改或面試準備的具體建議",
+          "討論家長如何平衡家庭與工作的挑戰"
+        ],
+        "categories": [
+          "personal_growth",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "340b48fbb8cd",
+      "source": "reddit",
+      "category": "product_related",
+      "subreddit": "resumes",
+      "title": "[0 YoE, Sales Associate, Data Analyst/Financial Analyst, USA]",
+      "url": "https://www.reddit.com/r/resumes/comments/1qajrmx/0_yoe_sales_associate_data_analystfinancial/",
+      "reply_url": "https://www.reddit.com/r/resumes/comments/1qajrmx/0_yoe_sales_associate_data_analystfinancial/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "Formatting got a bit messed up when anonymizing, but text content is all the same. &#32; submitted by &#32; /u/decoytesting [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "這篇貼文是一位在美國求職的新人，零年經驗，尋求關於銷售助理、數據分析師或財務分析師職位的履歷建議。不過內容格式因匿名化而有點混亂，但文字內容保持不變。",
+        "why_popular": "許多剛畢業或職場新鮮人都會遇到如何撰寫履歷的疑慮，這類貼文容易引發同溫層共鳴與實用討論。",
+        "response_angles": [
+          "分享自己零經驗轉職的履歷撰寫心得或技巧",
+          "提供履歷格式調整建議，幫助提升專業度",
+          "討論在美國申請這類職缺時，哪些技能或經歷最能加分"
+        ],
+        "categories": [
+          "personal_growth",
+          "industry_thoughts"
         ],
         "fb_score": 4,
         "blog_score": 5
@@ -975,72 +1036,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這位擁有6年經驗的網路與資安分析師，正在美國尋求轉職至資安審計或架構師相關工作，卻苦於無法讓履歷兼具詳細與精簡。希望獲得大家針對履歷撰寫的具體建議。",
-        "why_popular": "許多人在職涯轉換或升遷時都會遇到如何撰寫履歷的難題，特別是資安領域競爭激烈，這個問題引起了廣泛共鳴和實用討論。",
+        "summary_zh": "這位擁有6年經驗的網路分析師，剛完成多項資安相關證照，想從IT轉職到資安審計或架構師職位。他在撰寫履歷時遇到困難，難以做到簡明扼要又完整表達技能和資格，希望獲得縮短或強化履歷內容的建議。",
+        "why_popular": "許多人在職涯轉換時都會遇到如何呈現履歷內容的困擾，特別是在熱門的資安領域，因此容易引起共鳴和討論。",
         "response_angles": [
-          "分享自己如何在履歷中精簡內容、突顯重點的經驗",
-          "推薦業界常見履歷撰寫範本或線上工具",
-          "建議聚焦於職位需求，針對不同職缺調整履歷內容"
-        ],
-        "categories": [
-          "industry_thoughts",
-          "personal_growth"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "a53b1cbbcb8c",
-      "source": "reddit",
-      "category": "product_related",
-      "subreddit": "resumes",
-      "title": "[0 YoE, Student, IT / SOC / SWE Intern, Canada]",
-      "url": "https://www.reddit.com/r/resumes/comments/1qa6mot/0_yoe_student_it_soc_swe_intern_canada/",
-      "reply_url": "https://www.reddit.com/r/resumes/comments/1qa6mot/0_yoe_student_it_soc_swe_intern_canada/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "I’m a first-year Computer Science student at McGill trying to break into IT, cybersecurity, and maybe SWE internships. I just updated my resume and would really appreciate honest feedback, what looks good, what looks bad, and what I should change or improve. My goal is to make this as strong as possible for 2026 internships and entry-level roles. Thanks in advance 🙏 &#32; submitted by &#32; /u/Numered [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這是一位加拿大麥基爾大學計算機科學新生，想進入 IT、資安或軟體實習領域，請求大家針對他最新的履歷給予誠實的建議與回饋，目標是在 2026 年獲得實習或新鮮人職位。他希望能藉由社群的力量來完善自己的履歷。",
-        "why_popular": "這類貼文受歡迎，因為許多學生或職場新鮮人都有相似的求職困擾，也鼓勵經驗者主動分享意見，形成互助氛圍。",
-        "response_angles": [
-          "分享自己當年申請 IT/SWE 實習時的履歷優化經驗與建議",
-          "針對該履歷內容給出具體的修改方向（技能欄、專案描述等）",
-          "討論加拿大新鮮人找實習的普遍困難與求職策略"
-        ],
-        "categories": [
-          "personal_growth",
-          "industry_thoughts"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "fc8b97faed06",
-      "source": "reddit",
-      "category": "product_related",
-      "subreddit": "resumes",
-      "title": "[3Yoe,volunteer Analyst, Data engineer, USA]",
-      "url": "https://www.reddit.com/r/resumes/comments/1qa4xg7/3yoevolunteer_analyst_data_engineer_usa/",
-      "reply_url": "https://www.reddit.com/r/resumes/comments/1qa4xg7/3yoevolunteer_analyst_data_engineer_usa/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "Hello, i have 3 years of experience in data engineering. I have completed my masters in usa and trying to get a job here. I have been applying to jobs and not getting a call back. Can i get a feedback on my experience section? Is this a good resume for data engineering jobs? Thanks &#32; submitted by &#32; /u/professional_junkie [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這位用戶在美國完成碩士學位，擁有3年數據工程師經驗，目前正在美國求職但未獲得面試邀約，主動請求大家針對履歷經驗部分給予建議。此貼文展現了在求職過程中的困惑與期望獲得社群幫助的心情。",
-        "why_popular": "許多職場新鮮人或有經驗的專業人士都面臨過求職困難，這類問題引起廣泛共鳴，社群成員也樂於分享面試和履歷優化的經驗。",
-        "response_angles": [
-          "分享自己修改履歷、提升面試邀約率的親身經驗",
-          "提供具體數據工程師履歷撰寫建議或常見錯誤",
-          "討論美國數據工程職場市場現狀與求職策略"
+          "分享資安領域履歷撰寫的實用技巧與範例",
+          "討論從IT轉職到資安所需補充的技能與證照",
+          "提供履歷精簡與強調重點的策略，或推薦履歷診斷工具"
         ],
         "categories": [
           "industry_thoughts",
@@ -1065,12 +1066,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這是一個每週的成功與失落集中討論串，邀請大家分享本週工作上的成就或挫折，包括得到工作機會或發洩對工作的不滿。這類帖子鼓勵社群成員互相支持並交流經驗，形成共鳴。",
-        "why_popular": "這類主題串為社群成員提供情感出口與支持平台，能讓大家感受到彼此的共同經歷和鼓勵，促進互動和凝聚力。",
+        "summary_zh": "這是一個每週的成功與失落綜合討論串，鼓勵大家分享這週在工作上的勝利或挫折，包括拿到 offer 或遇到挫折等。貼文以集中討論方式，讓大家可以互相支持、抒發心情。",
+        "why_popular": "這類討論串能讓社群成員彼此支持與共鳴，促進社群凝聚力。大家也喜歡看到真實的故事分享與經歷交流。",
         "response_angles": [
-          "分享自己本週的工作小成就或挫折，尋求共鳴或建議",
-          "鼓勵他人、給予正能量，或針對某些困難提出解決建議",
-          "討論職涯發展過程中的心路歷程，交流成長型思維"
+          "分享自己這週的工作成就或困難，尋求共鳴或建議",
+          "提供鼓勵或建議給他人的經歷",
+          "討論如何看待職涯中的成功與失敗，提出個人成長觀點"
         ],
         "categories": [
           "achievements",
@@ -1081,13 +1082,13 @@
       }
     },
     {
-      "id": "bbe9b4173c28",
+      "id": "f863eb2c5698",
       "source": "reddit",
       "category": "product_related",
       "subreddit": "jobs",
       "title": "Success and Disappointment Megathread for the Week",
-      "url": "https://www.reddit.com/r/jobs/comments/1q45y0t/success_and_disappointment_megathread_for_the_week/",
-      "reply_url": "https://www.reddit.com/r/jobs/comments/1q45y0t/success_and_disappointment_megathread_for_the_week/?utm_source=share&utm_medium=web2x",
+      "url": "https://www.reddit.com/r/jobs/comments/1qafehl/success_and_disappointment_megathread_for_the_week/",
+      "reply_url": "https://www.reddit.com/r/jobs/comments/1qafehl/success_and_disappointment_megathread_for_the_week/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
       "selftext": "This is the weekly success and disappointment Megathread for the week. Please post all of your successes and disappointments for this week, including job offers and other victories, as well as any venting of frustration, in this thread, and this thread only. Thanks! &#32; submitted by &#32; /u/AutoModerator [link] &#32; [comments]",
@@ -1095,12 +1096,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這是一個每週開放給用戶分享工作相關成功與失落的集中討論串，歡迎大家在此分享求職進展、成就或遇到的挫折。這類留言串鼓勵社群互相支持與交流經驗。",
-        "why_popular": "這類主題能集結大量共鳴，讓大家有機會表達情緒並獲得社群支持，容易激發互動與討論。",
+        "summary_zh": "這是一個每週的 Reddit r/jobs 綜合討論串，邀請用戶分享本週的工作成功與失敗，包括獲得工作機會、成就或挫折。所有相關的發洩或慶祝都被鼓勵集中在這個貼文下進行。",
+        "why_popular": "這類綜合討論串為社群提供安全且包容的表達空間，用戶可以互相支持、分享經驗，增加社群凝聚力。",
         "response_angles": [
-          "分享自己本週在工作或求職上的小成就或挑戰",
-          "對他人的經驗給予鼓勵或建議",
-          "討論持續面對職場挫折時的心理調適方法"
+          "分享自己最近工作上的好消息或小成就",
+          "討論遇到的挑戰或挫折，尋求建議與共鳴",
+          "鼓勵他人、回應他人的故事並提供建設性回饋"
         ],
         "categories": [
           "achievements",
@@ -1111,26 +1112,26 @@
       }
     },
     {
-      "id": "56d538b56258",
+      "id": "906e02b4d7a1",
       "source": "reddit",
       "category": "product_related",
       "subreddit": "jobs",
-      "title": "Why I think the current job market is actually worse than 2008 recession era.",
-      "url": "https://www.reddit.com/r/jobs/comments/1q9vc8k/why_i_think_the_current_job_market_is_actually/",
-      "reply_url": "https://www.reddit.com/r/jobs/comments/1q9vc8k/why_i_think_the_current_job_market_is_actually/?utm_source=share&utm_medium=web2x",
+      "title": "Dying career fields",
+      "url": "https://www.reddit.com/r/jobs/comments/1qai792/dying_career_fields/",
+      "reply_url": "https://www.reddit.com/r/jobs/comments/1qai792/dying_career_fields/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "Yes 2008 was a historic recession that resulted in countless job losses, opportunities lost, and lives ruined. However, it is much different than today. The most obvious reason is because those job losses were actually caused by a recession. Now we have historically low hiring in many sectors, while the companies make record profits. After 2008 subsided we saw a plethora of new opportunities especially in tech. Nowadays, there is no realistic situation where somehow interest go down and companies use that money to hire more employees, especially entry level. They'd rather reward shareholders first then ask questions later. Medical industry for example, may see an increase in labor demand. However that's largely a result of way more old people than previously not some genuine advancement in the industry. I believe the future for the average worker will probably be one where relying on huge companies to do the majority of hiring is over. &#32; submitted by &#32; /u/Microplastics-Eater [link] &#32; [comments]",
+      "selftext": "What are some careers or fields that are slowly dying, that you don't think will recover? People on here talk a lot about higher position jobs, ie tech marketing etc..... But like. Clothing retail. Malls. \"Entry\" jobs that many people have made a decent career and living off of, they're fading thanks to online shopping and competition from sites like Amazon. My little sister, she's run a Hot Topic for awhile now. She makes ALMOST 23 an hour which is more than I made as a medical assistant in assisted living facilities. She loves it so much, works so hard, and really worked her way up the ladder, but she says hours are so scarce that she's only able to allot maybe 15 - 20 a week to most of her employees. They're all part time. Daily she tells me how empty the store is compared to 2 years ago when she got hired. It's really sad and scary. I wonder often what's gonna happen to all the people like my sister, who built their way up in retail only to face mass closures and less customers willing to shell out 55 dollars for a dress in person when they could get cheaper clothes at thrift stores and online. &#32; submitted by &#32; /u/tumbledownhere [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "作者認為，目前的就業市場其實比 2008 年金融危機時期更糟，因為現在的低聘雇率並非由經濟衰退直接導致，而是企業創造高利潤卻不擴大聘雇。作者預測未來一般勞工無法再依賴大型企業獲得工作機會，尤其對新人更不友善。",
-        "why_popular": "這篇貼文挑戰了主流對現今就業市場的看法，點出企業獲利與聘雇脫鉤，引發許多共鳴與討論。",
+        "summary_zh": "這篇貼文討論了哪些職業正在逐漸消失，特別聚焦於服飾零售與實體商場工作。作者分享了妹妹在Hot Topic工作的經歷，描述行業因網購興起而面臨困境，讓許多曾經穩定的基層職業變得岌岌可危。",
+        "why_popular": "貼文引起共鳴，因為許多人都對未來職場趨勢和傳統行業的消逝感到焦慮，也關心低薪與基層工作者的生計問題。",
         "response_angles": [
-          "分享自己近期找工作或職場觀察，是否也感受到企業縮減聘雇意願",
-          "討論企業優先回饋股東而非員工的現象及其後果",
-          "提出未來個人應如何自我成長或轉型，應對大型企業僱傭模式變化"
+          "分享自己或親友在傳統產業面臨類似困境的經驗",
+          "討論哪些新興產業或技能可以幫助這些勞動者轉型",
+          "探討線上購物對實體零售業帶來的長期影響和可能的解決方案"
         ],
         "categories": [
           "industry_thoughts",
@@ -1141,56 +1142,26 @@
       }
     },
     {
-      "id": "30400055e30a",
+      "id": "e5599ecb3ea6",
       "source": "reddit",
       "category": "product_related",
       "subreddit": "jobs",
-      "title": "“I Didn’t Vote to Lose My Job”: DOGE Destroys $1.2 Trillion Industry as Rural Workers Bear the Cost",
-      "url": "https://www.reddit.com/r/jobs/comments/1q9xzq6/i_didnt_vote_to_lose_my_job_doge_destroys_12/",
-      "reply_url": "https://www.reddit.com/r/jobs/comments/1q9xzq6/i_didnt_vote_to_lose_my_job_doge_destroys_12/?utm_source=share&utm_medium=web2x",
+      "title": "Are job markets around the world suffering like the U.S.?",
+      "url": "https://www.reddit.com/r/jobs/comments/1qajl2r/are_job_markets_around_the_world_suffering_like/",
+      "reply_url": "https://www.reddit.com/r/jobs/comments/1qajl2r/are_job_markets_around_the_world_suffering_like/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "&#32; submitted by &#32; /u/Expert-loner-2184 [link] &#32; [comments]",
+      "selftext": "Just been curious people around the world are doing with “career” jobs. What’s it like in the UK, Brazil, Mexico, Germany, China, Australia etc? I asked chat gpt and it told me other countries are still fine because their corporate businesses are still developing or currently booming. &#32; submitted by &#32; /u/Unfair-Acadia6851 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇貼文以強烈語氣表達對新興科技（如 DOGE）帶來的產業衝擊不滿，指出鄉村勞工因這波變革失去工作，質疑這是否是多數人所願。內容反映出因技術創新造成的社會結構轉變與個人利益受損的矛盾。",
-        "why_popular": "該貼文觸及新興科技對傳統產業和基層勞工的巨大影響，情感共鳴強烈，易引起對未來職場及社會公義的討論。",
+        "summary_zh": "這篇貼文詢問世界各地的工作市場現狀，特別關心除了美國以外的國家（如英國、巴西、墨西哥、德國、中國、澳洲）職涯型工作的狀況。作者也提到自己詢問了 ChatGPT 得到的回答，想了解真實經驗。",
+        "why_popular": "全球就業市場議題具有高度關注度，許多人對不同國家的職涯機會與變化感到好奇，容易引發各地網友分享自身經驗。",
         "response_angles": [
-          "討論技術創新（如加密貨幣）帶來的產業轉型與失業問題",
-          "分享自己或身邊人面臨產業變革時的經驗和感受",
-          "探討社會應如何平衡科技進步和勞工權益"
-        ],
-        "categories": [
-          "industry_thoughts",
-          "values"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "501c13090b42",
-      "source": "reddit",
-      "category": "product_related",
-      "subreddit": "jobs",
-      "title": "Amazon to cut another 30000 jobs early 2026 with the aim of replacing humans with Ai.",
-      "url": "https://www.reddit.com/r/jobs/comments/1q9utsd/amazon_to_cut_another_30000_jobs_early_2026_with/",
-      "reply_url": "https://www.reddit.com/r/jobs/comments/1q9utsd/amazon_to_cut_another_30000_jobs_early_2026_with/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "https://m.economictimes.com/news/international/us/amazon-stock-down-after-14000-corporate-job-cuts-in-late-2025-up-to-30000-layoffs-now-expected-is-volatility-giving-way-to-efficiency/articleshow/126439284.cms &#32; submitted by &#32; /u/Significant-Path-953 [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "亞馬遜預計在2026年初再裁員3萬人，目的是以人工智慧取代人力。這一消息引發了市場關注，亞馬遜股價也因此波動。",
-        "why_popular": "AI替代人力、企業大規模裁員是高度爭議且影響廣泛的議題，直接關聯到就業安全與產業未來，容易引發廣泛討論。",
-        "response_angles": [
-          "討論AI取代勞動力對未來職場的影響與挑戰",
-          "分析亞馬遜這樣的科技巨頭持續裁員對整體經濟和股市的影響",
-          "分享個人或觀察到的自動化趨勢與自身職涯規劃的調整"
+          "分享自己所在國家的就業市場現況",
+          "討論 AI 工具（如 ChatGPT）對於職涯資訊搜尋的幫助與侷限",
+          "分析全球經濟趨勢對不同國家職涯市場的影響"
         ],
         "categories": [
           "industry_thoughts",
@@ -1201,30 +1172,181 @@
       }
     },
     {
-      "id": "f4699ea29e88",
+      "id": "f71498cad1fa",
       "source": "reddit",
       "category": "product_related",
-      "subreddit": "careerguidance",
-      "title": "Will I regret going from a 6 minute commute to a 3 hour commute as a new parent to make more money?",
-      "url": "https://www.reddit.com/r/careerguidance/comments/1q9mf9y/will_i_regret_going_from_a_6_minute_commute_to_a/",
-      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1q9mf9y/will_i_regret_going_from_a_6_minute_commute_to_a/?utm_source=share&utm_medium=web2x",
+      "subreddit": "jobs",
+      "title": "22F dealing with rumors at work that I “slept my way up” — first time experiencing gossip and I don’t know how to handle it",
+      "url": "https://www.reddit.com/r/jobs/comments/1qanxay/22f_dealing_with_rumors_at_work_that_i_slept_my/",
+      "reply_url": "https://www.reddit.com/r/jobs/comments/1qanxay/22f_dealing_with_rumors_at_work_that_i_slept_my/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "Currently I have a job that is a 6 minute round trip commute. I took the job because I am a new parent and my partner can sometimes be far away from home. I used to work in a city and my average commute time is 1:20 one way (by train) on a good day. My new job is a bit of a disappointment. I make 84k and I pay about 900 dollars a month to health insurance. By the time I pay for day care there is not much left. When I interviewed for the job I knew the salary but I did not realize how bad the health care coverage is. I have been thinking about going back to my old job because I left on good terms. The current position is somewhat demanding and the retirement package is not great. My new senior colleagues think I should return to my former employeer because of the retirement package. I only have 13 years with that company and need to make to 17 years for full retirement benefits which is 30 years of service. My old job was stressful. It is almost like working in an ER. The pay was better. I was at 110k and essentially free health insurance , and stronger 401k. I am considering reaching out to my old boss. He would be delighted to take me back. But there have been mornings where my daughter needs me at 6:50 am and I can make it to my new work on time!! I could never do this with my previous situation. I would be on a 5:57 or 6:22 am train by then…. But then I think how I will not be present for my child. Wake up at 5:30 a.m and at the earliest be home at 4 for 3 out of 5 days. There will be a few late nights where I will get home at 7. Due note I work only 180 days a year for both jobs. It would be a lot of pressure on my husband if I go back to my old job. I would need to help him by getting a helper in the morning. He has now recently moved his business to be more local. So now I am the one with the long commute. My husband supports my decision if I go back to my old job. At the end of the day I feel like my decision comes down to money. I have nothing left and I can",
+      "selftext": "I’m a 22-year-old woman and I recently started a new job in customer support. This is the first time in my career I’ve had to deal with workplace gossip about me, and honestly… I’m struggling to even process that it’s happening. For some background: I’ve always been ambitious. At every job I’ve had, I start as an agent and usually move up pretty quickly: raises, specialist/expert roles, and in my previous project I even became a team leader (the project closed very short after). I enjoy helping others, explaining procedures, sharing tips, and being reliable. Until now, I genuinely never thought much about how that growth might look from the outside. At my new job, two people from older projects also work here. We weren’t close, but I knew who they were. At first, I was happy to see familiar faces but oh that quickly changed. I recently found out (through a colleague I’ve become close to) that these two have been spreading rumors that I “sleep my way to the top.” As in: claiming I’ve slept with multiple colleagues and upper management to get promotions. One of them has even gone as far as saying he slept with me — and that if I ever get a raise, it would “prove he’s telling the truth.” None of this is true. At all. I’ve been married for two years, which honestly makes this even more disturbing. The colleague who told me about this said the rumors are obviously false and that I’m nothing like how they’re portraying me — but knowing this is being said behind my back has really shaken me. I don’t know what the “right” move is here, especially since this is my first time dealing with something like this. So I’m asking for outside perspectives: Do I ignore it and let them talk? Do I report them to HR? Do I ask to move projects but stay in the company? Or do I cut my losses and leave entirely? I feel angry, embarrassed, and honestly confused. Any advice or shared experiences would really help. 🥹 &#32; submitted by &#32; /u/yddetts [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這位新手父母在考慮是否要放棄目前通勤僅 6 分鐘但薪資和福利不佳的工作，回到需要單程 1 小時 20 分鐘通勤、但薪資和福利更好的前職。這個決定涉及到金錢、家庭陪伴和職涯發展的多重拉扯。",
-        "why_popular": "許多人都曾面臨家庭與工作之間的抉擇，尤其是父母角色與職涯發展的平衡，引發共鳴與討論。貼文詳細描述了現實中的權衡困境，讓讀者產生強烈的代入感。",
+        "summary_zh": "這位22歲的女性在新工作中，首次遭遇到同事散播她『靠睡上位』的不實流言，讓她感到困惑和受傷。她分享了自己的努力歷程，並詢問網友該如何面對職場謠言和人身攻擊，尋求建議和共鳴。",
+        "why_popular": "貼文觸及了職場性別偏見和流言的敏感議題，引發許多人的共鳴與同理，也激起大家分享自身經驗或建議的慾望。",
         "response_angles": [
-          "分享自己在工作與家庭平衡上的類似經歷或選擇",
-          "提供實際分析，像是計算金錢與時間成本，或建議可行的第三方案",
-          "討論現代職場對家庭友善政策的重要性，或職涯長遠規劃的思考"
+          "分享自己或朋友遇過的職場謠言經驗，並給予鼓勵",
+          "提供具體行動建議，如與HR溝通、蒐集證據或尋求法律協助",
+          "討論職場性別歧視與心理健康的重要性，呼籲創造健康職場環境"
+        ],
+        "categories": [
+          "personal_growth",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "8f6a46cb32ee",
+      "source": "reddit",
+      "category": "product_related",
+      "subreddit": "careerguidance",
+      "title": "Is it okay to quit a job after only about 3 and a half months?",
+      "url": "https://www.reddit.com/r/careerguidance/comments/1qalltk/is_it_okay_to_quit_a_job_after_only_about_3_and_a/",
+      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1qalltk/is_it_okay_to_quit_a_job_after_only_about_3_and_a/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "I currently work as an icecream scooper at my childhood's favorite restaurant. I've gone every year for my birthday, and my mom knows the owner, so he helped me get an interview. My parents were pressuring me heavily to get a job as I had just turned 18 and started community college, and because of this pressure I had no time to actually consider pros and cons of different jobs in the area. Anyways, I am literally getting paid the bare minimum wage. It was fine, but they also only schedule me 2-3 times a week, not telling me how long i'll be working for (average for a restaurant but still frustrating), and often send me home on my 2 hr despite me being fully available after 12pm. I applied to my local chick-fil-a for the gits and shiggles because I didn't think they'd actually hire me. After a 4 stage process of interviews, (2 in person, 2 on paper), they offered me the job. They told me they would probably be getting me scheduled 30 hrs a week and making 5$ more than my current job. My issue is I feel so bad and embarrassed for leaving after such a short amount of time. I was finally starting to connect with my coworkers and do actually enjoy the environment for the most part, despite not liking it at the beginning. Because I love the restaurant so much, I literally don't know how I'd ever show my face there again (also am really enjoying the 50% discounted sundaes). I also have no clue how to go about quitting a job. I have had maybe 2 conversations with the managers of the restaurant so quitting feels very weird especially because it's a family owned restaurant and feels more personal. What do you guys think? Is it embarrassing / bad to quit so early on? I hate having to end my commitments. &#32; submitted by &#32; /u/Zestyclose_Spell2265 [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "一位18歲剛升上社區大學的學生分享自己在家庭壓力下匆忙進入冰淇淋店工作，卻因工時短、待遇低而想跳槽至薪資更高的Chick-fil-A，卻又因對舊東家的感情與人際關係感到糾結，不知該不該這麼快離職。作者也對於如何向家族餐廳老闆辭職感到困擾。",
+        "why_popular": "這類關於職場選擇與年輕人初入職場的糾結，容易引發廣泛共鳴與討論，特別是許多人都曾經歷過類似的難題。",
+        "response_angles": [
+          "分享自己第一次辭職的經驗與建議（如何開口、怎麼處理人情壓力）",
+          "討論年輕人在職涯初期面臨選擇時，應該如何平衡情感、經濟與未來規劃",
+          "給予支持與鼓勵，強調短期工作經驗並非職涯污點，選擇更好機會是成長的表現"
+        ],
+        "categories": [
+          "personal_growth",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "1942cabccb57",
+      "source": "reddit",
+      "category": "product_related",
+      "subreddit": "careerguidance",
+      "title": "First time preparing for termination, what to expect?",
+      "url": "https://www.reddit.com/r/careerguidance/comments/1qal2t0/first_time_preparing_for_termination_what_to/",
+      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1qal2t0/first_time_preparing_for_termination_what_to/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "Been with my company 5 years. Last January my pay scale was lowered so that I am not eligible for any raise. Said it was readjusting my pay for the market in my area (I work remotely in tech in KY)We are currently going through 2nd complete reorg and I’m convinced this is part of it. We get quarterly and annual reviews and I’ve never had a bad one until now. First one in my life. Blindsided to say the least. Annual review was bad enough to put me on a 30 day PIP and it contradicts my good quarterly reviews. Goals I have to hit are completely unattainable and even arbitrary. I’m resigned to the fact I will be terminated. I’ve never been terminated and I’ve literally been sick about it. I can’t eat or sleep. It’s humiliating. For anyone that’s been terminated how do you handle it? I’m just so shocked by the whole situation. As a 50+ female I am petrified I won’t be able to find work. I’m single so rely on my income to live. I keep reading how bad the job market is right now even for people like me with 20+ years experience. Am I just doomed? &#32; submitted by &#32; /u/ijusttakeupspace [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "這位在同家公司工作五年的女性，因公司重組和薪資調整，突然被列入績效改進計畫（PIP），面臨即將被解僱的危機。她感到震驚與焦慮，擔心以自己50多歲的年紀和目前不佳的就業市場，難以再找到工作，生活壓力巨大。",
+        "why_popular": "這篇貼文觸及職場不安、年齡焦慮與不公平對待等熱門話題，許多人能共鳴其無助與焦慮。特別在當前經濟環境下，類似經驗容易引起廣泛討論和支持。",
+        "response_angles": [
+          "分享自己或朋友被解僱後的經歷與重建心路歷程，給予實際建議和鼓勵",
+          "分析企業重組、PIP機制以及求職市場現狀，討論年齡歧視與遠端工作的挑戰",
+          "提供心理調適建議，例如如何面對壓力、尋求支持資源或法律協助"
         ],
         "categories": [
           "industry_thoughts",
-          "values",
+          "personal_growth",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "bf78808a3458",
+      "source": "reddit",
+      "category": "product_related",
+      "subreddit": "careerguidance",
+      "title": "How do I ask my boss for \"dress code\" feedback without sounding insecure?",
+      "url": "https://www.reddit.com/r/careerguidance/comments/1qan81p/how_do_i_ask_my_boss_for_dress_code_feedback/",
+      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1qan81p/how_do_i_ask_my_boss_for_dress_code_feedback/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "I (f/34) have been at my company for 6 years and generally get great feedback on my work. However, lately, I’ve noticed I’m being passed over for client-facing meetings and additional responsibilities that my peers are getting. To be blunt: I’m plus-sized and I don't dress well. It’s not that I don’t want to—I’m just legitimately lost. I wear business slacks and shirts (although likely unflattering) that fall under the \"professional\" section in a department store. If someone gave me a uniform or a checklist (e.g., \"Wear a navy blazer with ankle-length trousers\"), I would do it in a heartbeat. But I look in the mirror and just see a mess, so I stick to oversized, \"safe\" clothes that probably look sloppy. I suspect my boss thinks I’m not polished enough for the next level, but I don’t know how to bridge that gap. She's specifically mentioned other employees' clothing that I didn't realize fell under \"unprofessional.\" How do I ask my boss if my appearance is holding me back and, if so, how to dress better? I want to sound professional and not like I’m insecure or incompetent. For those who are plus-sized in a professional environment: What are your \"fail-safe\" outfits that make you feel put together when you don't have a fashion sense? &#32; submitted by &#32; /u/SuitableAd6852 [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "這位女性在公司工作六年，工作表現良好，但最近發現自己在客戶會議和新責任上被忽視。她懷疑自己的穿著不夠得體，想詢問主管如何改進外表，但又擔心顯得不自信或不專業，並請教其他人在職場上的穿搭建議。",
+        "why_popular": "這篇貼文觸及到職場外表壓力、身形自信與專業發展的敏感議題，引起許多有類似困擾者共鳴。提出真實困惑與徵求具體建議，也易激發討論與互助。",
+        "response_angles": [
+          "分享職場穿著心得，尤其針對不同身形的實用搭配建議",
+          "討論如何以專業且積極的方式向主管詢問反饋",
+          "探討職場對外表的期望與多元包容性問題"
+        ],
+        "categories": [
+          "personal_growth",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "028dc47a8458",
+      "source": "reddit",
+      "category": "product_related",
+      "subreddit": "careerguidance",
+      "title": "Has anyone here ever experienced severe burnout and recovered?",
+      "url": "https://www.reddit.com/r/careerguidance/comments/1qadxzh/has_anyone_here_ever_experienced_severe_burnout/",
+      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1qadxzh/has_anyone_here_ever_experienced_severe_burnout/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "Hi, I’m a 29 year old Software Engineer with 7 years of experience. I currently make 180k working fully remotely at a job that I’ve previously liked, where I’m good at my job, and my WLB is usually pretty decent. Even so, I’ve slowly developed some serious burnout, and over the last 6 months have been having real doubts over whether I’m going to be able to keep this up for the rest of my career. One of my main concerns is that I feel like what I’m doing has no meaning, and is completely divorced from passion and interests that I’ve developed over the course of my adult life. I recently got reached out to by a company whose mission I align with more and was ready to accept, even though it’s full time and I dread going back into an office. I have the offer letter waiting for me, but am realizing that doing the same thing I’m doing now but in an office isn’t going to address my underlying issues, and is likely to make me even more unhappy. I don’t want to take it and am worried I’ll be more miserable there, but the thought of doing my day to day tasks at my current job is also nearly intolerable to me at the moment. I wish I didn’t have to look at another Jira ticket for the rest of my life. Not sure how to come back from this, or whether I’ll be able to do this for 30 more years. I’m considering a career change but I know that nothing else out there will be as relaxed as what I have now. Nearly all of my non tech friends are struggling to get by. I have the savings for a long break, but am worried about being able to find a job afterwards in this market. Have any other senior engineers here felt this way and recovered? Has anyone with more experience than me made a career pivot or even just taken a sabbatical? How did that work out for you? &#32; submitted by &#32; /u/BillyBiggins [link] &#32; [comments]",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "一位29歲資深軟體工程師分享自己雖然有高薪、遠端工作和不錯的工作生活平衡，卻因為職業倦怠和缺乏意義感而困擾，甚至考慮轉職或休息，但又擔心未來找工作困難。作者詢問有無其他工程師有相似經歷並成功恢復或轉型的經驗。",
+        "why_popular": "這篇貼文觸及了現代高薪職場人士常見的倦怠、意義感缺失與職涯迷惘，讓許多人產生共鳴，也激發討論與經驗分享的慾望。",
+        "response_angles": [
+          "分享個人或朋友面對職業倦怠後重拾熱情或轉職的經驗",
+          "建議作者如何利用現有資源（如長假、職涯諮詢）探索自我與未來方向",
+          "討論現代職場意義感缺失與心理健康的關聯，以及如何自我調適"
+        ],
+        "categories": [
+          "industry_thoughts",
+          "personal_growth",
+          "values"
+        ],
+        "fb_score": 4,
+        "blog_score": 5
+      }
+    },
+    {
+      "id": "71784432fabe",
+      "source": "reddit",
+      "category": "product_related",
+      "subreddit": "careerguidance",
+      "title": "Would you leave a job you loved because of one toxic co-worker?",
+      "url": "https://www.reddit.com/r/careerguidance/comments/1qaer5r/would_you_leave_a_job_you_loved_because_of_one/",
+      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1qaer5r/would_you_leave_a_job_you_loved_because_of_one/?utm_source=share&utm_medium=web2x",
+      "score": 0,
+      "comments": 0,
+      "selftext": "I’ve been working at a company for 2 years in a very small, niche role and industry. Prior to taking the job, I worked for a different company in the same space, and was recruited to fill an opening working directly with a “friend” of mine. I’d say he was above an acquaintance and we hung out here and there but at no point was he one of my best friends, more so somebody I knew. I took the job after several interviews and meetings with him to make sure we could work together, and was excited to start a new role with someone I was familiar with. Upon taking the job, it became apparent he was the most toxic person in the office and was plotting to try and get our manager fired so he could take control. Constantly gossiping, twisting people’s words, and sabotaging other’s work, he is the dictionary definition of a toxic co-worker. From the start it was clear in his eyes that he got me the job, and that I owe it to him to be one of his pawns and do everything he said so he could manipulate the situation in his favor. I never really went with, and got so fed up with hearing the constant complaining and plotting that I told him straight up that I wasn’t going to be a part of it and that he needed to find a way to work with the manager as best as he could instead of trying to ruin her. Eventually the manager left on her own accord, and she was replaced by an external hire. As soon as she left, I became his next target, getting the exact same toxic treatment and plotting against me that she was. I did talk to HR but they said they would “investigate it” and I never heard anything else about me. The company is very small and there are definitely people who are “protected” and he is one of them. Other co-workers have complained to me about how much of a pain he is, but he seems to survive all of it. In most situations, I would’ve already tried to leave, but I do love the company and my other co-workers. I like my role, I like the majority of the people I’m around and the compa",
+      "fb_potential": "Low",
+      "blog_potential": "Low",
+      "engagement_score": 1,
+      "ai_analysis": {
+        "summary_zh": "這篇貼文描述原PO在自己熱愛的工作中，因為一位具破壞性的同事而陷入兩難。儘管向HR反映無效，這位同事依然作亂，讓原PO考慮是否該為了自身幸福而離開。整體反映職場人際與職涯抉擇的困境。",
+        "why_popular": "這個話題觸及職場中普遍存在、大家有共鳴的『毒性同事』問題，也點出在喜歡的工作與健康職場環境之間的掙扎。容易引發共鳴和討論，因為許多人都有類似經驗。",
+        "response_angles": [
+          "分享自己遇到類似毒性同事的經驗，如何處理或應對",
+          "討論HR在此類事件中的角色與責任，是否有更有效的做法",
+          "探討離職與留下的利弊權衡：工作環境、職涯發展、心理健康"
+        ],
+        "categories": [
+          "industry_thoughts",
           "personal_growth"
         ],
         "fb_score": 4,
@@ -1232,29 +1354,29 @@
       }
     },
     {
-      "id": "0fa637cae3cd",
+      "id": "29db043fd8d7",
       "source": "reddit",
       "category": "product_related",
-      "subreddit": "careerguidance",
-      "title": "Did anyone here start college \"late\"? I am thinking of going to college at 28 years old.",
-      "url": "https://www.reddit.com/r/careerguidance/comments/1q9ln5e/did_anyone_here_start_college_late_i_am_thinking/",
-      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1q9ln5e/did_anyone_here_start_college_late_i_am_thinking/?utm_source=share&utm_medium=web2x",
+      "subreddit": "jobsearchhacks",
+      "title": "Is Indeed a legal mafia? I'm an employer and I hate it.",
+      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1qak4uu/is_indeed_a_legal_mafia_im_an_employer_and_i_hate/",
+      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1qak4uu/is_indeed_a_legal_mafia_im_an_employer_and_i_hate/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "The title sums it up. Did anyone here start college \"late\"? What did you study? Are you working in your field of education now? Am I being immature for feeling old? &#32; submitted by &#32; /u/AutisticPseudoVegan [link] &#32; [comments]",
+      "selftext": "Employer here, small business. Posted a job on Indeed, sponsored for $10/day. I ran an incognito search and cannot find the job 10 pages in. I swear Indeed is the mafia. They twist our arm to increase fees to show the. job to anyone. Very frustrating. Is an entry level job in healthcare. Unless I pay premium or matching fees we don't get candidates with the right keywords in their resume. Corporate/Private equity backed offices pay thousands of dollars in annual subscriptions, so their jobs appear in the first few pages. Very frustrating. Can we bring Craigslist back please? At least you got to see ALL the jobs listed ordered by date. Anyone has any advice on how to get a job to show up? Want to say that I keep pausing and opening the same job as I try people. Is that a mistake? Should I just close the job and open a new one a few weeks later if it doesn't work out. &#32; submitted by &#32; /u/Academic_Airline9930 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這位網友在28歲打算開始念大學，想詢問其他人是否也有晚入學的經驗，以及畢業後是否從事相關領域的工作，同時對於自己年紀是否算大而感到猶豫。",
-        "why_popular": "這主題觸及許多人對於人生階段選擇與年齡焦慮的共鳴，也常引發經驗分享與鼓勵討論。",
+        "summary_zh": "這位小型企業主抱怨在 Indeed 刊登徵才廣告的困難，指出即使付費也很難讓職缺曝光，並認為平台偏向大企業，導致小公司難以招募到合適人才。他呼籲回歸 Craigslist 這類公開透明的徵才模式，並詢問其他人有無更有效的方法。",
+        "why_popular": "這篇貼文引起許多中小企業主和求職者的共鳴，反映出對大型招聘平台收費機制的不滿和無力感，也帶動了對舊有平台（如 Craigslist）的懷舊討論。",
         "response_angles": [
-          "分享自己或朋友晚入學的經驗，鼓勵原PO不要受年齡限制",
-          "討論現代社會對於終身學習與非傳統教育路徑的接受度",
-          "分析晚入學對職涯轉換、人生規劃的影響"
+          "分享自己在招聘平台上的相似經驗，討論小企業主的徵才困境",
+          "分析 Indeed 等平台的演算法現象，討論平台商業模式對求職市場的影響",
+          "提供實用建議，例如如何提升職缺曝光率，或推薦其他招聘渠道"
         ],
         "categories": [
-          "personal_growth",
+          "industry_thoughts",
           "values"
         ],
         "fb_score": 4,
@@ -1262,90 +1384,30 @@
       }
     },
     {
-      "id": "d4a8d24252d5",
+      "id": "b3f82aeb8962",
       "source": "reddit",
       "category": "product_related",
-      "subreddit": "careerguidance",
-      "title": "Jobs with no coworker interaction?",
-      "url": "https://www.reddit.com/r/careerguidance/comments/1q9txkz/jobs_with_no_coworker_interaction/",
-      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1q9txkz/jobs_with_no_coworker_interaction/?utm_source=share&utm_medium=web2x",
+      "subreddit": "jobsearchhacks",
+      "title": "Biggest hack: Speed",
+      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1qac08v/biggest_hack_speed/",
+      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1qac08v/biggest_hack_speed/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "I have autism and no matter which job I end up in, the customers/patients love me (great at short term interactions) and my coworkers always end up absolutely hating me and bullying me (terrible at long term interactions, things always end up going south after like a month of working together at most. I'm pretty tired of it, and honestly it has sent me into a depressed, hyper anxious state while I'm trying to find a new job. I've reported workplace bullying to HR at a couple times but all that does is make everything worse and they always dogpile me in wildly false accounts, outright hostility or completely ignoring me even when I only attempt to interact with them for work matters. The last straw at my most recent job was trying to make it to the bathroom for a quiet space to make a call to say goodbye to my dying grandmother in another country and having my coworker make snide comments and literally block my exit and tell me to use another door. I can't handle anymore of this mentally. If it happens at every job, it must be me but I have no idea what I'm doing wrong. Therefore, I would really appreciate some suggestions of careers I could focus on getting into that require minimal to no interaction with coworkers. Not trying to make a \"sob story\" or whatever, just trying to give context as to why I need better advice than \"good luck with that lol\". Thanks guys &#32; submitted by &#32; /u/potaydo [link] &#32; [comments]",
+      "selftext": "Hot Take: If you don't manage to be under the first 50 applicants for a role, in 99 out of 100 cases doesn't make sense anymore to send the application. Someone faster will get the job. Do you agree? &#32; submitted by &#32; /u/EfficientHomework350 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這則貼文來自一位自閉症患者，因為長期與同事相處不順經常遭受霸凌，想尋找可以極少或不需與同事互動的工作。作者描述了自己的困境與無助，希望得到實質的職涯建議，而非表面鼓勵。",
-        "why_popular": "貼文真誠地討論了職場霸凌與神經多樣性議題，引起許多有類似經歷者的共鳴，也讓人反思職場包容性。此主題具有高度情感共振與實用價值，容易引發討論和同理心。",
+        "summary_zh": "這則貼文主張，應徵工作時速度是關鍵，如果不是前50位投遞者，幾乎沒有機會獲得這份工作。作者認為只有搶先一步才能成功應徵。",
+        "why_popular": "許多求職者都關心如何提升應徵成功率，這種極端但直白的觀點引起強烈共鳴和討論。大家可能有不同經驗，容易激發爭議與分享。",
         "response_angles": [
-          "分享適合極少同事互動的職業（如遠端工作、獨立接案、資料處理等）",
-          "討論職場霸凌經驗與如何自我保護或尋求幫助",
-          "探討神經多樣性與職場包容文化的重要性"
+          "分享自己是否因為快速投遞而獲得面試的經驗",
+          "討論不同產業或公司是否真的重視應徵速度",
+          "提出其他比速度更重要的求職策略，例如履歷內容或人脈推薦"
         ],
         "categories": [
-          "personal_growth",
-          "values"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "da3745f97aad",
-      "source": "reddit",
-      "category": "product_related",
-      "subreddit": "careerguidance",
-      "title": "Is this workplace bullying, or am I too sensitive?",
-      "url": "https://www.reddit.com/r/careerguidance/comments/1q9xjyf/is_this_workplace_bullying_or_am_i_too_sensitive/",
-      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1q9xjyf/is_this_workplace_bullying_or_am_i_too_sensitive/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "Don’t know if this is a toxic workplace? Basically ever since I started this new job, I’ve slowly become more miserable. I’m utterly depressed and don’t feel like myself anymore and don’t know what to do. It all started in May, when I had been working hard to impress her and tiring myself out, on a 1:1 call she said I seemed distracted, I talk too much, and she’s noticed I’m on my phone a lot. The thing is I am never on my phone, I know better, occasionally I might reply to an important message from my mother, or my landlord. But she says other people have flagged it to her too. These people that have done so are always taking personal calls all the time. I got really upset by her comments, especially by the comment of being distracted when I am super super focused person. And also about being chatty has upset me, because I have social anxiety and recently have felt a bit more confident in myself to be more chatty but I know when to stop. My manager on the other hand talks and talks and talks I worked on my targets, so I don’t go on my phone at all now at work. I don’t chat at work, I don’t want to be reported again. And I’m so focused and I’m outputting things all the time. More recently she’s started asking for constant updates when working from home, what I’m working on, how long it took me. She’s got this new thing about me ‘struggling on tasks for hours and not reaching out.’ I’m an analyst and always considered myself capable and I never ‘struggle.’ I work more independently but if I ever encounter issues, I do ask questions but always made to feel stupid when doing so. Like ‘don’t you already know how to do that.’ Often I get messages like ‘I thought you were working on that yesterday?’ And ‘you don’t complete tasks with a matter of urgency.’ It’s made me stop enjoying my job and I feel anxious all the time. I’ve started to make very little mistakes and typos and she’s picked up on that. I don’t know how but I get scared to send off work to her so I check and",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這篇貼文描述原 Po 在新工作中感受到來自主管的質疑與壓力，導致情緒低落並懷疑自己是否遭到職場霸凌，還是自己太敏感。Po 詳細描述了主管對其行為的批評，以及自己為了避免被指責如何改變行為並產生焦慮。",
-        "why_popular": "這類貼文受到歡迎，是因為許多人都曾經歷過類似的職場困擾或霸凌，容易引發共鳴與討論。大家也喜歡參與、給予建議，或分享自身經驗。",
-        "response_angles": [
-          "分享自己遇過的職場壓力或霸凌經驗，並給予安慰與建議",
-          "分析主管行為是否屬於霸凌，並討論如何自處或應對",
-          "提供尋求協助的資源或建議，如人資、心理諮商等"
-        ],
-        "categories": [
-          "personal_growth",
-          "values"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "024886c63722",
-      "source": "reddit",
-      "category": "product_related",
-      "subreddit": "careerguidance",
-      "title": "How to overcome failure from the past??",
-      "url": "https://www.reddit.com/r/careerguidance/comments/1q9zzb4/how_to_overcome_failure_from_the_past/",
-      "reply_url": "https://www.reddit.com/r/careerguidance/comments/1q9zzb4/how_to_overcome_failure_from_the_past/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "I will tell you the story of how i failed to make something i love into a career and how i keep being obessed with my own incompetence, leading me to resent any potential career. Its all start when i first know about coding back in 2019, first year of uni, majoring in Internatial Economics. It was covid back then so i stayed home almost all the time in my first year of university. Thats when i really had time to think about my future career, what i want to do when i graduate. At that time, i realized i didnt really like my major which is international economics, so i decided to see other options then i found out about coding. This career option was like a dream for everyone back then, an image of a cozy workplace, glamourizing job, highest salary job at the time. I was also interested in it and first i looked into it for the money only. Overtime, the more i learn about it, the more i realized this might be my gem, something i was always looking for in life. I love the problem solving side of it, love everything about it. But thats just what i thought, how naive i was. Throughout my college years, i tried my best making it a career, i self learnt coding in my free time, grinding every course i could find out there on youtube, hoping to land a job without a related degree. Ironically, i did land an internship in web development in my relatives startup. I learnt a tons there, i learnt about git, about web development, security. And i thought i finally got what i wanted. Until when AI came in 2022, i realized how incompetence i am and not be able to pursue this as a career. But i didnt want to admit my failure, my flaws. Thats why eventhough i quit that coding job and tried other ways to make money. I keep coming back to coding, regretting and questioning myself. I always have this thought of “what if”, “what if i didnt try my best”, “what if i can really make it a career despite my background?”. Thats when things get worse, with my background in economics i got so many",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這篇貼文描述原 PO 如何在大學期間愛上程式設計，並努力自學，卻因為自我懷疑與 AI 時代的來臨，最終沒有將熱愛變成職業，陷入自責與後悔之中。作者持續糾結於自己的過去選擇與能力，難以釋懷失敗帶來的陰影。",
-        "why_popular": "這類貼文觸動許多人對於職涯迷惘與自我懷疑的共鳴，尤其是在 AI 崛起、產業快速變動下，類似經歷的人不在少數。誠實分享自我挫敗感，更容易引發討論與同理。",
-        "response_angles": [
-          "分享自己如何面對職涯挫折與轉換跑道的經歷",
-          "給予具體建議：如何從過去失敗中走出來、建立自信",
-          "討論 AI 崛起對個人職涯規劃的影響與調適"
-        ],
-        "categories": [
-          "personal_growth",
-          "values"
+          "industry_thoughts",
+          "personal_growth"
         ],
         "fb_score": 4,
         "blog_score": 5
@@ -1366,12 +1428,12 @@
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇貼文描述一位應徵者被要求解釋15年前（2010-2011年）超過6個月的就業空窗期，質疑公司為何如此在意過去的經歷。作者指出當時正值經濟衰退，失業很常見。",
-        "why_popular": "許多人對於企業過度關注過去就業空窗感同身受，尤其是在經濟不景氣時期，這引發了共鳴與討論。",
+        "summary_zh": "這位用戶分享了自己在應徵新工作時，被要求解釋15年前（2010-2011年）長達6個月以上的失業空白期，並質疑這樣的要求是否合理。當時正值經濟衰退，許多人都遇到失業困難。",
+        "why_popular": "這篇貼文引發了對於求職流程中不合理要求的共鳴，特別是對於“工作空白期”過度追究的現象，也讓許多有類似經歷的人產生共鳴與討論慾望。",
         "response_angles": [
-          "討論企業應如何看待遠古的就業空窗期",
-          "分享自己或朋友遇過類似不合理面試要求的經驗",
-          "分析經濟大環境對個人職涯空窗的影響"
+          "討論現代職場對於工作空白期的看法是否過時",
+          "分享自己或朋友遇到類似情況的經驗與如何應對",
+          "分析企業為何對舊的職涯空白期仍然在意，以及這樣做的合理性"
         ],
         "categories": [
           "industry_thoughts",
@@ -1382,117 +1444,53 @@
       }
     },
     {
-      "id": "84ac1eb6a7f4",
+      "id": "f00b1d051521",
       "source": "reddit",
       "category": "product_related",
       "subreddit": "jobsearchhacks",
-      "title": "ATS Filters",
-      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1q9smb2/ats_filters/",
-      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1q9smb2/ats_filters/?utm_source=share&utm_medium=web2x",
+      "title": "herher",
+      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1qapi35/herher/",
+      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1qapi35/herher/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "I’m a full stack software developer for JP Morgan Chase. I have no college degree and my work history consists of running two small businesses (one in aviation industry and one in hospitality industry - a sports bar). Super scattered and not exactly desirable. My resume not only made it past the ATS filters of JPMC but got selected by a human to move to interview. I will explain this, and yes it is crazy. I got into coding during my sports bar days and really enjoyed it. I have ASD1 (formerly referred to as high functioning autism) and the pattern recognition part of my brain became obsessed with it. When the sports bar venture ended, I was 35 years old with no degree and a very unconventional history. I was basically qualified to work at Dunkin’ Donuts which I was fully prepared to do btw. But I have good experience and had become a pretty skilled developer so I decided to study the shit out of ATS systems and existing resume optimization services. They both suck. Turns out, many ATS systems don’t have the ability to read multi-column resumes so if you use one, straight in the trash - never makes it past the ATS filters. Too many colors, wrong file type, too few keywords, too many keywords, wrong structure? ATS filters it… straight in the trash. As for the optimization services… I ran all sorts of tests and determined that when they scraped the job postings they were counting garbage like the “company culture” and “compensation” and “about us” sections. So when they would rate your resume for that job it would give a low score like 65-75 out of 100 citing missing keywords. However those keywords it thought were necessary had NOTHING to do with the actual job. I wrote a multi-layered LLM setup that parsed my existing resume, chunked it, and stored it in a categorical JSON array. Then a different model would scrape job postings, strip out irrelevant data (like culture, about us etc…) and pass that to the final model which would compare the parsed job posting to my re",
+      "selftext": "https://preview.redd.it/8k7k4oi1pvcg1.png?width=2816&amp;format=png&amp;auto=webp&amp;s=5fa2ba1a8d724499efdbf68eba497efdfc2cc3c9 &#32; submitted by &#32; /u/Quiet-Ranger-5487 [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這位沒有學歷、職涯經歷跳躍的開發者，靠自學程式與深入研究 ATS（履歷篩選系統），成功突破自動化過濾並進入 JP Morgan Chase 的面試。他還自製 AI 工具優化履歷，指出現有履歷優化服務的重大問題，分享了技術細節和經驗。",
-        "why_popular": "貼文結合勵志逆襲故事與實用求職技巧，且作者技術背景強大，吸引工程師與職涯轉換者共鳴。揭露 ATS 系統與主流履歷優化工具的盲點，讓內容具備實用與討論價值。",
+        "summary_zh": "這則貼文僅有一個圖片連結和簡短文字，沒有具體內容或討論。由於缺乏資訊，目前無法判斷圖片的具體內容與意義。",
+        "why_popular": "目前這則貼文並不受歡迎，分數與討論數皆為零，表示未引起社群共鳴或注意。",
         "response_angles": [
-          "分享自己被 ATS 篩掉或優化履歷的經驗，討論哪些做法有效",
-          "請作者補充更多技術細節，或請教他對 AI 工具在求職領域的看法",
-          "討論無學歷者如何突破職場天花板，鼓勵非典型背景者勇於挑戰"
+          "詢問圖片內容與含義，請原作者補充說明",
+          "如果圖片內容明確，可針對圖片本身提出看法或經驗分享",
+          "討論在求職社群中，圖片型貼文是否容易被忽略"
         ],
-        "categories": [
-          "industry_thoughts",
-          "personal_growth",
-          "achievements"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
+        "categories": [],
+        "fb_score": 1,
+        "blog_score": 1
       }
     },
     {
-      "id": "ed23902ea7ff",
+      "id": "6670365e9057",
       "source": "reddit",
       "category": "product_related",
       "subreddit": "jobsearchhacks",
-      "title": "How can you optimize your LinkedIn profile to stand out to recruiters in 2026?",
-      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1q9uk66/how_can_you_optimize_your_linkedin_profile_to/",
-      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1q9uk66/how_can_you_optimize_your_linkedin_profile_to/?utm_source=share&utm_medium=web2x",
+      "title": "Struggling to land my first job as flutter developer - Feeling stuck!",
+      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1qamtn9/struggling_to_land_my_first_job_as_flutter/",
+      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1qamtn9/struggling_to_land_my_first_job_as_flutter/?utm_source=share&utm_medium=web2x",
       "score": 0,
       "comments": 0,
-      "selftext": "Hi everyone! As a recruiter, I see hundreds of profiles daily, and I've noticed that 99% of candidates fail at basic optimization. I wanted to share some observations on what makes a candidate instantly stand out and ask for your thoughts: What has been your experience with LinkedIn reach lately? Here are the 5 main areas where I see people failing: Profile Picture : It sounds basic, but many don't have one or use unprofessional ones (bikinis, friends, etc.). Does a professional AI-generated photo work for you? In my experience, yes, as long as it looks real. Headline (The 'Free Advertising') : Most people just put their current job title. You have ~170 characters. Why not use keywords that help recruiters find you? The 'About' Section : This is your elevator pitch. If it’s empty, you’re losing a chance to highlight your strengths. Experience vs. Skills : A tip I always give is to look at the job you WANT, see the skills required, and mirror those in your experience section. Soft Skills : Don't underestimate them. List them clearly. My question for the community : For those who have successfully landed jobs through LinkedIn, which of these sections do you think helped you the most? Or is there a specific 'hack' you've found that I missed from the recruiter's side? &#32; submitted by &#32; /u/menensito [link] &#32; [comments]",
+      "selftext": "Hey everyone, I just wanted to share my situation and hopefully get some advice or encouragement from people who’ve been through this phase. I’ve been learning Flutter and Android development for a little over one year now. During this time, I’ve worked really hard to build my skills, completed multiple projects, and even published two apps on the Google Play Store. I’ve learned Firebase, REST APIs, state management, in-app purchases, testing, and real-world deployment and maintenance. I genuinely enjoy building apps and solving problems. For the past one month, I’ve been actively applying to companies (mostly for junior developer position onsite/remote roles), but I’m barely getting any replies. No feedback, no interviews, mostly silence. It’s honestly starting to feel discouraging, even though I know I’ve put in real effort and have actual live projects to show. I’m not giving up, but I’m confused about what I might be missing. Is my resume not strong enough? Am I not experienced enough? Should I be focusing more on DSA? Do recruiters usually take longer to respond to freshers? If anyone has been through this phase or has any advice, I would really appreciate it. I just want a chance to prove myself and grow as a developer. Thanks for reading. &#32; submitted by &#32; /u/Stupid_Cupid_N [link] &#32; [comments]",
       "fb_potential": "Low",
       "blog_potential": "Low",
       "engagement_score": 1,
       "ai_analysis": {
-        "summary_zh": "這篇貼文由一位招聘者分享了優化 LinkedIn 個人檔案的5個重點，並邀請社群成員討論哪些因素最能吸引招聘者。內容涵蓋大頭貼、標題、個人簡介、經歷與技能的呈現，以及軟實力的重要性。",
-        "why_popular": "貼文提供實用、具體的求職建議，並以招聘者的專業視角切入，對於正在找工作的讀者極具參考價值。",
+        "summary_zh": "這位用戶分享了自己學習 Flutter 和 Android 開發一年多，積極投遞初級開發職位卻遲遲沒有回音的挫折感。他列舉了自己完成的專案與技能，並詢問大家關於履歷、經驗或求職策略的建議，希望獲得鼓勵與方向。",
+        "why_popular": "貼文真實反映了初入職場開發者常遇到的困境與迷惘，容易引起同溫層共鳴與過來人的回應。許多人都有類似經驗，樂於分享建議或提供情感支持。",
         "response_angles": [
-          "分享自己優化 LinkedIn 後的經驗與成果",
-          "討論 AI 生成大頭貼的真實感及可接受度",
-          "補充其他被忽略但有效的 LinkedIn 求職技巧"
-        ],
-        "categories": [
-          "industry_thoughts",
-          "personal_growth"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "2ceb7bfc8b20",
-      "source": "reddit",
-      "category": "product_related",
-      "subreddit": "jobsearchhacks",
-      "title": "Resume writer here. The resumes that actually get callbacks tend to have these 5 things ( Free game )",
-      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1q96b5o/resume_writer_here_the_resumes_that_actually_get/",
-      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1q96b5o/resume_writer_here_the_resumes_that_actually_get/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "I look at resumes all day. Most of them, honestly, look fine. Nothing obviously wrong with them. But very few actually lead to callbacks. The ones that do usually have these five things and people almost never talk about them. They pick a lane. They stop trying to be everything at once. The resume has a clear direction, and anything that doesn’t support that gets removed. They don’t over-explain. There’s no justifying or defending every line. They share enough to be understood and leave the rest for the interview. They sound sure of themselves. No “helped with” or “assisted on.” The writing assumes ownership and confidence, not permission. They lead with what matters. The most relevant and impressive things are easy to find right away. Order shapes how people judge you more than they realize. They’re easy on the eyes. Simple bullets, clean spacing, nothing heavy to push through. If it feels effortless to read, it works. A lot of people come to me convinced they’re missing something. Another skill, another line, another course. One client had about seven years of experience and kept getting passed over for roles they should’ve been a lock for. When I opened their resume, nothing was actually wrong. It was just flat. Every role was written the same way, in the same tone, with the same weight. So we didn’t add anything new. We cut it back, let a few roles do the talking, changed the wording so it sounded more certain, and left the rest alone. Their experience didn’t change. It just became easier to read and easier to understand. That’s when interviews started showing up. If you’re having a hard time right now, it doesn’t automatically mean you’re not qualified. A lot of the resumes I look at aren’t bad at all. They’re just a bit messy, unfocused, or trying to do too much on one page. That stuff is fixable. And way more people are dealing with it than you think. Thanks for reading &#32; submitted by &#32; /u/Fresh-Blackberry-394 [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這位履歷撰寫專家分享了五個讓履歷更容易獲得面試機會的重點，包括聚焦明確、簡潔自信、突出重點與易讀性。他強調，多數人履歷其實沒有大錯，只是缺乏聚焦和個人風格，這些細節反而決定是否能脫穎而出。",
-        "why_popular": "貼文以實務經驗指出履歷常見盲點，並給出具體、可行的改進建議，讓求職者產生共鳴與實際收穫。",
-        "response_angles": [
-          "分享自己調整履歷後拿到面試或工作的經驗",
-          "討論哪些寫法讓自己感覺更有自信，或詢問他人怎麼克服自我懷疑",
-          "請作者或大家分享更多針對不同產業的履歷建議"
-        ],
-        "categories": [
-          "industry_thoughts",
-          "personal_growth"
-        ],
-        "fb_score": 4,
-        "blog_score": 5
-      }
-    },
-    {
-      "id": "87799194e942",
-      "source": "reddit",
-      "category": "product_related",
-      "subreddit": "jobsearchhacks",
-      "title": "Is something wrong with my resume?",
-      "url": "https://www.reddit.com/r/jobsearchhacks/comments/1q9sd6m/is_something_wrong_with_my_resume/",
-      "reply_url": "https://www.reddit.com/r/jobsearchhacks/comments/1q9sd6m/is_something_wrong_with_my_resume/?utm_source=share&utm_medium=web2x",
-      "score": 0,
-      "comments": 0,
-      "selftext": "Need help. &#32; submitted by &#32; /u/Livid_Waltz_1628 [link] &#32; [comments]",
-      "fb_potential": "Low",
-      "blog_potential": "Low",
-      "engagement_score": 1,
-      "ai_analysis": {
-        "summary_zh": "這位用戶在 Reddit 上詢問自己的履歷是否有問題，希望獲得社群的建議。原文沒有詳細內容，但顯示出對個人成長與求職過程的關注。",
-        "why_popular": "求職與履歷優化是許多人的共同困擾，這類貼文容易引起共鳴並吸引有經驗者分享建議。",
-        "response_angles": [
-          "分享自己修改履歷的經驗與成果",
-          "提供具體的履歷優化建議或資源",
-          "討論目前求職市場對履歷的常見要求"
+          "分享自身求職經驗、遇到的困難及突破方法",
+          "針對履歷優化、作品集包裝或面試準備給予具體建議",
+          "鼓勵對方堅持下去，並討論新手常見的心理調適問題"
         ],
         "categories": [
           "personal_growth",
