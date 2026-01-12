@@ -14,6 +14,7 @@ interface Props {
   modifiedTime?: string;
   noindex?: boolean;
   hideLanguageSwitcher?: boolean;
+  hasAlternate?: boolean;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   modifiedTime,
   noindex = false,
   hideLanguageSwitcher = false,
+  hasAlternate = true,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -75,6 +77,7 @@ const lang = getLangFromUrl(Astro.url);
       publishedTime={publishedTime}
       modifiedTime={modifiedTime}
       noindex={noindex}
+      hasAlternate={hasAlternate}
     />
 
     <!-- Google Analytics -->

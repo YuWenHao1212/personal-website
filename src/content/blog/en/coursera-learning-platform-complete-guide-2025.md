@@ -7,6 +7,7 @@ tags: ["Coursera", "Online Learning", "Career Development", "Professional Certif
 lang: en
 featured: true
 heroImage: /images/blog/coursera-learning-platform-complete-guide-2025.webp
+translationKey: coursera-learning-platform-complete-guide-2025
 ---
 
 In my previous article, I shared how Coursera has helped me in my learning journey. Some readers reached out asking: "What exactly is Coursera? How can we best use it to develop our skills?"

@@ -7,6 +7,7 @@ tags: ["Minerva", "MDA", "學習", "成長"]
 lang: zh-TW
 featured: false
 heroImage: /images/blog/minerva-mda-growth/hero.webp
+translationKey: minerva-mda-growth
 ---
 
 2020 年 4 月 13 日，我開始寫日記。

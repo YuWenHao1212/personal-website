@@ -7,6 +7,7 @@ tags: ["Coursera", "數據分析", "職涯轉換", "個人成長", "Python"]
 lang: zh-TW
 featured: false
 heroImage: /images/blog/coursera-trigger-my-career/hero.webp
+translationKey: coursera-trigger-my-career
 ---
 
 2022年的某個深夜，我坐在辦公室裡，盯著螢幕上永遠處理不完的Excel報表。

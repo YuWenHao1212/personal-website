@@ -9,6 +9,7 @@ interface Props {
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
+  hasAlternate?: boolean;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   publishedTime,
   modifiedTime,
   noindex = false,
+  hasAlternate = true,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -40,8 +42,12 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 <!-- Canonical & Alternate Languages -->
 <link rel="canonical" href={canonicalURL} />
 <link rel="alternate" hreflang={lang} href={canonicalURL} />
-<link rel="alternate" hreflang={alternateLang} href={alternateURL} />
-<link rel="alternate" hreflang="x-default" href={new URL('/zh-TW/', Astro.site)} />
+{hasAlternate && (
+  <>
+    <link rel="alternate" hreflang={alternateLang} href={alternateURL} />
+    <link rel="alternate" hreflang="x-default" href={lang === 'zh-TW' ? canonicalURL : alternateURL} />
+  </>
+)}
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={article ? 'article' : 'website'} />

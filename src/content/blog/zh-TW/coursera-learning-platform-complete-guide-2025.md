@@ -7,6 +7,7 @@ tags: ["Coursera", "線上學習", "職涯發展", "專業證照", "技能培訓
 lang: zh-TW
 featured: true
 heroImage: /images/blog/coursera-learning-platform-complete-guide-2025.webp
+translationKey: coursera-learning-platform-complete-guide-2025
 ---
 
 在上一篇文章中，我分享了 Coursera 這個平台對於我的幫助。有些讀者來信詢問：「Coursera 是什麼？我們該如何善用它來培養自己的技能？」

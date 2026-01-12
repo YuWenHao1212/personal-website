@@ -7,6 +7,7 @@ tags: ["Minerva", "MDA", "Learning", "Growth"]
 lang: en
 featured: false
 heroImage: /images/blog/minerva-mda-growth/hero.webp
+translationKey: minerva-mda-growth
 ---
 
 On April 13, 2020, I started journaling.

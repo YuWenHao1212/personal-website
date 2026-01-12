@@ -7,6 +7,7 @@ tags: ["Coursera", "Data Analysis", "Career Change", "Personal Growth", "Python"
 lang: en
 featured: false
 heroImage: /images/blog/coursera-trigger-my-career/hero.webp
+translationKey: coursera-trigger-my-career
 ---
 
 Late one night in 2022, I sat in my office, staring at endless Excel spreadsheets.
