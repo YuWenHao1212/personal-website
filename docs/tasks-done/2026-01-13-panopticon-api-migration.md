@@ -1,13 +1,13 @@
 # Panopticon API Migration (Phase 4)
 
 **Date**: 2026-01-13
-**Commit**: `033ae5a`
+**Commits**: `033ae5a` (initial), `[pending]` (P0 fixes)
 **Reference**: `Cockpit/ideas/panopticon-db-architecture-plan.md`
 **Status**: Complete
 
 ---
 
-## Overview
+## What (Overview)
 
 將 Panopticon 前端從靜態 JSON 檔案改為從 azure_container API 動態載入資料。
 
@@ -15,17 +15,28 @@
 
 ---
 
-## Changes Summary
+## Why (Design Decisions)
+
+根據架構計劃書 Section 7 的設計決策：
+
+| 決策 | 原因 |
+|------|------|
+| **Client-side fetch (CSR)** | 隱藏頁面不需要 SEO，CSR 可即時取得最新資料 |
+| **直連 azure_container** | 不經過 proxy，減少延遲和維護成本 |
+| **GET endpoints 無需 API Key** | 資料本身是公開內容（Reddit/X/HN），頁面 URL 已隱藏 |
+| **Pre-computed analysis** | AI 分析在 batch 處理時完成，前端不需 on-demand 呼叫 |
+
+---
+
+## How (Implementation)
+
+### Changes Summary
 
 | Type | Files | Lines |
 |------|-------|-------|
 | **Deleted** | 9 static JSON files | -10,470 |
 | **Deleted** | `sync-panopticon.yml` workflow | -107 |
 | **Modified** | `p4n0pt1c0n-7x9k2m.astro` | +298/-141 |
-
----
-
-## Implementation Details
 
 ### 1. Removed Build-time JSON Imports
 
@@ -97,6 +108,90 @@ Deleted `public/data/panopticon/` directory containing:
 
 ---
 
+## P0 Bug Fixes (2026-01-13 11:00 CST)
+
+Code review 發現初始實作有遺留的舊架構程式碼，已修復：
+
+### Fix 1: 移除硬編碼 API Token
+
+**問題**：`__PANOPTICON_TOKEN__` 暴露在 client-side JS 中
+
+**修復**：刪除整段程式碼，因為：
+- GET endpoints 無需認證（依據架構設計 7.12）
+- Token 是舊 proxy 架構遺留，不再使用
+
+```diff
+- (window as any).__PANOPTICON_TOKEN__ = 'd960abf9...';
+```
+
+### Fix 2: 修改 Refresh 按鈕行為
+
+**問題**：呼叫不存在的 `/api/panopticon/refresh` 端點
+
+**修復**：改為直接重新呼叫 `loadDataFromAPI()` 從 azure_container 載入最新資料
+
+```typescript
+// Before: 呼叫不存在的 API
+fetch('/api/panopticon/refresh', { ... })
+
+// After: 直接重新載入資料
+await loadDataFromAPI();
+// Re-initialize UI after data reload
+prefs = getPrefs();
+applyStates();
+updateCounts();
+applyFilters();
+```
+
+### Fix 3: 移除 On-demand Analyze Fallback
+
+**問題**：呼叫不存在的 `/api/panopticon/analyze` 端點
+
+**修復**：依據新架構，AI 分析應為 pre-computed。若無分析資料，顯示提示訊息：
+
+```typescript
+// Before: 呼叫不存在的 API
+fetch('/api/panopticon/analyze', { ... })
+
+// After: 顯示提示訊息
+modalContent.innerHTML = `
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+    <p class="text-amber-800 text-sm">
+      <strong>AI 分析尚未準備好</strong><br>
+      此項目的 AI 分析將在下次 batch 處理時生成。
+    </p>
+  </div>
+  ...
+`;
+```
+
+### Fix 4: 修復 XSS 漏洞
+
+**問題**：`original_text` 等欄位直接插入 HTML，有 XSS 風險
+
+**修復**：新增 `escapeHtml()` 函數，應用於所有動態內容：
+
+```typescript
+function escapeHtml(str: string): string {
+  if (!str) return '';
+  const escapeMap: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+  return str.replace(/[&<>"']/g, c => escapeMap[c] || c);
+}
+
+// Applied to:
+// - renderItemCard(): title, selftext, all data-* attributes
+// - renderXItem(): original_text, translation, summary, url
+// - handleAnalyze(): modal content display
+```
+
+---
+
 ## API Endpoints Used
 
 | Endpoint | Method | Auth | Purpose |
@@ -104,7 +199,7 @@ Deleted `public/data/panopticon/` directory containing:
 | `/api/v1/panopticon/latest?source=content` | GET | None | Get latest content batch |
 | `/api/v1/panopticon/latest?source=x` | GET | None | Get latest X batch |
 
-Both endpoints are public (no API key required).
+Both endpoints are public (no API key required) - see architecture doc Section 7.12.
 
 ---
 
@@ -116,6 +211,7 @@ Both endpoints are public (no API key required).
 | **Content** | Data loaded successfully | Item cards / X categories |
 | **Empty** | No data returned | Empty state message |
 | **Error** | API request failed | Error message + Retry button |
+| **No Analysis** | Item has no pre-computed AI analysis | Warning + original content |
 
 ---
 
@@ -128,14 +224,15 @@ Both endpoints are public (no API key required).
    - Shows `0` briefly during initial load
    - Impact: Minor UX flicker
 
-2. **No XSS Escaping for `original_text`**
-   - Tweet text inserted directly into HTML
-   - Risk: Low (data source is controlled)
-   - Mitigation: API data comes from our own backend
+2. ~~**No XSS Escaping for `original_text`**~~ **[FIXED]**
 
 3. **No Fetch Timeout**
    - If API is slow, page stays in loading state indefinitely
    - Has retry button for recovery
+
+4. **Unused Astro Components**
+   - `src/components/panopticon/*.astro` are dead code (replaced by client-side render functions)
+   - Should be deleted in future cleanup
 
 ---
 
@@ -147,8 +244,11 @@ Both endpoints are public (no API key required).
 - [x] Tab filtering works (All, X, Reddit, HN, PH)
 - [x] Search and filters work
 - [x] Save/favorite functionality works (localStorage)
-- [x] Analysis modal works
+- [x] Analysis modal works (with pre-computed analysis)
+- [x] Analysis modal shows warning when no analysis available
 - [x] Error state shows retry button
+- [x] Refresh button reloads data from API
+- [x] XSS protection applied to all dynamic content
 
 ---
 
@@ -165,5 +265,17 @@ Both endpoints are public (no API key required).
 
 ---
 
-**Document Version**: 1.0.0
-**Last Updated**: 2026-01-13 11:30 CST
+## Changelog
+
+- **v1.1.0** (2026-01-13 11:00 CST): P0 bug fixes
+  - Removed hardcoded API token
+  - Fixed Refresh button to reload from API
+  - Removed legacy analyze API fallback
+  - Added XSS protection with `escapeHtml()`
+  - Updated document structure with Why/How sections
+- **v1.0.0** (2026-01-13 09:30 CST): Initial Phase 4 implementation
+
+---
+
+**Document Version**: 1.1.0
+**Last Updated**: 2026-01-13 11:00 CST
