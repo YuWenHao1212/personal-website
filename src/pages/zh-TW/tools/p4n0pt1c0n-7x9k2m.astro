@@ -914,13 +914,21 @@ const xData = null as any;
     let xFilterUnread = false;
     let xSearchQuery = '';
 
-    // Update counts
+    // Helper: Check if ID is X item (UUID format) vs Community item (short hash)
+    function isXItemId(id: string): boolean {
+      // UUID format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (36 chars with hyphens)
+      return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+    }
+
+    // Update counts (Community tab - excludes X items)
     function updateCounts() {
-      if (savedCountEl) savedCountEl.textContent = `(${prefs.saved.length})`;
-      if (hiddenCountEl) hiddenCountEl.textContent = `(${prefs.hidden.length})`;
-      // Show hidden button if there are hidden items
+      const savedContentCount = prefs.saved.filter(id => !isXItemId(id)).length;
+      const hiddenContentCount = prefs.hidden.filter(id => !isXItemId(id)).length;
+      if (savedCountEl) savedCountEl.textContent = `(${savedContentCount})`;
+      if (hiddenCountEl) hiddenCountEl.textContent = `(${hiddenContentCount})`;
+      // Show hidden button if there are hidden content items
       if (filterHiddenBtn) {
-        filterHiddenBtn.classList.toggle('hidden', prefs.hidden.length === 0);
+        filterHiddenBtn.classList.toggle('hidden', hiddenContentCount === 0);
       }
     }
 
@@ -1255,11 +1263,8 @@ const xData = null as any;
 
     // Update X counts (saved count in filter bar)
     function updateXCounts() {
-      // Count saved X items
-      const xItemsStore = (window as any).__PANOPTICON_X_ITEMS__ || {};
-      const xItemIds = Object.keys(xItemsStore);
-      const savedXCount = xItemIds.filter(id => prefs.saved.includes(id)).length;
-
+      // Count saved X items (UUID format IDs only)
+      const savedXCount = prefs.saved.filter(id => isXItemId(id)).length;
       if (xSavedCountEl) {
         xSavedCountEl.textContent = `(${savedXCount})`;
       }
