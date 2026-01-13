@@ -528,8 +528,8 @@ const xData = null;
           container.innerHTML = items.map((item: any) => renderItemCard(item)).join('');
         }
 
-        // Update stats
-        const stats = contentData.data.batch?.stats || {};
+        // Update stats - API returns stats directly under data, not data.batch.stats
+        const stats = contentData.data.stats || {};
         updateStatsCounts(stats, items.length);
       }
 
