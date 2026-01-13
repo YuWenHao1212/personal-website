@@ -1346,14 +1346,40 @@ const xData = null as any;
       // When activating Saved filter, fetch historical saved X items not in current batch
       if (xFilterSaved) {
         const xWrapper = document.getElementById('x-items-wrapper');
-        const missingSavedIds = prefs.saved.filter(id => !loadedXIds.has(id));
+        // Filter out IDs already loaded in either content or X
+        const missingSavedIds = prefs.saved.filter(id => !loadedXIds.has(id) && !loadedContentIds.has(id));
         if (missingSavedIds.length > 0 && xWrapper) {
-          // Fetch missing saved X items from API
-          const historicalItems = await fetchSavedItemsByIds(missingSavedIds, 'x');
-          if (historicalItems.length > 0) {
+          // Fetch from BOTH sources to avoid incorrectly removing content items as invalid
+          const [xItems, contentItems] = await Promise.all([
+            fetchSavedItemsByIds(missingSavedIds, 'x'),
+            fetchSavedItemsByIds(missingSavedIds, 'content')
+          ]);
+
+          // Clean up IDs not found in EITHER source (truly invalid)
+          const foundIds = new Set([
+            ...xItems.map((item: any) => item.id || item.item_id),
+            ...contentItems.map((item: any) => item.item_id || item.id)
+          ]);
+          const invalidIds = missingSavedIds.filter(id => !foundIds.has(id));
+          if (invalidIds.length > 0) {
+            console.log(`Cleaning up ${invalidIds.length} invalid saved IDs:`, invalidIds);
+            prefs.saved = prefs.saved.filter(id => !invalidIds.includes(id));
+            setPrefs(prefs);
+            updateCounts();
+          }
+
+          // Track content items as loaded (for future Community tab Saved filter)
+          contentItems.forEach((item: any) => {
+            const id = item.item_id || item.id;
+            loadedContentIds.add(id);
+            (window as any).__PANOPTICON_ITEMS__[id] = item;
+          });
+
+          // For X tab, add X items to the DOM
+          if (xItems.length > 0) {
             // Group by category
             const byCategory: Record<string, any[]> = {};
-            historicalItems.forEach((item: any) => {
+            xItems.forEach((item: any) => {
               const cat = item.category || 'other';
               if (!byCategory[cat]) byCategory[cat] = [];
               byCategory[cat].push(item);
@@ -1417,7 +1443,7 @@ const xData = null as any;
             });
 
             // Track newly loaded IDs
-            historicalItems.forEach((item: any) => {
+            xItems.forEach((item: any) => {
               const id = item.id || item.item_id;
               loadedXIds.add(id);
               // Store for modal lookup
@@ -1485,24 +1511,46 @@ const xData = null as any;
 
       // When activating Saved filter, fetch historical saved items not in current batch
       if (filterSaved) {
-        const missingSavedIds = prefs.saved.filter(id => !loadedContentIds.has(id));
+        // Filter out IDs already loaded in either content or X
+        const missingSavedIds = prefs.saved.filter(id => !loadedContentIds.has(id) && !loadedXIds.has(id));
         if (missingSavedIds.length > 0) {
-          // Fetch missing saved items from API
-          const historicalItems = await fetchSavedItemsByIds(missingSavedIds, 'content');
-          if (historicalItems.length > 0 && container) {
-            // Append to container
-            const newHtml = historicalItems.map((item: any) => renderItemCard(item)).join('');
+          // Fetch from BOTH sources to avoid incorrectly removing X items as invalid
+          const [contentItems, xItems] = await Promise.all([
+            fetchSavedItemsByIds(missingSavedIds, 'content'),
+            fetchSavedItemsByIds(missingSavedIds, 'x')
+          ]);
+
+          // Clean up IDs not found in EITHER source (truly invalid)
+          const foundIds = new Set([
+            ...contentItems.map((item: any) => item.item_id || item.id),
+            ...xItems.map((item: any) => item.id || item.item_id)
+          ]);
+          const invalidIds = missingSavedIds.filter(id => !foundIds.has(id));
+          if (invalidIds.length > 0) {
+            console.log(`Cleaning up ${invalidIds.length} invalid saved IDs:`, invalidIds);
+            prefs.saved = prefs.saved.filter(id => !invalidIds.includes(id));
+            setPrefs(prefs);
+            updateCounts();
+          }
+
+          // For Community tab, only add content items to the DOM
+          if (contentItems.length > 0 && container) {
+            const newHtml = contentItems.map((item: any) => renderItemCard(item)).join('');
             container.insertAdjacentHTML('beforeend', newHtml);
-            // Track newly loaded IDs
-            historicalItems.forEach((item: any) => {
+            contentItems.forEach((item: any) => {
               const id = item.item_id || item.id;
               loadedContentIds.add(id);
-              // Store for analysis lookup
               (window as any).__PANOPTICON_ITEMS__[id] = item;
             });
-            // Apply states to new cards
             applyStates();
           }
+
+          // Track X items as loaded (for future X tab Saved filter)
+          xItems.forEach((item: any) => {
+            const id = item.id || item.item_id;
+            loadedXIds.add(id);
+            (window as any).__PANOPTICON_X_ITEMS__[id] = item;
+          });
         }
       }
 
