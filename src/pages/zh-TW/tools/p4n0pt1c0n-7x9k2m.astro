@@ -1455,6 +1455,14 @@ const xData = null as any;
               // Store for modal lookup
               (window as any).__PANOPTICON_X_ITEMS__[id] = item;
             });
+            // Update X counts after loading historical items
+            updateXCounts();
+          }
+
+          // Track content items as loaded (for future Community tab)
+          // and update Community counts
+          if (contentItems.length > 0) {
+            updateCounts();
           }
         }
       }
@@ -1549,6 +1557,8 @@ const xData = null as any;
               (window as any).__PANOPTICON_ITEMS__[id] = item;
             });
             applyStates();
+            // Update counts after loading historical items
+            updateCounts();
           }
 
           // Track X items as loaded (for future X tab Saved filter)
@@ -1557,6 +1567,8 @@ const xData = null as any;
             loadedXIds.add(id);
             (window as any).__PANOPTICON_X_ITEMS__[id] = item;
           });
+          // Update X counts as well
+          updateXCounts();
         }
       }
 
