@@ -914,13 +914,19 @@ const xData = null as any;
     let xFilterUnread = false;
     let xSearchQuery = '';
 
-    // Update counts
+    // Update counts (Community tab only - counts content items)
     function updateCounts() {
-      if (savedCountEl) savedCountEl.textContent = `(${prefs.saved.length})`;
-      if (hiddenCountEl) hiddenCountEl.textContent = `(${prefs.hidden.length})`;
-      // Show hidden button if there are hidden items
+      // Count saved items that are content items (in loadedContentIds)
+      const savedContentCount = prefs.saved.filter(id => loadedContentIds.has(id)).length;
+      if (savedCountEl) savedCountEl.textContent = `(${savedContentCount})`;
+
+      // Count hidden items that are content items
+      const hiddenContentCount = prefs.hidden.filter(id => loadedContentIds.has(id)).length;
+      if (hiddenCountEl) hiddenCountEl.textContent = `(${hiddenContentCount})`;
+
+      // Show hidden button if there are hidden content items
       if (filterHiddenBtn) {
-        filterHiddenBtn.classList.toggle('hidden', prefs.hidden.length === 0);
+        filterHiddenBtn.classList.toggle('hidden', hiddenContentCount === 0);
       }
     }
 
