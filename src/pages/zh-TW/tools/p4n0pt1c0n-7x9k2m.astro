@@ -914,19 +914,13 @@ const xData = null as any;
     let xFilterUnread = false;
     let xSearchQuery = '';
 
-    // Update counts (Community tab only - counts content items)
+    // Update counts
     function updateCounts() {
-      // Count saved items that are content items (in loadedContentIds)
-      const savedContentCount = prefs.saved.filter(id => loadedContentIds.has(id)).length;
-      if (savedCountEl) savedCountEl.textContent = `(${savedContentCount})`;
-
-      // Count hidden items that are content items
-      const hiddenContentCount = prefs.hidden.filter(id => loadedContentIds.has(id)).length;
-      if (hiddenCountEl) hiddenCountEl.textContent = `(${hiddenContentCount})`;
-
-      // Show hidden button if there are hidden content items
+      if (savedCountEl) savedCountEl.textContent = `(${prefs.saved.length})`;
+      if (hiddenCountEl) hiddenCountEl.textContent = `(${prefs.hidden.length})`;
+      // Show hidden button if there are hidden items
       if (filterHiddenBtn) {
-        filterHiddenBtn.classList.toggle('hidden', hiddenContentCount === 0);
+        filterHiddenBtn.classList.toggle('hidden', prefs.hidden.length === 0);
       }
     }
 
@@ -1361,18 +1355,8 @@ const xData = null as any;
             fetchSavedItemsByIds(missingSavedIds, 'content')
           ]);
 
-          // Clean up IDs not found in EITHER source (truly invalid)
-          const foundIds = new Set([
-            ...xItems.map((item: any) => item.id || item.item_id),
-            ...contentItems.map((item: any) => item.item_id || item.id)
-          ]);
-          const invalidIds = missingSavedIds.filter(id => !foundIds.has(id));
-          if (invalidIds.length > 0) {
-            console.log(`Cleaning up ${invalidIds.length} invalid saved IDs:`, invalidIds);
-            prefs.saved = prefs.saved.filter(id => !invalidIds.includes(id));
-            setPrefs(prefs);
-            updateCounts();
-          }
+          // Note: We don't auto-clean invalid IDs to prevent data loss on API failures
+          // Invalid IDs will simply not display anything
 
           // Track content items as loaded (for future Community tab Saved filter)
           contentItems.forEach((item: any) => {
@@ -1534,18 +1518,8 @@ const xData = null as any;
             fetchSavedItemsByIds(missingSavedIds, 'x')
           ]);
 
-          // Clean up IDs not found in EITHER source (truly invalid)
-          const foundIds = new Set([
-            ...contentItems.map((item: any) => item.item_id || item.id),
-            ...xItems.map((item: any) => item.id || item.item_id)
-          ]);
-          const invalidIds = missingSavedIds.filter(id => !foundIds.has(id));
-          if (invalidIds.length > 0) {
-            console.log(`Cleaning up ${invalidIds.length} invalid saved IDs:`, invalidIds);
-            prefs.saved = prefs.saved.filter(id => !invalidIds.includes(id));
-            setPrefs(prefs);
-            updateCounts();
-          }
+          // Note: We don't auto-clean invalid IDs to prevent data loss on API failures
+          // Invalid IDs will simply not display anything
 
           // For Community tab, only add content items to the DOM
           if (contentItems.length > 0 && container) {
