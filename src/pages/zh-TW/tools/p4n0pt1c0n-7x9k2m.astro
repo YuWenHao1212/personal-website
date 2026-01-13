@@ -413,6 +413,24 @@ const xData = null;
     claude_code: { label: 'Claude Code', color: 'text-orange-700', bgColor: 'bg-orange-50 border-orange-200' },
   };
 
+  // KOL descriptions - one-liner intro for each author
+  const kolDescriptions: Record<string, string> = {
+    'levelsio': '獨立開發者傳奇，PhotoAI/Nomad List 創辦人，數位遊牧生活倡導者',
+    'bcherny': 'Anthropic 工程師，Claude Code 創建者',
+    'elonmusk': 'Tesla/SpaceX/X CEO，科技狂人與爭議領袖',
+    'nntaleb': '《黑天鵝》作者，風險管理專家，反脆弱思維倡導者',
+    'SahilBloom': '創業家與內容創作者，專注個人成長與財富智慧',
+    'paulg': 'Y Combinator 共同創辦人，創業教父',
+    'naval': 'AngelList 創辦人，矽谷哲學家',
+    'dhh': 'Ruby on Rails 創建者，Basecamp CTO，直言不諱的技術領袖',
+    'patrickc': 'Stripe CEO，金融科技革新者',
+    'sama': 'OpenAI CEO，AGI 推動者',
+    'balajis': '前 a16z 合夥人，Network State 作者，加密貨幣倡導者',
+    'pmarca': 'a16z 創辦人，網景創辦人，科技投資教父',
+    'jason': 'Calacanis，連續創業家與天使投資人',
+    'amasad': 'Replit CEO，讓程式設計民主化的推動者',
+  };
+
   // Convert score (1-5) to potential label
   function scoreToPotential(score: number): string {
     if (score >= 4) return 'High';
@@ -488,54 +506,70 @@ const xData = null;
   // Render X item HTML
   // API returns: likes, retweets, replies, views directly (not nested in metrics)
   function renderXItem(item: any): string {
-    const analysis = item.analysis || null;
     const engagementScore = item.engagement_score || 1;
     // API returns flat fields: likes, retweets, etc.
     const likes = item.likes || 0;
     const retweets = item.retweets || 0;
+    const itemId = item.id || item.item_id || '';
+
+    // Truncate text for preview (show first ~200 chars)
+    const originalText = item.original_text || '';
+    const previewText = originalText.length > 200
+      ? originalText.slice(0, 200) + '...'
+      : originalText;
 
     return `
-      <div class="x-item bg-white rounded-lg p-4 border border-gray-100" data-x-id="${escapeHtml(item.id || item.item_id || '')}">
+      <div class="x-item bg-white rounded-lg p-4 border border-gray-100 cursor-pointer hover:bg-gray-50 hover:border-gray-200 transition-colors"
+           data-x-id="${escapeHtml(itemId)}"
+           data-url="${escapeHtml(item.url || '')}"
+           data-author="${escapeHtml(item.author || '')}">
         <div class="flex items-start justify-between mb-2">
           <div class="flex items-center gap-2">
             ${engagementScore >= 4 ? '<span class="text-amber-500">⭐</span>' : ''}
             <span class="text-xs text-gray-500">${likes} ❤️ · ${retweets} 🔁</span>
           </div>
-          <a href="${escapeHtml(item.url || '#')}" target="_blank" rel="noopener noreferrer" class="text-sky-500 hover:text-sky-600 text-sm">↗</a>
+          <a href="${escapeHtml(item.url || '#')}" target="_blank" rel="noopener noreferrer"
+             class="text-sky-500 hover:text-sky-600 text-sm x-external-link"
+             onclick="event.stopPropagation()">↗</a>
         </div>
-        <p class="text-sm text-gray-700 mb-2 whitespace-pre-wrap">${escapeHtml(item.original_text || '')}</p>
-        ${analysis?.translation ? `<p class="text-sm text-gray-600 bg-gray-50 p-2 rounded mt-2"><strong>翻譯:</strong> ${escapeHtml(analysis.translation)}</p>` : ''}
-        ${analysis?.summary ? `<p class="text-xs text-gray-500 mt-1">${escapeHtml(analysis.summary)}</p>` : ''}
+        <p class="text-sm text-gray-700 whitespace-pre-wrap x-item-text">${escapeHtml(previewText)}</p>
+        <p class="text-xs text-sky-500 mt-2 hover:underline">點擊查看 AI 分析 →</p>
       </div>
     `;
   }
 
   // Render X category section
-  // API returns: author_handle, author_name, author_category (not author, category)
+  // API returns: author, author_name, category
   function renderXCategory(category: string, items: any[]): string {
     const config = xCategoryConfig[category] || { label: category, color: 'text-gray-700', bgColor: 'bg-gray-50 border-gray-200' };
 
-    // Group by author - API uses author_handle field
+    // Group by author
     const byAuthor: Record<string, { authorName: string; items: any[] }> = {};
     items.forEach(item => {
-      const author = item.author_handle || item.author || 'unknown';
+      const author = item.author || 'unknown';
       if (!byAuthor[author]) {
         byAuthor[author] = { authorName: item.author_name || author, items: [] };
       }
       byAuthor[author].items.push(item);
     });
 
-    const authorSections = Object.entries(byAuthor).map(([author, data]) => `
-      <div class="mb-4">
-        <h3 class="text-sm font-semibold mb-2 flex items-center gap-2">
-          <span class="text-gray-700">@${author}</span>
-          <span class="text-xs text-gray-500 font-normal">${data.authorName}</span>
-        </h3>
-        <div class="space-y-3 pl-4 border-l-2 border-gray-200">
-          ${data.items.map(item => renderXItem(item)).join('')}
+    const authorSections = Object.entries(byAuthor).map(([author, data]) => {
+      const kolDesc = kolDescriptions[author] || '';
+      return `
+        <div class="mb-6">
+          <div class="mb-3">
+            <h3 class="text-sm font-semibold flex items-center gap-2">
+              <span class="text-gray-700">@${author}</span>
+              <span class="text-xs text-gray-500 font-normal">${data.authorName}</span>
+            </h3>
+            ${kolDesc ? `<p class="text-xs text-gray-500 mt-1 pl-1">${escapeHtml(kolDesc)}</p>` : ''}
+          </div>
+          <div class="space-y-3 pl-4 border-l-2 border-gray-200">
+            ${data.items.map(item => renderXItem(item)).join('')}
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     return `
       <section class="x-category-section mb-8 rounded-xl border p-4 ${config.bgColor}" data-x-category="${category}">
@@ -597,10 +631,16 @@ const xData = null;
         const items = xData.data.items;
         const categoryOrder = ['ai_tech', 'indie_hacker', 'business', 'startup', 'career', 'philosophy', 'claude_code'];
 
-        // Group by category - API uses author_category field (not category)
+        // Store X items for modal lookup
+        (window as any).__PANOPTICON_X_ITEMS__ = items.reduce((acc: any, item: any) => {
+          acc[item.id || item.item_id] = item;
+          return acc;
+        }, {});
+
+        // Group by category
         const byCategory: Record<string, any[]> = {};
         items.forEach((item: any) => {
-          const cat = item.author_category || item.category || 'other';
+          const cat = item.category || 'other';
           if (!byCategory[cat]) byCategory[cat] = [];
           byCategory[cat].push(item);
         });
@@ -693,7 +733,7 @@ const xData = null;
     if (items) {
       xCategoryCounts = {};
       items.forEach((item: any) => {
-        const cat = item.author_category || item.category || 'other';
+        const cat = item.category || 'other';
         xCategoryCounts[cat] = (xCategoryCounts[cat] || 0) + 1;
       });
 
@@ -1440,9 +1480,191 @@ const xData = null;
       openModal();
     }
 
+    // Handle X item analysis
+    function handleXAnalyze(xItem: HTMLElement) {
+      const itemId = xItem.dataset.xId || '';
+      const xItemsStore = (window as any).__PANOPTICON_X_ITEMS__ || {};
+      const storedItem = xItemsStore[itemId];
+
+      if (!storedItem) {
+        console.error('X item not found:', itemId);
+        return;
+      }
+
+      // Parse analysis if it's a JSON string
+      let analysis = storedItem.analysis;
+      if (typeof analysis === 'string') {
+        try {
+          analysis = JSON.parse(analysis);
+        } catch (e) {
+          console.error('Failed to parse X analysis:', e);
+          analysis = null;
+        }
+      }
+
+      // Set current item for modal buttons
+      currentItem = {
+        id: itemId,
+        title: `@${storedItem.author}: ${(storedItem.original_text || '').slice(0, 50)}...`,
+        url: storedItem.url || '',
+        source: 'x',
+        selftext: storedItem.original_text || '',
+        score: storedItem.engagement_score || 1,
+        comments: storedItem.replies || 0,
+        fbPotential: '',
+        blogPotential: '',
+      };
+
+      // Update modal title
+      if (modalTitle) {
+        modalTitle.textContent = `@${storedItem.author}`;
+      }
+
+      // Set modal Open link
+      if (modalOpen) {
+        modalOpen.href = storedItem.url || '#';
+      }
+
+      // Render X analysis
+      if (modalContent) {
+        const kolDesc = kolDescriptions[storedItem.author] || '';
+        const likes = storedItem.likes || 0;
+        const retweets = storedItem.retweets || 0;
+        const replies = storedItem.replies || 0;
+        const views = storedItem.views || 0;
+
+        modalContent.innerHTML = `
+          <div class="space-y-4">
+            <!-- Author Info -->
+            <div class="bg-sky-50 rounded-lg p-3">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="font-semibold text-sky-700">@${escapeHtml(storedItem.author)}</span>
+                <span class="text-sm text-gray-600">${escapeHtml(storedItem.author_name || '')}</span>
+              </div>
+              ${kolDesc ? `<p class="text-xs text-gray-500">${escapeHtml(kolDesc)}</p>` : ''}
+            </div>
+
+            <!-- Engagement Stats -->
+            <div class="flex gap-4 text-sm text-gray-600">
+              <span>❤️ ${likes.toLocaleString()}</span>
+              <span>🔁 ${retweets.toLocaleString()}</span>
+              <span>💬 ${replies.toLocaleString()}</span>
+              <span>👁️ ${views.toLocaleString()}</span>
+            </div>
+
+            <!-- Original Tweet -->
+            <div>
+              <h3 class="text-sm font-medium text-ink-500 mb-1">📝 原文</h3>
+              <div class="bg-cream-50 rounded-lg p-3 text-ink-800 text-sm whitespace-pre-wrap">
+                ${escapeHtml(storedItem.original_text || '')}
+              </div>
+            </div>
+
+            ${analysis ? `
+              <!-- Translation -->
+              ${analysis.translation ? `
+                <div>
+                  <h3 class="text-sm font-medium text-ink-500 mb-1">🌐 翻譯</h3>
+                  <div class="bg-blue-50 rounded-lg p-3 text-ink-800 text-sm whitespace-pre-wrap">
+                    ${escapeHtml(analysis.translation)}
+                  </div>
+                </div>
+              ` : ''}
+
+              <!-- Context Explanation -->
+              ${analysis.context_explanation ? `
+                <div>
+                  <h3 class="text-sm font-medium text-ink-500 mb-1">📚 背景說明</h3>
+                  <p class="text-sm text-ink-700">${escapeHtml(analysis.context_explanation)}</p>
+                </div>
+              ` : ''}
+
+              <!-- Motivation -->
+              ${analysis.motivation ? `
+                <div>
+                  <h3 class="text-sm font-medium text-ink-500 mb-1">🎯 發文動機</h3>
+                  <p class="text-sm text-ink-700">${escapeHtml(analysis.motivation)}</p>
+                </div>
+              ` : ''}
+
+              <!-- Summary -->
+              ${analysis.summary ? `
+                <div>
+                  <h3 class="text-sm font-medium text-ink-500 mb-1">💡 AI 摘要</h3>
+                  <p class="text-sm text-ink-700">${escapeHtml(analysis.summary)}</p>
+                </div>
+              ` : ''}
+
+              <!-- Title Ideas -->
+              ${analysis.title_ideas?.length > 0 ? `
+                <div>
+                  <h3 class="text-sm font-medium text-ink-500 mb-1">✍️ 標題靈感</h3>
+                  <ul class="text-sm text-ink-700 space-y-1">
+                    ${analysis.title_ideas.map((t: string) => `<li class="flex items-start gap-2"><span class="text-accent">•</span>${escapeHtml(t)}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+
+              <!-- Response Angles -->
+              ${analysis.angles ? `
+                <div>
+                  <h3 class="text-sm font-medium text-ink-500 mb-2">🔄 回應角度</h3>
+                  <div class="grid md:grid-cols-2 gap-3">
+                    ${analysis.angles.contrarian?.length > 0 ? `
+                      <div class="bg-orange-50 rounded-lg p-3">
+                        <h4 class="text-xs font-medium text-orange-700 mb-2">🔥 反向觀點</h4>
+                        <ul class="text-xs text-ink-700 space-y-1">
+                          ${analysis.angles.contrarian.map((a: string) => `<li>• ${escapeHtml(a)}</li>`).join('')}
+                        </ul>
+                      </div>
+                    ` : ''}
+                    ${analysis.angles.conventional?.length > 0 ? `
+                      <div class="bg-green-50 rounded-lg p-3">
+                        <h4 class="text-xs font-medium text-green-700 mb-2">✅ 常規觀點</h4>
+                        <ul class="text-xs text-ink-700 space-y-1">
+                          ${analysis.angles.conventional.map((a: string) => `<li>• ${escapeHtml(a)}</li>`).join('')}
+                        </ul>
+                      </div>
+                    ` : ''}
+                  </div>
+                </div>
+              ` : ''}
+
+              <!-- Value Types -->
+              ${analysis.value_types?.length > 0 ? `
+                <div class="flex flex-wrap gap-2">
+                  ${analysis.value_types.map((v: string) => `<span class="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">${escapeHtml(v)}</span>`).join('')}
+                </div>
+              ` : ''}
+            ` : `
+              <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                <p class="text-amber-800 text-sm">
+                  <strong>AI 分析尚未準備好</strong><br>
+                  此推文的 AI 分析將在下次 batch 處理時生成。
+                </p>
+              </div>
+            `}
+          </div>
+        `;
+      }
+
+      currentAnalysis = analysis;
+      openModal();
+    }
+
     // Title click for analysis (using event delegation on document for dynamic content)
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
+
+      // Handle X item click
+      const xItem = target.closest('.x-item') as HTMLElement;
+      if (xItem && !target.closest('.x-external-link')) {
+        e.stopPropagation();
+        handleXAnalyze(xItem);
+        return;
+      }
+
+      // Handle Community item title click
       const title = target.closest('.card-title');
       if (title) {
         e.stopPropagation();
