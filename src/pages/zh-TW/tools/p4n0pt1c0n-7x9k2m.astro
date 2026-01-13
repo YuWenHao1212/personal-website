@@ -37,13 +37,48 @@ const xData = null;
       </button>
     </div>
 
-    <!-- Source Tabs (clickable stats) -->
-    <div id="source-tabs" class="flex gap-2 mb-4 overflow-x-auto pb-2">
+    <!-- Primary Tabs (X vs Community) -->
+    <div id="primary-tabs" class="flex gap-3 mb-4">
+      <button data-primary="x" class="primary-tab flex-shrink-0 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all bg-sky-500 text-white shadow-sm">
+        𝕏 Twitter <span class="ml-1.5 opacity-80" id="x-count-primary">0</span>
+      </button>
+      <button data-primary="community" class="primary-tab flex-shrink-0 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all bg-cream-100 text-ink-600 hover:bg-cream-200">
+        Community <span class="ml-1.5 opacity-70" id="community-count-primary">0</span>
+      </button>
+    </div>
+
+    <!-- X Category Tabs (shown when X is selected) -->
+    <div id="x-category-tabs" class="flex gap-2 mb-4 overflow-x-auto pb-2">
+      <button data-x-cat="all" class="x-cat-tab active flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-500 text-white">
+        All <span class="ml-1 opacity-80" id="x-cat-all-count">0</span>
+      </button>
+      <button data-x-cat="ai_tech" class="x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-purple-50 text-purple-700 hover:bg-purple-100">
+        AI & Tech <span class="ml-1 opacity-70">0</span>
+      </button>
+      <button data-x-cat="indie_hacker" class="x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-green-50 text-green-700 hover:bg-green-100">
+        Indie Hacker <span class="ml-1 opacity-70">0</span>
+      </button>
+      <button data-x-cat="business" class="x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-blue-50 text-blue-700 hover:bg-blue-100">
+        Business <span class="ml-1 opacity-70">0</span>
+      </button>
+      <button data-x-cat="startup" class="x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-amber-50 text-amber-700 hover:bg-amber-100">
+        Startup <span class="ml-1 opacity-70">0</span>
+      </button>
+      <button data-x-cat="career" class="x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-pink-50 text-pink-700 hover:bg-pink-100">
+        Career <span class="ml-1 opacity-70">0</span>
+      </button>
+      <button data-x-cat="philosophy" class="x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-indigo-50 text-indigo-700 hover:bg-indigo-100">
+        Philosophy <span class="ml-1 opacity-70">0</span>
+      </button>
+      <button data-x-cat="claude_code" class="x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-orange-50 text-orange-700 hover:bg-orange-100">
+        Claude Code <span class="ml-1 opacity-70">0</span>
+      </button>
+    </div>
+
+    <!-- Secondary Source Tabs (shown when Community is selected) -->
+    <div id="source-tabs" class="hidden gap-2 mb-4 overflow-x-auto pb-2">
       <button data-source="all" class="source-tab active flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-accent text-white">
         All <span class="ml-1 opacity-80">{data?.stats.total_items || 0}</span>
-      </button>
-      <button data-source="x" class="source-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-50 text-sky-700 hover:bg-sky-100">
-        𝕏 <span class="ml-1 opacity-70">{xData?.stats.total_items || 0}</span>
       </button>
       <button data-source="reddit" class="source-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-orange-50 text-orange-700 hover:bg-orange-100">
         Reddit <span class="ml-1 opacity-70">{data?.stats.reddit_posts || 0}</span>
@@ -378,15 +413,36 @@ const xData = null;
     claude_code: { label: 'Claude Code', color: 'text-orange-700', bgColor: 'bg-orange-50 border-orange-200' },
   };
 
+  // Convert score (1-5) to potential label
+  function scoreToPotential(score: number): string {
+    if (score >= 4) return 'High';
+    if (score >= 2) return 'Medium';
+    return 'Low';
+  }
+
   // Render a single item card HTML
   function renderItemCard(item: any): string {
     const source = item.source || 'reddit';
     const sourceInfo = sourceConfig[source] || sourceConfig.reddit;
     const subreddit = item.subreddit || '';
     const sourceLabel = source === 'reddit' && subreddit ? `r/${escapeHtml(subreddit)}` : sourceInfo.label;
-    const engagementScore = item.engagement_score || 1;
-    const fbPotential = item.fb_potential || 'Low';
-    const blogPotential = item.blog_potential || 'Low';
+
+    // Parse ai_analysis if it's a JSON string
+    let aiAnalysis = item.ai_analysis;
+    if (typeof aiAnalysis === 'string') {
+      try {
+        aiAnalysis = JSON.parse(aiAnalysis);
+      } catch (e) {
+        aiAnalysis = null;
+      }
+    }
+
+    // Prefer ai_analysis scores over item-level potential
+    const fbScore = aiAnalysis?.fb_score;
+    const blogScore = aiAnalysis?.blog_score;
+    const engagementScore = (fbScore && blogScore) ? Math.round((fbScore + blogScore) / 2) : (item.engagement_score || 1);
+    const fbPotential = fbScore ? scoreToPotential(fbScore) : (item.fb_potential || 'Low');
+    const blogPotential = blogScore ? scoreToPotential(blogScore) : (item.blog_potential || 'Low');
     const selftext = item.selftext || '';
     const truncatedText = selftext.length > 150 ? selftext.slice(0, 150) + '...' : selftext;
 
@@ -396,7 +452,7 @@ const xData = null;
         data-source="${escapeHtml(source)}"
         data-category="${escapeHtml(item.category || '')}"
         data-score="${engagementScore}"
-        data-id="${escapeHtml(item.id || item.item_id || '')}"
+        data-id="${escapeHtml(item.item_id || item.id || '')}"
         data-title="${escapeHtml(item.title || '')}"
         data-url="${escapeHtml(item.url || '')}"
         data-selftext="${escapeHtml(selftext)}"
@@ -423,7 +479,7 @@ const xData = null;
         <div class="flex items-center gap-2 mb-4 text-xs">
           <span class="px-2 py-0.5 rounded-full ${potentialColors[fbPotential] || potentialColors.Low}">FB: ${escapeHtml(fbPotential)}</span>
           <span class="px-2 py-0.5 rounded-full ${potentialColors[blogPotential] || potentialColors.Low}">Blog: ${escapeHtml(blogPotential)}</span>
-          <span class="text-ink-400">Score: ${engagementScore}/5</span>
+          <span class="px-2 py-0.5 rounded-full ${potentialColors[scoreToPotential(engagementScore)] || potentialColors.Low}">Score: ${engagementScore}/5</span>
         </div>
       </div>
     `;
@@ -532,9 +588,8 @@ const xData = null;
           container.innerHTML = items.map((item: any) => renderItemCard(item)).join('');
         }
 
-        // Update stats - API returns stats directly under data, not data.batch.stats
-        const stats = contentData.data.stats || {};
-        updateStatsCounts(stats, items.length);
+        // Update stats - count from actual items
+        updateStatsCounts(items);
       }
 
       // Render X items
@@ -564,7 +619,7 @@ const xData = null;
         }
 
         // Update X stats
-        updateXStatsCounts(items.length);
+        updateXStatsCounts(items.length, items);
       } else {
         if (xEmptyState) {
           xEmptyState.classList.remove('hidden');
@@ -595,34 +650,66 @@ const xData = null;
   let xItemsCount = 0;
 
   // Update stats counts in the source tabs
-  function updateStatsCounts(stats: any, totalItems: number) {
-    contentItemsCount = totalItems;
+  function updateStatsCounts(items: any[]) {
+    contentItemsCount = items.length;
+
+    // Count by source from actual items
+    const sourceCounts: Record<string, number> = { reddit: 0, hackernews: 0, producthunt: 0 };
+    items.forEach(item => {
+      const source = item.source || 'reddit';
+      if (sourceCounts[source] !== undefined) {
+        sourceCounts[source]++;
+      }
+    });
+
+    // Update primary tab (Community count)
+    const communityCountEl = document.getElementById('community-count-primary');
+    if (communityCountEl) communityCountEl.textContent = String(items.length);
+
+    // Update secondary source tabs
     const tabs = document.querySelectorAll('.source-tab');
     tabs.forEach(tab => {
       const source = (tab as HTMLElement).dataset.source;
       const countSpan = tab.querySelector('span');
       if (countSpan) {
-        // All tab should show content + X items
-        if (source === 'all') countSpan.textContent = String(contentItemsCount + xItemsCount);
-        else if (source === 'reddit') countSpan.textContent = String(stats.reddit_posts || 0);
-        else if (source === 'hackernews') countSpan.textContent = String(stats.hn_stories || 0);
-        else if (source === 'producthunt') countSpan.textContent = String(stats.ph_products || 0);
+        if (source === 'all') countSpan.textContent = String(items.length);
+        else if (source === 'reddit') countSpan.textContent = String(sourceCounts.reddit);
+        else if (source === 'hackernews') countSpan.textContent = String(sourceCounts.hackernews);
+        else if (source === 'producthunt') countSpan.textContent = String(sourceCounts.producthunt);
       }
     });
   }
 
-  function updateXStatsCounts(count: number) {
+  // Store X category counts
+  let xCategoryCounts: Record<string, number> = {};
+
+  function updateXStatsCounts(count: number, items?: any[]) {
     xItemsCount = count;
-    const xTab = document.querySelector('.source-tab[data-source="x"]');
-    if (xTab) {
-      const countSpan = xTab.querySelector('span');
-      if (countSpan) countSpan.textContent = String(count);
-    }
-    // Also update All tab to include X count
-    const allTab = document.querySelector('.source-tab[data-source="all"]');
-    if (allTab) {
-      const countSpan = allTab.querySelector('span');
-      if (countSpan) countSpan.textContent = String(contentItemsCount + xItemsCount);
+    // Update primary tab (X count)
+    const xCountEl = document.getElementById('x-count-primary');
+    if (xCountEl) xCountEl.textContent = String(count);
+
+    // Update X category tab counts
+    if (items) {
+      xCategoryCounts = {};
+      items.forEach((item: any) => {
+        const cat = item.author_category || item.category || 'other';
+        xCategoryCounts[cat] = (xCategoryCounts[cat] || 0) + 1;
+      });
+
+      // Update each category tab count
+      document.querySelectorAll('.x-cat-tab').forEach((tab) => {
+        const t = tab as HTMLElement;
+        const cat = t.dataset.xCat;
+        const countSpan = t.querySelector('span');
+        if (countSpan && cat) {
+          if (cat === 'all') {
+            countSpan.textContent = String(count);
+          } else {
+            countSpan.textContent = String(xCategoryCounts[cat] || 0);
+          }
+        }
+      });
     }
   }
 
@@ -720,8 +807,9 @@ const xData = null;
         const isHidden = prefs.hidden.includes(cardId);
         const isViewed = prefs.viewed.includes(cardId);
 
-        const sourceMatch = currentSource === 'all' || cardSource === currentSource;
-        const subredditMatch = currentSubreddit === 'all' || cardSubreddit === currentSubreddit;
+        // When filterSaved is active, ignore source/subreddit filters to show all saved items
+        const sourceMatch = filterSaved || currentSource === 'all' || cardSource === currentSource;
+        const subredditMatch = filterSaved || currentSubreddit === 'all' || cardSubreddit === currentSubreddit;
         const scoreMatch = !filterHigh || cardScore >= 4;
         const searchMatch = !searchTerm || cardTitle.includes(searchTerm) || cardSelftext.includes(searchTerm);
         const savedMatch = !filterSaved || isSaved;
@@ -772,14 +860,11 @@ const xData = null;
         t.classList.toggle('active', isActive);
 
         // Reset all to default styles first
-        t.classList.remove('bg-accent', 'text-white', 'bg-sky-500', 'bg-orange-500', 'bg-amber-500', 'bg-red-500');
+        t.classList.remove('bg-accent', 'text-white', 'bg-orange-500', 'bg-amber-500', 'bg-red-500');
 
         if (isActive) {
           if (currentSource === 'all') {
             t.classList.add('bg-accent', 'text-white');
-          } else if (currentSource === 'x') {
-            t.classList.add('bg-sky-500', 'text-white');
-            t.classList.remove('bg-sky-50', 'text-sky-700');
           } else if (currentSource === 'reddit') {
             t.classList.add('bg-orange-500', 'text-white');
             t.classList.remove('bg-orange-50', 'text-orange-700');
@@ -792,9 +877,7 @@ const xData = null;
           }
         } else {
           // Restore default colors
-          if (t.dataset.source === 'x') {
-            t.classList.add('bg-sky-50', 'text-sky-700');
-          } else if (t.dataset.source === 'reddit') {
+          if (t.dataset.source === 'reddit') {
             t.classList.add('bg-orange-50', 'text-orange-700');
           } else if (t.dataset.source === 'hackernews') {
             t.classList.add('bg-amber-50', 'text-amber-700');
@@ -833,41 +916,143 @@ const xData = null;
 
     // X container reference
     const xContainer = document.getElementById('x-container');
+    const primaryTabs = document.getElementById('primary-tabs');
+    const xCategoryTabs = document.getElementById('x-category-tabs');
 
-    // Source tab click handlers
+    // Current primary tab state
+    let currentPrimary = 'x'; // Default to X tab
+    let currentXCategory = 'all'; // Current X category filter
+
+    // X category tab colors config
+    const xCatColors: Record<string, { active: string; inactive: string }> = {
+      all: { active: 'bg-sky-500 text-white', inactive: 'bg-sky-50 text-sky-700' },
+      ai_tech: { active: 'bg-purple-500 text-white', inactive: 'bg-purple-50 text-purple-700' },
+      indie_hacker: { active: 'bg-green-500 text-white', inactive: 'bg-green-50 text-green-700' },
+      business: { active: 'bg-blue-500 text-white', inactive: 'bg-blue-50 text-blue-700' },
+      startup: { active: 'bg-amber-500 text-white', inactive: 'bg-amber-50 text-amber-700' },
+      career: { active: 'bg-pink-500 text-white', inactive: 'bg-pink-50 text-pink-700' },
+      philosophy: { active: 'bg-indigo-500 text-white', inactive: 'bg-indigo-50 text-indigo-700' },
+      claude_code: { active: 'bg-orange-500 text-white', inactive: 'bg-orange-50 text-orange-700' },
+    };
+
+    // Update X category tab styles
+    function updateXCategoryTabStyles() {
+      xCategoryTabs?.querySelectorAll('.x-cat-tab').forEach((tab) => {
+        const t = tab as HTMLElement;
+        const cat = t.dataset.xCat || 'all';
+        const isActive = cat === currentXCategory;
+        const colors = xCatColors[cat] || xCatColors.all;
+
+        // Reset all color classes
+        t.className = 'x-cat-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all';
+
+        if (isActive) {
+          t.classList.add(...colors.active.split(' '));
+        } else {
+          t.classList.add(...colors.inactive.split(' '), 'hover:opacity-80');
+        }
+      });
+    }
+
+    // Filter X categories
+    function applyXCategoryFilter() {
+      const sections = document.querySelectorAll('.x-category-section');
+      sections.forEach((section) => {
+        const el = section as HTMLElement;
+        const cat = el.dataset.xCategory;
+        if (currentXCategory === 'all' || cat === currentXCategory) {
+          el.style.display = '';
+        } else {
+          el.style.display = 'none';
+        }
+      });
+    }
+
+    // Update primary tab styles
+    function updatePrimaryTabStyles() {
+      primaryTabs?.querySelectorAll('.primary-tab').forEach((tab) => {
+        const t = tab as HTMLElement;
+        const isActive = t.dataset.primary === currentPrimary;
+        t.classList.toggle('active', isActive);
+
+        // Reset styles
+        t.classList.remove('bg-sky-500', 'text-white', 'shadow-sm', 'bg-accent', 'bg-cream-100', 'text-ink-600');
+
+        if (isActive) {
+          if (currentPrimary === 'x') {
+            t.classList.add('bg-sky-500', 'text-white', 'shadow-sm');
+          } else {
+            t.classList.add('bg-accent', 'text-white', 'shadow-sm');
+          }
+        } else {
+          t.classList.add('bg-cream-100', 'text-ink-600');
+        }
+      });
+    }
+
+    // Primary tab click handlers
+    primaryTabs?.querySelectorAll('.primary-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        currentPrimary = (tab as HTMLElement).dataset.primary || 'x';
+        currentSubreddit = 'all';
+
+        if (currentPrimary === 'x') {
+          // Show X content
+          xContainer?.classList.remove('hidden');
+          container?.classList.add('hidden');
+          xCategoryTabs?.classList.remove('hidden');
+          xCategoryTabs?.classList.add('flex');
+          sourceTabs?.classList.add('hidden');
+          sourceTabs?.classList.remove('flex');
+          subredditTabs?.classList.add('hidden');
+          subredditTabs?.classList.remove('flex');
+          document.getElementById('filters-container')?.classList.add('hidden');
+        } else {
+          // Show Community content
+          xContainer?.classList.add('hidden');
+          container?.classList.remove('hidden');
+          xCategoryTabs?.classList.add('hidden');
+          xCategoryTabs?.classList.remove('flex');
+          sourceTabs?.classList.remove('hidden');
+          sourceTabs?.classList.add('flex');
+          document.getElementById('filters-container')?.classList.remove('hidden');
+          // Reset to 'all' source for community
+          currentSource = 'all';
+          updateSourceTabStyles();
+          applyFilters();
+        }
+
+        updatePrimaryTabStyles();
+      });
+    });
+
+    // X category tab click handlers
+    xCategoryTabs?.querySelectorAll('.x-cat-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        currentXCategory = (tab as HTMLElement).dataset.xCat || 'all';
+        updateXCategoryTabStyles();
+        applyXCategoryFilter();
+      });
+    });
+
+    // Source tab click handlers (secondary tabs for Community)
     sourceTabs?.querySelectorAll('.source-tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         currentSource = (tab as HTMLElement).dataset.source || 'all';
         currentSubreddit = 'all'; // Reset subreddit when changing source
 
-        // Show/hide X container vs items container
-        if (currentSource === 'x') {
-          xContainer?.classList.remove('hidden');
-          container?.classList.add('hidden');
+        // Show/hide subreddit tabs for Reddit
+        if (currentSource === 'reddit') {
+          subredditTabs?.classList.remove('hidden');
+          subredditTabs?.classList.add('flex');
+        } else {
           subredditTabs?.classList.add('hidden');
           subredditTabs?.classList.remove('flex');
-          // Hide filters for X view
-          document.getElementById('filters-container')?.classList.add('hidden');
-        } else {
-          xContainer?.classList.add('hidden');
-          container?.classList.remove('hidden');
-          // Show filters for non-X view
-          document.getElementById('filters-container')?.classList.remove('hidden');
-          // Show/hide subreddit tabs
-          if (currentSource === 'reddit') {
-            subredditTabs?.classList.remove('hidden');
-            subredditTabs?.classList.add('flex');
-          } else {
-            subredditTabs?.classList.add('hidden');
-            subredditTabs?.classList.remove('flex');
-          }
         }
 
         updateSourceTabStyles();
         updateSubredditTabStyles();
-        if (currentSource !== 'x') {
-          applyFilters();
-        }
+        applyFilters();
       });
     });
 
@@ -985,7 +1170,17 @@ const xData = null;
     // Initialize states
     applyStates();
     updateCounts();
-    applyFilters();
+
+    // Initialize with X tab selected (default)
+    xContainer?.classList.remove('hidden');
+    container?.classList.add('hidden');
+    xCategoryTabs?.classList.remove('hidden');
+    xCategoryTabs?.classList.add('flex');
+    sourceTabs?.classList.add('hidden');
+    sourceTabs?.classList.remove('flex');
+    document.getElementById('filters-container')?.classList.add('hidden');
+    updatePrimaryTabStyles();
+    updateXCategoryTabStyles();
 
     // Refresh button - reload data from API
     refreshBtn?.addEventListener('click', async () => {
@@ -1005,15 +1200,6 @@ const xData = null;
         applyStates();
         updateCounts();
         applyFilters();
-
-        // Rebind title click handlers for new cards
-        container?.querySelectorAll('.card-title').forEach((title) => {
-          title.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const card = (title as HTMLElement).closest('.item-card') as HTMLElement;
-            if (card) handleAnalyze(card);
-          });
-        });
 
         btn.innerHTML = `
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1046,6 +1232,30 @@ const xData = null;
     function openModal() {
       modal?.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+
+      // Update modal button states based on saved/hidden status
+      if (currentItem && modalSave && modalHide) {
+        const isSaved = prefs.saved.includes(currentItem.id);
+        const isHidden = prefs.hidden.includes(currentItem.id);
+
+        // Update Save button style
+        if (isSaved) {
+          modalSave.className = 'px-3 py-2 text-sm font-medium text-white bg-rose-500 rounded-lg transition-colors flex items-center gap-1';
+          modalSave.innerHTML = '<span>♥</span> 已收藏';
+        } else {
+          modalSave.className = 'px-3 py-2 text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1';
+          modalSave.innerHTML = '<span>♥</span> 收藏';
+        }
+
+        // Update Hide button style
+        if (isHidden) {
+          modalHide.className = 'px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-lg transition-colors flex items-center gap-1';
+          modalHide.innerHTML = '<span>🗑️</span> 已隱藏';
+        } else {
+          modalHide.className = 'px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-1';
+          modalHide.innerHTML = '<span>🗑️</span> 隱藏';
+        }
+      }
     }
 
     function closeModal() {
@@ -1103,7 +1313,7 @@ const xData = null;
             </button>
             <div id="angles-content" class="hidden mt-2">
               <ul class="list-disc list-inside text-ink-900 space-y-1 pl-2">
-                ${analysis.response_angles.map(a => `<li>${a}</li>`).join('')}
+                ${(analysis.response_angles || []).map(a => `<li>${a}</li>`).join('')}
               </ul>
             </div>
           </div>
@@ -1112,7 +1322,7 @@ const xData = null;
           <div>
             <h3 class="text-sm font-medium text-ink-500 mb-1">🏷️ 內容分類</h3>
             <div class="flex flex-wrap gap-2">
-              ${analysis.categories.map(c => `<span class="px-2 py-1 text-xs bg-cream-100 text-ink-700 rounded-full">${categoryLabels[c] || c}</span>`).join('')}
+              ${(analysis.categories || []).map(c => `<span class="px-2 py-1 text-xs bg-cream-100 text-ink-700 rounded-full">${categoryLabels[c] || c}</span>`).join('')}
             </div>
           </div>
 
@@ -1179,8 +1389,17 @@ const xData = null;
       const itemsStore = (window as any).__PANOPTICON_ITEMS__ || {};
       const storedItem = itemsStore[itemId];
       if (storedItem?.ai_analysis) {
-        currentAnalysis = storedItem.ai_analysis;
-        renderAnalysis(storedItem.ai_analysis);
+        // ai_analysis may be a JSON string, parse if needed
+        let analysis = storedItem.ai_analysis;
+        if (typeof analysis === 'string') {
+          try {
+            analysis = JSON.parse(analysis);
+          } catch (e) {
+            console.error('Failed to parse ai_analysis:', e);
+          }
+        }
+        currentAnalysis = analysis;
+        renderAnalysis(analysis);
         openModal();
         return;
       }
@@ -1221,13 +1440,15 @@ const xData = null;
       openModal();
     }
 
-    // Title click for analysis
-    container.querySelectorAll('.card-title').forEach((title) => {
-      title.addEventListener('click', (e) => {
+    // Title click for analysis (using event delegation on document for dynamic content)
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const title = target.closest('.card-title');
+      if (title) {
         e.stopPropagation();
-        const card = (title as HTMLElement).closest('.item-card') as HTMLElement;
+        const card = title.closest('.item-card') as HTMLElement;
         if (card) handleAnalyze(card);
-      });
+      }
     });
 
     // Modal close handlers
@@ -1271,32 +1492,61 @@ ${currentAnalysis.response_angles.map(a => `- ${a}`).join('\n')}
       }
     });
 
-    // Modal Hide button
+    // Modal Hide button - toggle behavior
     modalHide?.addEventListener('click', () => {
       if (!currentItem) return;
       const id = currentItem.id;
-      if (!prefs.hidden.includes(id)) {
+      const isHidden = prefs.hidden.includes(id);
+
+      if (isHidden) {
+        // Remove from hidden
+        prefs.hidden = prefs.hidden.filter(h => h !== id);
+        modalHide.className = 'px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-1';
+        modalHide.innerHTML = '<span>🗑️</span> 隱藏';
+        // Update card visual state
+        const card = container?.querySelector(`[data-id="${id}"]`);
+        card?.classList.remove('is-hidden');
+      } else {
+        // Add to hidden
         prefs.hidden.push(id);
-        setPrefs(prefs);
-        updateCounts();
-        applyFilters();
+        modalHide.className = 'px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-lg transition-colors flex items-center gap-1';
+        modalHide.innerHTML = '<span>🗑️</span> 已隱藏';
+        // Update card visual state
+        const card = container?.querySelector(`[data-id="${id}"]`);
+        card?.classList.add('is-hidden');
       }
-      closeModal();
+
+      setPrefs(prefs);
+      updateCounts();
+      applyFilters();
     });
 
-    // Modal Save button
+    // Modal Save button - toggle behavior
     modalSave?.addEventListener('click', () => {
       if (!currentItem) return;
       const id = currentItem.id;
-      if (!prefs.saved.includes(id)) {
+      const isSaved = prefs.saved.includes(id);
+
+      if (isSaved) {
+        // Remove from saved
+        prefs.saved = prefs.saved.filter(s => s !== id);
+        modalSave.className = 'px-3 py-2 text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1';
+        modalSave.innerHTML = '<span>♥</span> 收藏';
+        // Update card visual state
+        const card = container?.querySelector(`[data-id="${id}"]`);
+        card?.classList.remove('is-saved');
+      } else {
+        // Add to saved
         prefs.saved.push(id);
-        setPrefs(prefs);
+        modalSave.className = 'px-3 py-2 text-sm font-medium text-white bg-rose-500 rounded-lg transition-colors flex items-center gap-1';
+        modalSave.innerHTML = '<span>♥</span> 已收藏';
         // Update card visual state
         const card = container?.querySelector(`[data-id="${id}"]`);
         card?.classList.add('is-saved');
-        updateCounts();
       }
-      closeModal();
+
+      setPrefs(prefs);
+      updateCounts();
     });
 
     // ESC to close modal
