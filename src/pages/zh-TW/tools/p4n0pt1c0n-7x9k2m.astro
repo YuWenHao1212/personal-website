@@ -204,6 +204,39 @@ const xData = null;
     <!-- X Content (hidden by default, shown when X tab is active) -->
     <!-- Content dynamically rendered via client-side fetch -->
     <div id="x-container" class="hidden">
+      <!-- X Filters -->
+      <div id="x-filters-container" class="bg-white border border-cream-200 rounded-xl p-3 mb-6">
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Search -->
+          <div class="flex-1 min-w-[200px]">
+            <input
+              type="text"
+              id="x-search-input"
+              placeholder="Search tweets..."
+              class="w-full px-3 py-1.5 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+            />
+          </div>
+
+          <!-- Quick filters -->
+          <div class="flex items-center gap-2">
+            <button id="x-filter-high-btn" class="x-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-amber-100 hover:text-amber-700 transition-all">
+              ⭐ High
+            </button>
+            <button id="x-filter-saved-btn" class="x-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-rose-100 hover:text-rose-700 transition-all">
+              ♥ Saved <span id="x-saved-count" class="opacity-70">(0)</span>
+            </button>
+            <button id="x-filter-unread-btn" class="x-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-sky-100 hover:text-sky-700 transition-all">
+              ● Unread
+            </button>
+          </div>
+
+          <!-- Count -->
+          <div class="text-sm text-ink-500">
+            <span id="x-visible-count">0</span> items
+          </div>
+        </div>
+      </div>
+
       <div id="x-items-wrapper" class="space-y-6">
         <!-- X items rendered here by JavaScript -->
       </div>
@@ -519,21 +552,21 @@ const xData = null;
       : originalText;
 
     return `
-      <div class="x-item bg-white rounded-lg p-4 border border-gray-100 cursor-pointer hover:bg-gray-50 hover:border-gray-200 transition-colors"
+      <div class="x-item bg-white rounded-lg p-5 border border-gray-100 cursor-pointer hover:bg-gray-50 hover:border-gray-200 transition-colors"
            data-x-id="${escapeHtml(itemId)}"
            data-url="${escapeHtml(item.url || '')}"
            data-author="${escapeHtml(item.author || '')}">
-        <div class="flex items-start justify-between mb-2">
+        <div class="flex items-start justify-between mb-3">
           <div class="flex items-center gap-2">
             ${engagementScore >= 4 ? '<span class="text-amber-500">⭐</span>' : ''}
-            <span class="text-xs text-gray-500">${likes} ❤️ · ${retweets} 🔁</span>
+            <span class="text-sm text-gray-500">${likes} ❤️ · ${retweets} 🔁</span>
           </div>
           <a href="${escapeHtml(item.url || '#')}" target="_blank" rel="noopener noreferrer"
-             class="text-sky-500 hover:text-sky-600 text-sm x-external-link"
+             class="text-sky-500 hover:text-sky-600 x-external-link"
              onclick="event.stopPropagation()">↗</a>
         </div>
-        <p class="text-sm text-gray-700 whitespace-pre-wrap x-item-text">${escapeHtml(previewText)}</p>
-        <p class="text-xs text-sky-500 mt-2 hover:underline">點擊查看 AI 分析 →</p>
+        <p class="text-base text-gray-700 whitespace-pre-wrap x-item-text">${escapeHtml(previewText)}</p>
+        <p class="text-sm text-sky-500 mt-3 hover:underline">點擊查看 AI 分析 →</p>
       </div>
     `;
   }
@@ -556,7 +589,7 @@ const xData = null;
     const authorSections = Object.entries(byAuthor).map(([author, data]) => {
       const kolDesc = kolDescriptions[author] || '';
       return `
-        <div class="mb-6">
+        <div class="x-kol-group mb-6" data-kol="${author}">
           <div class="mb-3">
             <h3 class="text-sm font-semibold flex items-center gap-2">
               <span class="text-gray-700">@${author}</span>
@@ -729,6 +762,29 @@ const xData = null;
     const xCountEl = document.getElementById('x-count-primary');
     if (xCountEl) xCountEl.textContent = String(count);
 
+    // Update X visible count (filter bar)
+    const xVisibleCountEl = document.getElementById('x-visible-count');
+    if (xVisibleCountEl) xVisibleCountEl.textContent = String(count);
+
+    // Update X saved count
+    const xSavedCountEl = document.getElementById('x-saved-count');
+    if (xSavedCountEl && items) {
+      const prefs = getPrefs();
+      const savedXCount = items.filter((item: any) => prefs.saved.includes(item.id || item.item_id)).length;
+      xSavedCountEl.textContent = `(${savedXCount})`;
+    }
+
+    // Initialize X items viewed state
+    if (items) {
+      const prefs = getPrefs();
+      document.querySelectorAll('.x-item').forEach((el) => {
+        const itemId = (el as HTMLElement).dataset.xId || '';
+        if (prefs.viewed.includes(itemId)) {
+          el.classList.add('is-viewed');
+        }
+      });
+    }
+
     // Update X category tab counts
     if (items) {
       xCategoryCounts = {};
@@ -793,6 +849,14 @@ const xData = null;
     const filterUnreadBtn = document.getElementById('filter-unread-btn');
     const filterHiddenBtn = document.getElementById('filter-hidden-btn');
 
+    // X filter elements
+    const xSearchInput = document.getElementById('x-search-input') as HTMLInputElement;
+    const xFilterHighBtn = document.getElementById('x-filter-high-btn');
+    const xFilterSavedBtn = document.getElementById('x-filter-saved-btn');
+    const xFilterUnreadBtn = document.getElementById('x-filter-unread-btn');
+    const xVisibleCount = document.getElementById('x-visible-count');
+    const xSavedCountEl = document.getElementById('x-saved-count');
+
     if (!container) return;
 
     let prefs = getPrefs();
@@ -804,6 +868,12 @@ const xData = null;
     let filterSaved = false;
     let filterUnread = false;
     let filterShowHidden = false;
+
+    // X filter state
+    let xFilterHigh = false;
+    let xFilterSaved = false;
+    let xFilterUnread = false;
+    let xSearchQuery = '';
 
     // Update counts
     function updateCounts() {
@@ -1006,6 +1076,154 @@ const xData = null;
           el.style.display = 'none';
         }
       });
+      // Apply additional filters after category filter
+      applyXFilters();
+    }
+
+    // Apply X filters (search, high, saved, unread)
+    function applyXFilters() {
+      const xItems = document.querySelectorAll('.x-item');
+      const xItemsStore = (window as any).__PANOPTICON_X_ITEMS__ || {};
+      let visibleCount = 0;
+      const query = xSearchQuery.toLowerCase().trim();
+
+      // First, reset all sections and KOL groups based on category tab (not filters)
+      const allSections = document.querySelectorAll('.x-category-section');
+      allSections.forEach((section) => {
+        const sectionEl = section as HTMLElement;
+        const cat = sectionEl.dataset.xCategory || '';
+        // Show section if "all" or matches current category tab
+        const showByTab = currentXCategory === 'all' || cat === currentXCategory;
+        sectionEl.style.display = showByTab ? '' : 'none';
+        // Also reset all KOL groups inside
+        sectionEl.querySelectorAll('.x-kol-group').forEach((g) => {
+          (g as HTMLElement).style.display = showByTab ? '' : 'none';
+        });
+      });
+
+      xItems.forEach((item) => {
+        const el = item as HTMLElement;
+        const itemId = el.dataset.xId || '';
+        const storedItem = xItemsStore[itemId];
+        const section = el.closest('.x-category-section') as HTMLElement;
+
+        // Skip if section is hidden by category TAB (not by filter)
+        const cat = section?.dataset.xCategory || '';
+        if (currentXCategory !== 'all' && cat !== currentXCategory) {
+          return;
+        }
+
+        let show = true;
+
+        // Search filter
+        if (query && storedItem) {
+          const text = (storedItem.original_text || '').toLowerCase();
+          const author = (storedItem.author || '').toLowerCase();
+          const authorName = (storedItem.author_name || '').toLowerCase();
+          const translation = storedItem.analysis?.translation?.toLowerCase() || '';
+          const summary = storedItem.analysis?.summary?.toLowerCase() || '';
+
+          if (!text.includes(query) && !author.includes(query) && !authorName.includes(query) && !translation.includes(query) && !summary.includes(query)) {
+            show = false;
+          }
+        }
+
+        // High score filter (engagement_score >= 4)
+        if (xFilterHigh && storedItem) {
+          const score = storedItem.engagement_score || storedItem.analysis?.score || 0;
+          if (score < 4) show = false;
+        }
+
+        // Saved filter
+        if (xFilterSaved) {
+          if (!prefs.saved.includes(itemId)) show = false;
+        }
+
+        // Unread filter (not in viewed list)
+        if (xFilterUnread) {
+          if (prefs.viewed.includes(itemId)) show = false;
+        }
+
+        // Apply visibility
+        el.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      // Update visible count
+      if (xVisibleCount) {
+        xVisibleCount.textContent = String(visibleCount);
+      }
+
+      // Hide empty KOL groups (no visible items inside)
+      // Only process groups in sections that are allowed by category tab
+      const kolGroups = document.querySelectorAll('.x-kol-group');
+      kolGroups.forEach((group) => {
+        const groupEl = group as HTMLElement;
+        const section = groupEl.closest('.x-category-section') as HTMLElement;
+        const sectionCat = section?.dataset.xCategory || '';
+        // Skip if section is hidden by category tab
+        if (currentXCategory !== 'all' && sectionCat !== currentXCategory) {
+          return;
+        }
+        const items = groupEl.querySelectorAll('.x-item');
+        const hasVisible = Array.from(items).some((item) => (item as HTMLElement).style.display !== 'none');
+        groupEl.style.display = hasVisible ? '' : 'none';
+      });
+
+      // Hide empty category sections (no visible KOL groups inside)
+      // Only process sections that are allowed by category tab
+      const categorySections = document.querySelectorAll('.x-category-section');
+      categorySections.forEach((section) => {
+        const sectionEl = section as HTMLElement;
+        const sectionCat = sectionEl.dataset.xCategory || '';
+        // Skip if section is hidden by category tab
+        if (currentXCategory !== 'all' && sectionCat !== currentXCategory) {
+          return;
+        }
+        const groups = sectionEl.querySelectorAll('.x-kol-group');
+        const hasVisible = Array.from(groups).some((g) => (g as HTMLElement).style.display !== 'none');
+        sectionEl.style.display = hasVisible ? '' : 'none';
+      });
+
+      // Update X saved count
+      updateXCounts();
+    }
+
+    // Update X filter button styles
+    function updateXFilterBtnStyles() {
+      // High button
+      if (xFilterHighBtn) {
+        xFilterHighBtn.classList.toggle('bg-amber-100', xFilterHigh);
+        xFilterHighBtn.classList.toggle('text-amber-700', xFilterHigh);
+        xFilterHighBtn.classList.toggle('bg-cream-100', !xFilterHigh);
+        xFilterHighBtn.classList.toggle('text-ink-600', !xFilterHigh);
+      }
+      // Saved button
+      if (xFilterSavedBtn) {
+        xFilterSavedBtn.classList.toggle('bg-rose-100', xFilterSaved);
+        xFilterSavedBtn.classList.toggle('text-rose-700', xFilterSaved);
+        xFilterSavedBtn.classList.toggle('bg-cream-100', !xFilterSaved);
+        xFilterSavedBtn.classList.toggle('text-ink-600', !xFilterSaved);
+      }
+      // Unread button
+      if (xFilterUnreadBtn) {
+        xFilterUnreadBtn.classList.toggle('bg-sky-100', xFilterUnread);
+        xFilterUnreadBtn.classList.toggle('text-sky-700', xFilterUnread);
+        xFilterUnreadBtn.classList.toggle('bg-cream-100', !xFilterUnread);
+        xFilterUnreadBtn.classList.toggle('text-ink-600', !xFilterUnread);
+      }
+    }
+
+    // Update X counts (saved count in filter bar)
+    function updateXCounts() {
+      // Count saved X items
+      const xItemsStore = (window as any).__PANOPTICON_X_ITEMS__ || {};
+      const xItemIds = Object.keys(xItemsStore);
+      const savedXCount = xItemIds.filter(id => prefs.saved.includes(id)).length;
+
+      if (xSavedCountEl) {
+        xSavedCountEl.textContent = `(${savedXCount})`;
+      }
     }
 
     // Update primary tab styles
@@ -1073,6 +1291,31 @@ const xData = null;
         updateXCategoryTabStyles();
         applyXCategoryFilter();
       });
+    });
+
+    // X filter button handlers
+    xFilterHighBtn?.addEventListener('click', () => {
+      xFilterHigh = !xFilterHigh;
+      updateXFilterBtnStyles();
+      applyXFilters();
+    });
+
+    xFilterSavedBtn?.addEventListener('click', () => {
+      xFilterSaved = !xFilterSaved;
+      updateXFilterBtnStyles();
+      applyXFilters();
+    });
+
+    xFilterUnreadBtn?.addEventListener('click', () => {
+      xFilterUnread = !xFilterUnread;
+      updateXFilterBtnStyles();
+      applyXFilters();
+    });
+
+    // X search input handler
+    xSearchInput?.addEventListener('input', (e) => {
+      xSearchQuery = (e.target as HTMLInputElement).value;
+      applyXFilters();
     });
 
     // Source tab click handlers (secondary tabs for Community)
@@ -1649,6 +1892,14 @@ const xData = null;
       }
 
       currentAnalysis = analysis;
+
+      // Mark X item as viewed
+      if (!prefs.viewed.includes(itemId)) {
+        prefs.viewed.push(itemId);
+        setPrefs(prefs);
+        xItem.classList.add('is-viewed');
+      }
+
       openModal();
     }
 
@@ -1681,7 +1932,45 @@ const xData = null;
     modalCopy?.addEventListener('click', async () => {
       if (!currentItem || !currentAnalysis) return;
 
-      const text = `## 文章資訊
+      let text = '';
+
+      if (currentItem.source === 'x') {
+        // X items format
+        const angles = [
+          ...(currentAnalysis.angles?.contrarian || []).map((a: string) => `- 🔥 ${a}`),
+          ...(currentAnalysis.angles?.conventional || []).map((a: string) => `- ✅ ${a}`),
+        ].join('\n');
+
+        text = `## 推文資訊
+作者: ${currentItem.title.split(':')[0]}
+連結: ${currentItem.url}
+
+## 原文
+${currentItem.selftext || '(無內容)'}
+
+## 翻譯
+${currentAnalysis.translation || '(無翻譯)'}
+
+## AI 分析
+${currentAnalysis.summary || ''}
+
+背景說明: ${currentAnalysis.context_explanation || ''}
+
+發文動機: ${currentAnalysis.motivation || ''}
+
+${currentAnalysis.investment_signal ? `投資訊號: ${currentAnalysis.investment_signal}` : ''}
+
+## 回應角度
+${angles || '(無建議角度)'}
+
+## 標題靈感
+${(currentAnalysis.title_ideas || []).map((t: string) => `- ${t}`).join('\n') || '(無標題建議)'}
+
+---
+請幫我針對這則推文撰寫 FB 貼文/Blog 文章。`;
+      } else {
+        // Community items format (Reddit, HN, PH)
+        text = `## 文章資訊
 標題: ${currentItem.title}
 來源: ${currentItem.source}${currentItem.subreddit ? ` (r/${currentItem.subreddit})` : currentItem.category ? ` (${currentItem.category})` : ''}
 分數: ${currentItem.score} | 評論: ${currentItem.comments}
@@ -1691,15 +1980,16 @@ const xData = null;
 ${currentItem.selftext || '(無內容)'}
 
 ## AI 分析
-${currentAnalysis.summary_zh}
+${currentAnalysis.summary_zh || ''}
 
-為什麼受歡迎: ${currentAnalysis.why_popular}
+為什麼受歡迎: ${currentAnalysis.why_popular || ''}
 
 回應角度:
-${currentAnalysis.response_angles.map(a => `- ${a}`).join('\n')}
+${(currentAnalysis.response_angles || []).map((a: string) => `- ${a}`).join('\n') || '(無建議角度)'}
 
 ---
 請幫我針對這篇文章撰寫回應/FB 貼文/Blog 文章。`;
+      }
 
       try {
         await navigator.clipboard.writeText(text);

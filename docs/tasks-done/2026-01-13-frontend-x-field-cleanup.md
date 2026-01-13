@@ -1,7 +1,7 @@
 # Frontend X Items Field Name Cleanup
 
 **Date**: 2026-01-13
-**Status**: Ready for Implementation
+**Status**: ✅ Completed
 **Related**: `azure_container/docs/tasks-done/2026-01-13-panopticon-x-field-mapping.md`
 
 ---
@@ -187,12 +187,12 @@ const kolDesc = kolDescriptions[storedItem.author] || '';
 
 修改後請驗證：
 
-- [ ] X Tab 正確顯示所有 items
-- [ ] Category sub-tabs (Tech Leaders, AI Builders, etc.) 正確分類
-- [ ] 點擊 item 顯示正確的 Modal 標題 (`@author`)
-- [ ] Modal 中 KOL description 正確顯示
-- [ ] 收藏功能正常運作
-- [ ] 隱藏功能正常運作
+- [x] X Tab 正確顯示所有 items
+- [x] Category sub-tabs (Tech Leaders, AI Builders, etc.) 正確分類
+- [x] 點擊 item 顯示正確的 Modal 標題 (`@author`)
+- [x] Modal 中 KOL description 正確顯示
+- [x] 收藏功能正常運作
+- [x] 隱藏功能正常運作
 
 ---
 
