@@ -1,7 +1,7 @@
 # Panopticon API Migration (Phase 4)
 
 **Date**: 2026-01-13
-**Commits**: `033ae5a` (initial), `[pending]` (P0 fixes)
+**Commits**: `033ae5a` (initial), `4a28455` (P0 fixes)
 **Reference**: `Cockpit/ideas/panopticon-db-architecture-plan.md`
 **Status**: Complete
 
