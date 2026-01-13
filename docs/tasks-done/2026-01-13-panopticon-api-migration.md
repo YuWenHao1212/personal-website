@@ -62,7 +62,7 @@ const xData = null;
 ### 2. Added Client-side API Fetch
 
 ```typescript
-const API_BASE = 'https://airesumeadvisor-api.eastasia.azurecontainerapps.io/api/v1/panopticon';
+const API_BASE = 'https://airesumeadvisor-api-production.calmisland-ea7fe91e.japaneast.azurecontainerapps.io/api/v1/panopticon';
 
 async function loadDataFromAPI() {
   const [contentRes, xRes] = await Promise.all([
