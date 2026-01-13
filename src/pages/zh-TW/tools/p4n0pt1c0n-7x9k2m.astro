@@ -430,17 +430,20 @@ const xData = null;
   }
 
   // Render X item HTML
+  // API returns: likes, retweets, replies, views directly (not nested in metrics)
   function renderXItem(item: any): string {
-    const metrics = item.metrics || {};
     const analysis = item.analysis || null;
     const engagementScore = item.engagement_score || 1;
+    // API returns flat fields: likes, retweets, etc.
+    const likes = item.likes || 0;
+    const retweets = item.retweets || 0;
 
     return `
       <div class="x-item bg-white rounded-lg p-4 border border-gray-100" data-x-id="${escapeHtml(item.id || item.item_id || '')}">
         <div class="flex items-start justify-between mb-2">
           <div class="flex items-center gap-2">
             ${engagementScore >= 4 ? '<span class="text-amber-500">⭐</span>' : ''}
-            <span class="text-xs text-gray-500">${metrics.likes || 0} ❤️ · ${metrics.retweets || 0} 🔁</span>
+            <span class="text-xs text-gray-500">${likes} ❤️ · ${retweets} 🔁</span>
           </div>
           <a href="${escapeHtml(item.url || '#')}" target="_blank" rel="noopener noreferrer" class="text-sky-500 hover:text-sky-600 text-sm">↗</a>
         </div>
@@ -452,13 +455,14 @@ const xData = null;
   }
 
   // Render X category section
+  // API returns: author_handle, author_name, author_category (not author, category)
   function renderXCategory(category: string, items: any[]): string {
     const config = xCategoryConfig[category] || { label: category, color: 'text-gray-700', bgColor: 'bg-gray-50 border-gray-200' };
 
-    // Group by author
+    // Group by author - API uses author_handle field
     const byAuthor: Record<string, { authorName: string; items: any[] }> = {};
     items.forEach(item => {
-      const author = item.author || 'unknown';
+      const author = item.author_handle || item.author || 'unknown';
       if (!byAuthor[author]) {
         byAuthor[author] = { authorName: item.author_name || author, items: [] };
       }
@@ -538,10 +542,10 @@ const xData = null;
         const items = xData.data.items;
         const categoryOrder = ['ai_tech', 'indie_hacker', 'business', 'startup', 'career', 'philosophy', 'claude_code'];
 
-        // Group by category
+        // Group by category - API uses author_category field (not category)
         const byCategory: Record<string, any[]> = {};
         items.forEach((item: any) => {
-          const cat = item.category || 'other';
+          const cat = item.author_category || item.category || 'other';
           if (!byCategory[cat]) byCategory[cat] = [];
           byCategory[cat].push(item);
         });
@@ -586,14 +590,20 @@ const xData = null;
     }
   }
 
+  // Store counts for computing total
+  let contentItemsCount = 0;
+  let xItemsCount = 0;
+
   // Update stats counts in the source tabs
   function updateStatsCounts(stats: any, totalItems: number) {
+    contentItemsCount = totalItems;
     const tabs = document.querySelectorAll('.source-tab');
     tabs.forEach(tab => {
       const source = (tab as HTMLElement).dataset.source;
       const countSpan = tab.querySelector('span');
       if (countSpan) {
-        if (source === 'all') countSpan.textContent = String(totalItems);
+        // All tab should show content + X items
+        if (source === 'all') countSpan.textContent = String(contentItemsCount + xItemsCount);
         else if (source === 'reddit') countSpan.textContent = String(stats.reddit_posts || 0);
         else if (source === 'hackernews') countSpan.textContent = String(stats.hn_stories || 0);
         else if (source === 'producthunt') countSpan.textContent = String(stats.ph_products || 0);
@@ -602,10 +612,17 @@ const xData = null;
   }
 
   function updateXStatsCounts(count: number) {
+    xItemsCount = count;
     const xTab = document.querySelector('.source-tab[data-source="x"]');
     if (xTab) {
       const countSpan = xTab.querySelector('span');
       if (countSpan) countSpan.textContent = String(count);
+    }
+    // Also update All tab to include X count
+    const allTab = document.querySelector('.source-tab[data-source="all"]');
+    if (allTab) {
+      const countSpan = allTab.querySelector('span');
+      if (countSpan) countSpan.textContent = String(contentItemsCount + xItemsCount);
     }
   }
 
