@@ -6,8 +6,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 // See: Cockpit/ideas/panopticon-db-architecture-plan.md (Phase 4)
 
 // Empty initial state - data loaded via client-side fetch
-const data = null;
-const xData = null;
+// Using 'as any' to allow template access before client-side hydration
+const data = null as any;
+const xData = null as any;
 ---
 
 <BaseLayout
@@ -344,12 +345,24 @@ const xData = null;
 
   // Types
   interface AnalysisResult {
-    summary_zh: string;
-    why_popular: string;
-    response_angles: string[];
-    categories: string[];
-    fb_score: number;
-    blog_score: number;
+    // Community items (Reddit, HN, PH)
+    summary_zh?: string;
+    why_popular?: string;
+    response_angles?: string[];
+    categories?: string[];
+    fb_score?: number;
+    blog_score?: number;
+    // X items (Twitter)
+    translation?: string;
+    summary?: string;
+    context_explanation?: string;
+    motivation?: string;
+    investment_signal?: string;
+    title_ideas?: string[];
+    angles?: {
+      contrarian?: string[];
+      conventional?: string[];
+    };
   }
 
   interface ItemData {
@@ -657,6 +670,9 @@ const xData = null;
 
         // Update stats - count from actual items
         updateStatsCounts(items);
+
+        // Track loaded content IDs
+        loadedContentIds = new Set(items.map((item: any) => item.item_id || item.id));
       }
 
       // Render X items
@@ -693,6 +709,9 @@ const xData = null;
 
         // Update X stats
         updateXStatsCounts(items.length, items);
+
+        // Track loaded X IDs
+        loadedXIds = new Set(items.map((item: any) => item.id || item.item_id));
       } else {
         if (xEmptyState) {
           xEmptyState.classList.remove('hidden');
@@ -721,6 +740,26 @@ const xData = null;
   // Store counts for computing total
   let contentItemsCount = 0;
   let xItemsCount = 0;
+
+  // Track which item IDs are already loaded in DOM
+  let loadedContentIds: Set<string> = new Set();
+  let loadedXIds: Set<string> = new Set();
+
+  // Fetch saved items by IDs from API (for historical saved items not in current batch)
+  async function fetchSavedItemsByIds(ids: string[], source: 'content' | 'x'): Promise<any[]> {
+    if (!ids.length) return [];
+    try {
+      const idsParam = ids.join(',');
+      const res = await fetch(`${API_BASE}/items?ids=${encodeURIComponent(idsParam)}&source=${source}`);
+      const data = await res.json();
+      if (data.success && data.data?.items) {
+        return data.data.items;
+      }
+    } catch (e) {
+      console.error('Failed to fetch saved items:', e);
+    }
+    return [];
+  }
 
   // Update stats counts in the source tabs
   function updateStatsCounts(items: any[]) {
@@ -1300,9 +1339,94 @@ const xData = null;
       applyXFilters();
     });
 
-    xFilterSavedBtn?.addEventListener('click', () => {
+    xFilterSavedBtn?.addEventListener('click', async () => {
       xFilterSaved = !xFilterSaved;
       updateXFilterBtnStyles();
+
+      // When activating Saved filter, fetch historical saved X items not in current batch
+      if (xFilterSaved) {
+        const xWrapper = document.getElementById('x-items-wrapper');
+        const missingSavedIds = prefs.saved.filter(id => !loadedXIds.has(id));
+        if (missingSavedIds.length > 0 && xWrapper) {
+          // Fetch missing saved X items from API
+          const historicalItems = await fetchSavedItemsByIds(missingSavedIds, 'x');
+          if (historicalItems.length > 0) {
+            // Group by category
+            const byCategory: Record<string, any[]> = {};
+            historicalItems.forEach((item: any) => {
+              const cat = item.category || 'other';
+              if (!byCategory[cat]) byCategory[cat] = [];
+              byCategory[cat].push(item);
+            });
+
+            // For each category, either append to existing section or create new one
+            const categoryOrder = ['ai_tech', 'indie_hacker', 'business', 'startup', 'career', 'philosophy', 'claude_code'];
+            categoryOrder.forEach(cat => {
+              if (!byCategory[cat]?.length) return;
+
+              const existingSection = xWrapper.querySelector(`[data-x-category="${cat}"]`);
+              if (existingSection) {
+                // Append items to existing KOL groups or create new ones
+                const spaceDiv = existingSection.querySelector('.space-y-6');
+                if (spaceDiv) {
+                  // Group new items by author
+                  const byAuthor: Record<string, { authorName: string; items: any[] }> = {};
+                  byCategory[cat].forEach(item => {
+                    const author = item.author || 'unknown';
+                    if (!byAuthor[author]) {
+                      byAuthor[author] = { authorName: item.author_name || author, items: [] };
+                    }
+                    byAuthor[author].items.push(item);
+                  });
+
+                  Object.entries(byAuthor).forEach(([author, data]) => {
+                    const existingKolGroup = spaceDiv.querySelector(`[data-kol="${author}"]`);
+                    if (existingKolGroup) {
+                      // Append to existing KOL group
+                      const itemsContainer = existingKolGroup.querySelector('.space-y-3');
+                      if (itemsContainer) {
+                        const newItemsHtml = data.items.map(item => renderXItem(item)).join('');
+                        itemsContainer.insertAdjacentHTML('beforeend', newItemsHtml);
+                      }
+                    } else {
+                      // Create new KOL group
+                      const kolDesc = kolDescriptions[author] || '';
+                      const newKolHtml = `
+                        <div class="x-kol-group mb-6" data-kol="${escapeHtml(author)}">
+                          <div class="mb-3">
+                            <h3 class="text-sm font-semibold flex items-center gap-2">
+                              <span class="text-gray-700">@${escapeHtml(author)}</span>
+                              <span class="text-xs text-gray-500 font-normal">${escapeHtml(data.authorName)}</span>
+                            </h3>
+                            ${kolDesc ? `<p class="text-xs text-gray-500 mt-1 pl-1">${escapeHtml(kolDesc)}</p>` : ''}
+                          </div>
+                          <div class="space-y-3 pl-4 border-l-2 border-gray-200">
+                            ${data.items.map(item => renderXItem(item)).join('')}
+                          </div>
+                        </div>
+                      `;
+                      spaceDiv.insertAdjacentHTML('beforeend', newKolHtml);
+                    }
+                  });
+                }
+              } else {
+                // Create new category section
+                const newSectionHtml = renderXCategory(cat, byCategory[cat]);
+                xWrapper.insertAdjacentHTML('beforeend', newSectionHtml);
+              }
+            });
+
+            // Track newly loaded IDs
+            historicalItems.forEach((item: any) => {
+              const id = item.id || item.item_id;
+              loadedXIds.add(id);
+              // Store for modal lookup
+              (window as any).__PANOPTICON_X_ITEMS__[id] = item;
+            });
+          }
+        }
+      }
+
       applyXFilters();
     });
 
@@ -1355,9 +1479,33 @@ const xData = null;
       applyFilters();
     });
 
-    filterSavedBtn?.addEventListener('click', () => {
+    filterSavedBtn?.addEventListener('click', async () => {
       filterSaved = !filterSaved;
       updateFilterBtnStyles();
+
+      // When activating Saved filter, fetch historical saved items not in current batch
+      if (filterSaved) {
+        const missingSavedIds = prefs.saved.filter(id => !loadedContentIds.has(id));
+        if (missingSavedIds.length > 0) {
+          // Fetch missing saved items from API
+          const historicalItems = await fetchSavedItemsByIds(missingSavedIds, 'content');
+          if (historicalItems.length > 0 && container) {
+            // Append to container
+            const newHtml = historicalItems.map((item: any) => renderItemCard(item)).join('');
+            container.insertAdjacentHTML('beforeend', newHtml);
+            // Track newly loaded IDs
+            historicalItems.forEach((item: any) => {
+              const id = item.item_id || item.id;
+              loadedContentIds.add(id);
+              // Store for analysis lookup
+              (window as any).__PANOPTICON_ITEMS__[id] = item;
+            });
+            // Apply states to new cards
+            applyStates();
+          }
+        }
+      }
+
       applyFilters();
     });
 
