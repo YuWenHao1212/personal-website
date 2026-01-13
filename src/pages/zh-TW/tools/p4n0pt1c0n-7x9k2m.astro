@@ -1,98 +1,13 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import ItemCard from '../../../components/panopticon/ItemCard.astro';
-import XCategorySection from '../../../components/panopticon/XCategorySection.astro';
 
-// Type definitions
-interface PanopticonData {
-  date: string;
-  generated_at: string;
-  stats: {
-    total_items: number;
-    reddit_posts: number;
-    hn_stories: number;
-    ph_products: number;
-  };
-  items: Array<{
-    id: string;
-    source: 'reddit' | 'hackernews' | 'producthunt';
-    category: string;
-    title: string;
-    url: string;
-    score: number;
-    comments: number;
-    selftext?: string;
-    subreddit?: string;
-    fb_potential: string;
-    blog_potential: string;
-    engagement_score: number;
-  }>;
-}
+// Type definitions (kept for reference, data loaded client-side now)
+// Data is now fetched from azure_container API at runtime
+// See: Cockpit/ideas/panopticon-db-architecture-plan.md (Phase 4)
 
-// X (Twitter) data types
-interface XItem {
-  id: string;
-  source: 'x';
-  author: string;
-  author_name: string;
-  category: string;
-  url: string;
-  timestamp: string;
-  original_text: string;
-  metrics: {
-    likes: number;
-    retweets: number;
-    replies: number;
-    views: number;
-  };
-  engagement_score: number;
-  analysis: {
-    translation: string;
-    context_explanation: string;
-    motivation: string;
-    value_types: string[];
-    content_category: string | null;
-    angles: {
-      conventional: string[];
-      contrarian: string[];
-    };
-    title_ideas: string[];
-    investment_signal: string | null;
-    score: number;
-    summary: string;
-  } | null;
-}
-
-interface XData {
-  date: string;
-  hour: string;
-  generated_at: string;
-  stats: {
-    total_fetched: number;
-    total_items: number;
-    analyzed_items: number;
-  };
-  items: XItem[];
-}
-
-// Import data directly at build time
-import latestData from '../../../../public/data/panopticon/latest.json';
-import xLatestData from '../../../../public/data/panopticon/x/latest.json';
-const data: PanopticonData = latestData as PanopticonData;
-const xData: XData = xLatestData as XData;
-
-// Group X items by category
-const xItemsByCategory = xData.items.reduce((acc, item) => {
-  if (!acc[item.category]) {
-    acc[item.category] = [];
-  }
-  acc[item.category].push(item);
-  return acc;
-}, {} as Record<string, XItem[]>);
-
-// Category order
-const categoryOrder = ['ai_tech', 'indie_hacker', 'business', 'startup', 'career', 'philosophy', 'claude_code'];
-const sortedCategories = categoryOrder.filter(cat => xItemsByCategory[cat]?.length > 0);
+// Empty initial state - data loaded via client-side fetch
+const data = null;
+const xData = null;
 ---
 
 <BaseLayout
@@ -252,43 +167,22 @@ const sortedCategories = categoryOrder.filter(cat => xItemsByCategory[cat]?.leng
     </div>
 
     <!-- X Content (hidden by default, shown when X tab is active) -->
+    <!-- Content dynamically rendered via client-side fetch -->
     <div id="x-container" class="hidden">
-      {xData && xData.items.length > 0 ? (
-        <div class="space-y-6">
-          {sortedCategories.map((category) => (
-            <XCategorySection
-              category={category}
-              items={xItemsByCategory[category]}
-            />
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-12">
-          <div class="text-4xl mb-4">𝕏</div>
-          <h3 class="text-lg font-medium text-ink-700 mb-2">No X data available</h3>
-          <p class="text-sm text-ink-500">X data will be synced automatically.</p>
-        </div>
-      )}
+      <div id="x-items-wrapper" class="space-y-6">
+        <!-- X items rendered here by JavaScript -->
+      </div>
+      <div id="x-empty-state" class="hidden text-center py-12">
+        <div class="text-4xl mb-4">𝕏</div>
+        <h3 class="text-lg font-medium text-ink-700 mb-2">No X data available</h3>
+        <p class="text-sm text-ink-500">X data will be loaded from API.</p>
+      </div>
     </div>
 
     <!-- Items grid (Reddit/HN/PH) -->
+    <!-- Content dynamically rendered via client-side fetch -->
     <div id="items-container" class="grid gap-4 md:grid-cols-2">
-      {data && data.items.map((item: any) => (
-        <ItemCard
-          id={item.id}
-          source={item.source}
-          category={item.category}
-          title={item.title}
-          url={item.url}
-          score={item.score}
-          comments={item.comments}
-          selftext={item.selftext}
-          subreddit={item.subreddit}
-          fbPotential={item.fb_potential}
-          blogPotential={item.blog_potential}
-          engagementScore={item.engagement_score}
-        />
-      ))}
+      <!-- Items rendered here by JavaScript -->
     </div>
 
     <!-- Empty state for saved -->
@@ -308,12 +202,13 @@ const sortedCategories = categoryOrder.filter(cat => xItemsByCategory[cat]?.leng
       <p class="text-sm text-ink-500">Try adjusting your filters or search term.</p>
     </div>
 
-    <!-- Loading state -->
-    {!data && (
-      <div id="loading-state" class="text-center py-12">
-        <p class="text-ink-500">Loading data...</p>
+    <!-- Loading state (always shown initially, hidden after data loads) -->
+    <div id="loading-state" class="text-center py-12">
+      <div class="flex items-center justify-center">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-accent"></div>
+        <span class="ml-3 text-ink-500">Loading from API...</span>
       </div>
-    )}
+    </div>
   </div>
 
   <!-- Analysis Modal -->
@@ -356,17 +251,18 @@ const sortedCategories = categoryOrder.filter(cat => xItemsByCategory[cat]?.leng
   </div>
 </BaseLayout>
 
-<script define:vars={{ itemsData: data?.items || [] }}>
-  // Store items data globally for pre-computed analysis lookup
-  window.__PANOPTICON_ITEMS__ = itemsData.reduce(function(acc, item) {
-    acc[item.id] = item;
-    return acc;
-  }, {});
-</script>
-
 <script>
-  // API Token for authentication
+  // Panopticon - Data loaded from azure_container API
+  // Reference: Cockpit/ideas/panopticon-db-architecture-plan.md (Phase 4)
+
+  // API Configuration
+  const API_BASE = 'https://airesumeadvisor-api.eastasia.azurecontainerapps.io/api/v1/panopticon';
+
+  // API Token for on-demand analysis (kept for backwards compatibility with analyze endpoint)
   (window as any).__PANOPTICON_TOKEN__ = 'd960abf9d67f1cbcb82c038ccb9820084ce377784626b7ad993a3675328c208d';
+
+  // Store items data globally for pre-computed analysis lookup
+  (window as any).__PANOPTICON_ITEMS__ = {};
 
   // Types
   interface AnalysisResult {
@@ -446,6 +342,262 @@ const sortedCategories = categoryOrder.filter(cat => xItemsByCategory[cat]?.leng
   // Current item being analyzed
   let currentItem: ItemData | null = null;
   let currentAnalysis: AnalysisResult | null = null;
+
+  // Source display config
+  const sourceConfig: Record<string, { label: string; color: string }> = {
+    reddit: { label: 'Reddit', color: 'bg-orange-100 text-orange-700' },
+    hackernews: { label: 'HN', color: 'bg-amber-100 text-amber-700' },
+    producthunt: { label: 'PH', color: 'bg-red-100 text-red-700' },
+  };
+
+  // Potential badge colors
+  const potentialColors: Record<string, string> = {
+    High: 'bg-green-100 text-green-700',
+    Medium: 'bg-yellow-100 text-yellow-700',
+    Low: 'bg-gray-100 text-gray-500',
+  };
+
+  // X Category config
+  const xCategoryConfig: Record<string, { label: string; color: string; bgColor: string }> = {
+    ai_tech: { label: 'AI & Tech', color: 'text-purple-700', bgColor: 'bg-purple-50 border-purple-200' },
+    indie_hacker: { label: 'Indie Hacker', color: 'text-green-700', bgColor: 'bg-green-50 border-green-200' },
+    business: { label: 'Business & Politics', color: 'text-blue-700', bgColor: 'bg-blue-50 border-blue-200' },
+    startup: { label: 'Startup & Investment', color: 'text-amber-700', bgColor: 'bg-amber-50 border-amber-200' },
+    career: { label: 'Career', color: 'text-pink-700', bgColor: 'bg-pink-50 border-pink-200' },
+    philosophy: { label: 'Philosophy & Mindset', color: 'text-indigo-700', bgColor: 'bg-indigo-50 border-indigo-200' },
+    claude_code: { label: 'Claude Code', color: 'text-orange-700', bgColor: 'bg-orange-50 border-orange-200' },
+  };
+
+  // Render a single item card HTML
+  function renderItemCard(item: any): string {
+    const source = item.source || 'reddit';
+    const sourceInfo = sourceConfig[source] || sourceConfig.reddit;
+    const subreddit = item.subreddit || '';
+    const sourceLabel = source === 'reddit' && subreddit ? `r/${subreddit}` : sourceInfo.label;
+    const engagementScore = item.engagement_score || 1;
+    const fbPotential = item.fb_potential || 'Low';
+    const blogPotential = item.blog_potential || 'Low';
+    const selftext = item.selftext || '';
+    const truncatedText = selftext.length > 150 ? selftext.slice(0, 150) + '...' : selftext;
+
+    return `
+      <div
+        class="item-card bg-white border border-cream-200 rounded-xl p-5 hover:shadow-md hover:border-accent/30 transition-all"
+        data-source="${source}"
+        data-category="${item.category || ''}"
+        data-score="${engagementScore}"
+        data-id="${item.id || item.item_id || ''}"
+        data-title="${(item.title || '').replace(/"/g, '&quot;')}"
+        data-url="${item.url || ''}"
+        data-selftext="${selftext.replace(/"/g, '&quot;')}"
+        data-subreddit="${subreddit}"
+        data-points="${item.score || 0}"
+        data-comments="${item.comments || 0}"
+        data-fb-potential="${fbPotential}"
+        data-blog-potential="${blogPotential}"
+        style="border-left: 3px solid var(--color-accent, #d97706);"
+      >
+        <div class="flex items-start justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2 flex-wrap">
+            <input type="checkbox" class="card-checkbox w-4 h-4 rounded border-cream-300 text-accent focus:ring-accent/20 cursor-pointer" title="Select for batch action" />
+            ${engagementScore >= 4 ? '<span class="text-amber-500" title="High engagement">⭐</span>' : ''}
+            <span class="px-2 py-0.5 text-xs font-medium rounded-full ${sourceInfo.color}">${sourceLabel}</span>
+            <span class="text-xs text-ink-400">${item.score || 0} pts · ${item.comments || 0} comments</span>
+          </div>
+          <span class="saved-indicator hidden text-rose-500 text-sm" title="Saved">♥</span>
+        </div>
+        <h3 class="card-title text-base font-bold text-ink-900 mb-2 line-clamp-2 cursor-pointer hover:text-accent transition-colors">
+          ${item.title || ''}
+        </h3>
+        ${truncatedText ? `<p class="text-sm text-ink-500 mb-3 line-clamp-3">${truncatedText}</p>` : ''}
+        <div class="flex items-center gap-2 mb-4 text-xs">
+          <span class="px-2 py-0.5 rounded-full ${potentialColors[fbPotential] || potentialColors.Low}">FB: ${fbPotential}</span>
+          <span class="px-2 py-0.5 rounded-full ${potentialColors[blogPotential] || potentialColors.Low}">Blog: ${blogPotential}</span>
+          <span class="text-ink-400">Score: ${engagementScore}/5</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Render X item HTML
+  function renderXItem(item: any): string {
+    const metrics = item.metrics || {};
+    const analysis = item.analysis || null;
+    const engagementScore = item.engagement_score || 1;
+
+    return `
+      <div class="x-item bg-white rounded-lg p-4 border border-gray-100" data-x-id="${item.id || item.item_id || ''}">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex items-center gap-2">
+            ${engagementScore >= 4 ? '<span class="text-amber-500">⭐</span>' : ''}
+            <span class="text-xs text-gray-500">${metrics.likes || 0} ❤️ · ${metrics.retweets || 0} 🔁</span>
+          </div>
+          <a href="${item.url || '#'}" target="_blank" rel="noopener noreferrer" class="text-sky-500 hover:text-sky-600 text-sm">↗</a>
+        </div>
+        <p class="text-sm text-gray-700 mb-2 whitespace-pre-wrap">${item.original_text || ''}</p>
+        ${analysis?.translation ? `<p class="text-sm text-gray-600 bg-gray-50 p-2 rounded mt-2"><strong>翻譯:</strong> ${analysis.translation}</p>` : ''}
+        ${analysis?.summary ? `<p class="text-xs text-gray-500 mt-1">${analysis.summary}</p>` : ''}
+      </div>
+    `;
+  }
+
+  // Render X category section
+  function renderXCategory(category: string, items: any[]): string {
+    const config = xCategoryConfig[category] || { label: category, color: 'text-gray-700', bgColor: 'bg-gray-50 border-gray-200' };
+
+    // Group by author
+    const byAuthor: Record<string, { authorName: string; items: any[] }> = {};
+    items.forEach(item => {
+      const author = item.author || 'unknown';
+      if (!byAuthor[author]) {
+        byAuthor[author] = { authorName: item.author_name || author, items: [] };
+      }
+      byAuthor[author].items.push(item);
+    });
+
+    const authorSections = Object.entries(byAuthor).map(([author, data]) => `
+      <div class="mb-4">
+        <h3 class="text-sm font-semibold mb-2 flex items-center gap-2">
+          <span class="text-gray-700">@${author}</span>
+          <span class="text-xs text-gray-500 font-normal">${data.authorName}</span>
+        </h3>
+        <div class="space-y-3 pl-4 border-l-2 border-gray-200">
+          ${data.items.map(item => renderXItem(item)).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    return `
+      <section class="x-category-section mb-8 rounded-xl border p-4 ${config.bgColor}" data-x-category="${category}">
+        <h2 class="text-lg font-bold mb-4 flex items-center gap-2 ${config.color}">
+          <span>${config.label}</span>
+          <span class="text-sm font-normal opacity-70">(${items.length} tweets from ${Object.keys(byAuthor).length} KOLs)</span>
+        </h2>
+        <div class="space-y-6">${authorSections}</div>
+      </section>
+    `;
+  }
+
+  // Fetch and render data from API
+  async function loadDataFromAPI() {
+    const loadingEl = document.getElementById('loading-state');
+    const container = document.getElementById('items-container');
+    const xContainer = document.getElementById('x-container');
+    const xWrapper = document.getElementById('x-items-wrapper');
+    const xEmptyState = document.getElementById('x-empty-state');
+    const dateDisplay = document.getElementById('date-display');
+
+    try {
+      // Fetch both content and X data in parallel (GET endpoints, no API key needed)
+      const [contentRes, xRes] = await Promise.all([
+        fetch(`${API_BASE}/latest?source=content`),
+        fetch(`${API_BASE}/latest?source=x`)
+      ]);
+
+      const contentData = await contentRes.json();
+      const xData = await xRes.json();
+
+      // Update date display
+      if (dateDisplay && contentData.success) {
+        const batch = contentData.data?.batch;
+        dateDisplay.textContent = batch?.date || 'Today';
+      }
+
+      // Render content items
+      if (contentData.success && contentData.data?.items?.length > 0) {
+        const items = contentData.data.items;
+
+        // Store items for analysis lookup
+        (window as any).__PANOPTICON_ITEMS__ = items.reduce((acc: any, item: any) => {
+          acc[item.item_id || item.id] = item;
+          return acc;
+        }, {});
+
+        // Render HTML
+        if (container) {
+          container.innerHTML = items.map((item: any) => renderItemCard(item)).join('');
+        }
+
+        // Update stats
+        const stats = contentData.data.batch?.stats || {};
+        updateStatsCounts(stats, items.length);
+      }
+
+      // Render X items
+      if (xData.success && xData.data?.items?.length > 0) {
+        const items = xData.data.items;
+        const categoryOrder = ['ai_tech', 'indie_hacker', 'business', 'startup', 'career', 'philosophy', 'claude_code'];
+
+        // Group by category
+        const byCategory: Record<string, any[]> = {};
+        items.forEach((item: any) => {
+          const cat = item.category || 'other';
+          if (!byCategory[cat]) byCategory[cat] = [];
+          byCategory[cat].push(item);
+        });
+
+        // Render in order
+        const xHtml = categoryOrder
+          .filter(cat => byCategory[cat]?.length > 0)
+          .map(cat => renderXCategory(cat, byCategory[cat]))
+          .join('');
+
+        if (xWrapper) {
+          xWrapper.innerHTML = xHtml;
+        }
+        if (xEmptyState) {
+          xEmptyState.classList.add('hidden');
+        }
+
+        // Update X stats
+        updateXStatsCounts(items.length);
+      } else {
+        if (xEmptyState) {
+          xEmptyState.classList.remove('hidden');
+        }
+      }
+
+      // Hide loading, show content
+      if (loadingEl) loadingEl.style.display = 'none';
+
+    } catch (error) {
+      console.error('Failed to load Panopticon data:', error);
+      if (loadingEl) {
+        loadingEl.innerHTML = `
+          <div class="text-center py-12">
+            <p class="text-red-500 mb-2">Failed to load data from API</p>
+            <p class="text-sm text-ink-500 mb-4">${error}</p>
+            <button onclick="loadDataFromAPI()" class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
+              Retry
+            </button>
+          </div>
+        `;
+      }
+    }
+  }
+
+  // Update stats counts in the source tabs
+  function updateStatsCounts(stats: any, totalItems: number) {
+    const tabs = document.querySelectorAll('.source-tab');
+    tabs.forEach(tab => {
+      const source = (tab as HTMLElement).dataset.source;
+      const countSpan = tab.querySelector('span');
+      if (countSpan) {
+        if (source === 'all') countSpan.textContent = String(totalItems);
+        else if (source === 'reddit') countSpan.textContent = String(stats.reddit_posts || 0);
+        else if (source === 'hackernews') countSpan.textContent = String(stats.hn_stories || 0);
+        else if (source === 'producthunt') countSpan.textContent = String(stats.ph_products || 0);
+      }
+    });
+  }
+
+  function updateXStatsCounts(count: number) {
+    const xTab = document.querySelector('.source-tab[data-source="x"]');
+    if (xTab) {
+      const countSpan = xTab.querySelector('span');
+      if (countSpan) countSpan.textContent = String(count);
+    }
+  }
 
   function initPanopticon() {
     const container = document.getElementById('items-container');
@@ -1149,9 +1301,14 @@ ${currentAnalysis.response_angles.map(a => `- ${a}`).join('\n')}
     });
   }
 
-  // Initialize
-  initPanopticon();
-  document.addEventListener('astro:after-swap', initPanopticon);
+  // Initialize - first load data from API, then setup UI handlers
+  async function init() {
+    await loadDataFromAPI();
+    initPanopticon();
+  }
+
+  init();
+  document.addEventListener('astro:after-swap', init);
 </script>
 
 <style>
