@@ -92,6 +92,10 @@ I don't have Molly's 8 Claude Code instances. But I've started building my own v
 
 All planning in one place. All files in Markdown. Claude Code can read and write directly.
 
+Cockpit is where I have my morning standup with my AI manager. Every day, we review yesterday, inventory tasks, and plan today. Once we decide "what to do," I switch to individual projects for execution and coding.
+
+Before signing off, I return to Cockpit to update today's progress. Random thoughts go into inbox for tomorrow's review.
+
 ### Content Discovery (Daily Brief)
 
 - Auto-scrapes trending content from Reddit, Hacker News, X

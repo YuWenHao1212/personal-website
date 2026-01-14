@@ -90,6 +90,10 @@ translationKey: personal-panopticon
 
 所有規劃在一個地方。所有文件都是 Markdown。Claude Code 可以直接讀寫。
 
+Cockpit 是我和 AI 經理人的晨會地點。每天早上，我們一起回顧昨天、盤點任務、規劃今天。決定完「做什麼」之後，再到各個子專案去執行和 coding。
+
+下班前，再回到 Cockpit 更新今日完成狀況。想法隨手丟進 inbox，明天整理。
+
 ### Content Discovery（每日 Brief）
 
 - 自動抓取 Reddit、Hacker News、X 熱門內容
