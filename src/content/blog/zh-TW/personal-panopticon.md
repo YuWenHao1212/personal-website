@@ -88,20 +88,17 @@ translationKey: personal-panopticon
 └── ideas/           <- 整理過的點子
 ```
 
-所有規劃在一個地方。所有文件都是 Markdown。Claude Code 可以直接讀寫。
+為什麼叫 Cockpit？因為這是我的駕駛艙。
 
-Cockpit 是我和 AI 經理人的晨會地點。每天早上，我們一起回顧昨天、盤點任務、規劃今天。決定完「做什麼」之後，再到各個子專案去執行和 coding。
+每天早上，我在這裡跟 AI 經理人對齊：昨天完成了什麼、今天要推進什麼。對齊完，再到各個專案去執行。下班前回來更新日誌，把途中的想法丟進 inbox。
 
-下班前，再回到 Cockpit 更新今日完成狀況。想法隨手丟進 inbox，明天整理。
+全部都是 Markdown，Claude Code 可以直接讀寫。
 
 ### Content Discovery（每日 Brief）
 
-- 自動抓取 Reddit、Hacker News、X 熱門內容
-- AI 分析 + 評分
-- 每天早上生成 brief
-- 我只需要看「值得關注的」
+自動抓 Reddit、Hacker News、X 熱門內容，AI 分析評分，每天早上生成一份 brief。
 
-這個已經在跑了。GitHub Actions 每天定時執行。
+GitHub Actions 每天定時跑，我只需要掃一眼「值得關注的」。
 
 ### 還沒完成的
 

@@ -90,20 +90,17 @@ I don't have Molly's 8 Claude Code instances. But I've started building my own v
 └── ideas/           <- Processed ideas
 ```
 
-All planning in one place. All files in Markdown. Claude Code can read and write directly.
+Why Cockpit? Because it's my command center.
 
-Cockpit is where I have my morning standup with my AI manager. Every day, we review yesterday, inventory tasks, and plan today. Once we decide "what to do," I switch to individual projects for execution and coding.
+Every morning, I sync with my AI manager here: what got done yesterday, what to push forward today. Once aligned, I head to individual projects to execute. Before signing off, I come back to update the log and dump any thoughts into inbox.
 
-Before signing off, I return to Cockpit to update today's progress. Random thoughts go into inbox for tomorrow's review.
+Everything is Markdown. Claude Code can read and write directly.
 
 ### Content Discovery (Daily Brief)
 
-- Auto-scrapes trending content from Reddit, Hacker News, X
-- AI analysis + scoring
-- Generates brief every morning
-- I only see "what's worth paying attention to"
+Auto-scrapes Reddit, Hacker News, X for trending content. AI analyzes and scores. Every morning, a brief is generated.
 
-This is already running. GitHub Actions executes daily.
+GitHub Actions runs daily. I just scan "what's worth paying attention to."
 
 ### What's Not Done Yet
 
