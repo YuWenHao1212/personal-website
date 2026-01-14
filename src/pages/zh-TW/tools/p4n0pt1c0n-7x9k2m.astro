@@ -48,7 +48,17 @@ const xData = null as any;
       </button>
     </div>
 
-    <!-- X Category Tabs (shown when X is selected) -->
+    <!-- X Mode Switch (KOL Tweets vs Hot Topics) -->
+    <div id="x-mode-switch" class="flex gap-2 mb-3">
+      <button data-x-mode="kol" class="x-mode-btn flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-500 text-white">
+        📰 KOL Tweets <span class="ml-1 opacity-80" id="x-kol-count">0</span>
+      </button>
+      <button data-x-mode="trends" class="x-mode-btn flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-50 text-sky-700 hover:bg-sky-100">
+        🔥 Hot Topics <span class="ml-1 opacity-70" id="x-trends-count">0</span>
+      </button>
+    </div>
+
+    <!-- X Category Tabs (shown when X is selected and KOL mode) -->
     <div id="x-category-tabs" class="flex gap-2 mb-4 overflow-x-auto pb-2">
       <button data-x-cat="all" class="x-cat-tab active flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-500 text-white">
         All <span class="ml-1 opacity-80" id="x-cat-all-count">0</span>
@@ -205,8 +215,11 @@ const xData = null as any;
     <!-- X Content (hidden by default, shown when X tab is active) -->
     <!-- Content dynamically rendered via client-side fetch -->
     <div id="x-container" class="hidden">
-      <!-- X Filters -->
-      <div id="x-filters-container" class="bg-white border border-cream-200 rounded-xl p-3 mb-6">
+
+      <!-- ========== KOL Tweets Section ========== -->
+      <div id="x-kol-section">
+        <!-- X Filters -->
+        <div id="x-filters-container" class="bg-white border border-cream-200 rounded-xl p-3 mb-6">
         <div class="flex flex-wrap items-center gap-3">
           <!-- Search -->
           <div class="flex-1 min-w-[200px]">
@@ -246,6 +259,66 @@ const xData = null as any;
         <h3 class="text-lg font-medium text-ink-700 mb-2">No X data available</h3>
         <p class="text-sm text-ink-500">X data will be loaded from API.</p>
       </div>
+      </div><!-- End x-kol-section -->
+
+      <!-- ========== Hot Topics Section ========== -->
+      <div id="x-trends-section" class="hidden">
+        <!-- Trends Country Filter -->
+        <div id="trends-country-tabs" class="flex gap-2 mb-4">
+          <button data-country="all" class="trends-country-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-500 text-white">
+            All <span class="ml-1 opacity-80" id="trends-all-count">0</span>
+          </button>
+          <button data-country="worldwide" class="trends-country-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-50 text-sky-700 hover:bg-sky-100">
+            🌍 Worldwide <span class="ml-1 opacity-70" id="trends-ww-count">0</span>
+          </button>
+          <button data-country="united-states" class="trends-country-tab flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all bg-sky-50 text-sky-700 hover:bg-sky-100">
+            🇺🇸 United States <span class="ml-1 opacity-70" id="trends-us-count">0</span>
+          </button>
+        </div>
+
+        <!-- Trends Filters -->
+        <div id="trends-filters-container" class="bg-white border border-cream-200 rounded-xl p-3 mb-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- Search -->
+            <div class="flex-1 min-w-[200px]">
+              <input
+                type="text"
+                id="trends-search-input"
+                placeholder="Search topics..."
+                class="w-full px-3 py-1.5 text-sm border border-cream-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+              />
+            </div>
+
+            <!-- Quick filters -->
+            <div class="flex items-center gap-2">
+              <button id="trends-filter-high-btn" class="trends-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-amber-100 hover:text-amber-700 transition-all">
+                ⭐ High Relevance
+              </button>
+              <button id="trends-filter-saved-btn" class="trends-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cream-100 text-ink-600 hover:bg-rose-100 hover:text-rose-700 transition-all">
+                ♥ Saved <span id="trends-saved-count" class="opacity-70">(0)</span>
+              </button>
+            </div>
+
+            <!-- Count -->
+            <div class="text-sm text-ink-500">
+              <span id="trends-visible-count">0</span> topics
+            </div>
+          </div>
+        </div>
+
+        <!-- Trends Items Container -->
+        <div id="trends-items-wrapper" class="space-y-4">
+          <!-- Trend cards rendered here by JavaScript -->
+        </div>
+
+        <!-- Trends Empty State -->
+        <div id="trends-empty-state" class="hidden text-center py-12">
+          <div class="text-4xl mb-4">🔥</div>
+          <h3 class="text-lg font-medium text-ink-700 mb-2">No trending topics available</h3>
+          <p class="text-sm text-ink-500">Hot topics will be loaded from API.</p>
+        </div>
+      </div><!-- End x-trends-section -->
+
     </div>
 
     <!-- Items grid (Reddit/HN/PH) -->
@@ -584,6 +657,58 @@ const xData = null as any;
     `;
   }
 
+  // Render a single trend card for Hot Topics list
+  function renderTrendCard(trend: any): string {
+    const relevanceScore = trend.analysis?.relevance_score || 0;
+    const stars = '⭐'.repeat(relevanceScore) + '☆'.repeat(5 - relevanceScore);
+    const countryFlag = trend.country === 'worldwide' ? '🌍' : '🇺🇸';
+    const countryLabel = trend.country === 'worldwide' ? 'Worldwide' : 'US';
+    const tags = trend.analysis?.relevance_tags || [];
+    const summary = trend.analysis?.topic_analysis?.summary_zh || '';
+
+    // Truncate summary for card preview
+    const previewSummary = summary.length > 120 ? summary.slice(0, 120) + '...' : summary;
+
+    return `
+      <div class="trend-card bg-white rounded-xl p-5 border border-cream-200 cursor-pointer hover:border-sky-300 hover:shadow-md transition-all"
+           data-trend-id="${escapeHtml(trend.id || '')}"
+           data-country="${escapeHtml(trend.country || '')}">
+        <!-- Header -->
+        <div class="flex items-start justify-between mb-3">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-lg font-bold text-ink-900">${escapeHtml(trend.topic || '')}</span>
+              ${relevanceScore >= 4 ? '<span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-medium rounded-full">Must See</span>' : ''}
+            </div>
+            <div class="flex items-center gap-3 text-sm text-ink-500">
+              <span>${countryFlag} ${countryLabel} #${trend.rank || '?'}</span>
+              <span>📊 ${escapeHtml(trend.tweet_volume || 'N/A')} tweets</span>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm" title="Relevance Score">${stars}</div>
+          </div>
+        </div>
+
+        <!-- Summary Preview -->
+        <p class="text-sm text-ink-700 mb-3 line-clamp-2">${escapeHtml(previewSummary)}</p>
+
+        <!-- Tags and CTA -->
+        <div class="flex items-center justify-between">
+          <div class="flex flex-wrap gap-1">
+            ${tags.slice(0, 3).map((tag: string) => `
+              <span class="px-2 py-0.5 bg-cream-100 text-ink-600 text-xs rounded-full">${escapeHtml(tag)}</span>
+            `).join('')}
+          </div>
+          <span class="text-sm text-sky-500 hover:text-sky-600">查看分析 →</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Store trends data globally for modal lookup
+  (window as any).__PANOPTICON_TRENDS__ = {};
+
   // Render X category section
   // API returns: author, author_name, category
   function renderXCategory(category: string, items: any[]): string {
@@ -718,6 +843,81 @@ const xData = null as any;
         }
       }
 
+      // Render Hot Topics (Trends)
+      const trendsWrapper = document.getElementById('trends-items-wrapper');
+      const trendsEmptyState = document.getElementById('trends-empty-state');
+
+      if (xData.success && xData.data?.trends) {
+        const trends = xData.data.trends;
+        const allTrends: any[] = [];
+
+        // Helper to parse JSON string fields from API
+        const parseTrend = (t: any): any => {
+          // Parse top_tweets if it's a string
+          if (typeof t.top_tweets === 'string') {
+            try {
+              t.top_tweets = JSON.parse(t.top_tweets);
+            } catch (e) {
+              console.warn('Failed to parse top_tweets:', e);
+              t.top_tweets = [];
+            }
+          }
+          // Parse analysis if it's a string
+          if (typeof t.analysis === 'string') {
+            try {
+              t.analysis = JSON.parse(t.analysis);
+            } catch (e) {
+              console.warn('Failed to parse analysis:', e);
+              t.analysis = null;
+            }
+          }
+          return t;
+        };
+
+        // Combine worldwide and united-states trends
+        if (trends.worldwide) {
+          trends.worldwide.forEach((t: any) => {
+            t.country = 'worldwide';
+            allTrends.push(parseTrend(t));
+          });
+        }
+        if (trends['united-states']) {
+          trends['united-states'].forEach((t: any) => {
+            t.country = 'united-states';
+            allTrends.push(parseTrend(t));
+          });
+        }
+
+        // Store trends for modal lookup
+        (window as any).__PANOPTICON_TRENDS__ = allTrends.reduce((acc: any, trend: any) => {
+          acc[trend.id] = trend;
+          return acc;
+        }, {});
+
+        // Sort by relevance score (descending), then by rank
+        allTrends.sort((a, b) => {
+          const scoreA = a.analysis?.relevance_score || 0;
+          const scoreB = b.analysis?.relevance_score || 0;
+          if (scoreB !== scoreA) return scoreB - scoreA;
+          return (a.rank || 99) - (b.rank || 99);
+        });
+
+        // Render trend cards
+        if (trendsWrapper && allTrends.length > 0) {
+          trendsWrapper.innerHTML = allTrends.map(trend => renderTrendCard(trend)).join('');
+          if (trendsEmptyState) trendsEmptyState.classList.add('hidden');
+        } else if (trendsEmptyState) {
+          trendsEmptyState.classList.remove('hidden');
+        }
+
+        // Update trends counts
+        updateTrendsCounts(allTrends);
+      } else {
+        if (trendsEmptyState) {
+          trendsEmptyState.classList.remove('hidden');
+        }
+      }
+
       // Hide loading, show content
       if (loadingEl) loadingEl.style.display = 'none';
 
@@ -848,6 +1048,41 @@ const xData = null as any;
     }
   }
 
+  // Store trends counts by country
+  let trendsCountByCountry: Record<string, number> = {};
+  let allTrendsData: any[] = [];
+
+  // Update trends counts in the UI
+  function updateTrendsCounts(trends: any[]) {
+    allTrendsData = trends;
+    trendsCountByCountry = { worldwide: 0, 'united-states': 0 };
+
+    trends.forEach((t: any) => {
+      const country = t.country || 'worldwide';
+      trendsCountByCountry[country] = (trendsCountByCountry[country] || 0) + 1;
+    });
+
+    const total = trends.length;
+    const wwCount = trendsCountByCountry['worldwide'] || 0;
+    const usCount = trendsCountByCountry['united-states'] || 0;
+
+    // Update mode switch count
+    const trendsCountEl = document.getElementById('x-trends-count');
+    if (trendsCountEl) trendsCountEl.textContent = String(total);
+
+    // Update country filter counts
+    const allCountEl = document.getElementById('trends-all-count');
+    const wwCountEl = document.getElementById('trends-ww-count');
+    const usCountEl = document.getElementById('trends-us-count');
+    if (allCountEl) allCountEl.textContent = String(total);
+    if (wwCountEl) wwCountEl.textContent = String(wwCount);
+    if (usCountEl) usCountEl.textContent = String(usCount);
+
+    // Update visible count
+    const visibleCountEl = document.getElementById('trends-visible-count');
+    if (visibleCountEl) visibleCountEl.textContent = String(total);
+  }
+
   function initPanopticon() {
     const container = document.getElementById('items-container');
     const sourceFilter = document.getElementById('filter-source') as HTMLSelectElement;
@@ -896,6 +1131,16 @@ const xData = null as any;
     const xVisibleCount = document.getElementById('x-visible-count');
     const xSavedCountEl = document.getElementById('x-saved-count');
 
+    // X Mode Switch elements
+    const xModeSwitch = document.getElementById('x-mode-switch');
+    const xKolSection = document.getElementById('x-kol-section');
+    const xTrendsSection = document.getElementById('x-trends-section');
+    const trendsCountryTabs = document.getElementById('trends-country-tabs');
+    const trendsSearchInput = document.getElementById('trends-search-input') as HTMLInputElement;
+    const trendsFilterHighBtn = document.getElementById('trends-filter-high-btn');
+    const trendsFilterSavedBtn = document.getElementById('trends-filter-saved-btn');
+    const trendsItemsWrapper = document.getElementById('trends-items-wrapper');
+
     if (!container) return;
 
     let prefs = getPrefs();
@@ -907,6 +1152,13 @@ const xData = null as any;
     let filterSaved = false;
     let filterUnread = false;
     let filterShowHidden = false;
+
+    // X Mode state (kol vs trends)
+    let currentXMode: 'kol' | 'trends' = 'kol';
+    let currentTrendsCountry = 'all';
+    let trendsFilterHigh = false;
+    let trendsFilterSaved = false;
+    let trendsSearchQuery = '';
 
     // X filter state
     let xFilterHigh = false;
@@ -1326,6 +1578,133 @@ const xData = null as any;
 
         updatePrimaryTabStyles();
       });
+    });
+
+    // ========== X Mode Switch handlers ==========
+    function updateXModeUI() {
+      // Update mode switch button styles
+      xModeSwitch?.querySelectorAll('.x-mode-btn').forEach((btn) => {
+        const b = btn as HTMLElement;
+        const mode = b.dataset.xMode;
+        const isActive = mode === currentXMode;
+
+        b.classList.remove('bg-sky-500', 'text-white', 'bg-sky-50', 'text-sky-700');
+        if (isActive) {
+          b.classList.add('bg-sky-500', 'text-white');
+        } else {
+          b.classList.add('bg-sky-50', 'text-sky-700');
+        }
+      });
+
+      // Toggle sections visibility
+      if (currentXMode === 'kol') {
+        xKolSection?.classList.remove('hidden');
+        xTrendsSection?.classList.add('hidden');
+        xCategoryTabs?.classList.remove('hidden');
+        xCategoryTabs?.classList.add('flex');
+      } else {
+        xKolSection?.classList.add('hidden');
+        xTrendsSection?.classList.remove('hidden');
+        xCategoryTabs?.classList.add('hidden');
+        xCategoryTabs?.classList.remove('flex');
+      }
+    }
+
+    xModeSwitch?.querySelectorAll('.x-mode-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentXMode = ((btn as HTMLElement).dataset.xMode || 'kol') as 'kol' | 'trends';
+        updateXModeUI();
+      });
+    });
+
+    // ========== Trends Country Filter handlers ==========
+    function updateTrendsCountryTabStyles() {
+      trendsCountryTabs?.querySelectorAll('.trends-country-tab').forEach((tab) => {
+        const t = tab as HTMLElement;
+        const isActive = t.dataset.country === currentTrendsCountry;
+
+        t.classList.remove('bg-sky-500', 'text-white', 'bg-sky-50', 'text-sky-700');
+        if (isActive) {
+          t.classList.add('bg-sky-500', 'text-white');
+        } else {
+          t.classList.add('bg-sky-50', 'text-sky-700');
+        }
+      });
+    }
+
+    function applyTrendsFilters() {
+      const cards = document.querySelectorAll('.trend-card');
+      const query = trendsSearchQuery.toLowerCase().trim();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const el = card as HTMLElement;
+        const trendId = el.dataset.trendId || '';
+        const country = el.dataset.country || '';
+        const trendsStore = (window as any).__PANOPTICON_TRENDS__ || {};
+        const trend = trendsStore[trendId];
+
+        if (!trend) {
+          el.style.display = 'none';
+          return;
+        }
+
+        const relevanceScore = trend.analysis?.relevance_score || 0;
+        const topic = (trend.topic || '').toLowerCase();
+        const summary = (trend.analysis?.topic_analysis?.summary_zh || '').toLowerCase();
+        const isSaved = prefs.saved.includes(trendId);
+
+        // Apply filters
+        const countryMatch = currentTrendsCountry === 'all' || country === currentTrendsCountry;
+        const highMatch = !trendsFilterHigh || relevanceScore >= 4;
+        const savedMatch = !trendsFilterSaved || isSaved;
+        const searchMatch = !query || topic.includes(query) || summary.includes(query);
+
+        if (countryMatch && highMatch && savedMatch && searchMatch) {
+          el.style.display = '';
+          el.classList.toggle('is-saved', isSaved);
+          visibleCount++;
+        } else {
+          el.style.display = 'none';
+        }
+      });
+
+      // Update visible count
+      const countEl = document.getElementById('trends-visible-count');
+      if (countEl) countEl.textContent = String(visibleCount);
+    }
+
+    trendsCountryTabs?.querySelectorAll('.trends-country-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        currentTrendsCountry = (tab as HTMLElement).dataset.country || 'all';
+        updateTrendsCountryTabStyles();
+        applyTrendsFilters();
+      });
+    });
+
+    // Trends filter buttons
+    trendsFilterHighBtn?.addEventListener('click', () => {
+      trendsFilterHigh = !trendsFilterHigh;
+      trendsFilterHighBtn.classList.toggle('bg-amber-100', trendsFilterHigh);
+      trendsFilterHighBtn.classList.toggle('text-amber-700', trendsFilterHigh);
+      trendsFilterHighBtn.classList.toggle('bg-cream-100', !trendsFilterHigh);
+      trendsFilterHighBtn.classList.toggle('text-ink-600', !trendsFilterHigh);
+      applyTrendsFilters();
+    });
+
+    trendsFilterSavedBtn?.addEventListener('click', () => {
+      trendsFilterSaved = !trendsFilterSaved;
+      trendsFilterSavedBtn.classList.toggle('bg-rose-100', trendsFilterSaved);
+      trendsFilterSavedBtn.classList.toggle('text-rose-700', trendsFilterSaved);
+      trendsFilterSavedBtn.classList.toggle('bg-cream-100', !trendsFilterSaved);
+      trendsFilterSavedBtn.classList.toggle('text-ink-600', !trendsFilterSaved);
+      applyTrendsFilters();
+    });
+
+    // Trends search input
+    trendsSearchInput?.addEventListener('input', () => {
+      trendsSearchQuery = trendsSearchInput.value;
+      applyTrendsFilters();
     });
 
     // X category tab click handlers
@@ -2096,15 +2475,366 @@ const xData = null as any;
       openModal();
     }
 
+    // Handle Trend card analysis
+    function handleTrendAnalyze(trendCard: HTMLElement) {
+      const trendId = trendCard.dataset.trendId || '';
+      const trendsStore = (window as any).__PANOPTICON_TRENDS__ || {};
+      const trend = trendsStore[trendId];
+
+      if (!trend) {
+        console.error('Trend not found:', trendId);
+        return;
+      }
+
+      const analysis = trend.analysis || {};
+      const topicAnalysis = analysis.topic_analysis || {};
+      const relevanceScore = analysis.relevance_score || 0;
+      const stars = '⭐'.repeat(relevanceScore) + '☆'.repeat(5 - relevanceScore);
+      const countryFlag = trend.country === 'worldwide' ? '🌍' : '🇺🇸';
+      const countryLabel = trend.country === 'worldwide' ? 'Worldwide' : 'United States';
+      const tags = analysis.relevance_tags || [];
+      const topTweets = trend.top_tweets || [];
+      const contentAngles = analysis.content_angles || [];
+      const tweetsAnalysis = analysis.tweets_analysis || [];
+
+      // Set current item for modal buttons
+      currentItem = {
+        id: trendId,
+        title: trend.topic || '',
+        url: trend.search_url || '',
+        source: 'trend',
+        selftext: topicAnalysis.summary_zh || '',
+        score: relevanceScore,
+        comments: 0,
+        fbPotential: '',
+        blogPotential: '',
+      };
+
+      // Update modal title
+      if (modalTitle) {
+        modalTitle.textContent = trend.topic || 'Hot Topic';
+      }
+
+      // Set modal Open link
+      if (modalOpen) {
+        modalOpen.href = trend.search_url || '#';
+      }
+
+      // Group angles by platform
+      const fbAngles = contentAngles.filter((a: any) => a.platform === 'fb');
+      const blogAngles = contentAngles.filter((a: any) => a.platform === 'blog');
+
+      // Render Trend modal content
+      if (modalContent) {
+        modalContent.innerHTML = `
+          <div class="space-y-5">
+            <!-- Header Info -->
+            <div class="bg-sky-50 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-lg font-bold text-sky-700">${escapeHtml(trend.topic || '')}</span>
+                <span class="text-sm">${stars}</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 text-sm text-ink-600">
+                <span>${countryFlag} ${countryLabel} #${trend.rank || '?'}</span>
+                <span>📊 ${escapeHtml(trend.tweet_volume || 'N/A')} tweets</span>
+              </div>
+            </div>
+
+            <!-- Topic Analysis -->
+            <div>
+              <h3 class="text-sm font-medium text-ink-500 mb-2">💡 摘要</h3>
+              <p class="text-sm text-ink-700">${escapeHtml(topicAnalysis.summary_zh || '暫無摘要')}</p>
+            </div>
+
+            ${topicAnalysis.context ? `
+              <div>
+                <h3 class="text-sm font-medium text-ink-500 mb-2">📖 背景</h3>
+                <p class="text-sm text-ink-700">${escapeHtml(topicAnalysis.context)}</p>
+              </div>
+            ` : ''}
+
+            ${topicAnalysis.why_trending ? `
+              <div>
+                <h3 class="text-sm font-medium text-ink-500 mb-2">🔥 為何熱門</h3>
+                <p class="text-sm text-ink-700">${escapeHtml(topicAnalysis.why_trending)}</p>
+              </div>
+            ` : ''}
+
+            <!-- Top Tweets -->
+            ${topTweets.length > 0 ? `
+              <div>
+                <h3 class="text-sm font-medium text-ink-500 mb-3">🐦 Top Tweets (${topTweets.length})</h3>
+                <div class="space-y-3">
+                  ${topTweets.map((tweet: any, idx: number) => {
+                    const tweetAnalysis = tweetsAnalysis[idx] || {};
+                    const metrics = tweet.metrics || {};
+                    return `
+                      <div class="bg-cream-50 rounded-lg p-3 border border-cream-200">
+                        <div class="flex items-center gap-2 mb-2">
+                          <span class="font-medium text-sky-600">@${escapeHtml(tweet.author || '')}</span>
+                          <span class="text-xs text-ink-500">${escapeHtml(tweet.author_name || '')}</span>
+                          <span class="text-xs text-ink-400">${tweet.author_followers ? (tweet.author_followers / 1000000).toFixed(1) + 'M' : ''}</span>
+                        </div>
+                        <p class="text-sm text-ink-700 mb-2 whitespace-pre-wrap">${escapeHtml(tweet.text || '')}</p>
+                        <div class="flex flex-wrap gap-3 text-xs text-ink-500 mb-2">
+                          <span>❤️ ${(metrics.likes || 0).toLocaleString()}</span>
+                          <span>🔁 ${(metrics.retweets || 0).toLocaleString()}</span>
+                          <span>💬 ${(metrics.replies || 0).toLocaleString()}</span>
+                          <span>👀 ${(metrics.views || 0).toLocaleString()}</span>
+                        </div>
+                        ${tweetAnalysis.summary_zh ? `
+                          <p class="text-xs text-ink-600 border-t border-cream-200 pt-2 mt-2">
+                            📝 ${escapeHtml(tweetAnalysis.summary_zh)}
+                            ${tweetAnalysis.stance ? `<span class="ml-2 px-1.5 py-0.5 bg-sky-100 text-sky-700 rounded">${escapeHtml(tweetAnalysis.stance)}</span>` : ''}
+                          </p>
+                        ` : ''}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Content Angles -->
+            ${contentAngles.length > 0 ? `
+              <div>
+                <h3 class="text-sm font-medium text-ink-500 mb-3">✍️ Content Angles</h3>
+
+                <!-- Platform Tabs -->
+                <div class="flex gap-2 mb-3" id="angle-platform-tabs">
+                  <button data-platform="fb" class="angle-platform-tab px-3 py-1.5 text-xs font-medium rounded-lg bg-sky-500 text-white">
+                    Facebook (${fbAngles.length})
+                  </button>
+                  <button data-platform="blog" class="angle-platform-tab px-3 py-1.5 text-xs font-medium rounded-lg bg-sky-50 text-sky-700">
+                    Blog (${blogAngles.length})
+                  </button>
+                </div>
+
+                <!-- FB Angles -->
+                <div id="fb-angles" class="space-y-3">
+                  ${fbAngles.map((angle: any, idx: number) => `
+                    <div class="rounded-lg p-4 ${angle.type === 'contrarian' ? 'bg-orange-50 border border-orange-200' : 'bg-cream-50 border border-cream-200'}">
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class="text-sm font-medium ${angle.type === 'contrarian' ? 'text-orange-700' : 'text-ink-700'}">
+                          ${angle.type === 'contrarian' ? '🔥 反向觀點' : '📝 正常觀點'}
+                        </span>
+                      </div>
+                      <p class="text-sm font-semibold text-ink-800 mb-2">${escapeHtml(angle.hook || '')}</p>
+                      <p class="text-sm text-ink-600 mb-2">${escapeHtml(angle.angle || '')}</p>
+                      <p class="text-xs text-ink-500 mb-3">${escapeHtml(angle.outline || '')}</p>
+                      <button class="copy-angle-btn px-3 py-1.5 text-xs font-medium bg-white border border-cream-300 rounded-lg hover:bg-cream-50 transition-colors"
+                              data-trend-id="${escapeHtml(trendId)}"
+                              data-angle-idx="${idx}"
+                              data-platform="fb">
+                        📋 Copy 完整內容
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+
+                <!-- Blog Angles (hidden by default) -->
+                <div id="blog-angles" class="space-y-3 hidden">
+                  ${blogAngles.map((angle: any, idx: number) => `
+                    <div class="rounded-lg p-4 ${angle.type === 'contrarian' ? 'bg-orange-50 border border-orange-200' : 'bg-cream-50 border border-cream-200'}">
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class="text-sm font-medium ${angle.type === 'contrarian' ? 'text-orange-700' : 'text-ink-700'}">
+                          ${angle.type === 'contrarian' ? '🔥 反向觀點' : '📝 正常觀點'}
+                        </span>
+                      </div>
+                      <p class="text-sm font-semibold text-ink-800 mb-2">${escapeHtml(angle.hook || '')}</p>
+                      <p class="text-sm text-ink-600 mb-2">${escapeHtml(angle.angle || '')}</p>
+                      <p class="text-xs text-ink-500 mb-3">${escapeHtml(angle.outline || '')}</p>
+                      <button class="copy-angle-btn px-3 py-1.5 text-xs font-medium bg-white border border-cream-300 rounded-lg hover:bg-cream-50 transition-colors"
+                              data-trend-id="${escapeHtml(trendId)}"
+                              data-angle-idx="${idx}"
+                              data-platform="blog">
+                        📋 Copy 完整內容
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Relevance Info -->
+            ${analysis.relevance_reason ? `
+              <div class="bg-purple-50 rounded-lg p-3">
+                <p class="text-sm text-purple-700">
+                  <strong>為何與我相關：</strong> ${escapeHtml(analysis.relevance_reason)}
+                </p>
+              </div>
+            ` : ''}
+
+            <!-- Tags -->
+            ${tags.length > 0 ? `
+              <div class="flex flex-wrap gap-2">
+                ${tags.map((tag: string) => `<span class="text-xs px-2 py-1 bg-cream-100 text-ink-600 rounded-full">${escapeHtml(tag)}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
+
+        // Add platform tab switching logic
+        const platformTabs = modalContent.querySelectorAll('.angle-platform-tab');
+        const fbAnglesDiv = modalContent.querySelector('#fb-angles');
+        const blogAnglesDiv = modalContent.querySelector('#blog-angles');
+
+        platformTabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const platform = (tab as HTMLElement).dataset.platform;
+            platformTabs.forEach((t) => {
+              t.classList.remove('bg-sky-500', 'text-white');
+              t.classList.add('bg-sky-50', 'text-sky-700');
+            });
+            tab.classList.remove('bg-sky-50', 'text-sky-700');
+            tab.classList.add('bg-sky-500', 'text-white');
+
+            if (platform === 'fb') {
+              fbAnglesDiv?.classList.remove('hidden');
+              blogAnglesDiv?.classList.add('hidden');
+            } else {
+              fbAnglesDiv?.classList.add('hidden');
+              blogAnglesDiv?.classList.remove('hidden');
+            }
+          });
+        });
+      }
+
+      currentAnalysis = analysis;
+
+      // Mark trend as viewed
+      if (!prefs.viewed.includes(trendId)) {
+        prefs.viewed.push(trendId);
+        setPrefs(prefs);
+        trendCard.classList.add('is-viewed');
+      }
+
+      openModal();
+    }
+
     // Title click for analysis (using event delegation on document for dynamic content)
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
+
+      // Handle Trend card click
+      const trendCard = target.closest('.trend-card') as HTMLElement;
+      if (trendCard && !target.closest('.copy-angle-btn')) {
+        e.stopPropagation();
+        handleTrendAnalyze(trendCard);
+        return;
+      }
 
       // Handle X item click
       const xItem = target.closest('.x-item') as HTMLElement;
       if (xItem && !target.closest('.x-external-link')) {
         e.stopPropagation();
         handleXAnalyze(xItem);
+        return;
+      }
+
+      // Handle Copy Angle button click (in Trend modal)
+      const copyAngleBtn = target.closest('.copy-angle-btn') as HTMLElement;
+      if (copyAngleBtn) {
+        e.stopPropagation();
+        const trendId = copyAngleBtn.dataset.trendId || '';
+        const angleIdx = parseInt(copyAngleBtn.dataset.angleIdx || '0', 10);
+        const platform = copyAngleBtn.dataset.platform || 'fb';
+
+        const trendsStore = (window as any).__PANOPTICON_TRENDS__ || {};
+        const trend = trendsStore[trendId];
+
+        if (!trend) {
+          console.error('Trend not found for copy:', trendId);
+          return;
+        }
+
+        const analysis = trend.analysis || {};
+        const topicAnalysis = analysis.topic_analysis || {};
+        const contentAngles = analysis.content_angles || [];
+        const topTweets = trend.top_tweets || [];
+        const tags = analysis.relevance_tags || [];
+
+        // Filter angles by platform and get the specific one
+        const platformAngles = contentAngles.filter((a: any) => a.platform === platform);
+        const angle = platformAngles[angleIdx];
+
+        if (!angle) {
+          console.error('Angle not found:', angleIdx, platform);
+          return;
+        }
+
+        // Build full context text for copying
+        const countryFlag = trend.country === 'worldwide' ? '🌍' : '🇺🇸';
+        const countryLabel = trend.country === 'worldwide' ? 'Worldwide' : 'United States';
+        const stars = '⭐'.repeat(analysis.relevance_score || 0);
+
+        let copyText = `# Hot Topic: ${trend.topic || ''}\n\n`;
+        copyText += `## 話題資訊\n`;
+        copyText += `- 來源: ${countryFlag} ${countryLabel} #${trend.rank || '?'}\n`;
+        copyText += `- 推文量: ${trend.tweet_volume || 'N/A'}\n`;
+        copyText += `- 相關性: ${stars} (${analysis.relevance_score || 0}/5)\n`;
+        if (tags.length > 0) {
+          copyText += `- 相關標籤: ${tags.join(', ')}\n`;
+        }
+        copyText += `\n`;
+
+        copyText += `## 摘要\n${topicAnalysis.summary_zh || '暫無摘要'}\n\n`;
+
+        if (topicAnalysis.context) {
+          copyText += `## 背景\n${topicAnalysis.context}\n\n`;
+        }
+
+        if (topicAnalysis.why_trending) {
+          copyText += `## 為何熱門\n${topicAnalysis.why_trending}\n\n`;
+        }
+
+        copyText += `---\n\n`;
+
+        // Top Tweets
+        if (topTweets.length > 0) {
+          copyText += `## Top Tweets (${topTweets.length})\n\n`;
+          topTweets.forEach((tweet: any, idx: number) => {
+            const metrics = tweet.metrics || {};
+            const followers = tweet.author_followers ? (tweet.author_followers / 1000000).toFixed(1) + 'M followers' : '';
+            copyText += `### ${idx + 1}. @${tweet.author || ''} (${tweet.author_name || ''}) - ${followers}\n`;
+            copyText += `"${tweet.text || ''}"\n`;
+            copyText += `❤️ ${(metrics.likes || 0).toLocaleString()} | 🔁 ${(metrics.retweets || 0).toLocaleString()} | 💬 ${(metrics.replies || 0).toLocaleString()} | 👀 ${(metrics.views || 0).toLocaleString()}\n`;
+
+            const tweetAnalysis = (analysis.tweets_analysis || [])[idx];
+            if (tweetAnalysis?.summary_zh) {
+              copyText += `> 分析: ${tweetAnalysis.summary_zh}${tweetAnalysis.stance ? ` (立場: ${tweetAnalysis.stance})` : ''}\n`;
+            }
+            copyText += `\n`;
+          });
+          copyText += `---\n\n`;
+        }
+
+        // Selected angle
+        const platformLabel = platform === 'fb' ? 'Facebook' : 'Blog';
+        const typeLabel = angle.type === 'contrarian' ? '🔥 反向觀點 (Contrarian)' : '📝 正常觀點 (Normal)';
+
+        copyText += `## 發文角度\n\n`;
+        copyText += `**平台**: ${platformLabel}\n`;
+        copyText += `**類型**: ${typeLabel}\n\n`;
+        copyText += `**Hook**: \n${angle.hook || ''}\n\n`;
+        copyText += `**切入點**: \n${angle.angle || ''}\n\n`;
+        copyText += `**大綱**: \n${angle.outline || ''}\n`;
+
+        // Copy to clipboard
+        navigator.clipboard.writeText(copyText).then(() => {
+          // Visual feedback
+          const originalText = copyAngleBtn.innerHTML;
+          copyAngleBtn.innerHTML = '✅ 已複製!';
+          copyAngleBtn.classList.add('bg-green-100', 'text-green-700');
+          setTimeout(() => {
+            copyAngleBtn.innerHTML = originalText;
+            copyAngleBtn.classList.remove('bg-green-100', 'text-green-700');
+          }, 2000);
+        }).catch((err) => {
+          console.error('Failed to copy:', err);
+          alert('複製失敗，請手動複製');
+        });
+
         return;
       }
 
@@ -2201,6 +2931,7 @@ ${(currentAnalysis.response_angles || []).map((a: string) => `- ${a}`).join('\n'
     modalHide?.addEventListener('click', () => {
       if (!currentItem) return;
       const id = currentItem.id;
+      const source = currentItem.source;
       const isHidden = prefs.hidden.includes(id);
 
       if (isHidden) {
@@ -2208,28 +2939,42 @@ ${(currentAnalysis.response_angles || []).map((a: string) => `- ${a}`).join('\n'
         prefs.hidden = prefs.hidden.filter(h => h !== id);
         modalHide.className = 'px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-1';
         modalHide.innerHTML = '<span>🗑️</span> 隱藏';
-        // Update card visual state
-        const card = container?.querySelector(`[data-id="${id}"]`);
-        card?.classList.remove('is-hidden');
+        // Update card visual state based on source
+        if (source === 'trend') {
+          const card = document.querySelector(`.trend-card[data-trend-id="${id}"]`);
+          card?.classList.remove('is-hidden');
+        } else {
+          const card = container?.querySelector(`[data-id="${id}"]`);
+          card?.classList.remove('is-hidden');
+        }
       } else {
         // Add to hidden
         prefs.hidden.push(id);
         modalHide.className = 'px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-lg transition-colors flex items-center gap-1';
         modalHide.innerHTML = '<span>🗑️</span> 已隱藏';
-        // Update card visual state
-        const card = container?.querySelector(`[data-id="${id}"]`);
-        card?.classList.add('is-hidden');
+        // Update card visual state based on source
+        if (source === 'trend') {
+          const card = document.querySelector(`.trend-card[data-trend-id="${id}"]`);
+          card?.classList.add('is-hidden');
+        } else {
+          const card = container?.querySelector(`[data-id="${id}"]`);
+          card?.classList.add('is-hidden');
+        }
       }
 
       setPrefs(prefs);
       updateCounts();
       applyFilters();
+      if (source === 'trend') {
+        applyTrendsFilters();
+      }
     });
 
     // Modal Save button - toggle behavior
     modalSave?.addEventListener('click', () => {
       if (!currentItem) return;
       const id = currentItem.id;
+      const source = currentItem.source;
       const isSaved = prefs.saved.includes(id);
 
       if (isSaved) {
@@ -2237,21 +2982,38 @@ ${(currentAnalysis.response_angles || []).map((a: string) => `- ${a}`).join('\n'
         prefs.saved = prefs.saved.filter(s => s !== id);
         modalSave.className = 'px-3 py-2 text-sm font-medium text-rose-600 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1';
         modalSave.innerHTML = '<span>♥</span> 收藏';
-        // Update card visual state
-        const card = container?.querySelector(`[data-id="${id}"]`);
-        card?.classList.remove('is-saved');
+        // Update card visual state based on source
+        if (source === 'trend') {
+          const card = document.querySelector(`.trend-card[data-trend-id="${id}"]`);
+          card?.classList.remove('is-saved');
+        } else {
+          const card = container?.querySelector(`[data-id="${id}"]`);
+          card?.classList.remove('is-saved');
+        }
       } else {
         // Add to saved
         prefs.saved.push(id);
         modalSave.className = 'px-3 py-2 text-sm font-medium text-white bg-rose-500 rounded-lg transition-colors flex items-center gap-1';
         modalSave.innerHTML = '<span>♥</span> 已收藏';
-        // Update card visual state
-        const card = container?.querySelector(`[data-id="${id}"]`);
-        card?.classList.add('is-saved');
+        // Update card visual state based on source
+        if (source === 'trend') {
+          const card = document.querySelector(`.trend-card[data-trend-id="${id}"]`);
+          card?.classList.add('is-saved');
+        } else {
+          const card = container?.querySelector(`[data-id="${id}"]`);
+          card?.classList.add('is-saved');
+        }
       }
 
       setPrefs(prefs);
       updateCounts();
+      // Update trends saved count
+      const savedTrendsCount = prefs.saved.filter(id => {
+        const trendsStore = (window as any).__PANOPTICON_TRENDS__ || {};
+        return trendsStore[id];
+      }).length;
+      const trendsSavedCountEl = document.getElementById('trends-saved-count');
+      if (trendsSavedCountEl) trendsSavedCountEl.textContent = `(${savedTrendsCount})`;
     });
 
     // ESC to close modal
