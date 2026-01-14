@@ -26,12 +26,32 @@
       "statusCode": 301
     },
     {
+      "route": "/zh-TW/blog/free-azure-",
+      "redirect": "/zh-TW/blog/free-azure-startup-credits",
+      "statusCode": 301
+    },
+    {
+      "route": "/zh-",
+      "redirect": "/zh-TW/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/article/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
     },
     {
       "route": "/blog/category",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/category/*",
+      "redirect": "/zh-TW/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/tag/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
     },
@@ -52,6 +72,106 @@
       "statusCode": 301
     },
 
+    {
+      "route": "/courage-to-be-disliked",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked",
+      "statusCode": 301
+    },
+    {
+      "route": "/courage-to-be-disliked/",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked",
+      "statusCode": 301
+    },
+    {
+      "route": "/courage-to-be-disliked-2",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked-2",
+      "statusCode": 301
+    },
+    {
+      "route": "/courage-to-be-disliked-2/",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked-2",
+      "statusCode": 301
+    },
+    {
+      "route": "/卡片盒筆記法",
+      "redirect": "/zh-TW/blog/卡片盒筆記法",
+      "statusCode": 301
+    },
+    {
+      "route": "/卡片盒筆記法/",
+      "redirect": "/zh-TW/blog/卡片盒筆記法",
+      "statusCode": 301
+    },
+    {
+      "route": "/數據分析師",
+      "redirect": "/zh-TW/blog/數據分析師",
+      "statusCode": 301
+    },
+    {
+      "route": "/數據分析師/",
+      "redirect": "/zh-TW/blog/數據分析師",
+      "statusCode": 301
+    },
+    {
+      "route": "/mymind-and-roam-research",
+      "redirect": "/zh-TW/blog/mymind-and-roam-research",
+      "statusCode": 301
+    },
+    {
+      "route": "/mymind-and-roam-research/",
+      "redirect": "/zh-TW/blog/mymind-and-roam-research",
+      "statusCode": 301
+    },
+    {
+      "route": "/plan-idea-by-miro",
+      "redirect": "/zh-TW/blog/plan-idea-by-miro",
+      "statusCode": 301
+    },
+    {
+      "route": "/plan-idea-by-miro/",
+      "redirect": "/zh-TW/blog/plan-idea-by-miro",
+      "statusCode": 301
+    },
+    {
+      "route": "/project-cost-calculation",
+      "redirect": "/zh-TW/blog/project-cost-calculation",
+      "statusCode": 301
+    },
+    {
+      "route": "/project-cost-calculation/",
+      "redirect": "/zh-TW/blog/project-cost-calculation",
+      "statusCode": 301
+    },
+    {
+      "route": "/seeking_happiness",
+      "redirect": "/zh-TW/blog/seeking_happiness",
+      "statusCode": 301
+    },
+    {
+      "route": "/seeking_happiness/",
+      "redirect": "/zh-TW/blog/seeking_happiness",
+      "statusCode": 301
+    },
+    {
+      "route": "/readwise-reader",
+      "redirect": "/zh-TW/blog/readwise-reader",
+      "statusCode": 301
+    },
+    {
+      "route": "/readwise-reader/",
+      "redirect": "/zh-TW/blog/readwise-reader",
+      "statusCode": 301
+    },
+    {
+      "route": "/jira",
+      "redirect": "/zh-TW/blog/jira",
+      "statusCode": 301
+    },
+    {
+      "route": "/jira/",
+      "redirect": "/zh-TW/blog/jira",
+      "statusCode": 301
+    },
     {
       "route": "/otter",
       "redirect": "/zh-TW/blog/otter",
@@ -114,6 +234,16 @@
     },
 
     {
+      "route": "/about/detail/*",
+      "redirect": "/zh-TW/about",
+      "statusCode": 301
+    },
+    {
+      "route": "/member/*",
+      "redirect": "/zh-TW/",
+      "statusCode": 301
+    },
+    {
       "route": "/tag/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
@@ -175,6 +305,38 @@
       "redirect": "/zh-TW/contact",
       "statusCode": 301
     },
+
+    {
+      "route": "/en/blog/no-code-bubble-complete-beginners-tutorial",
+      "redirect": "/en/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/minerva-graduation",
+      "redirect": "/en/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/what-is-api",
+      "redirect": "/en/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/6f-product-priority-method",
+      "redirect": "/en/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/readwise-reader",
+      "redirect": "/en/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/no-code-app-positioning-guide",
+      "redirect": "/en/blog/",
+      "statusCode": 301
+    },
+
     {
       "route": "/zh-TW/*",
       "headers": {
