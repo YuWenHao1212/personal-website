@@ -62,11 +62,13 @@ Examples:
 
 | Goal | Lag Indicator | Lead Indicator |
 |------|---------------|----------------|
-| Lose 10 kg | Weight | Work out 5x per week |
-| Gain 500 followers | Follower count | Post 7x per week |
-| Earn $1,000 | Revenue | Send 10 outreach emails per week |
+| Lose 10 kg | Weight | Work out 4x per week |
+| Read 12 books | Books finished | Read 30 min daily |
+| Learn Japanese N3 | Test score | Learn 20 words daily |
 
-12 Week Year teaches you to track Lead, not stress over Lag. Do the right actions. Results follow.
+12 Week Year teaches you to track Lead, not stress over Lag.
+
+**Do the right actions. Results follow.**
 
 ### Concept 2: Weekly Execution Score — One Number That Keeps You Honest
 
@@ -112,18 +114,6 @@ Or you work out 5 times a week, but your weight won't budge. Maybe it's not the 
 
 WAM gives you a weekly chance to ask these questions. Instead of grinding for three months before realizing you've been going the wrong direction.
 
----
-
-<aside class="cta cta-newsletter" data-cta-type="newsletter">
-<div class="cta-inner">
-<h3 class="cta-title">Want more execution tips?</h3>
-<p class="cta-description">Subscribe to my newsletter for weekly insights on personal growth, goal management, and productivity tools.</p>
-<a href="https://yu-wenhao.com/newsletter" class="cta-button">Subscribe →</a>
-</div>
-</aside>
-
----
-
 ## 12 Week Year Results: A 90-Day Case Study
 
 This system has been validated by many.
@@ -138,21 +128,27 @@ He combined 12 Week Year with a morning routine. After 90 days:
 
 His secret? 30 minutes of weekly review + targeting 85% execution. More effective than any complex GTD system.
 
-## My Twist: Wednesday Start
+## My Twist: Find Your Own Start Day
 
 I've started implementing this myself. I built a system called Cockpit to integrate the 12 Week Year into my workflow.
 
-One adjustment: My week starts on **Wednesday**, not Monday.
+One adjustment: My week doesn't start on Monday.
 
-Why? Mondays and Tuesdays are usually eaten up by meetings and admin. By the time you catch your breath, it's Wednesday and your week plan hasn't even started. Making Wednesday "Day 1" means you start fresh with clear focus.
+The best part of 12 Week Year: **Plan today, and tomorrow becomes Day 1 of Week 1.**
+
+No waiting for the first of the month. No waiting for Monday. Sit down, plan seriously, and start the next day.
+
+The planning step matters—don't rush it. The clearer you are about your goals, the more likely you'll succeed. You can adjust along the way, but initial planning is the key to success.
+
+I happened to have time on Tuesday evenings for planning, so Wednesday became my Day 1. Take time to plan properly today, and tomorrow becomes your starting point.
 
 Here's my rhythm:
 
+- **Tuesday**: WAM day, review last week, calculate score, discuss if plan needs adjusting
 - **Wednesday**: New week begins, execute weekly tasks
 - **Sunday**: Pre-review, check progress, two days left to catch up
-- **Tuesday**: WAM day, calculate score, plan next week
 
-This way, if I have time on the weekend, I can push a bit harder. Unlike the Monday-start model where Friday feels like "eh, this week's already lost."
+This way, if I have time on the weekend, I can push a bit harder.
 
 I'm only 10 days into my first 12-week cycle. Already completed things I'd planned for Week 2. Not because I'm working harder—because the time scale changed, and urgency kicked in.
 
