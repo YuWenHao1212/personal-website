@@ -314,6 +314,16 @@ WAM 讓你有機會每週停下來，問這個問題。
 
 ---
 
+<aside class="cta cta-newsletter" data-cta-type="newsletter">
+<div class="cta-inner">
+<h3 class="cta-title">想要更多執行力提升的方法？</h3>
+<p class="cta-description">訂閱電子報，每週獲取個人成長、目標管理、生產力工具的實戰心得。</p>
+<a href="https://yu-wenhao.com/newsletter" class="cta-button">訂閱電子報 →</a>
+</div>
+</aside>
+
+---
+
 ## 案例：90 天的改變
 
 這套系統已經有很多人驗證過。

@@ -314,6 +314,16 @@ Instead of grinding for three months before realizing you've been going the wron
 
 ---
 
+<aside class="cta cta-newsletter" data-cta-type="newsletter">
+<div class="cta-inner">
+<h3 class="cta-title">Want more execution tips?</h3>
+<p class="cta-description">Subscribe to my newsletter for weekly insights on personal growth, goal management, and productivity tools.</p>
+<a href="https://yu-wenhao.com/newsletter" class="cta-button">Subscribe →</a>
+</div>
+</aside>
+
+---
+
 ## 12 Week Year Results: A 90-Day Case Study
 
 This system has been validated by many.
