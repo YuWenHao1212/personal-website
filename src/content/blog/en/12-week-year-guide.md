@@ -7,6 +7,7 @@ tags: ["personal growth", "goal setting", "time management", "12 Week Year", "pr
 lang: en
 featured: true
 heroImage: /images/blog/12-week-year-guide/hero.webp
+translationKey: 12-week-year-guide
 ---
 
 # You Get 4 Fresh Starts Every Year: The 12 Week Year Framework
@@ -427,3 +428,9 @@ You get 4 fresh starts every year.
 ​
 
 Give it a shot.
+
+---
+
+*Further reading: [The 12 Week Year on Amazon](https://www.amazon.com/12-Week-Year-Others-Months/dp/1118509234)*
+
+*Want more content like this? [Subscribe to my newsletter](https://yu-wenhao.com/newsletter)*

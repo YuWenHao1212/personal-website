@@ -7,6 +7,7 @@ tags: ["個人成長", "目標管理", "時間管理", "12 Week Year", "生產�
 lang: zh-TW
 featured: true
 heroImage: /images/blog/12-week-year-guide/hero.webp
+translationKey: 12-week-year-guide
 ---
 
 # 一年有 4 次機會重新開始：12 Week Year 的三個核心概念
@@ -425,3 +426,9 @@ WAM 讓你有機會每週停下來，問這個問題。
 ​
 
 試試看吧。
+
+---
+
+*延伸閱讀：[《12週做完一年工作》博客來](https://www.books.com.tw/products/0010974991)*
+
+*想看更多這類內容？[訂閱我的電子報](https://yu-wenhao.com/newsletter)*
