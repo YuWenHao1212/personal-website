@@ -341,6 +341,11 @@
       "statusCode": 301
     },
     {
+      "route": "/tag/*/feed",
+      "redirect": "/zh-TW/rss.xml",
+      "statusCode": 301
+    },
+    {
       "route": "/tag/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
