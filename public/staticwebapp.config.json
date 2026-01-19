@@ -341,7 +341,12 @@
       "statusCode": 301
     },
     {
-      "route": "/tag/*/feed",
+      "route": "/tag/readwise/feed",
+      "redirect": "/zh-TW/rss.xml",
+      "statusCode": 301
+    },
+    {
+      "route": "/tag/project-management/feed",
       "redirect": "/zh-TW/rss.xml",
       "statusCode": 301
     },
