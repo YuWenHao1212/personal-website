@@ -5,6 +5,7 @@ pubDate: 2026-01-23
 category: building-products
 tags: ["AI Coding", "一人創業", "數位資產", "個人成長", "長期主義"]
 lang: zh-TW
+featured: true
 status: draft
 heroImage: /images/blog/ai-coding-arbitrage.webp
 translationKey: ai-coding-arbitrage
