@@ -144,7 +144,7 @@ These skills—anyone who's done project management, written documents, communic
 
 For tools, the most common choices now are Cursor, Claude Code, GitHub Copilot. Each has pros and cons, but the core logic is the same: describe requirements in natural language, AI generates code.
 
-For a more complete comparison and real experience, see this post: [14 Years Away from Engineering, I Built a Complete Product with AI](/blog/nocode-to-ai-coding).
+For a more complete comparison and real experience, see this post: [14 Years Away from Engineering, I Built a Complete Product with AI](/en/blog/nocode-to-ai-coding).
 
 
 ## Closing
