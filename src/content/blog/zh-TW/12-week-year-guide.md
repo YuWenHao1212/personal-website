@@ -8,6 +8,7 @@ lang: zh-TW
 featured: true
 heroImage: /images/blog/12-week-year-guide/hero.webp
 translationKey: 12-week-year-guide
+relatedPosts: ["personal-panopticon.md", "ai-goal-management-system.md"]
 ---
 
 大多數人不缺目標，缺的是執行。

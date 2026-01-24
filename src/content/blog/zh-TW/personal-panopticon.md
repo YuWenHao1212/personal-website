@@ -7,6 +7,7 @@ lang: zh-TW
 featured: true
 heroImage: /images/blog/personal-panopticon.webp
 translationKey: personal-panopticon
+relatedPosts: ["12-week-year-guide.md", "ai-goal-management-system.md"]
 ---
 
 前陣子在 X 上看到一篇文章。70 萬人看過，4000 多人收藏。

@@ -9,6 +9,7 @@ status: published
 featured: true
 heroImage: /images/blog/ai-goal-management-system.webp
 translationKey: ai-goal-management-system
+relatedPosts: ["personal-panopticon.md", "12-week-year-guide.md"]
 ---
 
 Every January, I set new year goals.

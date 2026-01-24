@@ -7,6 +7,7 @@ lang: en
 featured: true
 heroImage: /images/blog/personal-panopticon.webp
 translationKey: personal-panopticon
+relatedPosts: ["12-week-year-guide.md", "ai-goal-management-system.md"]
 ---
 
 A few weeks ago, I came across a post on X. 700,000 views. 4,000+ bookmarks.

@@ -11,9 +11,10 @@ interface RelatedPostsOptions {
 /**
  * Get related posts based on category and tags
  * Priority:
- * 1. Same category posts
- * 2. Posts with matching tags
- * 3. Sorted by date (newest first)
+ * 1. Manually specified relatedPosts (highest priority)
+ * 2. Same category posts
+ * 3. Posts with matching tags
+ * 4. Sorted by date (newest first)
  */
 export function getRelatedPosts({
   currentPost,
@@ -23,14 +24,58 @@ export function getRelatedPosts({
   const currentCategory = currentPost.data.category;
   const currentTags = currentPost.data.tags || [];
   const currentLang = currentPost.data.lang;
+  const manualRelated = (currentPost.data as { relatedPosts?: string[] }).relatedPosts || [];
 
   // Filter out current post and posts in different language
   const otherPosts = allPosts.filter(
     (post) => post.id !== currentPost.id && post.data.lang === currentLang
   );
 
+  // If manual relatedPosts specified, prioritize them
+  if (manualRelated.length > 0) {
+    const manualPosts: BlogPost[] = [];
+    const remainingPosts: BlogPost[] = [];
+
+    for (const post of otherPosts) {
+      const postSlug = post.id.split('/').pop();
+      if (postSlug && manualRelated.includes(postSlug)) {
+        manualPosts.push(post);
+      } else {
+        remainingPosts.push(post);
+      }
+    }
+
+    // Sort manual posts by their order in relatedPosts array
+    manualPosts.sort((a, b) => {
+      const aSlug = a.id.split('/').pop() || '';
+      const bSlug = b.id.split('/').pop() || '';
+      return manualRelated.indexOf(aSlug) - manualRelated.indexOf(bSlug);
+    });
+
+    // If we have enough manual posts, return them
+    if (manualPosts.length >= limit) {
+      return manualPosts.slice(0, limit);
+    }
+
+    // Otherwise, fill with auto-selected posts
+    const autoSelected = scoreAndSortPosts(currentPost, remainingPosts, limit - manualPosts.length);
+    return [...manualPosts, ...autoSelected];
+  }
+
+  // No manual posts, use auto-selection
+  return scoreAndSortPosts(currentPost, otherPosts, limit);
+}
+
+function scoreAndSortPosts(
+  currentPost: BlogPost,
+  posts: BlogPost[],
+  limit: number
+): BlogPost[] {
+  const currentCategory = currentPost.data.category;
+  const currentTags = currentPost.data.tags || [];
+
   // Score each post based on relevance
-  const scoredPosts = otherPosts.map((post) => {
+  const scoredPosts = posts.map((post) => {
     let score = 0;
 
     // Same category = high score

@@ -15,6 +15,7 @@ const blogCollection = defineCollection({
     translationKey: z.string().optional(),
     videoUrl: z.string().optional(),
     featured: z.boolean().default(false),
+    relatedPosts: z.array(z.string()).optional(),
   }),
 });
 

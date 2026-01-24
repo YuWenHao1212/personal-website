@@ -8,6 +8,7 @@ lang: en
 featured: true
 heroImage: /images/blog/12-week-year-guide/hero.webp
 translationKey: 12-week-year-guide
+relatedPosts: ["personal-panopticon.md", "ai-goal-management-system.md"]
 ---
 
 Most people don't lack goals. They lack execution.
