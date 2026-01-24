@@ -88,7 +88,7 @@ The system works in two scenarios:
 
 **At my computer (deep work)**: Data lives in a local Cockpit folder, all Markdown files. Every morning I plan in the terminal with Claude Code—it reads and writes these files directly, updating progress, reviewing yesterday, planning today.
 
-**Away from computer (fragmented time)**: LINE pushes the Daily Brief, and I can toss ideas into it anytime. Work Items sync to Google Tasks—visible and checkable on my phone. Calendar pulls from Google Calendar.
+**Away from computer (fragmented time)**: LINE pushes the Daily Brief, and I can toss ideas into it anytime. Weekly tasks sync to Google Tasks—visible and checkable on my phone. Calendar pulls from Google Calendar.
 
 One source of truth, stored in Cockpit. Two scenarios, each taking what it needs.
 
@@ -225,7 +225,7 @@ The point is: it's a system that can be tested and corrected.
 
 Before, I worked by feel—didn't even know where I went wrong. Now there are numbers, records. When wrong, I can look back. Next time, I can adjust.
 
-Work Items completion at 60% this week? Why? Set too many goals? Got interrupted? When you can see it, you can fix it.
+Work Items completion at 70% this week? Why? Set too many goals? Got interrupted? When you can see it, you can fix it.
 
 Before, I spent an hour each morning "getting ready to work"—checking email, organizing to-dos, scrolling social media, trying to remember what I did yesterday.
 
