@@ -36,9 +36,14 @@ export function getRelatedPosts({
     const manualPosts: BlogPost[] = [];
     const remainingPosts: BlogPost[] = [];
 
+    // Normalize relatedPosts slugs (remove .md if present)
+    const normalizedRelated = manualRelated.map(slug =>
+      slug.replace(/\.mdx?$/, '')
+    );
+
     for (const post of otherPosts) {
-      const postSlug = post.id.split('/').pop();
-      if (postSlug && manualRelated.includes(postSlug)) {
+      const postSlug = post.id.split('/').pop()?.replace(/\.mdx?$/, '') || '';
+      if (normalizedRelated.includes(postSlug)) {
         manualPosts.push(post);
       } else {
         remainingPosts.push(post);
@@ -47,9 +52,9 @@ export function getRelatedPosts({
 
     // Sort manual posts by their order in relatedPosts array
     manualPosts.sort((a, b) => {
-      const aSlug = a.id.split('/').pop() || '';
-      const bSlug = b.id.split('/').pop() || '';
-      return manualRelated.indexOf(aSlug) - manualRelated.indexOf(bSlug);
+      const aSlug = a.id.split('/').pop()?.replace(/\.mdx?$/, '') || '';
+      const bSlug = b.id.split('/').pop()?.replace(/\.mdx?$/, '') || '';
+      return normalizedRelated.indexOf(aSlug) - normalizedRelated.indexOf(bSlug);
     });
 
     // If we have enough manual posts, return them
