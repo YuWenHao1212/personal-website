@@ -8,6 +8,7 @@ lang: en
 featured: true
 heroImage: /images/blog/pkm-history.webp
 translationKey: pkm-history
+relatedPosts: ["卡片盒筆記法.md", "readwise.md", "mymind-and-roam-research.md"]
 ---
 
 I paid $500 for a 5-year Roam Research subscription.
