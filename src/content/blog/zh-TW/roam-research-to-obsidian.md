@@ -6,6 +6,7 @@ category: productivity
 tags: ["知識管理", "個人知識管理", "數位工具", "筆記方法", "Roam Research", "Obsidian", "AI"]
 lang: zh-TW
 featured: true
+translationKey: pkm-history
 heroImage: /images/blog/pkm-history.webp
 ---
 
