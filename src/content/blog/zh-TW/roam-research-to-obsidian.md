@@ -5,7 +5,7 @@ pubDate: 2026-01-27
 category: productivity
 tags: ["知識管理", "個人知識管理", "數位工具", "筆記方法", "Roam Research", "Obsidian", "AI"]
 lang: zh-TW
-featured: false
+featured: true
 heroImage: /images/blog/pkm-history.webp
 ---
 
@@ -307,3 +307,11 @@ Obsidian 迅速建立起龐大的社群和外掛生態系統。
 
 這大概是我目前最滿意的工作流程了。
 
+---
+
+*延伸閱讀：*
+
+- *[AI 目標管理系統](/zh-TW/blog/ai-goal-management-system/)* — 如何用 AI 整合 12 Week Year、Daily Brief、筆記系統
+- *[從 Obsidian 到 Claude Code：打造可程式化的人生](/zh-TW/blog/personal-panopticon/)* — 這套系統的起點和核心原則
+
+*想收到更多這類內容？[訂閱電子報](https://yu-wenhao.com/newsletter)*
