@@ -8,7 +8,7 @@ lang: zh-TW
 featured: true
 translationKey: pkm-history
 heroImage: /images/blog/pkm-history.webp
-relatedPosts: ["卡片盒筆記法.md", "readwise.md", "mymind-and-roam-research.md"]
+relatedPosts: ["ai-goal-management-system.md", "12-week-year-guide.md", "personal-panopticon.md"]
 ---
 
 你每天用的筆記軟體——Obsidian、Notion、Roam Research——背後有一段跨越 80 年的故事。
