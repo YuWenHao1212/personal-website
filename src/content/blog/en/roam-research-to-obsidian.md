@@ -48,6 +48,8 @@ Sound familiar? That's the original vision for linked notes. In 1945.
 
 Bush's idea inspired Doug Engelbart, who gave "The Mother of All Demos" in San Francisco. He invented the mouse, hyperlinks, windows, and video conferencing—all to "augment human intellect."
 
+These technologies existed in research labs in 1968, but it took until the 1984 Apple Macintosh for regular people to actually use them.
+
 Hyperlinks became the World Wide Web. The mouse is on your desk right now.
 
 **1950s-1998: The Method**
