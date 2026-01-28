@@ -12,8 +12,6 @@ relatedPosts: ["nocode-to-ai-coding.md", "ai-coding-arbitrage.md", "ai-goal-mana
 focus_keyphrase: "claude code 教學"
 ---
 
-# Claude Code 教學：5 分鐘完成安裝與第一個任務
-
 你用過 ChatGPT、用過 Claude。
 
 你知道 AI 很強。
@@ -28,7 +26,7 @@ Claude Code 不一樣。
 
 它直接跑在你的電腦裡，可以讀寫檔案、執行指令、幫你完成實際的工作。
 
-這篇教你怎麼安裝，5 分鐘內完成第一個任務。
+這篇 Claude Code 教學帶你從安裝到完成第一個任務，只要 5 分鐘。
 
 ---
 
@@ -148,7 +146,7 @@ Cowork 或許也能處理檔案，但 Claude Code 可以做更多——例如把
 
 用 Claude Code，我花兩天建立了個人網站（是的，你現在看的這個網站）。
 
-還做了一個 [SaaS 產品](/zh-TW/products/ai-resume-advisor)和一個 [Chrome Extension](/zh-TW/products/linkedin-resume-checker)。
+還做了一個 <a href="/zh-TW/products/ai-resume-advisor" target="_blank">SaaS 產品</a>和一個 <a href="/zh-TW/products/linkedin-resume-checker" target="_blank">Chrome Extension</a>。
 
 這不是未來，是現在正在發生的事。
 

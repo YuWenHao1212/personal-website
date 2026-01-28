@@ -12,8 +12,6 @@ relatedPosts: ["nocode-to-ai-coding.md", "ai-coding-arbitrage.md", "ai-goal-mana
 focus_keyphrase: "how to use claude code"
 ---
 
-# How to Use Claude Code: From Setup to Your First Task
-
 You've used ChatGPT. You've used Claude.
 
 You know AI is powerful.
@@ -28,7 +26,7 @@ Claude Code is different.
 
 It runs directly on your machine. It can read and write files, execute commands, and actually get things done.
 
-This guide shows you how to set it up and complete your first task in 5 minutes.
+This guide shows you how to use Claude Code—from setup to your first task in 5 minutes.
 
 ---
 
@@ -148,7 +146,7 @@ I've done this myself.
 
 With Claude Code, I built my personal website in two days (yes, the one you're reading right now).
 
-I also built a [SaaS product](/en/products/ai-resume-advisor) and a [Chrome Extension](/en/products/linkedin-resume-checker).
+I also built a <a href="/en/products/ai-resume-advisor" target="_blank">SaaS product</a> and a <a href="/en/products/linkedin-resume-checker" target="_blank">Chrome Extension</a>.
 
 This isn't the future. It's happening right now.
 
