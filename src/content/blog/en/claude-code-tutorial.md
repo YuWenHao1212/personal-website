@@ -124,7 +124,7 @@ With Claude Code, one sentence:
 
 It runs terminal commands (the stuff engineers type in that black window with white text), and finishes 500 photos in minutes.
 
-Desktop Cowork might handle files too, but Claude Code can do more—like automatically upload the processed photos to the cloud, or write a script so you can do this with one click next time.
+Desktop Cowork can handle files too, but Claude Code can do more—like automatically upload the processed photos to the cloud, or write a script so you can do this with one click next time.
 
 **Scenario 2: Build an automated goal management system**
 
@@ -238,7 +238,7 @@ You're the commander, not the typist.
 
 This guide took you from setup to your first task.
 
-Claude Code has a lot more advanced features—Skills, Hooks, MCP integrations—explore them once you're comfortable with the basics.
+Once you add Skills, Hooks, and MCP integrations, Claude Code becomes a whole different beast.
 
 ---
 
