@@ -47,18 +47,29 @@ In short, Claude Code turns AI from an "advisor" into a "doer."
 
 ## Claude Product Lineup
 
-Anthropic's Claude products include: Web, Chrome Extension, Cowork, and Claude Code. Here's how they compare:
+Anthropic's Claude products, categorized by what they can do:
 
-| | Web | Chrome Extension | Cowork | Claude Code |
-|---|-----|------------------|--------|-------------|
-| Environment | Browser | Browser | macOS App (sandboxed) | CLI |
-| Capabilities | Chat | Browse web, fill forms | Read/write files, run commands | Read/write files, run commands |
-| Access | What you paste | Current webpage | Folders you authorize | Your entire computer |
-| Run commands | ❌ | ❌ | ✅ (sandboxed) | ✅ |
-| Skills | ❌ | ❌ | ✅ | ✅ |
-| MCP Integrations | ✅ | ❌ | ✅ | ✅ |
-| Hooks | ❌ | ❌ | ❌ | ✅ |
-| Platform | Browser | Chrome | macOS | Cross-platform |
+| Capability | Product | Description |
+|------------|---------|-------------|
+| Chat | Web / Desktop App | It sees what you paste |
+| Web browsing | Chrome Extension | Operates current webpage, fills forms |
+| Sandboxed execution | Desktop Cowork | A feature within Desktop App, runs commands in isolated environment |
+| Full local access | Claude Code | Access your entire computer, use your credentials to connect services |
+
+**Claude Code has two interfaces**:
+- **CLI** (Terminal)
+- **Desktop App's Code Tab** (GUI, same functionality as CLI)
+
+**Feature comparison**:
+
+| | Web | Desktop App | Chrome Extension | Desktop Cowork | Claude Code |
+|---|--------|-------------|-----------------|----------------|-------------|
+| Environment | Browser | macOS/Win | Browser | Inside Desktop (sandbox) | CLI or Desktop Code Tab |
+| Access | What you paste | What you paste | Current webpage | Authorized folders | Entire computer |
+| Run commands | ❌ | ❌ | ❌ | ✅ (sandboxed) | ✅ |
+| Skills | ❌ | ❌ | ❌ | ✅ | ✅ |
+| MCP Integrations | ✅ | ✅ | ❌ | ✅ | ✅ |
+| Hooks | ❌ | ❌ | ❌ | ❌ | ✅ |
 
 > **Sources** (verified 2026-01-28):
 > - [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code) — Claude Code features, Skills, MCP, Hooks
@@ -68,9 +79,9 @@ Anthropic's Claude products include: Web, Chrome Extension, Cowork, and Claude C
 
 **Glossary**:
 
-- **Sandbox**: An isolated safe space—like a kid's sandbox. You can play however you want inside, but the sand doesn't get out. Cowork runs in a sandbox, so it can execute commands, but only within folders you've authorized. Safe, but limited.
+- **Sandbox**: An isolated safe space—like a kid's sandbox. You can play however you want inside, but the sand doesn't get out. Desktop Cowork runs in a sandbox, so it can execute commands, but only within folders you've authorized. Safe, but limited.
 
-- **Run commands**: Letting AI actually *do things* on your computer, not just *tell you* how. Web Claude will explain how to organize photos, but you still have to do it yourself. Tools that can run commands (Cowork, Claude Code) are different—you say "move screenshots to the Screenshots folder," and it actually does it. Batch renaming, image compression, auto-backups—all made possible by this capability.
+- **Run commands**: Letting AI actually *do things* on your computer, not just *tell you* how. Web Claude will explain how to organize photos, but you still have to do it yourself. Tools that can run commands (Desktop Cowork, Claude Code) are different—you say "move screenshots to the Screenshots folder," and it actually does it. Batch renaming, image compression, auto-backups—all made possible by this capability.
 
 - **Skills**: Files that teach AI how you work. Could be SOPs (what to do in certain situations), workflows (do A then B), or best practices (articles should follow these guidelines). Once written, AI follows them. It's like documenting your expertise and preferences so AI becomes an assistant that truly "gets" you.
 
@@ -78,21 +89,21 @@ Anthropic's Claude products include: Web, Chrome Extension, Cowork, and Claude C
 
 - **Hooks**: Automatic checks before AI takes action. Like a motion sensor at your door—every time AI is about to do something, the hook checks first. You can set rules like "backup before deleting files" or "confirm with me before running commands." It's an advanced feature to make sure AI doesn't do anything you don't want.
 
-**Cowork vs Claude Code: Sandbox Limitations**
+**Desktop Cowork vs Claude Code: Sandbox Limitations**
 
-Both Cowork and Claude Code can run commands, but Cowork runs in an isolated environment. It can browse the web, download files, install programs—but everything stays in the sandbox. Close it, and it's gone.
+Both Desktop Cowork and Claude Code can run commands, but Cowork runs in an isolated environment. It can browse the web, download files, install programs—but everything stays in the sandbox. Close it, and it's gone.
 
-| | Cowork (Sandbox) | Claude Code (Local) |
-|---|------------------|---------------------|
+| | Desktop Cowork (Sandbox) | Claude Code (Local) |
+|---|--------------------------|---------------------|
 | Organize files in authorized folders | ✅ | ✅ |
 | Browse web, download data | ✅ | ✅ |
-| Install software on your computer | ❌ (sandbox only) | ✅ |
+| Install software on your computer | ✅ (sandbox only, gone when closed) | ✅ (permanent) |
 | Push to GitHub with your SSH key | ❌ (no access to your credentials) | ✅ |
 | Connect services with your API keys | ❌ (no access to your credentials) | ✅ |
 | Modify system settings, env variables | ❌ | ✅ |
 
 **Bottom line**:
-- One-off tasks (organizing files, research, writing reports) → Cowork is enough
+- One-off tasks (organizing files, research, writing reports) → Desktop Cowork is enough
 - Persistent systems (daily automation, API integrations, deployment) → Use Claude Code
 
 ---
@@ -113,7 +124,7 @@ With Claude Code, one sentence:
 
 It runs terminal commands (the stuff engineers type in that black window with white text), and finishes 500 photos in minutes.
 
-Cowork might handle files too, but Claude Code can do more—like automatically upload the processed photos to the cloud, or write a script so you can do this with one click next time.
+Desktop Cowork might handle files too, but Claude Code can do more—like automatically upload the processed photos to the cloud, or write a script so you can do this with one click next time.
 
 **Scenario 2: Build an automated goal management system**
 
@@ -152,10 +163,10 @@ This isn't the future. It's happening right now.
 
 **Which one do you need?**
 
-- Just want to ask questions, write copy → **Web version** is enough
+- Just want to ask questions, write copy → **Web / Desktop App**
 - Want AI to browse and fill forms → **Chrome Extension**
-- One-off tasks (organize files, research) → **Cowork**
-- Batch processing, API integrations, building products → **Claude Code**
+- One-off tasks (organize files, research) → **Desktop Cowork**
+- Batch processing, API integrations, building products → **Claude Code** (CLI or Desktop Code Tab)
 
 ---
 
