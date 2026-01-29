@@ -5,6 +5,7 @@ import FeaturedPosts from '../../components/FeaturedPosts.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 
 const title = 'WenHao Yu';
+const ogTitle = 'WenHao Yu - Building Products with AI';
 const description = 'I build products with AI. Sharing insights on building products, productivity & life.';
 
 const featuredTools = [
@@ -18,7 +19,7 @@ const featuredTools = [
 ];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} ogTitle={ogTitle}>
   <!-- Hero with Newsletter + Products -->
   <Hero />
 
