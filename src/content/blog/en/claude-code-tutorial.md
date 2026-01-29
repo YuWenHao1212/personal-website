@@ -236,9 +236,13 @@ You're the commander, not the typist.
 
 ## Next Steps
 
-This guide took you from setup to your first task.
+Setup done. First task completed.
 
-Once you add Skills, Hooks, and MCP integrations, Claude Code becomes a whole different beast.
+Now, think of something you do every week—organizing files, backing up photos, updating reports.
+
+Tell Claude Code what you want in one sentence. See how it handles it.
+
+That's where the real journey begins.
 
 ---
 
