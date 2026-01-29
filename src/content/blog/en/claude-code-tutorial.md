@@ -190,13 +190,7 @@ Once logged in, you're ready to go.
 
 ## Your First Task: Organize Scattered Screenshots
 
-Your screenshots are probably scattered across three places:
-
-- Desktop
-- Downloads
-- Documents
-
-With Claude Code, one sentence gets it done.
+Your screenshots are probably scattered across Desktop, Downloads, and Documents. With Claude Code, one sentence gets it done.
 
 Type this in Claude Code:
 
@@ -238,7 +232,7 @@ You're the commander, not the typist.
 
 Setup done. First task completed.
 
-Now, think of something you do every week—organizing files, backing up photos, updating reports.
+Now, think of something you do every day—organizing files, backing up photos, updating reports.
 
 Tell Claude Code what you want in one sentence. See how it handles it.
 
