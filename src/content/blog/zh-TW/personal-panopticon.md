@@ -152,4 +152,4 @@ Molly 的系統很厲害。但她花了好幾個月才建起來。
 
 *延伸閱讀：[Molly Cantillon 原文](https://x.com/mollycantillon/status/2008918474006122936)*
 
-*想看更多這類內容？[訂閱我的電子報](https://yu-wenhao.com/newsletter)*
+*想看更多這類內容？[訂閱我的電子報](/zh-TW/)*

@@ -252,7 +252,7 @@ Claude 會自己決定怎麼做：掃描資料夾、找出截圖、移動、重�
 - *[AI 時代的套利機會](/zh-TW/blog/ai-coding-arbitrage/)* — 為什麼現在是學 AI Coding 的最佳時機
 - *[AI 目標管理系統](/zh-TW/blog/ai-goal-management-system/)* — 用 Claude Code 打造的實際案例
 
-*想收到更多這類內容？[訂閱電子報](https://yu-wenhao.com/newsletter)*
+*想收到更多這類內容？[訂閱電子報](/zh-TW/)*
 
 ---
 

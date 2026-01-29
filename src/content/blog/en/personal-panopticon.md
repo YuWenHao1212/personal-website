@@ -154,4 +154,4 @@ The tower is still a tower. But the keys can be in your hands.
 
 *Further reading: [Molly Cantillon's original post](https://x.com/mollycantillon/status/2008918474006122936)*
 
-*Want more content like this? [Subscribe to my newsletter](https://yu-wenhao.com/newsletter)*
+*Want more content like this? [Subscribe to my newsletter](/en/)*

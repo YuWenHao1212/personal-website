@@ -252,7 +252,7 @@ That's where the real journey begins.
 - *[The AI Coding Arbitrage](/en/blog/ai-coding-arbitrage/)* — Why now is the best time to learn AI Coding
 - *[AI Goal Management System](/en/blog/ai-goal-management-system/)* — A real system built with Claude Code
 
-*Want more content like this? [Subscribe to my newsletter](https://yu-wenhao.com/newsletter)*
+*Want more content like this? [Subscribe to my newsletter](/en/)*
 
 ---
 

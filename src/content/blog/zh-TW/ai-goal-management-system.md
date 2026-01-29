@@ -255,4 +255,4 @@ LINE 通知：
 2. *[12 Week Year 完整指南](https://yu-wenhao.com/zh-TW/blog/12-week-year-guide)* — Lead vs Lag、計分、WAM 問責機制
 3. *本篇* — 12 Week Year + AI 的實際整合
 
-*想收到更多這類內容？[訂閱電子報](https://yu-wenhao.com/newsletter)*
+*想收到更多這類內容？[訂閱電子報](/zh-TW/)*
