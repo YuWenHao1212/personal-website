@@ -58,10 +58,10 @@ export const ui = {
     'footer.social': '社群連結',
 
     // Contact
-    'contact.title': '聯繫我',
-    'contact.description': '有任何問題或合作想法，歡迎透過以下方式聯繫我',
-    'contact.social.title': '社群連結',
-    'contact.social.description': '在這些平台上找到我',
+    'contact.title': '想聊聊？',
+    'contact.description': '不管是 Vibe Coding、AI 產品開發、合作邀約，或只是打個招呼——都歡迎。',
+    'contact.social.title': '找到我',
+    'contact.social.description': '選一個你習慣的平台',
     'contact.response': '我通常會在 1-2 個工作天內回覆',
 
     // 404
@@ -126,10 +126,10 @@ export const ui = {
     'footer.social': 'Connect',
 
     // Contact
-    'contact.title': 'Contact',
-    'contact.description': 'Have a question or collaboration idea? Feel free to reach out',
-    'contact.social.title': 'Social Links',
-    'contact.social.description': 'Find me on these platforms',
+    'contact.title': "Let's Chat",
+    'contact.description': "Whether it's Vibe Coding, AI product development, collaboration, or just saying hi—I'd love to hear from you.",
+    'contact.social.title': 'Find Me',
+    'contact.social.description': 'Pick your preferred platform',
     'contact.response': 'I typically respond within 1-2 business days',
 
     // 404
