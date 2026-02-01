@@ -23,6 +23,7 @@ export const ui = {
     'hero.description': '用 AI 加速從想法到上線。分享工具、流程、踩坑經驗。',
     'hero.cta.story': '閱讀我的故事',
     'hero.cta.posts': '最新文章',
+    'hero.cta.chat': '聊聊 Vibe Coding',
 
     // Blog Categories
     'blogCategories.title': '這個部落格寫什麼',
@@ -90,6 +91,7 @@ export const ui = {
     'hero.description': 'Using AI to go from idea to launch. Sharing tools, workflows, and lessons learned.',
     'hero.cta.story': 'Read My Story',
     'hero.cta.posts': 'Latest Posts',
+    'hero.cta.chat': 'Chat About Vibe Coding',
 
     // Blog Categories
     'blogCategories.title': 'What I Write About',
