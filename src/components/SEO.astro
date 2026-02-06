@@ -1,6 +1,11 @@
 ---
 import { getLangFromUrl, getAlternatePath } from '../i18n/utils';
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -11,6 +16,7 @@ interface Props {
   noindex?: boolean;
   hasAlternate?: boolean;
   ogTitle?: string;
+  faq?: FaqItem[];
 }
 
 const {
@@ -23,6 +29,7 @@ const {
   noindex = false,
   hasAlternate = true,
   ogTitle,
+  faq,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -115,5 +122,21 @@ const ogTitleFinal = ogTitle || fullTitle;
       "name": "WenHao Yu",
       "url": "https://yu-wenhao.com"
     }
+  })} />
+)}
+
+{/* FAQ Schema */}
+{faq && faq.length > 0 && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer,
+      },
+    })),
   })} />
 )}

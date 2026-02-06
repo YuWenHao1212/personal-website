@@ -5,6 +5,11 @@ import Footer from '../components/Footer.astro';
 import SEO from '../components/SEO.astro';
 import '../styles/global.css';
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -16,6 +21,7 @@ interface Props {
   hideLanguageSwitcher?: boolean;
   hasAlternate?: boolean;
   ogTitle?: string;
+  faq?: FaqItem[];
 }
 
 const {
@@ -29,6 +35,7 @@ const {
   hideLanguageSwitcher = false,
   hasAlternate = true,
   ogTitle,
+  faq,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -86,6 +93,7 @@ const lang = getLangFromUrl(Astro.url);
       noindex={noindex}
       hasAlternate={hasAlternate}
       ogTitle={ogTitle}
+      faq={faq}
     />
 
     <!-- Google Analytics -->
