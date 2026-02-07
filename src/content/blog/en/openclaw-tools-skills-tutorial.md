@@ -6,7 +6,8 @@ category: building-products
 tags: ["AI", "indie hacker", "OpenClaw", "self-hosted AI", "developer tools"]
 lang: en
 translationKey: openclaw-tools-skills-tutorial
-draft: true
+draft: false
+featured: true
 heroImage: /images/blog/openclaw-tools-skills-tutorial.webp
 keywords: ["openclaw tutorial", "openclaw tools", "openclaw skills", "openclaw setup", "ai agent tools", "best ai agent", "personal ai assistant", "self hosted ai", "how to automate tasks with ai", "openclaw"]
 faq:
@@ -285,7 +286,7 @@ You don't need all 25 Tools. The 53 bundled Skills default to all-on — use `al
 
 My config above works as a starting point. Copy it, then trim to fit your needs. For security settings, read it alongside the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>.
 
-OpenClaw is more than a tool for me — it's the infrastructure that lets one person do the work of a team. I believe in the age of AI, one person can build a company. I'm proving it with my own journey — from product development to growth marketing to life management, all solo. Every step of how I do it goes into my newsletter. <a href="/en/newsletter" target="_blank">Subscribe</a> and follow along.
+OpenClaw is more than a tool for me — it's the infrastructure that lets one person do the work of a team. I believe in the age of AI, one person can build a company. I'm proving it with my own journey — from product development to growth marketing to life management, all solo. Every step of how I do it goes into my newsletter. <a href="/en/" target="_blank">Subscribe</a> and follow along.
 
 ---
 

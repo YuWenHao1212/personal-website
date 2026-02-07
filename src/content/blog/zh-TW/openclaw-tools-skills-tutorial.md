@@ -6,7 +6,8 @@ category: building-products
 tags: ["AI", "一人公司", "OpenClaw", "self-hosted AI", "數位工具"]
 lang: zh-TW
 translationKey: openclaw-tools-skills-tutorial
-draft: true
+draft: false
+featured: true
 heroImage: /images/blog/openclaw-tools-skills-tutorial.webp
 keywords: ["OpenClaw 教學", "OpenClaw tools", "OpenClaw skills", "OpenClaw 設定", "openclaw setup", "best ai agent", "AI 助理", "AI 自動化", "AI 工具推薦", "personal ai agent"]
 faq:
@@ -265,7 +266,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 
 我的配置可以直接當起點，複製上去再根據自己的需求刪減。安全設定的部分，搭配<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">安全指南</a>一起看。
 
-OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個團隊事情的基礎建設。我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。<a href="/zh-TW/newsletter" target="_blank">訂閱</a>，一起見證。
+OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個團隊事情的基礎建設。我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。<a href="/zh-TW/" target="_blank">訂閱</a>，一起見證。
 
 ---
 
