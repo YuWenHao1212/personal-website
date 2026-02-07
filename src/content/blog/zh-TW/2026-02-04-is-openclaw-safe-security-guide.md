@@ -7,6 +7,7 @@ tags: ["AI", "一人公司", "資訊安全", "OpenClaw", "self-hosted AI"]
 lang: zh-TW
 translationKey: openclaw-security-guide
 draft: false
+featured: true
 heroImage: /images/blog/openclaw-security-guide.webp
 keywords: ["OpenClaw 安全", "OpenClaw 設定", "OpenClaw 教學", "OpenClaw 安全嗎", "Prompt Injection", "OpenClaw tools"]
 faq:
@@ -43,7 +44,7 @@ faq:
 
 ## 2 大風險來源
 
-為了搞清楚風險到底在哪，我把它分成 **2 大類**：
+為了搞清楚風險到底在哪，我把它分成 **2 大類**：**輸入污染**（外部攻擊）和 **Agent 誤判**（內部故障）。
 
 ![OpenClaw 2 大風險來源圖解：輸入污染與 Agent 誤判](/images/blog/openclaw-security-guide-zh/openclaw-risk-source-zh.webp)
 

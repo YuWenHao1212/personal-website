@@ -7,6 +7,7 @@ tags: ["AI", "indie hacker", "cybersecurity", "OpenClaw", "self-hosted AI"]
 lang: en
 translationKey: openclaw-security-guide
 draft: false
+featured: true
 heroImage: /images/blog/openclaw-security-guide.webp
 keywords: ["is OpenClaw safe", "OpenClaw security", "OpenClaw setup", "how to secure OpenClaw", "Prompt Injection", "OpenClaw tools"]
 faq:
@@ -43,7 +44,7 @@ Walking away is the easy call, but I wanted to understand where the risks actual
 
 ## 2 Main Threat Sources
 
-To figure out where the risks actually come from, I break them into **2 categories**:
+To figure out where the risks actually come from, I break them into **2 categories**: **Input Poisoning** (external attacks) and **Agent Errors** (internal failures).
 
 ![OpenClaw 2 main threat sources: Input Poisoning and Agent Errors](/images/blog/openclaw-security-guide/openclaw-risk-source.webp)
 
