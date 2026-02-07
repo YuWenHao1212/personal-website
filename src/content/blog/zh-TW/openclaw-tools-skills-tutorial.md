@@ -1,20 +1,36 @@
 ---
 title: "OpenClaw 教學：25 個 Tools + 53 個 Skills 完整指南"
-description: "OpenClaw 有 25 個 Tools 和 53 個 Skills，這篇完整指南用同心圓架構帶你搞懂每個開關在幹嘛。從 AI 助理的基本設定到 AI 自動化排程，根據需求配置你的個人 AI agent。附完整清單。"
+description: "OpenClaw 裝完了不知道怎麼設定？這篇研究筆記整理了 25 個 Tools 和 53 個官方 Skills 的功能、風險和配置建議。附完整清單和可直接複製的 JSON 設定檔。"
 pubDate: 2026-02-05
 category: building-products
-tags: ["AI", "一人公司", "OpenClaw", "self-hosted AI"]
+tags: ["AI", "一人公司", "OpenClaw", "self-hosted AI", "數位工具"]
 lang: zh-TW
 translationKey: openclaw-tools-skills-tutorial
 draft: true
+heroImage: /images/blog/openclaw-tools-skills-tutorial.webp
 keywords: ["OpenClaw 教學", "OpenClaw tools", "OpenClaw skills", "OpenClaw 設定", "openclaw setup", "best ai agent", "AI 助理", "AI 自動化", "AI 工具推薦", "personal ai agent"]
+faq:
+  - question: "Skills 安裝後權限會改變嗎？"
+    answer: "不會。Skills 只是教科書，真正控制能力的是 tools.allow。"
+  - question: "1password Skill 真的能讀取所有密碼嗎？"
+    answer: "是的。一旦授權，整個密碼庫都能存取——你存了什麼它就能讀什麼。"
+  - question: "如何撤銷 gog 的 Google 存取權限？"
+    answer: "Google 帳戶 → 安全性 → 第三方應用程式存取權 → 找到 gog → 移除。"
+  - question: "ClawHub 的第三方 Skills 安全嗎？"
+    answer: "不能預設安全。安裝前務必審查 GitHub repo。詳細的審查方法和 prompt，請見安全指南。"
+  - question: "OpenClaw 跟 ChatGPT 有什麼不同？"
+    answer: "ChatGPT 是聊天工具，OpenClaw 是 Agent。差別在「聊完之後」：ChatGPT 只能跟你聊天，OpenClaw 可以接著幫你做事——上網查資料、讀寫文件、操作日曆、讀你的 Gmail 並草稿回覆。"
+  - question: "OpenClaw 可以自動化哪些任務？"
+    answer: "搭配 cron（排程）和 message（訊息推送），OpenClaw 可以定時執行任務並推送結果。常見場景包括：每日 Daily Brief、定期整理 Email、監控 CI/CD 狀態、收集熱門討論整理成寫作素材。"
+  - question: "不會寫程式也能用 OpenClaw 嗎？"
+    answer: "日常使用不需要寫程式，用自然語言對話就好。但安裝和設定有門檻，建議用 Claude Code 之類的 AI CLI 工具協助完成設定。"
 ---
 
-裝完 OpenClaw 後，我想搞清楚一件事：怎麼安全地用這個工具？
+OpenClaw 裝完了，然後呢？
 
-於是花了一個多星期讀文件、測功能、跟 AI 反覆研究每個設定的意義。筆記越寫越長，最後拆成兩篇——[上一篇](/zh-TW/blog/is-openclaw-safe-security-guide)講風險和防護，這篇講 25 個 Tools 和 53 個 Skills 到底該怎麼配。
+Tools 散在不同文件，Skills 預設自動載入——你甚至不知道有些東西已經開了。全開怕出事，全關等於白裝，但要自己從文件和 codebase 拼出全貌，還是得花點時間。
 
-全開怕出事，全關等於白裝。官方文件只列了功能名稱，沒告訴你該開哪些、為什麼。這篇 OpenClaw 教學直接告訴你每個開關在幹嘛，以及我自己怎麼選、為什麼這樣選。
+這篇是我自己裝完之後的研究筆記——25 個 Tools 和 53 個官方 bundled Skills 各是什麼、該不該開、我怎麼配、為什麼這樣配（社群另有 3000+ 個第三方 Skills，不在這篇範圍）。安全面的分析在<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">上一篇</a>，這篇講每個 Tool 和 Skill 在幹嘛、以及怎麼根據需求配置。
 
 ---
 
@@ -48,7 +64,7 @@ OpenClaw 要用 Skill 幫你做事，有三個條件要滿足。拿「幫你讀 
 - **Layer 2 進階能力（17 Tools）**：瀏覽器、記憶、多 Session、自動化。按需開啟。
 - **Layer 3 知識層（53 Skills）**：教 OpenClaw 操作 Google、Obsidian、Slack 等服務。用什麼裝什麼。
 
-![OpenClaw Tools & Skills 同心圓架構圖](/images/blog/openclaw-tools-skills-tutorial/openclaw-tools-skills-architecture.webp)
+![OpenClaw 同心圓架構：Layer 1 核心工具（read、write、exec）、Layer 2 進階工具（browser、memory、automation）、Layer 3 知識層含 53 個 Skills 依場景分類](/images/blog/openclaw-tools-skills-tutorial/openclaw-tools-skills-architecture.webp)
 
 ---
 
@@ -108,9 +124,9 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 讓 OpenClaw 發訊息到 Discord、Slack、Telegram、WhatsApp、iMessage。
 
-這個 Tool 我有開，但我的 OpenClaw 只跟我一個人對話。白名單限制只有我自己的 Telegram，不讓它代替我跟任何人溝通。原因很簡單：AI 用你的名義發出去的訊息，收回不了。萬一它理解錯意思、語氣不對、甚至被 Prompt Injection 騙去發訊息，後果是你自己承擔。
+這個 Tool 我有開，但只用來讓 OpenClaw 傳訊息給我自己——不讓它代替我跟任何人溝通。原因很簡單：AI 用你的名義發出去的訊息，收回不了。萬一它理解錯意思、語氣不對、甚至被 Prompt Injection 騙去發訊息，後果是你自己承擔。
 
-我把 OpenClaw 當作[目標管理系統](/zh-TW/blog/ai-goal-management-system)在用，而 `message` 就是它跟我溝通的窗口——每天推送 Daily Brief、捕捉想法、任務通知，全部都是發給我自己。
+我用 OpenClaw 當作<a href="/zh-TW/blog/ai-goal-management-system" target="_blank">目標管理系統</a>的溝通界面，而啟用 `message` 是讓它可以主動傳訊息給我——每天推送 Daily Brief、任務通知、待辦提醒，全部都是發給我自己。
 
 ### 硬體控制：nodes
 
@@ -122,7 +138,7 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 `cron` 設定定時任務，`gateway` 讓它能重啟自己。
 
-每天早上 6:47，我的 Telegram 會收到 OpenClaw 整理好的 Daily Brief——今天要做什麼、有哪些待回覆的訊息、天氣預報。這就是 `cron` 搭配 `message` 的效果，也是我[目標管理系統](/zh-TW/blog/ai-goal-management-system)的核心。
+每天早上 6:47，我的 Telegram 會收到 OpenClaw 整理好的 Daily Brief——今天要做什麼、有哪些待回覆的訊息、天氣預報。這就是 `cron` 搭配 `message` 的效果，也是我<a href="/zh-TW/blog/ai-goal-management-system" target="_blank">AI 目標管理系統</a>的核心。
 
 ### Agent 通訊：agents_list
 
@@ -142,7 +158,7 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 **重要：bundled Skills 預設會自動載入**——只要對應的 CLI 工具已安裝在系統上，該 Skill 就會自動啟用。不是「不裝就沒有」，而是「不關就全開」。如果你不想讓某個 Skill 被啟用，需要用 `skills.allowBundled` 白名單模式，只保留你需要的（設定範例見下方「我的設定」段落）。
 
-ClawHub 社群另有 3000+ 個第三方 Skills，但第三方的安全風險另當別論（見[安全指南](/zh-TW/blog/is-openclaw-safe-security-guide)）。
+ClawHub 社群另有 3000+ 個第三方 Skills，但第三方的安全風險另當別論（見<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">安全指南</a>）。
 
 以下按使用場景分類。
 
@@ -160,7 +176,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 
 ### 💬 即時通訊 & 社群媒體
 
-`wacli`（WhatsApp）、`imsg`（iMessage）、`bird`（X/Twitter）、`slack`、`discord`——只要裝了，OpenClaw 就能用你的身份發訊息或發文。
+`wacli`（WhatsApp）、`imsg`（iMessage）、`bird`（X/Twitter）、`slack`、`discord`——這些 Skill 讓 OpenClaw 深度操作各平台，包括搜尋歷史訊息、同步對話記錄、管理頻道等。跟 `message` tool（只負責發訊息）不同，裝了這些等於讓它完整存取你在該平台上的資料。
 
 我一個都沒裝。對外溝通的最後一步，一定自己來。
 
@@ -181,25 +197,15 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 
 但它的權限模式是一旦授權就是整個密碼庫，沒辦法只開放某幾組密碼，你存了什麼它就能讀什麼。我選擇不裝。如果真的需要，可以建立「AI 專用 vault」，只放可以讓 AI 存取的密碼。
 
-### 🎨 其他場景快速掃過
+### 🎨 其他場景
 
-上面是我有在用或認真考慮過的分類，剩下的快速帶過。我都沒裝，但列出來讓你知道 OpenClaw 的能力範圍：
-
-- **音樂/智慧家居**：`spotify-player`、`sonoscli` 控制音樂播放，`openhue` 控制 Philips Hue 燈光，`eightctl` 控制 Eight Sleep 智慧床墊
-- **創作**：`openai-image-gen`、`nano-banana-pro` 生成圖片，`video-frames` 從影片截圖，`gifgrep` 搜尋 GIF
-- **語音**：`sag`（ElevenLabs）、`sherpa-onnx-tts`（離線）做文字轉語音，`openai-whisper`、`openai-whisper-api` 做語音轉文字
-- **AI 整合**：`gemini` 呼叫 Google Gemini，`oracle` 呼叫 Oracle CLI，`mcporter` 整合 MCP 協議
-- **系統工具**：`clawhub` 管理 Skill 安裝，`skill-creator` 建立自訂 Skill，`healthcheck` 檢查系統狀態，`summarize` 摘要長文，`weather` 查天氣，`model-usage` 追蹤 API 用量
-- **外送**：`food-order` 支援多平台叫外送，`ordercli` 專接 Foodora
-- **其他**：`goplaces`、`local-places` 查附近地點，`blogwatcher` 監控 RSS，`nano-pdf` 處理 PDF，`camsnap` 擷取攝影機畫面，`peekaboo` 操作 macOS UI，`voice-call` 語音通話
-
-> 完整 53 個 Skills 表格請見文末附錄。
+上面是我有在用或認真考慮過的分類。其餘像音樂播放、智慧家居、圖片生成、語音轉文字、外送等場景，我都沒裝，完整清單見文末附錄。
 
 ---
 
 ## 我的 OpenClaw 設定：怎麼根據需求配置 Tools 和 Skills
 
-我的 OpenClaw 跑在 Azure VM 上，透過 Telegram 操作。主要用途是管 Email、行事曆、查資料、跑腳本，以及每天早上推送 Daily Brief。
+我的 OpenClaw 跑在 Azure VM 上，透過 Telegram 操作。搭配桌面端的 Claude Code，形成移動端 + 桌面端的雙系統工作流——移動端隨時討論、研究、捕捉想法，對話記錄自動同步，桌面端直接接手執行。日常還用它管 Email、行事曆、查資料，以及每天早上推送 Daily Brief。
 
 以下是我目前的設定，以及每個選擇背後的原因。
 
@@ -227,7 +233,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 }
 ```
 
-關掉 `nodes`、`canvas`、`llm_task`、`lobster`，原因前面各段都講過了。`message` 有開但限白名單，只傳給我自己。
+**開了 21 個，關了 4 個**：`nodes`（想不到場景）、`canvas`（用不到）、`llm_task` / `lobster`（沒用工作流引擎）。`exec` 開審批，`message` 只用來傳給自己。
 
 ### Skills（53 個只開 9 個）
 
@@ -245,7 +251,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 }
 ```
 
-每個的使用場景和選擇理由在上面 Layer 3 都講過了。簡單來說：`gog` 管 Email 和行事曆、`github` 管 repo、其餘是 Daily Brief 和系統管理用的基礎工具。
+簡單來說：`gog` 管 Email 和行事曆、`github` 管 repo、其餘是 Daily Brief 和系統管理用的基礎工具。
 
 ---
 
@@ -254,16 +260,16 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 25 個 Tools 不用全開，53 個 bundled Skills 預設全開——用 `allowBundled` 只留你需要的。打開你的 `openclaw.json`，從這三個原則開始：
 
 1. **想不到場景的就不開**
-2. **能力越大，管控越嚴**——`exec` 開審批，`message` 設白名單
+2. **能力越大，管控越嚴**——`exec` 開審批，`message` 只傳給自己
 3. **最後一哩自己來**——結帳、發訊息、發文，收不回來的操作不交給 AI
 
-我的配置可以直接當起點，複製上去再根據自己的需求刪減。安全設定的部分，搭配[安全指南](/zh-TW/blog/is-openclaw-safe-security-guide)一起看。
+我的配置可以直接當起點，複製上去再根據自己的需求刪減。安全設定的部分，搭配<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">安全指南</a>一起看。
 
-我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。[訂閱](/zh-TW/newsletter)，一起見證。
+OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個團隊事情的基礎建設。我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。<a href="/zh-TW/newsletter" target="_blank">訂閱</a>，一起見證。
 
 ---
 
-## 常見問題
+## 常見問題 FAQ
 
 ### Skills 安裝後權限會改變嗎？
 
@@ -279,7 +285,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 
 ### ClawHub 的第三方 Skills 安全嗎？
 
-不能預設安全。安裝前務必審查 GitHub repo。詳細的審查方法和 prompt，請見[安全指南](/zh-TW/blog/is-openclaw-safe-security-guide)。
+不能預設安全。安裝前務必審查 GitHub repo。詳細的審查方法和 prompt，請見<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">安全指南</a>。
 
 ### 為什麼是 25 個 Tools？
 
@@ -300,13 +306,15 @@ ChatGPT 是聊天工具，OpenClaw 是 Agent。差別在「聊完之後」：
 
 搭配 `cron`（排程）和 `message`（訊息推送）這兩個 Tools，OpenClaw 可以定時執行任務並把結果推送給你。我每天早上 6:47 會收到它整理好的 Daily Brief——今天要做什麼、有哪些待回覆的訊息、天氣預報。
 
-除了定時推送，常見的自動化場景還包括：定期整理 Email 並摘要重點、監控 GitHub repo 的 CI/CD 狀態、每週彙整工作進度報告。基本上只要能拆成「觸發條件 + 執行步驟」的任務，OpenClaw 都能自動化。具體怎麼設定，看上面 Layer 2 的 `cron` 和 `gateway` 段落。
+除了定時推送，常見的自動化場景還包括：定期整理 Email 並摘要重點、監控 GitHub repo 的 CI/CD 狀態、定時收集特定主題的熱門討論整理成寫作素材、定期追蹤產業動態並摘要重點。基本上只要能拆成「觸發條件 + 執行步驟」的任務，OpenClaw 都能自動化。
 
 ### 不會寫程式也能用 OpenClaw 嗎？
 
-可以，但有門檻。安裝和初始設定需要一些命令列操作（部署到 VM、設定 Telegram Bot、編輯 JSON 設定檔）。這部分如果完全沒碰過終端機，會需要時間學。
+日常使用完全不需要寫程式——你用自然語言跟它對話就好。「幫我查今天有什麼 Email」、「幫我排一個明天早上 9 點的提醒」，這些都是直接說就行。
 
-但日常使用完全不需要寫程式——你用自然語言跟它對話就好。「幫我查今天有什麼 Email」、「把這段話加到我的筆記裡」、「幫我排一個明天早上 9 點的提醒」，這些都是直接說就行。設定完一次之後，操作體驗跟聊天沒什麼兩樣。
+但 OpenClaw 是開源專案，安裝和設定有門檻。你可以部署到雲端 VM，也可以本機安裝——但基於安全性，建議用一台獨立的機器來跑，不要裝在你的主力電腦上。安裝過程中如果有在用 Claude Code 之類的 AI CLI 工具，可以讓它協助你完成設定，會省很多摸索的時間。
+
+建議搭配這三篇一起看：<a href="/zh-TW/blog/2026-02-01-openclaw-deploy-cost-guide" target="_blank">部署成本全攻略</a>搞清楚要花多少錢、<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">安全指南</a>搞清楚怎麼防護、這篇搞清楚功能怎麼配。
 
 ---
 
@@ -426,9 +434,9 @@ ChatGPT 是聊天工具，OpenClaw 是 Agent。差別在「聊完之後」：
 
 ## 延伸閱讀
 
-- [OpenClaw 安全嗎？5 個必做的安全設定](/zh-TW/blog/is-openclaw-safe-security-guide)
-- [OpenClaw 部署成本全攻略：$0-8/月打造你的 AI 助理](/zh-TW/blog/openclaw-deployment-cost-guide)
-- [Claude Code 教學：5 分鐘完成安裝與第一個任務](/zh-TW/blog/claude-code-tutorial)
+- <a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">OpenClaw 安全嗎？5 個必做的安全設定</a>
+- <a href="/zh-TW/blog/2026-02-01-openclaw-deploy-cost-guide" target="_blank">OpenClaw 部署成本全攻略：$0-8/月打造你的 AI 助理</a>
+- <a href="/zh-TW/blog/claude-code-tutorial" target="_blank">Claude Code 教學：5 分鐘完成安裝與第一個任務</a>
 
 ---
 
