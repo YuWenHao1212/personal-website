@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'NeatToolkit - 免費線上工具站';
+const description = '免費、無浮水印、不用註冊。圖片去背、影片壓縮、YouTube 字幕下載，打開就用。';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="container-narrow">
+      <!-- Hero -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-900 mb-4">
+          NeatToolkit
+        </h1>
+        <p class="text-lg md:text-xl text-ink-600 max-w-2xl mx-auto">
+          免費線上工具站。不用註冊，打開就用。
+        </p>
+      </div>
+
+      <!-- Product Image -->
+      <div class="mb-12">
+        <img
+          src="/images/blog/neatoolkit-launch.webp"
+          alt="NeatToolkit 首頁截圖"
+          class="w-full rounded-xl shadow-lg"
+        />
+      </div>
+
+      <!-- Tools -->
+      <div class="prose prose-lg max-w-none mb-12">
+        <h2>9 個免費工具</h2>
+
+        <div class="grid md:grid-cols-2 gap-6 not-prose mb-8">
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">圖片工具</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>AI 去背</li>
+              <li>圖片壓縮</li>
+            </ul>
+          </div>
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">影片工具</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>影片壓縮</li>
+              <li>影片轉 GIF</li>
+            </ul>
+          </div>
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">YouTube 工具</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>字幕下載</li>
+              <li>AI 字幕翻譯</li>
+              <li>AI 影片摘要</li>
+            </ul>
+          </div>
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">文字工具</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>特殊字體產生器</li>
+              <li>FB 貼文排版</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>為什麼做這個？</h2>
+        <p>
+          台灣大部分的免費線上工具網站都是這樣：廣告蓋住半個畫面、要註冊才能用、免費版加浮水印。想用個簡單功能，得先跟廣告和註冊頁面搏鬥。
+        </p>
+        <p>
+          我受不了了，所以自己做了一個。
+        </p>
+
+        <h2>三個原則</h2>
+        <p><strong>免費，而且沒有浮水印。</strong> 不用註冊，打開就用。</p>
+        <p><strong>隱私。</strong> 大部分工具直接在瀏覽器裡完成，資料不會上傳。少數需要 AI 處理的功能，用完即刪。</p>
+        <p><strong>乾淨。</strong> 沒有蓋板廣告，沒有彈窗，沒有「升級 Pro 解鎖完整功能」。</p>
+        <p>Neat 就是乾淨、俐落。這就是 NeatToolkit 的由來。</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-cream-100 rounded-xl p-8 text-center mb-12">
+        <h3 class="text-xl font-semibold text-ink-900 mb-4">
+          試試看
+        </h3>
+        <p class="text-ink-600 mb-6">
+          免費、無浮水印、不用註冊。
+        </p>
+        <a
+          href="https://neatoolkit.com/zh-TW"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors"
+          data-umami-event="product_cta_click"
+          data-umami-event-product="neatoolkit"
+        >
+          前往 NeatToolkit
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Related Blog -->
+      <div class="pt-8 border-t border-cream-200">
+        <p class="text-sm text-ink-500 mb-4">想看開發故事？</p>
+        <a
+          href="/zh-TW/blog/neatoolkit-launch"
+          class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
+        >
+          我受不了了，所以自己做了一個免費工具站
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

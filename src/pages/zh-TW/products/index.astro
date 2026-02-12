@@ -6,6 +6,13 @@ const description = '我用 AI 打造的產品，幫助你提升求職競爭力�
 
 const products = [
   {
+    name: 'NeatToolkit',
+    description: '免費線上工具站。圖片去背、影片壓縮、YouTube 字幕下載，不用註冊，打開就用。',
+    href: '/zh-TW/products/neatoolkit',
+    image: '/images/blog/neatoolkit-launch.webp',
+    badge: '新品',
+  },
+  {
     name: 'AI Resume Advisor',
     description: '不只是潤稿，而是診斷。先搞清楚你缺什麼，再決定怎麼補。投履歷前就知道勝算。',
     href: '/zh-TW/products/ai-resume-advisor',
@@ -17,7 +24,7 @@ const products = [
     description: 'Chrome Extension，一鍵分析你與 LinkedIn 職缺的匹配度。',
     href: '/zh-TW/products/linkedin-resume-checker',
     image: '/images/products/linkedin-resume-checker.webp',
-    badge: '新品',
+    badge: '熱門',
   },
 ];
 ---
@@ -50,9 +57,11 @@ const products = [
                 alt={product.name}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
-                {product.badge}
-              </span>
+              {product.badge && (
+                <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
+                  {product.badge}
+                </span>
+              )}
             </div>
             <div class="p-5 md:p-6">
               <h2 class="text-base md:text-lg font-semibold text-ink-900 mb-2 group-hover:text-accent transition-colors">

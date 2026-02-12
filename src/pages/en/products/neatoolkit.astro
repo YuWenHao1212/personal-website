@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'NeatToolkit - Free Online Tools';
+const description = 'Free, no watermarks, no signup required. Image background removal, video compression, YouTube subtitle download. Just open and use.';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="py-12 md:py-16 lg:py-20">
+    <div class="container-narrow">
+      <!-- Hero -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-ink-900 mb-4">
+          NeatToolkit
+        </h1>
+        <p class="text-lg md:text-xl text-ink-600 max-w-2xl mx-auto">
+          Free online tools. No signup required. Just open and use.
+        </p>
+      </div>
+
+      <!-- Product Image -->
+      <div class="mb-12">
+        <img
+          src="/images/blog/neatoolkit-launch.webp"
+          alt="NeatToolkit homepage screenshot"
+          class="w-full rounded-xl shadow-lg"
+        />
+      </div>
+
+      <!-- Tools -->
+      <div class="prose prose-lg max-w-none mb-12">
+        <h2>9 Free Tools</h2>
+
+        <div class="grid md:grid-cols-2 gap-6 not-prose mb-8">
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">Image Tools</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>AI Background Removal</li>
+              <li>Image Compression</li>
+            </ul>
+          </div>
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">Video Tools</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>Video Compression</li>
+              <li>Video to GIF</li>
+            </ul>
+          </div>
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">YouTube Tools</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>Subtitle Download</li>
+              <li>AI Subtitle Translation</li>
+              <li>AI Video Summary</li>
+            </ul>
+          </div>
+          <div class="bg-cream-50 rounded-lg p-6">
+            <h3 class="font-semibold text-ink-900 mb-3">Text Tools</h3>
+            <ul class="text-ink-600 space-y-1">
+              <li>Fancy Font Generator</li>
+              <li>Facebook Post Formatter</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>Why I Built This</h2>
+        <p>
+          Most free online tool sites are frustrating: ads covering half the screen, signup required, watermarks on free tier. You just want a simple feature, but first you have to battle ads and registration pages.
+        </p>
+        <p>
+          I got fed up and built my own.
+        </p>
+
+        <h2>Three Principles</h2>
+        <p><strong>Free, with no watermarks.</strong> No signup required. Just open and use.</p>
+        <p><strong>Privacy.</strong> Most tools run entirely in your browser — data never leaves your device. For AI features, files are deleted immediately after processing.</p>
+        <p><strong>Clean.</strong> No overlay ads, no popups, no "upgrade to Pro to unlock full features".</p>
+        <p>Neat means clean and tidy. That's why it's called NeatToolkit.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-cream-100 rounded-xl p-8 text-center mb-12">
+        <h3 class="text-xl font-semibold text-ink-900 mb-4">
+          Try It
+        </h3>
+        <p class="text-ink-600 mb-6">
+          Free, no watermarks, no signup.
+        </p>
+        <a
+          href="https://neatoolkit.com/en"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors"
+          data-umami-event="product_cta_click"
+          data-umami-event-product="neatoolkit"
+        >
+          Go to NeatToolkit
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Related Blog -->
+      <div class="pt-8 border-t border-cream-200">
+        <p class="text-sm text-ink-500 mb-4">Want to read the story behind it?</p>
+        <a
+          href="/en/blog/neatoolkit-launch"
+          class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
+        >
+          I Got Fed Up, So I Built a Free Tools Site
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

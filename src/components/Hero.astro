@@ -22,6 +22,13 @@ const newsletter = lang === 'zh-TW' ? {
 // Products data
 const products = lang === 'zh-TW' ? [
   {
+    name: 'NeatToolkit',
+    description: '免費線上工具站。圖片去背、影片壓縮、YouTube 字幕下載，不用註冊，打開就用。',
+    href: '/zh-TW/products/neatoolkit',
+    image: '/images/blog/neatoolkit-launch.webp',
+    badge: '新品',
+  },
+  {
     name: 'AI Resume Advisor',
     description: 'AI 驅動的履歷分析工具，幫助你打造更具競爭力的履歷。',
     href: '/zh-TW/products/ai-resume-advisor',
@@ -33,9 +40,16 @@ const products = lang === 'zh-TW' ? [
     description: 'Chrome Extension，一鍵分析你與 LinkedIn 職缺的匹配度。',
     href: '/zh-TW/products/linkedin-resume-checker',
     image: '/images/products/linkedin-resume-checker.webp',
-    badge: '新品',
+    badge: '熱門',
   },
 ] : [
+  {
+    name: 'NeatToolkit',
+    description: 'Free online tools. Background removal, video compression, YouTube subtitle download. No signup required.',
+    href: '/en/products/neatoolkit',
+    image: '/images/blog/neatoolkit-launch.webp',
+    badge: 'New',
+  },
   {
     name: 'AI Resume Advisor',
     description: 'AI-powered resume analysis tool that helps you craft more competitive resumes.',
@@ -48,7 +62,7 @@ const products = lang === 'zh-TW' ? [
     description: 'Chrome Extension that analyzes your match with LinkedIn job postings in one click.',
     href: '/en/products/linkedin-resume-checker',
     image: '/images/products/linkedin-resume-checker.webp',
-    badge: 'New',
+    badge: 'Popular',
   },
 ];
 
@@ -162,7 +176,7 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
         </h2>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 md:gap-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
         {products.map((product) => (
           <a
             href={product.href}
@@ -177,9 +191,11 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="eager"
               />
-              <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
-                {product.badge}
-              </span>
+              {product.badge && (
+                <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
+                  {product.badge}
+                </span>
+              )}
             </div>
 
             <div class="p-5 md:p-6">
