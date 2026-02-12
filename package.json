@@ -4,13 +4,16 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "prebuild": "node scripts/generate-redirects.js",
+    "build": "npm run prebuild && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
-    "astro": "^5.16.6"
+    "astro": "^5.16.6",
+    "playwright": "^1.58.2",
+    "rehype-mermaid": "^3.0.0"
   },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.13",
