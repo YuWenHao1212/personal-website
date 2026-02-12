@@ -23,8 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# Serena MCP memories (local only)
-.serena/memories/
+# Serena MCP (local only)
+.serena/
 
 # Original source images (use optimized webp versions instead)
 public/*.jpg
