@@ -7,8 +7,8 @@ import { useTranslations } from '../../../i18n/utils';
 
 const t = useTranslations('en');
 
-// Get all posts for en
-const allPosts = await getCollection('blog', ({ data }) => data.lang === 'en');
+// Get all posts for en (exclude drafts)
+const allPosts = await getCollection('blog', ({ data }) => data.lang === 'en' && data.draft !== true);
 
 // Sort by date (newest first), featured posts first
 const sortedPosts = allPosts.sort((a, b) => {

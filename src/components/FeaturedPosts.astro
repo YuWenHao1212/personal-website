@@ -13,8 +13,8 @@ const { limit = 4 } = Astro.props;
 const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
 
-// Get all blog posts for current language
-const allPosts = await getCollection('blog', ({ data }) => data.lang === lang);
+// Get all blog posts for current language (exclude drafts)
+const allPosts = await getCollection('blog', ({ data }) => data.lang === lang && data.draft !== true);
 
 // Sort: featured first, then by date
 const sortedPosts = allPosts.sort((a, b) => {
