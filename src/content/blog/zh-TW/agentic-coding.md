@@ -1,7 +1,7 @@
 ---
 title: "Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化"
 description: "Agentic Coding 是什麼？和 Vibe Coding 差在哪？從 Karpathy 一則推文開始，AI 寫程式一年內從「憑感覺」進化到「指揮 AI 團隊交付產品」。一個 PM 的實戰觀點。"
-pubDate: 2026-02-11
+pubDate: 2026-02-13
 category: building-products
 tags: ["AI", "一人公司", "Claude Code", "agentic coding", "agentic engineering", "vibe coding", "developer-tools"]
 lang: zh-TW

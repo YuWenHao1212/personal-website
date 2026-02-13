@@ -1,7 +1,7 @@
 ---
 title: "Agentic Coding: One Year from Vibes to Agentic Engineering"
 description: "What is agentic coding? How is it different from vibe coding? In one year, AI coding evolved from 'go with the vibes' to 'lead an AI engineering team.' A PM's firsthand perspective."
-pubDate: 2026-02-11
+pubDate: 2026-02-13
 category: building-products
 tags: ["AI", "solo founder", "Claude Code", "agentic coding", "agentic engineering", "vibe coding", "developer-tools"]
 lang: en
