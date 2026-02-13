@@ -10,7 +10,7 @@ draft: false
 featured: true
 heroImage: /images/blog/agentic-coding.webp
 focus_keyphrase: "agentic coding"
-relatedPosts: ["claude-code-tutorial.md", "nocode-to-ai-coding.md"]
+relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "nocode-to-ai-coding.md"]
 faq:
   - question: "Agentic Coding 是什麼？"
     answer: "人定方向，AI 團隊執行。你設定目標，多個 AI Agent 自主分工——一個寫前端、一個寫後端、一個跑測試，像帶一個工程團隊。但能力愈大，方向錯了代價也愈高，所以重點不是讓 AI 跑得快，而是確保它們跑對方向。Karpathy 稱之為 Agentic Engineering——engineering 這個字就是重點：用工程思維建立人機協作的工作流，讓一個人指揮一整個 AI 團隊交付產品。"

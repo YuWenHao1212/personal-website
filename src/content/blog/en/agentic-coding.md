@@ -10,7 +10,7 @@ draft: false
 featured: true
 heroImage: /images/blog/agentic-coding.webp
 focus_keyphrase: "agentic coding"
-relatedPosts: ["claude-code-tutorial.md", "nocode-to-ai-coding.md"]
+relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "nocode-to-ai-coding.md"]
 faq:
   - question: "What is agentic coding?"
     answer: "Humans set direction, AI teams execute. You define the goal, and multiple AI agents divide the work autonomously — one handles frontend, another backend, another runs tests — like managing an engineering team. But the greater the capability, the higher the cost of a wrong direction. The point isn't making AI move fast; it's making sure it moves in the right direction. Karpathy calls this Agentic Engineering — the word 'engineering' is key: applying engineering discipline to build human-AI workflows that let one person lead an entire AI team to ship products."
