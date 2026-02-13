@@ -1,8 +1,8 @@
 {
-  "trailingSlash": "auto",
+  "trailingSlash": "always",
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/api/*", "/data/*", "*.xml", "*.json", "*.txt"]
+    "exclude": ["/api/*", "/data/*", "/images/*", "*.xml", "*.json", "*.txt", "*.webp", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.svg", "*.ico", "*.woff2", "*.woff", "*.css", "*.js"]
   },
   "routes": [
     {
@@ -510,14 +510,6 @@
       "route": "/en/*",
       "headers": {
         "content-language": "en"
-      }
-    },
-
-    {
-      "route": "/images/*",
-      "headers": {
-        "X-Frame-Options": "",
-        "Content-Security-Policy": ""
       }
     }
   ],
