@@ -8,7 +8,7 @@ import { useTranslations } from '../../../i18n/utils';
 const t = useTranslations('zh-TW');
 
 // Get all posts for zh-TW (exclude drafts)
-const allPosts = await getCollection('blog', ({ data }) => data.lang === 'zh-TW' && data.draft !== true);
+const allPosts = await getCollection('blog', ({ data }) => data.lang === 'zh-TW' && (import.meta.env.DEV || data.draft !== true));
 
 // Sort by date (newest first), featured posts first
 const sortedPosts = allPosts.sort((a, b) => {
