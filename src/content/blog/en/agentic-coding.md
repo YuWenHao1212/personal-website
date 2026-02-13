@@ -195,4 +195,6 @@ This loop applies to every aspect of life. Coding is just the starting point.
 
 From 2021's autocomplete, to 2023's chat, to 2025's agents. In four years, AI coding evolved from "guessing your next line" to "you state the goal, it figures out the rest."
 
-And this is just the beginning.
+AI has already changed so much in just one year.
+
+What will it look like a year from now?
