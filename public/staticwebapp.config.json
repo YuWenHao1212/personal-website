@@ -519,6 +519,13 @@
       "headers": {
         "content-language": "en"
       }
+    },
+    {
+      "route": "/images/*",
+      "headers": {
+        "X-Frame-Options": "",
+        "Content-Security-Policy": ""
+      }
     }
   ],
   "responseOverrides": {
