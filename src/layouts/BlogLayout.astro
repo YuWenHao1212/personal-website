@@ -120,6 +120,21 @@ function formatDate(date: Date): string {
         </p>
       )}
 
+      <!-- FAQ -->
+      {faq && faq.length > 0 && (
+        <div class="mt-10 md:mt-12 pt-8 border-t border-cream-200">
+          <h2 class="text-xl md:text-2xl font-bold text-ink-900 mb-6">FAQ</h2>
+          <dl class="space-y-6">
+            {faq.map((item) => (
+              <div>
+                <dt class="text-base md:text-lg font-semibold text-ink-800 mb-2">{item.question}</dt>
+                <dd class="text-ink-600 leading-relaxed">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+
       <!-- Related Posts -->
       <RelatedPosts currentPost={post} />
 

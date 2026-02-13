@@ -4,6 +4,19 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import rehypeMermaid from 'rehype-mermaid';
+import { visit } from 'unist-util-visit';
+
+// All links in blog content open in new tab to avoid interrupting reading
+function rehypeAllLinksNewTab() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'a' && node.properties?.href) {
+        node.properties.target = '_blank';
+        node.properties.rel = 'noopener noreferrer';
+      }
+    });
+  };
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +26,7 @@ export default defineConfig({
       excludeLangs: ['mermaid'],
     },
     rehypePlugins: [
+      rehypeAllLinksNewTab,
       [rehypeMermaid, {
         strategy: 'img-svg',
         mermaidConfig: {

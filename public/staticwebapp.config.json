@@ -303,6 +303,11 @@
       "redirect": "/zh-TW/blog/roam-research-to-obsidian",
       "statusCode": 301
     },
+    {
+      "route": "/blog/agentic-coding",
+      "redirect": "/zh-TW/blog/agentic-coding",
+      "statusCode": 301
+    },
 
     {
       "route": "/blog/*",
