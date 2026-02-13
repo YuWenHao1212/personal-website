@@ -36,8 +36,7 @@ const lang = getLangFromUrl(Astro.url);
 const alternateLang = lang === 'zh-TW' ? 'en' : 'zh-TW';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const alternateURL = new URL(getAlternatePath(Astro.url), Astro.site);
-const ogImagePath = image.replace(/\.webp$/, '.jpg');
-const ogImage = new URL(ogImagePath, Astro.site);
+const ogImage = new URL(image, Astro.site);
 
 const siteName = 'WenHao Yu';
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
