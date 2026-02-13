@@ -198,3 +198,7 @@ From 2021's autocomplete, to 2023's chat, to 2025's agents. In four years, AI co
 AI has already changed so much in just one year.
 
 What will it look like a year from now?
+
+---
+
+*If you're interested in AI workflows, solo development, and building products with AI — I share hands-on lessons regularly. [Subscribe to my newsletter](/en/)*
