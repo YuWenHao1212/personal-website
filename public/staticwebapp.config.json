@@ -1,8 +1,26 @@
 {
-  "trailingSlash": "always",
+  "trailingSlash": "auto",
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/api/*", "/data/*", "/images/*", "*.xml", "*.json", "*.txt", "*.webp", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.svg", "*.ico", "*.woff2", "*.woff", "*.css", "*.js"]
+    "exclude": [
+      "/api/*",
+      "/data/*",
+      "/images/*",
+      "*.xml",
+      "*.json",
+      "*.txt",
+      "*.webp",
+      "*.jpg",
+      "*.jpeg",
+      "*.png",
+      "*.gif",
+      "*.svg",
+      "*.ico",
+      "*.woff2",
+      "*.woff",
+      "*.css",
+      "*.js"
+    ]
   },
   "routes": [
     {
@@ -10,25 +28,24 @@
       "redirect": "/zh-TW/",
       "statusCode": 301
     },
-
     {
       "route": "/blog/bubble-three-core-elements-todo-app-tutorial",
-      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial",
+      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial/",
       "statusCode": 301
     },
     {
       "route": "/zh-TW/blog/bubble-three-core-elements-todo-app-tutorial",
-      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial",
+      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial/",
       "statusCode": 301
     },
     {
       "route": "/blog/6f-product-priority-",
-      "redirect": "/zh-TW/blog/6f-product-priority-method",
+      "redirect": "/zh-TW/blog/6f-product-priority-method/",
       "statusCode": 301
     },
     {
       "route": "/zh-TW/blog/free-azure-",
-      "redirect": "/zh-TW/blog/free-azure-startup-credits",
+      "redirect": "/zh-TW/blog/free-azure-startup-credits/",
       "statusCode": 301
     },
     {
@@ -61,333 +78,329 @@
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
     },
-
     {
       "route": "/blog",
-      "redirect": "/zh-TW/blog",
+      "redirect": "/zh-TW/blog/",
       "statusCode": 301
     },
-
     {
       "route": "/blog/10-tricks-of-quotation",
-      "redirect": "/zh-TW/blog/10-tricks-of-quotation",
+      "redirect": "/zh-TW/blog/10-tricks-of-quotation/",
       "statusCode": 301
     },
     {
       "route": "/blog/2025-nocode-vs-ai-comparison",
-      "redirect": "/zh-TW/blog/2025-nocode-vs-ai-comparison",
+      "redirect": "/zh-TW/blog/2025-nocode-vs-ai-comparison/",
       "statusCode": 301
     },
     {
       "route": "/blog/6f-product-priority-method",
-      "redirect": "/zh-TW/blog/6f-product-priority-method",
+      "redirect": "/zh-TW/blog/6f-product-priority-method/",
       "statusCode": 301
     },
     {
       "route": "/blog/7-things-i-learn-2020",
-      "redirect": "/zh-TW/blog/7-things-i-learn-2020",
+      "redirect": "/zh-TW/blog/7-things-i-learn-2020/",
       "statusCode": 301
     },
     {
       "route": "/blog/api-building",
-      "redirect": "/zh-TW/blog/api-building",
+      "redirect": "/zh-TW/blog/api-building/",
       "statusCode": 301
     },
     {
       "route": "/blog/aws-hackathon-notes-2025",
-      "redirect": "/zh-TW/blog/aws-hackathon-notes-2025",
+      "redirect": "/zh-TW/blog/aws-hackathon-notes-2025/",
       "statusCode": 301
     },
     {
       "route": "/blog/bubble-dynamic-data",
-      "redirect": "/zh-TW/blog/bubble-dynamic-data",
+      "redirect": "/zh-TW/blog/bubble-dynamic-data/",
       "statusCode": 301
     },
     {
       "route": "/blog/courage-to-be-disliked",
-      "redirect": "/zh-TW/blog/courage-to-be-disliked",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked/",
       "statusCode": 301
     },
     {
       "route": "/blog/courage-to-be-disliked-2",
-      "redirect": "/zh-TW/blog/courage-to-be-disliked-2",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked-2/",
       "statusCode": 301
     },
     {
       "route": "/blog/coursera-learning-platform-complete-guide-2025",
-      "redirect": "/zh-TW/blog/coursera-learning-platform-complete-guide-2025",
+      "redirect": "/zh-TW/blog/coursera-learning-platform-complete-guide-2025/",
       "statusCode": 301
     },
     {
       "route": "/blog/coursera-trigger-my-career",
-      "redirect": "/zh-TW/blog/coursera-trigger-my-career",
+      "redirect": "/zh-TW/blog/coursera-trigger-my-career/",
       "statusCode": 301
     },
     {
       "route": "/blog/free-azure-startup-credits",
-      "redirect": "/zh-TW/blog/free-azure-startup-credits",
+      "redirect": "/zh-TW/blog/free-azure-startup-credits/",
       "statusCode": 301
     },
     {
       "route": "/blog/jira",
-      "redirect": "/zh-TW/blog/jira",
+      "redirect": "/zh-TW/blog/jira/",
       "statusCode": 301
     },
     {
       "route": "/blog/minerva-graduation",
-      "redirect": "/zh-TW/blog/minerva-graduation",
+      "redirect": "/zh-TW/blog/minerva-graduation/",
       "statusCode": 301
     },
     {
       "route": "/blog/minerva-mda-growth",
-      "redirect": "/zh-TW/blog/minerva-mda-growth",
+      "redirect": "/zh-TW/blog/minerva-mda-growth/",
       "statusCode": 301
     },
     {
       "route": "/blog/mymind-and-roam-research",
-      "redirect": "/zh-TW/blog/mymind-and-roam-research",
+      "redirect": "/zh-TW/blog/mymind-and-roam-research/",
       "statusCode": 301
     },
     {
       "route": "/blog/no-code-app-positioning-guide",
-      "redirect": "/zh-TW/blog/no-code-app-positioning-guide",
+      "redirect": "/zh-TW/blog/no-code-app-positioning-guide/",
       "statusCode": 301
     },
     {
       "route": "/blog/no-code-bubble-complete-beginners-tutorial",
-      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial",
+      "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial/",
       "statusCode": 301
     },
     {
       "route": "/blog/no-code-development-mindset-three-elements",
-      "redirect": "/zh-TW/blog/no-code-development-mindset-three-elements",
+      "redirect": "/zh-TW/blog/no-code-development-mindset-three-elements/",
       "statusCode": 301
     },
     {
       "route": "/blog/nocode-to-ai-coding",
-      "redirect": "/zh-TW/blog/nocode-to-ai-coding",
+      "redirect": "/zh-TW/blog/nocode-to-ai-coding/",
       "statusCode": 301
     },
     {
       "route": "/blog/otter",
-      "redirect": "/zh-TW/blog/otter",
+      "redirect": "/zh-TW/blog/otter/",
       "statusCode": 301
     },
     {
       "route": "/blog/outsource-by-fiverr",
-      "redirect": "/zh-TW/blog/outsource-by-fiverr",
+      "redirect": "/zh-TW/blog/outsource-by-fiverr/",
       "statusCode": 301
     },
     {
       "route": "/blog/persona-1000-users",
-      "redirect": "/zh-TW/blog/persona-1000-users",
+      "redirect": "/zh-TW/blog/persona-1000-users/",
       "statusCode": 301
     },
     {
       "route": "/blog/personal-panopticon",
-      "redirect": "/zh-TW/blog/personal-panopticon",
+      "redirect": "/zh-TW/blog/personal-panopticon/",
       "statusCode": 301
     },
     {
       "route": "/blog/plan-idea-by-miro",
-      "redirect": "/zh-TW/blog/plan-idea-by-miro",
+      "redirect": "/zh-TW/blog/plan-idea-by-miro/",
       "statusCode": 301
     },
     {
       "route": "/blog/project-cost-calculation",
-      "redirect": "/zh-TW/blog/project-cost-calculation",
+      "redirect": "/zh-TW/blog/project-cost-calculation/",
       "statusCode": 301
     },
     {
       "route": "/blog/readwise",
-      "redirect": "/zh-TW/blog/readwise",
+      "redirect": "/zh-TW/blog/readwise/",
       "statusCode": 301
     },
     {
       "route": "/blog/readwise-reader",
-      "redirect": "/zh-TW/blog/readwise-reader",
+      "redirect": "/zh-TW/blog/readwise-reader/",
       "statusCode": 301
     },
     {
       "route": "/blog/seeking_happiness",
-      "redirect": "/zh-TW/blog/seeking_happiness",
+      "redirect": "/zh-TW/blog/seeking_happiness/",
       "statusCode": 301
     },
     {
       "route": "/blog/talk-logically",
-      "redirect": "/zh-TW/blog/talk-logically",
+      "redirect": "/zh-TW/blog/talk-logically/",
       "statusCode": 301
     },
     {
       "route": "/blog/what-is-api",
-      "redirect": "/zh-TW/blog/what-is-api",
+      "redirect": "/zh-TW/blog/what-is-api/",
       "statusCode": 301
     },
     {
       "route": "/blog/ynab",
-      "redirect": "/zh-TW/blog/ynab",
+      "redirect": "/zh-TW/blog/ynab/",
       "statusCode": 301
     },
     {
       "route": "/blog/卡片盒筆記法",
-      "redirect": "/zh-TW/blog/卡片盒筆記法",
+      "redirect": "/zh-TW/blog/卡片盒筆記法/",
       "statusCode": 301
     },
     {
       "route": "/blog/數據分析師",
-      "redirect": "/zh-TW/blog/數據分析師",
+      "redirect": "/zh-TW/blog/數據分析師/",
       "statusCode": 301
     },
     {
       "route": "/blog/非暴力溝通",
-      "redirect": "/zh-TW/blog/非暴力溝通",
+      "redirect": "/zh-TW/blog/非暴力溝通/",
       "statusCode": 301
     },
     {
       "route": "/blog/12-week-year-guide",
-      "redirect": "/zh-TW/blog/12-week-year-guide",
+      "redirect": "/zh-TW/blog/12-week-year-guide/",
       "statusCode": 301
     },
     {
       "route": "/blog/2026-02-01-openclaw-deploy-cost-guide",
-      "redirect": "/zh-TW/blog/2026-02-01-openclaw-deploy-cost-guide",
+      "redirect": "/zh-TW/blog/2026-02-01-openclaw-deploy-cost-guide/",
       "statusCode": 301
     },
     {
       "route": "/blog/2026-02-04-is-openclaw-safe-security-guide",
-      "redirect": "/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide",
+      "redirect": "/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/",
       "statusCode": 301
     },
     {
       "route": "/blog/agentic-coding-guide",
-      "redirect": "/zh-TW/blog/agentic-coding-guide",
+      "redirect": "/zh-TW/blog/agentic-coding-guide/",
       "statusCode": 301
     },
     {
       "route": "/blog/agentic-coding-trends-2026",
-      "redirect": "/zh-TW/blog/agentic-coding-trends-2026",
+      "redirect": "/zh-TW/blog/agentic-coding-trends-2026/",
       "statusCode": 301
     },
     {
       "route": "/blog/agentic-coding-workflow",
-      "redirect": "/zh-TW/blog/agentic-coding-workflow",
+      "redirect": "/zh-TW/blog/agentic-coding-workflow/",
       "statusCode": 301
     },
     {
       "route": "/blog/ai-coding-arbitrage",
-      "redirect": "/zh-TW/blog/ai-coding-arbitrage",
+      "redirect": "/zh-TW/blog/ai-coding-arbitrage/",
       "statusCode": 301
     },
     {
       "route": "/blog/ai-goal-management-system",
-      "redirect": "/zh-TW/blog/ai-goal-management-system",
+      "redirect": "/zh-TW/blog/ai-goal-management-system/",
       "statusCode": 301
     },
     {
       "route": "/blog/claude-code-tutorial",
-      "redirect": "/zh-TW/blog/claude-code-tutorial",
+      "redirect": "/zh-TW/blog/claude-code-tutorial/",
       "statusCode": 301
     },
     {
       "route": "/blog/neatoolkit-launch",
-      "redirect": "/zh-TW/blog/neatoolkit-launch",
+      "redirect": "/zh-TW/blog/neatoolkit-launch/",
       "statusCode": 301
     },
     {
       "route": "/blog/openclaw-tools-skills-tutorial",
-      "redirect": "/zh-TW/blog/openclaw-tools-skills-tutorial",
+      "redirect": "/zh-TW/blog/openclaw-tools-skills-tutorial/",
       "statusCode": 301
     },
     {
       "route": "/blog/roam-research-to-obsidian",
-      "redirect": "/zh-TW/blog/roam-research-to-obsidian",
+      "redirect": "/zh-TW/blog/roam-research-to-obsidian/",
       "statusCode": 301
     },
     {
       "route": "/blog/agentic-coding",
-      "redirect": "/zh-TW/blog/agentic-coding",
+      "redirect": "/zh-TW/blog/agentic-coding/",
       "statusCode": 301
     },
-
     {
       "route": "/blog/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
     },
-
     {
       "route": "/courage-to-be-disliked",
-      "redirect": "/zh-TW/blog/courage-to-be-disliked",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked/",
       "statusCode": 301
     },
     {
       "route": "/courage-to-be-disliked-2",
-      "redirect": "/zh-TW/blog/courage-to-be-disliked-2",
+      "redirect": "/zh-TW/blog/courage-to-be-disliked-2/",
       "statusCode": 301
     },
     {
       "route": "/卡片盒筆記法",
-      "redirect": "/zh-TW/blog/卡片盒筆記法",
+      "redirect": "/zh-TW/blog/卡片盒筆記法/",
       "statusCode": 301
     },
     {
       "route": "/數據分析師",
-      "redirect": "/zh-TW/blog/數據分析師",
+      "redirect": "/zh-TW/blog/數據分析師/",
       "statusCode": 301
     },
     {
       "route": "/mymind-and-roam-research",
-      "redirect": "/zh-TW/blog/mymind-and-roam-research",
+      "redirect": "/zh-TW/blog/mymind-and-roam-research/",
       "statusCode": 301
     },
     {
       "route": "/plan-idea-by-miro",
-      "redirect": "/zh-TW/blog/plan-idea-by-miro",
+      "redirect": "/zh-TW/blog/plan-idea-by-miro/",
       "statusCode": 301
     },
     {
       "route": "/project-cost-calculation",
-      "redirect": "/zh-TW/blog/project-cost-calculation",
+      "redirect": "/zh-TW/blog/project-cost-calculation/",
       "statusCode": 301
     },
     {
       "route": "/seeking_happiness",
-      "redirect": "/zh-TW/blog/seeking_happiness",
+      "redirect": "/zh-TW/blog/seeking_happiness/",
       "statusCode": 301
     },
     {
       "route": "/readwise-reader",
-      "redirect": "/zh-TW/blog/readwise-reader",
+      "redirect": "/zh-TW/blog/readwise-reader/",
       "statusCode": 301
     },
     {
       "route": "/jira",
-      "redirect": "/zh-TW/blog/jira",
+      "redirect": "/zh-TW/blog/jira/",
       "statusCode": 301
     },
     {
       "route": "/otter",
-      "redirect": "/zh-TW/blog/otter",
+      "redirect": "/zh-TW/blog/otter/",
       "statusCode": 301
     },
     {
       "route": "/ynab",
-      "redirect": "/zh-TW/blog/ynab",
+      "redirect": "/zh-TW/blog/ynab/",
       "statusCode": 301
     },
     {
       "route": "/readwise",
-      "redirect": "/zh-TW/blog/readwise",
+      "redirect": "/zh-TW/blog/readwise/",
       "statusCode": 301
     },
     {
       "route": "/非暴力溝通",
-      "redirect": "/zh-TW/blog/非暴力溝通",
+      "redirect": "/zh-TW/blog/非暴力溝通/",
       "statusCode": 301
     },
     {
       "route": "/talk-logically",
-      "redirect": "/zh-TW/blog/talk-logically",
+      "redirect": "/zh-TW/blog/talk-logically/",
       "statusCode": 301
     },
     {
@@ -395,10 +408,9 @@
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
     },
-
     {
       "route": "/about/detail/*",
-      "redirect": "/zh-TW/about",
+      "redirect": "/zh-TW/about/",
       "statusCode": 301
     },
     {
@@ -436,7 +448,6 @@
       "redirect": "/zh-TW/rss.xml",
       "statusCode": 301
     },
-
     {
       "route": "/2022/*",
       "redirect": "/zh-TW/blog/",
@@ -457,18 +468,16 @@
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
     },
-
     {
       "route": "/about",
-      "redirect": "/zh-TW/about",
+      "redirect": "/zh-TW/about/",
       "statusCode": 301
     },
     {
       "route": "/contact",
-      "redirect": "/zh-TW/contact",
+      "redirect": "/zh-TW/contact/",
       "statusCode": 301
     },
-
     {
       "route": "/en/blog/no-code-bubble-complete-beginners-tutorial",
       "redirect": "/en/blog/",
@@ -499,7 +508,6 @@
       "redirect": "/en/blog/",
       "statusCode": 301
     },
-
     {
       "route": "/zh-TW/*",
       "headers": {

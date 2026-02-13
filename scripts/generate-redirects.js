@@ -55,7 +55,7 @@ function run() {
 
   const newRules = missingSlugs.map(slug => ({
     route: `/blog/${slug}`,
-    redirect: `/zh-TW/blog/${slug}`,
+    redirect: `/zh-TW/blog/${slug}/`,
     statusCode: 301
   }))
 
