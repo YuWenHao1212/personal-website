@@ -200,8 +200,6 @@ Vibe Coding 是好玩的週末專案。Agentic Engineering 是專業工作——
 
 ---
 
----
-
 ## 2026 工具比較
 
 ### 五大工具比較
