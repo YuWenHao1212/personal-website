@@ -1,6 +1,6 @@
 ---
-title: "Agentic Coding 完全指南：從 Vibe Coding 到 AI 自主開發"
-description: "Agentic Coding 是什麼？跟 Vibe Coding 差在哪？這篇完全指南涵蓋定義、工具比較、實戰工作流、Anthropic 2026 趨勢分析，以及如何開始。"
+title: "Agentic Coding 完全指南：定義、工具比較、實戰框架與入門路徑（2026）"
+description: "一篇涵蓋定義、Vibe Coding 差異比較、5 大工具實測、成熟度自評框架、入門檢查清單的完全指南。附 Anthropic 2026 趨勢重點與實戰經驗。"
 pubDate: 2026-02-11
 category: building-products
 tags: ["AI", "一人公司", "Claude Code", "agentic coding", "vibe coding", "developer-tools"]
@@ -9,372 +9,465 @@ translationKey: agentic-coding-guide
 featured: true
 draft: true
 heroImage: /images/blog/agentic-coding-guide.webp
-focus_keyphrase: "agentic coding"
+focus_keyphrase: "agentic coding 完全指南"
 relatedPosts: ["agentic-coding.md", "claude-code-tutorial.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 faq:
-  - question: "Agentic Coding 是什麼？"
-    answer: "Agentic Coding 是一種由 AI Agent 自主規劃、撰寫、測試和修復程式碼的開發方式。開發者設定目標和限制條件，Agent 獨立拆解任務、執行並透過推理-行動-驗證的迴圈持續迭代。"
-  - question: "Vibe Coding 和 Agentic Coding 有什麼差別？"
-    answer: "Vibe Coding 是對話式的 AI 輔助寫程式，開發者每一步都要引導。Agentic Coding 是目標導向的自主開發，AI Agent 獨立規劃和執行，人類的角色從指揮者轉為監督者。"
-  - question: "Agentic Coding 會取代工程師嗎？"
-    answer: "不會，但角色會改變。工程師從自己寫程式轉為指揮 AI Agent——更像指揮家而非演奏者。目前開發者有 60% 的工作使用 AI，但只有 0-20% 可以完全交給 AI。"
-  - question: "非工程師可以用 Agentic Coding 嗎？"
-    answer: "可以。Anthropic 報告顯示 Agentic Coding 正擴展到非技術團隊。Zapier 達成 89% 全公司 AI 採用率。但要上線的產品級應用，仍需要工程專業來把關品質和安全。"
+  - question: "不會寫程式也能開始 Agentic Coding 嗎？"
+    answer: "可以。本文的入門路徑就是為非工程師設計的——從寫 Intent Spec 開始，不需要自己寫程式碼。但要做好產品需要逐步學習架構思維和品質判斷。建議從 Vibe Coding 開始體驗，再升級到 Agentic Coding。"
+  - question: "Intent Spec 一定要用英文寫嗎？"
+    answer: "不用。用你最熟悉的語言寫就好，Agent 看得懂中文。重點是把目標、驗收標準、限制條件和不做的事寫清楚，語言不是障礙。"
+  - question: "Agentic Coding 每月要花多少錢？"
+    answer: "大部分工具每月 20 美元起。Claude Code、Cursor、Codex CLI 都在這個價位，GitHub Copilot 個人版 10 美元起。想先免費試，Antigravity 目前 Preview 免費、GitHub Copilot 有免費方案。"
+  - question: "CLAUDE.md 指令檔要寫多長？"
+    answer: "三行就能開始，官方建議不超過 300 行。判斷原則：對每一行問「拿掉這行，Agent 會出錯嗎？」不會就刪。檔案太長時，把特定主題的規則拆成獨立檔案，主檔案只放最重要的東西。"
+  - question: "怎麼確認 Agent 寫的程式碼沒問題？"
+    answer: "核心原則：給 Agent 驗證自己的方式。在 prompt 裡附上測試案例、預期輸出或截圖，讓它跑完自己確認。第二層：用獨立的 session 或 subagent 做 code review，不要讓同一個 Agent 批改自己的作業。第三層：自己用使用者角度操作一遍。如果你沒辦法驗證它，就不該上線。"
+  - question: "我已經在用 Vibe Coding 了，什麼時候該升級到 Agentic？"
+    answer: "五個信號中了三個就該升級：改 A 壞 B、不確定上次改了什麼、出問題只能整個重做、同樣的 bug 修了又出現、不敢碰別人（或三個月前自己）寫的程式碼。一句話：如果這個東西壞了會有人打電話給你，就該升級了。"
 ---
 
-60% 的開發者已經在用 AI 寫程式。但能完全把工作交給 AI 的比例？不到 20%。
+Vibe Coding 和 Agentic Coding 不是二選一。它們是產品不同階段該用的不同方法。
 
-這個落差，就是 Vibe Coding 和 Agentic Coding 之間的距離。
+這篇指南幫你搞清楚：你的產品在哪個階段、該用什麼方法、怎麼開始。附產品成熟度框架、工具比較表、可複製的模板和 checklist。想看這個領域怎麼演化到今天的故事版，請讀[這篇](/zh-TW/blog/agentic-coding/)。
 
-> 想看 AI 寫程式從自動補全到自主代理的完整故事？請看 [Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化](/zh-TW/blog/agentic-coding)——同一主題的敘事觀點版。
+**目錄**
 
-這篇指南涵蓋定義、比較、工作流、工具和趨勢——你需要了解的 Agentic Coding 全貌，以及如何開始。
+- [先搞清楚一件事：這不是二選一](#先搞清楚一件事這不是二選一)
+- [Vibe Coding 是什麼？](#vibe-coding-是什麼)
+- [Agentic Coding 是什麼？](#agentic-coding-是什麼)
+- [Vibe vs Agentic：什麼階段用什麼方法](#vibe-coding-vs-agentic-coding什麼階段用什麼方法)
+- [2026 工具比較](#2026-工具比較)
+- [如何開始](#如何開始你的-agentic-coding-之路)
+- [FAQ](#faq)
+
+---
+
+## 先搞清楚一件事：這不是二選一
+
+「Vibe Coding 和 Agentic Coding 哪個好？」
+
+錯誤的問題。這就像問 3D printer 和射出成型哪個好——答案取決於你的產品在什麼階段。
+
+我做了 10 年產品經理，最後幾年在車用電子。硬體產品有明確的成熟度階段，每個階段的製造方式和品質標準完全不同：
+
+| 產品階段 | 目的 | 製造方式 | 品質標準 |
+|---------|------|---------|---------|
+| Mockup | 對齊方向、給人看 | 3D printer | 外觀差不多就好 |
+| A sample | 驗證功能可行 | 小量手工 | 功能對就好 |
+| B sample | 驗證製程 | 接近量產製程 | 開始看精度、外觀瑕疵 |
+| PVT | 量產驗證 | 量產線試跑 | DPPM、返工率、監控全上 |
+| MP | 正式量產 | 量產線 | 全面品質管理 |
+
+沒有人會用射出成型做 mockup——開一套模具只為了做 20 個樣品？也沒有人會用 3D printer 量產——精度不夠、品質不可控、無法規模化。
+
+**不是哪個比較好，而是產品在那個階段，就該用那個階段的方法。**
+
+軟體開發一模一樣：
+
+| 軟體階段 | 對應硬體 | 開發方式 | 品質標準 |
+|---------|---------|---------|---------|
+| Demo / POC | Mockup | Vibe Coding | 能跑、能看就好 |
+| MVP | A/B sample | Vibe → Agentic 過渡 | 核心功能穩定 |
+| Production | PVT | Agentic Coding | 測試、安全、可維護 |
+| Scale | MP | Agentic Coding | CI/CD、監控、自動化品質閘門 |
+
+用 Vibe Coding 做 demo？完美。就像用 3D printer 做 mockup——快、便宜、夠用。
+
+用 Vibe Coding 做要上線收費的產品？就像用 3D printer 量產——品質不可控，出了問題沒辦法追蹤，也沒辦法系統性地改善。
+
+帶著這個框架，我們來看這兩種方法分別是什麼。
 
 ---
 
 ## Vibe Coding 是什麼？
 
-2025 年初，Andrej Karpathy 創造了「Vibe Coding」這個詞——憑感覺寫程式。你用自然語言描述想要什麼，AI 產出程式碼，看看能不能跑，不行就再描述一次。不看 diff、不讀程式碼。Accept All。
+2025 年初，Andrej Karpathy 創造了「Vibe Coding」——憑感覺寫程式。你用自然語言描述需求，AI 產出程式碼，跑跑看，能動就好。不看 diff、不讀程式碼、Accept All。
 
-這個詞迅速爆紅。Collins Dictionary 選它為 2025 年度詞彙。Y Combinator 2025 冬季班有 25% 的新創用 AI 生成了 95% 的程式碼。
+Collins Dictionary 選它為 2025 年度詞彙。Y Combinator 2025 冬季班有 25% 的新創用 AI 生成了 95% 的程式碼。
 
-但問題很快浮現。CSO Online 研究發現 5 個 AI 程式碼生成工具產出了 69 個安全漏洞。Wiz 報告顯示 20% 的 AI 生成應用有嚴重安全問題。
+Vibe Coding 是 demo 和 POC 階段的最佳工具。就像 3D printer 之於 mockup——速度快、門檻低、目的是對齊方向，不是交付產品。
 
-Vibe Coding 適合原型和週末 side project。在你在乎品質、安全和可維護性的場景，它力有未逮。
+### Vibe Coding 工作流
+
+```
+你描述需求（自然語言）
+  -> AI 生成程式碼
+  -> 跑跑看
+  -> 有錯？貼錯誤訊息回去
+  -> AI 再改一版
+  -> 重複直到能動
+```
+
+人類全程引導。每一步都需要你的輸入。
+
+### 為什麼 Vibe Coding 在它的階段很好用
+
+| 優勢 | 為什麼在 Demo/POC 階段是對的 |
+|------|--------------------------|
+| 極低門檻，非工程師也能用 | 方向對齊不需要工程專業 |
+| 原型速度極快（小時級） | Mockup 就是要快 |
+| 學習新技術的好方式 | 探索階段不需要完美 |
+| 做 demo 和 POC 很適合 | 這就是它設計來做的事 |
+
+### 為什麼不能拿它做量產
+
+跟 3D printer 一樣——超出它的設計用途，問題就會出現：
+
+| 硬體量產要求 | 軟體對應 | Vibe Coding 有嗎？ |
+|------------|---------|------------------|
+| DPPM 追蹤（不良率管控） | 測試覆蓋率、bug 追蹤 | 沒有 |
+| QC 站（進料 / 製程 / 出貨檢驗） | 自動測試、靜態分析、安全掃描 | 沒有 |
+| 返工流程（不良品怎麼修） | 版本控制、diff 審查、rollback | 幾乎沒有 |
+| 追溯機制（出問題查得到源頭） | Git 歷史、變更紀錄 | 沒有版控和文檔化習慣，出問題查不到源頭 |
+| SPC 製程監控 | 效能監控、錯誤率追蹤 | 沒有 |
+
+真實案例：[EnrichLead](https://ruinunes.com/vibe-coding-trap-ai-built-mvp/) 的創辦人公開宣稱產品 100% 由 Cursor AI 寫成、零手寫程式碼。上線兩天後被攻擊——API keys 暴露在前端、沒有認證機制、資料庫完全沒保護。最後關站。不是工具不好，是 mockup 階段的做法本來就沒有這些品質機制。
 
 ---
 
 ## Agentic Coding 是什麼？
 
-如果 Vibe Coding 是「用對話讓 AI 幫你寫程式」，Agentic Coding 就是「設定目標，讓 AI Agent 自主完成整個開發流程」。
+當你的產品準備從 POC 走向 production，你需要的不再是「能跑就好」，而是「可維護、安全、有測試」。這就是 Agentic Coding 的用途。
 
-差別不是程度，而是本質。
+如果 Vibe Coding 是 3D printer，Agentic Coding 就是量產線。量產線跟 3D printer 的差別不是機器比較貴，而是背後有一整套工程品質體系：
 
-想了解 AI 寫程式從自動補全到對話再到自主代理的三階段演化完整故事，請看 [Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化](/zh-TW/blog/agentic-coding)。
+| 硬體量產機制 | 軟體對應 |
+|---|---|
+| **BOM + 工程圖面**（定義要做什麼） | 需求文件、Intent Spec、Acceptance Criteria |
+| **SOP + 自動化產線**（做事方法一致、減少人工變異） | CLAUDE.md、開發規範、CI/CD pipeline |
+| **IQC / IPQC / OQC**（進料、製程、出貨檢驗） | 自動測試、靜態分析、安全掃描 |
+| **追溯 + 不良品處理 + 矯正預防**（出問題能查、能修、能防再犯） | Git 版本控制、bug tracking、更新規則避免再犯 |
+| **SPC 製程監控**（持續追蹤穩定度） | 效能監控、錯誤率追蹤、uptime dashboard |
 
-### Agentic Coding 的五大核心特徵
+Agentic Coding 就是把這套體系搬到軟體開發——而 AI Agent 是在這個體系裡幫你執行的角色。
 
-1. **目標導向**：你設定意圖，不是逐步指令
-2. **自主迴圈**：Agent 自行規劃、執行、驗證、修正
-3. **工具使用**：Agent 可以讀寫檔案、執行指令、呼叫 API、搜尋程式庫
-4. **多 Agent 協作**：複雜任務由多個專業 Agent 平行處理
-5. **人類監督**：Agent 知道什麼時候該停下來問你
+### 步驟沒變，人的角色變了
 
-### Agentic Coding 怎麼運作
+軟體開發的步驟沒有變——需求、設計、實作、測試、發布，從瀑布式到敏捷都一樣。變的是**人在每個步驟裡的角色**：
 
-```
-意圖（Intent）
-  -> 規格（驗收標準、限制條件）
-  -> 計畫（任務圖、風險標記）
-  -> 實作（程式碼變更）
-  -> 驗證（測試、lint、安全掃描）
-  -> 文件（changelog、runbook）
-  -> 審查（人工 + 自動化）
-  -> 發布
-  -> 監控
-  -> 迭代
-```
+| 開發階段 | 傳統開發 | Agentic Coding | 人的參與 |
+|---------|---------|---------------|---------|
+| **需求定義** | 人寫需求文件 | 人寫 Intent Spec | 高（這步沒變） |
+| **設計 / 計畫** | 人設計架構 | 人審核 Agent 的計畫 | 中（從設計者變審核者） |
+| **實作** | 人寫程式碼 | Agent 寫，人回答提問 | 低 |
+| **測試** | 人寫測試、人跑測試 | Agent 自動寫和跑測試 | 低（看結果就好） |
+| **審查** | 人逐行 code review | 人看 diff + Agent 標風險 | 中 |
+| **發布** | 人執行部署 | Agent 執行，人最終核准 | 低 |
 
-這個流程來自 Anthropic 2026 年官方報告，他們稱之為 **Agentic SDLC**——Agent 驅動的軟體開發生命週期。
+人的價值集中在**頭尾**——定義意圖和最終審查。中間的執行和驗證，交給 Agent。
 
-### Karpathy 的最新觀點：Agentic Engineering
+### Karpathy 的最新定義：Agentic Engineering
 
-2026 年 2 月 4 日，Karpathy 提出了進化版的概念：
+2026 年 2 月，Karpathy 自己升級了概念：
 
-> "Agentic"——因為 99% 的時間你不是自己寫程式碼，而是指揮 Agent 來寫，你負責監督。"Engineering"——強調這是一門有藝術、有科學、需要專業技能的工作。
+> "Agentic"——因為 99% 的時間你不是自己寫程式碼，而是指揮 Agent 來寫。"Engineering"——強調這是一門需要專業技能的工作。
 
-Vibe Coding 是好玩的週末拋棄式專案。Agentic Engineering 是專業工作——以監督者的角色指揮 Agent，獲得槓桿而不犧牲品質。
+Vibe Coding 是好玩的週末專案。Agentic Engineering 是專業工作——以監督者的角色指揮 Agent，獲得槓桿而不犧牲品質。
 
 ---
 
-## Vibe Coding vs Agentic Coding：完整比較
+## Vibe Coding vs Agentic Coding：什麼階段用什麼方法
 
-| 面向 | Vibe Coding | Agentic Coding |
-|------|-------------|----------------|
-| **本質** | 憑感覺的對話式 AI 寫程式 | 目標導向的自主代理 |
-| **人的角色** | 持續互動的指揮者 | 設定目標的監督者 |
-| **自主性** | 低：每一步都需要引導 | 高：自主拆解與執行 |
-| **工作流** | 看到 → 描述 → 跑 → 貼錯誤訊息 | 設目標 → Agent 規劃 → 自動執行 → 回報 |
-| **品質控制** | 「Accept All」，跳過 diff | Agent 自我測試、自我修正 |
-| **適合場景** | 原型、週末專案、學習 | 企業自動化、大型重構、產品開發 |
-| **代表工具** | Cursor Composer、Lovable、Bolt.new | Claude Code、Devin、SWE-agent |
-| **技術門檻** | 很低（非工程師也能用） | 中等（需要理解架構才能監督） |
+### 產品階段決策表
 
-### 什麼時候用哪個？
+回到產品成熟度的框架——你的產品在什麼階段，決定你該用什麼方法：
 
-**用 Vibe Coding 的時機：**
-- 快速驗證一個想法是否可行
-- 不需要長期維護的週末 side project
-- 學習新技術——先跑起來再說
-- 做 demo 或原型給人看
+| 你的產品在... | 用 | 品質標準 | 類比 |
+|-------------|-----|---------|------|
+| **想法驗證** | Vibe Coding | 能跑、能看就好 | 3D printer mockup |
+| **MVP 開發** | Vibe → Agentic 過渡 | 核心功能穩定 | A/B sample |
+| **上線產品** | Agentic Coding | 測試、安全、可維護 | PVT 量產驗證 |
+| **規模營運** | Agentic Coding | CI/CD、監控、自動化品質閘門 | MP 正式量產 |
 
-**用 Agentic Coding 的時機：**
-- 要上線的產品
-- 需要有測試、安全、可維護的程式碼
-- 大規模重構或技術債清理
-- 團隊協作的專案
-- 任何可能半夜三點叫你起來修 bug 的系統
+### 從 Vibe 升級到 Agentic：你需要加入什麼？
 
-### 我的實際經驗
+當你的產品從 mockup 走向 production，這些是你需要加進來的：
 
-兩種我都用。[個人網站](/)的小功能，我用 Vibe Coding——快速、直覺、夠用就好。但 [AIResumeAdvisor](https://airesumeadvisor.com)（SaaS 產品），我用 Agentic Coding——每個功能都經過規劃、測試、審查。
+| 你需要加入的 | 為什麼 |
+|---|---|
+| **需求與規格文件化** | Agent 需要明確的目標、驗收標準、測試規格和限制條件，才能交付正確的結果 |
+| **版本控制 + 分支策略** | 出問題能回溯、能 rollback |
+| **自動測試** | 不靠人眼驗證品質 |
+| **Diff 審查習慣** | 知道 Agent 改了什麼、為什麼改 |
+| **「設目標」取代「給步驟」** | 告訴 Agent「我要什麼」，不是「怎麼做」——讓 Agent 先出計畫，你審核計畫才讓它動手 |
+| **監控與日誌** | 上線後要知道東西有沒有壞——錯誤日誌、效能監控、uptime dashboard |
 
-差別在哪？用 Vibe Coding 做的東西，我不太敢讓別人用。用 Agentic Coding 做的東西，我有信心收費。
+### 經驗法則
 
-想看我的 PM 背景如何塑造 Agentic Coding 工作流的完整故事，請看 [Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化](/zh-TW/blog/agentic-coding)。
+**如果這個東西壞了會有人打電話給你，用 Agentic Coding。**
+
+如果這個東西只是讓大家看看方向對不對，Vibe Coding 就夠了——而且更快。
 
 ---
 
-## 我的 Agentic Coding 實戰工作流
+---
 
-我每天用 Claude Code 開發產品。流程已經穩定下來。
+## 2026 工具比較
 
-### 日常開發流程
+### 五大工具比較
 
+| 工具 | 支援的主要模型 | 月費起價 |
+|------|-------------|---------|
+| **Cursor** (Anysphere) | Claude、GPT (OpenAI)、Gemini | 20 美元/月起 |
+| **Antigravity** (Google) | Gemini 3 Pro、Claude Sonnet 4.5、GPT-OSS | 免費（Preview） |
+| **GitHub Copilot** (Microsoft) | Anthropic (Claude)、OpenAI、Google 等 | 免費起 |
+| **Claude Code** (Anthropic) | Claude Opus 4.6 / Sonnet | 20 美元/月起 |
+| **Codex CLI** (OpenAI) | GPT 系列 | 20 美元/月起 |
+
+選工具時，最重要的不是介面形式。大部分工具都同時提供圖形介面和命令列——Claude Code 有 CLI 也有 VS Code extension，Copilot 有 IDE 外掛也有終端機版本，Cursor 本身就是一個完整的 IDE。
+
+**真正決定工具上限的是背後的 LLM。** 模型的推理能力、上下文長度、程式碼理解深度，這些才決定 Agent 能做到什麼程度。同一個模型放在不同介面裡，能力是一樣的。所以上面的表格才把「支援的主要模型」放在第一欄。
+
+成本方面，大部分工具落在每月 10-20 美元起跳，差別在用量額度和進階功能。[Cursor](https://www.cursor.com/pricing) 分三檔（20/60/200 美元），[Claude Code](https://claude.com/pricing) 也分三檔（20/100/200 美元），[GitHub Copilot](https://github.com/features/copilot/plans) 個人版 10 美元起、企業版每人 19 美元。[Codex CLI](https://openai.com/codex/) 開源但需要 ChatGPT 訂閱（20 美元起）或 API 按量。[Antigravity](https://antigravity.google/pricing) 目前 Preview 免費但有週配額限制，正式版預期會推出付費方案。
+
+### 怎麼選？
+
+**先選模型，再選工具。** 你想用哪家的 LLM，就從那家的工具開始——Anthropic 的 Claude 選 Claude Code 或 Cursor，OpenAI 的 GPT 選 Codex CLI 或 Copilot，Google 的 Gemini 選 Antigravity。想要彈性切換模型，Cursor 和 Copilot 都支援多家。
+
+**再看預算。** 想先試水溫？Antigravity 免費 preview、GitHub Copilot 有免費方案。準備投入？大部分工具 20 美元/月就能開始。重度使用再考慮更高的方案。
+
+**最後看生態。** 團隊已經在用 VS Code + GitHub？Copilot 整合最無痛。偏好 Google 生態？Antigravity。
+
+**我的選擇：** 我用 Claude Code。原因很簡單——我重度使用 Anthropic 的模型，而企業在 coding 領域選擇 Claude 的可能性是 OpenAI 的 [2.3 倍](https://www.uncoveralpha.com/p/anthropics-claude-code-is-having)。不只 Claude Code，Cursor、GitHub Copilot、Antigravity 背後都支援 Claude 作為模型選項。既然決定用 Anthropic 的模型，沒有理由不選他們自家的工具。
+
+---
+
+## 如何開始你的 Agentic Coding 之路
+
+開始之前，先調整兩個心態：
+
+第一，Agentic Coding 的時間分配是 **80% 想 + 審查、20% 跟 Agent 溝通、0% 自己寫程式碼**——跟傳統開發的 80% 寫程式碼正好相反。
+
+第二，下面的練習會從很簡單的任務開始——簡單到做法跟 Vibe Coding 幾乎一樣。這是刻意的。我們先用小任務練習「設目標 → 審計畫 → 看結果」的流程。當你的專案變大、要上線給真的使用者用，你就需要刻意學習更多工程思維和工具——測試、版控、安全檢查——這些才是 Agentic Coding 跟 Vibe Coding 真正拉開差距的地方。
+
+四個步驟，從零開始。
+
+### Step 1：安裝工具
+
+回到上一節的建議：先選模型，再選工具。我用 Claude Code，寫過一篇 [Claude Code 教學：5 分鐘完成安裝與第一個任務](/zh-TW/blog/claude-code-tutorial/)。
+
+### Step 2：建立指令檔，讓 Agent 認識你的專案
+
+Agentic Coding 的效果取決於你給 Agent 多少上下文。最重要的設定：專案根目錄的**指令檔**——Claude Code 叫 CLAUDE.md，Cursor 叫 `.cursorrules`，概念一樣。
+
+把它想成新工程師的 onboarding 文件——你希望他第一天就知道的所有事情。
+
+不需要一次寫完。先寫三行就夠用了：
+
+**Day 1：三行就夠**
+
+```markdown
+# 我的小工具集
+
+## Rules（給 Agent 的規則）
+- 用台灣繁體中文和我溝通，技術名詞可以用英文
+- 每個工具用一個檔案完成，雙擊就能在瀏覽器打開
+- 不要用任何需要安裝的工具
 ```
-意圖（想做什麼）
-  -> 計畫（用 Plan Mode 設計方案）
-  -> Agent 執行（Agent 自主運作）
-  -> 審查（我看 diff）
-  -> 測試（Agent 跑測試，我驗證）
-  -> 合併（進主分支）
+
+就這樣。Agent 知道用什麼語言跟你溝通、東西要多簡單、什麼不能碰。
+
+**一週後：每次 Agent 犯錯，你加一條規則**
+
+比如 Agent 做出來的頁面在手機上跑版了、或是按鈕太小很難按，你就加一條：
+
+```markdown
+# 我的小工具集
+
+## Rules（給 Agent 的規則）
+- 用台灣繁體中文和我溝通，技術名詞可以用英文
+- 每個工具用一個檔案完成，雙擊就能在瀏覽器打開
+- 不要用任何需要安裝的工具
+- 手機上也要能正常使用，按鈕不能太小
+- 表單送出後要清空輸入欄位
+- 數字欄位只能輸入數字
 ```
 
-這不是理論，是我每天在做的事。
+每一條新增的規則，都是因為 Agent 犯了一次錯。**指令檔是活的，它會跟著你的經驗自然長大。** 當你的專案從小工具長成正式產品，這個檔案也會跟著長大——加入技術棧、指令、文件位置等更多細節。
 
-### 七階段工作流
+### Step 3：執行你的第一個 Agentic 任務
 
-更完整的版本，拆成七個階段：
+選一個小任務。不要一開始就挑戰大工程——從「做一個小工具頁面」開始。
 
-**階段 1：腦力激盪**
+關鍵心態：**告訴 Agent「我要什麼」，不是「怎麼做」。** Agent 的產出品質，直接取決於你定義目標的品質。
 
-先想清楚要做什麼。不要急著寫程式碼。用對話釐清需求、探索可能的方案、確認技術限制。
+我每天都用一種叫 **Intent Spec** 的格式來描述任務。它有四個區塊：
 
-**階段 2：Worktree**
+- **Goal**——你要什麼（結果，不是步驟）
+- **Acceptance Criteria**——怎樣算做完（可以打勾的清單）
+- **Constraints**——有什麼限制
+- **Non-goals**——明確不要什麼（防止 Agent 自作主張多做）
 
-用 Git Worktree 建立隔離的工作空間。就算 Agent 搞壞了什麼，也不會影響主分支。一個功能一個 worktree，乾淨隔離。
+直接看範例——做一個個人記帳頁面：
 
-**階段 3：計畫**
+```markdown
+## Goal
+做一個個人記帳頁面。使用者可以輸入每筆花費（品項 + 金額），
+頁面即時顯示所有紀錄和總金額。
 
-進入 Plan Mode。Agent 分析程式庫、理解現有架構，提出實作計畫。我審核計畫、確認方向後才開始。
+## Acceptance Criteria
+- [ ] 頁面有一個表單：品項（文字）和金額（數字）兩個欄位
+- [ ] 按下「新增」後，紀錄出現在下方列表
+- [ ] 列表顯示每筆的品項、金額
+- [ ] 頁面底部即時顯示總金額
+- [ ] 每筆紀錄有「刪除」按鈕
+- [ ] 一個檔案搞定，不需要安裝任何東西
 
-這一步是整個流程中最重要的。計畫錯了，後面再快都是白做。
+## Constraints
+- 只用一個檔案完成，雙擊就能在瀏覽器打開
+- 不要用任何需要安裝的工具
+- 在手機上也要能正常使用
 
-**階段 4：執行**
+## Non-goals
+- 不需要記住資料（重新整理頁面會清空，沒關係）
+- 不需要分類或圖表
+- 不需要支援不同貨幣
+```
 
-Agent 按計畫執行。寫程式碼、建檔案、改設定。這個階段 Agent 有很大的自主權，但遇到模糊的地方會暫停來問我。
+注意這個 spec 在做什麼——它只描述**用起來是什麼感覺**（輸入花費、看到列表、總額會更新），完全沒說要怎麼做。Agent 會自己決定技術細節。你只管結果對不對。
 
-**階段 5：TDD（測試驅動開發）**
+你把這段 Intent Spec 直接貼給 Agent，但先別讓它動手做——先叫它出計畫。在 Intent Spec 最後加一句：「先給我計畫，不要直接寫。」流程：
+1. 把 Intent Spec 貼給 Agent，結尾加上「先給我計畫，不要直接寫」
+2. Agent 會列出它打算怎麼做——用什麼結構、分幾個部分
+3. 你看一下：方向對嗎？有沒有多做或少做？
+4. 沒問題就回覆「OK，開始做」
+5. Agent 會開始寫程式，完成後告訴你檔案在哪
+6. 打開做好的檔案，輸入幾筆花費試試看
 
-寫測試、跑測試、修失敗的測試。Agent 自己跑這個迴圈，直到所有測試通過。
+### Step 4：建立肌肉記憶
 
-**階段 6：審查**
+第一次可能覺得寫 Intent Spec、看計畫很麻煩——直接跟 Agent 說「幫我做一個記帳頁面」不是更快嗎？
 
-我審查所有變更。看 diff、驗邏輯、檢查安全。有問題的話 Agent 修完再送。
+更快，但 Agent 做出來的東西可能不是你要的，然後你來回修改反而更久。Intent Spec 就是前面提到的**需求與規格文件化**——Agentic Coding 的第一步。把目標寫清楚，Agent 一次做對的機率高很多。
 
-**階段 7：收尾**
+記帳頁面只是練習。同一套迴圈可以處理更複雜的任務——串股市 API 把即時報價顯示在頁面上、做一個 Google 登入系統、建一個有資料庫的完整 Web App。任務越複雜，寫好 Intent Spec 省下的來回修改就越多。
 
-合併分支、清理 worktree、更新文件。完成。
 
-### 多 Agent 模式
+### Step 5：從 Vibe 跨到 Agentic
 
-複雜任務我會讓多個 Agent 平行工作。
+到 Step 4 為止，你做的事情跟 Vibe Coding 差別不大——唯一多的是 Intent Spec。現在要跨過那條線。
 
-例如重構一個模組：
-- Agent A 負責寫新實作
-- Agent B 負責寫測試
-- Agent C 負責更新文件
+假設你決定做一個自己的個人網站——有首頁、關於我、作品集、部落格。這不是做完就丟的小工具，而是要上線給別人看、會一直改的東西：
 
-三個 Agent 獨立工作，最後合併結果。這就是 Anthropic 報告說的 **Multi-Agent Systems**——57% 的組織已經在用這個模式。
+- 你會持續加文章、換作品、調風格
+- 改了作品集頁面，**首頁不能跟著壞掉**
+- 朋友傳了你的網址給別人，**打開不能是一片空白**
+- 三個月後你要改東西，**要記得當初為什麼這樣寫**
 
-### 一個關鍵的思維轉變
+記帳頁面壞了，重做就好。個人網站壞了，你的專業形象跟著壞。這就是為什麼你需要從 Vibe Coding 升級到 Agentic Coding。
 
-Agentic Coding 最重要的事：**你不是在寫程式碼，你是在定義和驗收交付物。**
+回到前面那張「從 Vibe 升級到 Agentic」的表，你已經完成了「需求與規格文件化」（Intent Spec）。接下來三件事：
 
-以前：80% 的時間寫程式碼，20% 想設計。
+**1. 版本控制——改壞了可以退回去**
 
-現在反過來。80% 的時間想要做什麼、怎麼驗證、限制條件是什麼。20% 的時間審查 Agent 的產出。
+跟 Agent 說：「幫我把這個專案用 Git 管理，每次改動都記錄下來。」
 
-寫程式碼的部分？Agent 做。
+你叫 Agent 改了部落格的排版，結果首頁跑版了？退回上一個版本就好，不用從頭再來。三個月後想改東西，可以看到每一次改動的紀錄——什麼時候改的、改了什麼、為什麼改。
 
----
+這就是前面提到的「追溯機制」。Vibe Coding 沒有這個，出問題只能憑記憶猜。
 
-## 2026 年 Agentic Coding 關鍵趨勢
+**2. 自動測試——確認舊功能沒壞**
 
-Anthropic 在 2026 年 1 月 21 日發布了 *2026 Agentic Coding 趨勢報告*——目前最全面的 Agentic Coding 產業分析。核心論點：軟體開發正在經歷自 GUI 以來最重大的轉型。
+跟 Agent 說：「幫網站寫測試：每個頁面都能正常打開、所有連結都能點到、圖片都能顯示。」
 
-以下是八大趨勢。
+你的網站有首頁、關於我、作品集、部落格，每篇文章又有自己的頁面——改了一個地方，要確認其他十幾個頁面都沒壞。手動點一輪要十分鐘，而且一定會漏。自動測試幾秒鐘跑完，每個頁面都檢查到。
 
-### 基礎建設
+以後每次改東西，Agent 先跑測試，全部通過才算完成。測試沒過？Agent 自己修，修到過為止。
 
-**趨勢 1：Agentic SDLC**——開發生命週期從傳統的循序移交轉為 Agent 驅動的流暢循環。Augment Code 幫助企業將 4-8 個月的專案壓縮到兩週。
+**3. Diff 審查——知道 Agent 改了什麼**
 
-**趨勢 2：多 Agent 系統**——單一 Agent 演化為協作團隊。57% 的組織已部署多步驟 Agent 工作流，使用分層編排架構——協調者 Agent 分配子任務給專家 Agent 平行執行。
+你叫 Agent 在作品集加一個新專案，完成後跟它說：「給我看你改了哪些地方。」
 
-**趨勢 3：長時間運行 Agent**——Agent 從分鐘級任務擴展到連續工作數天。Rakuten 工程師讓 Claude Code 在 1,250 萬行程式碼庫中自主工作 7 小時，達到 99.9% 準確率。
+Agent 會列出它動了哪些檔案、改了什麼。你要能判斷：它只動了作品集頁面嗎？還是不小心改到了首頁的導航列、或是部落格的樣式？
 
-### 能力擴展
+改一個地方卻影響了不相關的頁面——這是網站最常見的問題。Diff 審查讓你在上線前就抓到。
 
-**趨勢 4：規模化監督**——隨著 AI 生成的程式碼增加，人類無法逐行審查。解法：風險分層——低風險自動合併、中風險需人工核准、高風險需多人審查。開發者有 60% 的工作使用 AI，但只有 0-20% 可以完全委託。
+進階一步：你還可以跟 Agent 說「每次改完自動跑測試，測試過了才讓我看 diff」。這樣 Agent 交到你手上的已經是「至少沒有明顯問題」的版本，你只需要判斷方向對不對。
 
-**趨勢 5：新場域與新使用者**——Agentic Coding 擴展到 IDE 之外。Apple 的 Xcode 26.3 原生整合 Claude Agent SDK 和 OpenAI Codex。法律平台 Legora 讓律師不需要工程背景就能建立自動化工作流。
+這三件事加進來，你就不只是在「用 AI 做東西」，而是在「用工程方法管理 AI 做的東西」。這就是 Agentic Coding。
 
-### 產業影響
+同樣的工程實踐，放到更大的場景也一樣適用——串 API 的股市看板、有登入系統的記帳 App、甚至是收費的 SaaS 產品。專案越大，這些實踐省下的時間和避免的災難就越多。
 
-**趨勢 6：經濟效益與生產力**——約 27% 的 AI 輔助工作是「以前不會做的事」——修小問題、做錦上添花的工具、過去成本太高不值得做的探索性工作。TELUS 靠 13,000+ 客製 AI 方案節省了 50 萬+ 小時。
+### 熟練之後
 
-**趨勢 7：非技術使用案例**——Zapier 達到 89% 全公司 AI 採用率，部署了 800+ 內部 Agent。Anthropic 自己的法務團隊將行銷審查時間從 2-3 天縮短到 24 小時，全由律師操作。
+當基本迴圈穩定了，Agentic Coding 可以延伸到寫程式以外的事：
 
-**趨勢 8：安全優先架構**——Agentic Coding 讓能力普及化，但同樣的能力也能被攻擊者利用。安全必須從第一天就嵌入：最小權限存取、網路出口控制、密鑰衛生、策略即程式碼、不可變更的稽核日誌。
+**建立自己的 Skill——把流程和規則獨立出來**
 
-### 模型軍備競賽
+隨著你用越久，指令檔會越來越長——規則、SOP、不同任務的流程全擠在一個檔案裡，Agent 反而搞不清楚重點。這時候你會想把特定流程拆成獨立的 Skill：部署網站一套 SOP、寫部落格文章一套 SOP、跑測試一套 SOP。需要的時候才叫出來，指令檔保持乾淨。
 
-2026 年 2 月 5 日，Anthropic 發布 Claude Opus 4.6（Terminal-Bench 65.4%、100 萬 token 上下文視窗、Agent Teams），OpenAI 幾乎同步發布 GPT-5.3-Codex——顯示 Agentic Coding 的基礎設施正以前所未有的速度演進。
+**串接外部服務——讓 Agent 幫你做更多事**
 
-### 不能忽視的風險：技能退化
+Agent 不只能寫程式碼，還能串接你日常用的工具。例如：讓 Agent 讀你的 Google Calendar 自動整理今天的待辦、串股市 API 每天早上寄一封投資摘要到你的信箱、追蹤你關注的 KOL 有沒有發新內容然後整理成摘要。這些不是在寫產品，而是在用 Agentic Coding 打造你自己的自動化工作流。
 
-Anthropic 的研究發現，依賴 AI 助手的開發者在理解力測試中得分低了 **17%**。核心矛盾：當企業推動更多 AI 寫程式，如果人類技能因此退化，誰來驗證和除錯 AI 寫的程式碼？「監督者」的角色需要足夠的技術判斷力才能勝任。
+**串接你的數位筆記——讓 Agent 讀懂你的知識庫**
 
-### 市場數據一覽
+如果你用 Obsidian、Notion 或其他筆記工具，可以讓 Agent 存取你的筆記庫。這樣當你跟 Agent 討論一個新專案時，它能參考你之前寫的筆記、研究和想法——不用每次從零開始解釋背景。你的知識庫變成 Agent 的長期記憶。我自己就是這樣做的——[從 Roam Research 搬到 Obsidian](/zh-TW/blog/roam-research-to-obsidian/) 之後，Agent 可以直接讀我的筆記庫。
 
-| 指標 | 數據 |
-|------|------|
-| Claude Code 年營收 | ~11 億美元（上線不到一年） |
-| Claude Code 在 GitHub 公開 commit 佔比 | 4%，年底預估 20%+ |
-| Cursor 估值 | 293 億美元（100 萬+ DAU） |
-| Cursor 年營收 | 10 億美元（SaaS 史上最快） |
-| Devin (Cognition) 估值 | 102 億美元 |
-| Lovable 估值 | 66 億美元（8 個月達 1 億美元年營收） |
-| AI Agent 2030 年市場規模 | 526.2 億美元（CAGR 46.3%） |
-| GitHub Copilot 用戶數 | 2,000 萬+ |
+到這裡你手上有了完整的工具：產品階段框架幫你判斷該用什麼方法、Intent Spec 幫你定義目標、工程實踐幫你守住品質。剩下的就是做東西。
 
----
-
-## 如何開始 Agentic Coding
-
-### 第一步：選擇工具
-
-| 工具 | 類型 | 強項 | 最適合 |
-|------|------|------|--------|
-| **Claude Code** | CLI Agent | 最強 agentic 能力，Terminal-Bench 第一 | 偏好 CLI、進階開發者 |
-| **Cursor** | IDE（VS Code 分支）| 最佳編輯器體驗，100 萬 DAU | 偏好 GUI、日常開發 |
-| **GitHub Copilot** | IDE 擴充套件 | 最廣整合、2,000 萬用戶 | 已在用 VS Code 的團隊 |
-| **Devin** | 全自主 Agent | 可獨立完成完整任務 | 想最大程度委託的團隊 |
-| **Xcode + Claude** | IDE 整合 | 原生 Apple 生態支援 | iOS/macOS 開發者 |
-
-我用 Claude Code。原因很簡單：它的 agentic 能力目前最強，CLI 介面讓你對整個過程有完整的掌控和可見性。
-
--> 詳細的工具實測比較文章即將推出。
-
-### 第二步：建立環境
-
-Agentic Coding 的效果取決於你給 Agent 多少上下文。
-
-最重要的設定：**CLAUDE.md**（或你工具的對應設定檔）。
-
-這是放在專案根目錄的檔案，告訴 Agent 你的專案結構、技術棧、程式碼風格和工作流慣例。Agent 每次啟動都會讀這個檔案。
-
-把它想成你剛招的新工程師的 onboarding 文件。
-
-好的 CLAUDE.md 包含：
-- 專案結構和技術棧
-- 命名慣例和程式碼風格
-- 開發工作流（分支策略、commit 慣例）
-- 常用指令（build、test、deploy）
-- 重要的架構決策和限制
-
--> 完整的 CLAUDE.md 設定指南也即將推出。
-
-### 第三步：你的第一個 Agentic Workflow
-
-從小處開始。
-
-1. 在現有專案中找一個小改動（修 bug、加小功能）
-2. 不要告訴 Agent 怎麼做——描述你想達成什麼
-3. 讓 Agent 先做計畫，你審核計畫
-4. 計畫看起來沒問題，讓 Agent 執行
-5. 審查結果、跑測試
-
-第一次可能會覺得比自己做還慢。這很正常。
-
-重點不是速度，而是建立「設定目標 → Agent 規劃 → 執行 → 人類審查」的肌肉記憶。
-
-一旦這個迴圈建立起來，效率會複利成長。
-
--> 完整的步驟教學即將在實戰指南中推出。
+做著做著你會發現，同樣的迴圈——設定目標、讓 Agent 執行、審查結果、迭代改進——不只能用在寫程式。我用它[管理目標](/zh-TW/blog/ai-goal-management-system/)、管理知識、管理每天的工作流。寫程式只是起點。
 
 ---
 
 ## FAQ
 
-### Agentic Coding 會取代工程師嗎？
+### 不會寫程式也能開始 Agentic Coding 嗎？
 
-不會，但角色會改變。
+可以。這篇指南的入門路徑就是為非工程師設計的——從寫 Intent Spec 開始，你不需要自己寫任何程式碼。
 
-Anthropic 的報告很明確：工程價值正從「寫程式碼」轉向「架構設計、系統設計和策略決策」。更像指揮家而非演奏者。
+但要做出能上線的產品，你需要逐步學習工程思維——怎麼拆解需求、怎麼判斷架構合不合理、怎麼確保改了 A 不會壞 B。Agentic Coding 降低了「寫程式碼」的門檻，但提高了「管理程式碼」的要求。
 
-60% 的工作使用 AI，但只有 0-20% 可以完全委託。剩下的 80% 需要人類的監督、判斷和領域專業。
+建議路徑：先用 Vibe Coding 體驗 AI 寫程式 → 跟著本文的 Step 2-5 練習流程 → 在實作中逐步累積工程思維。
 
-被取代的不會是工程師，而是不用 AI 的工程師。
+### Intent Spec 一定要用英文寫嗎？
 
-### Vibe Coding 和 Agentic Coding 哪個好？
+不用。用你最熟悉的語言寫就好，Agent 看得懂中文。
 
-不是二選一。
+重點是把四個區塊寫清楚：目標、驗收標準、限制條件、不做的事。語言不是障礙，寫清楚才是。
 
-Vibe Coding 像開自排車——簡單、直覺、誰都能開。Agentic Coding 像有自動駕駛功能的手排車——控制更多，但你得知道什麼時候該介入。
+### Agentic Coding 每月要花多少錢？
 
-做原型？Vibe Coding。
-做產品？Agentic Coding。
+大部分工具每月 20 美元起。Claude Code、Cursor、Codex CLI 都在這個價位，GitHub Copilot 個人版 10 美元起。
 
-最強的開發者兩種都用，看情境切換。
+想先免費試？Antigravity 目前 Preview 免費、GitHub Copilot 有免費方案。先用免費的練習流程，確定適合自己再付費。
 
-### 非工程師可以用 Agentic Coding 嗎？
+### CLAUDE.md 指令檔要寫多長？
 
-可以，而且已經在發生了。
+三行就能開始。官方建議不超過 300 行——因為 Agent 每次啟動都會讀這個檔案，塞太多反而讓它抓不到重點。
 
-Anthropic 報告的趨勢 7 直接回答了這個問題。Zapier 的 89% 全公司 AI 採用包含非工程團隊。Anthropic 自己的法務團隊用 Claude Code 做了自助工具。
+判斷原則：對每一行問「拿掉這行，Agent 會出錯嗎？」不會就刪掉。
 
-但有個重要前提：**產品級應用仍需要工程專業來把關品質和安全。**
+演進路徑：
+- **剛開始**：3-10 行，語言偏好 + 基本規則
+- **用了一陣子**：30-60 行，踩過的坑都變成規則
+- **專案變大**：把特定主題的規則拆成獨立檔案（例如測試規則一個檔、部署規則一個檔），主檔案只放最核心的東西
 
-非工程師可以用 Agentic Coding 做內部工具和自動化。但要上線給使用者的產品，你需要有技術背景的人做品質保證。
+### 怎麼確認 Agent 寫的程式碼沒問題？
 
-### Agentic Coding 安全嗎？
+核心原則：**給 Agent 驗證自己的方式**——這是官方文件裡強調「最高槓桿」的一件事。
 
-Agent 的安全性取決於你給它的權限和監督。
+具體做法：
+- **在 prompt 裡附上成功標準**：測試案例、預期輸出、截圖。Agent 做完後自己跑驗證，通過才算完成。不要只說「寫一個登入功能」，要說「寫一個登入功能，測試案例：正確密碼回傳 true、錯誤密碼回傳 false、空白欄位顯示錯誤訊息，寫完跑測試」
+- **用獨立 session 做 code review**：不要讓寫程式碼的 Agent 批改自己的作業。開一個新 session 或用 subagent 審查，新的上下文不會偏袒自己剛寫的東西
+- **自己用使用者角度操作一遍**：打開做好的東西實際操作，這是最後一道防線
 
-Anthropic 報告的趨勢 8 列出了五個防護措施：
-1. 最小權限工具存取
-2. 網路出口控制
-3. 密鑰衛生（短期 token、遮蔽日誌）
-4. 策略即程式碼
-5. 不可變更的稽核日誌
+一句話：如果你沒辦法驗證它，就不該上線。
 
-此外，OWASP 已發布 LLM App Top 10，涵蓋 Agent 特有的威脅，包括提示注入、資料外洩和供應鏈攻擊。
+### 我已經在用 Vibe Coding 了，什麼時候該升級到 Agentic？
 
-安全不是二元選擇，而是需要持續投入的工程實踐。
+五個信號，中了三個就該升級：
 
----
+1. **改 A 壞 B**——改了一個頁面，另一個頁面莫名其妙壞了
+2. **失憶**——不確定上次改了什麼、改了哪裡
+3. **只能重做**——出問題的唯一解法是砍掉重來
+4. **同樣的 bug 修了又出現**——沒有測試攔住，每次都靠人眼發現
+5. **不敢碰**——三個月前的程式碼看不懂，怕一動全壞
 
-## 下一步：開始你的第一個 Agentic Workflow
+這些信號的共通點：缺乏工程體系。版本控制、自動測試、文件化——Agentic Coding 補的就是這些。
 
-看完這篇，建議的行動路徑：
-
-1. **安裝工具**：推薦從 [Claude Code](/zh-TW/blog/claude-code-tutorial) 開始——agentic 能力最完整
-2. **找一個小任務**：在現有專案中挑一個 bug 修復或小功能
-3. **練習「設定目標」而非「寫指令」**：告訴 Agent「我要這個按鈕點擊後顯示確認對話框」，而不是「請在 onClick handler 加 confirm()」
-4. **審查、審查、再審查**：看 diff、跑測試、理解 Agent 做了什麼
-
-Agentic Coding 的門檻不在技術，而在思維轉變——從「我寫程式碼」到「我定義和驗收交付物」。
+一句話：如果這個東西壞了會有人打電話給你，就該升級了。
 
 ---
 
-我相信在 AI 時代，一個人可以打造一間公司。我正在用自己的旅程證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做的都寫進我的電子報。[訂閱](/zh-TW/)跟著我一起走。
-
----
-
-## 延伸閱讀
-
-- [Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化](/zh-TW/blog/agentic-coding)——AI 寫程式演化的敘事觀點版
-- [Claude Code 教學：5 分鐘完成安裝與第一個任務](/zh-TW/blog/claude-code-tutorial)
-- [從 No-Code 到 AI 寫程式：一個 PM 的轉型](/zh-TW/blog/nocode-to-ai-coding)
-- [AI 寫程式套利：做以前做不到的事](/zh-TW/blog/ai-coding-arbitrage)
+*我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。[訂閱](/zh-TW/)，一起見證。*
