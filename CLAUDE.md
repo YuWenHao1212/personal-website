@@ -70,6 +70,32 @@ npm run preview  # Preview production build
 
 ---
 
+## Blog CTA Rules
+
+每篇 blog 結尾都要放 CTA，位於 `---` 分隔線之後，格式為 italic markdown（`*...*`）。中英文各一版，全站統一，不因文章主題改動措辭。
+
+### zh-TW（導向電子報）
+
+```markdown
+*我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。[訂閱](/zh-TW/)，一起見證。*
+```
+
+### EN（導向 LinkedIn）
+
+```markdown
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
+```
+
+### 注意事項
+
+- zh-TW 連結指向 `/zh-TW/`（首頁訂閱區塊）
+- EN 連結指向 LinkedIn profile（沒有英文電子報）
+- 不用 HTML `<a>` 標籤，一律用 markdown
+- CTA 前不加「延伸閱讀」或其他導言
+- 不需要手動寫「延伸閱讀」區塊，`relatedPosts` frontmatter 會自動處理
+
+---
+
 ## Reference
 
 可從 Landing Page 複用：
