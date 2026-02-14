@@ -7,7 +7,7 @@ tags: ["AI", "一人公司", "Claude Code", "agentic coding", "vibe coding", "de
 lang: zh-TW
 translationKey: agentic-coding-guide
 featured: true
-draft: true
+draft: false
 heroImage: /images/blog/agentic-coding-guide.webp
 focus_keyphrase: "agentic coding 完全指南"
 relatedPosts: ["agentic-coding.md", "claude-code-tutorial.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]

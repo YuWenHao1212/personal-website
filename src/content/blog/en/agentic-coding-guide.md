@@ -1,380 +1,477 @@
 ---
-title: "The Complete Guide to Agentic Coding: From Vibe Coding to Autonomous Development"
-description: "What is agentic coding? How is it different from vibe coding? This complete guide covers definitions, tool comparisons, real-world workflows, and Anthropic's 2026 trend analysis."
+title: "Agentic Coding: A Practical Guide to Tools, Workflows, and Getting Started (2026)"
+description: "A practical agentic coding guide: 5-tool comparison, product maturity framework, real workflows, and a step-by-step path from vibe coding to production."
 pubDate: 2026-02-11
 category: building-products
 tags: ["AI", "solo founder", "Claude Code", "agentic coding", "vibe coding", "developer-tools"]
 lang: en
 translationKey: agentic-coding-guide
 featured: true
-draft: true
+draft: false
 heroImage: /images/blog/agentic-coding-guide.webp
-focus_keyphrase: "agentic coding"
+focus_keyphrase: "agentic coding guide"
 relatedPosts: ["agentic-coding.md", "claude-code-tutorial.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 faq:
-  - question: "What is agentic coding?"
-    answer: "Agentic coding is a development approach where autonomous AI agents plan, write, test, and fix code. Developers set goals and constraints, and the agent independently breaks down tasks, executes them, and iterates through a reason-act-verify loop."
-  - question: "What is the difference between vibe coding and agentic coding?"
-    answer: "Vibe coding is conversational AI-assisted coding where developers guide every step. Agentic coding is goal-driven autonomous development where AI agents independently plan and execute, with humans shifting from director to supervisor."
-  - question: "Will agentic coding replace software engineers?"
-    answer: "No, but it will change the role. Engineers shift from writing code to orchestrating AI agents - more like a conductor than a performer. Currently, developers use AI in 60% of their work, but only 0-20% can be fully delegated."
-  - question: "Can non-engineers use agentic coding?"
-    answer: "Yes. Anthropic's report shows agentic coding expanding to non-technical teams. Zapier achieved 89% organization-wide AI adoption. However, production-grade applications still require engineering expertise for quality and security oversight."
+  - question: "Can non-engineers get started with agentic coding?"
+    answer: "Yes. The getting-started path in this guide is designed for non-engineers — you begin by writing an Intent Spec, not code. But shipping a production-grade product requires gradually learning architectural thinking and quality judgment. Start with vibe coding to get a feel for AI-assisted development, then upgrade to agentic coding."
+  - question: "Does the intent spec have to be in English?"
+    answer: "No. Write it in whatever language you're most comfortable with — AI agents understand most languages. What matters is clearly defining the goal, acceptance criteria, constraints, and non-goals. Clarity beats language choice."
+  - question: "How much does agentic coding cost per month?"
+    answer: "Most tools start at 20 USD/month. Claude Code, Cursor, and Codex CLI are all in that range. GitHub Copilot starts at 10 USD/month for individuals. Want to try free first? Antigravity is free during Preview, and GitHub Copilot has a free tier."
+  - question: "How long should CLAUDE.md be?"
+    answer: "Three lines is enough to start. The official recommendation is under 300 lines. The test for each line: 'If I remove this, will the agent make mistakes?' If not, delete it. When the file gets too long, split topic-specific rules into separate files and keep only the essentials in the main file."
+  - question: "How do I verify code an agent wrote?"
+    answer: "Core principle: give the agent a way to verify itself. Include test cases, expected outputs, or screenshots in your prompt so the agent can self-check. Second layer: use an independent session or sub-agent for code review — don't let the same agent grade its own homework. Third layer: manually test as a user. If you can't verify it, don't ship it."
+  - question: "When should I upgrade from vibe coding to agentic coding?"
+    answer: "Five signals — hit three and it's time: (1) changing A breaks B, (2) you can't remember what you changed last time, (3) when something breaks the only fix is starting over, (4) the same bug keeps coming back, (5) you're afraid to touch code from three months ago. One-liner: if it breaking means someone calls you, upgrade."
 ---
 
-60% of developers already use AI to write code. But the percentage who can fully hand off the work to AI? Under 20%.
+Vibe coding and agentic coding aren't either/or. They're different methods for different stages of your product.
 
-That gap is the distance between vibe coding and agentic coding.
+This guide helps you figure out where your product is, which method fits, and how to get started. It includes a product maturity framework, a tool comparison, copy-paste templates, and a step-by-step path. For the narrative version of how AI coding evolved to this point, read [From Vibes to Agents](/en/blog/agentic-coding/).
 
-> Looking for the story of how AI coding evolved from autocomplete to autonomous agents? Read [From Vibes to Agents: One Year of Agentic Coding](/en/blog/agentic-coding) — a narrative perspective on the same topic.
+**Table of Contents**
 
-This guide covers the definitions, comparisons, workflows, tools, and trends you need to understand agentic coding — and how to get started.
+- [First, Get This Straight: It's Not Either/Or](#first-get-this-straight-its-not-eitheror)
+- [What Is Vibe Coding?](#what-is-vibe-coding)
+- [What Is Agentic Coding?](#what-is-agentic-coding)
+- [Vibe vs Agentic: Which Method for Which Stage](#vibe-coding-vs-agentic-coding-which-method-for-which-stage)
+- [2026 Tool Comparison](#2026-tool-comparison)
+- [How to Get Started](#how-to-get-started-with-agentic-coding)
+- [FAQ](#faq)
+
+---
+
+## First, Get This Straight: It's Not Either/Or
+
+"Which is better — vibe coding or agentic coding?"
+
+Wrong question. That's like asking whether a 3D printer or injection molding is better — the answer depends on what stage your product is in.
+
+I spent ten years as a product manager—the last few in automotive electronics. Hardware products have clear maturity stages, and each stage demands different manufacturing methods and quality standards:
+
+| Product Stage | Purpose | Manufacturing Method | Quality Standard |
+|--------------|---------|---------------------|-----------------|
+| Mockup | Align direction, show people | 3D printer | Looks close enough |
+| A sample | Validate functionality | Small-batch handmade | Works correctly |
+| B sample | Validate manufacturing process | Near-production process | Precision, cosmetic defects matter |
+| PVT | Production validation | Production line trial | DPPM, rework rate, monitoring |
+| MP | Mass production | Full production line | Total quality management |
+
+Nobody uses injection molding for mockups—invest in tooling for just 20 samples? And nobody 3D-prints at scale — the precision isn't there, quality is uncontrollable, and it doesn't scale.
+
+**It's not about which is better. It's about using the right method for the right stage.**
+
+Software development works the same way:
+
+| Software Stage | Hardware Equivalent | Development Method | Quality Standard |
+|---------------|--------------------|--------------------|-----------------|
+| Demo / POC | Mockup | Vibe Coding | Runs and looks okay |
+| MVP | A/B sample | Vibe → Agentic transition | Core features stable |
+| Production | PVT | Agentic Coding | Tested, secure, maintainable |
+| Scale | MP | Agentic Coding | CI/CD, monitoring, automated quality gates |
+
+Using vibe coding for a demo? Perfect. Like 3D printing a mockup — fast, cheap, good enough.
+
+Using vibe coding for a paid product going live? Like 3D printing at production scale — quality is uncontrollable, problems are untraceable, and there's no systematic way to improve.
+
+With this framework in mind, let's look at what each method actually is.
 
 ---
 
 ## What Is Vibe Coding?
 
-In early 2025, Andrej Karpathy coined the term "vibe coding" — coding by feel. You describe what you want in natural language, AI generates the code, you check if it works, and if not, you describe it again. No diff reviews, no reading code. Accept All.
+In early 2025, Andrej Karpathy coined "vibe coding" — coding by feel. You describe what you want in natural language, AI generates code, you check if it works, and if not, describe it again. No diff reviews, no reading code. Accept All.
 
-It took off fast. Collins Dictionary named it the 2025 Word of the Year. 25% of Y Combinator's Winter 2025 batch used AI to generate 95% of their code.
+Collins Dictionary named it the 2025 Word of the Year. 25% of Y Combinator's Winter 2025 batch used AI to generate 95% of their code.
 
-But the cracks showed quickly. CSO Online research found that 5 AI code tools produced 69 security vulnerabilities. A Wiz report showed 20% of AI-generated apps had critical security issues.
+Vibe coding is the best tool for demos and POCs. Like a 3D printer for mockups — fast, low barrier, designed for alignment rather than delivery.
 
-Vibe coding works for prototypes and weekend projects. It falls short for anything you care about in terms of quality, security, and maintenance.
+### Vibe Coding Workflow
+
+```
+You describe what you want (natural language)
+  -> AI generates code
+  -> Run it
+  -> Error? Paste the error message back
+  -> AI revises
+  -> Repeat until it works
+```
+
+You guide every step. Every iteration needs your input.
+
+### Why Vibe Coding Works Great at Its Stage
+
+| Strength | Why It's Right for Demo/POC |
+|----------|---------------------------|
+| Extremely low barrier — non-engineers can use it | Direction alignment doesn't require engineering expertise |
+| Prototyping speed (hours) | Mockups need to be fast |
+| Great for learning new technologies | Exploration doesn't need perfection |
+| Perfect for demos and POCs | This is exactly what it's designed for |
+
+### Why You Can't Use It for Production
+
+Same as a 3D printer — push it beyond its design purpose and problems appear:
+
+| Hardware Production Requirement | Software Equivalent | Does Vibe Coding Have This? |
+|-------------------------------|--------------------|-----------------------------|
+| DPPM tracking (defect rate control) | Test coverage, bug tracking | No |
+| QC stations (incoming/in-process/outgoing inspection) | Automated tests, static analysis, security scans | No |
+| Rework process (how to fix defects) | Version control, diff review, rollback | Barely |
+| Traceability (trace problems to their source) | Git history, change logs | No version control habits, can't trace issues |
+| SPC process monitoring | Performance monitoring, error rate tracking | No |
+
+Real-world case: [EnrichLead](https://ruinunes.com/vibe-coding-trap-ai-built-mvp/)'s founder publicly claimed the product was 100% written by Cursor AI with zero manual code. Two days after launch, it was attacked — API keys exposed on the frontend, no authentication, database completely unprotected. They shut down. The tool wasn't the problem. Mockup-stage methods simply don't include these quality mechanisms.
 
 ---
 
 ## What Is Agentic Coding?
 
-If vibe coding is "conversationally getting AI to help you write code," agentic coding is "setting a goal and letting AI agents autonomously complete the entire development process."
+When your product is ready to move from POC to production, you no longer need "it runs." You need "it's maintainable, secure, and tested." That's what agentic coding is for.
 
-The difference isn't degree — it's fundamentally different in nature.
+If vibe coding is a 3D printer, agentic coding is a production line. The difference isn't that the machines are more expensive—it's the entire engineering quality system behind them:
 
-For the full story of how AI coding evolved through three stages — from autocomplete to chat to autonomous agents — see [From Vibes to Agents](/en/blog/agentic-coding).
+| Hardware Production Mechanism | Software Equivalent |
+|------|---|
+| **BOM + engineering drawings** (define what to build) | Requirements docs, Intent Spec, Acceptance Criteria |
+| **SOPs + automated production line** (consistent execution, reduced human variability) | CLAUDE.md, coding standards, CI/CD pipeline |
+| **IQC / IPQC / OQC** (incoming, in-process, outgoing inspection) | Automated tests, static analysis, security scans |
+| **Traceability + defect handling + corrective action** (find, fix, prevent recurrence) | Git version control, bug tracking, updating rules to prevent repetition |
+| **SPC process monitoring** (continuous stability tracking) | Performance monitoring, error rate tracking, uptime dashboard |
 
-### Five Core Characteristics of Agentic Coding
+Agentic coding brings this system to software development — and AI agents are the ones executing within the system.
 
-1. **Goal-driven**: You set intent, not step-by-step instructions
-2. **Autonomous loop**: The agent plans, executes, verifies, and corrects on its own
-3. **Tool use**: Agents can read/write files, run commands, call APIs, search codebases
-4. **Multi-agent collaboration**: Complex tasks are handled by multiple specialized agents in parallel
-5. **Human oversight**: Agents know when to stop and ask you
+### The Steps Haven't Changed. Your Role Has.
 
-### How Agentic Coding Works
+The steps of software development haven't changed—requirements, design, implementation, testing, release. That's been true from waterfall to agile. What changed is **your role at each step**:
 
-```
-Intent
-  -> Spec (acceptance criteria, constraints)
-  -> Plan (task graph, risk flags)
-  -> Implement (code changes)
-  -> Verify (tests, lint, security scans)
-  -> Docs (changelog, runbook)
-  -> Review (human + automated)
-  -> Release
-  -> Monitor
-  -> Iterate
-```
+| Development Phase | Traditional Development | Agentic Coding | Your Involvement |
+|---------|---------|---------------|---------|
+| **Requirements** | You write the spec | You write the Intent Spec | High (unchanged) |
+| **Design / Planning** | You design the architecture | You review the agent's plan | Medium (from designer to reviewer) |
+| **Implementation** | You write code | Agent writes, you answer questions | Low |
+| **Testing** | You write and run tests | Agent writes and runs tests automatically | Low (just check results) |
+| **Review** | You review code line by line | You review diffs + agent flags risks | Medium |
+| **Release** | You run the deployment | Agent deploys, you give final approval | Low |
 
-This flow comes from Anthropic's official 2026 report. They call it the **Agentic SDLC** — the agent-driven software development lifecycle.
+Your value concentrates at the **beginning and end** — defining intent and final review. The execution and verification in between? That's the agent's job.
 
-### Karpathy's Latest Take: Agentic Engineering
+### Karpathy's Latest Definition: Agentic Engineering
 
-On February 4, 2026, Karpathy proposed the evolved concept:
+In February 2026, Karpathy upgraded the concept himself:
 
-> "Agentic" because the new default is that you are not writing the code directly 99% of the time, you are orchestrating agents who do and acting as oversight. "Engineering" to emphasize that there is an art & science and expertise to it.
+> "Agentic"—because 99% of the time you're not writing code yourself; you're orchestrating agents to write it. "Engineering"—to emphasize that this is professional work requiring real expertise.
 
-Vibe coding is fun throwaway weekend projects. Agentic engineering is professional work — orchestrating agents as a supervisor, gaining leverage without compromising on quality.
+Vibe coding is fun weekend projects. Agentic engineering is professional work — directing agents as a supervisor, gaining leverage without sacrificing quality.
 
 ---
 
-## Vibe Coding vs Agentic Coding: Complete Comparison
+## Vibe Coding vs Agentic Coding: Which Method for Which Stage
 
-| Dimension | Vibe Coding | Agentic Coding |
-|-----------|-------------|----------------|
-| **Nature** | Vibes-based, conversational AI coding | Goal-driven autonomous agents |
-| **Human role** | Continuous interaction as director | Goal-setter and supervisor |
-| **Autonomy** | Low: every step needs guidance | High: autonomous decomposition and execution |
-| **Workflow** | See -> describe -> run -> copy-paste errors | Set goals -> agent plans -> auto-execute -> report |
-| **Quality control** | "Accept All," skip the diff | Agent self-tests and self-corrects |
-| **Best for** | Prototypes, weekend projects, education | Enterprise automation, large refactors, product dev |
-| **Representative tools** | Cursor Composer, Lovable, Bolt.new | Claude Code, Devin, SWE-agent |
-| **Technical barrier** | Very low (non-engineers can use) | Moderate (need architecture understanding to supervise) |
+### Product Stage Decision Table
 
-### When to Use Which?
+Back to the product maturity framework — your product's stage determines the method:
 
-**Use vibe coding when:**
-- Quickly validating whether an idea can work
-- Weekend side projects you won't maintain long-term
-- Learning a new technology — get it running first
-- Building demos or prototypes to show people
+| Your Product Is At... | Use | Quality Standard | Analogy |
+|-------------|-----|---------|------|
+| **Idea validation** | Vibe Coding | Runs and looks okay | 3D printed mockup |
+| **MVP development** | Vibe → Agentic transition | Core features stable | A/B sample |
+| **Live product** | Agentic Coding | Tested, secure, maintainable | PVT production validation |
+| **Scaling** | Agentic Coding | CI/CD, monitoring, automated quality gates | MP mass production |
 
-**Use agentic coding when:**
-- Building a product that will go live
-- You need tested, secure, maintainable code
-- Large-scale refactoring or tech debt cleanup
-- Collaborative team projects
-- Any system that might wake you up at 3am with a bug
+### Upgrading from Vibe to Agentic: What You Need to Add
 
-### My Experience in Brief
+When your product moves from mockup to production, these are the things you need to introduce:
 
-I use both. For my [personal website](/), small features go the vibe coding way — fast, intuitive, good enough. But for [AIResumeAdvisor](https://airesumeadvisor.com) (a SaaS product), I use agentic coding — every feature goes through planning, testing, and review.
+| What to Add | Why |
+|---|---|
+| **Requirements and spec documentation** | Agents need clear goals, acceptance criteria, test specs, and constraints to deliver correct results |
+| **Version control + branching strategy** | When things break, you can trace back and rollback |
+| **Automated testing** | Don't rely on manual inspection for quality |
+| **Diff review habit** | Know what the agent changed and why |
+| **"Set goals" replaces "give steps"** | Tell the agent "what I want," not "how to do it" — let the agent propose a plan, you approve before execution |
+| **Monitoring and logging** | After launch, you need to know if things are broken — error logs, performance monitoring, uptime dashboard |
 
-The difference? Things I build with vibe coding, I hesitate to let others use. Things I build with agentic coding, I'm comfortable charging money for.
+### Rule of Thumb
 
-For the full story of how my PM background shaped my agentic coding workflow, read [From Vibes to Agents](/en/blog/agentic-coding).
+**If it breaking means someone calls you, use agentic coding.**
+
+If it's just for showing people the direction, vibe coding is enough — and faster.
 
 ---
 
-## My Agentic Coding Workflow in Practice
+## 2026 Tool Comparison
 
-I use Claude Code for product development every day. My process has stabilized.
+### Five Major Tools
 
-### Daily Development Flow
+| Tool | Primary Models | Starting Price |
+|------|-------------|---------|
+| **Cursor** (Anysphere) | Claude, GPT (OpenAI), Gemini | 20 USD/month |
+| **Antigravity** (Google) | Gemini 3 Pro, Claude Sonnet 4.5, GPT-OSS | Free (Preview) |
+| **GitHub Copilot** (Microsoft) | Anthropic (Claude), OpenAI, Google, etc. | Free tier available |
+| **Claude Code** (Anthropic) | Claude Opus 4.6 / Sonnet | 20 USD/month |
+| **Codex CLI** (OpenAI) | GPT series | 20 USD/month |
 
-```
-Intent (what I want to build)
-  -> Plan (use plan mode to design approach)
-  -> Agent Execution (agent runs autonomously)
-  -> Review (I review the diff)
-  -> Test (agent runs tests, I verify)
-  -> Merge (into main branch)
-```
+When choosing a tool, the interface form matters less than you'd think. Most tools now offer both GUI and CLI — Claude Code has a CLI and a VS Code extension, Copilot has an IDE plugin and a terminal version, Cursor is a full IDE.
 
-This isn't theory. This is what I do every day.
+**What actually determines a tool's ceiling is the LLM behind it.** The model's reasoning ability, context window, and code comprehension depth determine how far the agent can go. The same model in different interfaces has the same capabilities. That's why the table above lists "Primary Models" first.
 
-### Seven-Phase Workflow
+On cost, most tools land between 10 and 20 USD/month. The differences are in usage limits and advanced features:
 
-The more complete version, broken into seven phases:
+- [Cursor](https://www.cursor.com/pricing): three tiers (20/60/200 USD)
+- [Claude Code](https://claude.com/pricing): three tiers (20/100/200 USD)
+- [GitHub Copilot](https://github.com/features/copilot/plans): 10 USD for individuals, 19 USD/user for enterprise
+- [Codex CLI](https://openai.com/codex/): open source, requires ChatGPT subscription (20 USD+) or pay-per-use API
+- [Antigravity](https://antigravity.google/pricing): free during Preview with weekly quotas; paid plans expected at GA
 
-**Phase 1: Brainstorm**
+### How to Choose?
 
-Think clearly about what to build. Don't rush to write code. Use conversation to clarify requirements, explore possible approaches, confirm technical constraints.
+**Pick the model first, then the tool.** Want Anthropic's Claude? Start with Claude Code or Cursor. OpenAI's GPT? Codex CLI or Copilot. Google's Gemini? Antigravity. Want flexibility to switch? Cursor and Copilot support multiple providers.
 
-**Phase 2: Worktree**
+**Then consider budget.** Want to test the waters? Antigravity's free preview and GitHub Copilot's free tier are there. Ready to invest? Most tools are 20 USD/month. Heavy usage? Look at higher tiers.
 
-Create an isolated workspace with Git Worktree. Even if the agent breaks something, it won't affect the main branch. One worktree per feature, clean isolation.
+**Finally, check ecosystem fit.** Team already on VS Code + GitHub? Copilot integrates most smoothly. Google ecosystem? Antigravity.
 
-**Phase 3: Plan**
-
-Enter Plan Mode. The agent analyzes the codebase, understands existing architecture, and proposes an implementation plan. I review the plan and confirm the direction before starting.
-
-This step is the most important in the entire process. If the plan is wrong, everything that follows is wasted effort no matter how fast.
-
-**Phase 4: Execute**
-
-The agent executes according to plan. Writing code, creating files, modifying configs. The agent has significant autonomy at this stage, but pauses to ask me when something is ambiguous.
-
-**Phase 5: TDD (Test-Driven Development)**
-
-Write tests, run tests, fix failing tests. The agent runs this loop itself until all tests pass.
-
-**Phase 6: Review**
-
-I review all changes. Check the diff, verify logic, inspect security. If there are issues, the agent fixes and resubmits.
-
-**Phase 7: Finish**
-
-Merge branches, clean up worktrees, update docs. Done.
-
-### Multi-Agent Mode
-
-For complex tasks, I run multiple agents working in parallel.
-
-For example, refactoring a module:
-- Agent A handles writing the new implementation
-- Agent B handles writing tests
-- Agent C handles updating documentation
-
-Three agents working independently, results merged at the end. This is what Anthropic's report calls **Multi-Agent Systems** — 57% of organizations are already using this pattern.
-
-### One Critical Mindset Shift
-
-The most important thing about agentic coding: **you're not writing code, you're defining and accepting deliverables.**
-
-Before: 80% of time writing code, 20% thinking about design.
-
-Now it's reversed. 80% of time thinking about what to build, how to verify it, what the constraints are. 20% of time reviewing the agent's output.
-
-The code writing part? The agent does it.
-
----
-
-## Key Agentic Coding Trends in 2026
-
-Anthropic published the *2026 Agentic Coding Trends Report* on January 21, 2026 — the most comprehensive industry analysis of agentic coding to date. Their core thesis: software development is undergoing its most significant transformation since the GUI.
-
-Here are the eight major trends.
-
-### Foundation
-
-**Trend 1: Agentic SDLC** — The development lifecycle shifts from sequential handoffs to an agent-driven fluid cycle. Augment Code helped an enterprise compress a 4-8 month project into two weeks.
-
-**Trend 2: Multi-Agent Systems** — Single agents evolve into collaborative teams. 57% of organizations have deployed multi-step agent workflows, using hierarchical orchestration where a coordinator distributes subtasks to specialists working in parallel.
-
-**Trend 3: Long-Running Agents** — Agents expand from minute-level tasks to working autonomously for days. Rakuten engineers let Claude Code work for 7 hours in a 12.5M-line codebase, achieving 99.9% accuracy.
-
-### Capabilities
-
-**Trend 4: Scaled Oversight** — As AI-generated code increases, humans can't review every line. The solution: risk tiering — low-risk auto-merge, medium-risk human approval, high-risk multi-person review. Developers use AI in 60% of work, but only 0-20% can be fully delegated.
-
-**Trend 5: New Surfaces & Users** — Agentic coding expands beyond IDEs. Apple's Xcode 26.3 natively integrates Claude Agent SDK and OpenAI Codex. Legal platform Legora enables lawyers to build workflows without engineering expertise.
-
-### Impact
-
-**Trend 6: Economics & Productivity** — About 27% of AI-assisted work consists of tasks that "wouldn't have been done before" — fixing papercuts, building nice-to-have tools, exploratory work previously too expensive to justify. TELUS saved 500,000+ hours with 13,000+ custom AI solutions.
-
-**Trend 7: Non-Technical Use Cases** — Zapier achieved 89% organization-wide AI adoption with 800+ internal agents. Anthropic's own legal team reduced marketing review time from 2-3 days to 24 hours, operated entirely by lawyers.
-
-**Trend 8: Security-First Architecture** — Agentic coding democratizes capability, but the same power benefits attackers. Security must be embedded from day one: least-privilege access, network controls, secret hygiene, policy-as-code, and immutable audit logs.
-
-### The Model Arms Race
-
-On February 5, 2026, Anthropic released Claude Opus 4.6 (Terminal-Bench 65.4%, 1M context window, Agent Teams) and OpenAI released GPT-5.3-Codex almost simultaneously — signaling that the infrastructure for agentic coding is evolving at unprecedented speed.
-
-### A Risk You Can't Ignore: Skill Atrophy
-
-Anthropic's research found developers relying on AI assistants scored **17% lower** on comprehension tests. The core contradiction: as companies push toward more AI coding, if human skills erode, who validates and debugs the code AI writes? The "supervisor" role requires sufficient technical judgment to be effective.
-
-### Market Data at a Glance
-
-| Metric | Data |
-|--------|------|
-| Claude Code ARR | ~$1.1 billion (less than a year since launch) |
-| Claude Code GitHub public commits | 4%, projected 20%+ by year-end |
-| Cursor valuation | $29.3 billion (1M+ DAU) |
-| Cursor ARR | $1 billion (fastest in SaaS history) |
-| Devin (Cognition) valuation | $10.2 billion |
-| Lovable valuation | $6.6 billion ($100M ARR in 8 months) |
-| AI Agent market 2030 | $52.62 billion (CAGR 46.3%) |
-| GitHub Copilot users | 20M+ |
+**My choice:** I use Claude Code. The reason is straightforward — I'm a heavy user of Anthropic's models, and enterprises are [2.3x more likely](https://www.uncoveralpha.com/p/anthropics-claude-code-is-having) to choose Claude for coding over OpenAI. Claude isn't just available through Claude Code — Cursor, GitHub Copilot, and Antigravity all support it as a model option. Since I've committed to Anthropic's models, using their own tool made sense.
 
 ---
 
 ## How to Get Started with Agentic Coding
 
-### Step 1: Choose Your Tool
+Before you start, adjust two expectations:
 
-| Tool | Type | Strengths | Best For |
-|------|------|-----------|----------|
-| **Claude Code** | CLI Agent | Strongest agentic capabilities, #1 on Terminal-Bench | CLI-native, power developers |
-| **Cursor** | IDE (VS Code fork) | Best editor experience, 1M DAU | GUI preference, daily development |
-| **GitHub Copilot** | IDE extension | Broadest integrations, 20M users | Teams already on VS Code |
-| **Devin** | Fully autonomous agent | Can handle complete tasks independently | Teams wanting maximum delegation |
-| **Xcode + Claude** | IDE integration | Native Apple ecosystem support | iOS/macOS developers |
+First, the time split in agentic coding is **80% thinking and reviewing, 20% communicating with the agent, 0% writing code yourself** — the inverse of traditional development where 80% is writing code.
 
-I use Claude Code. The reason is simple: it has the strongest agentic capabilities available, and the CLI interface gives you full control and visibility over the entire process.
+Second, the exercises below start with very simple tasks — so simple that the workflow looks almost identical to vibe coding. That's intentional. We're building the muscle memory of "set goal → review plan → check results" with small tasks first. As your projects grow and ship to real users, you'll deliberately layer in more engineering practices — testing, version control, security checks — and that's where agentic coding truly separates from vibe coding.
 
--> A detailed tool comparison with hands-on testing is coming in a future article.
+Four steps, from zero.
 
-### Step 2: Set Up Your Environment
+### Step 1: Install a Tool
 
-Agentic coding effectiveness depends on how much context you give the agent.
+Refer to the comparison above: pick the model first, then the tool. I use Claude Code. I wrote a [Claude Code setup guide](/en/blog/claude-code-tutorial/) if you want to follow along.
 
-The most important setup: **CLAUDE.md** (or the equivalent config file for your tool).
+### Step 2: Create a Config File So the Agent Knows Your Project
 
-This is a file in your project root that tells the agent about your project structure, tech stack, code style, and workflow conventions. The agent reads this file every time it starts.
+Agentic coding effectiveness depends on how much context you give the agent. The most important setup: a **config file** in your project root. Claude Code calls it CLAUDE.md; Cursor calls it `.cursorrules`—same concept.
 
-Think of it as onboarding documentation for a new engineer you just hired.
+Think of it as onboarding documentation for a new engineer—everything you'd want them to know on day one.
 
-A good CLAUDE.md includes:
-- Project structure and tech stack
-- Naming conventions and code style
-- Development workflow (branching strategy, commit conventions)
-- Common commands (build, test, deploy)
-- Important architectural decisions and constraints
+You don't need to write it all at once. Three lines is enough to start:
 
--> A complete CLAUDE.md setup guide is also coming in a future article.
+**Day 1: Three Lines**
 
-### Step 3: Your First Agentic Workflow
+```markdown
+# My Toolkit
 
-Start small.
+## Rules
+- Communicate with me in English
+- Each tool should be a single file that opens in a browser when double-clicked
+- Don't use anything that requires installation
+```
 
-1. Find a small change in an existing project (fix a bug, add a minor feature)
-2. Don't tell the agent how to do it — describe what you want to achieve
-3. Let the agent plan first, then review the plan
-4. Once the plan looks good, let the agent execute
-5. Review the results, run tests
+That's it. The agent knows what language to use, how simple things should be, and what's off-limits.
 
-The first time might feel slower than doing it yourself. That's normal.
+**One Week Later: Every Time the Agent Makes a Mistake, Add a Rule**
 
-The point isn't speed. It's building the muscle memory of "set goal -> agent plans -> execute -> human reviews."
+Say the agent builds a page that breaks on mobile, or buttons are too small to tap:
 
-Once this loop is established, efficiency compounds.
+```markdown
+# My Toolkit
 
--> A full step-by-step workflow tutorial is coming in a future hands-on guide.
+## Rules
+- Communicate with me in English
+- Each tool should be a single file that opens in a browser when double-clicked
+- Don't use anything that requires installation
+- Must work on mobile — buttons can't be too small
+- Clear input fields after form submission
+- Number fields should only accept numbers
+```
+
+Every new rule exists because the agent made a mistake once. **The config file is a living document that grows with your experience.** As your project grows from a small tool into a real product, this file grows too — adding tech stack details, commands, file locations, and more.
+
+### Step 3: Run Your First Agentic Task
+
+Pick a small task. Don't start with something ambitious — begin with "build a small utility page."
+
+The key mindset: **tell the agent "what I want," not "how to do it."** The quality of the agent's output directly depends on the quality of your goal definition.
+
+I use a format called **Intent Spec** for every task. It has four sections:
+
+- **Goal** — what you want (outcomes, not steps)
+- **Acceptance Criteria** — what "done" looks like (checkboxes)
+- **Constraints** — limitations
+- **Non-goals** — what you explicitly don't want (prevents the agent from over-building)
+
+Here's an example — building a personal expense tracker:
+
+```markdown
+## Goal
+Build a personal expense tracker page. Users can enter each expense
+(item + amount), and the page displays all entries and a running total in real time.
+
+## Acceptance Criteria
+- [ ] Page has a form with two fields: item (text) and amount (number)
+- [ ] Clicking "Add" appends the entry to a list below
+- [ ] List shows each entry's item and amount
+- [ ] Running total updates in real time at the bottom
+- [ ] Each entry has a "Delete" button
+- [ ] Single file, no installation required
+
+## Constraints
+- Single HTML file that opens in a browser when double-clicked
+- No build tools or dependencies
+- Must work on mobile
+
+## Non-goals
+- No data persistence (page refresh clears everything — that's fine)
+- No categories or charts
+- No multi-currency support
+```
+
+Notice what this spec does — it describes **what the experience feels like** (enter expenses, see a list, total updates), without saying how to build it. The agent decides the technical details. You just judge whether the result is correct.
+
+Paste the Intent Spec to the agent, but don't let it start building yet — ask for a plan first. Add this at the end: "Give me a plan first. Don't start building."
+
+1. Paste the Intent Spec, ending with "Give me a plan first. Don't start building"
+2. The agent outlines its approach — structure, sections, implementation plan
+3. You review: is the direction right? Anything missing or extra?
+4. If it looks good, reply "OK, go ahead"
+5. The agent builds it and tells you where the file is
+6. Open the file, enter a few expenses, and test it
+
+### Step 4: Build the Muscle Memory
+
+The first time, writing an Intent Spec and reviewing a plan might feel like overhead — wouldn't it be faster to just say "build me an expense tracker"?
+
+Faster, yes. But the agent's output might not be what you want, and the back-and-forth revisions end up taking longer. The Intent Spec is the "requirements and spec documentation" practice mentioned earlier—agentic coding's first discipline. Define the goal clearly and the agent gets it right on the first try much more often.
+
+The expense tracker is just practice. The same loop handles more complex tasks — connecting to a stock API to show real-time quotes, building a Google login system, creating a full web app with a database. The more complex the task, the more time a good Intent Spec saves.
+
+### Step 5: Cross the Line from Vibe to Agentic
+
+Through Step 4, what you've been doing isn't that different from vibe coding — the only addition is the Intent Spec. Now it's time to cross the line.
+
+Say you decide to build a personal website — homepage, about page, portfolio, blog. This isn't a throwaway tool. It's going live, people will see it, and you'll keep updating it:
+
+- You'll keep adding posts, swapping projects, adjusting the design
+- Changing the portfolio page **can't break the homepage**
+- When a friend shares your URL, **it can't load as a blank page**
+- Three months later when you need to change something, **you need to understand why it was built that way**
+
+If the expense tracker breaks, rebuild it. If your personal website breaks, your professional image breaks with it. That's why you need to upgrade from vibe coding to agentic coding.
+
+Back to the "upgrading from vibe to agentic" table — you've already done "requirements and spec documentation" (Intent Spec). Three things left:
+
+**1. Version Control — Undo When Things Break**
+
+Tell the agent: "Set up Git for this project. Track every change."
+
+You asked the agent to redesign the blog layout and the homepage broke? Roll back to the previous version. No starting over. Three months later, you can see every change — when, what, and why.
+
+That's the "traceability" from the table. Vibe coding doesn't have this. When things break, you're guessing from memory.
+
+**2. Automated Testing — Confirm Nothing Else Broke**
+
+Tell the agent: "Write tests for the website: every page loads, all links work, all images display."
+
+Your site has a homepage, about, portfolio, blog, and each post has its own page — change one thing and you need to verify a dozen pages aren't broken. Manually clicking through takes ten minutes and you'll always miss something. Automated tests run in seconds and check everything.
+
+From now on, every time you make changes, the agent runs tests first. All pass? Done. Something fails? The agent fixes it and re-runs until everything passes.
+
+**3. Diff Review — Know What the Agent Changed**
+
+You asked the agent to add a new project to the portfolio. When it's done, say: "Show me what you changed."
+
+The agent lists which files it touched and what changed. You evaluate: did it only modify the portfolio page? Or did it accidentally change the homepage nav or the blog's CSS?
+
+Changing one thing but accidentally affecting unrelated pages — that's the most common website issue. Diff review catches it before anything goes live.
+
+Going further: tell the agent "run tests automatically after every change, and only show me the diff after tests pass." That way what reaches you is already "no obvious problems" — you only need to judge if the direction is right.
+
+With these three things in place, you're no longer just "using AI to build things." You're "using engineering practices to manage what AI builds." That's agentic coding.
+
+The same engineering practices apply to bigger projects — a stock dashboard connected to APIs, an expense app with login, even a paid SaaS product. The bigger the project, the more time these practices save and the more disasters they prevent.
+
+### After You're Comfortable
+
+Once the basic loop is stable, agentic coding extends beyond writing code:
+
+**Build Your Own Skills — Extract Processes and Rules**
+
+As you use it longer, your config file grows — rules, SOPs, workflows for different tasks all crammed into one file, and the agent loses focus. That's when you split specific workflows into standalone Skills: one SOP for deploying the site, another for writing blog posts, another for running tests. Load them on demand, keep the config file clean.
+
+**Connect External Services — Let the Agent Do More**
+
+Agents don't just write code — they can connect to tools you use daily. For example: have the agent read your Google Calendar and organize today's tasks, connect to a stock API and email you a daily investment summary, track KOLs you follow for new content and compile summaries. This isn't product development — it's using agentic coding to build your personal automation workflows.
+
+**Connect Your Digital Notes — Give the Agent Your Knowledge Base**
+
+If you use Obsidian, Notion, or another note-taking tool, let the agent access your notes. When discussing a new project, the agent can reference your previous notes, research, and ideas — no re-explaining the background every time. Your knowledge base becomes the agent's long-term memory.
+
+At this point you have the complete toolkit: the product maturity framework helps you choose the right method, Intent Spec helps you define goals, and engineering practices help you maintain quality. What's left is building things.
+
+As you build, you'll find the same loop — set goals, let the agent execute, review results, iterate — applies beyond coding. I use it to [manage goals](/en/blog/ai-goal-management-system/), manage knowledge, and manage daily workflows. Coding is just the starting point.
 
 ---
 
 ## FAQ
 
-### Will Agentic Coding Replace Engineers?
+### Can Non-Engineers Get Started with Agentic Coding?
 
-No, but it will change the role.
+Yes. The getting-started path in this guide is designed for non-engineers — you begin by writing an Intent Spec, not code.
 
-Anthropic's report is clear: engineering value is shifting from "writing code" to "architecture design, system design, and strategic decisions." More like a conductor than a performer.
+But shipping a production-grade product requires gradually learning engineering thinking — how to break down requirements, how to judge whether an architecture makes sense, how to ensure changing A doesn't break B. Agentic coding lowers the barrier to "writing code" but raises the bar for "managing code."
 
-60% of work uses AI, but only 0-20% can be fully delegated. The remaining 80% needs human oversight, judgment, and domain expertise.
+Suggested path: start with vibe coding to experience AI-assisted development → follow Steps 2-5 in this guide → build engineering intuition through practice.
 
-It's not engineers who'll be replaced. It's engineers who don't use AI.
+### Does the Intent Spec Have to Be in English?
 
-### Is Vibe Coding or Agentic Coding Better?
+No. Write it in whatever language you're most comfortable with — agents understand most languages.
 
-It's not either/or.
+What matters is clearly defining the four sections: goal, acceptance criteria, constraints, and non-goals. Clarity matters more than language choice.
 
-Vibe coding is like driving an automatic — simple, intuitive, anyone can do it. Agentic coding is like a manual with self-driving features — more control, but you need to know when to intervene.
+### How Much Does Agentic Coding Cost Per Month?
 
-Building a prototype? Vibe coding.
-Building a product? Agentic coding.
+Most tools start at 20 USD/month. Claude Code, Cursor, and Codex CLI are all in that range. GitHub Copilot starts at 10 USD/month for individuals.
 
-The best developers use both, switching based on context.
+Want to try free first? Antigravity is free during Preview, and GitHub Copilot has a free tier. Practice the workflow on a free plan, then upgrade once you're sure it fits.
 
-### Can Non-Engineers Use Agentic Coding?
+### How Long Should CLAUDE.md Be?
 
-Yes, and it's already happening.
+Three lines is enough to start. The official recommendation is under 300 lines — because the agent reads this file every time it starts, and stuffing in too much makes it lose focus on what matters.
 
-Trend 7 in Anthropic's report addresses this directly. Zapier's 89% organization-wide AI adoption includes non-engineering teams. Anthropic's own legal team built self-service tools with Claude Code.
+The test for each line: "If I remove this, will the agent make mistakes?" If not, delete it.
 
-But there's an important caveat: **production-grade applications still require engineering expertise to oversee quality and security.**
+Growth path:
+- **Starting out**: 3-10 lines — language preference + basic rules
+- **After a while**: 30-60 lines — every mistake becomes a rule
+- **Project gets big**: Split topic-specific rules into separate files (e.g., testing rules in one file, deployment rules in another), keep only the essentials in the main file
 
-Non-engineers can use agentic coding for internal tools and automation. For user-facing products going to production, you want someone with technical knowledge doing quality assurance.
+### How Do I Verify Code an Agent Wrote?
 
-### Is Agentic Coding Secure?
+Core principle: **give the agent a way to verify itself** — this is what the official docs call the "highest-leverage" practice.
 
-An agent is only as secure as the permissions and oversight you give it.
+Specifically:
+- **Include success criteria in your prompt**: Test cases, expected outputs, screenshots. The agent runs verification after building and only marks it done when everything passes. Don't just say "build a login feature" — say "build a login feature with these test cases: correct password returns true, wrong password returns false, blank fields show an error message — run the tests when done"
+- **Use an independent session for code review**: Don't let the agent that wrote the code grade its own homework. Open a new session or use a sub-agent to review — fresh context won't be biased toward what was just written
+- **Manually test as a user**: Open what was built and actually use it. This is the last line of defense
 
-Trend 8 in Anthropic's report outlines five guardrails:
-1. Least-privilege tool access
-2. Network egress controls
-3. Secret hygiene (short-lived tokens, masked logs)
-4. Policy-as-code
-5. Immutable audit logs
+Bottom line: if you can't verify it, don't ship it.
 
-Additionally, OWASP has published the LLM App Top 10, covering agent-specific threats including prompt injection, data exfiltration, and supply chain attacks.
+### When Should I Upgrade from Vibe Coding to Agentic Coding?
 
-Security isn't a binary choice. It's an engineering practice that requires continuous investment.
+Five signals. Hit three and it's time to upgrade:
 
----
+1. **Changing A breaks B** — you modify one page and another page breaks for no apparent reason
+2. **Amnesia** — you can't remember what you changed last time or where
+3. **Rebuild is the only fix** — when something breaks, the only solution is starting from scratch
+4. **Same bug keeps returning** — no tests to catch it, you find it manually every time
+5. **Afraid to touch it** — code from three months ago is incomprehensible, and you're scared any change will break everything
 
-## Next Step: Start Your First Agentic Workflow
+What these signals have in common: lack of engineering systems. Version control, automated testing, documentation — agentic coding adds exactly these.
 
-After reading this, here's the suggested action path:
-
-1. **Install a tool**: I recommend starting with [Claude Code](/en/blog/claude-code-tutorial) — it has the most complete agentic capabilities
-2. **Find a small task**: Pick a bug fix or minor feature in an existing project
-3. **Practice "setting goals" instead of "writing instructions"**: Tell the agent "I want this button to show a confirmation dialog when clicked," not "please add a confirm() in the onClick handler"
-4. **Review, review, review**: Check the diff, run tests, understand what the agent did
-
-The barrier to agentic coding isn't technical. It's the mindset shift — from "I write the code" to "I define and accept deliverables."
+One-liner: if it breaking means someone calls you, it's time to upgrade.
 
 ---
 
-I believe that in the AI era, one person can build an entire company. I'm proving it with my own journey — from product development to marketing growth to life management, all solo. Every step of how I do it goes into my newsletter. [Subscribe](/en/newsletter) and follow along.
-
----
-
-## Further Reading
-
-- [From Vibes to Agents: One Year of Agentic Coding](/en/blog/agentic-coding) — the narrative perspective on how AI coding evolved
-- [How to Use Claude Code: From Setup to Your First Task](/en/blog/claude-code-tutorial)
-- [From No-Code to AI Coding: A PM's Transformation](/en/blog/nocode-to-ai-coding)
-- [AI Coding Arbitrage: Doing What Wasn't Possible Before](/en/blog/ai-coding-arbitrage)
+*I believe that in the AI era, one person can build an entire company. I'm proving it with my own journey — from product development to marketing growth to life management, all solo. Every step of how I do it goes into my newsletter. [Subscribe](/en/) and follow along.*
