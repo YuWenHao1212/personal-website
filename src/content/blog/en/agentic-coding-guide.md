@@ -404,6 +404,4 @@ As you build, you'll find the same loop — set goals, let the agent execute, re
 
 ---
 
----
-
 *I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
