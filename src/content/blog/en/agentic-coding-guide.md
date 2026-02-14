@@ -30,16 +30,6 @@ Vibe coding and agentic coding aren't either/or. They're different methods for d
 
 This guide helps you figure out where your product is, which method fits, and how to get started. It includes a product maturity framework, a tool comparison, copy-paste templates, and a step-by-step path. For the narrative version of how AI coding evolved to this point, read [From Vibes to Agents](/en/blog/agentic-coding/).
 
-**Table of Contents**
-
-- [First, Get This Straight: It's Not Either/Or](#first-get-this-straight-its-not-eitheror)
-- [What Is Vibe Coding?](#what-is-vibe-coding)
-- [What Is Agentic Coding?](#what-is-agentic-coding)
-- [Vibe vs Agentic: Which Method for Which Stage](#vibe-coding-vs-agentic-coding-which-method-for-which-stage)
-- [2026 Tool Comparison](#2026-tool-comparison)
-- [How to Get Started](#how-to-get-started-with-agentic-coding)
-- [FAQ](#faq)
-
 ---
 
 ## First, Get This Straight: It's Not Either/Or

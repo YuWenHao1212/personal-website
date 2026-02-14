@@ -30,16 +30,6 @@ Vibe Coding 和 Agentic Coding 不是二選一。它們是產品不同階段該�
 
 這篇指南幫你搞清楚：你的產品在哪個階段、該用什麼方法、怎麼開始。附產品成熟度框架、工具比較表、可複製的模板和 checklist。想看這個領域怎麼演化到今天的故事版，請讀[這篇](/zh-TW/blog/agentic-coding/)。
 
-**目錄**
-
-- [先搞清楚一件事：這不是二選一](#先搞清楚一件事這不是二選一)
-- [Vibe Coding 是什麼？](#vibe-coding-是什麼)
-- [Agentic Coding 是什麼？](#agentic-coding-是什麼)
-- [Vibe vs Agentic：什麼階段用什麼方法](#vibe-coding-vs-agentic-coding什麼階段用什麼方法)
-- [2026 工具比較](#2026-工具比較)
-- [如何開始](#如何開始你的-agentic-coding-之路)
-- [FAQ](#faq)
-
 ---
 
 ## 先搞清楚一件事：這不是二選一
