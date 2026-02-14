@@ -1,0 +1,72 @@
+# Yu WenHao (余文皓)
+
+> I Build Products with AI. 14 years away from engineering, I used AI to build complete SaaS products independently. I write about AI-powered development, productivity systems, and solo entrepreneurship.
+
+## About
+
+- Site: https://yu-wenhao.com
+- Email: mail@yu-wenhao.com
+- LinkedIn: https://www.linkedin.com/in/hence/
+- Languages: Traditional Chinese (zh-TW, default), English (en)
+
+## What I Do
+
+I'm an independent developer and writer based in Taiwan. After 14 years away from coding (working as PM, doing project management and data analysis), I discovered Claude Code in mid-2025 and built a SaaS product independently in 6 months. I hold an MDA degree from Minerva University and combine 15 years of hands-on experience with AI tools.
+
+Core belief: In the AI era, individuals can create more.
+
+## Products
+
+- [AI Resume Advisor](https://yu-wenhao.com/zh-TW/products/ai-resume-advisor/): Resume diagnostic and optimization tool
+- [NeatToolkit](https://yu-wenhao.com/zh-TW/products/neatoolkit/): Free online tools (background removal, video compression, YouTube subtitle download)
+- [LinkedIn Resume Checker](https://yu-wenhao.com/zh-TW/products/linkedin-resume-checker/): Chrome extension for LinkedIn job matching
+
+## Blog Categories
+
+- **Building Products**: No-Code, AI tools, from idea to launch
+- **Productivity**: Knowledge management, workflows, systems thinking
+- **Life & Learning**: Book reviews, values, long-term thinking
+
+## Key Articles (English)
+
+- [The Complete Guide to Agentic Coding](https://yu-wenhao.com/en/blog/agentic-coding-guide/): From Vibe Coding to Autonomous Development
+- [Agentic Coding: One Year from Vibes to Agentic Engineering](https://yu-wenhao.com/en/blog/agentic-coding/)
+- [The AI Arbitrage Opportunity: Code Just Got Cheap](https://yu-wenhao.com/en/blog/ai-coding-arbitrage/)
+- [14 Years Away From Code. Then AI Changed Everything.](https://yu-wenhao.com/en/blog/nocode-to-ai-coding/)
+- [From Obsidian to Claude Code: Building a Programmable Life](https://yu-wenhao.com/en/blog/personal-panopticon/)
+- [How to Use Claude Code: From Setup to Your First Task](https://yu-wenhao.com/en/blog/claude-code-tutorial/)
+- [Why Yearly Goals Fail - And the AI System I Built to Fix It](https://yu-wenhao.com/en/blog/ai-goal-management-system/)
+- [OpenClaw Setup Guide: 25 Tools + 53 Skills Explained](https://yu-wenhao.com/en/blog/openclaw-tools-skills-tutorial/)
+- [Is OpenClaw Safe? 5 Security Settings You Must Configure](https://yu-wenhao.com/en/blog/2026-02-04-is-openclaw-safe-security-guide/)
+- [Why I Left Roam Research After 5 Years (And Switched to Obsidian)](https://yu-wenhao.com/en/blog/roam-research-to-obsidian/)
+- [I Got Fed Up, So I Built a Free Tools Site](https://yu-wenhao.com/en/blog/neatoolkit-launch/)
+- [Free Azure Credits for Startups: How to Get $5,000 from Microsoft](https://yu-wenhao.com/en/blog/free-azure-startup-credits/)
+- [12 Week Year Guide: 3 Concepts to Finally Achieve Your Goals](https://yu-wenhao.com/en/blog/12-week-year-guide/)
+- [How Minerva MDA Changed My Life](https://yu-wenhao.com/en/blog/minerva-mda-growth/)
+- [Coursera Self-Learning Guide: Leverage Online Resources to Build Your Career](https://yu-wenhao.com/en/blog/coursera-learning-platform-complete-guide-2025/)
+
+## Key Articles (Traditional Chinese)
+
+- [Agentic Coding 完全指南：從 Vibe Coding 到 AI 自主開發](https://yu-wenhao.com/zh-TW/blog/agentic-coding-guide/)
+- [Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化](https://yu-wenhao.com/zh-TW/blog/agentic-coding/)
+- [AI 時代的套利機會：程式碼從昂貴變便宜](https://yu-wenhao.com/zh-TW/blog/ai-coding-arbitrage/)
+- [離開工程師 14 年，我用 AI 做出一個完整產品](https://yu-wenhao.com/zh-TW/blog/nocode-to-ai-coding/)
+- [Claude Code 教學：5 分鐘完成安裝與第一個任務](https://yu-wenhao.com/zh-TW/blog/claude-code-tutorial/)
+- [年度目標總是失敗？我用 Claude Code 建了一套目標管理系統](https://yu-wenhao.com/zh-TW/blog/ai-goal-management-system/)
+- [從 Obsidian 到 Claude Code：打造可程式化的人生](https://yu-wenhao.com/zh-TW/blog/personal-panopticon/)
+- [OpenClaw 教學：25 個 Tools + 53 個 Skills 完整指南](https://yu-wenhao.com/zh-TW/blog/openclaw-tools-skills-tutorial/)
+- [OpenClaw 安全嗎？5 個必做的安全設定](https://yu-wenhao.com/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/)
+- [用了 5 年 Roam Research，為什麼在 AI 時代我最後選擇 Obsidian？](https://yu-wenhao.com/zh-TW/blog/roam-research-to-obsidian/)
+- [我受不了了，所以自己做了一個免費工具站](https://yu-wenhao.com/zh-TW/blog/neatoolkit-launch/)
+- [獨立開發者必知：Microsoft for Startups 免費 Azure 額度申請攻略](https://yu-wenhao.com/zh-TW/blog/free-azure-startup-credits/)
+- [12 Week Year 完整指南：三個核心概念讓你擺脫年度目標失敗循環](https://yu-wenhao.com/zh-TW/blog/12-week-year-guide/)
+- [No-Code革命：零基礎入門Bubble.io全攻略](https://yu-wenhao.com/zh-TW/blog/no-code-bubble-complete-beginners-tutorial/)
+- [如何聰明的做筆記 - 卡片盒筆記法](https://yu-wenhao.com/zh-TW/blog/%E5%8D%A1%E7%89%87%E7%9B%92%E7%AD%86%E8%A8%98%E6%B3%95/)
+
+## Curated Tools
+
+I maintain a curated list of tools at [/zh-TW/picks/](https://yu-wenhao.com/zh-TW/picks/) covering solo business tools and productivity apps.
+
+## Sitemap
+
+https://yu-wenhao.com/sitemap-index.xml
