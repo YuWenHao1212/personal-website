@@ -154,4 +154,4 @@ The tower is still a tower. But the keys can be in your hands.
 
 *Further reading: [Molly Cantillon's original post](https://x.com/mollycantillon/status/2008918474006122936)*
 
-*Want more content like this? [Subscribe to my newsletter](/en/)*
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*

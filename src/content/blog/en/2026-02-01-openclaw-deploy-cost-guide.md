@@ -328,7 +328,7 @@ In 30 minutes, you'll have your own 24/7 personal AI assistant.
 
 ---
 
-*Want more AI tool tutorials? [Subscribe to my newsletter](https://yu-wenhao.com/en/) for first access to new articles.*
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
 
 ---
 

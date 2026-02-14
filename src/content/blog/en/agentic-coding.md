@@ -201,4 +201,4 @@ What will it look like a year from now?
 
 ---
 
-*If you're interested in AI workflows, solo development, and building products with AI — I share hands-on lessons regularly. [Subscribe to my newsletter](/en/)*
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*

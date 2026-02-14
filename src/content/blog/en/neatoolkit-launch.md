@@ -84,4 +84,4 @@ After using it, if you feel something's missing, let me know. The next one I bui
 
 ---
 
-I believe in the AI era, one person can build a company. I'm proving this with my own experience — from product development to marketing growth to life management, all by myself. Every step of how I do it, I write in my newsletter. [Subscribe](/en/newsletter) and witness the journey.
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*

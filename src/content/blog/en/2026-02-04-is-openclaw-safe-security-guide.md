@@ -516,7 +516,7 @@ Then OpenClaw's productivity boost is absolutely worth it.
 
 Once you've done these 5 protections, the next step is understanding which of the 25 Tools and 53 Skills to enable—what to turn on, what to keep off, and why. I wrote that up in a separate tutorial (coming soon), including my complete configuration.
 
-I believe in the AI era, one person can build an entire company. I'm proving it with my own journey—from product development to growth marketing to life management, all solo. Every step of how I do it goes into my newsletter. [Subscribe](/en/) and follow along.
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
 
 ---
 

@@ -213,4 +213,4 @@ That's probably my biggest takeaway from 5 years with Roam Research.
 - *[AI Goal Management System](/en/blog/ai-goal-management-system/)* — How I integrate AI with 12 Week Year, Daily Brief, and my note system
 - *[From Obsidian to Claude Code: Building a Programmable Life](/en/blog/personal-panopticon/)* — The origin and core principles of this system
 
-*Want more content like this? [Subscribe to my newsletter](/en/)*
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*

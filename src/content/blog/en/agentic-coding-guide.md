@@ -464,4 +464,4 @@ One-liner: if it breaking means someone calls you, it's time to upgrade.
 
 ---
 
-*I believe that in the AI era, one person can build an entire company. I'm proving it with my own journey — from product development to marketing growth to life management, all solo. Every step of how I do it goes into my newsletter. [Subscribe](/en/) and follow along.*
+*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
