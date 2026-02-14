@@ -1,5 +1,5 @@
 ---
-title: "Agentic Coding 完全指南：定義、工具比較、實戰框架與入門路徑（2026）"
+title: "Agentic Coding 完全指南：定義、工具比較、實戰框架與入門路徑"
 description: "Agentic Coding 是什麼？這篇完全指南涵蓋定義、與 Vibe Coding 的差異、5 大工具比較、產品成熟度框架與入門路徑。幫你判斷該用什麼方法，從零開始建立工作流。"
 pubDate: 2026-02-14
 category: building-products
