@@ -1,6 +1,6 @@
 ---
 title: "Agentic Coding 完全指南：定義、工具比較、實戰框架與入門路徑（2026）"
-description: "一篇涵蓋定義、Vibe Coding 差異比較、5 大工具實測、產品成熟度框架與入門路徑的完全指南。幫你判斷產品在什麼階段該用什麼方法，從零開始建立 Agentic Coding 工作流。"
+description: "Agentic Coding 是什麼？這篇完全指南涵蓋定義、與 Vibe Coding 的差異、5 大工具比較、產品成熟度框架與入門路徑。幫你判斷該用什麼方法，從零開始建立工作流。"
 pubDate: 2026-02-11
 category: building-products
 tags: ["AI", "一人公司", "Claude Code", "agentic coding", "vibe coding", "developer-tools"]
