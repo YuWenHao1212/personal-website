@@ -49,5 +49,16 @@ export function getAlternatePath(url: URL): string {
     pathParts.unshift(alternateLang);
   }
 
-  return '/' + pathParts.join('/');
+  const path = '/' + pathParts.join('/');
+
+  // Static assets (images, css, js, etc.) should never have trailing slash
+  const lastPart = pathParts[pathParts.length - 1] || '';
+  const hasExtension = lastPart.includes('.') && !lastPart.startsWith('.');
+  if (hasExtension) {
+    return path;
+  }
+
+  // HTML pages: preserve original trailing slash behavior
+  const hasTrailingSlash = url.pathname.endsWith('/');
+  return hasTrailingSlash ? path + '/' : path;
 }
