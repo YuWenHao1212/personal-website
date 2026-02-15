@@ -71,10 +71,10 @@ That's why it's called NeatToolkit — Neat means clean and tidy. No grand philo
 
 Currently there are 9 tools in four categories:
 
-- **Image Tools**: AI background removal, image compression
-- **Video Tools**: Video compression, video to GIF
-- **YouTube Tools**: Subtitle download, subtitle translation, AI summary
-- **Text Tools**: Fancy font generator, FB post formatter
+- **Image Tools**: [AI background removal](https://neatoolkit.com/en/image/remove-background), [image compression](https://neatoolkit.com/en/image/compress)
+- **Video Tools**: [Video compression](https://neatoolkit.com/en/video/compress), [video to GIF](https://neatoolkit.com/en/video/to-gif)
+- **YouTube Tools**: [Subtitle download](https://neatoolkit.com/en/youtube/subtitle), [subtitle translation](https://neatoolkit.com/en/youtube/translate), [AI summary](https://neatoolkit.com/en/youtube/summary)
+- **Text Tools**: [Fancy font generator](https://neatoolkit.com/en/text/font-generator), [FB post formatter](https://neatoolkit.com/en/text/fb-post-formatter)
 
 More coming soon.
 

@@ -71,10 +71,10 @@ Facebook 貼文排版就是一個。我習慣用 Markdown 寫東西（和 AI 一
 
 目前有 9 個工具，分成四個類別：
 
-- **圖片工具**：AI 去背、圖片壓縮
-- **影片工具**：影片壓縮、影片轉 GIF
-- **YouTube 工具**：字幕下載、字幕翻譯、AI 摘要
-- **文字工具**：特殊字體產生器、FB 貼文排版
+- **圖片工具**：[AI 去背](https://neatoolkit.com/zh-TW/image/remove-background)、[圖片壓縮](https://neatoolkit.com/zh-TW/image/compress)
+- **影片工具**：[影片壓縮](https://neatoolkit.com/zh-TW/video/compress)、[影片轉 GIF](https://neatoolkit.com/zh-TW/video/to-gif)
+- **YouTube 工具**：[字幕下載](https://neatoolkit.com/zh-TW/youtube/subtitle)、[字幕翻譯](https://neatoolkit.com/zh-TW/youtube/translate)、[AI 摘要](https://neatoolkit.com/zh-TW/youtube/summary)
+- **文字工具**：[特殊字體產生器](https://neatoolkit.com/zh-TW/text/font-generator)、[FB 貼文排版](https://neatoolkit.com/zh-TW/text/fb-post-formatter)
 
 還在持續加新的。
 
