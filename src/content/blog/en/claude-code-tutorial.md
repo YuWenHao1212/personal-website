@@ -246,10 +246,12 @@ That's where the real journey begins.
 - *[The AI Coding Arbitrage](/en/blog/ai-coding-arbitrage/)* — Why now is the best time to learn AI Coding
 - *[AI Goal Management System](/en/blog/ai-goal-management-system/)* — A real system built with Claude Code
 
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
-
 ---
 
 ## Resources
 
 - [Claude Code Official Docs](https://docs.anthropic.com/en/docs/claude-code)
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

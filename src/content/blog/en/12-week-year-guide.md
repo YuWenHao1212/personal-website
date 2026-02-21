@@ -2,7 +2,7 @@
 title: "12 Week Year Guide: 3 Concepts to Finally Achieve Your Goals"
 description: "Why do annual goals fail? Not willpower—the time unit. Learn Lead vs Lag indicators, Weekly Execution Score, and WAM to get 4 fresh starts per year."
 pubDate: 2026-01-17
-category: life-learning
+category: productivity
 tags: ["personal growth", "goal setting", "time management", "12 Week Year", "productivity"]
 lang: en
 featured: true
@@ -172,4 +172,4 @@ You get 4 fresh starts every year. Give it a shot.
 
 *Further reading: [The 12 Week Year on Amazon](https://www.amazon.com/12-Week-Year-Others-Months/dp/1118509234)*
 
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

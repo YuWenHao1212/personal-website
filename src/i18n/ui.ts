@@ -19,18 +19,18 @@ export const ui = {
 
     // Hero
     'hero.greeting': '我是文皓',
-    'hero.tagline': '一個人，也能做出產品',
-    'hero.description': '用 AI 加速從想法到上線。分享工具、流程、踩坑經驗。',
+    'hero.tagline': '打造自己的 AI 工作流，每天往前走一步',
+    'hero.description': '方向比速度重要，讓複利帶你走遠。',
     'hero.cta.story': '閱讀我的故事',
     'hero.cta.posts': '最新文章',
-    'hero.cta.chat': '聊聊 Vibe Coding',
+    'hero.cta.chat': '寫信給我',
 
     // Blog Categories
     'blogCategories.title': '這個部落格寫什麼',
-    'blogCategories.buildingProducts.title': '打造產品',
-    'blogCategories.buildingProducts.description': 'No-Code、AI 工具、從想法到上線',
+    'blogCategories.buildingProducts.title': 'AI 實戰',
+    'blogCategories.buildingProducts.description': '用白話聊 AI，搞懂工具、看懂趨勢、學了就能用',
     'blogCategories.productivity.title': '效率系統',
-    'blogCategories.productivity.description': '知識管理、工作流、做更少產出更多',
+    'blogCategories.productivity.description': '目標管理、知識系統、用 AI 放大每一步',
     'blogCategories.lifeLearning.title': '人生思考',
     'blogCategories.lifeLearning.description': '書籍心得、價值觀、長期主義',
 
@@ -42,7 +42,7 @@ export const ui = {
 
     // Newsletter
     'newsletter.title': '訂閱電子報',
-    'newsletter.description': '想少走彎路？我把一路上的心得寫成信寄給你。',
+    'newsletter.description': '我每週寫一封信——聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。',
     'newsletter.placeholder': '輸入你的 Email',
     'newsletter.button': '寄給我',
     'newsletter.privacy': '不會濫發垃圾郵件，隨時可以退訂。',
@@ -87,18 +87,18 @@ export const ui = {
 
     // Hero
     'hero.greeting': "I'm WenHao",
-    'hero.tagline': 'One Person Can Ship Products',
-    'hero.description': 'Using AI to go from idea to launch. Sharing tools, workflows, and lessons learned.',
+    'hero.tagline': 'Building Products, Systems, and a Life with AI',
+    'hero.description': 'PM turned solo builder. I use AI to ship products, design systems, and document the entire process — tools, workflows, real numbers.',
     'hero.cta.story': 'Read My Story',
     'hero.cta.posts': 'Latest Posts',
-    'hero.cta.chat': 'Chat About Vibe Coding',
+    'hero.cta.chat': 'Say Hello',
 
     // Blog Categories
     'blogCategories.title': 'What I Write About',
-    'blogCategories.buildingProducts.title': 'Building Products',
-    'blogCategories.buildingProducts.description': 'No-Code, AI tools, from idea to launch',
+    'blogCategories.buildingProducts.title': 'AI in Practice',
+    'blogCategories.buildingProducts.description': 'AI explained in plain language — tools, trends, and practical how-tos',
     'blogCategories.productivity.title': 'Productivity',
-    'blogCategories.productivity.description': 'Knowledge management, workflows, do less achieve more',
+    'blogCategories.productivity.description': 'Goal management, knowledge systems, amplify every step with AI',
     'blogCategories.lifeLearning.title': 'Life & Learning',
     'blogCategories.lifeLearning.description': 'Book reviews, values, long-term thinking',
 
@@ -110,7 +110,7 @@ export const ui = {
 
     // Newsletter
     'newsletter.title': 'Subscribe to My Newsletter',
-    'newsletter.description': 'Want to avoid common pitfalls? I share lessons learned along the way.',
+    'newsletter.description': 'A weekly letter on using AI in real life and work — and the lessons I learn along the way.',
     'newsletter.placeholder': 'Enter your email',
     'newsletter.button': 'Send Me Letters',
     'newsletter.privacy': 'No spam. Unsubscribe anytime.',

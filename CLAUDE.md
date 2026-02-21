@@ -77,13 +77,13 @@ npm run preview  # Preview production build
 ### zh-TW（導向電子報）
 
 ```markdown
-*我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。[訂閱](/zh-TW/)，一起見證。*
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*
 ```
 
 ### EN（導向 LinkedIn）
 
 ```markdown
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm always happy to chat about AI, systems, and building things solo.*
 ```
 
 ### 注意事項

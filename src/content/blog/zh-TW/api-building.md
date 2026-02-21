@@ -92,3 +92,7 @@ Azure Functions 採用精確的按量計費模式，只對超出免費額度的�
 通過這門課程，你將學習如何建立、部署和管理自己的 serverless API，為你的無程式碼應用增添強大的後端功能。完成課程後，你將具備將自建 API 整合到無程式碼應用的實用技能，讓你的開發能力更上一層樓。
 
 **[立即報名 Microsoft 的「Build Serverless Applications」課程](https://www.coursera.org/learn/build-serverless-applications)**
+
+---
+
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

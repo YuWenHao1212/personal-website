@@ -162,3 +162,7 @@ This article is a tribute to those 21 months with Minerva MDA.
 If you're at a crossroads in life, feel free to reach out.
 
 Everyone deserves to find their own path.
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

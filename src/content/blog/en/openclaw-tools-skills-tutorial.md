@@ -286,8 +286,6 @@ You don't need all 25 Tools. The 53 bundled Skills default to all-on — use `al
 
 My config above works as a starting point. Copy it, then trim to fit your needs. For security settings, read it alongside the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>.
 
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
-
 ---
 
 ## FAQ
@@ -462,3 +460,7 @@ Recommended reading alongside this guide: <a href="/en/blog/2026-02-01-openclaw-
 ---
 
 *Last updated: 2026-02-05*
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

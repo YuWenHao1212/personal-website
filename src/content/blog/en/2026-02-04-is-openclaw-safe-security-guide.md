@@ -516,8 +516,6 @@ Then OpenClaw's productivity boost is absolutely worth it.
 
 Once you've done these 5 protections, the next step is understanding which of the 25 Tools and 53 Skills to enable—what to turn on, what to keep off, and why. I wrote that up in a separate tutorial (coming soon), including my complete configuration.
 
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
-
 ---
 
 ## FAQ
@@ -555,3 +553,7 @@ Prompt Injection is when attackers hide malicious instructions in normal-looking
 - [Researchers Find 341 Malicious ClawHub Skills](https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html) - The Hacker News
 - [Personal AI Agents like OpenClaw Are a Security Nightmare](https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare) - Cisco Blogs
 - [OpenClaw proves agentic AI works. It also proves the security risks.](https://venturebeat.com/security/openclaw-agentic-ai-security-risk-ciso-guide) - VentureBeat
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

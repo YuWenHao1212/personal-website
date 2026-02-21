@@ -136,3 +136,7 @@ In this era of rapidly evolving skills, mastering efficient learning channels ha
 Take action now! Whether you want to boost your workplace competitiveness, change careers, or simply satisfy your curiosity about a field, head to Coursera and explore the learning path that's right for you. In the digital age, learning is never an endpoint—it's a journey of continuous growth. Time invested in self-improvement today will pay dividends many times over in the future.
 
 [Start Exploring Coursera](https://imp.i384100.net/qzO0eY)
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

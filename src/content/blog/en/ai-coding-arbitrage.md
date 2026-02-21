@@ -2,7 +2,7 @@
 title: "The AI Arbitrage Opportunity: Code Just Got Cheap"
 description: "AI made coding cheap. Skills that took years to learn now take days. But this window won't stay open forever—when everyone can build with AI, the arbitrage ends. Start building digital assets now."
 pubDate: 2026-01-23
-category: building-products
+category: life-learning
 tags: ["AI Coding", "Solo Founder", "Digital Assets", "Personal Growth", "Long-term Thinking"]
 lang: en
 featured: true
@@ -154,3 +154,7 @@ How long will this window stay open? Unknown.
 But when everyone can build with AI, the arbitrage ends.
 
 If there's something you've always wanted to build, now is the best time to start.
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

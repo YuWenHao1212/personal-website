@@ -2,7 +2,7 @@
 title: "從 Obsidian 到 Claude Code：打造可程式化的人生"
 description: "70 萬人看過的 Personal Panopticon 啟發了我建立自己的 AI 系統。三個核心原則：Markdown 優先、API 優先、數據驅動。分享我用 Claude Code 和 Obsidian 打造的個人指揮中心。"
 pubDate: 2026-01-14
-category: building-products
+category: productivity
 lang: zh-TW
 featured: true
 heroImage: /images/blog/personal-panopticon.webp
@@ -152,4 +152,4 @@ Molly 的系統很厲害。但她花了好幾個月才建起來。
 
 *延伸閱讀：[Molly Cantillon 原文](https://x.com/mollycantillon/status/2008918474006122936)*
 
-*想看更多這類內容？[訂閱我的電子報](/zh-TW/)*
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

@@ -2,7 +2,7 @@
 title: "From Obsidian to Claude Code: Building a Programmable Life"
 description: "A viral X post with 700K views inspired me to build my own AI system. Three core principles: Markdown-first, API-first, data-driven. Here's how I'm using Claude Code and Obsidian to build my personal command center."
 pubDate: 2026-01-14
-category: building-products
+category: productivity
 lang: en
 featured: true
 heroImage: /images/blog/personal-panopticon.webp
@@ -154,4 +154,4 @@ The tower is still a tower. But the keys can be in your hands.
 
 *Further reading: [Molly Cantillon's original post](https://x.com/mollycantillon/status/2008918474006122936)*
 
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

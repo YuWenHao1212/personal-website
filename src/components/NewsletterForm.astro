@@ -19,8 +19,8 @@ const thankYouUrl = `/${lang}/thank-you`;
   <div class:list={[
     variant === 'default' ? 'max-w-6xl mx-auto px-6' : '',
   ]}>
-    {variant === 'default' && (
-      <div class="max-w-2xl">
+    {variant === 'default' && lang === 'zh-TW' && (
+      <div class="max-w-2xl mx-auto text-center">
         <h2 class="text-[2rem] md:text-[2.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
           {t('newsletter.title')}
         </h2>
@@ -56,6 +56,33 @@ const thankYouUrl = `/${lang}/thank-you`;
         <p class="mt-6 text-sm text-[#8B7355]">
           {t('newsletter.privacy')}
         </p>
+      </div>
+    )}
+
+    {variant === 'default' && lang === 'en' && (
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-[2rem] md:text-[2.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+          Stay Connected
+        </h2>
+        <p class="text-lg text-[#5C5144] mb-10">
+          I'm always open to interesting conversations and opportunities — connect on LinkedIn, or explore the blog.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://www.linkedin.com/in/hence/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors text-center"
+          >
+            Connect on LinkedIn
+          </a>
+          <a
+            href="/en/blog/"
+            class="px-8 py-4 border-2 border-[#2C2416] text-[#2C2416] text-base font-medium hover:bg-[#2C2416] hover:text-[#FAF8F5] transition-colors text-center"
+          >
+            Read the Blog
+          </a>
+        </div>
       </div>
     )}
 

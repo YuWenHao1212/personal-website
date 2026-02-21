@@ -2,7 +2,7 @@
 title: "年度目標總是失敗？我用 Claude Code 建了一套目標管理系統"
 description: "年度目標年年失敗，不是因為懶，是因為看不見自己。這篇分享我如何用 Claude Code + 12 Week Year 建了一套目標管理系統，終於不再半途而廢。"
 pubDate: 2026-01-24
-category: building-products
+category: productivity
 tags: ["年度目標", "目標管理", "AI", "12 Week Year", "生產力"]
 lang: zh-TW
 status: published
@@ -255,4 +255,4 @@ LINE 通知：
 2. *[12 Week Year 完整指南](https://yu-wenhao.com/zh-TW/blog/12-week-year-guide)* — Lead vs Lag、計分、WAM 問責機制
 3. *本篇* — 12 Week Year + AI 的實際整合
 
-*我相信在 AI 時代，一個人就能打造一間公司。我正在用自己的經歷證明這件事——從產品開發到行銷成長到生活管理，全部一個人。每一步怎麼做到的，我都寫進電子報裡。[訂閱](/zh-TW/)，一起見證。*
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

@@ -2,7 +2,7 @@
 title: "Why Yearly Goals Fail—And the AI System I Built to Fix It"
 description: "Yearly goals fail not because you're lazy—it's because you can't see yourself. Here's how I built a goal management system with Claude Code and the 12 Week Year framework."
 pubDate: 2026-01-24
-category: building-products
+category: productivity
 tags: ["goal setting", "goal management", "AI", "12 Week Year", "productivity"]
 lang: en
 status: published
@@ -255,4 +255,4 @@ I think moving forward isn't so hard after all.
 2. *[The Complete 12 Week Year Guide](https://yu-wenhao.com/en/blog/12-week-year-guide)* — Lead vs Lag, scoring, WAM accountability
 3. *This article* — 12 Week Year + AI integration in practice
 
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

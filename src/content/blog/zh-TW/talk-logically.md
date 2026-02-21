@@ -95,3 +95,7 @@ heroImage: /images/blog/talk-logically/hero.webp
 </figure>
 
 2. **《圖解邏輯思考全書》**（[博客來購書連結](https://www.books.com.tw/exep/assp.php/yuwenhao1212/products/0010892651)）
+
+---
+
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

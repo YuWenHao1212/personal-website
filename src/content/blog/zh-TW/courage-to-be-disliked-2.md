@@ -129,3 +129,7 @@ heroImage: /images/blog/courage-to-be-disliked-2/hero.webp
 
 - 被討厭的勇氣：[博客來購書連結](https://www.books.com.tw/exep/assp.php/yuwenhao1212/products/0010653153?sloc=main&utm_source=yuwenhao1212&utm_medium=ap-books&utm_content=recommend&utm_campaign=ap-202105)
 - 被討厭的勇氣二部曲：[博客來購書連結](https://www.books.com.tw/exep/assp.php/yuwenhao1212/products/0010732121?sloc=main&utm_source=yuwenhao1212&utm_medium=ap-books&utm_content=recommend&utm_campaign=ap-202105)
+
+---
+
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

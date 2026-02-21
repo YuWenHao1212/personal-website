@@ -12,11 +12,11 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const navItems = [
-  { href: `/${lang}/products`, label: t('nav.products') },
-  { href: `/${lang}/blog`, label: t('nav.blog') },
-  // { href: `/${lang}/picks`, label: t('nav.picks') }, // Hidden until more content
-  { href: `/${lang}/about`, label: t('nav.about') },
-  { href: `/${lang}/contact`, label: t('nav.contact') },
+  { href: `/${lang}/products/`, label: t('nav.products') },
+  { href: `/${lang}/blog/`, label: t('nav.blog') },
+  // { href: `/${lang}/picks/`, label: t('nav.picks') }, // Hidden until more content
+  { href: `/${lang}/about/`, label: t('nav.about') },
+  { href: `/${lang}/contact/`, label: t('nav.contact') },
 ];
 
 const currentPath = Astro.url.pathname;

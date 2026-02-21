@@ -172,3 +172,7 @@ YNAB 目前是採取訂閱制，月付 11.99 美金或是年付 84 美金（7 �
 如果你有興趣嘗試 YNAB，可以透過我的推薦連結註冊，獲得 34 天免費試用：
 
 [YNAB 註冊連結](https://ynab.com/referral/?ref=Yu9IQQkJbGlXQIch&utm_source=customer_referral)
+
+---
+
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

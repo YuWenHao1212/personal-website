@@ -6,17 +6,18 @@ const t = useTranslations(lang);
 
 const thankYouUrl = `/${lang}/thank-you`;
 
-// Newsletter content
-const newsletter = lang === 'zh-TW' ? {
-  cta: '想少走彎路？我把一路上的心得寫成信寄給你。',
+// Newsletter content (zh-TW only — EN uses LinkedIn + Blog buttons)
+const newsletter = {
+  cta: '我每週寫一封信 — 聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。訂閱直接寄給你。',
   placeholder: '輸入你的 Email',
   button: '寄給我',
   privacy: '不會濫發垃圾郵件，隨時可以退訂。',
-} : {
-  cta: 'Want to avoid common pitfalls? I share lessons learned along the way.',
-  placeholder: 'Enter your email',
-  button: 'Send Me Letters',
-  privacy: 'No spam. Unsubscribe anytime.',
+};
+
+const enCta = {
+  text: 'I\'m always open to interesting conversations and opportunities — connect on LinkedIn, or explore the blog.',
+  linkedIn: 'Connect on LinkedIn',
+  blog: 'Read the Blog',
 };
 
 // Products data
@@ -24,21 +25,21 @@ const products = lang === 'zh-TW' ? [
   {
     name: 'NeatToolkit',
     description: '免費線上工具站。圖片去背、影片壓縮、YouTube 字幕下載，不用註冊，打開就用。',
-    href: '/zh-TW/products/neatoolkit',
+    href: '/zh-TW/products/neatoolkit/',
     image: '/images/blog/neatoolkit-launch.webp',
     badge: '新品',
   },
   {
     name: 'AI Resume Advisor',
     description: 'AI 驅動的履歷分析工具，幫助你打造更具競爭力的履歷。',
-    href: '/zh-TW/products/ai-resume-advisor',
+    href: '/zh-TW/products/ai-resume-advisor/',
     image: '/images/products/ai-resume-advisor.webp',
     badge: '熱門',
   },
   {
     name: 'LinkedIn Resume Checker',
     description: 'Chrome Extension，一鍵分析你與 LinkedIn 職缺的匹配度。',
-    href: '/zh-TW/products/linkedin-resume-checker',
+    href: '/zh-TW/products/linkedin-resume-checker/',
     image: '/images/products/linkedin-resume-checker.webp',
     badge: '熱門',
   },
@@ -46,21 +47,21 @@ const products = lang === 'zh-TW' ? [
   {
     name: 'NeatToolkit',
     description: 'Free online tools. Background removal, video compression, YouTube subtitle download. No signup required.',
-    href: '/en/products/neatoolkit',
+    href: '/en/products/neatoolkit/',
     image: '/images/blog/neatoolkit-launch.webp',
     badge: 'New',
   },
   {
     name: 'AI Resume Advisor',
     description: 'AI-powered resume analysis tool that helps you craft more competitive resumes.',
-    href: '/en/products/ai-resume-advisor',
+    href: '/en/products/ai-resume-advisor/',
     image: '/images/products/ai-resume-advisor.webp',
     badge: 'Popular',
   },
   {
     name: 'LinkedIn Resume Checker',
     description: 'Chrome Extension that analyzes your match with LinkedIn job postings in one click.',
-    href: '/en/products/linkedin-resume-checker',
+    href: '/en/products/linkedin-resume-checker/',
     image: '/images/products/linkedin-resume-checker.webp',
     badge: 'Popular',
   },
@@ -87,41 +88,71 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
             {t('hero.description')}
           </p>
 
-          <!-- Newsletter CTA -->
-          <p class="text-base md:text-lg text-[#2C2416] font-medium mb-6">
-            {newsletter.cta}
-          </p>
+          {lang === 'zh-TW' ? (
+            <>
+              {/* Newsletter CTA - zh-TW only */}
+              <p class="text-base md:text-lg text-[#2C2416] font-medium mb-6">
+                {newsletter.cta}
+              </p>
 
-          <!-- Newsletter Form -->
-          <form
-            id="hero-newsletter-form"
-            class="flex flex-col sm:flex-row gap-3 max-w-lg"
-            data-umami-event="newsletter_signup_hero"
-            data-thank-you-url={thankYouUrl}
-          >
-            <input
-              type="email"
-              name="email_address"
-              placeholder={newsletter.placeholder}
-              required
-              class="flex-1 px-5 py-4 border-2 border-[#2C2416] bg-[#FFFDF9] text-[#2C2416] placeholder-[#8B7355] focus:outline-none focus:ring-0 text-base"
-            />
-            <button
-              type="submit"
-              class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors whitespace-nowrap"
-            >
-              {newsletter.button}
-            </button>
-          </form>
+              {/* Newsletter Form */}
+              <form
+                id="hero-newsletter-form"
+                class="flex flex-col sm:flex-row gap-3 max-w-lg"
+                data-umami-event="newsletter_signup_hero"
+                data-thank-you-url={thankYouUrl}
+              >
+                <input
+                  type="email"
+                  name="email_address"
+                  placeholder={newsletter.placeholder}
+                  required
+                  class="flex-1 px-5 py-4 border-2 border-[#2C2416] bg-[#FFFDF9] text-[#2C2416] placeholder-[#8B7355] focus:outline-none focus:ring-0 text-base"
+                />
+                <button
+                  type="submit"
+                  class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors whitespace-nowrap"
+                >
+                  {newsletter.button}
+                </button>
+              </form>
 
-          <p class="mt-4 text-sm text-[#8B7355]">
-            {newsletter.privacy}
-          </p>
+              <p class="mt-4 text-sm text-[#8B7355]">
+                {newsletter.privacy}
+              </p>
+            </>
+          ) : (
+            <>
+              {/* LinkedIn + Blog CTA - EN only */}
+              <p class="text-base md:text-lg text-[#5C5144] mb-6">
+                {enCta.text}
+              </p>
+
+              <div class="flex flex-col sm:flex-row gap-3 max-w-lg">
+                <a
+                  href="https://www.linkedin.com/in/hence/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors whitespace-nowrap text-center"
+                  data-umami-event="hero_linkedin_click"
+                >
+                  {enCta.linkedIn}
+                </a>
+                <a
+                  href="/en/blog/"
+                  class="px-8 py-4 border-2 border-[#2C2416] text-[#2C2416] text-base font-medium hover:bg-[#2C2416] hover:text-[#FAF8F5] transition-colors whitespace-nowrap text-center"
+                  data-umami-event="hero_blog_click"
+                >
+                  {enCta.blog}
+                </a>
+              </div>
+            </>
+          )}
 
           <!-- Secondary CTAs -->
           <div class="flex flex-wrap gap-4 justify-center md:justify-start mt-8 pt-8 border-t border-[#E8E4DD]">
             <a
-              href={`/${lang}/about`}
+              href={`/${lang}/about/`}
               class="text-[#5C5144] hover:text-[#2C2416] text-sm font-medium transition-colors flex items-center gap-1"
             >
               {t('hero.cta.story')}
@@ -130,7 +161,7 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
               </svg>
             </a>
             <a
-              href={`/${lang}/blog`}
+              href={`/${lang}/blog/`}
               class="text-[#5C5144] hover:text-[#2C2416] text-sm font-medium transition-colors flex items-center gap-1"
             >
               {t('hero.cta.posts')}
@@ -139,7 +170,7 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
               </svg>
             </a>
             <a
-              href="mailto:mail@yu-wenhao.com?subject=聊聊 Vibe Coding"
+              href="mailto:mail@yu-wenhao.com?subject=Hello"
               class="text-[#5C5144] hover:text-[#2C2416] text-sm font-medium transition-colors flex items-center gap-1"
             >
               {t('hero.cta.chat')}

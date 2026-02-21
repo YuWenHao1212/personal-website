@@ -113,3 +113,7 @@ Looking back on this journey, the most important lesson I learned is:
 You don't need a perfect plan. You don't need to wait until you're ready.
 
 Just do it.
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

@@ -73,3 +73,7 @@ MyMind 將自己定位為個人知識儲存庫，具有「基於內容分析自�
 
 - [Roam Research](https://roamresearch.com/)：30 天免費試用
 - [MyMind](https://mymind.com/)：前 100 次儲存免費
+
+---
+
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

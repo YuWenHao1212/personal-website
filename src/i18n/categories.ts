@@ -6,8 +6,8 @@ export type Category = typeof categories[number];
 
 export const categoryNames: Record<Category, Record<Lang, string>> = {
   'building-products': {
-    'zh-TW': '打造產品',
-    'en': 'Building Products',
+    'zh-TW': 'AI 實戰',
+    'en': 'AI in Practice',
   },
   'productivity': {
     'zh-TW': '效率系統',

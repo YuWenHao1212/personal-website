@@ -27,38 +27,31 @@ const year = new Date().getFullYear();
 
 <footer class="bg-cream-200 border-t border-cream-300">
   <div class="container-wide py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="text-center">
       <!-- Brand -->
-      <div class="md:col-span-2">
-        <a href={`/${lang}/`} class="text-xl font-semibold text-ink-900">
-          WenHao Yu
-        </a>
-        <p class="mt-2 text-sm text-ink-600 max-w-md">
-          {lang === 'zh-TW'
-            ? '我用 AI 打造產品。分享產品開發、效率系統與人生思考。'
-            : 'I build products with AI. Sharing insights on building products, productivity & life.'}
-        </p>
-      </div>
+      <a href={`/${lang}/`} class="text-xl font-semibold text-ink-900">
+        WenHao Yu
+      </a>
+      <p class="mt-2 text-sm text-ink-600">
+        {lang === 'zh-TW'
+          ? '打造自己的 AI 工作流，每天往前走一步。分享 AI 實戰、效率系統與人生思考。'
+          : 'Building products, systems, and a life with AI. Sharing AI in practice, productivity & life lessons.'}
+      </p>
 
       <!-- Social Links -->
-      <div>
-        <h3 class="text-sm font-semibold text-ink-900 uppercase tracking-wider">
-          {t('footer.social')}
-        </h3>
-        <div class="mt-4 flex gap-4">
-          {socialLinks.map(({ name, href, icon }) => (
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-ink-500 hover:text-ink-700 transition-colors"
-              title={name}
-            >
-              <span class="sr-only">{name}</span>
-              <Fragment set:html={icon} />
-            </a>
-          ))}
-        </div>
+      <div class="mt-6 flex gap-4 justify-center">
+        {socialLinks.map(({ name, href, icon }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-ink-500 hover:text-ink-700 transition-colors"
+            title={name}
+          >
+            <span class="sr-only">{name}</span>
+            <Fragment set:html={icon} />
+          </a>
+        ))}
       </div>
     </div>
 

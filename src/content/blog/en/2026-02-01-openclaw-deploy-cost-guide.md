@@ -328,8 +328,6 @@ In 30 minutes, you'll have your own 24/7 personal AI assistant.
 
 ---
 
-*I'm a PM turned solo builder, using AI agents to ship real products. I share what I learn along the way — [connect with me on LinkedIn](https://www.linkedin.com/in/hence/) and tell me what you're building.*
-
 ---
 
 ## Resources
@@ -355,3 +353,7 @@ In 30 minutes, you'll have your own 24/7 personal AI assistant.
 ---
 
 *Last updated: 2026-02-01*
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

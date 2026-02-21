@@ -123,3 +123,7 @@ heroImage: /images/blog/courage-to-be-disliked/hero.webp
 </a>
 <figcaption>被討厭的勇氣 - 博客來購書連結</figcaption>
 </figure>
+
+---
+
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*

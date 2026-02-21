@@ -2,7 +2,7 @@
 title: "12 Week Year 完整指南：三個核心概念讓你擺脫年度目標失敗循環"
 description: "為什麼年度計畫總是失敗？問題不在意志力，在時間單位。學會 Lead vs Lag 指標、Weekly Execution Score、WAM 問責機制，一年有 4 次機會重新開始。"
 pubDate: 2026-01-17
-category: life-learning
+category: productivity
 tags: ["個人成長", "目標管理", "時間管理", "12 Week Year", "生產力"]
 lang: zh-TW
 featured: true
@@ -172,4 +172,4 @@ WAM 讓你有機會每週停下來，問這個問題。而不是埋頭苦幹三�
 
 *延伸閱讀：[《12週做完一年工作》博客來](https://www.books.com.tw/products/0010974991)*
 
-*想看更多這類內容？[訂閱我的電子報](/zh-TW/)*
+*喜歡這類內容？我每週寫一封信，聊怎麼把 AI 用在真實生活和工作裡，和一路上想通的道理。[訂閱直接寄給你](/zh-TW/)。*
