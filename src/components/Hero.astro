@@ -20,30 +20,8 @@ const enCta = {
   blog: 'Read the Blog',
 };
 
-// Products data
-const products = lang === 'zh-TW' ? [
-  {
-    name: 'NeatToolkit',
-    description: '免費線上工具站。圖片去背、影片壓縮、YouTube 字幕下載，不用註冊，打開就用。',
-    href: '/zh-TW/products/neatoolkit/',
-    image: '/images/blog/neatoolkit-launch.webp',
-    badge: '新品',
-  },
-  {
-    name: 'AI Resume Advisor',
-    description: 'AI 驅動的履歷分析工具，幫助你打造更具競爭力的履歷。',
-    href: '/zh-TW/products/ai-resume-advisor/',
-    image: '/images/products/ai-resume-advisor.webp',
-    badge: '熱門',
-  },
-  {
-    name: 'LinkedIn Resume Checker',
-    description: 'Chrome Extension，一鍵分析你與 LinkedIn 職缺的匹配度。',
-    href: '/zh-TW/products/linkedin-resume-checker/',
-    image: '/images/products/linkedin-resume-checker.webp',
-    badge: '熱門',
-  },
-] : [
+// Products data (EN only — zh-TW uses compact version in index.astro)
+const products = lang === 'en' ? [
   {
     name: 'NeatToolkit',
     description: 'Free online tools. Background removal, video compression, YouTube subtitle download. No signup required.',
@@ -65,10 +43,8 @@ const products = lang === 'zh-TW' ? [
     image: '/images/products/linkedin-resume-checker.webp',
     badge: 'Popular',
   },
-];
+] : [];
 
-const ctaText = lang === 'zh-TW' ? '立即試用' : 'Try Now';
-const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Built';
 ---
 
 <section>
@@ -198,56 +174,57 @@ const productsTitle = lang === 'zh-TW' ? '我打造的產品' : 'Products I Buil
     </div>
   </div>
 
-  <!-- Products Section -->
-  <div class="bg-[#F5F1EB] py-24 md:py-32">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-16 md:mb-20">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
-          {productsTitle}
-        </h2>
-      </div>
+  {lang === 'en' && products.length > 0 && (
+    <div class="bg-[#F5F1EB] py-24 md:py-32">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-16 md:mb-20">
+          <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
+            Products I Built
+          </h2>
+        </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-        {products.map((product) => (
-          <a
-            href={product.href}
-            class="group block bg-white border border-cream-200 rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-accent/30 hover:-translate-y-2 transition-all duration-300"
-            data-umami-event="hero_product_click"
-            data-umami-event-product={product.name}
-          >
-            <div class="relative overflow-hidden aspect-[16/10]">
-              <img
-                src={product.image}
-                alt={product.name}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                loading="eager"
-              />
-              {product.badge && (
-                <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
-                  {product.badge}
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          {products.map((product) => (
+            <a
+              href={product.href}
+              class="group block bg-white border border-cream-200 rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:border-accent/30 hover:-translate-y-2 transition-all duration-300"
+              data-umami-event="hero_product_click"
+              data-umami-event-product={product.name}
+            >
+              <div class="relative overflow-hidden aspect-[16/10]">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="eager"
+                />
+                {product.badge && (
+                  <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
+                    {product.badge}
+                  </span>
+                )}
+              </div>
+
+              <div class="p-5 md:p-6">
+                <h3 class="text-base md:text-lg font-semibold text-ink-900 mb-2 group-hover:text-accent transition-colors">
+                  {product.name}
+                </h3>
+                <p class="text-xs md:text-sm text-ink-500 mb-4 leading-relaxed">
+                  {product.description}
+                </p>
+                <span class="inline-flex items-center text-sm font-medium text-ink-900 group-hover:text-accent transition-colors">
+                  Try Now
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </span>
-              )}
-            </div>
-
-            <div class="p-5 md:p-6">
-              <h3 class="text-base md:text-lg font-semibold text-ink-900 mb-2 group-hover:text-accent transition-colors">
-                {product.name}
-              </h3>
-              <p class="text-xs md:text-sm text-ink-500 mb-4 leading-relaxed">
-                {product.description}
-              </p>
-              <span class="inline-flex items-center text-sm font-medium text-ink-900 group-hover:text-accent transition-colors">
-                {ctaText}
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </div>
-          </a>
-        ))}
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
+  )}
 
   <script>
     const form = document.getElementById('hero-newsletter-form') as HTMLFormElement;

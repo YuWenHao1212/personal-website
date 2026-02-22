@@ -65,12 +65,11 @@
 
 ### Blog Categories
 
-| 分類 | English | 內容方向 |
-|------|---------|----------|
-| AI & 科技 | AI & Tech | AI 產業、工具推薦、工作流 |
-| 創業筆記 | Entrepreneurship | 一人公司、獨立開發、產品心得 |
-| 生產力 | Productivity | 知識管理、筆記系統、個人效率 |
-| 思考與生活 | Thoughts & Life | 價值觀、斯多葛、人生反思 |
+| Slug | 中文 | English | 內容方向 |
+|------|------|---------|----------|
+| building-products | AI 實戰 | AI in Practice | AI 工具、趨勢、實用指南 |
+| productivity | 效率系統 | Systems & Productivity | 目標管理、知識系統、AI 放大每一步 |
+| life-learning | 人生思考 | Life & Learning | 書籍心得、價值觀、長期主義 |
 
 ### SEO Requirements
 
@@ -85,10 +84,10 @@
 
 | Item | Description |
 |------|-------------|
-| 服務 | [Buttondown](https://buttondown.email) |
-| 訂閱位置 | 首頁、文章底部 |
-| 整合方式 | Buttondown API 或 Embed Form |
-| 語言 | 主要中文，重要內容雙語 |
+| 服務 | [Kit.com](https://kit.com) (ConvertKit) |
+| 訂閱位置 | 首頁 Hero (zh-TW only)、文章底部 |
+| 整合方式 | Kit.com Form API (`POST /forms/{id}/subscriptions`) |
+| 語言 | 中文（EN 版不設電子報，導向 LinkedIn） |
 
 ### Analytics
 
@@ -163,27 +162,68 @@ videoUrl: ""  # YouTube 影片連結（可選）
 | CategoryFilter | Blog 分類篩選 UI |
 | Article | Typography, Code highlighting, Video embed |
 | VideoEmbed | YouTube 影片嵌入元件 |
-| NewsletterForm | Buttondown 訂閱表單（首頁 + 文章底部） |
+| NewsletterForm | Kit.com 訂閱表單（文章底部） |
+
+### Homepage Strategy
+
+兩個語言版本有不同的漏斗目標，但共享相同的設計語言：
+
+| | zh-TW | EN |
+|---|---|---|
+| **定位** | Media homepage（知識型媒體） | Professional presence（專業形象） |
+| **目標訪客** | SEO 進來的讀者 | SEO 進來的讀者 |
+| **漏斗終點** | 訂閱電子報 → 信任 → 知識產品 | 連結 LinkedIn → 專業關係 |
+| **核心價值** | 中文賣的是你的知識 | 英文賣的是你這個人 |
+
+**設計決策**：
+
+1. **Products 權重不同**：EN 版 Products 放在 Hero 下方（大卡片），因為作品集是專業形象的核心證據；zh-TW 版 Products 放在頁面底部（社會證明），因為重點是內容而非產品。
+2. **CTA 不同**：zh-TW Hero 放 Newsletter 訂閱表單（Kit.com），EN Hero 放 LinkedIn + Blog 按鈕。
+3. **共同元素**：兩版都有 Author Context（一行自我介紹）+ Content Pillars（3 分類卡片）+ Featured Posts，因為兩邊的訪客都是 SEO 進來的，需要快速理解「這個人是誰」和「這裡有什麼內容」。
+4. **背景色交替**：`#FAF8F5` / `#F5F1EB` / `#FFFDF9` 交替使用，讓各 section 有視覺層次分隔。
 
 ### Homepage Layout
+
+**zh-TW（知識漏斗）**
 
 ```
 ┌─────────────────────────────────────────────────┐
 │ Hero Section                                    │
-│ - 專業照片                                       │
-│ - 品牌聲明：AI 時代的一人公司創業者               │
-│ - CTA：閱讀我的故事 / 最新文章                   │
+│ - 照片 + Tagline + Description                  │
+│ - Newsletter CTA (Kit.com form)                 │
+│ - Secondary CTAs (About / Blog / Email)         │
 ├─────────────────────────────────────────────────┤
-│ Featured Posts (3-4 篇精選文章)                  │
+│ Author Context + Content Pillars + Featured     │
+│ - 一行自我介紹                                    │
+│ - 3 分類卡片 (AI 實戰 / 效率系統 / 人生思考)      │
+│ - 精選文章 6 篇 + 查看全部                        │
 ├─────────────────────────────────────────────────┤
-│ Products Section                                │
-│ - AI Resume Advisor                             │
-│ - 未來產品/課程                                  │
+│ Products (Social Proof)                         │
+│ - 3 products with images (credibility)          │
 ├─────────────────────────────────────────────────┤
-│ Newsletter Section                              │
-│ - 訂閱電子報 CTA + Buttondown Form              │
+│ Recommended Tools                               │
+│ - 實際使用過的工具推薦                             │
+└─────────────────────────────────────────────────┘
+```
+
+**EN（專業形象）**
+
+```
+┌─────────────────────────────────────────────────┐
+│ Hero Section                                    │
+│ - Photo + Tagline + Description                 │
+│ - LinkedIn + Blog CTA                           │
+│ - Secondary CTAs (About / Blog / Email)         │
+├── Products I Built ─────────────────────────────┤
+│ - 3 products with images + badges (portfolio)   │
 ├─────────────────────────────────────────────────┤
-│ About Snippet + Connect                         │
+│ Author Context + Content Pillars + Featured     │
+│ - One-line author intro                         │
+│ - 3 category cards (AI / Systems / Life)        │
+│ - Featured Posts 6 cards + View All             │
+├─────────────────────────────────────────────────┤
+│ Recommended Tools                               │
+│ - Tools and resources I actually use            │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -316,8 +356,8 @@ videoUrl: ""  # YouTube 影片連結（可選）
 
 ## Related Documents
 
-- Cockpit idea: `~/Cockpit/ideas/personal-website-rebuild.md`
-- Brand strategy: `~/Cockpit/projects/personal-brand/STRATEGY.md`
+- Brand strategy: `~/Cockpit/efforts/areas/personal-brand/`
+- Product growth: `~/Cockpit/efforts/projects/active/airesumeadvisor/`
 
 ---
 
@@ -329,3 +369,4 @@ videoUrl: ""  # YouTube 影片連結（可選）
 | 1.1 | 2026-01-07 | Added design inspiration, blog categories, page layouts |
 | 1.2 | 2026-01-07 | Added Buttondown newsletter integration |
 | 1.3 | 2026-01-07 | Added Umami analytics |
+| 2.0 | 2026-02-22 | Homepage Strategy: dual-purpose design (zh-TW knowledge funnel / EN professional presence), newsletter migrated to Kit.com, blog categories updated to 3 pillars |

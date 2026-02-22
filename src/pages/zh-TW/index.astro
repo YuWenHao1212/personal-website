@@ -2,149 +2,183 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import FeaturedPosts from '../../components/FeaturedPosts.astro';
-import NewsletterForm from '../../components/NewsletterForm.astro';
 
 const title = 'WenHao Yu';
 const ogTitle = 'WenHao Yu - 打造自己的 AI 工作流';
 const description = '方向比速度重要，讓複利帶你走遠。打造自己的 AI 工作流，每天往前走一步。';
 
-const featuredTools = [
+const pillars = [
   {
-    title: 'Microsoft for Startups：免費 Azure 額度申請攻略',
-    description: '最高 $5,000 美元的免費 Azure credits，可用於 OpenAI API、雲端服務等。個人開發者也能申請。',
-    href: '/zh-TW/blog/free-azure-startup-credits/',
-    image: '/images/blog/free-azure-startup-credits.webp',
-    category: '一人公司',
+    emoji: '🚀',
+    title: 'AI 實戰',
+    description: '用白話聊 AI，搞懂工具、看懂趨勢、學了就能用',
+    href: '/zh-TW/blog/?category=building-products',
+    event: 'ai-practice',
+  },
+  {
+    emoji: '⚡',
+    title: '效率系統',
+    description: '目標管理、知識系統、用 AI 放大每一步',
+    href: '/zh-TW/blog/?category=productivity',
+    event: 'efficiency',
+  },
+  {
+    emoji: '🌱',
+    title: '人生思考',
+    description: '書籍心得、價值觀、長期主義',
+    href: '/zh-TW/blog/?category=life-learning',
+    event: 'life-thinking',
+  },
+];
+
+const products = [
+  {
+    name: 'NeatToolkit',
+    description: '免費線上工具站，打開就用',
+    href: '/zh-TW/products/neatoolkit/',
+    image: '/images/blog/neatoolkit-launch.webp',
+  },
+  {
+    name: 'AI Resume Advisor',
+    description: 'AI 履歷診斷，投前就知道勝算',
+    href: '/zh-TW/products/ai-resume-advisor/',
+    image: '/images/products/ai-resume-advisor.webp',
+  },
+  {
+    name: 'LinkedIn Resume Checker',
+    description: '一鍵分析職缺匹配度',
+    href: '/zh-TW/products/linkedin-resume-checker/',
+    image: '/images/products/linkedin-resume-checker.webp',
   },
 ];
 ---
 
 <BaseLayout title={title} description={description} ogTitle={ogTitle}>
-  <!-- Hero with Newsletter + Products -->
+  <!-- Hero with Newsletter -->
   <Hero />
 
-  <!-- Featured Posts Section -->
-  <section class="py-24 md:py-32 bg-[#FFFDF9]">
+  <!-- Featured Posts + Content Pillars (unified section) -->
+  <section class="py-24 md:py-32 bg-[#F5F1EB]">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-16 md:mb-20">
+      <!-- Author context -->
+      <p class="text-xl md:text-2xl font-medium text-[#2C2416] mb-12 md:mb-14 leading-[1.6]">
+        科技業 15 年，前 PM。用 AI 建立可複利的系統，讓工作和生活每天好一點。這裡是完整記錄。
+      </p>
+
+      <!-- Content Pillars (category navigation) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-5 mb-16 md:mb-20 pb-16 md:pb-20 border-b border-[#E0DBD3]">
+        {pillars.map((pillar) => (
+          <a
+            href={pillar.href}
+            class="block rounded-lg p-4 md:p-5 bg-white border border-[#E8E4DD] hover:shadow-md hover:border-[#B8926A]/50 transition-all"
+            data-umami-event="content_pillar_click"
+            data-umami-event-pillar={pillar.event}
+          >
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xl md:text-2xl">{pillar.emoji}</span>
+              <span class="font-semibold text-sm md:text-base text-[#2C2416]">{pillar.title}</span>
+            </div>
+            <div class="text-xs md:text-sm leading-relaxed text-[#5C5144]">{pillar.description}</div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Section header -->
+      <div class="flex items-baseline justify-between mb-10 md:mb-12">
         <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
           精選文章
         </h2>
+        <a
+          href="/zh-TW/blog/"
+          class="text-sm md:text-base font-medium text-[#5C5144] hover:text-[#2C2416] transition-colors flex items-center gap-1"
+        >
+          查看全部
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
       </div>
+
+      <!-- Post cards -->
       <FeaturedPosts limit={6} />
     </div>
   </section>
 
-  <!-- Recommended Tools Section -->
-  <section class="py-24 md:py-32 bg-[#F5F1EB]">
+  <!-- Products (social proof) -->
+  <section class="py-24 md:py-32 bg-[#FFFDF9]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
+        我做的東西
+      </h2>
+      <p class="mt-4 text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16">
+        從想法到上線，全部一個人用 AI 完成。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        {products.map((product) => (
+          <a
+            href={product.href}
+            class="group block bg-white border border-[#E8E4DD] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300"
+            data-umami-event="product_click"
+            data-umami-event-product={product.name}
+          >
+            <div class="relative overflow-hidden aspect-[16/10]">
+              <img
+                src={product.image}
+                alt={product.name}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-5 md:p-6">
+              <h3 class="text-base md:text-lg font-semibold text-[#2C2416] mb-2 group-hover:text-[#B8926A] transition-colors">
+                {product.name}
+              </h3>
+              <p class="text-sm text-[#5C5144] leading-relaxed">
+                {product.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommended Tools -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="mb-12 md:mb-16">
         <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
           推薦工具
         </h2>
         <p class="mt-4 text-lg text-[#5C5144]">
-          我實際使用並推薦的工具，幫助你經營一人公司、提升生產力。
+          我實際用過、覺得值得推薦的工具和資源。
         </p>
       </div>
 
-      <!-- Category Tabs -->
-      <div class="flex flex-wrap gap-2 mb-10" id="tools-tabs">
-        <button
-          data-category="全部"
-          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-[#2C2416] text-white"
-        >
-          全部
-        </button>
-        <button
-          data-category="一人公司"
-          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-white text-[#5C5144] hover:bg-[#E8E4DD]"
-        >
-          一人公司
-        </button>
-        <button
-          data-category="生產力"
-          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-white text-[#5C5144] hover:bg-[#E8E4DD]"
-        >
-          生產力
-        </button>
-      </div>
-
-      <!-- Tool Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="tools-grid">
-        {featuredTools.map((tool) => (
-          <a
-            href={tool.href}
-            data-category={tool.category}
-            class="tool-card group block bg-white border border-cream-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
-          >
-            <div class="relative overflow-hidden aspect-[16/9]">
-              <img
-                src={tool.image}
-                alt={tool.title}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                loading="lazy"
-              />
-              <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-accent text-white rounded-full shadow-sm">
-                {tool.category}
-              </span>
-            </div>
-            <div class="p-5">
-              <h3 class="text-base font-semibold text-[#2C2416] mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                {tool.title}
-              </h3>
-              <p class="text-sm text-[#5C5144] leading-relaxed line-clamp-2">
-                {tool.description}
-              </p>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <!-- Hidden until more content
-      <div class="text-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <a
-          href="/zh-TW/picks"
-          class="inline-flex items-center text-base font-medium text-[#2C2416] hover:text-accent transition-colors"
+          href="/zh-TW/blog/free-azure-startup-credits/"
+          class="group block bg-white border border-[#E8E4DD] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300"
         >
-          查看所有推薦工具
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+          <div class="relative overflow-hidden aspect-[16/9]">
+            <img
+              src="/images/blog/free-azure-startup-credits.webp"
+              alt="Microsoft for Startups：免費 Azure 額度申請攻略"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-5">
+            <h3 class="text-base font-semibold text-[#2C2416] mb-2 group-hover:text-[#B8926A] transition-colors line-clamp-2">
+              Microsoft for Startups：免費 Azure 額度申請攻略
+            </h3>
+            <p class="text-sm text-[#5C5144] leading-relaxed line-clamp-2">
+              最高 $5,000 美元的免費 Azure credits，可用於 OpenAI API、雲端服務等。個人開發者也能申請。
+            </p>
+          </div>
         </a>
       </div>
-      -->
     </div>
   </section>
-
-  <script>
-    // Tool category filtering
-    const tabs = document.querySelectorAll('#tools-tabs .tab-btn');
-    const cards = document.querySelectorAll('#tools-grid .tool-card');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const category = tab.getAttribute('data-category');
-
-        // Update tab styles
-        tabs.forEach(t => {
-          t.classList.remove('bg-[#2C2416]', 'text-white');
-          t.classList.add('bg-white', 'text-[#5C5144]', 'hover:bg-[#E8E4DD]');
-        });
-        tab.classList.remove('bg-white', 'text-[#5C5144]', 'hover:bg-[#E8E4DD]');
-        tab.classList.add('bg-[#2C2416]', 'text-white');
-
-        // Filter cards
-        cards.forEach(card => {
-          const cardCategory = card.getAttribute('data-category');
-          if (category === '全部' || cardCategory === category) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-      });
-    });
-  </script>
-
-  <NewsletterForm />
 </BaseLayout>

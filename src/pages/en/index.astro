@@ -2,11 +2,34 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import FeaturedPosts from '../../components/FeaturedPosts.astro';
-import NewsletterForm from '../../components/NewsletterForm.astro';
 
 const title = 'WenHao Yu';
 const ogTitle = 'WenHao Yu - Building Products, Systems, and a Life with AI';
 const description = 'PM turned solo builder. I use AI to ship products, design systems, and document the entire process.';
+
+const pillars = [
+  {
+    emoji: '🚀',
+    title: 'AI in Practice',
+    description: 'Plain-language AI guides — tools, trends, and things you can use right away',
+    href: '/en/blog/?category=building-products',
+    event: 'ai-practice',
+  },
+  {
+    emoji: '⚡',
+    title: 'Systems & Productivity',
+    description: 'Goal management, knowledge systems, and using AI to amplify every step',
+    href: '/en/blog/?category=productivity',
+    event: 'efficiency',
+  },
+  {
+    emoji: '🌱',
+    title: 'Life & Learning',
+    description: 'Book notes, values, and long-term thinking',
+    href: '/en/blog/?category=life-learning',
+    event: 'life-thinking',
+  },
+];
 
 const featuredTools = [
   {
@@ -20,62 +43,73 @@ const featuredTools = [
 ---
 
 <BaseLayout title={title} description={description} ogTitle={ogTitle}>
-  <!-- Hero with Newsletter + Products -->
+  <!-- Hero (includes Products for EN) -->
   <Hero />
 
-  <!-- Featured Posts Section -->
+  <!-- Content Pillars + Featured Posts (unified section) -->
   <section class="py-24 md:py-32 bg-[#FFFDF9]">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-16 md:mb-20">
+      <!-- Author context -->
+      <p class="text-xl md:text-2xl font-medium text-[#2C2416] mb-12 md:mb-14 leading-[1.6]">
+        15 years in tech, former PM. Using AI to build compounding systems that make work and life a little better every day. This is the full record.
+      </p>
+
+      <!-- Content Pillars (category navigation) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-5 mb-16 md:mb-20 pb-16 md:pb-20 border-b border-[#E8E4DD]">
+        {pillars.map((pillar) => (
+          <a
+            href={pillar.href}
+            class="block rounded-lg p-4 md:p-5 bg-white border border-[#E8E4DD] hover:shadow-md hover:border-[#B8926A]/50 transition-all"
+            data-umami-event="content_pillar_click"
+            data-umami-event-pillar={pillar.event}
+          >
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xl md:text-2xl">{pillar.emoji}</span>
+              <span class="font-semibold text-sm md:text-base text-[#2C2416]">{pillar.title}</span>
+            </div>
+            <div class="text-xs md:text-sm leading-relaxed text-[#5C5144]">{pillar.description}</div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Section header -->
+      <div class="flex items-baseline justify-between mb-10 md:mb-12">
         <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
           Featured Posts
         </h2>
+        <a
+          href="/en/blog/"
+          class="text-sm md:text-base font-medium text-[#5C5144] hover:text-[#2C2416] transition-colors flex items-center gap-1"
+        >
+          View All
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
       </div>
+
+      <!-- Post cards -->
       <FeaturedPosts limit={6} />
     </div>
   </section>
 
   <!-- Recommended Tools Section -->
-  <section class="py-24 md:py-32 bg-[#F5F1EB]">
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="mb-12 md:mb-16">
         <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
           Recommended Tools
         </h2>
         <p class="mt-4 text-lg text-[#5C5144]">
-          Tools I actually use and recommend for building a solo business and boosting productivity.
+          Tools and resources I actually use and find worth recommending.
         </p>
       </div>
 
-      <!-- Category Tabs -->
-      <div class="flex flex-wrap gap-2 mb-10" id="tools-tabs">
-        <button
-          data-category="All"
-          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-[#2C2416] text-white"
-        >
-          All
-        </button>
-        <button
-          data-category="Solo Business"
-          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-white text-[#5C5144] hover:bg-[#E8E4DD]"
-        >
-          Solo Business
-        </button>
-        <button
-          data-category="Productivity"
-          class="tab-btn px-4 py-2 text-sm font-medium rounded-full transition-colors bg-white text-[#5C5144] hover:bg-[#E8E4DD]"
-        >
-          Productivity
-        </button>
-      </div>
-
-      <!-- Tool Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="tools-grid">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {featuredTools.map((tool) => (
           <a
             href={tool.href}
-            data-category={tool.category}
-            class="tool-card group block bg-white border border-cream-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
+            class="group block bg-white border border-cream-200 rounded-xl overflow-hidden hover:shadow-lg hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
           >
             <div class="relative overflow-hidden aspect-[16/9]">
               <img
@@ -99,52 +133,7 @@ const featuredTools = [
           </a>
         ))}
       </div>
-
-      <!-- Hidden until more content
-      <div class="text-center">
-        <a
-          href="/en/picks"
-          class="inline-flex items-center text-base font-medium text-[#2C2416] hover:text-accent transition-colors"
-        >
-          View All Tools
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-      -->
     </div>
   </section>
 
-  <script>
-    // Tool category filtering
-    const tabs = document.querySelectorAll('#tools-tabs .tab-btn');
-    const cards = document.querySelectorAll('#tools-grid .tool-card');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const category = tab.getAttribute('data-category');
-
-        // Update tab styles
-        tabs.forEach(t => {
-          t.classList.remove('bg-[#2C2416]', 'text-white');
-          t.classList.add('bg-white', 'text-[#5C5144]', 'hover:bg-[#E8E4DD]');
-        });
-        tab.classList.remove('bg-white', 'text-[#5C5144]', 'hover:bg-[#E8E4DD]');
-        tab.classList.add('bg-[#2C2416]', 'text-white');
-
-        // Filter cards
-        cards.forEach(card => {
-          const cardCategory = card.getAttribute('data-category');
-          if (category === 'All' || cardCategory === category) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-      });
-    });
-  </script>
-
-  <NewsletterForm />
 </BaseLayout>
