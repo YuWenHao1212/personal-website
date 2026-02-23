@@ -5,7 +5,7 @@ pubDate: 2026-01-17
 category: productivity
 tags: ["個人成長", "目標管理", "時間管理", "12 Week Year", "效率系統"]
 lang: zh-TW
-featured: true
+featured: false
 heroImage: /images/blog/12-week-year-guide/hero.webp
 translationKey: 12-week-year-guide
 relatedPosts: ["personal-panopticon.md", "ai-goal-management-system.md"]

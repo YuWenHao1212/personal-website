@@ -5,7 +5,7 @@ pubDate: 2026-01-27
 category: productivity
 tags: ["Roam Research", "Obsidian", "note-taking", "personal knowledge management", "AI"]
 lang: en
-featured: true
+featured: false
 heroImage: /images/blog/pkm-history.webp
 translationKey: pkm-history
 relatedPosts: ["ai-goal-management-system.md", "12-week-year-guide.md", "personal-panopticon.md"]

@@ -7,7 +7,7 @@ tags: ["一人公司", "Side Project", "免費工具", "neatoolkit"]
 lang: zh-TW
 translationKey: neatoolkit-launch
 draft: false
-featured: true
+featured: false
 heroImage: /images/blog/neatoolkit-launch.webp
 keywords: ["免費工具", "線上工具", "neatoolkit", "NeatToolkit", "去背", "圖片壓縮", "影片壓縮", "YouTube 字幕下載", "一人公司", "Side Project"]
 relatedPosts: ["nocode-to-ai-coding", "ai-coding-arbitrage"]

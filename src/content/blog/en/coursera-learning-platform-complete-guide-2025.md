@@ -5,7 +5,7 @@ pubDate: 2025-02-20
 category: productivity
 tags: ["Coursera", "Online Learning", "Career Development", "Professional Certificates", "Skill Training", "Career Change"]
 lang: en
-featured: true
+featured: false
 heroImage: /images/blog/coursera-learning-platform-complete-guide-2025.webp
 translationKey: coursera-learning-platform-complete-guide-2025
 ---

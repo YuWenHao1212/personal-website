@@ -5,7 +5,7 @@ pubDate: 2026-01-23
 category: life-learning
 tags: ["AI Coding", "Solo Founder", "Digital Assets", "Personal Growth", "Long-term Thinking"]
 lang: en
-featured: true
+featured: false
 status: draft
 heroImage: /images/blog/ai-coding-arbitrage.webp
 translationKey: ai-coding-arbitrage

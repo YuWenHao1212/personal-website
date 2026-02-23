@@ -4,7 +4,7 @@ description: "After 14 years away from engineering, I spent 6 months learning Bu
 pubDate: 2026-01-06
 category: building-products
 lang: en
-featured: true
+featured: false
 heroImage: /images/blog/nocode-to-ai-coding.webp
 translationKey: nocode-to-ai-coding
 ---

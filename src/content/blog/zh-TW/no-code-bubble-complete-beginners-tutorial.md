@@ -5,7 +5,7 @@ pubDate: 2025-03-20
 category: building-products
 tags: ["No-Code", "Bubble.io", "Bubble教學", "Bubble", "bubble平台", "no-code開發", "no-code development"]
 lang: zh-TW
-featured: true
+featured: false
 heroImage: /images/blog/no-code-bubble-complete-beginners-tutorial.webp
 ---
 

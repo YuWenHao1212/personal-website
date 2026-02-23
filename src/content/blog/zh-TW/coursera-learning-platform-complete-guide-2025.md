@@ -5,7 +5,7 @@ pubDate: 2025-02-20
 category: productivity
 tags: ["Coursera", "線上學習", "職涯發展", "專業證照", "技能培訓", "轉職策略"]
 lang: zh-TW
-featured: true
+featured: false
 heroImage: /images/blog/coursera-learning-platform-complete-guide-2025.webp
 translationKey: coursera-learning-platform-complete-guide-2025
 ---

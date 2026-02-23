@@ -4,7 +4,7 @@ description: "離開工程師 14 年，我花半年學 Bubble，卻發現 No-Cod
 pubDate: 2026-01-06
 category: building-products
 lang: zh-TW
-featured: true
+featured: false
 heroImage: /images/blog/nocode-to-ai-coding.webp
 translationKey: nocode-to-ai-coding
 ---

@@ -5,7 +5,7 @@ pubDate: 2026-01-27
 category: productivity
 tags: ["知識管理", "個人知識管理", "數位工具", "筆記方法", "Roam Research", "Obsidian", "AI"]
 lang: zh-TW
-featured: true
+featured: false
 translationKey: pkm-history
 heroImage: /images/blog/pkm-history.webp
 relatedPosts: ["ai-goal-management-system.md", "12-week-year-guide.md", "personal-panopticon.md"]

@@ -5,7 +5,7 @@ pubDate: 2023-04-23
 category: productivity
 tags: ["readwise", "學習", "筆紀方法", "個人知識管理", "數位工具", "知識管理"]
 lang: zh-TW
-featured: true
+featured: false
 heroImage: /images/blog/readwise-reader.webp
 ---
 

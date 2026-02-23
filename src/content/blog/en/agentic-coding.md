@@ -7,7 +7,7 @@ tags: ["AI", "solo founder", "Claude Code", "agentic coding", "agentic engineeri
 lang: en
 translationKey: agentic-coding
 draft: false
-featured: true
+featured: false
 heroImage: /images/blog/agentic-coding.webp
 focus_keyphrase: "agentic coding"
 relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "nocode-to-ai-coding.md"]

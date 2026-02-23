@@ -5,7 +5,7 @@ pubDate: 2026-01-17
 category: productivity
 tags: ["personal growth", "goal setting", "time management", "12 Week Year", "productivity"]
 lang: en
-featured: true
+featured: false
 heroImage: /images/blog/12-week-year-guide/hero.webp
 translationKey: 12-week-year-guide
 relatedPosts: ["personal-panopticon.md", "ai-goal-management-system.md"]

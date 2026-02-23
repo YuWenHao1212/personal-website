@@ -7,7 +7,7 @@ tags: ["AI", "一人公司", "資訊安全", "OpenClaw", "self-hosted AI"]
 lang: zh-TW
 translationKey: openclaw-security-guide
 draft: false
-featured: true
+featured: false
 heroImage: /images/blog/openclaw-security-guide.webp
 keywords: ["OpenClaw 安全", "OpenClaw 設定", "OpenClaw 教學", "OpenClaw 安全嗎", "Prompt Injection", "OpenClaw tools"]
 faq:

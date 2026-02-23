@@ -6,7 +6,7 @@ category: productivity
 tags: ["goal setting", "goal management", "AI", "12 Week Year", "productivity"]
 lang: en
 status: published
-featured: true
+featured: false
 heroImage: /images/blog/ai-goal-management-system.webp
 translationKey: ai-goal-management-system
 relatedPosts: ["personal-panopticon.md", "12-week-year-guide.md"]

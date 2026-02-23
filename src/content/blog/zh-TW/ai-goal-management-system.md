@@ -6,7 +6,7 @@ category: productivity
 tags: ["年度目標", "目標管理", "AI", "12 Week Year", "效率系統"]
 lang: zh-TW
 status: published
-featured: true
+featured: false
 heroImage: /images/blog/ai-goal-management-system.webp
 translationKey: ai-goal-management-system
 relatedPosts: ["personal-panopticon.md", "12-week-year-guide.md"]

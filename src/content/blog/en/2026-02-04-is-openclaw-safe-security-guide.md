@@ -7,7 +7,7 @@ tags: ["AI", "indie hacker", "cybersecurity", "OpenClaw", "self-hosted AI"]
 lang: en
 translationKey: openclaw-security-guide
 draft: false
-featured: true
+featured: false
 heroImage: /images/blog/openclaw-security-guide.webp
 keywords: ["is OpenClaw safe", "OpenClaw security", "OpenClaw setup", "how to secure OpenClaw", "Prompt Injection", "OpenClaw tools"]
 faq:

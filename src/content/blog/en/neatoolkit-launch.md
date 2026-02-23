@@ -7,7 +7,7 @@ tags: ["solopreneur", "Side Project", "free tools", "neatoolkit"]
 lang: en
 translationKey: neatoolkit-launch
 draft: false
-featured: true
+featured: false
 heroImage: /images/blog/neatoolkit-launch.webp
 keywords: ["free tools", "online tools", "neatoolkit", "NeatToolkit", "background removal", "image compression", "video compression", "YouTube subtitle download", "solopreneur", "Side Project"]
 relatedPosts: ["nocode-to-ai-coding", "ai-coding-arbitrage"]
