@@ -8,7 +8,7 @@ lang: en
 featured: true
 heroImage: /images/blog/claude-code-tutorial.webp
 translationKey: claude-code-tutorial
-relatedPosts: ["agentic-coding-guide.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
+relatedPosts: ["fix-your-tools.md", "agentic-coding-guide.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 focus_keyphrase: "how to use claude code"
 ---
 
