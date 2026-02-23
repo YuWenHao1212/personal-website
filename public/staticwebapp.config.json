@@ -324,6 +324,16 @@
       "statusCode": 301
     },
     {
+      "route": "/blog/claude-skills-guide",
+      "redirect": "/zh-TW/blog/claude-skills-guide/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/fix-your-tools",
+      "redirect": "/zh-TW/blog/fix-your-tools/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
