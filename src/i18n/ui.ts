@@ -63,6 +63,9 @@ export const ui = {
     'contact.social.title': '找到我',
     'contact.social.description': '選一個你習慣的平台',
     'contact.response': '我通常會在 1-2 個工作天內回覆',
+    'contact.booking.title': '預約時間聊聊',
+    'contact.booking.description': '想聊 AI、合作、或只是 coffee chat？選一個方便的時間，我們線上聊。',
+    'contact.booking.button': '預約 30 分鐘',
 
     // 404
     '404.title': '頁面不存在',
@@ -131,6 +134,9 @@ export const ui = {
     'contact.social.title': 'Find Me',
     'contact.social.description': 'Pick your preferred platform',
     'contact.response': 'I typically respond within 1-2 business days',
+    'contact.booking.title': 'Book a Call',
+    'contact.booking.description': "Want to chat about AI, collaboration, or just a coffee chat? Pick a time that works for you.",
+    'contact.booking.button': 'Book 30 Minutes',
 
     // 404
     '404.title': 'Page Not Found',

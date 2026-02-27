@@ -36,6 +36,29 @@ const description = t('contact.description');
         </div>
       </div>
 
+      <!-- Book a Call -->
+      <div class="mb-10 md:mb-14">
+        <div class="rounded-xl p-6 md:p-8 bg-cream-50 text-center">
+          <div class="mb-4">
+            <svg class="w-8 h-8 mx-auto text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+          </div>
+          <h2 class="text-lg md:text-xl font-semibold mb-2 text-ink-900">
+            {t('contact.booking.title')}
+          </h2>
+          <p class="text-sm md:text-base text-ink-500 mb-6">
+            {t('contact.booking.description')}
+          </p>
+          <button
+            id="calendly-button"
+            class="btn-primary text-sm md:text-base"
+          >
+            {t('contact.booking.button')}
+          </button>
+        </div>
+      </div>
+
       <!-- Response Time -->
       <div class="text-center">
         <p class="text-sm md:text-base text-ink-500">
@@ -45,4 +68,17 @@ const description = t('contact.description');
 
     </div>
   </div>
+
+  <!-- Calendly Widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    document.getElementById('calendly-button')?.addEventListener('click', () => {
+      if (window.Calendly) {
+        window.Calendly.initPopupWidget({
+          url: 'https://calendly.com/mail-yu-wenhao/30min'
+        });
+      }
+    });
+  </script>
 </BaseLayout>

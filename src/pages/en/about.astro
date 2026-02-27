@@ -80,12 +80,26 @@ const description = "I'm WenHao. PM turned solo builder. I use AI to ship produc
         <h2 class="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-ink-900">Let's Connect</h2>
         <p class="text-sm md:text-base lg:text-lg mb-4 md:mb-6 text-ink-500">AI, systems, or anything interesting</p>
         <div class="flex flex-wrap gap-3 justify-center">
+          <button id="calendly-button" class="btn-primary text-sm md:text-base">Book a Call</button>
           <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm md:text-base">LinkedIn</a>
           <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm md:text-base">Facebook</a>
-          <a href="mailto:mail@yu-wenhao.com" class="btn-primary text-sm md:text-base">Contact Me</a>
+          <a href="mailto:mail@yu-wenhao.com" class="btn-outline text-sm md:text-base">Email</a>
         </div>
       </div>
 
     </div>
   </div>
+
+  <!-- Calendly Widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    document.getElementById('calendly-button')?.addEventListener('click', () => {
+      if (window.Calendly) {
+        window.Calendly.initPopupWidget({
+          url: 'https://calendly.com/mail-yu-wenhao/30min'
+        });
+      }
+    });
+  </script>
 </BaseLayout>
