@@ -1,11 +1,10 @@
 ---
-title: "你的筆記不需要整理，需要連結：LYT 入門完整指南"
+title: "Obsidian 知識管理教學：用 AI 打造你的 LYT 筆記系統"
 description: "LYT（Linking Your Thinking）是 Obsidian 上最受歡迎的知識管理框架。從我自己踩過資料夾地獄、用過 PARA 和 Zettelkasten 的經驗出發，完整介紹 MOC、ACE、五種筆記類型，以及為什麼 LYT 是 AI 時代最適合的知識底層。"
 pubDate: 2026-03-03
 category: productivity
 tags: ["Obsidian", "LYT", "PKM", "個人知識管理", "筆記方法", "知識管理"]
 lang: zh-TW
-seoTitle: "Obsidian 知識管理教學：用 AI 打造你的 LYT 筆記系統"
 focusKeyphrase: "Obsidian 教學"
 featured: true
 heroImage: /images/blog/lyt-framework/hero.webp
