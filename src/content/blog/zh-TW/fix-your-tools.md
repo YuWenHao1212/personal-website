@@ -6,7 +6,7 @@ pubDate: 2026-02-23
 category: productivity
 tags: ["Claude Code", "AI 工作流", "Obsidian", "效率系統", "知識管理"]
 lang: zh-TW
-featured: true
+featured: false
 draft: false
 heroImage: /images/blog/fix-your-tools.webp
 translationKey: fix-your-tools

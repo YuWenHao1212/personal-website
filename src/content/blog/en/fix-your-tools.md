@@ -6,7 +6,7 @@ pubDate: 2026-02-23
 category: productivity
 tags: ["Claude Code", "AI workflow", "Obsidian", "productivity", "knowledge management"]
 lang: en
-featured: true
+featured: false
 draft: false
 heroImage: /images/blog/fix-your-tools.webp
 translationKey: fix-your-tools

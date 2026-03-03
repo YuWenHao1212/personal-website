@@ -5,9 +5,9 @@ pubDate: 2026-03-03
 category: productivity
 tags: ["Obsidian", "LYT", "PKM", "個人知識管理", "筆記方法", "知識管理"]
 lang: zh-TW
-seoTitle: "Obsidian 知識管理完整教學：用 AI 打造你的 LYT 筆記系統"
+seoTitle: "Obsidian 知識管理教學：用 AI 打造你的 LYT 筆記系統"
 focusKeyphrase: "Obsidian 教學"
-featured: false
+featured: true
 heroImage: /images/blog/lyt-framework/hero.webp
 translationKey: lyt-framework-guide
 relatedPosts: ["卡片盒筆記法.md", "roam-research-to-obsidian.md", "ai-goal-management-system.md"]

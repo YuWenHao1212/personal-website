@@ -7,7 +7,7 @@ tags: ["Obsidian", "LYT", "PKM", "personal knowledge management", "note taking m
 lang: en
 seoTitle: "Obsidian PKM Guide: How I Use AI to Build a LYT Note-Taking System"
 focusKeyphrase: "PKM"
-featured: false
+featured: true
 heroImage: /images/blog/lyt-framework/hero.webp
 translationKey: lyt-framework-guide
 relatedPosts: ["roam-research-to-obsidian.md", "ai-goal-management-system.md"]
