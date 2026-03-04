@@ -93,7 +93,7 @@ This isn't randomly thrown together. It's how AI helped me organize these notes 
 
 The key difference between a MOC and a folder: **a note can appear in multiple MOCs.** For example, `[[Claude Code]]` lives in both my `AI MOC` and my `PKM MOC` because it's both an AI tool and a core part of how I manage knowledge. In a folder system, you'd have to pick one.
 
-When should you create a MOC? Before AI, Nick Milo's rule of thumb was to create one when you have 5+ notes on the same topic and things start feeling messy. With AI, this can be automated — AI can check whether a relevant MOC already exists when filing a note, and suggest creating one if it doesn't. You just approve. No need to keep track yourself.
+When should you create a MOC? Before AI, Nick Milo's rule of thumb was to create one when you have 5+ notes on the same topic and things start feeling messy. With AI, this can be automated — AI checks whether a relevant MOC already exists when filing a note, and creates one if it doesn't. You just approve. No need to keep track yourself.
 
 ### 2. The ACE Framework
 
