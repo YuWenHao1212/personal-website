@@ -1,7 +1,7 @@
 ---
 title: "How to Use Claude Code: From Setup to Your First Task"
 description: "Learn how to use Claude Code in 5 minutes. A beginner-friendly guide to setup, installation, and completing your first task. Let AI do the work—not just talk about it."
-pubDate: 2026-01-28
+pubDate: 2026-03-04
 category: building-products
 tags: ["how to use claude code", "claude code tutorial", "claude code setup"]
 lang: en
@@ -71,7 +71,7 @@ Anthropic's Claude products, categorized by what they can do:
 | MCP Integrations | ✅ | ✅ | ❌ | ✅ | ✅ |
 | Hooks | ❌ | ❌ | ❌ | ❌ | ✅ |
 
-> **Sources** (verified 2026-01-28):
+> **Sources** (verified 2026-03-04):
 > - [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code) — Claude Code features, Skills, MCP, Hooks
 > - [Cowork Docs](https://support.claude.com/en/articles/13345190-getting-started-with-cowork) (2026/01) — Cowork features, Skills
 > - [Claude Blog - Integrations](https://claude.com/blog/integrations) (2026/01) — Web supports MCP Integrations
@@ -172,17 +172,45 @@ This isn't the future. It's happening right now.
 
 ## Setup (2 minutes)
 
+### Mac / Linux
+
 Open your terminal and paste this:
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-No other dependencies needed. Just paste and run.
+After installation, **close and reopen your terminal**.
 
-After installation, type `claude` and log in with your Anthropic account.
+Here's the full walkthrough:
 
-**Note**: Claude Code requires a paid subscription. Pro plan is $20/month, Max plan is $100 or $200/month (higher usage). Free accounts can't use it.
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/Mv5vXylks8U" title="Claude Code Setup Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+### Windows
+
+Open PowerShell and install Git first:
+
+```powershell
+winget install Git.Git
+```
+
+After it finishes, **close and reopen PowerShell**, then install Claude Code:
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+Again, **close and reopen PowerShell**.
+
+> Windows walkthrough video coming soon.
+
+### Login & Pricing
+
+Type `claude` and log in with your Anthropic account.
+
+Claude Code requires a paid subscription (Pro plan starts at $20/month). Free accounts can't use it.
+
+Auto-updates run in the background—no manual upgrades needed.
 
 Once logged in, you're ready to go.
 
@@ -237,20 +265,6 @@ Now, think of something you do every day—organizing files, backing up photos, 
 Tell Claude Code what you want in one sentence. See how it handles it.
 
 That's where the real journey begins.
-
----
-
-*Related reading:*
-
-- *[From No-Code to AI Coding](/en/blog/nocode-to-ai-coding/)* — The shift from No-Code tools to AI Coding
-- *[The AI Coding Arbitrage](/en/blog/ai-coding-arbitrage/)* — Why now is the best time to learn AI Coding
-- *[AI Goal Management System](/en/blog/ai-goal-management-system/)* — A real system built with Claude Code
-
----
-
-## Resources
-
-- [Claude Code Official Docs](https://docs.anthropic.com/en/docs/claude-code)
 
 ---
 
