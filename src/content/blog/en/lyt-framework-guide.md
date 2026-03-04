@@ -30,11 +30,11 @@ When I was using Notion, I tried the PARA method — Tiago Forte's famous "Build
 
 That problem kept nagging at me, which is why I eventually picked Roam Research — its bidirectional links don't rely on folders, so notes don't disappear when a project ends. I bought a five-year membership for $500 and even invested in the company.
 
-On Roam, I started using the Zettelkasten method. The idea is solid, but building cards is exhausting — every note has to be atomic, rewritten in your own words, manually linked to related cards. Twenty minutes per card was normal. When life got busy, the backlog piled up, and eventually I stopped touching it.
+On Roam, I started using the Zettelkasten method. The idea is solid, but building cards is exhausting — every note has to be atomic, rewritten in your own words, manually linked to related cards. Twenty minutes per card was normal. When life got busy, I'd procrastinate until I was barely finishing one card a week. Even more notes never made it past a rough draft — a few lines jotted down, then abandoned, never filed, scattered across the system as if they'd never been written.
 
 Last year my Roam membership expired. I also wanted to bring AI (Claude Code) into my personal knowledge management and goal system, and AI needs to read local Markdown files — Roam can't do that. So [I switched to Obsidian](/en/blog/roam-research-to-obsidian/). That decision completely changed how I think about knowledge management — when AI can directly read and write your notes, a lot of the manual work that used to be a bottleneck just isn't anymore. But that's a story for later.
 
-The tool problem was solved, but a new one came up immediately: **I opened Obsidian to an empty vault. How should I organize my notes?** Most Obsidian tutorials stop at the operational level — how to install plugins, use shortcuts, set up themes — but very few tell you how to actually design a structure for your notes.
+The tool problem was solved, but a new one came up immediately: **I opened Obsidian to an empty vault. How should I organize my notes?** I looked at a lot of Obsidian tutorials, and there's no shortage of operational content — installing plugins, keyboard shortcuts, theme setup. But what I really needed at that point was how to design a structure for my notes, and those kinds of tutorials were much harder to find.
 
 Then I found LYT.
 
@@ -50,7 +50,7 @@ The core belief behind LYT is simple:
 
 > Don't organize notes by category. Organize by connection.
 
-You don't need to "put" a note into a folder. You just need to "link" it to related notes. Folders are rigid — a file can only live in one place. Links are fluid — a single note can connect to ten different topics at once.
+"Links over folders" isn't new — Zettelkasten has been doing that for decades. But LYT adds one critical piece: **maps**. Zettelkasten only has one-to-one links between cards, like a web with no table of contents. LYT adds MOCs (Maps of Content) that let you zoom out and see an entire topic from above. Links keep notes from getting trapped in a single folder; MOCs keep you from getting lost in the web of links.
 
 ---
 
@@ -64,7 +64,7 @@ What I needed was a map.
 
 MOC is that map. It's the most important concept in LYT.
 
-Think of a MOC as a "thinking workbench." It's just a note containing links to other notes, arranged according to your own logic. It's not a folder, not a tag — it's a map you draw yourself.
+A MOC is just a note containing links to other notes, arranged according to your own logic. It's not a folder, not a tag — it's a map you draw yourself.
 
 Here's an excerpt from my actual `AI MOC`:
 
@@ -143,7 +143,7 @@ Within Atlas, LYT classifies notes into five types:
 | **Statements** | What do I think? | Your opinions, insights, principles |
 | **Questions** | What am I curious about? | Open questions to explore |
 | **Quotes** | What did someone else say? | Quotations |
-| **People** | Who said it? | People notes |
+| **People** | Who is this person? | People notes |
 
 Most people only write Things — "What is Zettelkasten?" "What is the PARA method?" But what actually makes a PKM system valuable is Statements — your own thinking.
 
@@ -216,9 +216,11 @@ If you plan to bring AI into your knowledge management — not just asking it qu
 
 ## How I Actually Use LYT
 
-I've been managing my knowledge with LYT for about six months now. The most obvious change is how fast I write articles. Before, half the time went to finding material — searching Google, digging through old notes, checking bookmarks, piecing fragments together. Now I use Claude Code as my AI note-taking partner, directly reading and writing the Markdown files in my Obsidian vault — it files notes and builds links as I go. When I sit down to write, Claude Code first checks the relevant MOCs for material, fills gaps with web research, and adds newly found knowledge back into the system as cards. Every article and every research session feeds back into the knowledge base. The compounding effect kicks in. Most of the PARA and Zettelkasten comparisons in this article were pulled by Claude Code from my Obsidian knowledge cards — no re-research needed.
+I've been managing my knowledge with LYT + AI for about six months now. The most obvious change is how fast my knowledge base grows. In the Roam era without AI, I had two main problems: half-finished notes scattered everywhere that never got filed — a real waste; and the pace of knowledge accumulation was too slow — one card a week meant the system never reached critical mass. Now I use Claude Code as my AI note-taking partner, directly reading and writing the Markdown files in my Obsidian vault — it files notes and builds links as I go. To put it in perspective: during my Roam/Zettelkasten days, I finished about one knowledge card per week. With AI + LYT, I produce five or more cards plus MOCs per day. Every article and every research session feeds back into the knowledge base — the compounding effect kicks in.
 
-Remember the question from the beginning — when was the last time you found a note from three months ago? My answer isn't silence anymore. Notes don't vanish into a black hole because LYT gives them an address, and AI delivers new material to the right place every day. When I need something, AI follows the MOC and pulls out everything related.
+Remember the question from the beginning — when was the last time you found a note from three months ago? My answer isn't silence anymore. Every note from the past three months to today, I know exactly when I wrote it, why I wrote it, what other notes it connects to, and how I can use it. Notes don't vanish into a black hole because LYT gives them an address, and AI delivers new material to the right place every day. When I need something, AI follows the MOC and pulls out everything related.
+
+When I sit down to write, Claude Code first checks the relevant MOCs for material, fills gaps with web research, and adds newly found knowledge back into the system as cards. Most of the PARA and Zettelkasten comparisons in this article were pulled by Claude Code from my Obsidian knowledge cards — no re-research needed.
 
 But after about a month, I noticed a gap: **LYT manages "knowing," not "doing."**
 
