@@ -334,6 +334,11 @@
       "statusCode": 301
     },
     {
+      "route": "/blog/lyt-framework-guide",
+      "redirect": "/zh-TW/blog/lyt-framework-guide/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
