@@ -8,7 +8,7 @@ lang: en
 featured: true
 heroImage: /images/blog/claude-code-tutorial.webp
 translationKey: claude-code-tutorial
-relatedPosts: ["fix-your-tools.md", "agentic-coding-guide.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
+relatedPosts: ["lyt-framework-guide.md", "personal-panopticon.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 focus_keyphrase: "how to use claude code"
 ---
 
@@ -265,6 +265,22 @@ Now, think of something you do every day—organizing files, backing up photos, 
 Tell Claude Code what you want in one sentence. See how it handles it.
 
 That's where the real journey begins.
+
+---
+
+## FAQ
+
+**Is Claude Code free? How much does it cost?**
+
+Claude Code is not free. You need a paid Anthropic subscription: Pro plan at $20/month, or Max plan at $100 or $200/month for higher usage. There's no free trial. If you're not using it for product development, the Pro plan is generally enough.
+
+**Claude Code vs Cursor: What's the difference?**
+
+Cursor is an IDE (Integrated Development Environment)—a tool engineers use to build software products. Claude Code is a command-line tool that interacts with AI through your terminal (Terminal / PowerShell). Since the terminal has full access to your computer, Claude Code can do more than just write code—it can run commands, manage files, connect APIs, and deploy systems. You can also use both together by running Claude Code inside Cursor's terminal.
+
+**Do I need coding experience to use Claude Code?**
+
+No. Claude Code was originally built for engineers to develop software, but since it has full access to your computer, it's like having an expert living inside your machine—you tell it what you want, and if your computer can do it, Claude Code figures out how. Batch organizing files, compressing photos, turning data into reports, setting up automation—none of that requires you to write a single line of code. I personally use Claude Code to build my knowledge management system, goal management system, and of course, to develop software and products.
 
 ---
 
