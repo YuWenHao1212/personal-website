@@ -186,6 +186,18 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/Mv5vXylks8U" title="Claude Code 安裝教學" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<details>
+<summary>輸入 claude 出現「command not found」？</summary>
+
+手動把路徑加進 shell 設定檔，然後重開終端機：
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+</details>
+
 ### Windows
 
 打開 PowerShell，先安裝前置工具 Git：
@@ -194,13 +206,18 @@ curl -fsSL https://claude.ai/install.sh | bash
 winget install Git.Git
 ```
 
-裝完後**關掉 PowerShell 再重開**，然後安裝 Claude Code：
+裝完後**關掉 PowerShell 再重開**，然後安裝 Claude Code 並設定 PATH：
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
+$claudePath = "$env:USERPROFILE\.local\bin"
+$currentPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+if ($currentPath -notlike "*$claudePath*") {
+  [Environment]::SetEnvironmentVariable("Path", "$currentPath;$claudePath", "User")
+}
 ```
 
-同樣，**關掉 PowerShell 再重開**。
+貼上後一次執行即可。完成後**關掉 PowerShell 再重開**。
 
 > Windows 安裝影片準備中，之後會補上。
 

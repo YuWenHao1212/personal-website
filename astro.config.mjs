@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import expressiveCode from 'astro-expressive-code';
 import rehypeMermaid from 'rehype-mermaid';
 import { visit } from 'unist-util-visit';
 
@@ -21,10 +22,7 @@ function rehypeAllLinksNewTab() {
 // https://astro.build/config
 export default defineConfig({
   markdown: {
-    syntaxHighlight: {
-      type: 'shiki',
-      excludeLangs: ['mermaid'],
-    },
+    syntaxHighlight: false,
     rehypePlugins: [
       rehypeAllLinksNewTab,
       [rehypeMermaid, {
@@ -46,6 +44,12 @@ export default defineConfig({
   site: 'https://yu-wenhao.com',
   trailingSlash: 'always',
   integrations: [
+    expressiveCode({
+      themes: ['github-dark', 'github-light'],
+      styleOverrides: {
+        borderRadius: '0.5rem',
+      },
+    }),
     tailwind(),
     sitemap({
       i18n: {
