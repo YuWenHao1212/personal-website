@@ -1,0 +1,228 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '服務項目';
+const description = '從 AI 導入到效率系統設計，幫你的團隊和個人把 AI 變成真正的生產力槓桿。';
+---
+
+<BaseLayout title={title} description={description} hideLanguageSwitcher={true}>
+  <!-- Hero -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">Services</p>
+        <h1 class="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-6">
+          不是教工具，<br />是幫你建一套能用的 AI 工作流。
+        </h1>
+        <p class="text-xl md:text-2xl leading-relaxed text-[#5C5144]">
+          你的團隊可能試過 ChatGPT，但停在文書整理。問題不是工具不夠好，是沒有人幫你把 AI 接進真實的工作流程裡。我做的就是這件事。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: AI Consulting -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-12 md:mb-16">
+        <span class="inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">企業服務</span>
+        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+          AI 導入顧問
+        </h2>
+        <p class="text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
+          不只是教你用工具，而是幫團隊建立一套真正能落地、會持續產生價值的 AI 工作流。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <!-- Training -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI Coding 企業內訓</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">Claude Code、Vibe Coding、Agentic Coding — 從觀念到實作，讓團隊真正能用 AI 寫程式、做產品。</p>
+          <p class="text-sm text-[#8B7355]">適合：技術團隊、PM 團隊、想導入 AI 開發流程的企業</p>
+        </div>
+
+        <!-- Workflow -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI 工作流規劃與導入</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">評估你現有的流程，找出 AI 能產生最大槓桿的環節，設計可落地的導入方案。</p>
+          <p class="text-sm text-[#8B7355]">適合：想導入 AI 但不知道從哪裡開始的團隊</p>
+        </div>
+
+        <!-- Website -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">企業網站建置與代管</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">從設計到上線一條龍，包含 SEO 基礎建設。不只做一個好看的網站，而是一個能幫你帶來客戶的網站。</p>
+          <p class="text-sm text-[#8B7355]">適合：需要官網、品牌網站、或部落格的中小企業</p>
+        </div>
+
+        <!-- SEO -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">SEO 與經營策略</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">關鍵字研究、內容策略、技術 SEO — 讓你的網站被對的人找到，把搜尋流量變成實際客戶。</p>
+          <p class="text-sm text-[#8B7355]">適合：有網站但沒有流量、想用內容行銷帶來客戶的企業</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: AI Productivity Systems -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-12 md:mb-16">
+        <span class="inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">個人 / 團隊</span>
+        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+          AI 效率系統設計
+        </h2>
+        <p class="text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
+          工具人人都會用，但系統才決定你走多遠。我幫你設計一套每天能跑、會持續複利的工作系統。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Knowledge -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#FFFDF9] flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">知識管理系統</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">用 Obsidian 打造你的第二大腦 — 讓筆記不只是紀錄，而是會長出新想法的系統。</p>
+        </div>
+
+        <!-- Goals -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#FFFDF9] flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">目標管理系統</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">結合 12 Week Year 方法論，設計每日可執行、每週可回顧的目標系統。不靠意志力，靠流程。</p>
+        </div>
+
+        <!-- AI Workflow -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#FFFDF9] flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI 驅動工作流</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">把 AI 整合進你的日常 — 從筆記、規劃到產出，每一步都有 AI 幫你放大效果。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credibility -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+        為什麼找我
+      </h2>
+      <p class="text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
+        不是紙上談兵。我自己每天跑這套系統，有真實產品和數據可以看。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-2xl font-bold text-white">15</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">年科技業經驗</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">工程師 → 產品經理 → 數據分析，全棧背景讓我能從技術和商業兩個角度幫你規劃。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-lg font-bold text-white">Day 1</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">Claude Code 第一批深度使用者</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">2025 年 5 月至今，用 AI 從零做出完整 SaaS、Chrome Extension、工具站、個人網站。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-lg font-bold text-white">4K</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">真實產品驗證</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]"><a href="https://airesumeadvisor.com/zh-TW/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">AI Resume Advisor</a>（SaaS + 瀏覽器擴充）、<a href="https://www.neatoolkit.com/zh-TW" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">NeatToolkit</a>（上線首日 4,000 用戶）。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-lg font-bold text-white">60K</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">自己的系統每天在跑</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">12 Week Year + Obsidian + Claude Code，不是紙上談兵。這個網站月流量 60,000+，全靠系統和 SEO。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+          想了解更多？
+        </h2>
+        <p class="text-lg md:text-xl text-[#5C5144] mb-8 md:mb-10 leading-relaxed">
+          每個企業和個人的需求都不同。<br class="hidden md:inline" />預約一次免費諮詢，聊聊你的狀況。
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <button id="calendly-button" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200">
+            預約免費諮詢
+          </button>
+          <a href="mailto:mail@yu-wenhao.com" class="inline-flex items-center justify-center px-8 py-4 border-2 border-[#B8926A] text-[#B8926A] text-base md:text-lg font-medium rounded-full hover:bg-[#B8926A] hover:text-white hover:shadow-md hover:scale-105 transition-all duration-200">
+            或直接寫信給我
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendly Widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    document.getElementById('calendly-button')?.addEventListener('click', () => {
+      if (window.Calendly) {
+        window.Calendly.initPopupWidget({
+          url: 'https://calendly.com/mail-yu-wenhao/30min'
+        });
+      }
+    });
+  </script>
+</BaseLayout>
