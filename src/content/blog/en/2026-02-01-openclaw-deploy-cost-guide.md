@@ -354,6 +354,8 @@ In 30 minutes, you'll have your own 24/7 personal AI assistant.
 
 *Last updated: 2026-02-01*
 
+*Want OpenClaw deployed for your team or agency? I handle setup, configuration, and ongoing support. [Get in touch](mailto:mail@yu-wenhao.com?subject=OpenClaw%20Deployment).*
+
 ---
 
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

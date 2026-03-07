@@ -554,6 +554,8 @@ Prompt Injection is when attackers hide malicious instructions in normal-looking
 - [Personal AI Agents like OpenClaw Are a Security Nightmare](https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare) - Cisco Blogs
 - [OpenClaw proves agentic AI works. It also proves the security risks.](https://venturebeat.com/security/openclaw-agentic-ai-security-risk-ciso-guide) - VentureBeat
 
+*Want OpenClaw deployed for your team or agency? I handle setup, configuration, and ongoing support. [Get in touch](mailto:mail@yu-wenhao.com?subject=OpenClaw%20Deployment).*
+
 ---
 
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

@@ -255,4 +255,4 @@ I think moving forward isn't so hard after all.
 2. *[The Complete 12 Week Year Guide](https://yu-wenhao.com/en/blog/12-week-year-guide)* — Lead vs Lag, scoring, WAM accountability
 3. *This article* — 12 Week Year + AI integration in practice
 
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

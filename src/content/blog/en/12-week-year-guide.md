@@ -172,4 +172,4 @@ You get 4 fresh starts every year. Give it a shot.
 
 *Further reading: [The 12 Week Year on Amazon](https://www.amazon.com/12-Week-Year-Others-Months/dp/1118509234)*
 
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*
