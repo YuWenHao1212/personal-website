@@ -255,4 +255,6 @@ LINE 通知：
 2. *[12 Week Year 完整指南](https://yu-wenhao.com/zh-TW/blog/12-week-year-guide)* — Lead vs Lag、計分、WAM 問責機制
 3. *本篇* — 12 Week Year + AI 的實際整合
 
-*如果這篇讓你有了想法 — [找我談談怎麼做](/zh-TW/services/)，或[訂閱每週一封信](/zh-TW/)，我固定寫 AI 工作流、和一路上想通的事。*
+*如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
+
+*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

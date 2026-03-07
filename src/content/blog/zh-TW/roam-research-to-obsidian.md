@@ -316,4 +316,6 @@ Obsidian 迅速建立起龐大的社群和外掛生態系統。
 - *[AI 目標管理系統](/zh-TW/blog/ai-goal-management-system/)* — 如何用 AI 整合 12 Week Year、Daily Brief、筆記系統
 - *[從 Obsidian 到 Claude Code：打造可程式化的人生](/zh-TW/blog/personal-panopticon/)* — 這套系統的起點和核心原則
 
-*如果這篇讓你有了想法 — [找我談談怎麼做](/zh-TW/services/)，或[訂閱每週一封信](/zh-TW/)，我固定寫 AI 工作流、和一路上想通的事。*
+*如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
+
+*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
