@@ -7,7 +7,7 @@ tags: ["AI", "Claude Code", "agentic coding", "Claude Skills", "developer-tools"
 lang: zh-TW
 translationKey: claude-skills-guide
 featured: true
-draft: true
+draft: false
 heroImage: /images/blog/claude-skills-guide.webp
 focusKeyphrase: "claude skills 教學"
 relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
