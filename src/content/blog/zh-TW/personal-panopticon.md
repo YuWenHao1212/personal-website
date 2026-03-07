@@ -4,7 +4,7 @@ description: "70 萬人看過的 Personal Panopticon 啟發了我建立自己的
 pubDate: 2026-01-14
 category: productivity
 lang: zh-TW
-featured: true
+featured: false
 heroImage: /images/blog/personal-panopticon.webp
 translationKey: personal-panopticon
 relatedPosts: ["12-week-year-guide.md", "ai-goal-management-system.md"]

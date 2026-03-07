@@ -4,7 +4,7 @@ description: "A viral X post with 700K views inspired me to build my own AI syst
 pubDate: 2026-01-14
 category: productivity
 lang: en
-featured: true
+featured: false
 heroImage: /images/blog/personal-panopticon.webp
 translationKey: personal-panopticon
 relatedPosts: ["12-week-year-guide.md", "ai-goal-management-system.md"]
