@@ -174,4 +174,9 @@ const currentPath = Astro.url.pathname;
       document.body.style.overflow = '';
     });
   });
+
+  // Umami: track nav clicks to services
+  document.querySelectorAll('header a[href*="/services/"]').forEach((a) => {
+    a.setAttribute('data-umami-event', 'nav_click_services');
+  });
 </script>

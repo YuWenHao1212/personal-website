@@ -182,6 +182,19 @@ function formatDate(date: Date): string {
       document.body.style.overflow = '';
     }
 
+    // Umami: track blog CTA clicks with slug
+    const slug = window.location.pathname.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '');
+    document.querySelectorAll('.prose a').forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (href.includes('/services/')) {
+        a.setAttribute('data-umami-event', 'blog_click_services');
+        a.setAttribute('data-umami-event-slug', slug);
+      } else if (href.startsWith('mailto:')) {
+        a.setAttribute('data-umami-event', 'blog_click_email');
+        a.setAttribute('data-umami-event-slug', slug);
+      }
+    });
+
     document.querySelectorAll('.prose img').forEach((img) => {
       const el = img as HTMLImageElement;
       el.style.cursor = 'zoom-in';
