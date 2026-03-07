@@ -146,7 +146,7 @@ const products = lang === 'en' ? [
               </svg>
             </a>
             <a
-              href="mailto:mail@yu-wenhao.com?subject=Hello"
+              href={lang === 'zh-TW' ? `/${lang}/services/` : 'mailto:mail@yu-wenhao.com?subject=Hello'}
               class="text-[#5C5144] hover:text-[#2C2416] text-sm font-medium transition-colors flex items-center gap-1"
             >
               {t('hero.cta.chat')}

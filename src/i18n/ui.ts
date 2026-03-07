@@ -23,7 +23,7 @@ export const ui = {
     'hero.description': '方向比速度重要，讓複利帶你走遠。',
     'hero.cta.story': '閱讀我的故事',
     'hero.cta.posts': '最新文章',
-    'hero.cta.chat': '寫信給我',
+    'hero.cta.chat': '我能幫上什麼忙',
 
     // Blog Categories
     'blogCategories.title': '這個部落格寫什麼',
