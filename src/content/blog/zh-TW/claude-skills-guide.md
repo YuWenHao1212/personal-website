@@ -13,15 +13,15 @@ focusKeyphrase: "claude skills 教學"
 relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
 faq:
   - question: "Claude Skills 是什麼？"
-    answer: "Skill 是一份 Markdown 指令檔，教 Claude 怎麼按照你的方式完成特定任務。寫一次，之後每次對話自動套用，不用重複貼 prompt。"
+    answer: "解決「每次開新對話都要重新教 AI」的問題。一個 skill 是一個資料夾：SKILL.md（主要指令，YAML 封面 + Markdown 步驟）、scripts/（可執行腳本）、references/（參考文件）、assets/（模板）。寫一次，之後每次對話自動套用。"
   - question: "Skills 和 MCP 有什麼不同？"
-    answer: "MCP 連接工具（解決「能不能做」），Skills 封裝知識（解決「怎麼做最好」）。MCP 是廚房，Skills 是食譜，兩者互補。"
+    answer: "MCP 讓 Claude 連到外部工具和 API（解決「能不能做」），Skills 教它拿到資料後怎麼處理（解決「怎麼做最好」）。以我的 Panopticon 為例：MCP 負責從 Reddit、Hacker News 抓內容，Skill 負責篩選互動分數 4 以上的、分成 5 種內容類型、推薦 2-3 個題材。"
   - question: "不會寫程式也能用 Skills 嗎？"
-    answer: "可以。Skill 的核心是一份 Markdown 檔案，不需要寫程式碼。你只需要能把工作流程用文字描述清楚，Claude 就能照著做。"
+    answer: "可以。SKILL.md 就是 Markdown，不需要寫程式碼。你甚至不用自己手寫——Anthropic 官方有一個叫 skill-creator 的 skill，啟動後 Claude 會像訪談一樣問你問題（工作流長什麼樣、什麼時候觸發、有哪些邊界條件），然後自動產出 SKILL.md 和資料夾結構。"
   - question: "Skills 只能在 Claude Code 上用嗎？"
-    answer: "不是。Agent Skills 是開放標準，已被 30+ 工具採用，包括 Cursor、VS Code Copilot、Gemini CLI、OpenAI Codex、JetBrains Junie 等。"
+    answer: "不是。Agent Skills 是 Anthropic 2025 年底推出的開放標準，目前已被 Cursor、VS Code Copilot、Gemini CLI、OpenAI Codex、JetBrains Junie 等 30+ 工具採用。你寫的 skill 可以跨平台使用，不會被綁定在單一工具上。"
   - question: "一個 Skill 能寫多長？"
-    answer: "建議 SKILL.md 控制在 500 行以內。超過的話，把詳細內容拆到 references/ 資料夾，Claude 需要時才去翻。"
+    answer: "SKILL.md 建議控制在 500 行以內。超過的話用三層架構處理：封面（name + description，~100 tokens）永遠載入，完整指令被觸發時才載入，太長的參考資料拆到 references/ 資料夾按需查閱。這樣 17 個 skills 同時掛著也不會塞爆 context window。"
 ---
 
 每個用 AI 工作的人，幾乎都曾撞上同一面牆：你教會了它一件事，隔天開新對話，一切歸零。

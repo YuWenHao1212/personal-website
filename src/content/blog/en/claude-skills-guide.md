@@ -13,15 +13,15 @@ focusKeyphrase: "claude skills guide"
 relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
 faq:
   - question: "What are Claude Skills?"
-    answer: "A skill is a Markdown instruction file that teaches Claude how to complete a specific task your way. Write it once, and it automatically applies to every future conversation—no more re-pasting prompts."
-  - question: "What's the difference between Skills and MCP?"
-    answer: "MCP connects tools (solves 'can it do this?'), Skills package knowledge (solves 'how to do it best'). MCP is the kitchen, Skills are the recipes. They're complementary."
+    answer: "They solve the 'teaching AI the same thing every conversation' problem. A skill is a folder: SKILL.md (main instructions—YAML header + Markdown steps), scripts/ (executable code), references/ (docs), and assets/ (templates). Write once, auto-applied to every future conversation."
+  - question: "What's the difference between Claude Skills and MCP?"
+    answer: "MCP lets Claude connect to external tools and APIs (solves 'can it do this?'). Skills teach it what to do with the data (solves 'how to do it best'). Example: for my Panopticon system, MCP pulls content from Reddit, Hacker News, and Product Hunt. The skill filters for engagement scores above 4, categorizes into 5 content types, and recommends 2-3 topics."
   - question: "Do I need to code to use Skills?"
-    answer: "No. A skill is fundamentally a Markdown file—no programming required. You just need to describe your workflow clearly in text, and Claude follows it."
+    answer: "No. SKILL.md is just Markdown—no programming required. You don't even need to write it yourself. Anthropic's official skill-creator interviews you about your workflow (what it looks like, when to trigger, edge cases), then auto-generates the SKILL.md and folder structure."
   - question: "Do Skills only work with Claude Code?"
-    answer: "No. Agent Skills is an open standard adopted by 30+ tools, including Cursor, VS Code Copilot, Gemini CLI, OpenAI Codex, JetBrains Junie, and more."
+    answer: "No. Agent Skills is an open standard launched by Anthropic in late 2025, now adopted by 30+ tools including Cursor, VS Code Copilot, Gemini CLI, OpenAI Codex, and JetBrains Junie. Skills you write are portable across platforms—your investment isn't locked into any single tool."
   - question: "How long can a Skill be?"
-    answer: "Keep SKILL.md under 500 lines. For anything longer, split detailed content into a references/ folder that Claude only reads when needed."
+    answer: "Keep SKILL.md under 500 lines. Beyond that, use the three-layer architecture: the cover page (name + description, ~100 tokens) loads permanently, full instructions load only when triggered, and lengthy reference material goes in a references/ folder loaded on demand. This lets 17 skills coexist without blowing up the context window."
 ---
 
 Almost everyone who works with AI has hit the same wall: you teach it something, open a new conversation the next day, and everything resets to zero.
@@ -311,6 +311,4 @@ For me, Agent Skills are what took [Agentic Coding](/en/blog/agentic-coding-guid
 
 ---
 
-*If this article sparked ideas, [subscribe to my weekly letter](/en/)—I write about AI workflows and lessons learned along the way.*
-
-*Want to explore how to bring AI into your workflow? [Let's talk](/en/contact/).*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*
