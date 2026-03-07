@@ -8,7 +8,7 @@ lang: en
 featured: true
 heroImage: /images/blog/claude-code-tutorial.webp
 translationKey: claude-code-tutorial
-relatedPosts: ["lyt-framework-guide.md", "personal-panopticon.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
+relatedPosts: ["claude-skills-guide.md", "lyt-framework-guide.md", "personal-panopticon.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 focus_keyphrase: "how to use claude code"
 ---
 

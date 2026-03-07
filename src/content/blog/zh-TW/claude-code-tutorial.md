@@ -8,7 +8,7 @@ lang: zh-TW
 featured: true
 heroImage: /images/blog/claude-code-tutorial.webp
 translationKey: claude-code-tutorial
-relatedPosts: ["lyt-framework-guide.md", "personal-panopticon.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
+relatedPosts: ["claude-skills-guide.md", "lyt-framework-guide.md", "personal-panopticon.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 focus_keyphrase: "claude code 教學"
 ---
 
@@ -301,4 +301,6 @@ Cursor 是 IDE（整合開發環境），一般是工程師用來開發軟體產
 
 ---
 
-*如果這篇讓你有了想法 — [找我談談怎麼做](/zh-TW/services/)，或[訂閱每週一封信](/zh-TW/)，我固定寫 AI 工作流、和一路上想通的事。*
+*如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
+
+*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
