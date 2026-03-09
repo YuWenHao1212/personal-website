@@ -28,9 +28,13 @@ Almost everyone who works with AI has hit the same wall: you teach it something,
 
 You spend three days dialing in a workflow, going back and forth with Claude until it's perfect. Next morning, you're explaining everything from scratch. You save the prompt in your notes and paste it every time, but after a month of pasting the same 500-word instruction daily, you start wondering—is this really how AI is supposed to work?
 
-It's not. There's something built specifically for this problem—Claude Skills.
+It's not. There's something built specifically for this problem—Agent Skills.
 
-Every morning, I type two words—"start work"—and Claude automatically runs through 8 steps: review yesterday, check weekly goals, sync four projects, build today's task list. Three minutes later it asks: "What should we tackle first?"
+I use Claude Code, so this article uses Claude Skills as the example. But the same concept goes by different names elsewhere—Cursor calls them Rules, Codex calls them Instructions. The idea is the same, and the format is converging.
+
+Every morning, I type two words—"start work"—and Claude automatically runs through 8 steps: review yesterday, check weekly goals, sync four projects, build today's task list—then color-codes each task: green for AI handles it, yellow for AI prepares options and I pick, red for I handle personally, gray for skip today. Three minutes later it asks: "What should we tackle first?"
+
+Because I packaged this workflow into a skill, two words get me the same steps, the same format, every single day.
 
 This article covers everything from the ground up: what a skill is, how it works, how to create Claude code skills, and how Anthropic themselves think about this.
 
