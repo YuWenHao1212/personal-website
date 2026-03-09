@@ -34,17 +34,7 @@
       "statusCode": 301
     },
     {
-      "route": "/zh-TW/blog/ai-goal-management-system/",
-      "redirect": "/zh-TW/blog/personal-panopticon/",
-      "statusCode": 301
-    },
-    {
       "route": "/en/blog/ai-goal-management-system",
-      "redirect": "/en/blog/ai-second-brain/",
-      "statusCode": 301
-    },
-    {
-      "route": "/en/blog/ai-goal-management-system/",
       "redirect": "/en/blog/ai-second-brain/",
       "statusCode": 301
     },
@@ -59,17 +49,7 @@
       "statusCode": 301
     },
     {
-      "route": "/en/blog/personal-panopticon/",
-      "redirect": "/en/blog/ai-second-brain/",
-      "statusCode": 301
-    },
-    {
       "route": "/zh-TW/blog/ai-second-brain",
-      "redirect": "/zh-TW/blog/personal-panopticon/",
-      "statusCode": 301
-    },
-    {
-      "route": "/zh-TW/blog/ai-second-brain/",
       "redirect": "/zh-TW/blog/personal-panopticon/",
       "statusCode": 301
     },
