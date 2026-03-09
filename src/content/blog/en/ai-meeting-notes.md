@@ -1,0 +1,184 @@
+---
+title: "I Built an AI Meeting Notes Tool in 4 Hours for $0.32/hr"
+description: "Built an AI meeting notes tool in 4 hours: speech-to-text with Qwen3-ASR, auto-generated transcripts and summaries, plus a real-time AI coach. Total cost: $0.32 per hour of meeting."
+pubDate: 2026-03-09
+category: building-products
+tags: ["AI", "meeting", "agentic coding", "Claude Code", "building-in-public"]
+lang: en
+translationKey: ai-meeting-notes
+featured: false
+draft: false
+heroImage: /images/blog/ai-meeting-notes.webp
+relatedPosts: ["claude-skills-guide.md", "agentic-coding-guide.md", "claude-code-tutorial.md"]
+faq:
+  - question: "How much does this tool cost?"
+    answer: "About $0.32 per hour of meeting. Since I already use a Claude Code subscription for my daily work, transcript cleanup, summaries, and real-time coaching are all included — the only extra cost is speech-to-text (~$0.32/hr)."
+  - question: "How is this different from Otter.ai or Fireflies?"
+    answer: "SaaS tools charge $10-30/month for transcription and summaries. This tool adds a real-time AI coach — one click during the meeting to get suggestions based on your playbook and the live conversation. Plus, all data stays local."
+  - question: "Can others use this tool?"
+    answer: "This is a personal prototype I built for my own use — it's not a commercial product. If you're interested in this direction — whether it's enterprise adoption, product collaboration, or just discussing how to build something similar — feel free to reach out."
+  - question: "What languages does it support?"
+    answer: "52 languages and dialects, with strong mixed Chinese-English recognition."
+---
+
+After every meeting, how much do you actually remember?
+
+If you're like me, probably the big picture — and maybe half the details.
+
+You can't take notes and have a real conversation at the same time. By the time you're typing, they've already moved on. You prepared an agenda beforehand, but you can't flip through it mid-conversation. And after the meeting? You tell yourself you'll write it up later. A day passes. The details are gone.
+
+There are AI meeting tools out there, but they cost $10-30/month and your meeting data goes through third-party servers.
+
+So I built my own.
+
+---
+
+## Four Hours, Idea to Prototype
+
+My personal system already had AI plugged into email, goal tracking, and knowledge management.
+
+But meetings were still a gap.
+
+Every time I had a call, I couldn't take notes — I'd tried. I'd prepare a playbook beforehand (what to discuss, meeting goals, who I'm talking to), but having it open on the side doesn't really work when you're trying to hold a conversation.
+
+At first, I just wanted one thing: transcribe the audio and auto-generate meeting notes. Feed the transcript and playbook to AI, get structured output — decisions, action items, key discussion points.
+
+But then it hit me: I already have the playbook and a live transcript. Why not have AI give me suggestions *during* the meeting?
+
+One click coach.
+
+I press a button on my second monitor. The system sends the playbook and the last fifteen seconds of transcript to Claude. A few seconds later, it sends back a suggestion — based on my prep and what's actually happening in the conversation. Sonnet responds in 3-4 seconds, Opus takes 5-10 but gives better advice. Depends on the situation.
+
+Four hours later, it worked.
+
+---
+
+## What It Looks Like
+
+Three-panel web interface:
+
+**Left panel: Playbook**
+
+Everything you prepared — goals, agenda, background. Upload a Markdown file.
+
+**Center panel: Live Transcript**
+
+During the meeting, speech-to-text processes audio in 10-second chunks. For virtual meetings, stereo mode separates both speakers into different channels — the transcript labels who's talking.
+
+**Right panel: AI Coach**
+
+This is the key feature.
+
+Any time during the meeting, hit a button. The system sends the playbook and recent conversation to Claude Opus. A few seconds later, you get a suggestion.
+
+I was talking to a Minerva alum about this tool, and he immediately connected it to our school's instructor interface — Minerva instructors have a built-in playbook with the entire class flow, giving hints when the teacher needs them.
+
+He said: "The traditional teaching manual is basically a pre-written script that gives hints when the teacher needs them. But what happens in class is never what you planned."
+
+That's exactly the gap the AI coach fills. The playbook is a fixed framework. The AI adapts to what's *actually happening*.
+
+He summed it up: "What you want to talk about is decided ahead of time, but the moment requires improvisation, and you have two seconds to react."
+
+You can't ask ChatGPT. No time to switch windows and type. It's one click, two seconds, done.
+
+And near the end of the meeting, you can have the AI check against your playbook: I listed three goals before the meeting — how many did I cover? What's still missing?
+
+---
+
+## $0.32 Per Hour
+
+Here's the cost breakdown:
+
+| Component | Tool | Cost |
+|-----------|------|------|
+| Speech-to-text | Qwen3-ASR | ~$0.32/hr |
+| Transcript cleanup | Claude Opus | $0 |
+| Meeting summary | Claude Opus | $0 |
+| Real-time coach | Claude Opus | $0 |
+| **Total per hour** | | **~$0.32** |
+
+Why is Claude Opus (Anthropic's most capable model) free?
+
+I use a Claude Code subscription. Anthropic's subscription plans (Pro $20/mo, Max $100 or $200/mo) include API usage. So whether I use Opus for transcript cleanup, meeting summaries, or real-time coaching, there's no extra charge.
+
+The only variable cost is speech-to-text. I use Alibaba's Qwen3-ASR at $0.00009/second — about $0.32 per hour.
+
+Compare that to SaaS alternatives:
+
+- Otter.ai: $16.99/month — transcription and summaries only
+- Fireflies: $18/month — transcription and summaries only
+- This tool: $0.32/hour, with a real-time AI coach on top
+
+And everything stays local. No meeting data goes through third-party servers.
+
+---
+
+## Beyond Meetings
+
+After building it, I started seeing more use cases.
+
+That Minerva alum rattled off several during our conversation:
+
+**Consulting.** Research the client beforehand, write a playbook. Mid-meeting, the AI reminds you there's a topic you haven't covered yet.
+
+**Education.** The teacher's playbook is the lesson plan. During class, AI gives hints based on student reactions and class progress — not teaching for them, just a nudge when they need inspiration.
+
+**Interviews.** Whether you're the interviewer or candidate — JD, resume, company research, all of it is context. The AI reminds you what to ask or add based on the live conversation.
+
+**Therapy, facilitation, coaching.** Any scenario where you've prepared but need to improvise.
+
+The common thread? A fixed framework (playbook), an unpredictable live situation, a need to react in seconds, and no time to look things up.
+
+The value isn't in transcription — transcription is just infrastructure. The value is in the combination: playbook + live conversation → AI coach.
+
+---
+
+## Technical Choices
+
+The tool has two model layers: speech-to-text (audio to transcript) and text processing (cleanup, summaries, real-time coaching). Different selection logic for each.
+
+### Speech-to-Text: Qwen3-ASR
+
+Mixed Chinese-English recognition is a hard requirement for me. At least half my meetings are bilingual. Qwen3-ASR natively supports 52 languages and 22 Chinese dialects. Its mixed-language quality is the best I've tested so far — not perfect, still evaluating others. Cost is just $0.32/hr.
+
+I built a swappable engine system — Qwen, Soniox, OpenAI, Groq. Not locked to any provider. If something cheaper or better comes along, one config change.
+
+### Text Processing: Claude Opus (Subscription)
+
+Transcript cleanup, meeting summaries, real-time coaching — all Claude Opus. Why not call the API directly? Because the Claude Code subscription includes API usage. Direct API pricing for Opus is $15/M input tokens + $75/M output tokens. A one-hour meeting would cost $5+ just for summaries and coaching. The subscription makes that zero.
+
+**Stereo audio.**
+
+For virtual meetings, I use BlackHole to capture system audio, routing the microphone and remote speaker to separate channels. The transcript automatically labels who's speaking. This makes a huge difference in meeting notes quality — you know who said what.
+
+---
+
+## Integrated Into My Workflow
+
+This tool doesn't exist in isolation. It's part of my entire [AI second brain](/en/blog/ai-second-brain/).
+
+**Before the meeting.** I type `/meeting prep`. AI pulls context from my calendar, recent emails, and project status. Three minutes later, I have a playbook draft. I review it, make edits, done. This is a [Claude Skill](/en/blog/claude-skills-guide/) — write once, auto-apply before every meeting.
+
+**During the meeting.** Open the web UI, select the playbook, start recording — three seconds. Live transcript + AI coach running on the second monitor.
+
+**After the meeting.** Hit "Summarize." Claude generates meeting notes from the transcript and playbook — summary, decisions, action items, key points. Hit "Save," and it goes straight into my knowledge management system.
+
+**Knowledge loop.** Insights from the meeting become knowledge cards, filed in my knowledge base. Next time I have a related meeting, the playbook can pull in past context.
+
+From "a transcription tool" to "part of the workflow" — what's the difference?
+
+Meetings are no longer an island. Every meeting's output becomes the next meeting's input.
+
+---
+
+## Final Thoughts
+
+Before the meeting, AI prepares the playbook — I decide which goals stay. During the meeting, AI suggests — I decide how to respond. After the meeting, AI organizes the notes — I confirm and file.
+
+The grunt work goes to the machine. I just handle judgment and direction.
+
+My AI workflow already covers email, goal management, knowledge base, and content creation. But after every meeting, I still had to write up notes manually — that gap was always leaking. A four-hour prototype plugged it.
+
+---
+
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*
