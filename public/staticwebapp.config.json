@@ -29,6 +29,51 @@
       "statusCode": 301
     },
     {
+      "route": "/zh-TW/blog/ai-goal-management-system",
+      "redirect": "/zh-TW/blog/personal-panopticon/",
+      "statusCode": 301
+    },
+    {
+      "route": "/zh-TW/blog/ai-goal-management-system/",
+      "redirect": "/zh-TW/blog/personal-panopticon/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/ai-goal-management-system",
+      "redirect": "/en/blog/ai-second-brain/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/ai-goal-management-system/",
+      "redirect": "/en/blog/ai-second-brain/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/ai-goal-management-system",
+      "redirect": "/zh-TW/blog/personal-panopticon/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/personal-panopticon",
+      "redirect": "/en/blog/ai-second-brain/",
+      "statusCode": 301
+    },
+    {
+      "route": "/en/blog/personal-panopticon/",
+      "redirect": "/en/blog/ai-second-brain/",
+      "statusCode": 301
+    },
+    {
+      "route": "/zh-TW/blog/ai-second-brain",
+      "redirect": "/zh-TW/blog/personal-panopticon/",
+      "statusCode": 301
+    },
+    {
+      "route": "/zh-TW/blog/ai-second-brain/",
+      "redirect": "/zh-TW/blog/personal-panopticon/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/bubble-three-core-elements-todo-app-tutorial",
       "redirect": "/zh-TW/blog/no-code-bubble-complete-beginners-tutorial/",
       "statusCode": 301
@@ -295,7 +340,7 @@
     },
     {
       "route": "/blog/ai-goal-management-system",
-      "redirect": "/zh-TW/blog/ai-goal-management-system/",
+      "redirect": "/zh-TW/blog/personal-panopticon/",
       "statusCode": 301
     },
     {
@@ -336,6 +381,11 @@
     {
       "route": "/blog/lyt-framework-guide",
       "redirect": "/zh-TW/blog/lyt-framework-guide/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/ai-meeting-notes",
+      "redirect": "/zh-TW/blog/ai-meeting-notes/",
       "statusCode": 301
     },
     {

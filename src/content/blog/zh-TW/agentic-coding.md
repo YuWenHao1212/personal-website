@@ -187,7 +187,7 @@ Vibe Coding 一週年的時候，Karpathy 自己寫了一段[回顧](https://x.c
 
 Karpathy 談的是軟體開發。但我覺得這個模式不止於此。
 
-我現在用同樣的方式管理知識——AI 幫我研究、整理、歸檔到 Obsidian，我負責決定什麼值得留下。用同樣的方式做[目標管理](/zh-TW/blog/ai-goal-management-system/)——AI 幫我追蹤進度、提醒偏離，我負責設定方向。
+我現在用同樣的方式管理知識——AI 幫我研究、整理、歸檔到 Obsidian，我負責決定什麼值得留下。用同樣的方式做[目標管理](/zh-TW/blog/personal-panopticon/)——AI 幫我追蹤進度、提醒偏離，我負責設定方向。
 
 **設定目標 → Agent 執行 → 人類審查 → 迭代改進。**
 

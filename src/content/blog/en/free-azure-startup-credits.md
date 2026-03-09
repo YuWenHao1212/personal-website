@@ -57,7 +57,7 @@ Verification requires a registered legal entity. Government agencies, educationa
 
 I built [AI Resume Advisor](/en/products/ai-resume-advisor) using these resources. The backend runs on Container Apps with containerized APIs. Database is PostgreSQL with Redis for caching. AI analysis uses Azure OpenAI Service, PDF parsing uses Document Intelligence, and files are stored in Blob Storage.
 
-So far, all these costs have been covered by credits.
+I also use Azure to run OpenClaw (my Telegram AI assistant), which plugs into my [entire AI second brain](/en/blog/ai-second-brain/) — daily briefs, on-demand status checks, all from my phone. So far, all these costs have been covered by credits.
 
 ## Things to Note
 

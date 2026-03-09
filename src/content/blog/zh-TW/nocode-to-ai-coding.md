@@ -7,6 +7,7 @@ lang: zh-TW
 featured: false
 heroImage: /images/blog/nocode-to-ai-coding.webp
 translationKey: nocode-to-ai-coding
+relatedPosts: ["personal-panopticon.md", "claude-code-tutorial.md"]
 ---
 
 我離開工程師這個身份，已經 14 年了。
@@ -79,7 +80,7 @@ No-Code，你學的是「工具」。Bubble 的邏輯、Webflow 的排版、Zapi
 
 Vibe Coding，你學的是「跟 AI 溝通」。今天用 Claude，明天用 GPT，後天用別的。核心能力是一樣的：把問題講清楚、把需求拆開、驗證結果。
 
-這個技能不會因為換工具而歸零。
+這個技能不會因為換工具而歸零。而且一旦學會跟 AI 溝通，你能做的不只是寫產品——我用同樣的方式[打造了整套 AI 工作流](/zh-TW/blog/personal-panopticon/)，從目標管理到知識庫到每日 Brief，全部串在一起。
 
 「可是寫程式要搞伺服器吧？」
 

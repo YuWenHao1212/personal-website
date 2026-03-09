@@ -8,7 +8,7 @@ lang: en
 featured: true
 heroImage: /images/blog/claude-code-tutorial.webp
 translationKey: claude-code-tutorial
-relatedPosts: ["claude-skills-guide.md", "lyt-framework-guide.md", "personal-panopticon.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
+relatedPosts: ["claude-skills-guide.md", "lyt-framework-guide.md", "ai-second-brain.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 focus_keyphrase: "how to use claude code"
 ---
 
@@ -141,7 +141,7 @@ With Claude Code, I told it what I wanted, and it:
 
 Now every morning I wake up to a message telling me what I need to do today.
 
-Want to see how the full system works? Check out my other article: [AI Goal Management System](/en/blog/ai-goal-management-system).
+Want to see how the full system works? Check out my other article: [How I Built an AI Second Brain](/en/blog/ai-second-brain/).
 
 **Scenario 3: Build products without knowing how to code**
 

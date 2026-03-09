@@ -72,7 +72,7 @@ Self-Service 路徑的額度分兩階段：
 
 後端用 Container Apps 跑容器化 API，資料庫是 PostgreSQL，用 Redis 做快取。AI 分析用 Azure OpenAI Service，PDF 解析用 Document Intelligence。檔案存在 Blob Storage。
 
-到目前為止，這些費用都用 credits 支付。
+另外我也用 Azure 跑 OpenClaw（我的 Telegram AI 助理），串進[整套 AI 工作流](/zh-TW/blog/personal-panopticon/)——每天自動推送 Daily Brief、在手機上隨時跟系統互動。到目前為止，這些費用都用 credits 支付。
 
 ## 注意事項
 

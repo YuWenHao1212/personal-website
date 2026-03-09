@@ -8,7 +8,7 @@ lang: zh-TW
 featured: false
 translationKey: pkm-history
 heroImage: /images/blog/pkm-history.webp
-relatedPosts: ["ai-goal-management-system.md", "12-week-year-guide.md", "personal-panopticon.md"]
+relatedPosts: ["personal-panopticon.md", "12-week-year-guide.md"]
 ---
 
 你每天用的筆記軟體——Obsidian、Notion、Roam Research——背後有一段跨越 80 年的故事。
@@ -285,7 +285,7 @@ Obsidian 迅速建立起龐大的社群和外掛生態系統。
 4. **寫文章時，我決定故事角度**，AI 從知識庫找出相關卡片，組合成初稿
 5. **我給反饋、做決定**，AI 負責執行
 
-**我是導演，AI 是執行團隊。**（這套筆記系統已整合進我的<a href="/zh-TW/blog/ai-goal-management-system/" target="_blank">AI 目標管理系統</a>。）
+**我是導演，AI 是執行團隊。**（這套筆記系統已整合進我的<a href="/zh-TW/blog/personal-panopticon/" target="_blank">AI 工作流系統</a>。）
 
 想法、判斷、個人經驗——這些是我的。AI 負責繁瑣的研究、整理、初稿工作。
 
@@ -313,8 +313,7 @@ Obsidian 迅速建立起龐大的社群和外掛生態系統。
 
 *延伸閱讀：*
 
-- *[AI 目標管理系統](/zh-TW/blog/ai-goal-management-system/)* — 如何用 AI 整合 12 Week Year、Daily Brief、筆記系統
-- *[從 Obsidian 到 Claude Code：打造可程式化的人生](/zh-TW/blog/personal-panopticon/)* — 這套系統的起點和核心原則
+- *[我的 AI 工作流：打造個人 AI 助理系統](/zh-TW/blog/personal-panopticon/)* — 目標管理、郵件自動化、會議記錄、Daily Brief 的完整實戰整合
 
 *如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
 

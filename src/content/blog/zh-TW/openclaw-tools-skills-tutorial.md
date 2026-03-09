@@ -127,7 +127,7 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 這個 Tool 我有開，但只用來讓 OpenClaw 傳訊息給我自己——不讓它代替我跟任何人溝通。原因很簡單：AI 用你的名義發出去的訊息，收回不了。萬一它理解錯意思、語氣不對、甚至被 Prompt Injection 騙去發訊息，後果是你自己承擔。
 
-我用 OpenClaw 當作<a href="/zh-TW/blog/ai-goal-management-system" target="_blank">目標管理系統</a>的溝通界面，而啟用 `message` 是讓它可以主動傳訊息給我——每天推送 Daily Brief、任務通知、待辦提醒，全部都是發給我自己。
+我用 OpenClaw 當作<a href="/zh-TW/blog/personal-panopticon" target="_blank">整套 AI 工作流</a>的手機入口，而啟用 `message` 是讓它可以主動傳訊息給我——每天推送 Daily Brief、任務通知、待辦提醒，全部都是發給我自己。
 
 ### 硬體控制：nodes
 
@@ -139,7 +139,7 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 `cron` 設定定時任務，`gateway` 讓它能重啟自己。
 
-每天早上 6:47，我的 Telegram 會收到 OpenClaw 整理好的 Daily Brief——今天要做什麼、有哪些待回覆的訊息、天氣預報。這就是 `cron` 搭配 `message` 的效果，也是我<a href="/zh-TW/blog/ai-goal-management-system" target="_blank">AI 目標管理系統</a>的核心。
+每天早上 6:47，我的 Telegram 會收到 OpenClaw 整理好的 Daily Brief——今天要做什麼、有哪些待回覆的訊息、天氣預報。這就是 `cron` 搭配 `message` 的效果——不在電腦前也能掌握狀況，OpenClaw 就是我<a href="/zh-TW/blog/personal-panopticon" target="_blank">整套 AI 工作流</a>跟手機之間的橋樑。
 
 ### Agent 通訊：agents_list
 

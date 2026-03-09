@@ -129,7 +129,7 @@ Lets OpenClaw send messages to Discord, Slack, Telegram, WhatsApp, iMessage.
 
 I have this enabled but only for sending messages to myself — never for communicating with others on my behalf. The reason is simple: messages sent in your name by AI can't be unsent. If it misunderstands the context, uses the wrong tone, or gets tricked by Prompt Injection into sending something, you bear the consequences.
 
-I use OpenClaw as the communication layer for my <a href="/en/blog/ai-goal-management-system" target="_blank">AI goal management system</a> — enabling `message` lets it proactively push notifications to me: Daily Briefs, task reminders, and to-do alerts, all sent to myself.
+I use OpenClaw as the mobile gateway to my <a href="/en/blog/ai-second-brain" target="_blank">entire AI second brain</a> — enabling `message` lets it proactively push notifications to me: Daily Briefs, task reminders, and to-do alerts, all sent to myself.
 
 ### Hardware Control: nodes
 
@@ -141,7 +141,7 @@ When I first saw this Tool, I asked myself: when would I need AI to open my came
 
 `cron` sets up scheduled tasks. `gateway` lets OpenClaw restart itself.
 
-Every morning at 6:47, my Telegram receives a Daily Brief prepared by OpenClaw — what I need to do today, pending messages to reply to, and the weather forecast. That's `cron` plus `message` in action, and it's the core of my <a href="/en/blog/ai-goal-management-system" target="_blank">AI goal management system</a>.
+Every morning at 6:47, my Telegram receives a Daily Brief prepared by OpenClaw — what I need to do today, pending messages to reply to, and the weather forecast. That's `cron` plus `message` in action, — OpenClaw is the bridge between my <a href="/en/blog/ai-second-brain" target="_blank">entire AI second brain</a> and my phone, so I stay in the loop even away from my computer.
 
 ### Agent Communication: agents_list
 

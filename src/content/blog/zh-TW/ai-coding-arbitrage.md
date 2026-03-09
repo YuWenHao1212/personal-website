@@ -10,6 +10,7 @@ status: draft
 heroImage: /images/blog/ai-coding-arbitrage.webp
 translationKey: ai-coding-arbitrage
 focusKeyphrase: "AI 時代套利"
+relatedPosts: ["personal-panopticon.md", "nocode-to-ai-coding.md"]
 ---
 
 寫程式這件事，正在變得不值錢。
@@ -144,8 +145,7 @@ AI 讓程式碼從昂貴變便宜。
 
 工具的話，現在最常見的選擇是 Cursor、Claude Code、GitHub Copilot。各有優缺點，但核心邏輯差不多：用自然語言描述需求，AI 幫忙生成程式碼。
 
-更完整的比較和實際經驗，可以參考這篇：[離開工程師 14 年，我用 AI 做出一個完整產品](/blog/nocode-to-ai-coding)。
-
+更完整的比較和實際經驗，可以參考這篇：[離開工程師 14 年，我用 AI 做出一個完整產品](/zh-TW/blog/nocode-to-ai-coding)。而如果你想看一個完整的日常 AI工作流系統長什麼樣——從目標管理到知識庫到自動化——[可以看這篇](/zh-TW/blog/personal-panopticon/)。
 
 ## 結語
 

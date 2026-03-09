@@ -8,7 +8,7 @@ lang: en
 featured: false
 heroImage: /images/blog/pkm-history.webp
 translationKey: pkm-history
-relatedPosts: ["ai-goal-management-system.md", "12-week-year-guide.md", "personal-panopticon.md"]
+relatedPosts: ["ai-second-brain.md", "12-week-year-guide.md"]
 ---
 
 I paid $500 for a 5-year Roam Research subscription.
@@ -180,7 +180,7 @@ My workflow is completely different now:
 4. **When writing, I choose the story angle** — AI finds relevant cards from my knowledge base and drafts
 5. **I give feedback and make decisions** — AI executes
 
-**I'm the director. AI is the production team.** (I've integrated this into my [AI-powered goal management system](/en/blog/ai-goal-management-system/).)
+**I'm the director. AI is the production team.** (I've integrated this into my [AI second brain](/en/blog/ai-second-brain/).)
 
 Ideas, judgment, personal experience—those are mine. AI handles the tedious research, organization, and first drafts.
 
@@ -210,7 +210,6 @@ That's probably my biggest takeaway from 5 years with Roam Research.
 
 *Related reading:*
 
-- *[AI Goal Management System](/en/blog/ai-goal-management-system/)* — How I integrate AI with 12 Week Year, Daily Brief, and my note system
-- *[From Obsidian to Claude Code: Building a Programmable Life](/en/blog/personal-panopticon/)* — The origin and core principles of this system
+- *[How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)* — The complete system: goal management, daily briefs, knowledge base, and more
 
 *Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

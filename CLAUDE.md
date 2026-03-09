@@ -74,10 +74,12 @@ npm run preview  # Preview production build
 
 每篇 blog 結尾都要放 CTA，位於 `---` 分隔線之後，格式為 italic markdown（`*...*`）。中英文各一版，全站統一，不因文章主題改動措辭。
 
-### zh-TW（導向服務頁 + 電子報）
+### zh-TW（電子報 + 服務頁，拆兩行）
 
 ```markdown
-*如果這篇讓你有了想法 — [找我談談怎麼做](/zh-TW/services/)，或[訂閱每週一封信](/zh-TW/)，我固定寫 AI 工作流、和一路上想通的事。*
+*如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
+
+*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
 ```
 
 ### EN（導向 LinkedIn）
@@ -88,7 +90,7 @@ npm run preview  # Preview production build
 
 ### 注意事項
 
-- zh-TW 連結一：`/zh-TW/services/`（服務頁），連結二：`/zh-TW/`（首頁訂閱區塊）
+- zh-TW 第一行：電子報 `/zh-TW/`（首頁訂閱區塊），第二行：服務頁 `/zh-TW/services/`
 - EN 連結指向 LinkedIn profile（沒有英文電子報）
 - 不用 HTML `<a>` 標籤，一律用 markdown
 - CTA 前不加「延伸閱讀」或其他導言

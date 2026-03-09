@@ -7,6 +7,7 @@ lang: en
 featured: false
 heroImage: /images/blog/nocode-to-ai-coding.webp
 translationKey: nocode-to-ai-coding
+relatedPosts: ["ai-second-brain.md", "claude-code-tutorial.md"]
 ---
 
 I left engineering 14 years ago.
@@ -79,7 +80,7 @@ With No-Code, you learn **tools**. Bubble's logic, Webflow's layout system, Zapi
 
 With AI coding, you learn **communication**. Today it's Claude, tomorrow it's GPT, next month it's something else. The core skill remains: articulate the problem clearly, break down requirements, validate results.
 
-This skill doesn't reset when you change tools.
+This skill doesn't reset when you change tools. And once you learn to communicate with AI, you can do more than build products — I used the same approach to [build my entire AI second brain](/en/blog/ai-second-brain/), connecting goal tracking, knowledge management, and daily briefs into one system.
 
 "But don't you need to manage servers?"
 

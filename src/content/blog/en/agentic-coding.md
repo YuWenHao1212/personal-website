@@ -187,7 +187,7 @@ He gave this new mode a name: **Agentic Engineering**.
 
 Karpathy was talking about software development. But I think the pattern extends further.
 
-I now use the same approach to manage knowledge — AI helps me research, organize, and archive to Obsidian, while I decide what's worth keeping. The same approach for [goal management](/en/blog/ai-goal-management-system/) — AI tracks my progress and flags when I drift, while I set the direction.
+I now use the same approach to manage knowledge — AI helps me research, organize, and archive to Obsidian, while I decide what's worth keeping. The same approach for [my entire AI system](/en/blog/ai-second-brain/) — AI tracks my progress and flags when I drift, while I set the direction.
 
 **Set goals → agents execute → humans review → iterate.**
 

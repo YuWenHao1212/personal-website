@@ -10,6 +10,7 @@ status: draft
 heroImage: /images/blog/ai-coding-arbitrage.webp
 translationKey: ai-coding-arbitrage
 focusKeyphrase: "AI arbitrage"
+relatedPosts: ["ai-second-brain.md", "nocode-to-ai-coding.md"]
 ---
 
 Writing code is becoming worthless.
@@ -144,8 +145,7 @@ These skills—anyone who's done project management, written documents, communic
 
 For tools, the most common choices now are Cursor, Claude Code, GitHub Copilot. Each has pros and cons, but the core logic is the same: describe requirements in natural language, AI generates code.
 
-For a more complete comparison and real experience, see this post: [14 Years Away from Engineering, I Built a Complete Product with AI](/en/blog/nocode-to-ai-coding).
-
+For a more complete comparison and real experience, see this post: [14 Years Away from Engineering, I Built a Complete Product with AI](/en/blog/nocode-to-ai-coding). And if you want to see what a complete daily AI workflow looks like — from goal tracking to knowledge management to automation — [here's how I built my AI second brain](/en/blog/ai-second-brain/).
 
 ## Closing
 

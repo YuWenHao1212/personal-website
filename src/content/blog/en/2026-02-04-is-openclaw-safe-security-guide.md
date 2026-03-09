@@ -10,6 +10,7 @@ draft: false
 featured: false
 heroImage: /images/blog/openclaw-security-guide.webp
 keywords: ["is OpenClaw safe", "OpenClaw security", "OpenClaw setup", "how to secure OpenClaw", "Prompt Injection", "OpenClaw tools"]
+relatedPosts: ["ai-second-brain.md", "openclaw-tools-skills-tutorial.md", "2026-02-01-openclaw-deploy-cost-guide.md"]
 faq:
   - question: "Is OpenClaw safe?"
     answer: "OpenClaw itself isn't malware, but it's very capable—it can run system commands, read/write files, and control web pages. More capability means more risk. If you configure the 5 security settings in this guide, you can significantly reduce the risks."
@@ -510,7 +511,7 @@ Here are the 5 protections I set up:
 - [ ] Don't install random Skills + minimize OAuth
 - [ ] Network isolation
 
-Then OpenClaw's productivity boost is absolutely worth it.
+Then OpenClaw's productivity boost is absolutely worth it. I use it as the mobile gateway to my [entire AI second brain](/en/blog/ai-second-brain/) — Daily Briefs, on-demand status checks, all from my phone. With these protections in place, I actually trust it.
 
 ### Next Steps
 
@@ -541,8 +542,8 @@ Prompt Injection is when attackers hide malicious instructions in normal-looking
 ## Further Reading
 
 - OpenClaw Tutorial: 25 Tools + 53 Skills Complete Guide (coming soon)
-- [OpenClaw Deployment Cost Guide: $0-8/month for Your AI Assistant](/blog/openclaw-deployment-cost-guide)
-- [Claude Code Tutorial: Install and Complete Your First Task in 5 Minutes](/blog/claude-code-tutorial)
+- [OpenClaw Deployment Cost Guide: $0-8/month for Your AI Assistant](/en/blog/2026-02-01-openclaw-deploy-cost-guide/)
+- [Claude Code Tutorial: Install and Complete Your First Task in 5 Minutes](/en/blog/claude-code-tutorial/)
 
 ---
 

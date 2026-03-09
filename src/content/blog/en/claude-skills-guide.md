@@ -115,7 +115,7 @@ But having a kitchen doesn't mean you can cook.
 | Provides real-time data access | Packages workflows and best practices |
 | Solves "can it do this?" | Solves "how to do it best" |
 
-My [Panopticon (content monitoring system)](/en/blog/personal-panopticon/) is a good example. MCP lets Claude connect to APIs and pull trending content from Reddit, Hacker News, and Product Hunt. But "what to do after pulling the data"—filter for engagement scores above 4, categorize into 5 content types, recommend 2-3 topics—that decision logic lives in the skill.
+My [AI second brain](/en/blog/ai-second-brain/) is a good example. MCP lets Claude connect to APIs and pull trending content from Reddit, Hacker News, and Product Hunt. But "what to do after pulling the data"—filter for engagement scores above 4, categorize into 5 content types, recommend 2-3 topics—that decision logic lives in the skill.
 
 MCP provides capability. Skills provide intelligence.
 

@@ -7,7 +7,7 @@ tags: ["AI", "indie hacker", "developer tools", "OpenClaw", "self-hosted AI"]
 lang: en
 translationKey: openclaw-deploy-cost-guide
 featured: true
-relatedPosts: ["free-azure-startup-credits.md"]
+relatedPosts: ["ai-second-brain.md", "free-azure-startup-credits.md", "openclaw-tools-skills-tutorial.md"]
 heroImage: /images/blog/openclaw-deploy-cost.webp
 keywords: ["OpenClaw deploy", "OpenClaw hosting cost", "Oracle Cloud free tier", "Hetzner VPS", "LLM API pricing", "self-hosted AI agent", "personal AI assistant", "AI agent framework", "open source AI agent"]
 ---
@@ -292,6 +292,8 @@ I personally use **Azure B2s (2 vCPU + 4GB RAM) + Azure OpenAI GPT-5.1**.
 Why not the cheaper Oracle or Hetzner options? Because I got **$25,000 in free Azure credits** (valid for one year) through [Microsoft for Startups](/en/blog/free-azure-startup-credits)—covering both cloud hosting and LLM API. My current **monthly cost is $0**.
 
 If you're an indie hacker or early-stage founder, this path is worth considering: zero cost for both hardware and LLM.
+
+What do I actually do with it? OpenClaw is my mobile gateway to my [entire AI second brain](/en/blog/ai-second-brain/) — when I'm away from my computer, it pushes a Daily Brief every morning, reports task status on demand, and lets me interact with the whole system from my phone.
 
 ---
 

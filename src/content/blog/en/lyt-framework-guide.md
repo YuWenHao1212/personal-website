@@ -9,7 +9,7 @@ focusKeyphrase: "PKM"
 featured: true
 heroImage: /images/blog/lyt-framework/hero.webp
 translationKey: lyt-framework-guide
-relatedPosts: ["roam-research-to-obsidian.md", "ai-goal-management-system.md"]
+relatedPosts: ["roam-research-to-obsidian.md", "ai-second-brain.md"]
 ---
 
 How many notes do you have?
@@ -226,7 +226,7 @@ But after about a month, I noticed a gap: **LYT manages "knowing," not "doing."*
 
 My Atlas looked great. MOCs were growing nicely. But every morning when I opened Obsidian, I still didn't know what to work on that day. Knowledge management and execution are two different things — LYT's ACE framework has Efforts (projects and areas), but it only provides a place to categorize them. It doesn't tell you how to break down goals into daily actions.
 
-A lot of people use bullet journaling or GTD (Getting Things Done) to track goals and tasks, but I needed a longer-cycle execution framework. I ended up layering [12 Week Year](/en/blog/ai-goal-management-system/) on top of LYT — compressing annual goals into 12-week cycles, with clear weekly deliverables and daily executable tasks. Now every morning, AI and I do a 1-on-1 standup — it reads my 12 Week Year progress, scans the week's tasks, and we discuss priorities for the day. LYT manages knowledge. 12 Week Year manages action. AI ties them together. I'll write a full post about that system separately.
+A lot of people use bullet journaling or GTD (Getting Things Done) to track goals and tasks, but I needed a longer-cycle execution framework. I ended up layering [12 Week Year](/en/blog/ai-second-brain/) on top of LYT — compressing annual goals into 12-week cycles, with clear weekly deliverables and daily executable tasks. Now every morning, AI and I do a 1-on-1 standup — it reads my 12 Week Year progress, scans the week's tasks, and we discuss priorities for the day. LYT manages knowledge. 12 Week Year manages action. AI ties them together. I'll write a full post about that system separately.
 
 But back to this article's point: **LYT is a great knowledge foundation.** It won't help you hit your goals on its own, but it will make sure none of your ideas ever disappear. Over time, the connections between them grow denser and more valuable. Whatever you want to build on top — a goal system, a writing workflow, project management — you can. The foundation is solid.
 

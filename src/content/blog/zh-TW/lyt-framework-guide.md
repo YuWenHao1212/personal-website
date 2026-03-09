@@ -9,7 +9,7 @@ focusKeyphrase: "Obsidian 教學"
 featured: true
 heroImage: /images/blog/lyt-framework/hero.webp
 translationKey: lyt-framework-guide
-relatedPosts: ["卡片盒筆記法.md", "roam-research-to-obsidian.md", "ai-goal-management-system.md"]
+relatedPosts: ["卡片盒筆記法.md", "roam-research-to-obsidian.md", "personal-panopticon.md"]
 ---
 
 你有多少筆記？
@@ -224,7 +224,7 @@ says: "長尾關鍵字比短關鍵字更容易排名，且轉換率更高"
 
 我的 Atlas 整理得很漂亮，MOC 一張一張長出來。但每天早上打開 Obsidian，我還是不知道今天該做什麼。知識管理和工作執行是兩件事——LYT 的 ACE 裡有 Efforts（專案和領域），但它只提供了分類的位置，沒有告訴你怎麼從目標拆解成每天的行動。
 
-很多人用子彈筆記或 GTD 追蹤目標和待辦，但我需要的是更長週期的執行框架。後來我在 LYT 的基礎上，接上了 [12 Week Year](/zh-TW/blog/ai-goal-management-system/) 的目標執行框架——把年度目標壓縮到 12 週，每週有明確的 deliverables，每天有可執行的任務。現在每天早上我和 AI 做一場 1 對 1 的 standup meeting——它讀我的 12 Week Year 進度、掃描本週待辦、和我討論今天的優先順序。LYT 管知識，12 Week Year 管行動，AI 把兩者串在一起。這套系統我之後會另外寫一篇完整介紹。
+很多人用子彈筆記或 GTD 追蹤目標和待辦，但我需要的是更長週期的執行框架。後來我在 LYT 的基礎上，接上了 [12 Week Year](/zh-TW/blog/personal-panopticon/) 的目標執行框架——把年度目標壓縮到 12 週，每週有明確的 deliverables，每天有可執行的任務。現在每天早上我和 AI 做一場 1 對 1 的 standup meeting——它讀我的 12 Week Year 進度、掃描本週待辦、和我討論今天的優先順序。LYT 管知識，12 Week Year 管行動，AI 把兩者串在一起。這套系統我之後會另外寫一篇完整介紹。
 
 但回到這篇文章的重點：**LYT 是很好的知識底層。** 它不會幫你完成目標，但它會讓你的每一個想法都不會消失，而且隨著時間累積，這些想法之間的連結會越來越密，價值會越來越高。你在上面要搭什麼——目標系統、寫作流程、專案管理——都可以，地基是穩的。
 

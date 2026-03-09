@@ -9,7 +9,7 @@ status: published
 featured: false
 heroImage: /images/blog/ai-goal-management-system.webp
 translationKey: ai-goal-management-system
-relatedPosts: ["personal-panopticon.md", "12-week-year-guide.md"]
+relatedPosts: ["ai-second-brain.md", "12-week-year-guide.md"]
 ---
 
 Every January, I set new year goals.
@@ -251,7 +251,7 @@ I think moving forward isn't so hard after all.
 
 *This is the third article in the "Building a Personal AI System" series:*
 
-1. *[From Obsidian to Claude Code: Building a Programmable Life](https://yu-wenhao.com/en/blog/personal-panopticon)* — The starting point, three core principles
+1. *[How I Built an AI Second Brain with Claude Code + Obsidian](https://yu-wenhao.com/en/blog/ai-second-brain)* — The starting point, three core principles
 2. *[The Complete 12 Week Year Guide](https://yu-wenhao.com/en/blog/12-week-year-guide)* — Lead vs Lag, scoring, WAM accountability
 3. *This article* — 12 Week Year + AI integration in practice
 
