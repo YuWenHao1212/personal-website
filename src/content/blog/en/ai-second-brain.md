@@ -8,6 +8,7 @@ tags: ["AI second brain", "Claude Code", "Obsidian", "goal management", "AI auto
 lang: en
 focusKeyphrase: "AI second brain"
 featured: true
+pinned: true
 heroImage: /images/blog/personal-panopticon.webp
 translationKey: personal-panopticon
 relatedPosts: ["lyt-framework-guide.md", "ai-meeting-notes.md", "12-week-year-guide.md", "claude-code-tutorial.md", "claude-skills-guide.md"]

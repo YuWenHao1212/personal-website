@@ -16,9 +16,12 @@ const t = useTranslations(lang);
 // Get all blog posts for current language (exclude drafts)
 const allPosts = await getCollection('blog', ({ data }) => data.lang === lang && data.draft !== true);
 
-// Sort: featured first, then by date
+// Sort: pinned first, then featured, then by date
 const sortedPosts = allPosts.sort((a, b) => {
-  // Featured posts first
+  // Pinned posts always first
+  if (a.data.pinned && !b.data.pinned) return -1;
+  if (!a.data.pinned && b.data.pinned) return 1;
+  // Featured posts next
   if (a.data.featured && !b.data.featured) return -1;
   if (!a.data.featured && b.data.featured) return 1;
   // Then by date (newest first)

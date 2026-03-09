@@ -16,6 +16,7 @@ const blogCollection = defineCollection({
     translationKey: z.string().optional(),
     videoUrl: z.string().optional(),
     featured: z.boolean().default(false),
+    pinned: z.boolean().default(false),
     draft: z.boolean().default(false),
     relatedPosts: z.array(z.string()).optional(),
     faq: z.array(z.object({

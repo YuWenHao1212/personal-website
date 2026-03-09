@@ -339,11 +339,6 @@
       "statusCode": 301
     },
     {
-      "route": "/blog/ai-goal-management-system",
-      "redirect": "/zh-TW/blog/personal-panopticon/",
-      "statusCode": 301
-    },
-    {
       "route": "/blog/claude-code-tutorial",
       "redirect": "/zh-TW/blog/claude-code-tutorial/",
       "statusCode": 301

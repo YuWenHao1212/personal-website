@@ -8,6 +8,7 @@ tags: ["AI工作流", "Claude Code", "Obsidian", "目標管理", "AI 自動化",
 lang: zh-TW
 focusKeyphrase: "AI工作流"
 featured: true
+pinned: true
 heroImage: /images/blog/personal-panopticon.webp
 translationKey: personal-panopticon
 relatedPosts: ["lyt-framework-guide.md", "ai-meeting-notes.md", "12-week-year-guide.md", "claude-code-tutorial.md", "claude-skills-guide.md"]
