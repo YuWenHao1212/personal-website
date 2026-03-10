@@ -4,7 +4,7 @@ description: "New Year goals fail every year, emails pile up, meetings blur toge
 pubDate: 2026-01-14
 updatedDate: 2026-03-09
 category: productivity
-tags: ["AI second brain", "Claude Code", "Obsidian", "goal management", "AI automation", "AI notes", "second brain", "productivity system"]
+tags: ["AI second brain", "Claude Code", "Obsidian", "goal management", "AI automation", "AI notes", "second brain", "productivity system", "building-in-public"]
 lang: en
 focusKeyphrase: "AI second brain"
 featured: true
@@ -134,9 +134,9 @@ I built an [AI meeting notes tool](/en/blog/ai-meeting-notes/) and integrated it
 
 **Before the meeting**, I type `/meeting prep`. AI pulls context from my calendar, emails, and project progress, then generates a Playbook in three minutes — what to discuss, meeting objectives, who's attending, past interaction history. This is a [Claude Skill](/en/blog/claude-skills-guide/) — write it once, it runs automatically before every meeting.
 
-**During the meeting**, real-time speech-to-text produces a live transcript. The key feature is the "AI advisor" — press a button and the system analyzes the Playbook against the live conversation, delivering suggestions within seconds. You don't find out "I should've asked that question" after the meeting. You get prompted in real time.
+**During the meeting**, real-time speech-to-text produces a live transcript. The key feature is the "AI tactical advisor" — press a button and the system analyzes the Playbook against the live conversation, delivering suggestions within seconds. You don't find out "I should've asked that question" after the meeting. You get prompted in real time.
 
-**After the meeting**, press "Summarize." AI generates meeting notes from the transcript and Playbook — summary, decisions, action items. Press "Save" and it's automatically stored in my knowledge base. Next time I meet the same person, the Playbook already carries the context from last time.
+**After the meeting**, press "Summarize." AI generates meeting notes from the transcript and Playbook — summary, decisions, action items. Press "Save" and it's automatically stored in my goal and project management system. Next time I meet the same person, the Playbook already carries the context from last time.
 
 Meetings are no longer islands. Every meeting's output becomes the next meeting's input.
 
@@ -278,7 +278,7 @@ But it didn't start this way.
 
 Originally, the knowledge base and work planning were two separate systems. After a month, I realized it was wrong — data got stuck on both sides, couldn't flow. After merging into one Vault, it finally connected.
 
-Features weren't pre-planned either — wherever things got stuck, I patched. Started with Briefs and goal tracking. Once that ran smoothly, added email auto-drafting. Mobile started with LINE, then I built OpenClaw on Telegram for capturing and deep conversations. Recently added meeting recording, auto-notes, and the real-time AI advisor.
+Features weren't pre-planned either — wherever things got stuck, I patched. Started with Briefs and goal tracking. Once that ran smoothly, added email auto-drafting. Mobile started with LINE, then I built OpenClaw on Telegram for capturing and deep conversations. Recently added meeting recording, auto-notes, and the real-time AI tactical advisor.
 
 Over three months, every new piece connected meant one less manual step. Mornings went from one hour "getting ready to work" to five minutes of decisions. Email from 40 minutes to 10. Meetings no longer require handwritten notes — last meeting's decisions automatically feed into the next meeting's prep. Notes no longer saved and forgotten — AI surfaces that three-month-old note exactly when you need it.
 
