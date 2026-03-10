@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Survey Dashboard';
+---
+
+<BaseLayout title={title} description="Admin survey dashboard" hideLanguageSwitcher={true}>
+  <section class="min-h-[calc(100vh-80px)] flex items-center py-12 bg-[#F5F1EB]">
+    <div class="max-w-2xl mx-auto px-6 w-full">
+
+      <!-- Login -->
+      <div id="login-section">
+        <h1 class="text-2xl font-bold text-[#2C2416] mb-6">Survey Dashboard</h1>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 shadow-sm">
+          <label for="admin-key" class="block text-sm font-medium text-[#2C2416] mb-2">Admin Key</label>
+          <div class="flex gap-3">
+            <input
+              type="password"
+              id="admin-key"
+              placeholder="Enter admin key"
+              class="flex-1 px-4 py-3 border border-[#E8E4DD] rounded-lg text-[#2C2416] focus:outline-none focus:ring-2 focus:ring-[#B8926A]/50 focus:border-[#B8926A] transition-colors"
+            />
+            <button
+              id="login-btn"
+              class="px-6 py-3 bg-[#B8926A] text-white font-medium rounded-lg hover:bg-[#A67D55] transition-colors"
+            >
+              View
+            </button>
+          </div>
+          <p id="login-error" class="text-red-600 text-sm mt-2 hidden">Invalid key or request failed.</p>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="dashboard-section" class="hidden">
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="text-2xl font-bold text-[#2C2416]">Survey Dashboard</h1>
+          <button id="logout-btn" class="text-sm text-[#8B7355] hover:text-[#2C2416] transition-colors">Logout</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 shadow-sm mb-6">
+          <div class="flex items-baseline gap-3">
+            <span id="total-count" class="text-4xl font-bold text-[#2C2416]">0</span>
+            <span class="text-[#5C5144]">responses</span>
+          </div>
+          <div id="role-breakdown" class="mt-3 text-sm text-[#8B7355]"></div>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white border border-[#E8E4DD] rounded-xl shadow-sm overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-[#F5F1EB]">
+              <tr>
+                <th class="text-left px-4 py-3 font-medium text-[#5C5144]">#</th>
+                <th class="text-left px-4 py-3 font-medium text-[#5C5144]">Email</th>
+                <th class="text-left px-4 py-3 font-medium text-[#5C5144]">Role</th>
+                <th class="text-left px-4 py-3 font-medium text-[#5C5144]">Scenario</th>
+                <th class="text-left px-4 py-3 font-medium text-[#5C5144]">Date</th>
+              </tr>
+            </thead>
+            <tbody id="responses-body"></tbody>
+          </table>
+          <div id="empty-state" class="hidden text-center py-8 text-[#8B7355]">No responses yet.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const API_BASE = 'https://yu-wenhao-api.calmisland-ea7fe91e.japaneast.azurecontainerapps.io';
+    const SURVEY_ID = 'meeting-tool';
+
+    const loginSection = document.getElementById('login-section')!;
+    const dashboardSection = document.getElementById('dashboard-section')!;
+    const adminKeyInput = document.getElementById('admin-key') as HTMLInputElement;
+    const loginBtn = document.getElementById('login-btn')!;
+    const loginError = document.getElementById('login-error')!;
+    const logoutBtn = document.getElementById('logout-btn')!;
+    const totalCount = document.getElementById('total-count')!;
+    const roleBreakdown = document.getElementById('role-breakdown')!;
+    const responsesBody = document.getElementById('responses-body')!;
+    const emptyState = document.getElementById('empty-state')!;
+
+    async function fetchResponses(key: string) {
+      const url = `${API_BASE}/api/survey/responses/${SURVEY_ID}?key=${encodeURIComponent(key)}`;
+      console.log('Fetching:', url);
+      const res = await fetch(url);
+      console.log('Response status:', res.status);
+      if (!res.ok) {
+        const body = await res.text();
+        console.error('Error body:', body);
+        throw new Error(`${res.status}: ${body}`);
+      }
+      return res.json();
+    }
+
+    function renderDashboard(data: any) {
+      const responses = data.data.responses;
+      totalCount.textContent = data.data.total.toString();
+
+      // Role breakdown
+      const roles: Record<string, number> = {};
+      for (const r of responses) {
+        const role = r.role || 'not specified';
+        roles[role] = (roles[role] || 0) + 1;
+      }
+      roleBreakdown.textContent = Object.entries(roles)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join(' · ');
+
+      // Table
+      if (responses.length === 0) {
+        emptyState.classList.remove('hidden');
+        responsesBody.innerHTML = '';
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      responsesBody.innerHTML = responses
+        .map((r: any, i: number) => {
+          const date = new Date(r.created_at).toLocaleDateString('zh-TW', {
+            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+          return `
+            <tr class="border-t border-[#E8E4DD]">
+              <td class="px-4 py-3 text-[#8B7355]">${i + 1}</td>
+              <td class="px-4 py-3 text-[#2C2416]">${escapeHtml(r.email)}</td>
+              <td class="px-4 py-3 text-[#5C5144]">${escapeHtml(r.role || '—')}</td>
+              <td class="px-4 py-3 text-[#5C5144] max-w-[200px] truncate">${escapeHtml(r.scenario || '—')}</td>
+              <td class="px-4 py-3 text-[#8B7355] whitespace-nowrap">${date}</td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    function escapeHtml(str: string) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    loginBtn.addEventListener('click', async () => {
+      const key = adminKeyInput.value.trim();
+      if (!key) return;
+
+      loginBtn.textContent = '...';
+      loginError.classList.add('hidden');
+
+      try {
+        const data = await fetchResponses(key);
+        sessionStorage.setItem('survey_admin_key', key);
+        loginSection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
+        renderDashboard(data);
+      } catch {
+        loginError.classList.remove('hidden');
+      } finally {
+        loginBtn.textContent = 'View';
+      }
+    });
+
+    adminKeyInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loginBtn.click();
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('survey_admin_key');
+      dashboardSection.classList.add('hidden');
+      loginSection.classList.remove('hidden');
+      adminKeyInput.value = '';
+    });
+
+    // Auto-login if key in session
+    const savedKey = sessionStorage.getItem('survey_admin_key');
+    if (savedKey) {
+      adminKeyInput.value = savedKey;
+      loginBtn.click();
+    }
+  </script>
+</BaseLayout>

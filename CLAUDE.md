@@ -98,6 +98,32 @@ npm run preview  # Preview production build
 
 ---
 
+## Backend API (personal-website-api)
+
+yu-wenhao.com 專用的輕量 FastAPI backend，獨立 Azure Container App。
+
+- **Repo**: `~/GitHub/personal-website-api`
+- **URL**: `https://yu-wenhao-api.calmisland-ea7fe91e.japaneast.azurecontainerapps.io`
+- **Database**: PostgreSQL (`yuwenhao` database on existing server)
+- **CI/CD**: Push to main → ACR build → Container App deploy
+
+### Endpoints
+
+| Method | Path | Auth | 用途 |
+|--------|------|------|------|
+| POST | `/api/survey/submit` | Public | Survey 表單提交（dual submit with Kit） |
+| GET | `/api/survey/responses/{survey_id}` | `?key=ADMIN_KEY` | 查看 survey 回覆 |
+| GET | `/health` | Public | Health check |
+
+### Survey 雙寫架構
+
+前端表單同時送到 Kit (ConvertKit) + personal-website-api：
+- Kit：email marketing、發信用
+- Backend：完整資料備份（含 role、scenario、IP、UA）
+- Backend 失敗不影響 Kit 送出
+
+---
+
 ## Reference
 
 可從 Landing Page 複用：
