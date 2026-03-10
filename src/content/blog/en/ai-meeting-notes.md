@@ -14,7 +14,7 @@ faq:
   - question: "How much does this tool cost?"
     answer: "About $0.32 per hour of meeting. Since I already use a Claude Code subscription for my daily work, transcript cleanup, summaries, and the real-time tactical advisor are all included — the only extra cost is speech-to-text (~$0.32/hr)."
   - question: "How is this different from Otter.ai or Fireflies?"
-    answer: "SaaS tools charge $10-30/month for transcription and summaries. This tool adds a real-time tactical advisor — one click during the meeting to get suggestions based on your playbook and the live conversation. Plus, all data stays local."
+    answer: "SaaS tools charge $10-30/month for transcription and summaries. This tool adds a real-time tactical advisor — one click during the meeting to get suggestions based on your playbook and the live conversation. Recordings and notes stay on your machine — nothing stored on third-party servers."
   - question: "Can others use this tool?"
     answer: "This is a personal prototype I built for my own use — it's not a commercial product. If you're interested in this direction — whether it's enterprise adoption, product collaboration, or just discussing how to build something similar — feel free to reach out."
   - question: "What languages does it support?"
@@ -27,7 +27,7 @@ If you're like me, probably the big picture — and maybe half the details.
 
 You can't take notes and have a real conversation at the same time. By the time you're typing, they've already moved on. You prepared an agenda beforehand, but you can't flip through it mid-conversation. And after the meeting? You tell yourself you'll write it up later. A day passes. The details are gone.
 
-There are AI meeting tools out there, but they cost $10-30/month and your meeting data goes through third-party servers.
+There are AI meeting tools out there, but they cost $10-30/month and your meeting notes end up stored on someone else's cloud.
 
 So I built my own.
 
@@ -113,9 +113,9 @@ Compare that to SaaS alternatives:
 | Fireflies | $18/mo | None | None | Cloud |
 | Krisp | $16/mo | None | None | Cloud |
 | Jamie | €25/mo | None | None | Cloud |
-| **This tool** | **$0.32/hr** | **AI-generated playbook** | **Real-time tactical advisor** | **Fully local** |
+| **This tool** | **$0.32/hr** | **AI-generated playbook** | **Real-time tactical advisor** | **Local storage** |
 
-These tools do "transcribe during + summarize after." Mine adds two layers: before the meeting, AI auto-generates a playbook from my calendar, emails, and project status; during the meeting, it gives tactical advice based on the playbook and live conversation — powered by Claude Opus, Anthropic's most capable reasoning model. And everything stays local. No meeting data goes through third-party servers.
+These tools do "transcribe during + summarize after." Mine adds two layers: before the meeting, AI auto-generates a playbook from my calendar, emails, and project status; during the meeting, it gives tactical advice based on the playbook and live conversation — powered by Claude Opus, Anthropic's most capable reasoning model. Audio clips go to the speech-to-text API, text goes to Claude for processing — but recordings and meeting notes stay on your machine. Nothing is stored on third-party servers.
 
 ---
 
