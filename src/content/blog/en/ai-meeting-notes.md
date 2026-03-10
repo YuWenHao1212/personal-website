@@ -185,7 +185,7 @@ Judgment and direction are my job. Everything else is the system's.
 
 My AI workflow already covers email, goal management, knowledge base, and content creation — I call it my [AI second brain](/en/blog/ai-second-brain/). But after every meeting, I still had to write up notes manually. That gap was always leaking. A four-hour prototype plugged it.
 
-I built this for myself. But every time I mentioned it to someone, they asked the same question: "Could this work for my company?" It's still a prototype — there's a long road from a one-person tool to a product. But if you think this thing should exist — whether as an early user, enterprise adoption, or building it together — [let's talk](mailto:mail@yu-wenhao.com).
+I built this for myself. After showing it to a few friends, some asked if it could work for their teams, others wanted it for personal use. Honestly, it's a prototype built for one person — turning it into a product is a completely different game: more use cases, edge cases, stability, deployment. I'm still evaluating whether it's worth the investment. If you think this tool should exist, [let me know](mailto:mail@yu-wenhao.com).
 
 ---
 
