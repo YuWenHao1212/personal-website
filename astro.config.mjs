@@ -52,6 +52,7 @@ export default defineConfig({
     }),
     tailwind(),
     sitemap({
+      filter: (page) => !page.includes('/workshop'),
       i18n: {
         defaultLocale: 'zh-TW',
         locales: {
