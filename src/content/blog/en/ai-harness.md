@@ -112,6 +112,8 @@ The concept sounds abstract, but it breaks down into six concrete layers:
 
 **All six layers are systems engineering improvements, not model improvements.** No need to wait for the next generation of models — just build a better harness. I've written about how [your tools set your ceiling](/en/blog/fix-your-tools) — the harness framework explains exactly why.
 
+OpenClaw is a great example. OpenClaw isn't a model — it runs Claude, GPT, or other LLMs under the hood. What OpenClaw actually sells is a complete harness: SOUL.md defines the agent's role and constraints (layer six), a Memory system maintains context across conversations (layer four), an Agent Loop keeps it running continuously (layer one), and shell/API tools let it take real action (layer two). Harnesses can also stack — OpenClaw provides the base harness, but power users add their own layer on top via SKILL.md, encoding their workflows as SOPs. Users with well-written SKILLs spend $20/month; users without them spend over a thousand. Same tool, same model — the difference is entirely in the harness.
+
 The best proof comes from an experiment LangChain ran in February 2026. They tested their coding agent on an industry benchmark and scored 52.8%, ranking outside the Top 30. Then they changed nothing about the model — same model, same API — and only modified the harness. Result: 66.5%, ranking [jumped to Top 5](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/). What specifically did they change?
 
 1. **Added a self-verification loop** — before the AI says "I'm done," it's forced to run through a checklist
