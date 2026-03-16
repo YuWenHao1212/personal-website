@@ -7,7 +7,7 @@ tags: ["AI", "agent harness", "harness engineering", "agentic harness", "agentic
 keywords: ["agent harness", "harness engineering", "agentic harness", "what is agent harness", "AI harness", "agentic coding best practices"]
 lang: zh-TW
 translationKey: ai-harness
-draft: true
+draft: false
 featured: false
 heroImage: /images/blog/ai-harness.webp
 focus_keyphrase: "agent harness"
