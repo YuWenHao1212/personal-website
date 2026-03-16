@@ -114,7 +114,7 @@ Harness 聽起來抽象，但它可以拆成六個具體的層次：
 
 最近爆紅的 OpenClaw 就是一個好例子。OpenClaw 本身不是模型 — 它背後跑的是 Claude、GPT 或其他 LLM。OpenClaw 賣的其實就是一整套 harness：SOUL.md 定義角色和限制條件（第六層），Memory 機制讓 agent 跨對話記住上下文（第四層），Agent Loop 讓它持續運行接收指令（第一層），Shell 和 API 工具讓它能動手做事（第二層）。
 
-更有意思的是，harness 可以疊加。OpenClaw 提供了基礎 harness，但使用者還可以透過 SKILL.md 再加一層自己的 — 把工作流程寫成 SOP，讓 AI 按照既定模式執行，而不是每次都從頭理解模糊的指令。基礎 harness 決定工具能不能用，使用者的 harness 決定用得好不好。
+而且 harness 可以疊加。OpenClaw 提供了基礎 harness，使用者還可以透過 SKILL.md 把自己的工作流程寫成 SOP，讓 AI 按照既定模式執行，而不是每次都從頭理解模糊的指令。SKILL.md 寫得越精準，AI 的執行品質就越穩定 — 這也是 harness 設計功力的體現。
 
 最好的證明來自 LangChain 在 2026 年 2 月做的一個實驗。他們拿自家的 coding agent 去跑業界基準測試，成績是 52.8%，排名在 30 名之外。然後他們什麼都沒換 — 同一個模型、同一組 API — 只改了 harness。結果：66.5%，排名[跳到 Top 5](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/)。他們具體改了什麼？
 
