@@ -110,7 +110,7 @@ The concept sounds abstract, but it breaks down into six concrete layers:
 | 5. Verification | Self-checks | Runs tests, checks syntax, self-reviews after completing work |
 | 6. Constraints | Has boundaries | What it can't do, which files it can't touch, spending limits |
 
-**All six layers are systems engineering improvements, not model improvements.** No need to wait for the next generation of models — just build a better harness. I've written about how [your tools set your ceiling](/en/blog/fix-your-tools) — the harness framework explains exactly why. For a deeper look at how these tools work in practice, see the [Claude Code tutorial](/en/blog/claude-code-tutorial).
+**All six layers are systems engineering improvements, not model improvements.** No need to wait for the next generation of models — just build a better harness. I've written about how [your tools set your ceiling](/en/blog/fix-your-tools) — the harness framework explains exactly why.
 
 The best proof comes from an experiment LangChain ran in February 2026. They tested their coding agent on an industry benchmark and scored 52.8%, ranking outside the Top 30. Then they changed nothing about the model — same model, same API — and only modified the harness. Result: 66.5%, ranking [jumped to Top 5](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/). What specifically did they change?
 

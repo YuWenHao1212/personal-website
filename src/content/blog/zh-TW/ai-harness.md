@@ -110,7 +110,7 @@ Harness 聽起來抽象，但它可以拆成六個具體的層次：
 | 5. 驗證（Verification） | 會檢查 | 做完之後跑測試、檢查語法、自我審查，確保品質 |
 | 6. 限制（Constraints） | 有邊界 | 哪些事不准做、哪些檔案不能碰、花費上限多少 |
 
-**這六層全都是系統工程的改進，不是模型的改進。** 不需要等下一代模型出來，就可以讓現在的 AI 表現更好 — 只要把 harness 做好。想更深入了解這些工具怎麼運作，可以參考 [Claude Code 完整教學](/zh-TW/blog/claude-code-tutorial)。
+**這六層全都是系統工程的改進，不是模型的改進。** 不需要等下一代模型出來，就可以讓現在的 AI 表現更好 — 只要把 harness 做好。
 
 最好的證明來自 LangChain 在 2026 年 2 月做的一個實驗。他們拿自家的 coding agent 去跑業界基準測試，成績是 52.8%，排名在 30 名之外。然後他們什麼都沒換 — 同一個模型、同一組 API — 只改了 harness。結果：66.5%，排名[跳到 Top 5](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/)。他們具體改了什麼？
 
@@ -157,7 +157,7 @@ Harness 不是新概念，但為什麼所有人突然都在談？因為模型夠
 
 不自己設計 harness，就會活在別人設計的系統裡。社群媒體的演算法、公司的 KPI 制度、手機的通知系統 — 全都是別人設計的 harness，而且不是為了我們的目標設計的。我之前寫過[打造個人全景監控系統](/zh-TW/blog/personal-panopticon/)，核心概念一樣：主動設計自己的資訊環境，而不是被動接受別人餵給我們的東西。
 
-> 如果對「用 AI 打造自己的 harness」有興趣，我在 **5/16（六）** 有一場[實體工作坊](/zh-TW/workshop)，6 小時帶你從零建立個人的 AI 指揮中心 — 不需要會寫程式。[了解更多 →](/zh-TW/workshop)
+> 如果對「用 AI 打造自己的 harness」有興趣，我在 **5/16（六）** 有一場[實體工作坊](https://www.solo.tw/courses/ai-command-center)，6 小時帶你從零建立個人的 AI 指揮中心 — 不需要會寫程式。[了解更多 →](https://www.solo.tw/courses/ai-command-center)
 
 ---
 
