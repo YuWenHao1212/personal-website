@@ -1,7 +1,8 @@
 ---
 title: "Is OpenClaw Safe? 5 Security Settings You Must Configure"
-description: "Is OpenClaw safe? One-click exploits and 341 malicious Skills stealing passwords. Learn the 2 threat sources and 5 must-do security settings to protect yourself."
+description: "Updated March 2026. Is OpenClaw safe? One-click exploit (patched), 824+ malicious Skills, VirusTotal scanning live. Learn the 2 threat sources and 5 must-do security settings to protect yourself."
 pubDate: 2026-02-04
+updatedDate: 2026-03-17
 category: building-products
 tags: ["AI", "indie hacker", "cybersecurity", "OpenClaw", "self-hosted AI"]
 lang: en
@@ -15,14 +16,22 @@ faq:
   - question: "Is OpenClaw safe?"
     answer: "OpenClaw itself isn't malware, but it's very capable—it can run system commands, read/write files, and control web pages. More capability means more risk. If you configure the 5 security settings in this guide, you can significantly reduce the risks."
   - question: "Does OpenClaw steal passwords?"
-    answer: "OpenClaw itself doesn't, but malicious third-party Skills might. 341 malicious Skills were found on ClawHub, with 335 designed to steal macOS passwords. Stick to the 53 official bundled Skills, and always review third-party Skills before installing."
+    answer: "OpenClaw itself doesn't, but malicious third-party Skills might. Over 824 malicious Skills have been found on ClawHub. Since February 2026, ClawHub has integrated VirusTotal automatic scanning to block malicious Skill downloads. Stick to the 53 official bundled Skills, and always review third-party Skills before installing."
   - question: "Do I have to run OpenClaw in a VM?"
-    answer: "Not necessarily, but network isolation is recommended. If running on your main computer, an attacker who gets in has access to all your data. Running on a cloud VM (like Azure or Hetzner) limits the blast radius and costs about $8/month."
+    answer: "Not necessarily, but network isolation is recommended. If running on your main computer, an attacker who gets in has access to all your data. Running on a cloud VM (like Azure or Hetzner) limits the blast radius and costs about $4-8/month."
   - question: "What is Prompt Injection? How do I defend against it?"
     answer: "Prompt Injection is when attackers hide malicious instructions in normal-looking content (websites, emails, PDFs), tricking the AI agent into executing them as user commands. The most effective defense is enabling exec approval—every command requires your manual confirmation before execution."
 ---
 
 On January 29th, someone discovered an OpenClaw vulnerability—[one click and you're hacked](https://thehackernews.com/2026/02/openclaw-bug-enables-one-click-remote.html). That same week, researchers found [341 malicious Skills on ClawHub](https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html), with 335 of them designed to steal macOS passwords.
+
+> **March 2026 Update**
+>
+> **Vulnerabilities**: The 1/29 one-click exploit ([CVE-2026-25253](https://thehackernews.com/2026/02/clawjacked-flaw-lets-malicious-sites.html), severity 8.8/10) was patched the same day. Seven more vulnerabilities were discovered since, all patched within 72 hours—OpenClaw's response speed is commendable.
+>
+> **Malicious Skills**: The count grew from 341 to 824+, but ClawHub [integrated VirusTotal automatic scanning](https://thehackernews.com/2026/02/openclaw-integrates-virustotal-scanning.html) on 2/7—VirusTotal is the world's largest malware scanning platform (owned by Google). All newly published Skills are now automatically scanned, and malicious ones are blocked from download.
+>
+> **The 5 security settings below are still essential**—official fixes and scanning are the first wall, but your own configuration is the last line of defense.
 
 I spent a weekend reviewing my entire setup from scratch. Here's what I learned:
 
@@ -43,7 +52,7 @@ Walking away is the easy call, but I wanted to understand where the risks actual
 
 ---
 
-## 2 Main Threat Sources
+## Where Do the Risks Actually Come From?
 
 To figure out where the risks actually come from, I break them into **2 categories**: **Input Poisoning** (external attacks) and **Agent Errors** (internal failures).
 
@@ -67,7 +76,7 @@ That's Prompt Injection in a nutshell: attackers hide malicious instructions in 
 
 Third-party Skills and OAuth permissions are also risk sources.
 
-You find a Skill on ClawHub that looks useful—says it'll organize your notes automatically. You install it, and later discover its code includes a line that sends your passwords and credentials to an external server. This isn't hypothetical—some of those 341 malicious Skills on ClawHub worked exactly like this.
+You find a Skill on ClawHub that looks useful—says it'll organize your notes automatically. You install it, and later discover its code includes a line that sends your passwords and credentials to an external server. This isn't hypothetical—some of the 824+ malicious Skills found on ClawHub worked exactly like this.
 
 OAuth is similar. Say you connect OpenClaw to GitHub and only want it to read your code, but the token has full repo permissions. Now it can push code, delete branches, even delete the entire repo. Don't grant permissions you don't need.
 
@@ -78,7 +87,7 @@ OAuth is similar. Say you connect OpenClaw to GitHub and only want it to read yo
 | **Prompt Injection** | [GitHub Copilot was tricked by instructions hidden in code comments](https://embracethered.com/blog/posts/2025/github-copilot-remote-code-execution-via-prompt-injection/) to enable "execute without confirmation" mode |
 | **Memory Poisoning** | [Gemini's memory was attacked with injected instructions](https://www.infoq.com/news/2025/02/gemini-long-term-memory-attack/) that affected all future conversations |
 | **Trust Exploitation** | [Microsoft Copilot was manipulated by email content](https://www.cybersecuritydive.com/news/flaw-microsoft-copilot-zero-click-attack/750456/) and turned into a phishing tool |
-| **Malicious Skills** | 341 malicious Skills found on ClawHub, 335 stealing macOS passwords |
+| **Malicious Skills** | 824+ malicious Skills found on ClawHub, early batch of 335 stole macOS passwords (VirusTotal scanning live since 2/7) |
 
 **→ Defense: Don't install random Skills, minimize OAuth permissions**
 
@@ -159,7 +168,7 @@ And **network isolation** is your last line of defense: even if everything else 
 
 ---
 
-## Which OpenClaw Tools Should You Enable? Decision Matrix
+## Which Tools Should You Enable? Decision Matrix
 
 But here's a practical problem: **convenience and risk are two sides of the same coin.**
 
@@ -182,7 +191,7 @@ So the question isn't "should I enable this?" but "how do I decide what to enabl
 
 ---
 
-## 5 Must-Do Security Settings
+## What Are the 5 Must-Do Security Settings?
 
 Now that you have a decision framework, this tutorial walks you through the actual setup.
 
@@ -198,7 +207,7 @@ These 5 settings correspond to the defense overview above. I recommend every Ope
 
 ---
 
-### 1. Set Daily Token Limits & Regular Cost Reporting
+### 1. How Do You Prevent API Cost Blowups?
 
 Agent errors can cause infinite loops that burn hundreds of dollars a day. This tutorial shows you how to set limits to force a stop.
 
@@ -226,7 +235,7 @@ The point is don't wait for the bill to arrive—build the habit of checking occ
 
 ---
 
-### 2. Protect Sensitive Information
+### 2. How Do You Prevent Password and API Key Leaks?
 
 Sensitive info includes: API keys, credit card numbers, login credentials, OAuth tokens. If these leak, you could get charged or have your entire account taken over.
 
@@ -275,7 +284,7 @@ ls -la ~/Library/Mobile\ Documents/
 
 ---
 
-### 3. exec Approval + Only Enable Necessary Tools
+### 3. How Do You Prevent OpenClaw from Running Dangerous Commands?
 
 #### exec Approval
 
@@ -334,7 +343,7 @@ Here's my `openclaw.json` setup:
 
 `nodes` lets OpenClaw remotely control other devices—take photos, record video, get GPS location. The privacy risk is too high. I can just screenshot and send it via Telegram. `canvas` is a visual workspace I don't use. `llm_task` and `lobster` are workflow engine tools I don't need either.
 
-> Want the full 25 Tools list and my actual configuration? Check out the Tools & Skills Complete Guide (coming soon).
+> Want the full 25 Tools list and my actual configuration? Check out the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/).
 
 #### Tools Risk Assessment
 
@@ -395,15 +404,19 @@ Bottom line: **OpenClaw's working directory stays open, system paths and credent
 
 ---
 
-### 4. Don't Install Random Third-Party Skills + Minimize OAuth
+### 4. Are Third-Party Skills Safe? How Do You Decide?
 
-Besides the official 53 bundled Skills, ClawHub has 3,000+ third-party Skills you can install. Sounds great, but this is also a risk source—those 341 malicious Skills were found on ClawHub.
+Besides the official 53 bundled Skills, ClawHub has 13,700+ third-party Skills you can install. Sounds great, but this is also a risk source—824+ malicious Skills have been found on ClawHub.
+
+The good news: since February 7, 2026, [ClawHub has integrated VirusTotal automatic scanning](https://thehackernews.com/2026/02/openclaw-integrates-virustotal-scanning.html). All newly published Skills are scanned automatically, and malicious ones are blocked from download. But that doesn't mean you can let your guard down—[Snyk's ToxicSkills research](https://snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub/) found 36% of Skills have prompt injection risks, which antivirus scanners don't always catch.
 
 Installing without review, or granting too much OAuth access, is like leaving your back door open.
 
 #### Official Bundled Skills
 
 The 53 official bundled Skills are generally safe, but note: **they auto-load by default**—if the corresponding CLI is installed, the Skill activates. It's not "don't install, don't have" but rather "don't disable, all enabled." Use `skills.allowBundled` whitelist mode to keep only what you need. Minimize OAuth permissions too.
+
+> **Security update**: Since v2026.3.12, workspace plugin auto-load is disabled by default ([GHSA-99qw-6mr3-36qr](https://github.com/openclaw/openclaw/security/advisories/GHSA-99qw-6mr3-36qr)). Third-party plugins no longer activate without your knowledge—but bundled Skills auto-loading is unchanged, so the whitelist approach is still recommended.
 
 Take `1password` for example—it lets OpenClaw access your entire password vault. Powerful, but I chose not to install it. I don't want OpenClaw touching my passwords.
 
@@ -465,7 +478,7 @@ Not sure how to judge? Start by learning how. The review prompt above is your st
 
 ---
 
-### 5. Network Isolation: Run in a VM or Docker
+### 5. Why Should You Run OpenClaw in a VM?
 
 Even with the first 4 settings done, unknown vulnerabilities can still exist. If running on your main computer, an attacker who gets in has access to all your data. Network isolation limits the blast radius.
 
@@ -483,14 +496,16 @@ Even with the first 4 settings done, unknown vulnerabilities can still exist. If
 - **Dedicated machine**: Physical isolation—your main computer's data isn't directly exposed. Still on the same home network, but attackers would need to breach other devices to cause more damage.
 - **Cloud VM**: Physical + network isolation. Even if compromised, attackers can't touch your local machine or access your home network.
 
+> **Don't expose the gateway port to the public internet.** Bind to localhost and use [Tailscale](https://tailscale.com/) or SSH tunnel for remote access. This is the [most common misconfiguration](https://docs.openclaw.ai/gateway/security) cited by security researchers.
+
 I run OpenClaw on a cloud VM (currently Azure, might switch to Hetzner later). Benefits:
 - Even if OpenClaw gets compromised, attackers only get a cloud machine—can't touch my local computer
 - Can destroy and rebuild anytime
-- Costs about $8/month (Hetzner CX32 4vCPU/8GB)
+- Costs about $4-8/month (Hetzner CAX11 2vCPU/4GB and up)
 
 ---
 
-## Conclusion: Is OpenClaw Safe? Is It Worth Using?
+## So Is OpenClaw Actually Safe? Is It Worth Using?
 
 Back to where we started: **OpenClaw's power is exactly what makes it risky.**
 
@@ -503,7 +518,20 @@ The key is understanding these 2 main threat sources:
 
 And one core principle: **more capability means worse consequences**—so high-risk operations require manual approval, and you keep the sensitive "last mile" for yourself.
 
-Here are the 5 protections I set up:
+> **Further reading**: [Microsoft Security Blog](https://www.microsoft.com/en-us/security/blog/2026/02/19/running-openclaw-safely-identity-isolation-runtime-risk/) recommends "don't run OpenClaw with your primary account—use a dedicated VM." [SlowMist's Security Practice Guide](https://github.com/slowmist/openclaw-security-practice-guide) proposes a three-tier defense (pre-action / in-action / post-action) and advises "use the strongest model for tool-enabled agents—weaker models have poor prompt injection resistance."
+
+**OpenClaw is also hardening its own security** (Feb-Mar 2026):
+
+| Update | What It Means |
+|--------|--------------|
+| **Safer device pairing** | Pairing tokens are now one-time-use, expiring after pairing. Previously shared credentials that stayed valid if stolen |
+| **URL allowlists for agents** | You can whitelist which websites the agent can access. Anything not on the list gets blocked and logged |
+| **Browser automation requires auth** | Others can't secretly control your OpenClaw browser over the network—authentication is required first |
+| **Approval anti-obfuscation** | Attackers can no longer bypass exec approval using Unicode characters that look like English letters |
+| **VirusTotal scanning** | All new ClawHub Skills are automatically scanned, malicious ones blocked from download |
+| **Plugin auto-load disabled** | Third-party plugins no longer activate automatically, preventing silent loading of malicious code |
+
+Official improvements are the first wall, but your own configuration is the last line of defense. Here are the 5 protections I set up:
 
 - [ ] Token limits + regular reporting
 - [ ] Protect sensitive info
@@ -515,35 +543,7 @@ Then OpenClaw's productivity boost is absolutely worth it. I use it as the mobil
 
 ### Next Steps
 
-Once you've done these 5 protections, the next step is understanding which of the 25 Tools and 53 Skills to enable—what to turn on, what to keep off, and why. I wrote that up in a separate tutorial (coming soon), including my complete configuration.
-
----
-
-## FAQ
-
-### Is OpenClaw safe?
-
-OpenClaw itself isn't malware, but it's very capable—it can run system commands, read/write files, and control web pages. More capability means more risk. If you configure the 5 security settings in this guide, you can significantly reduce the risks.
-
-### Does OpenClaw steal passwords?
-
-OpenClaw itself doesn't, but malicious third-party Skills might. 341 malicious Skills were found on ClawHub, with 335 designed to steal macOS passwords. Stick to the 53 official bundled Skills, and always review third-party Skills before installing.
-
-### Do I have to run OpenClaw in a VM?
-
-Not necessarily, but network isolation is recommended. If running on your main computer, an attacker who gets in has access to all your data. Running on a cloud VM (like Azure or Hetzner) limits the blast radius and costs about $8/month.
-
-### What is Prompt Injection? How do I defend against it?
-
-Prompt Injection is when attackers hide malicious instructions in normal-looking content (websites, emails, PDFs), tricking the AI agent into executing them as user commands. The most effective defense is enabling exec approval—every command requires your manual confirmation before execution.
-
----
-
-## Further Reading
-
-- OpenClaw Tutorial: 25 Tools + 53 Skills Complete Guide (coming soon)
-- [OpenClaw Deployment Cost Guide: $0-8/month for Your AI Assistant](/en/blog/2026-02-01-openclaw-deploy-cost-guide/)
-- [Claude Code Tutorial: Install and Complete Your First Task in 5 Minutes](/en/blog/claude-code-tutorial/)
+Once you've done these 5 protections, the next step is understanding which of the 25 Tools and 53 Skills to enable—what to turn on, what to keep off, and why. I wrote that up in the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/), including my complete configuration.
 
 ---
 
@@ -554,9 +554,9 @@ Prompt Injection is when attackers hide malicious instructions in normal-looking
 - [Researchers Find 341 Malicious ClawHub Skills](https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html) - The Hacker News
 - [Personal AI Agents like OpenClaw Are a Security Nightmare](https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare) - Cisco Blogs
 - [OpenClaw proves agentic AI works. It also proves the security risks.](https://venturebeat.com/security/openclaw-agentic-ai-security-risk-ciso-guide) - VentureBeat
+- [Running OpenClaw safely: identity, isolation, and runtime risk](https://www.microsoft.com/en-us/security/blog/2026/02/19/running-openclaw-safely-identity-isolation-runtime-risk/) - Microsoft Security Blog
+- [OpenClaw Security Practice Guide](https://github.com/slowmist/openclaw-security-practice-guide) - SlowMist
+- [OpenClaw Integrates VirusTotal Scanning](https://thehackernews.com/2026/02/openclaw-integrates-virustotal-scanning.html) - The Hacker News
+- [ToxicSkills: Malicious AI Agent Skills Supply Chain Compromise](https://snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub/) - Snyk
 
-*Want OpenClaw deployed for your team or agency? I handle setup, configuration, and ongoing support. [Get in touch](mailto:mail@yu-wenhao.com?subject=OpenClaw%20Deployment).*
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*
