@@ -1,7 +1,8 @@
 ---
-title: "OpenClaw Setup Guide: 25 Tools + 53 Skills Explained"
-description: "Finished installing OpenClaw but unsure what to enable? This research-backed guide breaks down all 25 Tools and 53 official Skills — what they do, the risks, and how to configure them. Includes my full config you can copy."
+title: "OpenClaw Setup Guide: 26 Tools + 53 Skills Explained"
+description: "Finished installing OpenClaw but unsure what to enable? This research-backed guide breaks down all 26 Tools and 53 official Skills — what they do, the risks, and how to configure them. Includes my full config you can copy."
 pubDate: 2026-02-05
+updatedDate: 2026-03-17
 category: building-products
 tags: ["AI", "indie hacker", "OpenClaw", "self-hosted AI", "developer tools"]
 lang: en
@@ -18,7 +19,7 @@ faq:
   - question: "How do I revoke OpenClaw's Google access?"
     answer: "Google Account → Security → Third-party apps with account access → Find gog → Remove access."
   - question: "Are third-party Skills on ClawHub safe?"
-    answer: "Don't assume they are. Always review the GitHub repo before installing. See our security guide for a detailed review checklist."
+    answer: "Don't assume they are. Since February 2026, ClawHub has integrated VirusTotal automatic scanning to block malicious downloads, but reviewing the GitHub repo before installing is still recommended. See our security guide for a detailed review checklist."
   - question: "What's the difference between OpenClaw and ChatGPT?"
     answer: "ChatGPT is a chat tool. OpenClaw is an agent. The difference is what happens after the conversation: ChatGPT can only talk to you, while OpenClaw can act — search the web, read and write files, manage your calendar, draft email replies, and push notifications to your phone."
   - question: "How to automate tasks with AI using OpenClaw?"
@@ -31,13 +32,13 @@ You've installed OpenClaw. Now what?
 
 Tools are scattered across different docs. Skills auto-load by default — some are already active and you don't even know it. Enable everything and you're exposed. Disable everything and you've wasted the install. Piecing together the full picture from docs and source code takes real effort.
 
-This is my research notes after setting up OpenClaw — what each of the 25 Tools and 53 official bundled Skills does, whether to enable it, how I configured mine, and why. Security analysis is covered in the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>. This article focuses on what each Tool and Skill does and how to configure them for your needs.
+This is my research notes after setting up OpenClaw — compiled from the [official docs](https://docs.openclaw.ai/tools) and [GitHub source code](https://github.com/openclaw/openclaw), covering what each of the 26 Tools and 53 official bundled Skills does, whether to enable it, how I configured mine, and why. Security analysis is covered in the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>. This article focuses on what each Tool and Skill does and how to configure them for your needs.
 
-(There are 3,000+ third-party Skills on ClawHub — those are outside the scope of this guide.)
+(There are 13,700+ third-party Skills on ClawHub — those are outside the scope of this guide.)
 
 ---
 
-## First: Understand the Difference Between Tools and Skills
+## What's the Difference Between Tools and Skills?
 
 Many people confuse these two. It's actually straightforward.
 
@@ -59,12 +60,12 @@ All three are required. Skills are manuals — whether something actually works 
 
 ---
 
-## The Concentric Circle Architecture: Core to Periphery
+## How Are 26 Tools and 53 Skills Organized?
 
-Listing all 25 Tools and 53 Skills flat would be overwhelming. I organize them in concentric circles:
+Listing all 26 Tools and 53 Skills flat would be overwhelming. I organize them in concentric circles:
 
 - **Layer 1 — Core Capabilities (8 Tools)**: File access, command execution, web access. Almost everyone enables these.
-- **Layer 2 — Advanced Capabilities (17 Tools)**: Browser control, memory, multi-session, automation. Enable as needed.
+- **Layer 2 — Advanced Capabilities (18 Tools)**: Browser control, memory, multi-session, automation. Enable as needed.
 - **Layer 3 — Knowledge Layer (53 Skills)**: Teaches OpenClaw to work with Google, Obsidian, Slack, etc. Install what you use.
 
 ![OpenClaw concentric circle architecture: Layer 1 core tools (read, write, exec), Layer 2 advanced tools (browser, memory, automation), Layer 3 knowledge layer with 53 skills grouped by category](/images/blog/openclaw-tools-skills-tutorial/openclaw-tools-skills-architecture.webp)
@@ -103,13 +104,13 @@ Is it annoying? Honestly, yes. But it's the most basic protection — if the AI 
 
 ---
 
-## Layer 2: Advanced Capabilities (17 Tools)
+## Layer 2: Advanced Capabilities (18 Tools)
 
 Layer 1 is "can it work at all." Layer 2 is "does it work well." These Tools transform OpenClaw from a command executor into a real assistant — one that remembers your preferences, controls a browser, and sends scheduled notifications. But each additional Tool expands the attack surface, so evaluate whether the trade-off is worth it.
 
 ### Browser: browser, canvas, image
 
-`browser` lets OpenClaw control Chrome — click buttons, fill forms, take screenshots. I use it for price comparisons, spec research, and adding items to shopping carts. But I always check out myself. The "last mile" involving payments never goes to AI — that's my line.
+`browser` lets OpenClaw control Chrome — click buttons, fill forms, take screenshots. v2026.3.13 added Chrome DevTools attach mode, letting it connect directly to your signed-in Chrome session without any extensions. I use it for price comparisons, spec research, and adding items to shopping carts. But I always check out myself. The "last mile" involving payments never goes to AI — that's my line.
 
 `canvas` is a visual workspace for diagrams and flowcharts. `image` lets OpenClaw "understand" images.
 
@@ -121,7 +122,7 @@ Lets OpenClaw remember information across sessions. After a week of use, it know
 
 Run multiple sessions for different tasks simultaneously — one discussing a product idea, another researching travel plans, without interference.
 
-`sessions_list` and `sessions_history` view sessions. `session_status` checks status. `sessions_send` and `sessions_spawn` enable inter-session communication and spawning sub-tasks.
+`sessions_list` and `sessions_history` view sessions. `session_status` checks status. `sessions_send` and `sessions_spawn` enable inter-session communication and spawning sub-tasks. `sessions_yield` pauses the main agent to wait for sub-agent results, and `subagents` manages running sub-agents (check status, stop, etc.)—these two are for multi-agent orchestration.
 
 ### Messaging: message
 
@@ -147,6 +148,10 @@ Every morning at 6:47, my Telegram receives a Daily Brief prepared by OpenClaw �
 
 Lists available Agent IDs. OpenClaw supports multi-agent architectures, but official docs don't go into detail. If you're running a single OpenClaw instance, you won't need this.
 
+### Voice: tts
+
+`tts` (text-to-speech) converts OpenClaw's replies into voice messages — on Telegram, they appear as round voice note bubbles. Supports ElevenLabs, OpenAI TTS, and Edge TTS. Disabled by default; enable auto-voice in config with `messages.tts.auto` or toggle per session with `/tts on`.
+
 ### Extension Tools: llm_task, lobster
 
 `lobster` is a workflow engine for defining multi-step processes. `llm_task` inserts LLM processing steps into workflows.
@@ -155,13 +160,13 @@ If you're not using a workflow engine, skip both.
 
 ---
 
-## Layer 3: Knowledge Layer (53 Official Skills)
+## Which of the 53 Official Skills Should You Install?
 
 53 sounds like a lot, but after scanning them you'll find maybe a dozen are relevant to you. The rest — food delivery, smart home, voice calls — aren't bad, just irrelevant if they don't match your use case.
 
 **Important: bundled Skills auto-load by default** — if the corresponding CLI tool is installed on the system, the Skill activates automatically. It's not "nothing unless installed" but "everything unless disabled." To control which Skills are active, use `skills.allowBundled` in whitelist mode (config example in the "My Config" section below).
 
-ClawHub has 3,000+ third-party Skills, but their security risks are a separate concern (see the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>).
+ClawHub has 13,700+ third-party Skills. Since February 2026, ClawHub has integrated VirusTotal automatic scanning to block malicious Skill downloads, but reviewing before installing is still recommended (see the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>).
 
 Organized by use case below.
 
@@ -188,7 +193,7 @@ I haven't installed any of them. The last step in external communication is alwa
 - `github`: Operates GitHub via `gh` CLI, requires OAuth, permissions are controllable
 - `tmux`: Manages multiple terminal sessions
 - `session-logs`: Searches and analyzes past conversation logs
-- `coding-agent`: Calls other AI coding assistants (Codex, Claude Code, etc.) in the background
+- `coding-agent`: Calls other AI coding assistants (Claude Code, Cursor, etc.) in the background
 
 I have `github`, `tmux`, and `session-logs` installed. I write code locally with Claude Code, but OpenClaw is always reachable via Telegram — if CI/CD breaks while I'm out, I just ask "check why this PR build failed" on my phone, and it pulls the GitHub Actions error log and tells me the cause.
 
@@ -206,13 +211,13 @@ The categories above are what I actively use or seriously considered. The rest �
 
 ---
 
-## My OpenClaw Config: How I Set Up Tools and Skills
+## How Do I Configure My Tools and Skills?
 
 My OpenClaw runs on an Azure VM, operated via Telegram. Paired with Claude Code on desktop, it forms a mobile + desktop dual workflow — mobile for discussions, research, and capturing ideas anytime (conversation history syncs automatically), desktop for execution. I also use it daily for email, calendar, research, and the morning Daily Brief.
 
 Here's my current config and the reasoning behind each choice.
 
-### Tools (21 of 25 enabled)
+### Tools (22 of 26 enabled)
 
 My rule is simple: **if I can't think of a use case, it stays off.**
 
@@ -226,6 +231,7 @@ My rule is simple: **if I can't think of a use case, it stays off.**
       "browser", "image",
       "memory_search", "memory_get",
       "sessions_list", "sessions_history", "sessions_send", "sessions_spawn", "session_status",
+      "tts",
       "message", "cron", "gateway", "agents_list"
     ],
     "deny": ["nodes", "canvas", "llm_task", "lobster"]
@@ -236,7 +242,7 @@ My rule is simple: **if I can't think of a use case, it stays off.**
 }
 ```
 
-**21 enabled, 4 disabled**: `nodes` (can't think of a scenario), `canvas` (don't need it), `llm_task` / `lobster` (not using workflow engine). `exec` has approval enabled. `message` only sends to myself.
+**22 enabled, 4 disabled**: `nodes` (can't think of a scenario), `canvas` (don't need it), `llm_task` / `lobster` (not using workflow engine). `sessions_yield` and `subagents` are for multi-agent orchestration — not using them yet so they're not listed. `exec` has approval enabled. `message` only sends to myself.
 
 ### Skills (9 of 53 enabled)
 
@@ -276,71 +282,22 @@ The setup isn't complicated. Each automation is a `cron` entry that triggers a p
 
 ---
 
-## Next Steps: Start Configuring Your OpenClaw
+## How Do You Get Started?
 
-You don't need all 25 Tools. The 53 bundled Skills default to all-on — use `allowBundled` to keep only what you need. Open your `openclaw.json` and start with three principles:
+You don't need all 26 Tools. The 53 bundled Skills default to all-on — use `allowBundled` to keep only what you need. Open your `openclaw.json` and start with three principles:
 
 1. **If you can't think of a use case, leave it off**
 2. **More capability, more control** — enable approval for `exec`, only message yourself
 3. **The last mile is always manual** — checkout, sending messages, posting publicly — anything irreversible stays with you
 
-My config above works as a starting point. Copy it, then trim to fit your needs. For security settings, read it alongside the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>.
-
----
-
-## FAQ
-
-### Do Skills change OpenClaw's permissions?
-
-No. Skills are just instruction manuals. Actual capabilities are controlled by `tools.allow`.
-
-### Can the 1password Skill read all my passwords?
-
-Yes. Once authorized, it has access to your entire vault — whatever you've stored, it can read.
-
-### How do I revoke OpenClaw's Google access?
-
-<a href="https://myaccount.google.com/" target="_blank">Google Account</a> → Security → Third-party apps with account access → Find gog → Remove access.
-
-### Are third-party Skills on ClawHub safe?
-
-Don't assume they are. Always review the GitHub repo before installing. See the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a> for a detailed review checklist and prompts.
-
-### Why 25 Tools?
-
-Official docs list 18. I found 25 by going through the codebase. The extras include session-related tools, `agents_list`, and workflow engine tools (`llm_task`, `lobster`) not documented.
-
-### What's the difference between OpenClaw and ChatGPT?
-
-ChatGPT is a chat tool. OpenClaw is an agent. The difference is what happens after the conversation:
-
-- **ChatGPT**: After discussing, you manually copy content and paste it elsewhere. It can only talk.
-- **OpenClaw**: After discussing, it acts — searches the web, reads and writes files, manages your calendar, reads your Gmail and drafts replies, syncs to your computer for Claude Code to pick up.
-
-Even "sync" means different things: LLM apps sync means you see conversation history on phone and desktop. OpenClaw sync means conversations become files in your computer's folders that other tools can directly read and continue working with. One is "viewable." The other is "actionable."
-
-If you just want to chat, ChatGPT is enough. If you want AI to keep working after the conversation ends, you need an agent like OpenClaw.
-
-### How to automate tasks with AI using OpenClaw?
-
-Combine `cron` (scheduling) and `message` (push notifications). OpenClaw runs tasks on a schedule and delivers results to your messaging platform. Every morning at 6:47, I receive a Daily Brief — today's tasks, pending replies, and the weather forecast.
-
-Beyond scheduled push notifications, common automation scenarios include: email triage with priority summaries, CI/CD failure monitoring, scheduled collection of trending topics for writing material, and industry news digests. Basically, any task that can be broken into "trigger + steps" can be automated.
-
-### Can I use OpenClaw without coding?
-
-Day-to-day usage requires no coding — just talk to it in natural language. "Check my email for today," "Set a reminder for 9 AM tomorrow" — just say it.
-
-But OpenClaw is an open-source project, and installation/configuration have a learning curve. You can deploy to a cloud VM or install locally — for security, a dedicated machine is recommended over your daily driver. If you use an AI CLI tool like Claude Code, it can assist with the setup process and save significant time.
-
-Recommended reading alongside this guide: <a href="/en/blog/2026-02-01-openclaw-deploy-cost-guide" target="_blank">Deploy Cost Guide</a> to understand costs, <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">Security Guide</a> to understand protection, and this guide to understand configuration.
+My config above works as a starting point. Copy it, then trim to fit your needs. For security settings, read it alongside the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>. For deployment costs, see the <a href="/en/blog/2026-02-01-openclaw-deploy-cost-guide" target="_blank">deploy cost guide</a>.
 
 ---
 
 ## Appendix: Full Reference
 
 <details>
-<summary>All 25 Tools</summary>
+<summary>All 26 Tools</summary>
 
 | Layer | Tool | Function | Risk |
 |-------|------|----------|------|
@@ -361,12 +318,15 @@ Recommended reading alongside this guide: <a href="/en/blog/2026-02-01-openclaw-
 | 2 | `sessions_history` | Session history | Medium |
 | 2 | `sessions_send` | Send messages | High |
 | 2 | `sessions_spawn` | Spawn sub-agents | High |
+| 2 | `sessions_yield` | Wait for sub-agent results | Medium |
+| 2 | `subagents` | Manage sub-agents | Medium |
 | 2 | `session_status` | Check status | Low |
 | 2 | `message` | Cross-platform messaging | Very High |
 | 2 | `nodes` | Hardware control | Very High |
 | 2 | `cron` | Scheduled tasks | High |
 | 2 | `gateway` | Gateway management | High |
 | 2 | `agents_list` | List agents | Low |
+| 2 | `tts` | Text-to-speech | Low |
 | Ext | `llm_task` | Workflow LLM step | Medium |
 | Ext | `lobster` | Workflow engine | Medium |
 
@@ -442,23 +402,17 @@ Recommended reading alongside this guide: <a href="/en/blog/2026-02-01-openclaw-
 | `group:web` | web_search, web_fetch |
 | `group:ui` | browser, canvas |
 | `group:memory` | memory_search, memory_get |
-| `group:sessions` | sessions_list, sessions_history, sessions_send, sessions_spawn, session_status |
+| `group:sessions` | sessions_list, sessions_history, sessions_send, sessions_spawn, sessions_yield, subagents, session_status |
 | `group:messaging` | message |
 | `group:nodes` | nodes |
 | `group:automation` | cron, gateway |
+| `group:agents` | agents_list |
+| `group:media` | image, tts |
 
 </details>
 
 ---
 
-## Further Reading
-
-- <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">Is OpenClaw Safe? 5 Security Settings You Must Configure</a>
-- <a href="/en/blog/2026-02-01-openclaw-deploy-cost-guide" target="_blank">OpenClaw Deploy Cost Guide: Build Your Personal AI Assistant for $0-8/month</a>
-- <a href="/en/blog/claude-code-tutorial" target="_blank">Claude Code Tutorial: Install and Complete Your First Task in 5 Minutes</a>
-
----
-
-*Last updated: 2026-02-05*
+*Last updated: 2026-03-17*
 
 *Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

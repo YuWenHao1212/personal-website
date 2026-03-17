@@ -193,7 +193,7 @@ OK for testing. For production, use 2 vCPU + 2 GB minimum.
 
 The second point matters. OpenClaw agents need accurate tool calling, multi-step reasoning, and the ability to persist through complex tasks. Weak models cause the agent to pick wrong tools, loop mid-task, or produce poor results.
 
-> **Not recommended for OpenClaw**: Qwen3 VL Flash, Gemini 2.5 Flash-Lite, GPT-4.1-mini—cheap but insufficient tool calling and multi-step reasoning. Saving on API fees costs you the experience. For details on how OpenClaw's 25 Tools and 53 Skills work, see the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/).
+> **Not recommended for OpenClaw**: Qwen3 VL Flash, Gemini 2.5 Flash-Lite, GPT-4.1-mini—cheap but insufficient tool calling and multi-step reasoning. Saving on API fees costs you the experience. For details on how OpenClaw's 26 Tools and 53 Skills work, see the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/).
 
 ---
 
@@ -236,7 +236,7 @@ You control the first one (less usage = less cost). Many people don't even know 
 | Component | Input Tokens | Notes |
 |-----------|-------------|-------|
 | System prompt + persona | ~2K | Sent every LLM call |
-| Tool definitions (25 tools) | ~3-5K | Sent every LLM call |
+| Tool definitions (26 tools) | ~3-5K | Sent every LLM call |
 | Skills context | ~1-3K | Active skill descriptions |
 | Conversation history (multi-turn) | ~2-10K | Accumulates with each step |
 | User input | ~0.5-1K | Your actual command |

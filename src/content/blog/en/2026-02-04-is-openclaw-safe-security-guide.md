@@ -321,7 +321,7 @@ This way, even if OpenClaw gets tricked or makes a mistake, you can spot somethi
 
 #### Only Enable Necessary Tools
 
-OpenClaw has 25 built-in Tools, **all disabled by default**. More capability means worse consequences. Principle: **start with minimum permissions, add as needed.**
+OpenClaw has 26 built-in Tools, **all disabled by default**. More capability means worse consequences. Principle: **start with minimum permissions, add as needed.**
 
 Here's my `openclaw.json` setup:
 
@@ -343,7 +343,7 @@ Here's my `openclaw.json` setup:
 
 `nodes` lets OpenClaw remotely control other devices—take photos, record video, get GPS location. The privacy risk is too high. I can just screenshot and send it via Telegram. `canvas` is a visual workspace I don't use. `llm_task` and `lobster` are workflow engine tools I don't need either.
 
-> Want the full 25 Tools list and my actual configuration? Check out the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/).
+> Want the full 26 Tools list and my actual configuration? Check out the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/).
 
 #### Tools Risk Assessment
 
@@ -543,7 +543,7 @@ Then OpenClaw's productivity boost is absolutely worth it. I use it as the mobil
 
 ### Next Steps
 
-Once you've done these 5 protections, the next step is understanding which of the 25 Tools and 53 Skills to enable—what to turn on, what to keep off, and why. I wrote that up in the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/), including my complete configuration.
+Once you've done these 5 protections, the next step is understanding which of the 26 Tools and 53 Skills to enable—what to turn on, what to keep off, and why. I wrote that up in the [Tools & Skills Complete Guide](/en/blog/openclaw-tools-skills-tutorial/), including my complete configuration.
 
 ---
 
