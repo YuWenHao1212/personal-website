@@ -45,6 +45,26 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       </div>
     </div>
 
+    <!-- Tooltip (hidden, positioned via JS) -->
+    <div id="chart-tooltip" class="fixed hidden bg-white border border-cream-300 rounded-lg shadow-lg px-4 py-3 text-sm z-50 pointer-events-none">
+      <div id="tooltip-date" class="font-semibold text-ink-900"></div>
+      <div id="tooltip-info" class="text-accent"></div>
+    </div>
+
+    <!-- Modal -->
+    <div id="day-modal" class="fixed inset-0 bg-black/40 hidden z-50 flex items-center justify-center">
+      <div class="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 max-h-[80vh] flex flex-col">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-cream-300">
+          <h3 id="modal-title" class="text-lg font-semibold text-ink-900"></h3>
+          <button id="modal-close" class="text-ink-400 hover:text-ink-700 text-xl leading-none">&times;</button>
+        </div>
+        <div id="modal-body" class="px-6 py-4 overflow-y-auto flex-1">
+          <div class="text-ink-400 text-sm text-center py-4">載入中...</div>
+        </div>
+        <div id="modal-footer" class="px-6 py-3 border-t border-cream-300 text-sm text-ink-400"></div>
+      </div>
+    </div>
+
     <!-- Recent subscribers -->
     <div class="bg-white border border-cream-300 rounded-xl shadow-sm overflow-hidden">
       <div class="px-6 py-4 border-b border-cream-300">
@@ -176,13 +196,13 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           return `<text x="${xScale(i)}" y="${H - 5}" text-anchor="middle" fill="#818181" font-size="11">${label}</text>`;
         }).join('');
 
-      // Dots
+      // Dots (interactive)
       const dots = cumulative.map((d, i) => {
-        const dt = new Date(d.date + 'T00:00:00');
-        const label = `${dt.getMonth() + 1}/${dt.getDate()}: ${d.total} 人`;
-        return `<circle cx="${xScale(i)}" cy="${yScale(d.total)}" r="4" fill="#CA8A04" stroke="white" stroke-width="2">
-                  <title>${label}</title>
-                </circle>`;
+        const newCount = trend[i].count;
+        return `<circle cx="${xScale(i)}" cy="${yScale(d.total)}" r="5" fill="#CA8A04" stroke="white" stroke-width="2"
+                  class="cursor-pointer hover:r-7 transition-all"
+                  data-date="${d.date}" data-total="${d.total}" data-new="${newCount}" data-idx="${i}"
+                  style="cursor:pointer;" />`;
       }).join('');
 
       chartEl.innerHTML = `
@@ -194,6 +214,91 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           ${xLabels}
         </svg>
       `;
+
+      // Tooltip on hover
+      const tooltip = document.getElementById('chart-tooltip')!;
+      const tooltipDate = document.getElementById('tooltip-date')!;
+      const tooltipInfo = document.getElementById('tooltip-info')!;
+
+      chartEl.querySelectorAll('circle').forEach(circle => {
+        circle.addEventListener('mouseenter', (e) => {
+          const el = e.target as SVGCircleElement;
+          const dt = new Date(el.dataset.date + 'T00:00:00');
+          const dateStr = `${dt.getFullYear()}/${dt.getMonth() + 1}/${dt.getDate()}`;
+          tooltipDate.textContent = dateStr;
+          tooltipInfo.textContent = `累計: ${el.dataset.total} 人 (+${el.dataset.new} 新增)`;
+          tooltip.classList.remove('hidden');
+          el.setAttribute('r', '7');
+        });
+
+        circle.addEventListener('mousemove', (e: any) => {
+          tooltip.style.left = `${e.clientX + 12}px`;
+          tooltip.style.top = `${e.clientY - 10}px`;
+        });
+
+        circle.addEventListener('mouseleave', (e) => {
+          tooltip.classList.add('hidden');
+          (e.target as SVGCircleElement).setAttribute('r', '5');
+        });
+
+        // Click to show modal
+        circle.addEventListener('click', (e) => {
+          const el = e.target as SVGCircleElement;
+          const date = el.dataset.date!;
+          const newCount = parseInt(el.dataset.new || '0');
+          showDayModal(date, newCount);
+        });
+      });
+    }
+
+    async function showDayModal(date: string, newCount: number) {
+      const modal = document.getElementById('day-modal')!;
+      const title = document.getElementById('modal-title')!;
+      const body = document.getElementById('modal-body')!;
+      const footer = document.getElementById('modal-footer')!;
+      const closeBtn = document.getElementById('modal-close')!;
+
+      const dt = new Date(date + 'T00:00:00');
+      title.textContent = `${dt.getFullYear()}/${dt.getMonth() + 1}/${dt.getDate()} 新增訂閱`;
+      body.innerHTML = '<div class="text-ink-400 text-sm text-center py-4">載入中...</div>';
+      footer.textContent = '';
+      modal.classList.remove('hidden');
+
+      closeBtn.onclick = () => modal.classList.add('hidden');
+      modal.onclick = (e) => { if (e.target === modal) modal.classList.add('hidden'); };
+
+      if (newCount === 0) {
+        body.innerHTML = '<div class="text-ink-400 text-sm text-center py-4">當日無新增訂閱。</div>';
+        footer.textContent = '共 0 人';
+        return;
+      }
+
+      const admin = (window as any).__admin;
+      const key = admin?.getKey();
+      if (!key) return;
+
+      try {
+        const res = await fetch(`${admin.API_BASE}/api/kit/subscribers-by-date?key=${encodeURIComponent(key)}&date=${date}`);
+        const data = await res.json();
+
+        if (data.success) {
+          const subs = data.data.subscribers;
+          body.innerHTML = subs.map((s: any) => {
+            const time = new Date(s.created_at).toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+            return `
+              <div class="flex items-center justify-between py-2 border-b border-cream-200 last:border-0">
+                <span class="text-ink-900">${escapeHtml(s.email)}</span>
+                <span class="text-ink-400 text-xs">${time}</span>
+              </div>
+            `;
+          }).join('');
+          footer.textContent = `共 ${subs.length} 人`;
+        } else {
+          body.innerHTML = '<div class="text-red-600 text-sm text-center py-4">載入失敗。</div>';
+        }
+      } catch {
+        body.innerHTML = '<div class="text-red-600 text-sm text-center py-4">載入失敗。</div>';
+      }
     }
 
     function loadData() {
