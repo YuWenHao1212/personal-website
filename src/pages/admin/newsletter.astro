@@ -33,14 +33,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <!-- Trend chart -->
     <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm mb-6">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold text-ink-900">每日新增訂閱</h2>
-        <span class="text-sm text-ink-400">過去 30 天</span>
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <h2 class="text-lg font-semibold text-ink-900">訂閱成長</h2>
+          <p class="text-sm text-ink-400">過去 30 天累積訂閱數</p>
+        </div>
+        <div id="trend-total" class="text-right"></div>
       </div>
-      <div id="trend-chart" class="flex items-end gap-[3px] h-32">
-        <div class="text-ink-400 text-sm">載入中...</div>
+      <div id="trend-chart" class="mt-4">
+        <div class="text-ink-400 text-sm py-8 text-center">載入中...</div>
       </div>
-      <div id="trend-labels" class="flex justify-between mt-2 text-xs text-ink-400"></div>
     </div>
 
     <!-- Recent subscribers -->
@@ -108,35 +110,90 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     function renderTrend(data: any) {
       const { today, trend } = data.data;
       const chartEl = document.getElementById('trend-chart')!;
-      const labelsEl = document.getElementById('trend-labels')!;
       const todayEl = document.getElementById('stat-today')!;
+      const trendTotalEl = document.getElementById('trend-total')!;
 
       if (today > 0) {
         todayEl.textContent = `+${today} 今日`;
       }
 
-      const maxCount = Math.max(...trend.map((d: any) => d.count), 1);
+      // Build cumulative data
+      const cumulative: { date: string; total: number }[] = [];
+      // Start from total subscribers minus sum of trend counts (= count before the 30-day window)
+      const totalSubs = parseInt(document.getElementById('stat-total')!.textContent || '0');
+      const trendSum = trend.reduce((sum: number, d: any) => sum + d.count, 0);
+      let running = totalSubs - trendSum;
 
-      chartEl.innerHTML = trend
-        .map((d: any) => {
-          const heightPct = Math.max((d.count / maxCount) * 100, 2);
-          const dateObj = new Date(d.date + 'T00:00:00');
-          const label = `${dateObj.getMonth() + 1}/${dateObj.getDate()}: ${d.count} 人`;
-          const isToday = d.date === new Date().toISOString().slice(0, 10);
-          const color = isToday ? 'bg-accent' : d.count > 0 ? 'bg-accent/70' : 'bg-cream-300';
-          return `<div class="flex-1 ${color} rounded-t transition-all cursor-default" style="height:${heightPct}%" title="${label}"></div>`;
-        })
-        .join('');
+      for (const d of trend) {
+        running += d.count;
+        cumulative.push({ date: d.date, total: running });
+      }
 
-      // Labels: show first, middle, last dates
-      const first = trend[0];
-      const mid = trend[Math.floor(trend.length / 2)];
-      const last = trend[trend.length - 1];
-      const fmt = (d: string) => {
-        const dt = new Date(d + 'T00:00:00');
-        return `${dt.getMonth() + 1}/${dt.getDate()}`;
-      };
-      labelsEl.innerHTML = `<span>${fmt(first.date)}</span><span>${fmt(mid.date)}</span><span>${fmt(last.date)}</span>`;
+      // Show period growth
+      const periodGrowth = trendSum;
+      trendTotalEl.innerHTML = `<span class="text-2xl font-bold text-ink-900">${cumulative[cumulative.length - 1].total}</span><br><span class="text-sm text-green-600">+${periodGrowth} (30 天)</span>`;
+
+      // SVG dimensions
+      const W = 900;
+      const H = 220;
+      const padL = 45;
+      const padR = 15;
+      const padT = 15;
+      const padB = 35;
+      const chartW = W - padL - padR;
+      const chartH = H - padT - padB;
+
+      const values = cumulative.map(d => d.total);
+      const minVal = Math.min(...values);
+      const maxVal = Math.max(...values);
+      const range = maxVal - minVal || 1;
+
+      // Scale functions
+      const xScale = (i: number) => padL + (i / (cumulative.length - 1)) * chartW;
+      const yScale = (v: number) => padT + chartH - ((v - minVal) / range) * chartH;
+
+      // Build polyline points
+      const points = cumulative.map((d, i) => `${xScale(i)},${yScale(d.total)}`).join(' ');
+
+      // Area fill
+      const areaPoints = `${xScale(0)},${padT + chartH} ${points} ${xScale(cumulative.length - 1)},${padT + chartH}`;
+
+      // Y-axis labels (4 ticks)
+      const yTicks = [0, 0.33, 0.66, 1].map(pct => {
+        const val = Math.round(minVal + pct * range);
+        const y = yScale(val);
+        return `<line x1="${padL}" y1="${y}" x2="${padL + chartW}" y2="${y}" stroke="#EBE6DC" stroke-width="1"/>
+                <text x="${padL - 8}" y="${y + 4}" text-anchor="end" fill="#818181" font-size="11">${val}</text>`;
+      }).join('');
+
+      // X-axis labels (every 5 days + last)
+      const xLabels = cumulative
+        .filter((_, i) => i % 5 === 0 || i === cumulative.length - 1)
+        .map((d, _, arr) => {
+          const i = cumulative.indexOf(d);
+          const dt = new Date(d.date + 'T00:00:00');
+          const label = `${dt.getMonth() + 1}/${dt.getDate()}`;
+          return `<text x="${xScale(i)}" y="${H - 5}" text-anchor="middle" fill="#818181" font-size="11">${label}</text>`;
+        }).join('');
+
+      // Dots
+      const dots = cumulative.map((d, i) => {
+        const dt = new Date(d.date + 'T00:00:00');
+        const label = `${dt.getMonth() + 1}/${dt.getDate()}: ${d.total} 人`;
+        return `<circle cx="${xScale(i)}" cy="${yScale(d.total)}" r="4" fill="#CA8A04" stroke="white" stroke-width="2">
+                  <title>${label}</title>
+                </circle>`;
+      }).join('');
+
+      chartEl.innerHTML = `
+        <svg viewBox="0 0 ${W} ${H}" class="w-full" style="max-height: 220px;">
+          ${yTicks}
+          <polygon points="${areaPoints}" fill="#CA8A04" opacity="0.08"/>
+          <polyline points="${points}" fill="none" stroke="#CA8A04" stroke-width="2.5" stroke-linejoin="round"/>
+          ${dots}
+          ${xLabels}
+        </svg>
+      `;
     }
 
     function loadData() {
