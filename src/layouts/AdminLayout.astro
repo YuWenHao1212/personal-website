@@ -1,0 +1,206 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { label: '總覽', href: '/admin/', icon: 'home' },
+  { label: '問卷回覆', href: '/admin/survey/', icon: 'survey' },
+];
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body class="min-h-screen bg-cream-100 text-ink-900 font-sans antialiased">
+
+    <!-- Auth guard: redirect to login if no key -->
+    <div id="admin-auth-guard" class="hidden">
+      <div class="flex min-h-screen">
+
+        <!-- Sidebar -->
+        <aside class="w-56 bg-white border-r border-cream-300 flex flex-col shrink-0">
+          <div class="px-5 py-5 border-b border-cream-300">
+            <a href="/admin/" class="text-lg font-semibold text-ink-900 tracking-tight">Admin</a>
+          </div>
+          <nav class="flex-1 px-3 py-4 space-y-1">
+            {navItems.map(item => {
+              const isActive = currentPath === item.href || currentPath === item.href.slice(0, -1);
+              return (
+                <a
+                  href={item.href}
+                  class:list={[
+                    'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                    isActive
+                      ? 'bg-cream-200 text-ink-900'
+                      : 'text-ink-500 hover:bg-cream-100 hover:text-ink-700',
+                  ]}
+                >
+                  {item.icon === 'home' && (
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
+                    </svg>
+                  )}
+                  {item.icon === 'survey' && (
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                  )}
+                  <span>{item.label}</span>
+                </a>
+              );
+            })}
+          </nav>
+          <div class="px-3 py-4 border-t border-cream-300">
+            <button
+              id="admin-logout-btn"
+              class="flex items-center gap-2 px-3 py-2 w-full text-sm text-ink-400 hover:text-ink-700 transition-colors rounded-lg hover:bg-cream-100"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              <span>登出</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main content -->
+        <div class="flex-1 flex flex-col min-h-screen">
+          <header class="h-14 border-b border-cream-300 bg-white flex items-center px-6">
+            <h1 class="text-sm font-medium text-ink-700">{title}</h1>
+          </header>
+          <main class="flex-1 p-6 overflow-auto">
+            <slot />
+          </main>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Login screen (shown when no auth) -->
+    <div id="admin-login-screen" class="min-h-screen flex items-center justify-center bg-cream-100">
+      <div class="w-full max-w-sm px-6">
+        <h1 class="text-2xl font-semibold text-ink-900 mb-6 text-center">Admin 登入</h1>
+        <form id="admin-login-form" class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm" action="https://yu-wenhao.com/admin/" method="POST">
+          <!-- Hidden username for 1Password to associate correctly -->
+          <input type="hidden" name="username" autocomplete="username" value="admin" />
+          <label for="admin-key-input" class="block text-sm font-medium text-ink-700 mb-2">Admin Key</label>
+          <input
+            type="password"
+            id="admin-key-input"
+            name="password"
+            autocomplete="current-password"
+            placeholder="輸入 admin key"
+            class="w-full px-4 py-3 border border-cream-300 rounded-lg text-ink-900 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors mb-3"
+          />
+          <button
+            type="submit"
+            id="admin-login-btn"
+            class="w-full px-4 py-3 bg-ink-900 text-white font-medium rounded-lg hover:bg-ink-800 transition-colors"
+          >
+            登入
+          </button>
+          <p id="admin-login-error" class="text-red-600 text-sm mt-2 hidden">驗證失敗，請確認 key 是否正確。</p>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = 'https://yu-wenhao-api.calmisland-ea7fe91e.japaneast.azurecontainerapps.io';
+      const AUTH_STORAGE_KEY = 'admin_key';
+
+      // Prefetch warmup: wake up container while user types key
+      fetch(`${API_BASE}/health`).catch(() => {});
+
+      const authGuard = document.getElementById('admin-auth-guard')!;
+      const loginScreen = document.getElementById('admin-login-screen')!;
+      const loginForm = document.getElementById('admin-login-form') as HTMLFormElement;
+      const loginBtn = document.getElementById('admin-login-btn')!;
+      const loginInput = document.getElementById('admin-key-input') as HTMLInputElement;
+      const loginError = document.getElementById('admin-login-error')!;
+      const logoutBtn = document.getElementById('admin-logout-btn')!;
+
+      async function verifyKey(key: string): Promise<boolean> {
+        try {
+          const res = await fetch(`${API_BASE}/api/survey/responses/meeting-tool?key=${encodeURIComponent(key)}`);
+          return res.ok;
+        } catch {
+          return false;
+        }
+      }
+
+      function showDashboard() {
+        loginScreen.classList.add('hidden');
+        authGuard.classList.remove('hidden');
+      }
+
+      function showLogin() {
+        authGuard.classList.add('hidden');
+        loginScreen.classList.remove('hidden');
+      }
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const key = loginInput.value.trim();
+        if (!key) return;
+
+        loginBtn.textContent = '驗證中...';
+        loginError.classList.add('hidden');
+
+        const valid = await verifyKey(key);
+        if (valid) {
+          sessionStorage.setItem(AUTH_STORAGE_KEY, key);
+          showDashboard();
+        } else {
+          loginError.classList.remove('hidden');
+        }
+        loginBtn.textContent = '登入';
+      });
+
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+        window.location.href = '/admin/';
+      });
+
+      // Auto-login check
+      const savedKey = sessionStorage.getItem(AUTH_STORAGE_KEY);
+      if (savedKey) {
+        verifyKey(savedKey).then(valid => {
+          if (valid) {
+            showDashboard();
+          } else {
+            sessionStorage.removeItem(AUTH_STORAGE_KEY);
+            showLogin();
+          }
+        });
+      } else {
+        showLogin();
+      }
+
+      // Expose API_BASE and key getter for child pages
+      (window as any).__admin = {
+        getKey: () => sessionStorage.getItem(AUTH_STORAGE_KEY),
+        API_BASE,
+      };
+    </script>
+  </body>
+</html>

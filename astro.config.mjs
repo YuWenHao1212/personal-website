@@ -52,7 +52,7 @@ export default defineConfig({
     }),
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/workshop'),
+      filter: (page) => !page.includes('/workshop') && !page.includes('/admin'),
       i18n: {
         defaultLocale: 'zh-TW',
         locales: {

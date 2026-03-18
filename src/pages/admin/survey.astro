@@ -1,0 +1,121 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="問卷回覆">
+  <div class="max-w-5xl">
+
+    <!-- Stats -->
+    <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm mb-6">
+      <div class="flex items-baseline gap-3">
+        <span id="total-count" class="text-4xl font-bold text-ink-900">—</span>
+        <span class="text-ink-500">筆回覆</span>
+      </div>
+      <div id="role-breakdown" class="mt-2 text-sm text-ink-400"></div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white border border-cream-300 rounded-xl shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-cream-100">
+            <tr>
+              <th class="text-left px-4 py-3 font-medium text-ink-500">#</th>
+              <th class="text-left px-4 py-3 font-medium text-ink-500">Email</th>
+              <th class="text-left px-4 py-3 font-medium text-ink-500">角色</th>
+              <th class="text-left px-4 py-3 font-medium text-ink-500">使用情境</th>
+              <th class="text-left px-4 py-3 font-medium text-ink-500">日期</th>
+            </tr>
+          </thead>
+          <tbody id="responses-body"></tbody>
+        </table>
+      </div>
+      <div id="empty-state" class="hidden text-center py-8 text-ink-400">尚無回覆資料。</div>
+      <div id="loading-state" class="text-center py-8 text-ink-400">載入中...</div>
+    </div>
+
+  </div>
+
+  <script>
+    function escapeHtml(str: string): string {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function renderSurveyData(data: any) {
+      const responses = data.data.responses;
+      const totalEl = document.getElementById('total-count')!;
+      const roleEl = document.getElementById('role-breakdown')!;
+      const bodyEl = document.getElementById('responses-body')!;
+      const emptyEl = document.getElementById('empty-state')!;
+      const loadingEl = document.getElementById('loading-state')!;
+
+      loadingEl.classList.add('hidden');
+      totalEl.textContent = data.data.total.toString();
+
+      // Role breakdown
+      const roles: Record<string, number> = {};
+      for (const r of responses) {
+        const role = r.role || '未填寫';
+        roles[role] = (roles[role] || 0) + 1;
+      }
+      roleEl.textContent = Object.entries(roles)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join(' · ');
+
+      if (responses.length === 0) {
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      bodyEl.innerHTML = responses
+        .map((r: any, i: number) => {
+          const date = new Date(r.created_at).toLocaleDateString('zh-TW', {
+            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+          return `
+            <tr class="border-t border-cream-300 hover:bg-cream-50 transition-colors">
+              <td class="px-4 py-3 text-ink-400">${i + 1}</td>
+              <td class="px-4 py-3 text-ink-900">${escapeHtml(r.email)}</td>
+              <td class="px-4 py-3 text-ink-600">${escapeHtml(r.role || '—')}</td>
+              <td class="px-4 py-3 text-ink-600 max-w-[300px]">
+                <span class="block truncate" title="${escapeHtml(r.scenario || '')}">${escapeHtml(r.scenario || '—')}</span>
+              </td>
+              <td class="px-4 py-3 text-ink-400 whitespace-nowrap">${date}</td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    function loadSurveyData() {
+      const admin = (window as any).__admin;
+      if (!admin) return;
+
+      const key = admin.getKey();
+      if (!key) return;
+
+      fetch(`${admin.API_BASE}/api/survey/responses/meeting-tool?key=${encodeURIComponent(key)}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch');
+          return res.json();
+        })
+        .then(renderSurveyData)
+        .catch(() => {
+          const loadingEl = document.getElementById('loading-state')!;
+          loadingEl.textContent = '載入失敗，請重新整理頁面。';
+        });
+    }
+
+    // Wait for auth guard to show dashboard
+    const observer = new MutationObserver(() => {
+      const guard = document.getElementById('admin-auth-guard');
+      if (guard && !guard.classList.contains('hidden')) {
+        loadSurveyData();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.getElementById('admin-auth-guard')!, { attributes: true });
+  </script>
+</AdminLayout>
