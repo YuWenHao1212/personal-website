@@ -7,7 +7,7 @@ tags: ["AI", "企業AI", "LLM部署", "Claude API", "AWS Bedrock", "Azure OpenAI
 keywords: ["自架 LLM", "local llm", "企業 AI 部署", "claude api", "aws bedrock", "azure openai", "地端 AI", "vllm", "企業 AI 資安", "LLM 部署方式比較"]
 lang: zh-TW
 translationKey: enterprise-ai-data-security
-draft: true
+draft: false
 featured: false
 heroImage: /images/blog/enterprise-ai-data-security.webp
 focus_keyphrase: "自架 LLM"

@@ -7,7 +7,7 @@ tags: ["AI", "enterprise AI", "LLM deployment", "Claude API", "AWS Bedrock", "Az
 keywords: ["private LLM", "self host LLM", "local llm", "llm deployment", "claude api", "aws bedrock", "azure openai", "enterprise AI security", "llm api", "self hosted ai", "AI data privacy", "run llm locally"]
 lang: en
 translationKey: enterprise-ai-data-security
-draft: true
+draft: false
 featured: false
 heroImage: /images/blog/enterprise-ai-data-security.webp
 focus_keyphrase: "private LLM"
