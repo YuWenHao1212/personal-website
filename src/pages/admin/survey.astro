@@ -25,6 +25,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
               <th class="text-left px-4 py-3 font-medium text-ink-500">角色</th>
               <th class="text-left px-4 py-3 font-medium text-ink-500">使用情境</th>
               <th class="text-left px-4 py-3 font-medium text-ink-500">日期</th>
+              <th class="text-left px-4 py-3 font-medium text-ink-500">Follow-up</th>
             </tr>
           </thead>
           <tbody id="responses-body"></tbody>
@@ -74,6 +75,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           const date = new Date(r.created_at).toLocaleDateString('zh-TW', {
             month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
           });
+          const followupSent = r.followup_sent_at;
+          const followupCell = followupSent
+            ? `<span class="text-green-600 text-xs font-medium">已寄 ${new Date(followupSent).toLocaleDateString('zh-TW', { month: 'short', day: 'numeric' })}</span>`
+            : `<button data-email="${escapeHtml(r.email)}" class="followup-btn px-2 py-1 text-xs bg-accent text-white rounded hover:bg-accent-hover transition-colors">標記已寄</button>`;
           return `
             <tr class="border-t border-cream-300 hover:bg-cream-50 transition-colors">
               <td class="px-4 py-3 text-ink-400">${i + 1}</td>
@@ -83,10 +88,39 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
                 <span class="block truncate" title="${escapeHtml(r.scenario || '')}">${escapeHtml(r.scenario || '—')}</span>
               </td>
               <td class="px-4 py-3 text-ink-400 whitespace-nowrap">${date}</td>
+              <td class="px-4 py-3">${followupCell}</td>
             </tr>
           `;
         })
         .join('');
+
+      // Attach click handlers for followup buttons
+      const admin = (window as any).__admin;
+      document.querySelectorAll('.followup-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const target = e.target as HTMLButtonElement;
+          const email = target.dataset.email;
+          const key = admin?.getKey();
+          if (!email || !key) return;
+
+          target.textContent = '...';
+          target.disabled = true;
+
+          try {
+            const res = await fetch(
+              `${admin.API_BASE}/api/survey/responses/meeting-tool/${encodeURIComponent(email)}/followup?key=${encodeURIComponent(key)}`,
+              { method: 'PATCH' }
+            );
+            if (res.ok) {
+              target.outerHTML = `<span class="text-green-600 text-xs font-medium">已寄</span>`;
+            } else {
+              target.textContent = '失敗';
+            }
+          } catch {
+            target.textContent = '失敗';
+          }
+        });
+      });
     }
 
     function loadSurveyData() {
