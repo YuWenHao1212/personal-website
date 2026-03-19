@@ -10,14 +10,8 @@ const t = useTranslations('en');
 // Get all posts for en (exclude drafts)
 const allPosts = await getCollection('blog', ({ data }) => data.lang === 'en' && (import.meta.env.DEV || data.draft !== true));
 
-// Sort: pinned first, then featured, then by date (newest first)
-const sortedPosts = allPosts.sort((a, b) => {
-  if (a.data.pinned && !b.data.pinned) return -1;
-  if (!a.data.pinned && b.data.pinned) return 1;
-  if (a.data.featured && !b.data.featured) return -1;
-  if (!a.data.featured && b.data.featured) return 1;
-  return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-});
+// Sort by date (newest first) — featured/pinned only affects homepage
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 const title = 'Blog';
 const description = 'Articles on AI in practice, productivity & life';

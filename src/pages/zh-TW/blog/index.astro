@@ -10,14 +10,8 @@ const t = useTranslations('zh-TW');
 // Get all posts for zh-TW (exclude drafts)
 const allPosts = await getCollection('blog', ({ data }) => data.lang === 'zh-TW' && (import.meta.env.DEV || data.draft !== true));
 
-// Sort: pinned first, then featured, then by date (newest first)
-const sortedPosts = allPosts.sort((a, b) => {
-  if (a.data.pinned && !b.data.pinned) return -1;
-  if (!a.data.pinned && b.data.pinned) return 1;
-  if (a.data.featured && !b.data.featured) return -1;
-  if (!a.data.featured && b.data.featured) return 1;
-  return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-});
+// Sort by date (newest first) — featured/pinned only affects homepage
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 const title = 'Blog';
 const description = '分享 AI 實戰、效率系統與人生思考的文章';
