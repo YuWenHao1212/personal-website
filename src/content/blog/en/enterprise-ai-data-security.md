@@ -110,17 +110,17 @@ This is the right starting point for most companies.
 
 ### How does it compare to tools you already use?
 
-Most employees already use Google Docs for company data without anyone raising concerns. But Claude API's protections are actually stricter:
+Most employees already use Google Workspace for company data. The security levels are actually quite comparable:
 
-| Item | Claude API | Google Docs / iCloud |
-|------|-----------|---------------------|
+| Item | Claude API | Google Workspace (Enterprise) |
+|------|-----------|-------------------------------|
 | Data encrypted in transit | ✅ | ✅ |
-| Cloud data retention | **7-30 days then deleted** (by plan) | Stored indefinitely |
-| Used for training / improvement | **No** | Google uses data to improve services |
-| Security certifications | **International security audits (ongoing) + AI-specific certification** | International security audits |
-| Humans see your content | **No** (machine-only) | Possible (support staff, content reviewers) |
+| Cloud data retention | **7-30 days then auto-deleted** (by plan) | Stored indefinitely (unless manually deleted) |
+| Used for training / improvement | **No** (contractually guaranteed) | **No** (enterprise agreement guarantees this) |
+| Security certifications | SOC 2 Type II + ISO 42001 | SOC 2 + ISO 27001 + FedRAMP |
+| Humans see your content | **No** (unless court order or safety violation) | **No** (enterprise agreement, unless court order) |
 
-If you're not worried about Google Docs, Claude API is at least as safe.
+The key difference is retention — Claude auto-deletes, Google stores indefinitely. If you already accept cloud services' security level, Claude's protection is at least on par.
 
 ### Subscription vs. API pay-as-you-go
 
@@ -286,7 +286,7 @@ How sensitive is your data?
     │
     ├─ General business data
     │   → Eat at a restaurant: Claude Pro / ChatGPT, $20/mo/person
-    │     (API security is already stricter than Google Docs)
+    │     (API security on par with Google Workspace Enterprise)
     │
     ├─ Compliance requirements (finance / healthcare / data protection laws)
     │   → Rent a kitchen: Bedrock / Azure OpenAI
@@ -346,7 +346,7 @@ Claude isn't just safe — it's the enterprise market leader:
 
 Most companies don't need to spend millions self-hosting an LLM to get adequate data protection.
 
-Your employees already use Google Docs every day — that's cloud too. The real question isn't "should we use the cloud?" It's **how much are you willing to pay to keep data out of the AI company's environment?**
+Your employees already use Google Workspace every day — that's cloud too, with comparable security to Claude API. The real question isn't "should we use the cloud?" It's **how much are you willing to pay to keep data out of the AI company's environment?**
 
 | Your Answer | Which Path | Cost |
 |-------------|-----------|------|
