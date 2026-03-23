@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '用 AI 建你的個人指揮中心 — 課前環境建置指南';
+const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Claude Code。';
+---
+
+<BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
+  <article class="py-10 md:py-14 lg:py-16">
+    <div class="container-prose">
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">用 AI 建你的個人指揮中心</h1>
+        <p class="text-lg text-ink-600">課前環境建置指南</p>
+        <p class="text-sm text-ink-400 mt-2">講師：余文皓 | mail@yu-wenhao.com</p>
+      </header>
+
+      <div class="prose prose-lg max-w-none">
+        <blockquote>
+          <p>
+            請在<strong>我們一對一會議前</strong>完成以下安裝。<br />
+            預估時間：20-30 分鐘。<br />
+            如果卡在任何步驟，截圖傳給我，我來協助。
+          </p>
+        </blockquote>
+
+        <h2>一、確認 Claude Pro 帳號（已有帳號可跳過）</h2>
+
+        <ol>
+          <li>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 登入</li>
+        </ol>
+
+        <img src="/images/workshop/setup/01-claude-login.png" alt="Claude 登入頁面" />
+        <img src="/images/workshop/setup/02-claude-login-2.png" alt="Claude 登入選擇" />
+
+        <ol start={2}>
+          <li>確認左下角顯示 <strong>Pro</strong> 字樣</li>
+        </ol>
+
+        <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="Claude Pro 標示" />
+
+        <h3>設定 Profile</h3>
+
+        <p>登入後，前往 <strong>Settings → General</strong>，設定你的 Profile。</p>
+        <p>在 <strong>What personal preferences should Claude consider in responses?</strong> 欄位，貼上你的個人資訊，例如：</p>
+
+        <pre><code>{`我是 [你的名字]，[你的職稱/角色]。
+- 繁體中文溝通，台灣用語
+- 工作內容：[簡述你的主要工作]
+- 回應請簡潔直接`}</code></pre>
+
+        <img src="/images/workshop/setup/04-claude-profile-settings.png" alt="Claude Profile 設定" />
+
+        <blockquote>
+          <p>可以先自己設定，有問題會議時再一起調整。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>二、安裝 VS Code（我們的工作環境）</h2>
+
+        <p>VS Code 是我們的工作環境，所有操作都在這裡進行。</p>
+
+        <ol>
+          <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
+          <li>點選 <strong>Mac</strong> 版本下載</li>
+        </ol>
+
+        <img src="/images/workshop/setup/05-vscode-download.png" alt="VS Code 下載頁面" />
+
+        <ol start={3}>
+          <li>下載完成後，打開 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
+          <li>打開 VS Code，確認可以正常啟動</li>
+        </ol>
+
+        <h3>安裝 Git</h3>
+        <p>VS Code 第一次開啟時，可能會跳出提示詢問是否要安裝 Git。<strong>請點選安裝</strong>，後續會用到。</p>
+
+        <h3>安裝中文語言套件（選用）</h3>
+        <ol>
+          <li>打開 VS Code</li>
+          <li>按 <code>Cmd + Shift + X</code> 打開擴充功能</li>
+          <li>搜尋 <code>Chinese</code>，安裝 <strong>Chinese (Traditional) Language Pack</strong></li>
+          <li>重新啟動 VS Code</li>
+        </ol>
+
+        <img src="/images/workshop/setup/06-vscode-chinese-pack.png" alt="VS Code 中文語言套件" />
+
+        <hr />
+
+        <h2>三、安裝 Claude Code</h2>
+
+        <p>Claude Code 是讓 AI 直接在你電腦裡工作的工具。安裝後，AI 就能讀寫檔案、執行指令、幫你完成實際的工作。</p>
+
+        <ol>
+          <li>打開 VS Code</li>
+          <li>按 <code>Ctrl + `</code>（左上角 ESC 下方的按鍵）打開終端機（Terminal）</li>
+          <li>在終端機中貼上以下指令，按 Enter 執行：</li>
+        </ol>
+
+        <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+        <img src="/images/workshop/setup/07-terminal-install-claude.png" alt="終端機安裝 Claude Code" />
+
+        <ol start={4}>
+          <li>安裝完成後，貼上以下指令，按 Enter 執行：</li>
+        </ol>
+
+        <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc`}</code></pre>
+
+        <ol start={5}>
+          <li>在終端機中輸入 <code>exit</code> 關閉 session，再按 <code>Ctrl + `</code> 打開新的終端機</li>
+          <li>在終端機中輸入 <code>claude</code>，按 Enter</li>
+        </ol>
+
+        <pre><code>claude</code></pre>
+
+        <ol start={7}>
+          <li>系統會要求你登入 — 按照畫面指示登入你的 Claude 帳號</li>
+        </ol>
+
+        <img src="/images/workshop/setup/08-claude-code-auth.png" alt="Claude Code 登入授權" />
+        <img src="/images/workshop/setup/09-claude-code-auth-2.png" alt="Claude Code 登入授權" />
+
+        <ol start={8}>
+          <li>登入成功後，你會看到 Claude Code 的對話介面</li>
+        </ol>
+
+        <img src="/images/workshop/setup/10-claude-code-ready.png" alt="Claude Code 就緒" />
+
+        <hr />
+
+        <h2>四、驗證安裝成功</h2>
+
+        <p>完成以上步驟後，請確認：</p>
+
+        <ul class="list-none pl-0">
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號已訂閱，可登入 claude.ai</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 已安裝，可正常開啟</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機中輸入 <code>claude</code> 可進入 Claude Code</li>
+        </ul>
+
+        <p>以上三項都完成，你就準備好了！</p>
+
+        <hr />
+
+        <p><em>有任何問題，隨時 LINE 或 email 聯繫我。</em><br />
+        <em>余文皓 | mail@yu-wenhao.com</em></p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button id="lightbox-close" class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors" aria-label="Close">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl" src="" alt="" />
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+
+    function openLightbox(src: string, alt: string) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox!.classList.remove('hidden');
+      lightbox!.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox!.classList.add('hidden');
+      lightbox!.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.prose img').forEach((img) => {
+      const el = img as HTMLImageElement;
+      el.style.cursor = 'zoom-in';
+      el.addEventListener('click', () => openLightbox(el.src, el.alt));
+    });
+
+    lightbox!.addEventListener('click', (e) => {
+      if (e.target !== lightboxImg) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</BaseLayout>
