@@ -23,6 +23,13 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
           </p>
         </blockquote>
 
+        <!-- OS Switcher -->
+        <p><strong>請先選擇你的電腦系統：</strong></p>
+        <div class="not-prose flex gap-3 my-6" id="os-switcher">
+          <button data-os-btn="mac" class="flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-accent bg-accent text-white shadow-md">🍎 Mac</button>
+          <button data-os-btn="windows" class="flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-ink-200 text-ink-500 hover:border-ink-300">⊞ Windows</button>
+        </div>
+
         <h2>一、確認 Claude Pro 帳號（已有帳號可跳過）</h2>
 
         <ol>
@@ -62,23 +69,43 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
 
         <ol>
           <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
-          <li>點選 <strong>Mac</strong> 版本下載</li>
+          <li>下載你的作業系統對應版本：</li>
         </ol>
 
-        <img src="/images/workshop/setup/05-vscode-download.png" alt="VS Code 下載頁面" />
+        <img data-os="mac" src="/images/workshop/mac.png" alt="VS Code 下載頁面 — Mac" />
+        <img data-os="windows" src="/images/workshop/window.png" alt="VS Code 下載頁面 — Windows" />
 
-        <ol start={3}>
-          <li>下載完成後，打開 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
-          <li>打開 VS Code，確認可以正常啟動</li>
-        </ol>
+        <div data-os="mac">
+          <ol start={3}>
+            <li>下載完成後，打開 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
+            <li>打開 VS Code，確認可以正常啟動</li>
+          </ol>
+        </div>
+
+        <div data-os="windows">
+          <ol start={3}>
+            <li>下載完成後，執行 <code>.exe</code> 安裝檔，按照安裝精靈步驟完成安裝</li>
+            <li>打開 VS Code，確認可以正常啟動</li>
+          </ol>
+        </div>
 
         <h3>安裝 Git</h3>
-        <p>VS Code 第一次開啟時，可能會跳出提示詢問是否要安裝 Git。<strong>請點選安裝</strong>，後續會用到。</p>
+
+        <div data-os="mac">
+          <p>VS Code 第一次開啟時，可能會跳出提示詢問是否要安裝 Git。<strong>請點選安裝</strong>，後續會用到。</p>
+        </div>
+
+        <div data-os="windows">
+          <p>打開 VS Code 的終端機（按 <code>Ctrl + `</code>），貼上以下指令：</p>
+          <pre><code>winget install Git.Git</code></pre>
+          <p>安裝完成後，<strong>關掉 VS Code 再重開</strong>。</p>
+        </div>
 
         <h3>安裝中文語言套件（選用）</h3>
         <ol>
           <li>打開 VS Code</li>
-          <li>按 <code>Cmd + Shift + X</code> 打開擴充功能</li>
+          <li data-os="mac">按 <code>Cmd + Shift + X</code> 打開擴充功能</li>
+          <li data-os="windows">按 <code>Ctrl + Shift + X</code> 打開擴充功能</li>
           <li>搜尋 <code>Chinese</code>，安裝 <strong>Chinese (Traditional) Language Pack</strong></li>
           <li>重新啟動 VS Code</li>
         </ol>
@@ -97,19 +124,39 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
           <li>在終端機中貼上以下指令，按 Enter 執行：</li>
         </ol>
 
-        <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+        <div data-os="mac">
+          <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
 
-        <img src="/images/workshop/setup/07-terminal-install-claude.png" alt="終端機安裝 Claude Code" />
+          <img src="/images/workshop/setup/07-terminal-install-claude.png" alt="終端機安裝 Claude Code" />
 
-        <ol start={4}>
-          <li>安裝完成後，貼上以下指令，按 Enter 執行：</li>
-        </ol>
+          <ol start={4}>
+            <li>安裝完成後，貼上以下指令設定路徑：</li>
+          </ol>
 
-        <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+          <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc`}</code></pre>
 
-        <ol start={5}>
-          <li>在終端機中輸入 <code>exit</code> 關閉 session，再按 <code>Ctrl + `</code> 打開新的終端機</li>
+          <ol start={5}>
+            <li>在終端機中輸入 <code>exit</code> 關閉 session，再按 <code>Ctrl + `</code> 打開新的終端機</li>
+          </ol>
+        </div>
+
+        <div data-os="windows">
+          <p>在終端機（PowerShell）中貼上以下指令，全部一次執行：</p>
+
+          <pre><code>{`irm https://claude.ai/install.ps1 | iex
+$claudePath = "$env:USERPROFILE\\.local\\bin"
+$currentPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+if ($currentPath -notlike "*$claudePath*") {
+  [Environment]::SetEnvironmentVariable("Path", "$currentPath;$claudePath", "User")
+}`}</code></pre>
+
+          <ol start={4}>
+            <li>完成後，<strong>關掉 VS Code 再重開</strong>，打開新的終端機</li>
+          </ol>
+        </div>
+
+        <ol start={6}>
           <li>在終端機中輸入 <code>claude</code>，按 Enter</li>
         </ol>
 
@@ -161,6 +208,42 @@ source ~/.zshrc`}</code></pre>
   </div>
 
   <script>
+    // OS Switcher
+    function setOS(os: string) {
+      // Update buttons
+      document.querySelectorAll('[data-os-btn]').forEach((btn) => {
+        const el = btn as HTMLButtonElement;
+        if (el.dataset.osBtn === os) {
+          el.className = 'flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-accent bg-accent text-white shadow-md';
+        } else {
+          el.className = 'flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-ink-200 text-ink-500 hover:border-ink-300';
+        }
+      });
+
+      // Show/hide content
+      document.querySelectorAll('[data-os]').forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        if (htmlEl.dataset.os === os) {
+          htmlEl.style.display = '';
+        } else {
+          htmlEl.style.display = 'none';
+        }
+      });
+
+      localStorage.setItem('workshop-os', os);
+    }
+
+    // Button click handlers
+    document.querySelectorAll('[data-os-btn]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setOS((btn as HTMLElement).dataset.osBtn!);
+      });
+    });
+
+    // Initialize from localStorage or default to Mac
+    setOS(localStorage.getItem('workshop-os') || 'mac');
+
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
 
