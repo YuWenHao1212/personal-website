@@ -364,6 +364,16 @@
       "statusCode": 301
     },
     {
+      "route": "/blog/ai-harness",
+      "redirect": "/zh-TW/blog/ai-harness/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/enterprise-ai-data-security",
+      "redirect": "/zh-TW/blog/enterprise-ai-data-security/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
