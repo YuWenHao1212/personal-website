@@ -1,0 +1,174 @@
+# Paperclip AI 產品拆解（L1 SEO）
+
+**定位**：L1 產品拆解文，PM 視角，帶讀者看懂一個 multi-agent 管理系統
+**focus_keyphrase**：中文「Paperclip AI」/ 英文「paperclip ai agent」
+**系列位置**：Harness（單 agent）→ **Paperclip（多 agent 管理）** → 實戰篇（multi-agent team 實作）
+**故事線**：你決定開一間公司，員工全部是 AI。
+
+---
+
+## TL;DR
+
+| | Claude Code + Skills | Paperclip |
+|--|--|--|
+| 比喻 | 有人帶的團隊 | 有制度的公司 |
+| 護欄 | 全靠 prompt | 關鍵點有程式強制（任務鎖、預算上限、audit log） |
+| 狀態持久化 | Session 內（關了就沒了） | DB（重開機還在） |
+| 全局可視化 | ❌ 只有 terminal | ✅ Board UI（像 Jira，但管的是 AI） |
+| 適合場景 | 有人盯著的協作 | 無人值守的自動化 |
+| 代價 | 觸發才跑，不觸發 $0 | Heartbeat 有 token 基本消費 |
+
+---
+
+## 1. 你訓練好了一個好員工，然後呢？
+
+（承接 Harness）
+
+上篇講了怎麼訓練一個好員工——CLAUDE.md、Skills、MCP，讓一個 agent 變可靠。
+
+但一個人做不完所有事。你需要一個做研究的、一個寫文章的、一個審稿的、一個發布的。四個人各自很強，問題是怎麼讓他們一起工作。
+
+每個帶過團隊的人都知道，四個厲害的人湊在一起不會自動變成一個好團隊。你需要制度。
+
+你決定開一間公司。員工全部是 AI。
+
+---
+
+## 2. 先用現有工具試試
+
+你不急著找新工具。Claude Code 已經很強——subagent 平行派工、SendMessage 互傳訊息、Cron 定時任務、Skill 定義團隊分工。你甚至已經有一個 creative-team skill：6 個角色、4 種工作模式、校稿流程，全用 prompt 定義，Opus 理解後自己跑。
+
+你盯著的時候，一切都很好。
+
+但你想讓它**自己跑**——每天凌晨自動抓素材、寫文章、審稿、發布，你早上起來只管 approve。這時候你發現幾件事：
+
+- terminal 裡 6 個角色在跑，但你看不到誰做到哪了
+- 昨天跑到一半，今天打開 session 沒了，要從頭來
+- 跑了一週，不知道總共花了多少 token
+- 出了問題想查「是誰在哪一步決定的」，對話紀錄在 session 裡，關了就沒了
+
+不是工具不好。是你的需求從「有人帶的團隊」變成了「能自己運轉的公司」。
+
+---
+
+## 3. 裝好 Paperclip：你的第一天
+
+Paperclip 裝好後，你看到一個網頁介面——Board UI。像 Jira，但管的是 AI。
+
+系統裡只有一個 agent：**CEO**（預設模板）。
+
+你在 Board 上定義公司目標和初始任務。CEO 被叫醒，看了你的目標，提出策略：需要哪些 agent、組織架構怎麼排、任務怎麼拆。
+
+你（Board）review 這份策略。覺得可以，按 approve。
+
+CEO 開始招人——提出 hire request：「我需要一個 Writer、一個 Editor、一個 Publisher」。你批准，agent 才會被建立。
+
+跟真實公司一樣——先有策略，再招人，不是先招一堆人再想做什麼。
+
+> codebase：CEO 的第一次 heartbeat 會 review 目標和任務，提出策略（org structure、sub-tasks、hiring plan），Board approve 後才能執行。新增 agent 需要 `hire_agent` approval flow。
+
+---
+
+## 4. 員工怎麼上班：Heartbeat
+
+公司開起來了。但 AI 員工不像人類會自己走進辦公室——它們需要被叫醒。
+
+Paperclip 的核心機制叫 **Heartbeat**：agent 平常是「睡著」的，被叫醒才做事。四種叫醒方式：
+
+| 方式 | 觸發 | 類比 |
+|------|------|------|
+| `timer` | 定時排程 | 每天早上 8 點起來看看有沒有自己的工單 |
+| `assignment` | 被指派新任務 | 主管把公文放到你桌上 |
+| `on_demand` | 人類手動觸發 | 老闆走過來說「這個重做」 |
+| `@mention` | 其他 agent 在 comment 提到你 | Jira ticket 上被 @ 到 |
+
+這四種都不是「觸發就馬上跑」。事件發生後會先進佇列，通過檢查（沒被暫停？預算沒超？沒有其他 run 在跑？）才真正啟動。多個 agent 可以同時平行跑。
+
+### 每次叫醒都有成本
+
+CEO 每 30 分鐘醒來一次巡視，其他 agent 一天各一次。一天大約 51 次 heartbeat。大部分時候 CEO 醒來只是「看一眼沒事」，但這一眼也要花 token。
+
+Claude Code + Skill 的模式是你觸發才跑，不觸發成本 $0。Paperclip 的模式是系統一直在「呼吸」，就算沒事做也有基本消費。Timer 頻率設太高會浪費，設太低會反應遲鈍——這個 trade-off 要自己調。
+
+### Session 接續
+
+同一個 agent 做同一個 task，session 會被保留。下次被叫醒時接著上次的對話繼續，不用從頭來。
+
+但 session 不能無限長（context window 會爆）。超過閾值後自動整理，注入一段交接摘要讓 agent 重新上手。
+
+員工不用每天重新認識公司。但做了三個月的專案，會需要整理一下筆記，不然自己也忘了前面做了什麼。
+
+---
+
+## 5. 公司制度
+
+員工會上班了。但光會上班不夠——你需要制度讓公司不會亂。
+
+### 任務認領 — 一次一人
+
+同一份提案不會讓兩個人同時改。Paperclip 的 task 同時只能有一個 agent 認領。搶不到的會被系統直接拒絕，而且不准重搶。有人正在做的 task，新的請求排隊等，前一個做完自動接上。
+
+> codebase：checkout 用 SQL WHERE 鎖——`WHERE status IN (?) AND (assignee IS NULL OR assignee = :me)`
+
+### 目標對齊 — OKR 系統
+
+好的公司每個任務都能追溯到年度目標。Paperclip 的 Goal 有四層——company → team → agent → task。Issue 和 Project 都有 `goalId` 欄位，沒掛 goal 的 issue 會自動 fallback 到公司層級的預設目標。
+
+> codebase：`issue-goal-fallback.ts` — 孤兒 issue 自動歸到 company default goal
+
+**但這裡有個缺口**：目前的 goal alignment 是被動的——資料結構在了，但 agent 被叫醒時，context 裡沒有傳入它在為哪個目標工作。沒有人定期檢查「這些任務真的對齊公司目標嗎？」。
+
+> codebase：`heartbeat.ts` 的 `contextSnapshot` 只帶 issueId、projectId、wakeReason，沒有 goalId。
+
+公司有 OKR 系統，但從來沒人在週會上 review 進度。結構在，執行不在。
+
+### 預算管控 — 外包月費上限
+
+Agent 不是領月薪的員工——沒事做成本 $0，忙起來可以一天花掉平常一個月的量。每個 agent 有月預算上限，超支自動暫停，你手動解鎖才能繼續。
+
+走 API 計費的話，沒有上限一個週末就能燒掉幾百美金。走 Pro 訂閱的話不會爆帳單，但用太快會被限速，影響其他 agent。不管哪種模式，都需要知道每個 agent 花了多少。
+
+> codebase：insert cost event 後立刻檢查 `spentMonthlyCents >= budgetMonthlyCents`，超了自動 `paused`
+
+### 透明度 — 所有事情攤在陽光下
+
+Agent 之間的溝通全部透過 issue comments。@mention 自動觸發被提到的 agent 的 wakeup。沒有私人頻道——所有對話都在 task 上。
+
+每一次資料變更（mutation）都記錄在 `activity_log` 裡——誰、什麼時候、做了什麼、改了什麼。Append-only，不能改、不能刪。
+
+多 agent 系統最可怕的不是出錯，是出錯了不知道是誰、什麼時候、為什麼出的。
+
+---
+
+## 6. 你開了一間 AI 公司，學到什麼
+
+Harness 是員工的**職能訓練**——讓一個人做好自己的工作。
+
+Paperclip 是**公司制度**——讓一群人朝同一個方向做事。
+
+兩者不互斥。Paperclip 裡面的每個 agent，仍然需要好的 harness。Paperclip 是在 harness 之上再加一層——制度。
+
+我目前用 Paperclip 管一個 4-agent 工作流。四個 agent 各有分工，透過 @mention 自動接力，我只在 Board UI 上 approve/reject。
+
+在實際跑起來之後才會感受到這些設計為什麼存在——任務鎖擋掉了兩個 agent 同時改檔案、預算管控讓我安心不盯著、session 接續讓 agent 不用每次從零開始。
+
+但 4 個 agent 只是起點。跑順之後自然會想：如果再加 2 個做監測和分析呢？從「執行團隊」變成「作戰室」。
+
+CTA → Harness 文章 + 訂閱電子報
+
+---
+
+## 寫作注意事項
+
+- 「開一間 AI 公司」故事線貫穿全篇：招人 → 上班 → 制度 → 學到什麼
+- 每個概念只在故事中自然出現的地方講一次，不重複
+- TL;DR 保留（讀者快速掃描用），正文不再重複 TL;DR 的內容
+- 技術細節用 codebase 驗證，不猜測
+- 不教安裝（留給實戰篇）
+- PM 視角但不說教
+- 誠實講代價（token 基本消費、goal alignment 缺口）
+
+---
+
+**Created**: 2026-03-19
+**Updated**: 2026-03-20 — 用「開一間 AI 公司」故事線重寫，解決重複 + 故事性問題
