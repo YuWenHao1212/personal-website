@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = '用 AI 建你的個人指揮中心 — 課前環境建置指南';
-const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Claude Code。';
+const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Claude Code、Obsidian，並下載 FLUX Vault。';
 ---
 
 <BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
@@ -177,7 +177,75 @@ if ($currentPath -notlike "*$claudePath*") {
 
         <hr />
 
-        <h2>四、驗證安裝成功</h2>
+        <h2>四、安裝 Obsidian</h2>
+
+        <p>Obsidian 是你的個人知識庫。所有的目標、筆記、每日規劃都在這裡查看。</p>
+
+        <ol>
+          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+          <li>下載你的作業系統對應版本並安裝</li>
+        </ol>
+
+        <div data-os="mac">
+          <ol start={3}>
+            <li>打開下載的 <code>.dmg</code> 檔案，將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
+            <li>打開 Obsidian，確認可以正常啟動</li>
+          </ol>
+        </div>
+
+        <div data-os="windows">
+          <ol start={3}>
+            <li>執行下載的 <code>.exe</code> 安裝檔，按照步驟完成安裝</li>
+            <li>打開 Obsidian，確認可以正常啟動</li>
+          </ol>
+        </div>
+
+        <blockquote>
+          <p>第一次打開 Obsidian 會問你要開啟什麼 Vault——先關掉就好，下一步我們會設定。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>五、下載 FLUX Vault</h2>
+
+        <p>FLUX 是我們在工作坊中使用的個人作業系統模板。下載後用 Obsidian 開啟，就是你的個人指揮中心。</p>
+
+        <ol>
+          <li>點擊下方連結下載 FLUX Vault：</li>
+        </ol>
+
+        <p>
+          <a href="https://drive.google.com/drive/folders/1C45gNRkGQQmnBC6pFgWhCdYj8FT0bl30?usp=drive_link" target="_blank" rel="noopener" class="inline-block px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
+            📥 下載 FLUX Vault（Google Drive）
+          </a>
+        </p>
+
+        <ol start={2}>
+          <li>下載後解壓縮 <code>.zip</code> 檔案</li>
+        </ol>
+
+        <div data-os="mac">
+          <ol start={3}>
+            <li>把解壓縮後的 <code>FLUX</code> 資料夾放到你方便找到的地方（例如桌面或文件夾）</li>
+          </ol>
+        </div>
+
+        <div data-os="windows">
+          <ol start={3}>
+            <li>把解壓縮後的 <code>FLUX</code> 資料夾放到你方便找到的地方（例如桌面或文件資料夾）</li>
+          </ol>
+        </div>
+
+        <ol start={4}>
+          <li>打開 Obsidian，點選 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+          <li>選擇剛才解壓縮的 <code>FLUX</code> 資料夾</li>
+          <li>Obsidian 會問你是否信任此 Vault 的外掛 — 點選<strong>信任並啟用</strong></li>
+          <li>你會看到 FLUX Vault 的首頁，代表設定成功</li>
+        </ol>
+
+        <hr />
+
+        <h2>六、驗證安裝成功</h2>
 
         <p>完成以上步驟後，請確認：</p>
 
@@ -185,9 +253,11 @@ if ($currentPath -notlike "*$claudePath*") {
           <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號已訂閱，可登入 claude.ai</li>
           <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 已安裝，可正常開啟</li>
           <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機中輸入 <code>claude</code> 可進入 Claude Code</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 已安裝，可正常開啟</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> FLUX Vault 在 Obsidian 中可開啟，看到首頁</li>
         </ul>
 
-        <p>以上三項都完成，你就準備好了！</p>
+        <p>以上五項都完成，你就準備好了！</p>
 
         <hr />
 
