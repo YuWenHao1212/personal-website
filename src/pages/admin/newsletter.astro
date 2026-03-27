@@ -88,6 +88,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    let newsletterTagId: number | null = null;
+
     function escapeHtml(str: string): string {
       const div = document.createElement('div');
       div.textContent = str;
@@ -102,6 +104,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       document.getElementById('stat-total')!.textContent = total_subscribers.toString();
 
       const newsletterTag = tags.find((t: any) => t.name === 'newsletter-subscriber');
+      if (newsletterTag) newsletterTagId = newsletterTag.id;
       const surveyTag = tags.find((t: any) => t.name.includes('AIMeeting'));
       const surveyConvertTag = tags.find((t: any) => t.name === 'survey-to-newsletter');
 
@@ -278,7 +281,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       if (!key) return;
 
       try {
-        const res = await fetch(`${admin.API_BASE}/api/kit/subscribers-by-date?key=${encodeURIComponent(key)}&date=${date}`);
+        const tagParam = newsletterTagId ? `&tag_id=${newsletterTagId}` : '';
+        const res = await fetch(`${admin.API_BASE}/api/kit/subscribers-by-date?key=${encodeURIComponent(key)}&date=${date}${tagParam}`);
         const data = await res.json();
 
         if (data.success) {
