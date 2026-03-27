@@ -116,18 +116,19 @@ const thankYouUrl = `/${lang}/thank-you`;
     <script>
       const forms = document.querySelectorAll('[id^="newsletter-form"]') as NodeListOf<HTMLFormElement>;
 
+      const API_BASE = 'https://yu-wenhao-api.calmisland-ea7fe91e.japaneast.azurecontainerapps.io';
+
       forms.forEach(form => {
         form?.addEventListener('submit', async (e) => {
           e.preventDefault();
 
           const formData = new FormData(form);
+          const email = formData.get('email_address') as string;
           const thankYouUrl = form.dataset.thankYouUrl || '/zh-TW/thank-you';
 
           try {
-            await fetch('https://app.kit.com/forms/8951335/subscriptions', {
+            await fetch(`${API_BASE}/api/newsletter/subscribe-form?email=${encodeURIComponent(email)}`, {
               method: 'POST',
-              body: formData,
-              mode: 'no-cors'
             });
 
             window.location.href = thankYouUrl;
