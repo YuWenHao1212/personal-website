@@ -1,0 +1,62 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="總覽">
+  <div class="max-w-4xl">
+    <h2 class="text-xl font-semibold text-ink-900 mb-6">歡迎回來</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- Survey card -->
+      <a href="/admin/survey/" class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow group">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-cream-200 rounded-lg flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+            <svg class="w-5 h-5 text-ink-500 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-ink-900">問卷回覆</h3>
+        </div>
+        <p class="text-sm text-ink-500">查看 survey 表單的回覆資料與統計。</p>
+        <div id="survey-count" class="mt-3 text-2xl font-bold text-ink-900">—</div>
+        <p class="text-xs text-ink-400 mt-1">筆回覆</p>
+      </a>
+
+      <!-- Placeholder: more cards later -->
+      <div class="bg-white/50 border border-dashed border-cream-400 rounded-xl p-6 flex items-center justify-center">
+        <p class="text-sm text-ink-400">更多功能開發中...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load survey count after auth
+    function loadSurveyCount() {
+      const admin = (window as any).__admin;
+      if (!admin) return;
+
+      const key = admin.getKey();
+      if (!key) return;
+
+      fetch(`${admin.API_BASE}/api/survey/responses/meeting-tool?key=${encodeURIComponent(key)}`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data?.data?.total != null) {
+            const el = document.getElementById('survey-count');
+            if (el) el.textContent = data.data.total.toString();
+          }
+        })
+        .catch(() => {});
+    }
+
+    // Wait for auth guard to show dashboard
+    const observer = new MutationObserver(() => {
+      const guard = document.getElementById('admin-auth-guard');
+      if (guard && !guard.classList.contains('hidden')) {
+        loadSurveyCount();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.getElementById('admin-auth-guard')!, { attributes: true });
+  </script>
+</AdminLayout>
