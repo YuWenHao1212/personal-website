@@ -140,7 +140,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       // Build cumulative data
       const cumulative: { date: string; total: number }[] = [];
       // Start from total subscribers minus sum of trend counts (= count before the 30-day window)
-      const totalSubs = parseInt(document.getElementById('stat-total')!.textContent || '0');
+      const totalSubs = parseInt(document.getElementById('stat-newsletter')!.textContent || '0');
       const trendSum = trend.reduce((sum: number, d: any) => sum + d.count, 0);
       let running = totalSubs - trendSum;
 
@@ -309,12 +309,17 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       if (!key) return;
 
       // Load stats and trend in parallel
-      Promise.all([
-        fetch(`${admin.API_BASE}/api/kit/stats?key=${encodeURIComponent(key)}`).then(r => r.json()),
-        fetch(`${admin.API_BASE}/api/kit/trend?key=${encodeURIComponent(key)}&days=30`).then(r => r.json()),
-      ])
-        .then(([statsData, trendData]) => {
+      // First load stats to get newsletter tag ID, then load trend filtered by tag
+      fetch(`${admin.API_BASE}/api/kit/stats?key=${encodeURIComponent(key)}`)
+        .then(r => r.json())
+        .then(statsData => {
           if (statsData.success) renderStats(statsData);
+          // Find newsletter-subscriber tag ID for trend filtering
+          const nlTag = statsData.data?.tags?.find((t: any) => t.name === 'newsletter-subscriber');
+          const tagParam = nlTag ? `&tag_id=${nlTag.id}` : '';
+          return fetch(`${admin.API_BASE}/api/kit/trend?key=${encodeURIComponent(key)}&days=30${tagParam}`).then(r => r.json());
+        })
+        .then(trendData => {
           if (trendData.success) renderTrend(trendData);
         })
         .catch(() => {
