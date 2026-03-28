@@ -58,7 +58,7 @@ Opened the first ticket. Assigned it to the CEO.
 
 Over the next four hours, I rewrote instructions four times, manually pushed the pipeline forward countless times, clicked approve in the inbox, watched agents run and stall, stall and run.
 
-The article came out. 3,200 words. Well-structured. Decent quality.
+The output came out fine. No issues.
 
 But I sat there thinking: **what am I actually doing?**
 
