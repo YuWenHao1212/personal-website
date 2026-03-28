@@ -158,6 +158,7 @@ But the harness perspective tells us: **the fastest change isn't upgrading the b
 Put the phone in another room and focus improves immediately. Not because willpower got stronger, but because the environment's constraints (layer six of the harness) changed. Design a daily writing routine at a fixed time and output stabilizes. Not because of sudden talent, but because a loop (layer one of the harness) was established.
 
 Without designing our own harness, we live inside systems designed by others. Social media algorithms, corporate KPI structures, phone notification systems — all harnesses designed by someone else, and not for our goals. I wrote about this idea in [building an AI second brain](/en/blog/ai-second-brain) — the core concept is the same: actively designing our own information environment rather than passively accepting what's fed to us.
+
 ---
 
 ## Once One Agent's Harness Is Done, What's Next?
@@ -166,7 +167,7 @@ One agent's harness is dialed in, and the next question arrives — what if ther
 
 These questions sound familiar because they're exactly what every company, every team leader, every PM deals with daily. Except now, the employees are AI.
 
-In the next article, I'll look at this from a PM's perspective — what happens when AI agents need "team management," and how an open-source project called [Paperclip](https://paperclip.ing/) is bringing the logic of managing people to managing AI agents.
+I explored this in my next article — [I Built an AI Agent Company and Wanted to Shut It Down on Day One](/en/blog/multi-agent-hidden-cost/). What happens when you apply real corporate management to AI agents? Spoiler: the process itself becomes the bottleneck.
 
 ---
 
