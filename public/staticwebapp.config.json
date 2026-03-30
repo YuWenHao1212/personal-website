@@ -29,11 +29,6 @@
       "statusCode": 302
     },
     {
-      "route": "/admin/",
-      "redirect": "/admin/newsletter/",
-      "statusCode": 302
-    },
-    {
       "route": "/",
       "redirect": "/zh-TW/",
       "statusCode": 301
