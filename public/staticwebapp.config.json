@@ -4,6 +4,7 @@
     "rewrite": "/index.html",
     "exclude": [
       "/api/*",
+      "/admin/*",
       "/data/*",
       "/images/*",
       "*.xml",
