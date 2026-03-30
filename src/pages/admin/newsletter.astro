@@ -87,11 +87,12 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     }
 
     function renderStats(data: any) {
-      const { form_subscribers, recent_subscribers } = data.data;
+      const { tags, recent_subscribers } = data.data;
       const loadingEl = document.getElementById('loading-state')!;
       loadingEl.classList.add('hidden');
 
-      document.getElementById('stat-newsletter')!.textContent = (form_subscribers || 0).toString();
+      const newsletterTag = tags.find((t: any) => t.name === 'newsletter-subscriber');
+      document.getElementById('stat-newsletter')!.textContent = newsletterTag ? newsletterTag.count.toString() : '0';
 
       // Recent subscribers table (remove status column)
       const bodyEl = document.getElementById('subscribers-body')!;
