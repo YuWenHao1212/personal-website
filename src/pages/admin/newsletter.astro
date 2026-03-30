@@ -17,7 +17,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
         <div class="text-sm text-ink-400 mb-1">電子報訂閱</div>
         <div id="stat-newsletter" class="text-3xl font-bold text-ink-900">—</div>
-        <div class="text-xs text-ink-400 mt-1">newsletter-subscriber</div>
+        <div class="text-xs text-ink-400 mt-1">form 訂閱數</div>
       </div>
       <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
         <div class="text-sm text-ink-400 mb-1">Survey 填單</div>
@@ -97,17 +97,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     }
 
     function renderStats(data: any) {
-      const { total_subscribers, tags, recent_subscribers } = data.data;
+      const { total_subscribers, form_subscribers, tags, recent_subscribers } = data.data;
       const loadingEl = document.getElementById('loading-state')!;
       loadingEl.classList.add('hidden');
 
       document.getElementById('stat-total')!.textContent = total_subscribers.toString();
 
-      const newsletterTag = tags.find((t: any) => t.name === 'newsletter-subscriber');
       const surveyTag = tags.find((t: any) => t.name.includes('AIMeeting'));
       const surveyConvertTag = tags.find((t: any) => t.name === 'survey-to-newsletter');
 
-      document.getElementById('stat-newsletter')!.textContent = newsletterTag ? newsletterTag.count.toString() : '0';
+      document.getElementById('stat-newsletter')!.textContent = (form_subscribers || 0).toString();
       document.getElementById('stat-survey')!.textContent = surveyTag ? surveyTag.count.toString() : '0';
       document.getElementById('stat-survey-convert')!.textContent = surveyConvertTag ? surveyConvertTag.count.toString() : '0';
 
@@ -141,7 +140,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
       // Build cumulative data
       const cumulative: { date: string; total: number }[] = [];
-      // Start from total subscribers minus sum of trend counts (= count before the 30-day window)
+      // Start from form subscribers minus sum of trend counts (= count before the 30-day window)
       const totalSubs = parseInt(document.getElementById('stat-newsletter')!.textContent || '0');
       const trendSum = trend.reduce((sum: number, d: any) => sum + d.count, 0);
       let running = totalSubs - trendSum;
