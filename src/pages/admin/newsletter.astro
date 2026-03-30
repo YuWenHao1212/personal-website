@@ -6,18 +6,14 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   <div class="max-w-5xl">
 
     <!-- Stats cards -->
-    <div class="grid gap-4 mb-6" style="grid-template-columns: repeat(4, 1fr);">
-      <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
-        <div class="text-sm text-ink-400 mb-1">總訂閱數</div>
-        <div class="flex items-baseline gap-2">
-          <span id="stat-total" class="text-3xl font-bold text-ink-900">—</span>
-          <span id="stat-today" class="text-sm font-medium text-green-600"></span>
-        </div>
-      </div>
+    <div class="grid gap-4 mb-6" style="grid-template-columns: repeat(3, 1fr);">
       <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
         <div class="text-sm text-ink-400 mb-1">電子報訂閱</div>
-        <div id="stat-newsletter" class="text-3xl font-bold text-ink-900">—</div>
-        <div class="text-xs text-ink-400 mt-1">form 訂閱數</div>
+        <div class="flex items-baseline gap-2">
+          <span id="stat-newsletter" class="text-3xl font-bold text-ink-900">—</span>
+          <span id="stat-today" class="text-sm font-medium text-green-600"></span>
+        </div>
+        <div id="stat-7d" class="text-xs text-ink-400 mt-1"></div>
       </div>
       <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
         <div class="text-sm text-ink-400 mb-1">Survey 填單</div>
@@ -97,11 +93,9 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     }
 
     function renderStats(data: any) {
-      const { total_subscribers, form_subscribers, tags, recent_subscribers } = data.data;
+      const { form_subscribers, tags, recent_subscribers } = data.data;
       const loadingEl = document.getElementById('loading-state')!;
       loadingEl.classList.add('hidden');
-
-      document.getElementById('stat-total')!.textContent = total_subscribers.toString();
 
       const surveyTag = tags.find((t: any) => t.name.includes('AIMeeting'));
       const surveyConvertTag = tags.find((t: any) => t.name === 'survey-to-newsletter');
@@ -132,11 +126,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       const { today, trend } = data.data;
       const chartEl = document.getElementById('trend-chart')!;
       const todayEl = document.getElementById('stat-today')!;
+      const stat7dEl = document.getElementById('stat-7d')!;
       const trendTotalEl = document.getElementById('trend-total')!;
 
       if (today > 0) {
         todayEl.textContent = `+${today} 今日`;
       }
+
+      // Calculate last 7 days growth
+      const last7 = trend.slice(-7).reduce((sum: number, d: any) => sum + d.count, 0);
+      stat7dEl.textContent = `過去 7 天 +${last7}`;
 
       // Build cumulative data
       const cumulative: { date: string; total: number }[] = [];
