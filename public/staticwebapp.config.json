@@ -4,7 +4,6 @@
     "rewrite": "/index.html",
     "exclude": [
       "/api/*",
-      "/admin/*",
       "/data/*",
       "/images/*",
       "*.xml",
@@ -24,6 +23,16 @@
     ]
   },
   "routes": [
+    {
+      "route": "/admin",
+      "redirect": "/admin/newsletter/",
+      "statusCode": 302
+    },
+    {
+      "route": "/admin/",
+      "redirect": "/admin/newsletter/",
+      "statusCode": 302
+    },
     {
       "route": "/",
       "redirect": "/zh-TW/",
