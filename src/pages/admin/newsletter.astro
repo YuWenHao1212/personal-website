@@ -8,22 +8,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     <!-- Stats cards -->
     <div class="grid gap-4 mb-6" style="grid-template-columns: repeat(3, 1fr);">
       <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
-        <div class="text-sm text-ink-400 mb-1">電子報訂閱</div>
-        <div class="flex items-baseline gap-2">
-          <span id="stat-newsletter" class="text-3xl font-bold text-ink-900">—</span>
-          <span id="stat-today" class="text-sm font-medium text-green-600"></span>
-        </div>
-        <div id="stat-7d" class="text-xs text-ink-400 mt-1"></div>
+        <div class="text-sm text-ink-400 mb-1">電子報總訂閱</div>
+        <div id="stat-newsletter" class="text-3xl font-bold text-ink-900">—</div>
       </div>
       <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
-        <div class="text-sm text-ink-400 mb-1">Survey 填單</div>
-        <div id="stat-survey" class="text-3xl font-bold text-ink-900">—</div>
-        <div class="text-xs text-ink-400 mt-1">AIMeeting Note Tool Survey</div>
+        <div class="text-sm text-ink-400 mb-1">今日新增</div>
+        <div id="stat-today" class="text-3xl font-bold text-ink-900">—</div>
       </div>
       <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
-        <div class="text-sm text-ink-400 mb-1">Survey 轉訂閱</div>
-        <div id="stat-survey-convert" class="text-3xl font-bold text-ink-900">—</div>
-        <div class="text-xs text-ink-400 mt-1">survey-to-newsletter</div>
+        <div class="text-sm text-ink-400 mb-1">過去 7 天新增</div>
+        <div id="stat-7d" class="text-3xl font-bold text-ink-900">—</div>
       </div>
     </div>
 
@@ -93,16 +87,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     }
 
     function renderStats(data: any) {
-      const { form_subscribers, tags, recent_subscribers } = data.data;
+      const { form_subscribers, recent_subscribers } = data.data;
       const loadingEl = document.getElementById('loading-state')!;
       loadingEl.classList.add('hidden');
 
-      const surveyTag = tags.find((t: any) => t.name.includes('AIMeeting'));
-      const surveyConvertTag = tags.find((t: any) => t.name === 'survey-to-newsletter');
-
       document.getElementById('stat-newsletter')!.textContent = (form_subscribers || 0).toString();
-      document.getElementById('stat-survey')!.textContent = surveyTag ? surveyTag.count.toString() : '0';
-      document.getElementById('stat-survey-convert')!.textContent = surveyConvertTag ? surveyConvertTag.count.toString() : '0';
 
       // Recent subscribers table (remove status column)
       const bodyEl = document.getElementById('subscribers-body')!;
@@ -129,13 +118,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       const stat7dEl = document.getElementById('stat-7d')!;
       const trendTotalEl = document.getElementById('trend-total')!;
 
-      if (today > 0) {
-        todayEl.textContent = `+${today} 今日`;
-      }
+      todayEl.textContent = today.toString();
 
       // Calculate last 7 days growth
       const last7 = trend.slice(-7).reduce((sum: number, d: any) => sum + d.count, 0);
-      stat7dEl.textContent = `過去 7 天 +${last7}`;
+      stat7dEl.textContent = last7.toString();
 
       // Build cumulative data
       const cumulative: { date: string; total: number }[] = [];
