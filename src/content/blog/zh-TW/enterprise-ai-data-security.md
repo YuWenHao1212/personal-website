@@ -11,7 +11,7 @@ draft: false
 featured: false
 heroImage: /images/blog/enterprise-ai-data-security.webp
 focus_keyphrase: "自架 LLM"
-relatedPosts: ["claude-code-tutorial.md", "agentic-coding-guide.md", "ai-harness.md"]
+relatedPosts: ["enterprise-ai-adoption-bottleneck.md", "claude-code-tutorial.md", "ai-harness.md"]
 faq:
   - question: "企業用 AI 資料會外洩嗎？"
     answer: "取決於你選的部署方式。API 直接呼叫時，資料會經過 AI 公司的伺服器，但全程加密且商業用戶資料不用於訓練。雲端託管（如 AWS Bedrock）的資料留在你自己的雲端帳號，AI 公司看不到。自建開源模型則資料完全在你自己的機房。三條路的安全等級不同，成本也差很多。"
@@ -358,6 +358,10 @@ Claude 不只安全，在企業導入上也是目前的市場領導者：
 
 選錯路的代價不是不安全——是員工等了半年，還是沒有 AI 可以用。
 
+### 延伸閱讀
+
+部署方式選好了，下一個問題是怎麼開始——[企業數位轉型，為什麼總是卡在第一步？](/zh-TW/blog/enterprise-ai-adoption-bottleneck/)記錄了我在企業現場做 AI 工作流導入時，實際遇到的瓶頸和突破方式。
+
 ---
 
-*正在評估公司的 AI 部署方案？[看看我有什麼服務](/zh-TW/services/)。*
+*我幫企業評估 AI 部署方案和工作流導入。還在猶豫選哪條路？[直接寫信聊聊](mailto:mail@yu-wenhao.com?subject=企業%20AI%20部署方案諮詢)，或[看看服務內容](/zh-TW/services/)。*
