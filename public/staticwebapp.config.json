@@ -379,6 +379,16 @@
       "statusCode": 301
     },
     {
+      "route": "/blog/enterprise-ai-adoption-bottleneck",
+      "redirect": "/zh-TW/blog/enterprise-ai-adoption-bottleneck/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/multi-agent-hidden-cost",
+      "redirect": "/zh-TW/blog/multi-agent-hidden-cost/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301

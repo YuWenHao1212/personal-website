@@ -10,7 +10,7 @@ featured: true
 draft: false
 heroImage: /images/blog/claude-skills-guide.webp
 focusKeyphrase: "claude skills 教學"
-relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
+relatedPosts: ["enterprise-ai-adoption-bottleneck.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
 faq:
   - question: "Claude Skills 是什麼？"
     answer: "解決「每次開新對話都要重新教 AI」的問題。一個 skill 是一個資料夾：SKILL.md（主要指令，YAML 封面 + Markdown 步驟）、scripts/（可執行腳本）、references/（參考文件）、assets/（模板）。寫一次，之後每次對話自動套用。"
@@ -320,6 +320,10 @@ Agent Skills 本身不難——就是 Markdown 加上一些結構。但它代表
 > **想在一天內把這些串起來？** 5/16（六）我和 Vista 在台北開一場 6 小時實作工作坊，帶你用 Claude Code + Obsidian 建好目標追蹤、知識庫、自動化腳本——不用自己摸三個月。[看工作坊詳情 →](https://www.solo.tw/courses/ai-command-center)
 
 ---
+
+### 延伸閱讀
+
+這套 AI 工作流方法要導入企業環境？[這篇記錄了我在現場的觀察](/zh-TW/blog/enterprise-ai-adoption-bottleneck/)——最大的瓶頸往往不在工具，在更前面。
 
 *如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
 

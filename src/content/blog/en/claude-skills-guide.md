@@ -10,7 +10,7 @@ featured: true
 draft: false
 heroImage: /images/blog/claude-skills-guide.webp
 focusKeyphrase: "claude skills guide"
-relatedPosts: ["agentic-coding-guide.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
+relatedPosts: ["enterprise-ai-adoption-bottleneck.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
 faq:
   - question: "What are Claude Skills?"
     answer: "They solve the 'teaching AI the same thing every conversation' problem. A skill is a folder: SKILL.md (main instructions—YAML header + Markdown steps), scripts/ (executable code), references/ (docs), and assets/ (templates). Write once, auto-applied to every future conversation."
@@ -314,5 +314,9 @@ And the standard is open. The skill you write in Claude Code today can move to C
 For me, Agent Skills are what took [Agentic Coding](/en/blog/agentic-coding-guide/) from "usable" to "powerful." Tools connected (MCP), knowledge packaged (Skills)—what's left is letting AI follow your workflow, whether you use it for coding, research, or turning daily operations into AI workflow automation.
 
 ---
+
+### Further Reading
+
+Want to bring AI workflows into your organization? [This article captures what I've seen on the ground](/en/blog/enterprise-ai-adoption-bottleneck/) — the biggest bottleneck is rarely the tools.
 
 *Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*

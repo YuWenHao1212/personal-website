@@ -4,13 +4,13 @@ description: "企業數位轉型最常卡在「流程沒人寫下來」。這篇
 pubDate: 2026-03-30
 category: building-products
 tags: ["AI", "企業AI", "數位轉型", "流程優化", "AI工作流"]
-keywords: ["企業數位轉型", "AI 工作流", "企業 AI 導入", "流程自動化", "AI 導入瓶頸", "數位轉型第一步"]
+keywords: ["AI 工作流", "企業 AI 導入", "企業數位轉型", "流程自動化", "AI 導入瓶頸", "企業 AI"]
 lang: zh-TW
 translationKey: enterprise-ai-adoption-bottleneck
 draft: false
 featured: false
 heroImage: /images/blog/enterprise-ai-adoption-bottleneck.webp
-focus_keyphrase: "企業數位轉型"
+focus_keyphrase: "AI 工作流"
 relatedPosts: ["enterprise-ai-data-security.md", "ai-harness.md", "claude-skills-guide.md"]
 faq:
   - question: "企業數位轉型最常卡在什麼地方？"
@@ -152,6 +152,8 @@ SOP 的問題不是「沒寫」，是寫的不是真正在做的事。
 | 主管靠 LINE 追進度，員工花時間寫週報 | AI 每日整理工作產出記錄 → 週末自動彙整成週報 |
 
 企業數位轉型不是讓每個員工都變成 AI 專家。是把散落在人腦裡的流程寫下來，讓工具之間長出那條線。
+
+> 想自己動手試？[這篇 Claude Skills 教學](/zh-TW/blog/claude-skills-guide/)從零開始帶你建一套可重複使用的 AI 工作流。
 
 ---
 
