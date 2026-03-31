@@ -1,6 +1,6 @@
 ---
-title: "The Hardest Part of Enterprise AI Adoption Isn't Teaching AI — It's That Nobody Wrote Down the Process"
-description: "The real bottleneck in enterprise AI adoption isn't tools or budget — it's that most business processes have never been documented. A real case study of helping an admin staff automate workflows, why traditional SOPs don't work, and the one thing managers can do today."
+title: "Why Enterprise AI Workflow Adoption Gets Stuck at Step One"
+description: "The real bottleneck in enterprise AI workflow adoption isn't tools or budget — it's that most business processes have never been documented. A real case study, why traditional SOPs don't work, and the three questions managers can ask today."
 pubDate: 2026-03-30
 category: building-products
 tags: ["AI", "enterprise AI", "digital transformation", "process automation", "AI adoption"]
