@@ -26,6 +26,10 @@ pnpm-debug.log*
 # Serena MCP (local only)
 .serena/
 
+# Paperclip symlinks (point to FLUX Vault)
+flux-ops
+references
+
 # Original source images (use optimized webp versions instead)
 public/*.jpg
 public/*.jpeg
