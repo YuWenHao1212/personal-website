@@ -156,6 +156,6 @@ focus_keyphrase: "非工程師學 claude code"
 
 ---
 
-我做的事是：陪人把 AI 真正接到他們的工作流裡 —— 不是再多學一套工具，是把整個工作方式重組。有企業導入顧問，也有像當初帶子維那種的一對一。
+我做的事就是把 AI 真正串進你的工作流 —— 不是再多學一套工具。企業內訓、工作流設計、個人系統陪跑都在做。
 
-如果這篇打中你，先到這裡看看 → [yu-wenhao.com/zh-TW/services](https://yu-wenhao.com/zh-TW/services/)
+如果這篇打中你，[先到這裡看看](https://yu-wenhao.com/zh-TW/services/) —— 子維的證言也在那個頁面上。
