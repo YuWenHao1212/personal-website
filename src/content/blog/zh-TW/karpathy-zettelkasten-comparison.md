@@ -82,7 +82,7 @@ Karpathy 的理由是這個：
 
 Karpathy 的 gist 是工具不可知的 —— 他同時列了 Claude Code、OpenAI Codex、OpenCode 等選項。我用 Claude Code，所以對照我這邊用 `CLAUDE.md`。
 
-四個層對到了。但骨架像不代表兩條路一樣 —— 我用 LYT 半年，知識庫一直在長大，只是長大的方式跟 Karpathy 描述的完全不同。
+四個層對到了。但骨架像不代表兩條路一樣 —— 我用 LYT 半年，搭配 Claude Code 打了一套[完整的 AI 工作流](/zh-TW/blog/personal-panopticon/)，知識庫一直在長大，只是長大的方式跟 Karpathy 描述的完全不同。
 
 ## 三、我從 Karpathy 學到了什麼
 
