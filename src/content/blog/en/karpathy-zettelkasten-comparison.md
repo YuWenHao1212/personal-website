@@ -185,10 +185,8 @@ I used his method to study his method. It didn't make me switch systems. But it 
 
 ---
 
-### Further reading
+*Related reading:*
 
-Want to see how I wired LYT + Claude Code into a complete AI workflow? [Here's the full walkthrough](/en/blog/ai-second-brain/) — from the morning "start work" command through knowledge base, email, meetings, and goal tracking, all connected.
+- *[How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)* — The complete system: knowledge base, daily briefs, email automation, meeting notes, and goal tracking
 
-*If this gave you ideas, [subscribe to my weekly letter](/en/) — I write about AI workflows and lessons learned along the way.*
-
-*Want to talk about integrating AI into your workflow? [See my services](/en/services/).*
+*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*
