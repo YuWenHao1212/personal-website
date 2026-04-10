@@ -1,6 +1,6 @@
 ---
-title: "Karpathy LLM Wiki 是什麼？我用他的方法研究了一次，發現兩個你該知道的分歧"
-description: "Andrej Karpathy 公開的 LLM Wiki pattern 被 AI 圈洗版。我用他的方法研究他的方法 —— 跑了一次 ingest、對照我的 LYT 系統、聽了 HN 的反對聲音。最後發現這其實是 folder/tag 時代的老問題換了個皮。"
+title: "Karpathy LLM Wiki 是什麼？一個卡片盒筆記法使用者的實測"
+description: "Andrej Karpathy 公開的 LLM Wiki pattern 被 AI 圈洗版。我用他的方法研究他的方法，跑完發現：骨架跟我的 LYT 幾乎一樣，但真正的分歧是分類決策 —— folder、tag、wiki page，三個容器問題形狀一模一樣。"
 pubDate: 2026-04-10
 category: building-products
 tags: ["karpathy", "llm", "obsidian", "知識管理", "zettelkasten", "lyt", "ai 工作流"]
@@ -9,7 +9,7 @@ featured: true
 heroImage: /images/blog/karpathy-llm-wiki-vs-lyt.webp
 translationKey: karpathy-llm-wiki-vs-lyt
 relatedPosts: ["lyt-framework-guide.md", "personal-panopticon.md", "claude-skills-guide.md", "teaching-48yo-psychologist-claude-code.md"]
-focus_keyphrase: "karpathy llm wiki"
+focus_keyphrase: "卡片盒筆記法"
 ---
 
 這一週，AI 社群被一篇技術筆記洗版。
@@ -84,9 +84,21 @@ Karpathy 的 gist 是工具不可知的 —— 他同時列了 Claude Code、Ope
 
 四個層對到了。但骨架像不代表兩條路一樣 —— 我用 LYT 半年，知識庫一直在長大，只是長大的方式跟 Karpathy 描述的完全不同。
 
-差在哪？不在工具，在兩個哲學分歧。
+## 三、我從 Karpathy 學到了什麼
 
-## 三、分歧一 —— 靜止 vs 改寫
+跑完骨架對照之後，我發現 Karpathy 的 pattern 有幾件事是我的系統還沒做到的。
+
+**Ingest 時的矛盾偵測**。新 source 進來，LLM 會比對新資訊跟舊 wiki page 的衝突，標出矛盾，留給人判斷。我的原子卡片目前不會互相比對。
+
+**跨 page 連鎖更新**。一個新 source 可能同時更新 10-15 張 wiki page。我建新卡時會補連結，但不會動舊卡的內文。
+
+**Lint**。定期掃整座 wiki 做健康檢查 —— 找矛盾、找孤立 page、找過期內容。更厲害的是它會偵測概念缺口：「你在好幾個地方提到這個概念，但沒有獨立的 page」—— LLM 主動建議你建一張。
+
+這些功能技術上都能加進我的系統。但 Karpathy 的貢獻是**他先把這些想清楚了，然後寫成一份任何人都能用的 pattern**。
+
+學到了這些之後，接下來要問的是：那兩條路的真正差異在哪？
+
+## 四、靜止 vs 改寫
 
 我用 LYT 的習慣是這樣：
 
@@ -94,67 +106,29 @@ Karpathy 的 gist 是工具不可知的 —— 他同時列了 Claude Code、Ope
 
 靜止是代價，但省下了一整套麻煩。你不用判斷「這個新資訊要併進哪張舊卡」、不用擔心改壞了、不用維護版本歷史。
 
-Karpathy 不這樣。
+Karpathy 不這樣。新 source 進來，LLM 會回頭改寫相關的舊 page。前面第三段提到的矛盾偵測、跨 page 連鎖更新、lint，都是圍繞這個「改寫」動作的配套。
 
-新 source 進來，LLM 會回頭改寫相關的舊 page —— 這個動作他叫 `ingest`。但 ingest 不是隨便覆蓋。Karpathy gist 裡的原則是：LLM 負責判斷新資訊跟舊 page 的關係，**遇到矛盾要標出來，留給人判斷**。不能自作主張。
+這是兩條路的第一個差異 —— 你的知識庫是**靜止的快照集合**，還是**一直在被改寫的活文件**？
 
-[Mehmet Gökçe](https://mehmetgoekce.substack.com/p/i-built-karpathys-llm-wiki-with-claude)（第一個把 Karpathy gist 做成完整開源實作的人）把這個原則細化成五階段：
+## 五、一張卡到底是什麼？
 
-1. Analyze & Extract entities and relationships
-2. Scan existing wiki to find affected pages
-3. **Update pages (append-only, never overwrite)** ← 關鍵原則
-4. Quality gate validation
-5. Report summary with warnings
+第四段講的是「改不改」，但更根本的問題是 —— **一張卡到底裝什麼？**
 
-**append-only** 是重點。新資訊往上加，不覆蓋舊的；矛盾就並列兩個版本、標出處；取代的話舊說法標為過時但保留。
+LYT 的答案是一個**原子概念**。一張卡一件事，邊界由概念本身決定。好處是歸檔不用想太多，新東西進來就開新卡。代價是你要掌握一個主題的最新狀態，得靠 MOC 和連結自己拼圖。
 
-搭配這個改寫，還有兩個配套動作。
+Karpathy 的答案是一個**主題聚合**。一張 wiki page 是那個主題目前的 best-of 總整理。10 個 sources 可能被 LLM 併進 1-2 張 page。好處是打開一張就看到全貌，不用自己拼。
 
-一個叫 `log` —— 每次動到 wiki 都留一筆紀錄：誰改了什麼、為什麼改。append-only，不能事後修改。
+但我昨天跑 ingest 的時候就卡住了 —— **主題的邊界在哪？** 幾份 source 該併成一張 page、哪些該獨立出來？最後跑出來的數量和邊界，都是我臨時決定的，不是某個規則告訴我的。
 
-一個叫 `lint` —— 定期回頭掃整座 wiki 找重複、找矛盾、找過期段落，然後人去看 lint 報告做決定。
-
-這三個動作是一組的：有改寫就要有 log，有 log 才能 lint。少任何一個，改寫就會失控。
-
-## 四、分歧二 —— 原子化 vs 主題聚合
-
-這是兩條路的分水嶺。兩個做法真正差在 —— **一張卡到底是什麼？**
-
-LYT 的答案是一個**原子概念**。一張卡片只講一件事。LYT 一張、MCP 一張、Claude Code 一張，邊界很清楚。每張卡片是一個乾淨的人類思考 snapshot，不會被改寫。
-
-原子的好處是歸檔不用想太多 —— 新東西進來該放哪、切成幾張，概念本身會告訴你答案。你可以偷懶半年不 review，卡片還在那裡、還是你當初想的那樣。
-
-代價是：舊卡的內容不會自己演化。新資訊進來只會長出新卡，但之前寫好的卡本體停在它被建立的那一天。你要掌握一個主題的最新狀態，得靠 MOC 和連結自己在腦子裡拼圖。
-
-Karpathy 的答案是一個**主題聚合**。一張 wiki page 不是原子，是那個主題目前的 best-of 總整理。10 個 sources 可能被 LLM 併進 1-2 張 page。
-
-好處是：你打開一張就看到整個主題的最新狀態，不用自己拼。
-
-代價有兩個。
-
-一個是**維護成本很高**。前面說的 ingest + log + lint 整套規則你得持續跑，一旦偷懶就崩。
-
-另一個更麻煩 —— **主題的邊界在哪？** 要切成幾張 page？哪些東西該併進同一張、哪些該獨立出來？
-
-這個問題 Karpathy 的 gist 沒給明確規則。他說 LLM 負責編譯、矛盾留給人判斷，但主題怎麼切他繞過去了。實作者 Mehmet 的說法是：「hub pages should emerge organically」—— 翻譯成白話就是「我也不知道，跑一跑看」。
-
-我昨天跑那次 ingest 的時候就卡在這裡。
-
-7 份 source 該編譯成幾張 wiki page？併太多看起來太擠，切太細又失去聚合的意義。最後跑出 12 張。但那 12 張的邊界是我臨時決定的，不是某個規則告訴我的。
-
-寫完我突然意識到：這個問題我見過。
-
-它其實是 folder 和 tag 時代的老問題換了個皮。Evernote 時代你在問「這個筆記放哪個 folder」。Notion 早期你在問「這個頁面打哪些 tag」。Karpathy wiki 現在在問「這個 source 併進哪張 wiki page」。
+然後我意識到：這個問題我見過。Evernote 時代你在問「這個筆記放哪個 folder」。Notion 早期你在問「這個頁面打哪些 tag」。Karpathy wiki 現在在問「這個 source 併進哪張 wiki page」。
 
 三個問題的形狀一模一樣：**對一個新進來的東西，你要決定它屬於哪個容器**。
 
-LYT / Zettelkasten 的原子化就是在繞開這個問題 —— 一張卡一個概念，連結取代分類。新東西進來就開新卡，不用想它歸哪個既有容器。
+卡片盒筆記法（Zettelkasten）的原子化就是在繞開這個問題 —— 一張卡一個概念，連結取代分類。新東西進來，同一個概念就補在舊卡上、不同概念就開新卡。邊界由概念本身決定，不用想「歸到哪個容器」。
 
 Karpathy 的主題聚合是往回走。它用 LLM 的能力把 compound 成本壓低，但沒解決「容器邊界在哪」這個老問題。
 
-我卡在 12 張的真正原因不是經驗不足，是這個問題本來就沒好答案。
-
-## 五、HN 的反對聲音
+## 六、HN 的反對聲音
 
 容器邊界是我自己跑完實驗後的觀察。但 HN 上還有兩層不同角度的反對，都不是在攻擊 LLM 的能力，是在攻擊**人類的懶惰**。
 
@@ -184,17 +158,15 @@ Karpathy 其實在 gist 裡有預先反駁這點：
 
 「vibe coding」是一個已經存在的現象 —— 不懂原理就讓 AI 寫 code，結果能跑但你不懂。HN 擔心的是 vibe thinking —— 把「整理」外包等於把「思考」外包，wiki 看起來很有組織但你根本沒內化。
 
-### 我的綜合判斷
+### 那對我來說真正的問題是什麼？
 
-這兩個反對聲音有個共同點 —— 它們都不是在攻擊 LLM 的能力，是在攻擊人類的懶惰。
+這兩個反對聲音都在攻擊人類的懶惰。但對我來說，它們不是真正的問題。
 
-問題是 —— 我自己也懶。
+我也懶。但我的防禦是前置的 —— 新東西進來先跟 LLM 討論到我理解，理解完才決定要不要歸檔。思考在對話裡發生，歸檔是思考完的結果。而 Karpathy 的矛盾偵測、log、lint 這些維護機制，我也都帶回來了或準備帶回來。跨卡的內文改寫也是 —— 卡片盒筆記法本來就有這個機制，只是我之前沒系統化。
 
-我的防禦不是「保持警醒」，是前置的：新東西進來先跟 LLM 討論到我理解，理解完才決定要不要歸檔。思考在對話裡發生，歸檔是思考完的結果。
+真正讓我不搬家的原因只有一個：**容器**。
 
-但這不是誰比較好的問題，是**你願不願意做分類決策**的問題。兩條路都用 LLM 做 compound —— Karpathy 把新舊資訊併進 wiki page，LYT 把新資訊拆成原子卡片再連結回去。bookkeeping 成本兩邊都壓得下來。
-
-差別在容器。Karpathy 的 wiki page 是主題聚合 —— 你要決定主題邊界在哪、哪些東西該併進同一張 page。LYT 的原子卡片繞開了這個問題 —— 一張卡一個概念，不用想歸到哪裡。
+兩條路都用 LLM 做 compound，bookkeeping 成本兩邊都壓得下來。但 Karpathy 的 wiki page 是主題聚合 —— 你要決定主題邊界在哪、哪些東西該併進同一張 page。LYT 的原子卡片繞開了這個問題 —— 一張卡一個概念，不用想歸到哪裡。
 
 如果你對「這個東西該放哪」這類決策不覺得煩，Karpathy 的 pattern 值得試。去讀他的 [gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)，搭配 Mehmet 的[實作文章](https://mehmetgoekce.substack.com/p/i-built-karpathys-llm-wiki-with-claude)。
 
@@ -214,10 +186,10 @@ RAG 每次查詢重新從 raw 文件找答案，什麼都不留。LLM Wiki 讓 L
 
 LLM 反覆讀自己寫的東西再改寫，長期下來細節被磨平、風格單一化 —— 平均的平均的平均。[Nature 2024](https://www.nature.com/articles/s41586-024-07566-x) 有論文論證。這是 HN 對 Karpathy pattern 最大的技術擔憂。我自己的做法是用前置防禦繞開 —— 先跟 LLM 討論到理解，理解完才歸檔，所以進知識庫的每張卡片都是我理解過的，不是 LLM 寫完我沒看就存進去的。
 
-### LYT 和 Karpathy LLM Wiki 的核心差別是什麼？
+### 卡片盒筆記法和 Karpathy LLM Wiki 的核心差別是什麼？
 
-容器。LYT 的原子卡片一張一個概念，連結取代分類，不用想「這個東西歸哪裡」。Karpathy 的 wiki page 是主題聚合，一張 page 裝一個主題的所有東西，但你要決定主題邊界在哪。這是 folder 和 tag 時代的老問題換了個皮 —— 選哪個 folder 變成選哪張 wiki page。
+容器。卡片盒筆記法（LYT / Zettelkasten）的原子卡片一張一個概念，連結取代分類，不用想「這個東西歸哪裡」。Karpathy 的 wiki page 是主題聚合，一張 page 裝一個主題的所有東西，但你要決定主題邊界在哪。這是 folder 和 tag 時代的老問題換了個皮 —— 選哪個 folder 變成選哪張 wiki page。
 
 ### 我該用 Karpathy 的方法嗎？
 
-問自己一個問題：你對「這個東西該放哪」這類分類決策煩不煩？如果不煩，Karpathy 的 pattern 值得試 —— 去讀他的 [gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)，搭配 Mehmet 的[實作文章](https://mehmetgoekce.substack.com/p/i-built-karpathys-llm-wiki-with-claude)。如果你跟我一樣，從 folder 出來、從 tag 出來，不想再走進另一個分類系統，那原子化路線可能更適合你。
+問自己一個問題：你對「這個東西該放哪」這類分類決策煩不煩？如果不煩，Karpathy 的 pattern 值得試 —— 去讀他的 [gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)，搭配 Mehmet 的[實作文章](https://mehmetgoekce.substack.com/p/i-built-karpathys-llm-wiki-with-claude)。如果你跟我一樣，從 folder 出來、從 tag 出來，不想再走進另一個分類系統，那卡片盒筆記法的原子化路線可能更適合你。
