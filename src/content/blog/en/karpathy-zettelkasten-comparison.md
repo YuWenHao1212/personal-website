@@ -3,7 +3,7 @@ title: "What Is Karpathy's LLM Wiki? A Zettelkasten User's Honest Review"
 description: "Karpathy's LLM Wiki pattern went viral in the AI community. As an Obsidian + LYT user, I ran his method on his own method — and found the real divide is about classification: folders, tags, wiki pages, same container problem in different skin."
 pubDate: 2026-04-10
 category: building-products
-tags: ["karpathy", "llm", "obsidian", "knowledge management", "zettelkasten", "lyt", "ai workflow"]
+tags: ["karpathy", "llm", "obsidian", "knowledge management", "zettelkasten", "lyt", "ai workflow", "personal knowledge base"]
 lang: en
 featured: true
 heroImage: /images/blog/karpathy-zettelkasten-comparison.webp
@@ -52,7 +52,7 @@ Second, the real divide isn't technical. It's philosophical — what does a sing
 
 ## What did Karpathy say?
 
-His core claim is simple: **skip RAG, build a wiki instead**.
+His core claim is simple: **skip RAG, build a personal knowledge base as a wiki instead**.
 
 RAG retrieves answers from raw files at query time. Karpathy's approach: have the LLM act as a compiler, incrementally building raw files into a persistent markdown wiki, then continuously maintaining it.
 
