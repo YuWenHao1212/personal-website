@@ -10,6 +10,15 @@ heroImage: /images/blog/karpathy-zettelkasten-comparison.webp
 translationKey: karpathy-zettelkasten-comparison
 relatedPosts: ["lyt-framework-guide.md", "personal-panopticon.md", "claude-skills-guide.md", "teaching-48yo-psychologist-claude-code.md"]
 focus_keyphrase: "卡片盒筆記法"
+faq:
+  - question: "Karpathy 的 LLM Wiki 跟 RAG 有什麼不同？"
+    answer: "RAG 每次查詢重新從 raw 文件找答案，什麼都不留。LLM Wiki 讓 LLM 把 raw 增量編譯成一份持久化的知識管理 wiki，然後一直維護它。差別是時間維度 —— RAG 每次重新推導，wiki 把推導結果存起來持續累積。"
+  - question: "什麼是 Model Collapse？"
+    answer: "LLM 反覆讀自己寫的東西再改寫，長期下來細節被磨平、風格單一化 —— 平均的平均的平均。Nature 2024 有論文論證。這是 HN 對 Karpathy pattern 最大的技術擔憂。"
+  - question: "卡片盒筆記法和 Karpathy LLM Wiki 的核心差別是什麼？"
+    answer: "容器。卡片盒筆記法的原子卡片一張一個概念，連結取代分類，不用想「這個東西歸哪裡」。Karpathy 的 wiki page 是主題聚合，一張 page 裝一個主題的所有東西，但你要決定主題邊界在哪。這是 folder 和 tag 時代的老問題換了個皮。"
+  - question: "我該用 Karpathy 的方法嗎？"
+    answer: "問自己一個問題：你對「這個東西該放哪」這類分類決策煩不煩？如果不煩，而且有明確的主題要長期維護，Karpathy 的 pattern 值得試。如果你跟我一樣，從 folder 出來、從 tag 出來，不想再走進另一個分類系統，那卡片盒筆記法的原子化路線可能更適合你。"
 ---
 
 這一週，AI 社群被一篇技術筆記洗版。
@@ -176,20 +185,10 @@ Karpathy 其實在 gist 裡有預先反駁這點：
 
 ---
 
-## FAQ
+### 延伸閱讀
 
-### Karpathy 的 LLM Wiki 跟 RAG 有什麼不同？
+想看我怎麼把 LYT + Claude Code 串成一套完整的 AI 工作流？[這篇是完整介紹](/zh-TW/blog/personal-panopticon/)——從每天早上的「開工」到知識庫、郵件、會議、目標管理全部串起來。
 
-RAG 每次查詢重新從 raw 文件找答案，什麼都不留。LLM Wiki 讓 LLM 把 raw 增量編譯成一份持久化的知識管理 wiki，然後一直維護它。差別是時間維度 —— RAG 每次重新推導，wiki 把推導結果存起來持續累積。Karpathy 自己的說法：「the wiki is a persistent, compounding artifact」（wiki 是一個持久的、會累積的產物）。
+*如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
 
-### 什麼是 Model Collapse？
-
-LLM 反覆讀自己寫的東西再改寫，長期下來細節被磨平、風格單一化 —— 平均的平均的平均。[Nature 2024](https://www.nature.com/articles/s41586-024-07566-x) 有論文論證。這是 HN 對 Karpathy pattern 最大的技術擔憂。我自己的做法是用前置防禦繞開 —— 先跟 LLM 討論到理解，理解完才歸檔，所以進知識庫的每張卡片都是我理解過的，不是 LLM 寫完我沒看就存進去的。
-
-### 卡片盒筆記法和 Karpathy LLM Wiki 的核心差別是什麼？
-
-容器。卡片盒筆記法（LYT / Zettelkasten）的原子卡片一張一個概念，連結取代分類，不用想「這個東西歸哪裡」。Karpathy 的 wiki page 是主題聚合，一張 page 裝一個主題的所有東西，但你要決定主題邊界在哪。這是 folder 和 tag 時代的老問題換了個皮 —— 選哪個 folder 變成選哪張 wiki page。
-
-### 我該用 Karpathy 的方法嗎？
-
-問自己一個問題：你對「這個東西該放哪」這類分類決策煩不煩？如果不煩，Karpathy 的 pattern 值得試 —— 去讀他的 [gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)，搭配 Mehmet 的[實作文章](https://mehmetgoekce.substack.com/p/i-built-karpathys-llm-wiki-with-claude)。如果你跟我一樣，從 folder 出來、從 tag 出來，不想再走進另一個分類系統，那卡片盒筆記法的原子化路線（像我用的 LYT）可能更適合你。
+*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
