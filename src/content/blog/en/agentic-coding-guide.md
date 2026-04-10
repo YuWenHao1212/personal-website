@@ -6,7 +6,7 @@ category: building-products
 tags: ["AI", "solo founder", "Claude Code", "agentic coding", "vibe coding", "developer-tools"]
 lang: en
 translationKey: agentic-coding-guide
-featured: true
+featured: false
 draft: false
 heroImage: /images/blog/agentic-coding-guide.webp
 focus_keyphrase: "agentic coding guide"

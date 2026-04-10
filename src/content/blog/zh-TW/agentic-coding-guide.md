@@ -6,7 +6,7 @@ category: building-products
 tags: ["AI", "一人公司", "Claude Code", "agentic coding", "vibe coding", "developer-tools"]
 lang: zh-TW
 translationKey: agentic-coding-guide
-featured: true
+featured: false
 draft: false
 heroImage: /images/blog/agentic-coding-guide.webp
 focus_keyphrase: "agentic coding 完全指南"

@@ -6,7 +6,7 @@ category: productivity
 tags: ["Obsidian", "LYT", "PKM", "個人知識管理", "筆記方法", "知識管理"]
 lang: zh-TW
 focusKeyphrase: "Obsidian 教學"
-featured: true
+featured: false
 heroImage: /images/blog/lyt-framework/hero.webp
 translationKey: lyt-framework-guide
 relatedPosts: ["卡片盒筆記法.md", "roam-research-to-obsidian.md", "personal-panopticon.md"]
