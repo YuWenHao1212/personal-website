@@ -5,7 +5,7 @@ pubDate: 2026-04-10
 category: building-products
 tags: ["karpathy", "llm", "obsidian", "knowledge management", "zettelkasten", "lyt", "ai workflow", "personal knowledge base"]
 lang: en
-featured: true
+featured: false
 heroImage: /images/blog/karpathy-zettelkasten-comparison.webp
 translationKey: karpathy-zettelkasten-comparison
 relatedPosts: ["lyt-framework-guide.md", "ai-second-brain.md", "claude-skills-guide.md", "teaching-48yo-psychologist-claude-code.md"]
