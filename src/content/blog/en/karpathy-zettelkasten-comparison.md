@@ -105,23 +105,9 @@ After the skeleton comparison, I found several things Karpathy's pattern does th
 
 All of these could technically be added to my system. But Karpathy's contribution is that **he thought these through first and wrote them up as a pattern anyone can use**.
 
-With those lessons in hand, the next question is: where do the two paths actually diverge?
-
-## Should old cards be modified?
-
-My LYT habit works like this:
-
-A card gets created with its current state. Later it gets picked up by a MOC, gets backlinked by newer cards. But **the card's content doesn't change**. New understanding goes into a new card hanging alongside it.
-
-Stillness is a trade-off, but it eliminates a whole class of problems. You don't have to decide "which old card should this new info merge into," don't worry about breaking things, don't need version history.
-
-Karpathy works differently. New sources arrive, the LLM goes back and rewrites related old pages. The contradiction detection, cross-page chain updates, and lint mentioned earlier are all supporting infrastructure for this "rewrite" operation.
-
-This is the first divergence — is your knowledge base **a collection of frozen snapshots**, or **a living document being continuously rewritten**?
+With those lessons absorbed, one question remains that I can't get around.
 
 ## What does a single card actually hold?
-
-The previous section was about "to modify or not." But the more fundamental question is — **what does a single card contain?**
 
 LYT's answer is an **atomic concept**. One card, one idea, boundaries determined by the concept itself. The upside: filing is straightforward — new stuff comes in, open a new card. The downside: to grasp a topic's current state, you need MOCs and links to piece it together yourself.
 
