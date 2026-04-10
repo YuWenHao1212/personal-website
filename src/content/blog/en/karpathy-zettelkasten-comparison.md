@@ -157,7 +157,9 @@ Karpathy pre-addresses this in his gist:
 
 Both objections attack human laziness. For me personally, they're not the real issue.
 
-I'm lazy too. But my defense is front-loaded — new material comes in, I discuss it with the LLM until I understand it, then decide whether to archive. Thinking happens in the conversation. Archiving is the result of completed thinking. And Karpathy's maintenance mechanisms — contradiction detection, log, lint — I've brought back or plan to bring back. Cross-card content revision too — Zettelkasten always had this mechanism, LYT inherited it, I just hadn't systematized it.
+I'm lazy too. But my defense is front-loaded — new material comes in, I discuss it with the LLM until I understand it, then decide whether to archive. Thinking happens in the conversation. Archiving is the result of completed thinking. Every card in my knowledge base has been verified by me — the LLM never reads its own unreviewed compound output, so the premise of Model Collapse doesn't hold. Vibe Thinking doesn't either — archiving is storing completed understanding, not outsourcing understanding.
+
+The contradiction detection, lint, and cross-card revision from Karpathy's pattern — I'm planning to integrate all of those into my system.
 
 The only reason I'm not switching: **the container**.
 
