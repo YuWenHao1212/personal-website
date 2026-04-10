@@ -6,8 +6,8 @@ category: building-products
 tags: ["karpathy", "llm", "obsidian", "知識管理", "zettelkasten", "lyt", "ai 工作流", "卡片盒筆記法", "ai筆記", "筆記軟體"]
 lang: zh-TW
 featured: true
-heroImage: /images/blog/karpathy-llm-wiki-vs-lyt.webp
-translationKey: karpathy-llm-wiki-vs-lyt
+heroImage: /images/blog/karpathy-zettelkasten-comparison.webp
+translationKey: karpathy-zettelkasten-comparison
 relatedPosts: ["lyt-framework-guide.md", "personal-panopticon.md", "claude-skills-guide.md", "teaching-48yo-psychologist-claude-code.md"]
 focus_keyphrase: "卡片盒筆記法"
 ---
