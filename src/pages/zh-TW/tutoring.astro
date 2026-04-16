@@ -1,0 +1,727 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '1 對 1 教學 — AI 工作流、知識管理、Claude Code';
+const description = '4 小時 × 1 對 1 教學，把 AI 工作流、目標管理、知識管理、Claude Code 真正裝進你的日常。NT$8,000，實體（竹北 JustCo）或線上。';
+
+// API / integration config — use localhost in dev, production API otherwise
+const API_BASE = import.meta.env.DEV
+  ? 'http://localhost:8000'
+  : 'https://yu-wenhao-api.calmisland-ea7fe91e.japaneast.azurecontainerapps.io';
+const CALENDLY_URL = 'https://calendly.com/mail-yu-wenhao/tutoring_in_person';
+const STRIPE_PUBLISHABLE_KEY = import.meta.env.DEV
+  ? 'pk_test_51PmX2qFW1q3vb1jMNG2jQfGnhhYzz7w1xkyPzXqZ0sJkc3yOUZ3rdYzaatLsXkIOBQ6gSwF7fgqwH0fgSNmEyhJ700BEN3aelo'
+  : 'pk_live_51PmX2qFW1q3vb1jMfoOjXuYqYE4CwqECfssR63nDkcDDWOvScuZqih8kOMR1aOHZhLc1yiUXluQ1W20hTnLMlgsI00RHBTIUle';
+const JUSTCO_ADDRESS = '302 新竹縣竹北市高鐵東二路 6 號 5-6 樓';
+const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustCo 竹北 高鐵東二路6號');
+---
+
+<BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
+  <!-- Hero -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">1:1 Tutoring</p>
+        <h1 class="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-6">
+          4 小時 × 1 對 1，<br />把 AI 工作流裝進你的日常。
+        </h1>
+        <p class="text-xl md:text-2xl leading-relaxed text-[#5C5144]">
+          給想轉型的工程師、自由接案者，以及想把 AI 認真用起來的人 — 我陪你從零建一套每天會跑、會持續複利的工作系統。
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4 md:gap-6 text-base md:text-lg text-[#5C5144]">
+          <span class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+            4 小時
+          </span>
+          <span class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+            竹北 JustCo / 線上
+          </span>
+          <span class="flex items-center gap-2 font-medium text-[#2C2416]">
+            NT$8,000
+          </span>
+        </div>
+        <div class="mt-10">
+          <a href="#tutoring-cta" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200" data-umami-event="tutoring_hero_cta">
+            寫信預約 &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outcomes -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-12 md:mb-16">
+        <span class="inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">課後你會帶走</span>
+        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+          不是聽完一堂課，<br />是帶著能用的系統回去。
+        </h2>
+        <p class="text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
+          4 小時結束時，你的電腦裡會有實際在跑的工作流、知識庫和開發環境 — 不是 demo，是你真正會用的版本。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <!-- AI Workflow -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI 驅動的工作流</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">從筆記整理、週計畫到內容產出，把 AI 一步步接進日常。省下來的時間，拿去做真正需要你判斷的事。</p>
+        </div>
+
+        <!-- Goals & Projects -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">目標與專案管理系統</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">年初設的目標三月就忘了？我陪你建一套每天打開就知道該做什麼的系統 — 從年度目標、季度拆解到每日任務都串起來。</p>
+        </div>
+
+        <!-- Knowledge Mgmt -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">知識管理系統（Obsidian）</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">讀過的書、上過的課、開過的會 — 不再存了就忘。從 Obsidian vault 結構、PARA 分類到 AI 自動整理，一次建起來。</p>
+        </div>
+
+        <!-- Claude Code -->
+        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"/></svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">Claude Code 開發環境</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">不用懂 code 也能用 AI 處理電腦上的事。我陪你從安裝、設定 Skills、建第一個 workflow，到課後能自己擴充。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="mb-12 md:mb-16">
+        <span class="inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">教學形式</span>
+        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+          一次連上 4 小時，邊做邊改。
+        </h2>
+        <p class="text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
+          不是看我 demo，是我陪你動手 — 你的電腦、你的檔案、你的工作場景。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
+          <p class="text-sm font-medium text-[#B8926A] mb-3 tracking-wide uppercase">第一段 · 30 分鐘</p>
+          <h3 class="text-xl font-semibold text-[#2C2416] mb-3">釐清你的場景</h3>
+          <p class="text-base leading-relaxed text-[#5C5144]">先了解你目前的工作流、痛點、和想解決的問題 — 課程內容會根據你的需求調整重點。</p>
+        </div>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
+          <p class="text-sm font-medium text-[#B8926A] mb-3 tracking-wide uppercase">第二段 · 3 小時</p>
+          <h3 class="text-xl font-semibold text-[#2C2416] mb-3">手把手建系統</h3>
+          <p class="text-base leading-relaxed text-[#5C5144]">分四個區塊（AI 工作流 / 目標管理 / 知識管理 / Claude Code），中間休息 15 分鐘。每段都有實際產出，不是聽完就忘。</p>
+        </div>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
+          <p class="text-sm font-medium text-[#B8926A] mb-3 tracking-wide uppercase">第三段 · 30 分鐘</p>
+          <h3 class="text-xl font-semibold text-[#2C2416] mb-3">收斂與下一步</h3>
+          <p class="text-base leading-relaxed text-[#5C5144]">統整當天設定、列出你回去要持續的習慣、和未來 30 天可以擴充的方向。</p>
+        </div>
+      </div>
+
+      <!-- Format details -->
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">實體場</h3>
+              <p class="text-base leading-relaxed text-[#5C5144]">JustCo 竹北高鐵站<br /><span class="text-sm text-[#8B7355]">高鐵新竹站步行 5 分鐘，咖啡點心提供</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5 21 6v12l-5.25-4.5M3 18a2.25 2.25 0 0 0 2.25-2.25V8.25A2.25 2.25 0 0 0 3 6h10.5a2.25 2.25 0 0 0 2.25 2.25v7.5A2.25 2.25 0 0 0 13.5 18H3Z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">線上場</h3>
+              <p class="text-base leading-relaxed text-[#5C5144]">Google Meet<br /><span class="text-sm text-[#8B7355]">全程螢幕共享，課後寄當天的設定檔和連結</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who it's for -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
+        適合誰來上
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full bg-[#B8926A]/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+            </div>
+            <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416]">適合</h3>
+          </div>
+          <ul class="space-y-4 text-base md:text-lg leading-relaxed text-[#5C5144]">
+            <li><strong class="text-[#2C2416]">想轉型的工程師</strong> — 寫了多年 code，想用 AI 把產品力、內容力、商業力一次補起來。</li>
+            <li><strong class="text-[#2C2416]">自由接案者</strong> — 一個人扛所有事，需要一套能 scale 的個人系統，不再靠記性硬撐。</li>
+            <li><strong class="text-[#2C2416]">想認真用 AI 的中階主管</strong> — 用過 ChatGPT，但覺得只是聊天玩具。想知道怎麼讓 AI 真的接進你的工作。</li>
+            <li><strong class="text-[#2C2416]">獨立工作者 / 個人品牌經營者</strong> — 想把寫作、知識管理、內容產出串成一條線。</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full bg-[#E8E4DD] flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#8B7355]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+            </div>
+            <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416]">不適合</h3>
+          </div>
+          <ul class="space-y-4 text-base md:text-lg leading-relaxed text-[#5C5144]">
+            <li><strong class="text-[#2C2416]">完全沒用過 AI 工具的人</strong> — 這堂不是 ChatGPT 入門，建議先自己玩過幾週再來。</li>
+            <li><strong class="text-[#2C2416]">只想聽概念的人</strong> — 全程要動手做，不適合純聽課。</li>
+            <li><strong class="text-[#2C2416]">想找 enterprise 導入方案的團隊</strong> — 這是個人系統課，企業需求請看 <a href="/zh-TW/services/" class="text-[#B8926A] hover:underline">企業服務</a>。</li>
+            <li><strong class="text-[#2C2416]">期待一堂課改變所有事的人</strong> — 4 小時建得起系統，但持續使用是你的事。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mid-page CTA -->
+      <div class="mt-16 md:mt-20 text-center">
+        <p class="text-lg md:text-xl text-[#5C5144] mb-6">看起來適合你？</p>
+        <a href="#tutoring-cta" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200" data-umami-event="tutoring_mid_cta">
+          寫信預約 &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why me -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+        為什麼找我
+      </h2>
+      <p class="text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
+        不是紙上談兵。我自己每天跑這套系統，有真實產品和數據可以看。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-2xl font-bold text-white">15</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">年科技業經驗</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">工程師 → 產品經理 → 數據分析，全棧背景讓我能從技術和商業兩個角度幫你規劃。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-lg font-bold text-white">Day 1</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">Claude Code 第一批深度使用者</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">2025 年 5 月至今，用 AI 從零做出完整 SaaS、Chrome Extension、工具站、個人網站。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-lg font-bold text-white">4K</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">真實產品驗證</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]"><a href="https://airesumeadvisor.com/zh-TW/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">AI Resume Advisor</a>（SaaS + 瀏覽器擴充）、<a href="https://www.neatoolkit.com/zh-TW" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">NeatToolkit</a>（上線首日 4,000 用戶）。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
+            <span class="text-lg font-bold text-white">60K</span>
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">這個網站月流量 60,000+</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">兩個月內從零長出來。同一套 AI + 知識管理 + SEO 的工作流，我每天在跑，也是這堂課要教你的。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+        學員怎麼說
+      </h2>
+      <p class="text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
+        不同背景，同樣的改變 — 用 AI 打造自己的工作流。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <img src="/images/workshop/jack-liu.jpg" alt="劉子維 臨床心理師" class="w-16 h-16 rounded-full object-cover object-top" />
+            <div>
+              <p class="font-semibold text-[#2C2416]">
+                <a href="https://warmflowpsy.tw/" target="_blank" rel="noopener noreferrer" class="hover:text-[#B8926A] transition-colors">暖流人心規劃顧問</a> 執行長
+              </p>
+              <p class="text-sm text-[#8B7355]">暖陽身心診所 心理科主任 劉子維 臨床心理師</p>
+            </div>
+          </div>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-6">「我是臨床心理師，聽到『你也可以用 Claude Code 建自己的工作流系統』的時候，心裡想你在開我玩笑吧？結果在余老師手把手的引導下，我從覺得『這種東西我不可能學得會』，到現在用一成的時間完成拖了大半年的雜事，剩下九成拿來思考品牌和產品。用 AI 打造自己的工作流，才是真正的改變。」</p>
+          <div class="pt-5 border-t border-[#E8E4DD]">
+            <p class="text-sm text-[#8B7355] font-medium mb-3">延伸閱讀</p>
+            <p class="text-sm mb-2">
+              <a href="https://warmflowpsy.tw/psychologist-learns-vscode/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">子維的視角：〈臨床心理師學會用 Claude Code 的那一天〉</a>
+            </p>
+            <p class="text-sm">
+              <a href="/zh-TW/blog/teaching-48yo-psychologist-claude-code/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">我的視角：〈我教一個 48 歲的心理師用 Claude Code〉</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <img src="/images/workshop/lin-dinglun.png" alt="林鼎倫" class="w-16 h-16 rounded-full object-cover" />
+            <div>
+              <p class="font-semibold text-[#2C2416]">卡佶特品牌策略有限公司</p>
+              <p class="text-sm text-[#8B7355]">品牌總監 林鼎倫</p>
+            </div>
+          </div>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">「做品牌策略，手上永遠同時跑好幾個專案，以前進度散在不同工具裡，靠自己搬來搬去，常常漏掉東西。我用過 ChatGPT，但它就是另一個聊天視窗，問完還是要自己動手。Claude Code 完全不同 — 它直接讀我電腦裡的檔案，跟我討論策略、規劃排程，然後直接幫我執行。它不只是我的策略夥伴，也是我的執行秘書，我終於不用一個人扛所有事。這才是 AI 該有的樣子。」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Flow (State Machine) -->
+  <section id="tutoring-cta" class="py-20 md:py-28 lg:py-32 bg-[#2C2416]">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">NT$8,000 / 4 小時</p>
+        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-4">
+          準備好了嗎？
+        </h2>
+        <p class="text-lg md:text-xl text-[#C4B9A8] leading-relaxed">
+          選擇適合的時段，完成付款後即預約成功。
+        </p>
+      </div>
+
+      <!-- STATE 1: Calendly widget (select time) -->
+      <div id="state-select" class="bg-white rounded-2xl p-4 md:p-6">
+        <div id="calendly-inline-widget" style="min-width:320px;height:700px;" data-auto-load="false"></div>
+      </div>
+
+      <!-- STATE 2: Payment (Stripe Embedded Checkout) -->
+      <div id="state-payment" class="hidden">
+        <div class="bg-white rounded-2xl p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4 flex-wrap">
+            <div>
+              <p class="text-sm font-medium text-[#B8926A] mb-1 tracking-wide uppercase">時段已預留</p>
+              <p id="payment-summary" class="text-lg md:text-xl font-semibold text-[#2C2416]">載入中...</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-[#8B7355]">剩餘時間</p>
+              <p id="payment-countdown" class="text-2xl font-bold text-[#2C2416] tabular-nums">15:00</p>
+            </div>
+          </div>
+          <p class="text-sm text-[#5C5144] bg-[#F5F1EB] rounded-lg p-3">
+            ⚠ 請於時間內完成付款以確認預約。未完成付款時段將自動釋放。
+          </p>
+        </div>
+        <div id="stripe-checkout-mount" class="bg-white rounded-2xl overflow-hidden"></div>
+      </div>
+
+      <!-- STATE 3: Confirmed -->
+      <div id="state-confirmed" class="hidden">
+        <div class="bg-white rounded-2xl p-8 md:p-10">
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#B8926A]/10 mb-4">
+              <svg class="w-8 h-8 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-bold text-[#2C2416] mb-2">預約成功！</h3>
+            <p class="text-[#5C5144]">期待和你見面。</p>
+          </div>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex gap-4 items-start">
+              <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#F5F1EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-[#8B7355]">時間</p>
+                <p id="confirmed-time" class="text-base md:text-lg font-semibold text-[#2C2416]">—</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+              <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#F5F1EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm text-[#8B7355]">地點</p>
+                <p class="text-base md:text-lg font-semibold text-[#2C2416]">JustCo 竹北高鐵站</p>
+                <p class="text-sm text-[#5C5144]">{JUSTCO_ADDRESS}</p>
+                <a href={JUSTCO_MAP_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-[#B8926A] hover:underline mt-1">
+                  在 Google Maps 開啟 →
+                </a>
+              </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+              <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#F5F1EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-[#8B7355]">付款</p>
+                <p class="text-base md:text-lg font-semibold text-[#2C2416]">NT$8,000 <span class="text-[#B8926A]">✓</span></p>
+                <a id="confirmed-receipt" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-[#B8926A] hover:underline mt-1 hidden">
+                  查看收據 →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#F5F1EB] rounded-lg p-4 md:p-5 mb-6">
+            <p class="text-sm font-medium text-[#2C2416] mb-2">接下來會收到的 email</p>
+            <ul class="text-sm text-[#5C5144] space-y-1">
+              <li>• 付款收據（Stripe，幾分鐘內）</li>
+              <li>• 上課前 24 小時提醒（Calendly）</li>
+            </ul>
+          </div>
+
+          <p class="text-sm text-[#8B7355] text-center">
+            建議將此頁面加入書籤，隨時可回來查看
+          </p>
+        </div>
+      </div>
+
+      <!-- STATE 4: Expired -->
+      <div id="state-expired" class="hidden">
+        <div class="bg-white rounded-2xl p-8 md:p-10 text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#E8E4DD] mb-4">
+            <svg class="w-8 h-8 text-[#8B7355]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-[#2C2416] mb-2">時段已釋放</h3>
+          <p class="text-[#5C5144] mb-6">
+            你預留的時段因未完成付款已釋放，歡迎重新預約。
+          </p>
+          <button type="button" id="expired-retry" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200">
+            重新預約 →
+          </button>
+        </div>
+      </div>
+
+      <!-- STATE 5: Error -->
+      <div id="state-error" class="hidden">
+        <div class="bg-white rounded-2xl p-8 md:p-10 text-center">
+          <h3 class="text-xl font-bold text-[#2C2416] mb-2">發生問題</h3>
+          <p id="error-message" class="text-[#5C5144] mb-6">—</p>
+          <div class="flex flex-wrap gap-3 justify-center">
+            <button type="button" id="error-retry" class="inline-flex items-center justify-center px-6 py-3 bg-[#B8926A] text-white text-base font-medium rounded-full hover:bg-[#A67D55] transition-all duration-200">
+              重新開始
+            </button>
+            <a href="mailto:mail@yu-wenhao.com?subject=1:1 教學預約遇到問題" class="inline-flex items-center justify-center px-6 py-3 border-2 border-[#B8926A] text-[#B8926A] text-base font-medium rounded-full hover:bg-[#B8926A] hover:text-white transition-all duration-200">
+              寫信聯絡我
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-sm text-[#8B7355] mt-6">
+        遇到問題？<a href="mailto:mail@yu-wenhao.com" class="text-[#C4B9A8] hover:text-white underline">寫信給我</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- External scripts -->
+  <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script is:inline src="https://js.stripe.com/v3/" async></script>
+
+  <!-- State machine -->
+  <script define:vars={{ API_BASE, CALENDLY_URL, STRIPE_PUBLISHABLE_KEY, JUSTCO_ADDRESS }}>
+    const STORAGE_KEY = 'tutoring_booking_id';
+    const STATES = ['select', 'payment', 'confirmed', 'expired', 'error'];
+    let pollTimer = null;
+    let countdownTimer = null;
+    let checkoutInstance = null;
+
+    const $ = (id) => document.getElementById(id);
+
+    function showState(name) {
+      STATES.forEach((s) => {
+        const el = $(`state-${s}`);
+        if (el) el.classList.toggle('hidden', s !== name);
+      });
+    }
+
+    function showError(msg) {
+      const errEl = $('error-message');
+      if (errEl) errEl.textContent = msg || '請稍後再試或寫信給我。';
+      showState('error');
+    }
+
+    function resetToSelect() {
+      localStorage.removeItem(STORAGE_KEY);
+      clearTimers();
+      showState('select');
+      loadCalendly();
+      window.umami?.track('tutoring_reset_to_select');
+    }
+
+    function clearTimers() {
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+      if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+    }
+
+    function formatDateTime(iso) {
+      const d = new Date(iso);
+      const days = ['日', '一', '二', '三', '四', '五', '六'];
+      const pad = (n) => String(n).padStart(2, '0');
+      const end = new Date(d.getTime() + 4 * 60 * 60 * 1000);
+      return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())}（週${days[d.getDay()]}）${pad(d.getHours())}:${pad(d.getMinutes())}–${pad(end.getHours())}:${pad(end.getMinutes())}`;
+    }
+
+    // --- Calendly ---
+    function loadCalendly() {
+      const container = $('calendly-inline-widget');
+      if (!container) return;
+      container.innerHTML = '';
+      // Calendly widget.js exposes window.Calendly.initInlineWidget
+      const init = () => {
+        if (window.Calendly) {
+          window.Calendly.initInlineWidget({
+            url: CALENDLY_URL,
+            parentElement: container,
+            prefill: {},
+            utm: {}
+          });
+        } else {
+          setTimeout(init, 200);
+        }
+      };
+      init();
+    }
+
+    // Listen for Calendly event_scheduled postMessage
+    window.addEventListener('message', (e) => {
+      if (!e.data || typeof e.data !== 'object') return;
+      if (e.data.event === 'calendly.event_scheduled') {
+        const invitee_uri = e.data.payload?.invitee?.uri;
+        if (!invitee_uri) {
+          showError('Calendly 未提供 invitee URI');
+          return;
+        }
+        window.umami?.track('tutoring_slot_selected');
+        handleSlotSelected(invitee_uri);
+      }
+    });
+
+    // --- Flow handlers ---
+    async function handleSlotSelected(invitee_uri) {
+      showState('payment');
+      try {
+        const res = await fetch(`${API_BASE}/api/tutoring/create-checkout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ invitee_uri })
+        });
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error || 'Checkout creation failed');
+
+        const { booking_id, client_secret } = json.data;
+        localStorage.setItem(STORAGE_KEY, booking_id);
+        await mountCheckout(client_secret, booking_id);
+        startCountdown(15 * 60);
+        startPolling(booking_id);
+      } catch (err) {
+        console.error(err);
+        showError(String(err?.message || err));
+      }
+    }
+
+    async function mountCheckout(clientSecret, bookingId) {
+      if (!window.Stripe) {
+        await new Promise((resolve) => {
+          const check = () => window.Stripe ? resolve() : setTimeout(check, 200);
+          check();
+        });
+      }
+      const stripe = window.Stripe(STRIPE_PUBLISHABLE_KEY);
+      const mount = $('stripe-checkout-mount');
+      if (!mount) return;
+      mount.innerHTML = '';
+      if (checkoutInstance) {
+        try { checkoutInstance.destroy(); } catch {}
+      }
+      checkoutInstance = await stripe.initEmbeddedCheckout({
+        clientSecret,
+        onComplete: () => {
+          window.umami?.track('tutoring_payment_complete');
+          // Polling will pick up status=paid
+        }
+      });
+      checkoutInstance.mount('#stripe-checkout-mount');
+    }
+
+    function startCountdown(seconds) {
+      if (countdownTimer) clearInterval(countdownTimer);
+      let remaining = seconds;
+      const el = $('payment-countdown');
+      const render = () => {
+        const m = Math.floor(remaining / 60);
+        const s = remaining % 60;
+        if (el) el.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      };
+      render();
+      countdownTimer = setInterval(() => {
+        remaining -= 1;
+        render();
+        if (remaining <= 0) {
+          clearInterval(countdownTimer);
+          // Don't mark expired from client; let backend determine
+        }
+      }, 1000);
+    }
+
+    function startPolling(bookingId) {
+      if (pollTimer) clearInterval(pollTimer);
+      const maxAttempts = 150; // 5 minutes at 2s intervals
+      let attempts = 0;
+      pollTimer = setInterval(async () => {
+        attempts++;
+        if (attempts > maxAttempts) {
+          clearInterval(pollTimer);
+          return;
+        }
+        try {
+          const res = await fetch(`${API_BASE}/api/tutoring/status/${bookingId}`);
+          const json = await res.json();
+          if (!json.success) return;
+          const { status, scheduled_at, stripe_receipt_url } = json.data;
+          if (status === 'paid') {
+            clearTimers();
+            renderConfirmed(scheduled_at, stripe_receipt_url);
+          } else if (status === 'expired' || status === 'canceled') {
+            clearTimers();
+            localStorage.removeItem(STORAGE_KEY);
+            showState('expired');
+          }
+        } catch {
+          // ignore transient errors, keep polling
+        }
+      }, 2000);
+    }
+
+    function renderConfirmed(scheduledAt, receiptUrl) {
+      const timeEl = $('confirmed-time');
+      if (timeEl) timeEl.textContent = formatDateTime(scheduledAt);
+      const receiptEl = $('confirmed-receipt');
+      if (receiptEl && receiptUrl) {
+        receiptEl.href = receiptUrl;
+        receiptEl.classList.remove('hidden');
+      }
+      showState('confirmed');
+      window.umami?.track('tutoring_booking_confirmed');
+    }
+
+    // --- Recovery on page load ---
+    async function restoreState() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        showState('select');
+        loadCalendly();
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/api/tutoring/status/${stored}`);
+        const json = await res.json();
+        if (!json.success) {
+          resetToSelect();
+          return;
+        }
+        const { status, scheduled_at, stripe_receipt_url, hold_expires_at } = json.data;
+        if (status === 'paid') {
+          renderConfirmed(scheduled_at, stripe_receipt_url);
+          return;
+        }
+        if (status === 'expired' || status === 'canceled') {
+          localStorage.removeItem(STORAGE_KEY);
+          showState('expired');
+          return;
+        }
+        if (status === 'pending') {
+          // Still within hold window? Recreate checkout
+          const expiresAt = new Date(hold_expires_at).getTime();
+          const now = Date.now();
+          if (expiresAt <= now) {
+            localStorage.removeItem(STORAGE_KEY);
+            showState('expired');
+            return;
+          }
+          // Rebuild payment UI — need a fresh client_secret? We don't have it.
+          // For now, show expired and let user restart. Future: add a rehydrate endpoint.
+          resetToSelect();
+        }
+      } catch {
+        resetToSelect();
+      }
+    }
+
+    // --- Wire buttons ---
+    $('expired-retry')?.addEventListener('click', resetToSelect);
+    $('error-retry')?.addEventListener('click', resetToSelect);
+
+    // --- Handle success URL (?success=1&session_id=...) ---
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') === '1') {
+      const sid = params.get('session_id');
+      // Strip query from URL
+      const cleanUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, '', cleanUrl);
+      // Restore from storage (should already be set); polling will flip to confirmed
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        showState('payment');
+        startPolling(stored);
+      } else {
+        showState('select');
+        loadCalendly();
+      }
+    } else {
+      restoreState();
+    }
+
+    // Umami: CTA visible
+    const ctaSection = document.getElementById('tutoring-cta');
+    if (ctaSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            window.umami?.track('tutoring_cta_visible');
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(ctaSection);
+    }
+  </script>
+</BaseLayout>
