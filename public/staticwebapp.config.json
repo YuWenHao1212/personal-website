@@ -389,6 +389,16 @@
       "statusCode": 301
     },
     {
+      "route": "/blog/karpathy-zettelkasten-comparison",
+      "redirect": "/zh-TW/blog/karpathy-zettelkasten-comparison/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/teaching-48yo-psychologist-claude-code",
+      "redirect": "/zh-TW/blog/teaching-48yo-psychologist-claude-code/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
@@ -601,7 +611,7 @@
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY",
-    "Content-Security-Policy": "frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.google.com https://assets.calendly.com",
+    "Content-Security-Policy": "frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.google.com https://assets.calendly.com https://calendly.com https://js.stripe.com https://hooks.stripe.com",
     "Referrer-Policy": "strict-origin-when-cross-origin"
   },
   "mimeTypes": {
