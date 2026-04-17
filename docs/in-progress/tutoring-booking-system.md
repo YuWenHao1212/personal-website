@@ -3,6 +3,7 @@
 **建立日期**：2026-04-16
 **Target**：單頁式 1:1 教學預約 + Stripe TWD 付款（解決付款與時段原子性）
 **Status**：✅ **Production live**（2026-04-17）— NT$20 real-card smoke test 通過，已改回 NT$8,000
+**Orphan cleanup**：✅ **上線 + 驗證通過**（2026-04-17）— Azure Container App Job `yu-wenhao-tutoring-cleanup` 每 5 min 自動跑
 
 ---
 
@@ -21,7 +22,15 @@ Stripe webhook → POST /api/tutoring/stripe-webhook
 前端 polling /status/{id} → 切換 State 3 顯示預約確認
 ```
 
-**失敗路徑**：15 分鐘 hold 過期 → admin cron 打 `/cleanup-expired` → Calendly cancel API → DB status=expired
+**失敗路徑 — 三層清理機制**：
+```
+1. Stripe webhook `session.expired`（~30 min 後）        ← 兜底，Stripe 自己推
+2. Azure Container App Job cron `*/5 * * * *`          ← 主力，每 5 min 打 /cleanup
+3. Manual admin trigger（az containerapp job start）    ← 緊急
+```
+`/cleanup` endpoint 兩個 pass：
+- **db_expired pass**：DB pending + `hold_expires_at < NOW()` → Calendly cancel + DB status=expired
+- **orphans pass**：Calendly 有 active event 但 DB 沒對應 row，且 Calendly `created_at` 距今 > 15 min → Calendly cancel（處理 CSP block / fetch timeout 等造成的孤兒）
 
 ---
 
@@ -86,6 +95,75 @@ Stripe webhook → POST /api/tutoring/stripe-webhook
 1. **CSP 白名單 asset CDN ≠ iframe 來源**：每個 third-party 整合都要同時列 widget CDN + iframe host。Calendly: `assets.calendly.com` + `calendly.com`。Stripe: `js.stripe.com` + `hooks.stripe.com`（3DS / wallets）
 2. **Stripe 全球最低金額 ≈ $0.50 USD**：TWD smoke test 最低用 **NT$20** 才過得去。以後類似 live 金流測試不要用 NT$1-8
 3. **Localstorage resume 陷阱**：前端用 `tutoring_booking_id` 記住 pending booking，改金額或換 test/live mode 時要提醒使用者清掉（或手動 DevTools 刪）
+
+---
+
+## 🧹 2026-04-17 Orphan Cleanup 上線紀錄
+
+**動機**：上線當天 11:34 試第一筆時 CSP 被擋，Calendly iframe 空白但內部仍建 event，前端 `postMessage` 沒觸發 → backend API 沒被呼叫 → **DB 無記錄 / Calendly 有 active event / Stripe 無 session** = 純 orphan。Stripe webhook 管不到（沒有 session 可過期），原 `/cleanup-expired` 也管不到（DB 沒 row 可掃）。
+
+### 三種 orphan 情境分類
+
+| Case | DB | Calendly | Stripe | 清理方式 |
+|---|---|---|---|---|
+| A 正常未付 | pending | active | open | Stripe webhook `session.expired` @ 30min |
+| B 純孤兒（CSP/network 擋 fetch） | ❌ 無 | active | ❌ 無 | **新 `/cleanup` orphans pass** |
+| C DB pending + Stripe webhook 漏送 | pending | active | expired | **新 `/cleanup` db_expired pass** |
+
+### 設計決策
+
+1. **以 Calendly 為真相來源反查 DB**：列 active events → 對每筆反查 DB，沒記錄 + 過 15 min buffer = orphan → cancel
+2. **15 分鐘 orphan buffer**：避免誤殺「剛選完時段正要付款」的正常 fetch in-flight
+3. **Schedule 執行方：Azure Container App Job，不用 GitHub Actions**
+   - 實測 GitHub Actions `*/5` cron 跳過連續 3+ 輪（12:10 / 12:15 / 12:20 全部沒跑）— 官方文件明確警告高負載時段會延遲，實務上太不穩
+   - Azure Job 同一個 managed environment，12:30 / 12:35 **整點準時執行**
+
+### Endpoint 設計
+
+`POST /api/tutoring/cleanup?key={admin_key}` 兩 pass 合一：
+```python
+async def _run_cleanup():
+    # Pass 1: DB pending 過期 → Calendly cancel + DB mark expired
+    # Pass 2: Calendly active 無 DB 對應 + created_at > NOW - 15min → Calendly cancel
+    return { db_expired_ids, orphans_cancelled_uris, calendly_events_scanned }
+```
+
+`POST /api/tutoring/cleanup-expired` 保留為 deprecated alias。
+`DELETE /api/tutoring/bookings/{id}` 新增 admin-only，僅供測試 orphan path 用。
+
+### Azure Container App Job 設定
+
+```yaml
+# deploy/cleanup-job.yaml
+triggerType: Schedule
+cronExpression: "*/5 * * * *"
+image: curlimages/curl:8.11.1
+command: curl → POST /api/tutoring/cleanup?key=$ADMIN_KEY
+secrets: admin-key (ref to ADMIN_KEY env)
+```
+
+建立：`az containerapp job create --yaml deploy/cleanup-job.yaml`
+手動觸發：`az containerapp job start --name yu-wenhao-tutoring-cleanup --resource-group airesumeadvisorfastapi`
+查 executions：`az containerapp job execution list --name yu-wenhao-tutoring-cleanup -g airesumeadvisorfastapi`
+
+### 驗證結果
+
+| 時點 | 事件 |
+|---|---|
+| 12:09:35 | 使用者選 4/24 時段 → 看到 Stripe 立刻關 tab → DB pending + Calendly active（Case C 成立）|
+| 12:16:10 | 手動 DELETE DB row → Case B 純孤兒成立（Calendly `a0865696` 孤立）|
+| 12:19:03 | 使用者再選 4/29 時段 → 同樣關 tab → 第二筆 Case C（DB `192992f8` / Calendly `b398db37`）|
+| **12:25:34** | Azure Job 手動 execution → Case B `a0865696` cancelled with reason "Orphan booking — no payment session created" ✅ |
+| **12:30:00** | Azure Job schedule 第一次自動 execution → Case C 仍在 buffer 內，正確跳過 |
+| **12:35:00** | Azure Job 第二次自動 execution → Case C 清：DB `192992f8` status=expired + Calendly `b398db37` cancelled with reason "Payment hold expired" ✅ |
+
+三次 execution 全部 Succeeded，整點準時。
+
+### 學到的
+
+1. **Calendly `scheduled_events` API 時間窗口用 `start_time`**，不是 `created_at`。初版用 `min_start_time=now-2h` 會漏抓「剛建但預約未來日期」的 event。修正為 `min_start_time=now, max_start_time=now+60d`，orphan 年齡檢查改在 Python 用 `created_at` 做
+2. **GitHub Actions `*/5` cron 實務上不可靠** — 尤其整點時段、剛部署時、低流量 repo。高可用場景要用 Azure Container App Job / Cloud Scheduler / 外部 cron
+3. **驗證 orphan cleanup 需要刻意製造孤兒**：Calendly 沒有讓 PAT 直接建 event 的 API，要用「刪 DB row + 留 Calendly event」的方式手動製造，這就是為什麼加 `DELETE /bookings/{id}` admin endpoint
 
 ---
 
@@ -209,7 +287,8 @@ az containerapp update \
 | Name | Value |
 |------|-------|
 | `CALENDLY_EVENT_TYPE_IN_PERSON_URI` | `https://api.calendly.com/event_types/2240ad18-666c-4122-be6b-11c195a70c66` |
-| `TUTORING_PRICE_TWD` | `8`（smoke test，後改 8000） |
+| `CALENDLY_USER_URI` | `https://api.calendly.com/users/06e4e598-...`（orphan 掃描用，2026-04-17 加）|
+| `TUTORING_PRICE_TWD` | `8000`（live）|
 | `FRONTEND_BASE_URL` | `https://yu-wenhao.com` |
 
 **Secret refs**：
@@ -219,14 +298,25 @@ az containerapp update \
 | `STRIPE_WEBHOOK_SECRET` | `secretref:stripe-webhook-secret` |
 | `CALENDLY_PAT` | `secretref:calendly-pat` |
 
+### Azure Container App Job（2026-04-17 加）
+| Property | Value |
+|---|---|
+| Name | `yu-wenhao-tutoring-cleanup` |
+| Trigger | Schedule, cron `*/5 * * * *` |
+| Image | `curlimages/curl:8.11.1` |
+| Spec | `deploy/cleanup-job.yaml`（repo 內）|
+| Secret | `admin-key`（對應 API 的 `ADMIN_KEY`）|
+
 ---
 
 ## 🔧 Future Enhancements（上線後再做）
 
 - [ ] **文案優化**：Hero subhead / Outcomes 卡片用字調整
 - [ ] **線上版 Event Type**：Calendly 建立 `tutoring_online` event → 加 frontend radio 選項
-- [ ] **Cleanup cron**：GitHub Actions schedule（每分鐘）打 `/cleanup-expired`
-- [ ] **Admin 儀表板頁**：`/zh-TW/admin/tutoring/` 列出所有 booking 狀態
+- [x] ~~**Cleanup cron**~~ ✅ 已上線（Azure Container App Job，見「Orphan Cleanup 上線紀錄」）
+- [ ] **Calendly webhook 根治 orphan**：用 `invitee.created` 即時同步，取代 polling。需驗簽 + shared secret，但完全消除 15 min 延遲
+- [ ] **Azure Job 失敗告警**：連續 N 次失敗 → email notify（目前靠手動檢查 execution list）
+- [ ] **Admin 儀表板頁**：`/zh-TW/admin/tutoring/` 列出所有 booking 狀態 + 最近 N 次 cleanup execution
 - [ ] **公開頁面**：確認穩定後移除 `noindex`，加入 nav
 - [ ] **日文學員支援**：頁面語言切換（zh-TW / en / ja）
 - [ ] **金流替代方案**：如果 Stripe TWD 小數點影響太大，考慮綠界 / 藍新
@@ -247,4 +337,4 @@ az containerapp update \
 
 ---
 
-**Last updated**：2026-04-17 — Production live 後補踩坑紀錄 + CSP/Stripe 學到的
+**Last updated**：2026-04-17 下午 — Orphan cleanup 上線 + Case B/C 端到端驗證通過 + Azure Container App Job 取代 GitHub Actions cron
