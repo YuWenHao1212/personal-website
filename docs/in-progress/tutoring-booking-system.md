@@ -156,6 +156,8 @@ secrets: admin-key (ref to ADMIN_KEY env)
 | **12:25:34** | Azure Job 手動 execution → Case B `a0865696` cancelled with reason "Orphan booking — no payment session created" ✅ |
 | **12:30:00** | Azure Job schedule 第一次自動 execution → Case C 仍在 buffer 內，正確跳過 |
 | **12:35:00** | Azure Job 第二次自動 execution → Case C 清：DB `192992f8` status=expired + Calendly `b398db37` cancelled with reason "Payment hold expired" ✅ |
+| 12:36:57 | 手動 cancel NT$20 smoke test booking（Calendly `c40bcd60`，4/21 08:30）— 避免真佔時段。Stripe refund 待手動 |
+| 12:40 | 刪除 GitHub Actions `cleanup-tutoring.yml`（原本只保留 workflow_dispatch，決定完全清掉，Azure Job 單一真相）|
 
 三次 execution 全部 Succeeded，整點準時。
 
@@ -315,7 +317,7 @@ az containerapp update \
 - [ ] **線上版 Event Type**：Calendly 建立 `tutoring_online` event → 加 frontend radio 選項
 - [x] ~~**Cleanup cron**~~ ✅ 已上線（Azure Container App Job，見「Orphan Cleanup 上線紀錄」）
 - [ ] **Calendly webhook 根治 orphan**：用 `invitee.created` 即時同步，取代 polling。需驗簽 + shared secret，但完全消除 15 min 延遲
-- [ ] **Azure Job 失敗告警**：連續 N 次失敗 → email notify（目前靠手動檢查 execution list）
+- [ ] **Azure Job 失敗告警**：連續 N 次失敗 → email notify（目前靠手動 `az containerapp job execution list`）
 - [ ] **Admin 儀表板頁**：`/zh-TW/admin/tutoring/` 列出所有 booking 狀態 + 最近 N 次 cleanup execution
 - [ ] **公開頁面**：確認穩定後移除 `noindex`，加入 nav
 - [ ] **日文學員支援**：頁面語言切換（zh-TW / en / ja）
@@ -337,4 +339,4 @@ az containerapp update \
 
 ---
 
-**Last updated**：2026-04-17 下午 — Orphan cleanup 上線 + Case B/C 端到端驗證通過 + Azure Container App Job 取代 GitHub Actions cron
+**Last updated**：2026-04-17 12:40 — Orphan cleanup 上線 + Case B/C 驗證通過 + Azure Container App Job 取代 GitHub Actions cron（原 workflow 已刪）+ NT$20 smoke test booking 已 Calendly cancel
