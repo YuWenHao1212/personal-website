@@ -257,11 +257,24 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
                 </a>
               </div>
             </div>
+
+            <!-- 1v2 only: 2nd attendee info (hidden unless 1v2) -->
+            <div id="confirmed-partner" class="hidden gap-4 items-start">
+              <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#F5F1EB] flex items-center justify-center">
+                <svg class="w-5 h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm text-[#8B7355]">第 2 位學員</p>
+                <p id="confirmed-partner-name" class="text-base md:text-lg font-semibold text-[#2C2416]">—</p>
+                <p id="confirmed-partner-email" class="text-sm text-[#5C5144] break-all">—</p>
+                <p class="text-xs text-[#8B7355] mt-1">Calendly 已自動寄通知給這位學員</p>
+              </div>
+            </div>
           </div>
 
           <div class="bg-[#F5F1EB] rounded-lg p-4 md:p-5 mb-6">
             <p class="text-sm font-medium text-[#2C2416] mb-2">接下來會收到的 email</p>
-            <ul class="text-sm text-[#5C5144] space-y-1">
+            <ul id="confirmed-email-list" class="text-sm text-[#5C5144] space-y-1">
               <li>• 付款收據（Stripe，幾分鐘內）</li>
               <li>• 上課前 24 小時提醒（Calendly）</li>
             </ul>
@@ -553,7 +566,7 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
     }
 
     function renderConfirmed(data) {
-      const { scheduled_at, stripe_receipt_url, session_type, location_city, course_price_twd, travel_fee_twd, total_twd, location_details } = data;
+      const { scheduled_at, stripe_receipt_url, session_type, location_city, course_price_twd, travel_fee_twd, total_twd, location_details, partner_name, partner_email } = data;
       const timeEl = $('confirmed-time');
       if (timeEl) timeEl.textContent = formatDateTime(scheduled_at);
 
@@ -595,6 +608,32 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
         receiptEl.href = stripe_receipt_url;
         receiptEl.classList.remove('hidden');
       }
+
+      // 1v2 only: partner info + extra email note
+      const partnerEl = $('confirmed-partner');
+      const partnerNameEl = $('confirmed-partner-name');
+      const partnerEmailEl = $('confirmed-partner-email');
+      const emailListEl = $('confirmed-email-list');
+      if (session_type === '1v2' && partner_name && partner_email) {
+        if (partnerNameEl) partnerNameEl.textContent = partner_name;
+        if (partnerEmailEl) partnerEmailEl.textContent = partner_email;
+        if (partnerEl) {
+          partnerEl.classList.remove('hidden');
+          partnerEl.classList.add('flex');
+        }
+        if (emailListEl) {
+          emailListEl.innerHTML = `
+            <li>• 付款收據（Stripe，幾分鐘內，寄給主聯絡人）</li>
+            <li>• 上課前 24 小時提醒（Calendly，兩位學員都會收到）</li>
+          `;
+        }
+      } else {
+        if (partnerEl) {
+          partnerEl.classList.add('hidden');
+          partnerEl.classList.remove('flex');
+        }
+      }
+
       showState('confirmed');
       window.umami?.track('tutoring_booking_confirmed', { session_type });
     }
