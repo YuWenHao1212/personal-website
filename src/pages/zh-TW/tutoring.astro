@@ -164,18 +164,10 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
                 </div>
               </div>
 
-              <!-- 1v2 partner info (hidden unless 1v2 selected) -->
-              <div id="partner-fields" class="hidden space-y-3 bg-[#F5F1EB] rounded-lg p-4">
-                <p class="text-sm font-medium text-[#2C2416]">第 2 位學員資料</p>
-                <p class="text-xs text-[#8B7355] -mt-2">1 對 2 由主聯絡人代付，但需要同伴資料讓我準備課程</p>
-                <div>
-                  <label class="block text-xs text-[#5C5144] mb-1">姓名</label>
-                  <input type="text" id="partner_name" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" placeholder="第 2 位學員姓名" />
-                </div>
-                <div>
-                  <label class="block text-xs text-[#5C5144] mb-1">Email</label>
-                  <input type="email" id="partner_email" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" placeholder="第 2 位學員 Email" />
-                </div>
+              <!-- 1v2 partner hint (shown when 1v2 selected) -->
+              <div id="partner-hint" class="hidden bg-[#F5F1EB] rounded-lg p-4 text-sm text-[#5C5144] leading-relaxed">
+                <p class="font-medium text-[#2C2416] mb-1">第 2 位學員資料</p>
+                <p>選完時段後，Calendly 預約頁會請你填寫第 2 位學員的姓名與 Email（由主聯絡人代付）。</p>
               </div>
 
               <!-- Live total preview -->
@@ -351,10 +343,10 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
       if (totalEl) totalEl.textContent = formatTWD(total);
     }
     function updatePartnerFieldsVisibility() {
-      const partnerEl = $('partner-fields');
-      if (!partnerEl) return;
-      const showPartner = getSessionType() === '1v2';
-      partnerEl.classList.toggle('hidden', !showPartner);
+      const hintEl = $('partner-hint');
+      if (!hintEl) return;
+      const showHint = getSessionType() === '1v2';
+      hintEl.classList.toggle('hidden', !showHint);
     }
     function wireSessionConfigHandlers() {
       document.querySelectorAll('input[name="session_type"]').forEach((el) => {
@@ -440,20 +432,7 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
 
     // --- Flow handlers ---
     async function handleSlotSelected(invitee_uri) {
-      const sessionType = getSessionType();
       const locationCity = getLocationCity();
-
-      // Validate 1v2 partner info
-      let partnerName = null;
-      let partnerEmail = null;
-      if (sessionType === '1v2') {
-        partnerName = ($('partner_name')?.value || '').trim();
-        partnerEmail = ($('partner_email')?.value || '').trim();
-        if (!partnerName || !partnerEmail) {
-          showError('1 對 2 需要填寫第 2 位學員的姓名與 Email');
-          return;
-        }
-      }
 
       showState('payment');
       try {
@@ -463,8 +442,6 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
           body: JSON.stringify({
             invitee_uri,
             location_city: locationCity,
-            partner_name: partnerName,
-            partner_email: partnerEmail,
           })
         });
         const json = await res.json();
