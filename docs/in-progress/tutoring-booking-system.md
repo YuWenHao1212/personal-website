@@ -2,8 +2,9 @@
 
 **建立日期**：2026-04-16
 **Target**：單頁式 1:1 教學預約 + Stripe TWD 付款（解決付款與時段原子性）
-**Status**：✅ **Production live**（2026-04-17）— NT$20 real-card smoke test 通過，已改回 NT$8,000
+**Status**：✅ **Production live**（2026-04-17）— 上午 NT$20 smoke test + 下午 UX 重構後 NT$20 real-card 再驗證，均通過
 **Orphan cleanup**：✅ **上線 + 驗證通過**（2026-04-17）— Azure Container App Job `yu-wenhao-tutoring-cleanup` 每 5 min 自動跑
+**UX 重構**：✅ **下午完成**（2026-04-17）— 從公開 landing page 架構改為熟人專用 split-layout 支付門戶
 
 ---
 
@@ -166,6 +167,120 @@ secrets: admin-key (ref to ADMIN_KEY env)
 1. **Calendly `scheduled_events` API 時間窗口用 `start_time`**，不是 `created_at`。初版用 `min_start_time=now-2h` 會漏抓「剛建但預約未來日期」的 event。修正為 `min_start_time=now, max_start_time=now+60d`，orphan 年齡檢查改在 Python 用 `created_at` 做
 2. **GitHub Actions `*/5` cron 實務上不可靠** — 尤其整點時段、剛部署時、低流量 repo。高可用場景要用 Azure Container App Job / Cloud Scheduler / 外部 cron
 3. **驗證 orphan cleanup 需要刻意製造孤兒**：Calendly 沒有讓 PAT 直接建 event 的 API，要用「刪 DB row + 留 Calendly event」的方式手動製造，這就是為什麼加 `DELETE /bookings/{id}` admin endpoint
+
+---
+
+## 🎨 2026-04-17 下午 UX 重構紀錄
+
+### 動機與診斷
+
+上午 smoke test 通過後重新檢視頁面，發現三個結構性問題（使用者回饋）：
+1. Hero 的「寫信預約」按鈕跟流程不符 — 整頁是自動 Calendly + Stripe，但 CTA 文字寫「寫信預約」
+2. 「線上場」section 存在但沒有對應的 Calendly online event type — 違反「不捏造」原則
+3. 頁面太長（Hero → Outcomes → Format → Who it's for → Why me → Testimonials → Booking 共 7 section），很多使用者滑到一半就離開，沒看到 Calendly
+
+**更深層的問題**：頁面本質定位錯誤。經過與使用者討論釐清：此頁 **不公開對外**，只給熟人（已決定要買）分享連結完成交易用，因此：
+- Landing page（說服）邏輯不適用 — 熟人不需要被說服
+- 正確定位 = **payment portal（支付門戶）**，KPI 是轉換不是說服
+- 所有說服性內容（Outcomes 卡片、Why me 數字、Testimonials）都是多餘的，甚至反效果
+
+但重要原則：**「專業感 ≠ 客製化」** — 即使給熟人，文案要保留通用銷售文案質感。熟人看到正式產品頁反而會更認真對待。
+
+### 六題對話式決策（使用者一題題確認）
+
+| Q | 決定 | 理由 |
+|---|------|------|
+| Q1 Hero subhead | 保留完整文案 + 流程提示「選時段 → 付款 → 預約成功」移到 Calendly 上方 | 文案專業感不動；流程提示在「即將操作」處最有用 |
+| Q2 規格說明 | 一行 tag：「包含：AI 工作流 · 目標與專案管理 · Obsidian 知識庫 · Claude Code 環境」 | 熟人一眼確認「對就是這個」，不用 4 張卡片 |
+| Q3 取消政策 | 一行淡色小字：`需要改期或取消，請直接聯絡我：mail@yu-wenhao.com` | 回應付款前的焦慮，不破壞熟人調性 |
+| Q4 線上場 | 全部拿掉 | 目前沒 online event type，不捏造 |
+| Q5 Testimonials + Why me | 全部拿掉 | 熟人信任已建立，內容搬到 archive 未來復用 |
+| Q6 Format 3 段 + 2 場地卡 | 壓縮成一行文字：「流程：30 分鐘釐清場景 → 3 小時手把手建系統 → 30 分鐘收斂下一步」 | 預期管理有價值，但不值得 3 張卡片 |
+
+### Layout 決策：Split（左右切）而不是 Stack（上下堆疊）
+
+使用者提出參考 `/zh-TW/survey/ai-meeting-tool/` 的 split layout：**左邊文字 / 右邊直接是預約元件，一屏完成 qualify + 預約，不用 scroll**
+
+核心洞察：**「支付門戶」的 above-the-fold 就要能操作**，不能把預約埋在頁面底部。
+
+四個技術細節確認：
+- **D1 Calendly 高度**：保持 700px，左邊文字垂直可視 ✅
+- **D2 Payment state**：維持 split（左 info / 右 Stripe）— 一開始誤做成「切回單欄置中」，使用者澄清：**右邊容器內容換，左邊 info 全程保留**，才是對的 UX
+- **D3 背景色**：整頁米色 `#F5F1EB`，卡片白色浮在上面 — 最乾淨
+- **D4 CTA 按鈕**：桌機版不需要（Calendly 已在右邊），mobile-only 保留 anchor scroll
+
+### 實際改動
+
+**砍掉的 5 個 sections**（存檔於 `docs/in-progress/tutoring-page-sections-archive.md`）：
+- Outcomes 4 格卡片
+- How it works 3 段 + 2 場地
+- Who it's for（適合 / 不適合 + mid CTA）
+- Why me 4 數字
+- Testimonials 2 則（含延伸閱讀連結）
+
+**新增**：
+- Hero tag 列（包含 + 流程）
+- 左右 split layout（lg breakpoint 以上）
+- 統一卡片樣式：`bg-white rounded-2xl shadow-sm border border-[#E8E4DD]`
+- `hydratePaymentSummary()` 函數 — Payment state 上方「時段已預留」從「載入中...」改為實際時段（`2026/04/28（週二）13:30—17:30`）
+- Dev-mode graceful fallback — backend 沒跑時 reset 到 select state 而非卡 error
+
+**Commits**：`244790e refactor(tutoring): simplify to split-layout payment portal` + `aadcc26 fix(tutoring): keep split layout in all states; fill time in payment summary`
+
+**檔案變動**：tutoring.astro 從 727 lines → 496 lines（-231 lines，-32%）
+
+### Production 驗證（下午 2 次）
+
+| 時間 | 金額 | 結果 |
+|---|---|---|
+| 13:22 | NT$8,000（忘記改回 20）| Stripe 跳 Link 驗證碼，沒完成 — 非 bug，Stripe 偵測到 email 有 Link 帳號 |
+| 13:28 | NT$20（臨時改 env var） | ✅ 完整流程通過 — split layout + Stripe Embedded + State 3 預約成功畫面全部正確 |
+
+Env var 操作：`az containerapp update ... --set-env-vars TUTORING_PRICE_TWD=20` → Revision `0000035` 接流量 → 測完改回 8000 → Revision `0000036` 接流量 100%
+
+### CAPTCHA 謎團（非 bug）
+
+UX 重構後使用者發現 Calendly 開始跳 CAPTCHA（重構前沒跳）。推論與驗證：
+
+**假設**：Calendly rate-limit（IP-based anti-bot），不是 layout 問題
+- 今天同一 IP 反覆建 6-8 筆 event（含 orphan + 測試）→ 被標為可疑
+- 重構前 smoke test 只建 1 筆，所以沒跳
+
+**驗證方法 A**：使用者換網路（手機 4G / 其他 WiFi）→ **CAPTCHA 不跳** ✅ 推論確認
+
+**結論**：Production 真實用戶（不同 IP、單次預約）不會跳。即使跳了，點一下驗證碼就通過。
+
+### 今天下午產生的 Calendly / DB 狀態
+
+截至 13:35 DB 5 筆 bookings：
+| Scheduled | Status | 說明 |
+|---|---|---|
+| 4/21 08:30 | paid | 昨天 NT$20 smoke test（Stripe 已收款，Calendly 昨天已 cancel） |
+| 4/29 08:30 | expired | 今天中午測 orphan cleanup 用的 Case C，cleanup 已處理 |
+| 4/28 08:30 | expired | UX 重構後測試過程的 pending，cleanup 05:35 cron 自動 expire + Calendly cancel with reason "Payment hold expired" |
+| 4/28 13:30 | pending | 最後一次 UI 測試沒走完付款，會被下次 cleanup 處理 |
+| 4/30 08:30 | paid | 下午 NT$20 real-card smoke test ✅ |
+
+**使用者手動 TODO**：
+- Calendly cancel `WenHao Yu 1328` 4/30 08:30（NT$20 smoke test）
+- Stripe NT$40（2 筆 NT$20）**不 refund，當 Stripe balance 儲值**（扣手續費後 ≈ NT$18.84）
+
+### 學到的
+
+1. **「頁面本質」決定一切**：Landing page（說服）和 payment page（轉換）是根本不同的 UX 邏輯。一開始當 landing page 做是錯配。**下次做 payment page 先問「目的是說服還是轉換」**
+2. **「專業感 ≠ 客製化」**：即使熟人用，文案要保留通用質感。熟人看正式產品頁更認真
+3. **Split layout > Stack layout for payment portals**：一屏完成 qualify + 預約，零滾動到達
+4. **State machine 切換要守住容器**：payment state 別改動外層 layout，只換容器內部內容（我一開始做錯了，使用者更正）
+5. **Calendly CAPTCHA 是 IP-based rate limit**（debug 「為什麼突然出現」先換網路驗證）
+6. **Stripe Link 跳驗證碼不是 bug**：Stripe 偵測到 email 有 Link 帳號就會跳，真實用戶第一次付款不會跳
+7. **Archive over delete**：砍掉的 section 存到 md 檔，未來公開版 / services 頁 / about 頁可復用 — 不是刪掉是搬家
+8. **文案迭代用對話式 Q&A**：6 題一題題確認（我提建議 + 使用者決定），避免一次改太多又推翻
+
+### 未完成（Future Enhancements）
+
+- [ ] Confirmed 畫面 NT$8,000 硬編碼（真實付款金額存在 DB，前端寫死 8,000 剛好一致，smoke test 時會顯示 mismatch）— **暫不改**，等 DB schema 加 `amount_twd` 欄位時一起做
+- [ ] Mobile（< lg breakpoint）split layout 變 stack，Calendly widget 會變很長 — 可能要改成「開啟 Calendly 新頁」按鈕或 modal
+- [ ] Hero 左邊 info 的 sticky 在長 Calendly 中會跟不上 — 可接受
 
 ---
 
@@ -339,4 +454,4 @@ az containerapp update \
 
 ---
 
-**Last updated**：2026-04-17 12:40 — Orphan cleanup 上線 + Case B/C 驗證通過 + Azure Container App Job 取代 GitHub Actions cron（原 workflow 已刪）+ NT$20 smoke test booking 已 Calendly cancel
+**Last updated**：2026-04-17 下午 — UX 重構（熟人支付門戶 split layout）+ production 再驗證通過（NT$20 real-card）+ tutoring.astro 從 727 → 496 lines（-32%）
