@@ -1,0 +1,213 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+const SURVEY_ID = 'workshop-signup-2026-q2';
+---
+
+<AdminLayout title="Workshop 報名">
+  <div class="max-w-6xl">
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm">
+        <div class="flex items-baseline gap-2">
+          <span id="primary-count" class="text-3xl font-bold text-ink-900">—</span>
+          <span class="text-sm text-ink-500">主報名者</span>
+        </div>
+        <p class="text-xs text-ink-400 mt-1">填表的人數</p>
+      </div>
+
+      <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm">
+        <div class="flex items-baseline gap-2">
+          <span id="total-headcount" class="text-3xl font-bold text-ink-900">—</span>
+          <span class="text-sm text-ink-500">總人數意向</span>
+        </div>
+        <p class="text-xs text-ink-400 mt-1">含同伴展開</p>
+      </div>
+
+      <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm">
+        <div class="flex items-baseline gap-2">
+          <span id="progress" class="text-3xl font-bold text-accent">—</span>
+          <span class="text-sm text-ink-500">/ 5 人成班</span>
+        </div>
+        <p class="text-xs text-ink-400 mt-1">距離成班還差幾人</p>
+      </div>
+    </div>
+
+    <!-- Loading / Empty / Error -->
+    <div id="loading-state" class="text-center py-12 text-ink-400">載入中...</div>
+    <div id="empty-state" class="hidden text-center py-12 text-ink-400">尚無報名資料。</div>
+
+    <!-- Responses -->
+    <div id="responses-list" class="space-y-4"></div>
+
+  </div>
+
+  <script>
+    function escapeHtml(str: string): string {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function formatDate(iso: string): string {
+      return new Date(iso).toLocaleDateString('zh-TW', {
+        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    function renderWorkshopData(data: any) {
+      const responses = data.data.responses;
+      const loadingEl = document.getElementById('loading-state')!;
+      const emptyEl = document.getElementById('empty-state')!;
+      const listEl = document.getElementById('responses-list')!;
+      const primaryEl = document.getElementById('primary-count')!;
+      const totalEl = document.getElementById('total-headcount')!;
+      const progressEl = document.getElementById('progress')!;
+
+      loadingEl.classList.add('hidden');
+
+      if (responses.length === 0) {
+        emptyEl.classList.remove('hidden');
+        primaryEl.textContent = '0';
+        totalEl.textContent = '0';
+        progressEl.textContent = '0';
+        return;
+      }
+
+      // Compute stats
+      let totalHeadcount = 0;
+      const parsedResponses = responses.map((r: any) => {
+        let scenario: any = {};
+        try {
+          scenario = JSON.parse(r.scenario || '{}');
+        } catch {}
+        const partySize = scenario.party_size === '6+' ? 6 : (parseInt(scenario.party_size, 10) || 1);
+        totalHeadcount += partySize;
+        return { ...r, scenario, partySize };
+      });
+
+      primaryEl.textContent = responses.length.toString();
+      totalEl.textContent = totalHeadcount.toString();
+      progressEl.textContent = Math.min(totalHeadcount, 5).toString();
+
+      // Render cards
+      listEl.innerHTML = parsedResponses.map((r: any, i: number) => {
+        const s = r.scenario;
+        const companions = s.companions || [];
+        const companionsHtml = companions.length > 0 ? `
+          <div class="mt-4 pt-4 border-t border-cream-300">
+            <p class="text-xs font-semibold text-ink-500 uppercase tracking-wide mb-2">同伴 (${companions.length})</p>
+            <div class="space-y-2">
+              ${companions.map((c: any, ci: number) => `
+                <div class="bg-cream-50 rounded-lg p-3 text-sm">
+                  <div class="font-medium text-ink-900">#${ci + 1} ${escapeHtml(c.name || '—')}</div>
+                  <div class="text-ink-500 text-xs">${escapeHtml(c.email || '—')}</div>
+                  ${c.pain ? `<div class="text-ink-600 text-xs mt-1 italic">「${escapeHtml(c.pain)}」</div>` : ''}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : '';
+
+        const partySizeBadge = r.partySize > 1
+          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent/10 text-accent text-xs font-medium rounded">${r.partySize} 人</span>`
+          : '';
+
+        return `
+          <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
+            <!-- Header row -->
+            <div class="flex items-start justify-between gap-4 mb-3">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-ink-400 text-sm">#${i + 1}</span>
+                  <h3 class="text-lg font-semibold text-ink-900">${escapeHtml(s.name || '—')}</h3>
+                  ${partySizeBadge}
+                </div>
+                <p class="text-sm text-ink-500">${escapeHtml(r.role || '—')}</p>
+              </div>
+              <div class="text-right text-xs text-ink-400 whitespace-nowrap">
+                ${formatDate(r.created_at)}
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm mb-3">
+              <div>
+                <span class="text-ink-400 text-xs">Email</span>
+                <div class="text-ink-900">${escapeHtml(r.email)}</div>
+              </div>
+              <div>
+                <span class="text-ink-400 text-xs">LINE</span>
+                <div class="text-ink-900">${escapeHtml(s.line_id || '—')}</div>
+              </div>
+            </div>
+
+            <!-- Pain (highlighted - this is the case study material) -->
+            ${s.pain ? `
+              <div class="mt-3 bg-amber-50 border-l-4 border-amber-400 rounded-r p-3">
+                <p class="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">最痛的工作流問題</p>
+                <p class="text-sm text-ink-900 whitespace-pre-wrap">${escapeHtml(s.pain)}</p>
+              </div>
+            ` : ''}
+
+            <!-- Optional fields -->
+            ${(s.current_tools || s.dietary || s.message) ? `
+              <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
+                ${s.current_tools ? `
+                  <div>
+                    <span class="text-ink-400 text-xs">目前工具</span>
+                    <div class="text-ink-700">${escapeHtml(s.current_tools)}</div>
+                  </div>
+                ` : ''}
+                ${s.dietary ? `
+                  <div>
+                    <span class="text-ink-400 text-xs">飲食偏好</span>
+                    <div class="text-ink-700">${escapeHtml(s.dietary)}</div>
+                  </div>
+                ` : ''}
+                ${s.message ? `
+                  <div class="md:col-span-3">
+                    <span class="text-ink-400 text-xs">想說的話</span>
+                    <div class="text-ink-700 italic">「${escapeHtml(s.message)}」</div>
+                  </div>
+                ` : ''}
+              </div>
+            ` : ''}
+
+            ${companionsHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function loadWorkshopData() {
+      const admin = (window as any).__admin;
+      if (!admin) return;
+
+      const key = admin.getKey();
+      if (!key) return;
+
+      fetch(`${admin.API_BASE}/api/survey/responses/workshop-signup-2026-q2?key=${encodeURIComponent(key)}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch');
+          return res.json();
+        })
+        .then(renderWorkshopData)
+        .catch(() => {
+          const loadingEl = document.getElementById('loading-state')!;
+          loadingEl.textContent = '載入失敗，請重新整理頁面。';
+        });
+    }
+
+    // Wait for auth guard to show dashboard
+    const observer = new MutationObserver(() => {
+      const guard = document.getElementById('admin-auth-guard');
+      if (guard && !guard.classList.contains('hidden')) {
+        loadWorkshopData();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.getElementById('admin-auth-guard')!, { attributes: true });
+  </script>
+</AdminLayout>
