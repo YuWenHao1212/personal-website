@@ -1,14 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = '1 對 1 教學 — AI 工作流、知識管理、Claude Code';
-const description = '4 小時 × 1 對 1 教學，把 AI 工作流、目標管理、知識管理、Claude Code 真正裝進你的日常。NT$8,000，實體（竹北 JustCo）。';
+const title = '1 對 1 / 1 對 2 教學 — AI 工作流、知識管理、Claude Code';
+const description = '4 小時實體教學（1 對 1 或 1 對 2），把 AI 工作流、目標管理、知識管理、Claude Code 真正裝進你的日常。1v1 NT$8,000 / 1v2 NT$12,000，預設竹北 JustCo。';
 
 // API / integration config — use localhost in dev, production API otherwise
 const API_BASE = import.meta.env.DEV
   ? 'http://localhost:8000'
   : 'https://yu-wenhao-api.calmisland-ea7fe91e.japaneast.azurecontainerapps.io';
-const CALENDLY_URL = 'https://calendly.com/mail-yu-wenhao/tutoring_in_person';
+const CALENDLY_URL_1V1 = 'https://calendly.com/mail-yu-wenhao/tutoring_in_person';
+const CALENDLY_URL_1V2 = 'https://calendly.com/mail-yu-wenhao/1-2';
+
+// Pricing config (must match backend config.TUTORING_SESSION_CONFIG + TUTORING_TRAVEL_FEE)
+const COURSE_PRICE_TWD = { '1v1': 8000, '1v2': 12000 };
+const TRAVEL_FEE_TWD = { hsinchu: 0, taipei: 600, taichung: 800, kaohsiung: 3000 };
+const CITY_LABEL = { hsinchu: '新竹 JustCo', taipei: '台北', taichung: '台中', kaohsiung: '高雄' };
 const STRIPE_PUBLISHABLE_KEY = import.meta.env.DEV
   ? 'pk_test_51PmX2qFW1q3vb1jMNG2jQfGnhhYzz7w1xkyPzXqZ0sJkc3yOUZ3rdYzaatLsXkIOBQ6gSwF7fgqwH0fgSNmEyhJ700BEN3aelo'
   : 'pk_live_51PmX2qFW1q3vb1jMfoOjXuYqYE4CwqECfssR63nDkcDDWOvScuZqih8kOMR1aOHZhLc1yiUXluQ1W20hTnLMlgsI00RHBTIUle';
@@ -27,26 +33,45 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
 
         <!-- LEFT: Info -->
         <div class="lg:sticky lg:top-24">
-          <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">1:1 Tutoring</p>
+          <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">1:1 / 1:2 Tutoring</p>
           <h1 class="text-[1.75rem] md:text-[2.25rem] lg:text-[2.75rem] font-bold text-[#2C2416] leading-[1.15] tracking-[-0.02em] mb-5">
-            4 小時 × 1 對 1，<br />把 AI 工作流裝進你的日常。
+            4 小時手把手，<br />把 AI 工作流裝進你的日常。
           </h1>
           <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">
-            給想轉型的工程師、自由接案者，以及想把 AI 認真用起來的人 — 我陪你從零建一套每天會跑、會持續複利的工作系統。
+            給想把 AI 真正用進日常的工作者 — 接案、管客戶、創作、轉型 — 我陪你從零建一套每天會跑、會持續複利的工作系統。
           </p>
 
           <div class="mt-6 flex flex-wrap items-center gap-4 md:gap-5 text-sm md:text-base text-[#5C5144]">
             <span class="flex items-center gap-2">
               <svg class="w-4 h-4 md:w-5 md:h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-              4 小時
+              4 小時實體
             </span>
             <span class="flex items-center gap-2">
               <svg class="w-4 h-4 md:w-5 md:h-5 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
-              竹北 JustCo
+              預設 {JUSTCO_ADDRESS.slice(0,14)}
             </span>
-            <span class="flex items-center gap-2 font-medium text-[#2C2416]">
-              NT$8,000
-            </span>
+          </div>
+
+          <!-- Pricing table -->
+          <div class="mt-6 bg-white border border-[#E8E4DD] rounded-xl p-4 md:p-5">
+            <p class="text-xs font-medium text-[#8B7355] mb-3 tracking-wide uppercase">課程費用</p>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <p class="text-xs text-[#8B7355] mb-1">1 對 1</p>
+                <p class="text-lg md:text-xl font-bold text-[#2C2416]">NT$8,000</p>
+              </div>
+              <div>
+                <p class="text-xs text-[#8B7355] mb-1">1 對 2</p>
+                <p class="text-lg md:text-xl font-bold text-[#2C2416]">NT$12,000</p>
+              </div>
+            </div>
+            <p class="text-xs font-medium text-[#8B7355] mb-2 tracking-wide uppercase">車馬費（依地點）</p>
+            <div class="text-xs md:text-sm text-[#5C5144] space-y-0.5">
+              <p class="flex justify-between"><span>新竹 JustCo（預設）</span><span class="text-[#059669]">免費</span></p>
+              <p class="flex justify-between"><span>台北</span><span>+NT$600</span></p>
+              <p class="flex justify-between"><span>台中</span><span>+NT$800</span></p>
+              <p class="flex justify-between"><span>高雄</span><span>+NT$3,000</span></p>
+            </div>
           </div>
 
           <div class="mt-4 space-y-2 text-sm md:text-base text-[#5C5144] leading-relaxed">
@@ -75,9 +100,102 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
         <!-- RIGHT: Booking state machine -->
         <div id="booking-widget">
 
-          <!-- STATE 1: Calendly widget (select time) -->
-          <div id="state-select" class="bg-white rounded-2xl shadow-sm border border-[#E8E4DD] p-3 md:p-4">
-            <div id="calendly-inline-widget" style="min-width:320px;height:700px;" data-auto-load="false"></div>
+          <!-- STATE 1: Session config + Calendly widget (select time) -->
+          <div id="state-select" class="space-y-4">
+
+            <!-- Step 1: Session type + Location -->
+            <div class="bg-white rounded-2xl shadow-sm border border-[#E8E4DD] p-5 md:p-6 space-y-5">
+
+              <!-- Session type toggle -->
+              <div>
+                <p class="text-sm font-medium text-[#2C2416] mb-3">選擇課程類型</p>
+                <div class="grid grid-cols-2 gap-3">
+                  <label class="cursor-pointer">
+                    <input type="radio" name="session_type" value="1v1" class="peer sr-only" checked />
+                    <div class="border-2 border-[#E8E4DD] peer-checked:border-[#B8926A] peer-checked:bg-[#FEF3C7]/30 rounded-xl p-4 transition-all">
+                      <p class="font-semibold text-[#2C2416]">1 對 1</p>
+                      <p class="text-xs text-[#8B7355] mt-1">個人量身打造</p>
+                      <p class="text-base font-bold text-[#2C2416] mt-2">NT$8,000</p>
+                    </div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="session_type" value="1v2" class="peer sr-only" />
+                    <div class="border-2 border-[#E8E4DD] peer-checked:border-[#B8926A] peer-checked:bg-[#FEF3C7]/30 rounded-xl p-4 transition-all">
+                      <p class="font-semibold text-[#2C2416]">1 對 2</p>
+                      <p class="text-xs text-[#8B7355] mt-1">2 人小組共學</p>
+                      <p class="text-base font-bold text-[#2C2416] mt-2">NT$12,000</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Location selector -->
+              <div>
+                <p class="text-sm font-medium text-[#2C2416] mb-3">上課地點</p>
+                <div class="grid grid-cols-2 gap-2">
+                  <label class="cursor-pointer">
+                    <input type="radio" name="location_city" value="hsinchu" class="peer sr-only" checked />
+                    <div class="border-2 border-[#E8E4DD] peer-checked:border-[#B8926A] peer-checked:bg-[#FEF3C7]/30 rounded-lg px-3 py-2.5 transition-all text-center">
+                      <p class="text-sm font-medium text-[#2C2416]">新竹 JustCo</p>
+                      <p class="text-xs text-[#059669]">免車馬費</p>
+                    </div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="location_city" value="taipei" class="peer sr-only" />
+                    <div class="border-2 border-[#E8E4DD] peer-checked:border-[#B8926A] peer-checked:bg-[#FEF3C7]/30 rounded-lg px-3 py-2.5 transition-all text-center">
+                      <p class="text-sm font-medium text-[#2C2416]">台北</p>
+                      <p class="text-xs text-[#8B7355]">+NT$600</p>
+                    </div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="location_city" value="taichung" class="peer sr-only" />
+                    <div class="border-2 border-[#E8E4DD] peer-checked:border-[#B8926A] peer-checked:bg-[#FEF3C7]/30 rounded-lg px-3 py-2.5 transition-all text-center">
+                      <p class="text-sm font-medium text-[#2C2416]">台中</p>
+                      <p class="text-xs text-[#8B7355]">+NT$800</p>
+                    </div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="location_city" value="kaohsiung" class="peer sr-only" />
+                    <div class="border-2 border-[#E8E4DD] peer-checked:border-[#B8926A] peer-checked:bg-[#FEF3C7]/30 rounded-lg px-3 py-2.5 transition-all text-center">
+                      <p class="text-sm font-medium text-[#2C2416]">高雄</p>
+                      <p class="text-xs text-[#8B7355]">+NT$3,000</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 1v2 partner info (hidden unless 1v2 selected) -->
+              <div id="partner-fields" class="hidden space-y-3 bg-[#F5F1EB] rounded-lg p-4">
+                <p class="text-sm font-medium text-[#2C2416]">第 2 位學員資料</p>
+                <p class="text-xs text-[#8B7355] -mt-2">1 對 2 由主聯絡人代付，但需要同伴資料讓我準備課程</p>
+                <div>
+                  <label class="block text-xs text-[#5C5144] mb-1">姓名</label>
+                  <input type="text" id="partner_name" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" placeholder="第 2 位學員姓名" />
+                </div>
+                <div>
+                  <label class="block text-xs text-[#5C5144] mb-1">Email</label>
+                  <input type="email" id="partner_email" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" placeholder="第 2 位學員 Email" />
+                </div>
+              </div>
+
+              <!-- Live total preview -->
+              <div class="bg-[#2C2416] text-white rounded-xl p-4">
+                <div class="flex items-baseline justify-between gap-2 mb-1">
+                  <span class="text-xs text-[#C4B9A8]" id="total-breakdown">課程 NT$8,000</span>
+                  <span class="text-xs text-[#C4B9A8]" id="travel-line"></span>
+                </div>
+                <div class="flex items-baseline justify-between gap-2">
+                  <span class="text-sm text-[#C4B9A8]">合計</span>
+                  <span class="text-2xl font-bold text-[#B8926A]" id="total-display">NT$8,000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Calendly widget -->
+            <div class="bg-white rounded-2xl shadow-sm border border-[#E8E4DD] p-3 md:p-4">
+              <p class="text-sm font-medium text-[#2C2416] mb-3 px-2 pt-1">選擇時段</p>
+              <div id="calendly-inline-widget" style="min-width:320px;height:700px;" data-auto-load="false"></div>
+            </div>
           </div>
 
       <!-- STATE 2: Payment (Stripe Embedded Checkout) -->
@@ -127,9 +245,9 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
               </div>
               <div class="min-w-0">
                 <p class="text-sm text-[#8B7355]">地點</p>
-                <p class="text-base md:text-lg font-semibold text-[#2C2416]">JustCo 竹北高鐵站</p>
-                <p class="text-sm text-[#5C5144]">{JUSTCO_ADDRESS}</p>
-                <a href={JUSTCO_MAP_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-[#B8926A] hover:underline mt-1">
+                <p id="confirmed-location-label" class="text-base md:text-lg font-semibold text-[#2C2416]">新竹 JustCo</p>
+                <p id="confirmed-location-detail" class="text-sm text-[#5C5144]">{JUSTCO_ADDRESS}</p>
+                <a id="confirmed-map-link" href={JUSTCO_MAP_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-[#B8926A] hover:underline mt-1">
                   在 Google Maps 開啟 →
                 </a>
               </div>
@@ -141,7 +259,7 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
               </div>
               <div>
                 <p class="text-sm text-[#8B7355]">付款</p>
-                <p class="text-base md:text-lg font-semibold text-[#2C2416]">NT$8,000 <span class="text-[#B8926A]">✓</span></p>
+                <p id="confirmed-payment" class="text-base md:text-lg font-semibold text-[#2C2416]">— <span class="text-[#B8926A]">✓</span></p>
                 <a id="confirmed-receipt" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-[#B8926A] hover:underline mt-1 hidden">
                   查看收據 →
                 </a>
@@ -200,7 +318,7 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
   <script is:inline src="https://js.stripe.com/v3/" async></script>
 
   <!-- State machine -->
-  <script define:vars={{ API_BASE, CALENDLY_URL, STRIPE_PUBLISHABLE_KEY, JUSTCO_ADDRESS, IS_DEV: import.meta.env.DEV }}>
+  <script define:vars={{ API_BASE, CALENDLY_URL_1V1, CALENDLY_URL_1V2, STRIPE_PUBLISHABLE_KEY, JUSTCO_ADDRESS, COURSE_PRICE_TWD, TRAVEL_FEE_TWD, CITY_LABEL, IS_DEV: import.meta.env.DEV }}>
     const STORAGE_KEY = 'tutoring_booking_id';
     const STATES = ['select', 'payment', 'confirmed', 'expired', 'error'];
     let pollTimer = null;
@@ -208,6 +326,48 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
     let checkoutInstance = null;
 
     const $ = (id) => document.getElementById(id);
+
+    // --- Session config helpers ---
+    function getSessionType() {
+      const el = document.querySelector('input[name="session_type"]:checked');
+      return el ? el.value : '1v1';
+    }
+    function getLocationCity() {
+      const el = document.querySelector('input[name="location_city"]:checked');
+      return el ? el.value : 'hsinchu';
+    }
+    function formatTWD(n) { return 'NT$' + n.toLocaleString('en-US'); }
+    function updateTotalDisplay() {
+      const st = getSessionType();
+      const city = getLocationCity();
+      const course = COURSE_PRICE_TWD[st];
+      const travel = TRAVEL_FEE_TWD[city];
+      const total = course + travel;
+      const breakdownEl = $('total-breakdown');
+      const travelEl = $('travel-line');
+      const totalEl = $('total-display');
+      if (breakdownEl) breakdownEl.textContent = `${st === '1v1' ? '1 對 1' : '1 對 2'} 課程 ${formatTWD(course)}`;
+      if (travelEl) travelEl.textContent = travel > 0 ? `車馬費 ${formatTWD(travel)}` : '';
+      if (totalEl) totalEl.textContent = formatTWD(total);
+    }
+    function updatePartnerFieldsVisibility() {
+      const partnerEl = $('partner-fields');
+      if (!partnerEl) return;
+      const showPartner = getSessionType() === '1v2';
+      partnerEl.classList.toggle('hidden', !showPartner);
+    }
+    function wireSessionConfigHandlers() {
+      document.querySelectorAll('input[name="session_type"]').forEach((el) => {
+        el.addEventListener('change', () => {
+          updateTotalDisplay();
+          updatePartnerFieldsVisibility();
+          loadCalendly(); // reload widget with new URL
+        });
+      });
+      document.querySelectorAll('input[name="location_city"]').forEach((el) => {
+        el.addEventListener('change', updateTotalDisplay);
+      });
+    }
 
     function showState(name) {
       STATES.forEach((s) => {
@@ -248,11 +408,11 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
       const container = $('calendly-inline-widget');
       if (!container) return;
       container.innerHTML = '';
-      // Calendly widget.js exposes window.Calendly.initInlineWidget
+      const url = getSessionType() === '1v2' ? CALENDLY_URL_1V2 : CALENDLY_URL_1V1;
       const init = () => {
         if (window.Calendly) {
           window.Calendly.initInlineWidget({
-            url: CALENDLY_URL,
+            url: url,
             parentElement: container,
             prefill: {},
             utm: {}
@@ -280,12 +440,32 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
 
     // --- Flow handlers ---
     async function handleSlotSelected(invitee_uri) {
+      const sessionType = getSessionType();
+      const locationCity = getLocationCity();
+
+      // Validate 1v2 partner info
+      let partnerName = null;
+      let partnerEmail = null;
+      if (sessionType === '1v2') {
+        partnerName = ($('partner_name')?.value || '').trim();
+        partnerEmail = ($('partner_email')?.value || '').trim();
+        if (!partnerName || !partnerEmail) {
+          showError('1 對 2 需要填寫第 2 位學員的姓名與 Email');
+          return;
+        }
+      }
+
       showState('payment');
       try {
         const res = await fetch(`${API_BASE}/api/tutoring/create-checkout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ invitee_uri })
+          body: JSON.stringify({
+            invitee_uri,
+            location_city: locationCity,
+            partner_name: partnerName,
+            partner_email: partnerEmail,
+          })
         });
         const json = await res.json();
         if (!json.success) throw new Error(json.error || 'Checkout creation failed');
@@ -380,10 +560,10 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
           const res = await fetch(`${API_BASE}/api/tutoring/status/${bookingId}`);
           const json = await res.json();
           if (!json.success) return;
-          const { status, scheduled_at, stripe_receipt_url } = json.data;
+          const { status } = json.data;
           if (status === 'paid') {
             clearTimers();
-            renderConfirmed(scheduled_at, stripe_receipt_url);
+            renderConfirmed(json.data);
           } else if (status === 'expired' || status === 'canceled') {
             clearTimers();
             localStorage.removeItem(STORAGE_KEY);
@@ -395,16 +575,51 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
       }, 2000);
     }
 
-    function renderConfirmed(scheduledAt, receiptUrl) {
+    function renderConfirmed(data) {
+      const { scheduled_at, stripe_receipt_url, session_type, location_city, course_price_twd, travel_fee_twd, total_twd, location_details } = data;
       const timeEl = $('confirmed-time');
-      if (timeEl) timeEl.textContent = formatDateTime(scheduledAt);
+      if (timeEl) timeEl.textContent = formatDateTime(scheduled_at);
+
+      // Location
+      const locLabelEl = $('confirmed-location-label');
+      const locDetailEl = $('confirmed-location-detail');
+      const mapLinkEl = $('confirmed-map-link');
+      const city = location_city || 'hsinchu';
+      if (locLabelEl) locLabelEl.textContent = CITY_LABEL[city] || city;
+      if (locDetailEl) {
+        if (city === 'hsinchu') {
+          locDetailEl.textContent = JUSTCO_ADDRESS;
+        } else {
+          locDetailEl.textContent = location_details || '地點將另行通知';
+        }
+      }
+      if (mapLinkEl) {
+        if (city === 'hsinchu') {
+          mapLinkEl.classList.remove('hidden');
+        } else {
+          mapLinkEl.classList.add('hidden');
+        }
+      }
+
+      // Payment amount
+      const payEl = $('confirmed-payment');
+      if (payEl) {
+        const total = total_twd || (course_price_twd || 0) + (travel_fee_twd || 0);
+        let text = formatTWD(total);
+        if (travel_fee_twd > 0) {
+          text += `（課程 ${formatTWD(course_price_twd)} + 車馬費 ${formatTWD(travel_fee_twd)}）`;
+        }
+        payEl.innerHTML = `${text} <span class="text-[#B8926A]">✓</span>`;
+      }
+
+      // Receipt
       const receiptEl = $('confirmed-receipt');
-      if (receiptEl && receiptUrl) {
-        receiptEl.href = receiptUrl;
+      if (receiptEl && stripe_receipt_url) {
+        receiptEl.href = stripe_receipt_url;
         receiptEl.classList.remove('hidden');
       }
       showState('confirmed');
-      window.umami?.track('tutoring_booking_confirmed');
+      window.umami?.track('tutoring_booking_confirmed', { session_type });
     }
 
     // --- Recovery on page load ---
@@ -422,9 +637,9 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
           resetToSelect();
           return;
         }
-        const { status, scheduled_at, stripe_receipt_url, hold_expires_at } = json.data;
+        const { status, hold_expires_at } = json.data;
         if (status === 'paid') {
-          renderConfirmed(scheduled_at, stripe_receipt_url);
+          renderConfirmed(json.data);
           return;
         }
         if (status === 'expired' || status === 'canceled') {
@@ -453,6 +668,11 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
     // --- Wire buttons ---
     $('expired-retry')?.addEventListener('click', resetToSelect);
     $('error-retry')?.addEventListener('click', resetToSelect);
+
+    // --- Wire session config handlers + init UI ---
+    wireSessionConfigHandlers();
+    updateTotalDisplay();
+    updatePartnerFieldsVisibility();
 
     // --- Handle success URL (?success=1&session_id=...) ---
     const params = new URLSearchParams(window.location.search);
