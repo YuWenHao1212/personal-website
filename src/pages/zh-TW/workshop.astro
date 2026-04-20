@@ -456,6 +456,36 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           <p class="text-xs text-[#8B7355] mt-1">成班後通知用</p>
         </div>
 
+        <!-- 地點偏好 (checkbox 可複選) -->
+        <div>
+          <label class="block text-sm font-medium text-[#2C2416] mb-2">你偏好哪個城市上課？<span class="text-[#DC2626]">*</span></label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="city_pref" value="台北" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
+              <span class="text-base text-[#2C2416]">台北</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="city_pref" value="台中" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
+              <span class="text-base text-[#2C2416]">台中</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="city_pref" value="新竹" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
+              <span class="text-base text-[#2C2416]">新竹</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="city_pref" value="高雄" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
+              <span class="text-base text-[#2C2416]">高雄</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" id="city_other_check" name="city_pref" value="其他" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
+              <span class="text-base text-[#2C2416]">其他</span>
+            </label>
+          </div>
+          <input id="city_other_text" name="city_other_text" type="text" placeholder="請填其他城市" class="hidden mt-2 w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20" />
+          <p id="city_pref_error" class="hidden text-xs text-[#DC2626] mt-1">請至少選一個城市</p>
+          <p class="text-xs text-[#8B7355] mt-1">可複選 — 讓我知道你能配合哪些場次</p>
+        </div>
+
         <div>
           <label for="role" class="block text-sm font-medium text-[#2C2416] mb-2">你目前的工作角色 / 行業 <span class="text-[#DC2626]">*</span></label>
           <input id="role" name="role" type="text" required placeholder="例：自由設計師 / 醫師 / 金融業 PM / 內容創作者..." class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20" />
@@ -605,6 +635,18 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
     const companionsWrapper = document.getElementById('companions-wrapper');
     const companionBlocks = document.querySelectorAll('.companion-block');
 
+    // City preference "其他" checkbox → show text input
+    const cityOtherCheck = document.getElementById('city_other_check');
+    const cityOtherText = document.getElementById('city_other_text');
+    cityOtherCheck.addEventListener('change', () => {
+      if (cityOtherCheck.checked) {
+        cityOtherText.classList.remove('hidden');
+      } else {
+        cityOtherText.classList.add('hidden');
+        cityOtherText.value = '';
+      }
+    });
+
     // Party size dropdown — show/hide companion blocks
     partySizeSelect.addEventListener('change', () => {
       const value = partySizeSelect.value;
@@ -634,6 +676,17 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Validate city preference (at least 1 checkbox)
+      const cityChecked = form.querySelectorAll('input[name="city_pref"]:checked');
+      const cityErrorEl = document.getElementById('city_pref_error');
+      if (cityChecked.length === 0) {
+        cityErrorEl.classList.remove('hidden');
+        cityErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      cityErrorEl.classList.add('hidden');
+
       submitBtn.disabled = true;
       submitBtn.textContent = '送出中...';
       errorMsg.classList.add('hidden');
@@ -654,11 +707,20 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
         });
       }
 
+      // Build city preference list (replace "其他" with custom text)
+      const cityRawValues = formData.getAll('city_pref');
+      const cityOther = formData.get('city_other_text')?.toString().trim() || '';
+      const cityList = cityRawValues.map(v => {
+        if (v === '其他') return cityOther ? `其他：${cityOther}` : '其他';
+        return v;
+      });
+
       // Pack all fields except email/role into scenario JSON
       const scenarioData = {
         name: formData.get('name'),
         line_id: formData.get('line_id'),
         pain: formData.get('pain'),
+        city_pref: cityList.join(', '),
         current_tools: formData.get('current_tools') || '',
         dietary: formData.get('dietary') || '',
         message: formData.get('message') || '',
