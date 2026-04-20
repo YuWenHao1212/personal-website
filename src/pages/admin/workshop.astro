@@ -114,15 +114,20 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent/10 text-accent text-xs font-medium rounded">${r.partySize} 人</span>`
           : '';
 
+        const priceBadge = s.price_total
+          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded">NT$${s.price_total.toLocaleString('en-US')}</span>`
+          : (s.party_size === '6+' ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded">另議</span>` : '');
+
         return `
           <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
             <!-- Header row -->
             <div class="flex items-start justify-between gap-4 mb-3">
               <div>
-                <div class="flex items-center gap-2 mb-1">
+                <div class="flex items-center gap-2 mb-1 flex-wrap">
                   <span class="text-ink-400 text-sm">#${i + 1}</span>
                   <h3 class="text-lg font-semibold text-ink-900">${escapeHtml(s.name || '—')}</h3>
                   ${partySizeBadge}
+                  ${priceBadge}
                 </div>
                 <p class="text-sm text-ink-500">${escapeHtml(r.role || '—')}</p>
               </div>
