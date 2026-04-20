@@ -5,6 +5,15 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 <AdminLayout title="問卷回覆">
   <div class="max-w-5xl">
 
+    <!-- Survey selector -->
+    <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm mb-4">
+      <label for="survey-select" class="block text-sm font-medium text-ink-700 mb-2">選擇問卷</label>
+      <select id="survey-select" class="w-full md:w-auto px-4 py-2 rounded-lg border border-cream-300 text-base text-ink-900 focus:outline-none focus:border-accent bg-white">
+        <option value="meeting-tool">Meeting Tool Survey</option>
+        <option value="workshop-signup-2026-q2">Workshop 報名（2026 Q2）</option>
+      </select>
+    </div>
+
     <!-- Stats -->
     <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm mb-6">
       <div class="flex items-baseline gap-3">
@@ -96,6 +105,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
       // Attach click handlers for followup buttons
       const admin = (window as any).__admin;
+      const surveyId = (document.getElementById('survey-select') as HTMLSelectElement).value;
       document.querySelectorAll('.followup-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
           const target = e.target as HTMLButtonElement;
@@ -108,7 +118,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
           try {
             const res = await fetch(
-              `${admin.API_BASE}/api/survey/responses/meeting-tool/${encodeURIComponent(email)}/followup?key=${encodeURIComponent(key)}`,
+              `${admin.API_BASE}/api/survey/responses/${surveyId}/${encodeURIComponent(email)}/followup?key=${encodeURIComponent(key)}`,
               { method: 'PATCH' }
             );
             if (res.ok) {
@@ -130,17 +140,30 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       const key = admin.getKey();
       if (!key) return;
 
-      fetch(`${admin.API_BASE}/api/survey/responses/meeting-tool?key=${encodeURIComponent(key)}`)
+      const surveyId = (document.getElementById('survey-select') as HTMLSelectElement).value;
+      const loadingEl = document.getElementById('loading-state')!;
+      const emptyEl = document.getElementById('empty-state')!;
+      const bodyEl = document.getElementById('responses-body')!;
+
+      // Reset UI before fetch
+      loadingEl.textContent = '載入中...';
+      loadingEl.classList.remove('hidden');
+      emptyEl.classList.add('hidden');
+      bodyEl.innerHTML = '';
+
+      fetch(`${admin.API_BASE}/api/survey/responses/${surveyId}?key=${encodeURIComponent(key)}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch');
           return res.json();
         })
         .then(renderSurveyData)
         .catch(() => {
-          const loadingEl = document.getElementById('loading-state')!;
           loadingEl.textContent = '載入失敗，請重新整理頁面。';
         });
     }
+
+    // Survey dropdown change → reload
+    document.getElementById('survey-select')!.addEventListener('change', loadSurveyData);
 
     // Wait for auth guard to show dashboard
     const observer = new MutationObserver(() => {
