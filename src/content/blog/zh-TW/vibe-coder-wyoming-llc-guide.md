@@ -206,89 +206,68 @@ $285/年換這個彈性，我覺得值。
 
 ---
 
-## 如果你決定走這條路
+## 如何建立：$139、5 步驟、30 天
 
-前面講完為什麼，這段講怎麼做。不是完整教學，是把 2 年實戰壓縮成幾張表給你。
+從決定要開到 Stripe 開始收錢，大約 30 天、花費 $139。
 
-### 選州：Wyoming 是主流選擇
+### Step 1：Northwest 線上填表（$39 / 30 分鐘）
 
-| 州 | 3 年成本 | 州稅 | 說明 |
-|----|---------|------|------|
-| **Wyoming** | ~$509 | 無 | 大多數 vibe coder 的選擇：州費便宜、隱私好、Member 不公開 |
-| New Mexico | ~$339 | 有 | 最便宜，但銀行接受度略差 |
-| Florida | ~$691 | 無 | Member 資訊公開 |
-| Delaware | ~$979 | 8.7% franchise | $300/年 franchise tax，個人 vibe coder 不適合 |
+去 Northwest 網站選「Wyoming LLC formation」$39 方案 — 包含第一年 Registered Agent。
 
-> 來源：[Wyoming SOS](https://sos.wyo.gov/Business/Docs/LLC_Filing.pdf)、[Delaware Franchise Tax](https://corp.delaware.gov/paytaxes/)
+填公司名（你之後產品的品牌名）、你的台灣地址、刷卡付 $39。Northwest 會自動加收 Wyoming 州費 $100，合計 **$139 一次付清**。
 
-Wyoming 是 9 個無州所得稅的州之一（其他：Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington）。
+整個流程大約 30 分鐘。
 
-### 成立流程：30 天、$139、5 步驟
+### Step 2：Wyoming 州政府核准（通常 24 小時內）
 
-| Step | 做什麼 | 時間 | 花費 |
-|------|-------|------|------|
-| 1 | Northwest 線上填表（ $39 含第一年 RA） | 30 分鐘 | $39 |
-| 2 | Wyoming 州費 | 自動代辦 | $100 |
-| 3 | 自己傳真 SS-4 申請 EIN | 1-2 週 | $0 |
-| 4 | 開 Mercury 銀行戶 | 3-5 天 | $0 |
-| 5 | Stripe 申請（用 EIN） | 1-3 天 | $0 |
-|  | **Total** | **~30 天** | **$139** |
+我自己是台灣晚上填完表、隔天早上起床就收到 email — LLC 成立證書（Articles of Organization）附在信裡，從那一刻起你有一家美國公司了。
 
-> 來源：[IRS Form SS-4](https://www.irs.gov/forms-pubs/about-form-ss-4)、[Mercury for Non-US Founders](https://mercury.com/international)
+這份 PDF 留好，後面開 Mercury、申請 EIN 都要用。
 
-### 一年維護成本：強制 $185，實際 ~$322
+### Step 3：申請 EIN（幾小時到 1-2 週）
 
-| 項目 | 金額 | 能省嗎 |
-|------|------|--------|
-| Wyoming 州年報 | $60 | 不能（州規定） |
-| Northwest Registered Agent | $125 | 換 Bizee $119 差 $6 不值 |
-| **強制小計** | **$185** | |
-| Northwest Annual Report 代辦服務 | ~$103 | 自己 wyobiz.wyo.gov 交免費 |
-| 網域 | ~$34 | 看是否續 |
-| **我實際花** | **~$322** | 可壓到 ~$185 |
+EIN 是美國公司統編。外國人不能線上申請，只能傳真或透過代辦。
 
-### 為什麼台灣金流解不了你的問題
+**最重要的事：Line 9b 要填 "Wyoming"，不是你的國籍。**
 
-台灣本土金流都試過，每個都卡在不同地方：
+Wyoming LLC 是在美國註冊的實體，不管 owner 是誰 — 這欄就是 Wyoming。很多代辦（或自己第一次填）會誤填 "Taiwan"，IRS 就會把你的 LLC 分類錯，核發不對的 EIN。**這一步填錯，後面報稅整個要重來**。
 
-| 工具 | 收海外 USD | 收 NTD | 訂閱制 | 主要 drawback |
-|------|-----------|--------|--------|---------------|
-| Line Pay | ❌ | ✅ | ⚠️ | 只服務台灣用戶 |
-| 街口 | ❌ | ✅ | ❌ | 純台灣本土 |
-| 藍新 | ⚠️ DCC | ✅ | ⚠️ 陽春 | 結算只撥台幣 |
-| 綠界 | ⚠️ 要特約 | ✅ | ⚠️ 陽春 | 個人戶停收海外卡 |
-| **Stripe（走 LLC）** | ✅ | ✅ | ✅ | 要開美國公司 |
+**三個選擇**：
 
-如果你只收台灣客人、不做訂閱制，台灣本土金流夠用。但只要你的客戶在海外、或你想做訂閱 / SaaS — Stripe 幾乎是唯一路。
+- **DIY 傳真 SS-4**（$0 / 約 1 週拿到）：自己填 Form SS-4 半小時、傳真到 IRS 外國人專線，等 1 週左右收到 EIN。最便宜最可控
+- **Fiverr 代辦**（$15 起 / 宣稱 24 小時）：賣家當 Third Party Designee 幫你打 IRS 國際專線，IRS 當場口頭給 EIN（letter 後補）。省時間但要用英文溝通、**一定要挑評價好的賣家**（Fiverr 上有不少假號、盜用 EIN 的詐騙）
+- **Northwest 加購 EIN 服務**（~$50 / 1-2 週）：既然已經在用 Northwest 當 RA，加購 EIN 最一致、最專業
 
-> 來源：[Stripe Countries](https://stripe.com/global)、[藍新 Official](https://www.newebpay.com/)、[綠界海外卡政策](https://www.ecpay.com.tw/)
+我自己第一次沒經驗，想說「專業的做比較好」找了一個 $15 Fiverr 代辦，結果他 Line 9b 填錯，IRS 核發的 EIN 分類錯誤。我後來報稅用到那個錯的 EIN，還得送 Form 1120X Amended Return 修正，**花快一個月補救**。
 
-### 3 個日曆要標的 deadline
+這不代表 Fiverr 代辦都不行 — 評價好的可能沒問題。但你省的是 $15，踩雷補救一個月。
 
-| 時間 | 做什麼 | 漏了會怎樣 |
-|------|-------|-----------|
-| 每年 3 月 | Registered Agent 續約（Northwest 會自動扣卡） | 卡過期沒更新，RA 會停 service |
-| 4/15 | IRS 報稅（Form 1120 + 5472） | 5472 漏報罰 $25,000 |
-| 11/1 | Wyoming Annual Report | 逾期罰款 + 州政府會 dissolve 你的 LLC |
+### Step 4：開 Mercury 銀行戶（線上 15 分鐘 + 3-5 天審核）
 
-> 來源：[IRS Form 5472 Penalty](https://www.irs.gov/pub/irs-pdf/i5472.pdf)、[Wyoming Annual Report](https://wyobiz.wyo.gov/)
+有了 Articles + EIN 就能開 Mercury。不用飛美國、不用介紹人、全程線上。
 
-### 2025-2026 法規變動
+Mercury 對外國 founder 友善，填表 15 分鐘送出，3-5 天會收到核准 email。帳號開好，就能綁 Stripe 了。
 
-3 件事影響外國人持有美國 LLC：
+**不要用 Chase / Bank of America** — 那些傳統銀行會要你本人到場。
 
-**1. FinCEN BOI 大鬆綁（2025/3/26）**
-美國境內成立的 LLC（含外國人持有）**完全免報 BOI**。只有「外國法人登記在美國做生意」還要報。這是很多中文文章還沒更新的一個大變動。
+### Step 5：Stripe 申請（1-3 天）
 
-> 來源：[FinCEN Press Release](https://www.fincen.gov/news/news-releases/fincen-removes-beneficial-ownership-reporting-requirements-us-companies-and-us)
+用 Mercury 帳號當 payout 目的地，Stripe 註冊時 business entity 選 "LLC"、國家選美國。
 
-**2. 1% 跨境匯款稅（2026/1/1 生效）**
-美國新稅法，匯款出美國要課 1%。但 **Mercury wire 回台灣免稅**（銀行帳戶豁免條款）。
-
-**3. H.R.33 美台雙重課稅減免法案**
-眾議院 423:1 通過，參議院審查中。如果通過，台灣人持有美國公司未來可以免部分雙重課稅。觀察中。
+1-3 天審核通過，你的產品就能開始收錢。
 
 ---
+
+### 建立後：3 個日曆要標的 deadline
+
+LLC 開完不是結束，三個時間點一定要記：
+
+- **每年 3 月**：Registered Agent 自動扣卡續約。**記得主動檢查信用卡沒過期** — 卡過期、RA 失效，IRS 信件就沒人接收
+- **每年 4/15**：IRS 申報 Form 1120 + 5472。漏報 5472 罰 **$25,000**（這不是繳稅，只是資訊申報）
+- **每年 11/1**：Wyoming Annual Report 交 $60。漏交州政府會強制解散你的 LLC
+
+這三個都進 Google Calendar 設年度提醒，不要靠記憶。
+
 
 ## 結語
 
