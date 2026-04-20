@@ -167,7 +167,7 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
               <!-- 1v2 partner hint (shown when 1v2 selected) -->
               <div id="partner-hint" class="hidden bg-[#F5F1EB] rounded-lg p-4 text-sm text-[#5C5144] leading-relaxed">
                 <p class="font-medium text-[#2C2416] mb-1">第 2 位學員資料</p>
-                <p>選完時段後，Calendly 預約頁會請你填寫第 2 位學員的姓名與 Email（由主聯絡人代付）。</p>
+                <p>選完時段後，預約頁會請你填寫第 2 位學員的姓名與 Email（由主聯絡人代付）。</p>
               </div>
 
               <!-- Live total preview -->
@@ -267,7 +267,7 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
                 <p class="text-sm text-[#8B7355]">第 2 位學員</p>
                 <p id="confirmed-partner-name" class="text-base md:text-lg font-semibold text-[#2C2416]">—</p>
                 <p id="confirmed-partner-email" class="text-sm text-[#5C5144] break-all">—</p>
-                <p class="text-xs text-[#8B7355] mt-1">Calendly 已自動寄通知給這位學員</p>
+                <p class="text-xs text-[#8B7355] mt-1">系統已自動寄預約通知到這個 Email</p>
               </div>
             </div>
           </div>
@@ -275,8 +275,8 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
           <div class="bg-[#F5F1EB] rounded-lg p-4 md:p-5 mb-6">
             <p class="text-sm font-medium text-[#2C2416] mb-2">接下來會收到的 email</p>
             <ul id="confirmed-email-list" class="text-sm text-[#5C5144] space-y-1">
-              <li>• 付款收據（Stripe，幾分鐘內）</li>
-              <li>• 上課前 24 小時提醒（Calendly）</li>
+              <li>• 付款收據（幾分鐘內）</li>
+              <li>• 上課前 24 小時提醒</li>
             </ul>
           </div>
 
@@ -623,8 +623,8 @@ const JUSTCO_MAP_URL = 'https://maps.google.com/?q=' + encodeURIComponent('JustC
         }
         if (emailListEl) {
           emailListEl.innerHTML = `
-            <li>• 付款收據（Stripe，幾分鐘內，寄給主聯絡人）</li>
-            <li>• 上課前 24 小時提醒（Calendly，兩位學員都會收到）</li>
+            <li>• 付款收據（幾分鐘內，寄給主聯絡人）</li>
+            <li>• 上課前 24 小時提醒（兩位學員都會收到）</li>
           `;
         }
       } else {
