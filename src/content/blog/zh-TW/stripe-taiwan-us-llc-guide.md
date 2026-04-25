@@ -8,7 +8,7 @@ tags: ["vibe-coding", "美國-llc", "wyoming", "stripe", "claude-code", "solo-op
 lang: zh-TW
 translationKey: vibe-coder-wyoming-llc-guide
 featured: false
-draft: true
+draft: false
 heroImage: /images/blog/vibe-coder-wyoming-llc-guide.webp
 focus_keyphrase: "stripe taiwan"
 keywords: ["stripe taiwan", "stripe 台灣", "vibe coding", "美國 LLC", "Wyoming LLC", "Stripe Atlas", "Form 5472", "Mercury 開戶", "台灣人 美國公司", "vibe coder 收美金"]
