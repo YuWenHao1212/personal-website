@@ -4,7 +4,7 @@ import { languages, ui } from '../i18n/ui';
 
 const currentLang = getLangFromUrl(Astro.url);
 const alternateLang = getAlternateLanguage(currentLang);
-const alternatePath = getAlternatePath(Astro.url);
+const alternatePath = await getAlternatePath(Astro.url);
 const t = (key: keyof typeof ui['zh-TW']) => ui[currentLang][key];
 ---
 
