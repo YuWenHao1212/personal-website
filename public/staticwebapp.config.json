@@ -399,6 +399,16 @@
       "statusCode": 301
     },
     {
+      "route": "/blog/flux-direction-system-leverage",
+      "redirect": "/zh-TW/blog/flux-direction-system-leverage/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog/stripe-taiwan-us-llc-guide",
+      "redirect": "/zh-TW/blog/stripe-taiwan-us-llc-guide/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog/*",
       "redirect": "/zh-TW/blog/",
       "statusCode": 301
