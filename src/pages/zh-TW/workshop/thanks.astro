@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = '報名成功 — AI Cockpit Workshop';
+const description = '感謝你報名 8/22 AI Cockpit Workshop。我會在 1-2 天內透過 LINE 聯繫你。';
+---
+
+<BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
+  <section class="py-20 md:py-28 bg-[#F5F1EB] min-h-screen">
+    <div class="max-w-2xl mx-auto px-6">
+      <!-- Success icon -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#D1FAE5] mb-6">
+          <svg class="w-10 h-10 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h1 class="text-[2rem] md:text-[2.5rem] font-bold text-[#2C2416] leading-tight mb-3">
+          報名成功！
+        </h1>
+        <p class="text-lg text-[#5C5144]">
+          8/22 台北 · AI Cockpit Workshop
+        </p>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 mb-6">
+        <h2 class="text-lg font-semibold text-[#2C2416] mb-4">已收到付款</h2>
+        <ul class="space-y-3 text-base text-[#5C5144]">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-[#059669] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+            <span>付款已收到、收據已寄到你的 email</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-[#059669] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+            <span>名額已 lock</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Next steps -->
+      <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 mb-6">
+        <h2 class="text-lg font-semibold text-[#2C2416] mb-4">接下來</h2>
+        <ol class="space-y-4 text-base text-[#5C5144]">
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[#B8926A] text-white text-sm font-bold flex items-center justify-center">1</span>
+            <div class="pt-0.5">
+              <p class="text-[#2C2416] font-medium">1-2 天內 LINE 聯繫</p>
+              <p class="text-sm text-[#5C5144] mt-1">我會主動聯繫你，安排課前 1:1 session</p>
+            </div>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[#B8926A] text-white text-sm font-bold flex items-center justify-center">2</span>
+            <div class="pt-0.5">
+              <p class="text-[#2C2416] font-medium">課前 1:1 session（線上、約 1 小時）</p>
+              <p class="text-sm text-[#5C5144] mt-1">聊聊你的狀態和目標，我會根據你的情境調整課程設計</p>
+            </div>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[#B8926A] text-white text-sm font-bold flex items-center justify-center">3</span>
+            <div class="pt-0.5">
+              <p class="text-[#2C2416] font-medium">8/22（六）09:00 台北見</p>
+              <p class="text-sm text-[#5C5144] mt-1">具體場地確認後會在 1:1 session 告知</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Contact -->
+      <div class="text-center text-sm text-[#8B7355]">
+        <p>有問題？寫信給 <a href="mailto:mail@yu-wenhao.com" class="text-[#B8926A] hover:underline">mail@yu-wenhao.com</a></p>
+        <p class="mt-3">
+          <a href="/zh-TW/" class="text-[#B8926A] hover:underline">← 回到首頁</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
