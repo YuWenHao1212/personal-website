@@ -13,8 +13,8 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
       <span>8/22 二班 · 12 人小班</span>
     </div>
 
-    <!-- Stats (6 metrics) -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+    <!-- Stats (7 metrics) -->
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
       <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
         <div class="text-2xl font-bold text-ink-900" id="stat-total">—</div>
         <p class="text-xs text-ink-500 mt-1">報名數</p>
@@ -32,8 +32,12 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
         <p class="text-xs text-ink-500 mt-1">已過期</p>
       </div>
       <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
+        <div class="text-2xl font-bold text-rose-600" id="stat-refunded">—</div>
+        <p class="text-xs text-ink-500 mt-1">已退款</p>
+      </div>
+      <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
         <div class="text-2xl font-bold text-ink-900" id="stat-revenue">—</div>
-        <p class="text-xs text-ink-500 mt-1">總收入</p>
+        <p class="text-xs text-ink-500 mt-1">淨收入</p>
       </div>
       <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
         <div class="text-2xl font-bold text-accent" id="stat-remaining">—</div>
@@ -85,11 +89,15 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
     // Expose for inline onclick handlers
     window.__workshopCopy = copyToClipboard;
 
-    function statusBadge(status) {
-      if (status === 'paid') {
+    function statusBadge(booking) {
+      // Refunded takes priority over paid status
+      if (booking.refunded_at) {
+        return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-rose-100 text-rose-700 text-xs font-medium rounded">↩ 已退款</span>';
+      }
+      if (booking.status === 'paid') {
         return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded">✓ 已付款</span>';
       }
-      if (status === 'pending') {
+      if (booking.status === 'pending') {
         return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-medium rounded">⏳ 待付款</span>';
       }
       return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded">✕ 已過期</span>';
@@ -105,12 +113,13 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
       // Update stats
       document.getElementById('stat-total').textContent = data.total_bookings ?? 0;
       document.getElementById('stat-paid').textContent = data.paid_count ?? 0;
-      document.getElementById('stat-revenue').textContent = formatTWD(data.total_revenue_twd);
+      document.getElementById('stat-refunded').textContent = data.refunded_count ?? 0;
+      document.getElementById('stat-revenue').textContent = formatTWD(data.net_revenue_twd ?? data.total_revenue_twd ?? 0);
 
       const bookings = data.bookings || [];
       const now = new Date();
       const pendingActive = bookings.filter(b =>
-        b.status === 'pending' && new Date(b.hold_expires_at) > now
+        b.status === 'pending' && new Date(b.hold_expires_at) > now && !b.refunded_at
       ).length;
       const expiredCount = bookings.filter(b =>
         b.status === 'expired' ||
@@ -135,6 +144,10 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
 
         const paidAtRow = b.paid_at
           ? `<div class="text-xs text-green-700 mt-1">付款時間：${formatDate(b.paid_at)}</div>`
+          : '';
+
+        const refundedRow = b.refunded_at
+          ? `<div class="text-xs text-rose-700 mt-1">退款時間：${formatDate(b.refunded_at)}　退款金額：${formatTWD(b.refund_amount_twd || b.price_total_twd)}</div>`
           : '';
 
         const receiptLink = b.stripe_receipt_url
@@ -176,12 +189,13 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
                 <div class="flex items-center gap-2 mb-1 flex-wrap">
                   <span class="text-ink-400 text-sm">#${i + 1}</span>
                   <h3 class="text-lg font-semibold text-ink-900">${escapeHtml(b.name)}</h3>
-                  ${statusBadge(b.status)}
+                  ${statusBadge(b)}
                   ${partySizeBadge}
                   ${priceBadge}
                 </div>
                 <p class="text-sm text-ink-500">${escapeHtml(b.role)}</p>
                 ${paidAtRow}
+                ${refundedRow}
               </div>
               <div class="text-right text-xs text-ink-400 whitespace-nowrap">
                 ${formatDate(b.created_at)}
