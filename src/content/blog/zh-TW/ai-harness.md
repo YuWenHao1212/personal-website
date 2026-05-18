@@ -161,7 +161,7 @@ Harness 不是新概念，但為什麼所有人突然都在談？因為模型夠
 
 不自己設計 harness，就會活在別人設計的系統裡。社群媒體的演算法、公司的 KPI 制度、手機的通知系統 — 全都是別人設計的 harness，而且不是為了我們的目標設計的。我之前寫過[打造個人全景監控系統](/zh-TW/blog/personal-panopticon/)，核心概念一樣：主動設計自己的資訊環境，而不是被動接受別人餵給我們的東西。
 
-> 如果對「用 AI 打造自己的 harness」有興趣，我在 **5/16（六）** 有一場[實體工作坊](https://www.solo.tw/courses/ai-command-center)，6 小時帶你從零建立個人的 AI 指揮中心 — 不需要會寫程式。[了解更多 →](https://www.solo.tw/courses/ai-command-center)
+> 如果對「用 AI 打造自己的 harness」有興趣，**8/22（六）台北二班招生中**——6 小時帶你從零建立個人的 AI 指揮中心（FLUX 系統），不需要會寫程式。[看工作坊詳情 →](/zh-TW/workshop/)
 
 ---
 

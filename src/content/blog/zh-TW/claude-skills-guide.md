@@ -317,11 +317,13 @@ Agent Skills 本身不難——就是 Markdown 加上一些結構。但它代表
 
 對我來說，Agent Skills 是 [Agentic Coding](/zh-TW/blog/agentic-coding-guide/) 從「能用」變成「好用」的那一步。工具接好了（MCP），知識封裝好了（Skills），剩下的就是讓 AI 按照你的方式做事——不管你用它來寫程式、做研究、還是把日常管理變成 AI 自動化流程。
 
-> **想在一天內把這些串起來？** 5/16（六）我和 Vista 在台北開一場 6 小時實作工作坊，帶你用 Claude Code + Obsidian 建好目標追蹤、知識庫、自動化腳本——不用自己摸三個月。[看工作坊詳情 →](https://www.solo.tw/courses/ai-command-center)
+> **想在一天內把這些串起來？** **8/22（六）台北二班招生中**——6 小時實作工作坊，帶你用 Claude Code + Obsidian 建好目標追蹤、知識庫、自動化腳本（FLUX 系統），不用自己摸三個月。[看工作坊詳情 →](/zh-TW/workshop/)
 
 ---
 
 ### 延伸閱讀
+
+Skills 寫了之後怎麼整合進完整的 AI 工作系統？[多數人學 AI 的順序反了——先方向、再系統，AI 才是槓桿](/zh-TW/blog/flux-direction-system-leverage/)，這是我把 FLUX 系統教給 12 個學員的第一手紀錄、包含 `/knowledge-keeper` 和 `/daily` 兩個 Skill 怎麼從 CLAUDE.md 抽出來。
 
 這套 AI 工作流方法要導入企業環境？[這篇記錄了我在現場的觀察](/zh-TW/blog/enterprise-ai-adoption-bottleneck/)——最大的瓶頸往往不在工具，在更前面。
 
