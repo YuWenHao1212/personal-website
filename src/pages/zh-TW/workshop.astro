@@ -678,48 +678,88 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       e.preventDefault();
 
       submitBtn.disabled = true;
-      submitBtn.textContent = '送出中...';
+      submitBtn.textContent = '建立付款連結...';
       errorMsg.classList.add('hidden');
 
       const formData = new FormData(form);
       const partySizeRaw = formData.get('party_size');
       const isLargeGroup = partySizeRaw === '3+';
-      const partySize = isLargeGroup ? '3+' : parseInt(partySizeRaw, 10);
 
-      // Compute price (server-side should re-verify on payment)
-      const pricePerPerson = PRICE_PER_PERSON;
-      const priceTotal = isLargeGroup ? 0 : pricePerPerson * partySize; // 3+ needs manual quote
+      // 3+ 人不走 Stripe 直接刷卡 — 改走 survey 流程，由你私訊聯繫
+      if (isLargeGroup) {
+        const scenarioData = {
+          name: formData.get('name'),
+          line_id: formData.get('line_id'),
+          dietary: formData.get('dietary') || '',
+          message: formData.get('message') || '',
+          party_size: '3+',
+          companions_info: formData.get('companions_info') || '',
+          submitted_at: new Date().toISOString(),
+        };
+        try {
+          const res = await fetch(`${API_BASE}/api/survey/submit`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              survey_id: SURVEY_ID,
+              email: formData.get('email'),
+              role: formData.get('role'),
+              scenario: JSON.stringify(scenarioData),
+            }),
+          });
+          const json = await res.json();
+          if (json.success) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            throw new Error(json.error || 'Submission failed');
+          }
+        } catch (err) {
+          console.error(err);
+          errorMsg.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.textContent = '重新送出';
+        }
+        return;
+      }
 
-      // Pack all fields except email/role into scenario JSON
-      const scenarioData = {
-        name: formData.get('name'),
-        line_id: formData.get('line_id'),
-        dietary: formData.get('dietary') || '',
-        message: formData.get('message') || '',
-        party_size: partySize,
-        price_per_person: pricePerPerson,
-        price_total: priceTotal,
-        companions_info: formData.get('companions_info') || '',
-        submitted_at: new Date().toISOString(),
-      };
+      // 1 人或 2 人 — 直接建 Stripe Checkout Session 跳轉
+      const partySize = parseInt(partySizeRaw, 10);
 
       try {
-        const res = await fetch(`${API_BASE}/api/survey/submit`, {
+        const res = await fetch(`${API_BASE}/api/workshop/create-checkout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            survey_id: SURVEY_ID,
+            name: formData.get('name'),
             email: formData.get('email'),
+            line_id: formData.get('line_id'),
             role: formData.get('role'),
-            scenario: JSON.stringify(scenarioData),
+            party_size: partySize,
+            companions_info: formData.get('companions_info') || '',
+            dietary: formData.get('dietary') || '',
+            message: formData.get('message') || '',
           }),
         });
 
+        if (res.status === 409) {
+          const json = await res.json();
+          const remaining = json.remaining ?? 0;
+          errorMsg.textContent = remaining > 0
+            ? `名額不足 — 還剩 ${remaining} 個位置（你想報 ${partySize} 個）。請改成 1 人單獨報名，或直接寫信給 mail@yu-wenhao.com 安排候補。`
+            : '名額已滿，請寫信給 mail@yu-wenhao.com 加入候補名單。';
+          errorMsg.classList.remove('hidden');
+          errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          submitBtn.disabled = false;
+          submitBtn.textContent = '送出報名';
+          return;
+        }
+
         const json = await res.json();
-        if (json.success) {
-          form.classList.add('hidden');
-          successMsg.classList.remove('hidden');
-          successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (json.success && json.data?.url) {
+          // Redirect to Stripe Checkout
+          window.location.href = json.data.url;
         } else {
           throw new Error(json.error || 'Submission failed');
         }

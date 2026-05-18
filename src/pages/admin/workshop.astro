@@ -1,36 +1,43 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
 
-const SURVEY_ID = 'workshop-signup-2026-q2';
+const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
 ---
 
-<AdminLayout title="Workshop 報名">
+<AdminLayout title="Workshop 報名 — 8/22">
   <div class="max-w-6xl">
 
-    <!-- Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm">
-        <div class="flex items-baseline gap-2">
-          <span id="primary-count" class="text-3xl font-bold text-ink-900">—</span>
-          <span class="text-sm text-ink-500">主報名者</span>
-        </div>
-        <p class="text-xs text-ink-400 mt-1">填表的人數</p>
-      </div>
+    <!-- Session indicator -->
+    <div class="mb-6 flex items-center gap-3 text-sm text-ink-500">
+      <span class="px-3 py-1 bg-ink-900 text-white text-xs font-mono rounded">{WORKSHOP_SESSION_ID}</span>
+      <span>8/22 二班 · 12 人小班</span>
+    </div>
 
-      <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm">
-        <div class="flex items-baseline gap-2">
-          <span id="total-headcount" class="text-3xl font-bold text-ink-900">—</span>
-          <span class="text-sm text-ink-500">總人數意向</span>
-        </div>
-        <p class="text-xs text-ink-400 mt-1">含同伴展開</p>
+    <!-- Stats (6 metrics) -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+      <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
+        <div class="text-2xl font-bold text-ink-900" id="stat-total">—</div>
+        <p class="text-xs text-ink-500 mt-1">報名數</p>
       </div>
-
-      <div class="bg-white border border-cream-300 rounded-xl p-6 shadow-sm">
-        <div class="flex items-baseline gap-2">
-          <span id="progress" class="text-3xl font-bold text-accent">—</span>
-          <span class="text-sm text-ink-500">/ 5 人成班</span>
-        </div>
-        <p class="text-xs text-ink-400 mt-1">距離成班還差幾人</p>
+      <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
+        <div class="text-2xl font-bold text-green-600" id="stat-paid">—</div>
+        <p class="text-xs text-ink-500 mt-1">已付款</p>
+      </div>
+      <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
+        <div class="text-2xl font-bold text-amber-600" id="stat-pending">—</div>
+        <p class="text-xs text-ink-500 mt-1">待付款</p>
+      </div>
+      <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
+        <div class="text-2xl font-bold text-gray-400" id="stat-expired">—</div>
+        <p class="text-xs text-ink-500 mt-1">已過期</p>
+      </div>
+      <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
+        <div class="text-2xl font-bold text-ink-900" id="stat-revenue">—</div>
+        <p class="text-xs text-ink-500 mt-1">總收入</p>
+      </div>
+      <div class="bg-white border border-cream-300 rounded-xl p-4 shadow-sm">
+        <div class="text-2xl font-bold text-accent" id="stat-remaining">—</div>
+        <p class="text-xs text-ink-500 mt-1">剩餘名額</p>
       </div>
     </div>
 
@@ -38,176 +45,194 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
     <div id="loading-state" class="text-center py-12 text-ink-400">載入中...</div>
     <div id="empty-state" class="hidden text-center py-12 text-ink-400">尚無報名資料。</div>
 
-    <!-- Responses -->
-    <div id="responses-list" class="space-y-4"></div>
+    <!-- Bookings list -->
+    <div id="bookings-list" class="space-y-4"></div>
 
   </div>
 
-  <script>
-    function escapeHtml(str: string): string {
+  <script define:vars={{ WORKSHOP_SESSION_ID }}>
+    function escapeHtml(str) {
       const div = document.createElement('div');
       div.textContent = str;
       return div.innerHTML;
     }
 
-    function formatDate(iso: string): string {
-      return new Date(iso).toLocaleDateString('zh-TW', {
+    function formatDate(iso) {
+      return new Date(iso).toLocaleString('zh-TW', {
         month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
       });
     }
 
-    function renderWorkshopData(data: any) {
-      const responses = data.data.responses;
-      const loadingEl = document.getElementById('loading-state')!;
-      const emptyEl = document.getElementById('empty-state')!;
-      const listEl = document.getElementById('responses-list')!;
-      const primaryEl = document.getElementById('primary-count')!;
-      const totalEl = document.getElementById('total-headcount')!;
-      const progressEl = document.getElementById('progress')!;
+    function formatTWD(n) {
+      return 'NT$' + (n || 0).toLocaleString('en-US');
+    }
+
+    async function copyToClipboard(text, btn) {
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = btn.textContent;
+        btn.textContent = '已複製 ✓';
+        btn.classList.add('bg-green-100', 'text-green-700');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.classList.remove('bg-green-100', 'text-green-700');
+        }, 1500);
+      } catch (e) {
+        console.error('Copy failed:', e);
+      }
+    }
+
+    // Expose for inline onclick handlers
+    window.__workshopCopy = copyToClipboard;
+
+    function statusBadge(status) {
+      if (status === 'paid') {
+        return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded">✓ 已付款</span>';
+      }
+      if (status === 'pending') {
+        return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-medium rounded">⏳ 待付款</span>';
+      }
+      return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded">✕ 已過期</span>';
+    }
+
+    function renderBookings(data) {
+      const loadingEl = document.getElementById('loading-state');
+      const emptyEl = document.getElementById('empty-state');
+      const listEl = document.getElementById('bookings-list');
 
       loadingEl.classList.add('hidden');
 
-      if (responses.length === 0) {
+      // Update stats
+      document.getElementById('stat-total').textContent = data.total_bookings ?? 0;
+      document.getElementById('stat-paid').textContent = data.paid_count ?? 0;
+      document.getElementById('stat-revenue').textContent = formatTWD(data.total_revenue_twd);
+
+      const bookings = data.bookings || [];
+      const now = new Date();
+      const pendingActive = bookings.filter(b =>
+        b.status === 'pending' && new Date(b.hold_expires_at) > now
+      ).length;
+      const expiredCount = bookings.filter(b =>
+        b.status === 'expired' ||
+        (b.status === 'pending' && new Date(b.hold_expires_at) <= now)
+      ).length;
+
+      document.getElementById('stat-pending').textContent = pendingActive;
+      document.getElementById('stat-expired').textContent = expiredCount;
+      document.getElementById('stat-remaining').textContent = `${data.remaining ?? 0} / ${data.capacity ?? 12}`;
+
+      if (bookings.length === 0) {
         emptyEl.classList.remove('hidden');
-        primaryEl.textContent = '0';
-        totalEl.textContent = '0';
-        progressEl.textContent = '0';
         return;
       }
 
-      // Compute stats
-      let totalHeadcount = 0;
-      const parsedResponses = responses.map((r: any) => {
-        let scenario: any = {};
-        try {
-          scenario = JSON.parse(r.scenario || '{}');
-        } catch {}
-        const partySize = scenario.party_size === '6+' ? 6 : (parseInt(scenario.party_size, 10) || 1);
-        totalHeadcount += partySize;
-        return { ...r, scenario, partySize };
-      });
+      listEl.innerHTML = bookings.map((b, i) => {
+        const partySizeBadge = b.party_size > 1
+          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent/10 text-accent text-xs font-medium rounded">${b.party_size} 人</span>`
+          : '';
 
-      primaryEl.textContent = responses.length.toString();
-      totalEl.textContent = totalHeadcount.toString();
-      progressEl.textContent = Math.min(totalHeadcount, 5).toString();
+        const priceBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded">${formatTWD(b.price_total_twd)}</span>`;
 
-      // Render cards
-      listEl.innerHTML = parsedResponses.map((r: any, i: number) => {
-        const s = r.scenario;
-        const companions = s.companions || [];
-        const companionsHtml = companions.length > 0 ? `
-          <div class="mt-4 pt-4 border-t border-cream-300">
-            <p class="text-xs font-semibold text-ink-500 uppercase tracking-wide mb-2">同伴 (${companions.length})</p>
-            <div class="space-y-2">
-              ${companions.map((c: any, ci: number) => `
-                <div class="bg-cream-50 rounded-lg p-3 text-sm">
-                  <div class="font-medium text-ink-900">#${ci + 1} ${escapeHtml(c.name || '—')}</div>
-                  <div class="text-ink-500 text-xs">${escapeHtml(c.email || '—')}</div>
-                  ${c.pain ? `<div class="text-ink-600 text-xs mt-1 italic">「${escapeHtml(c.pain)}」</div>` : ''}
-                </div>
-              `).join('')}
-            </div>
+        const paidAtRow = b.paid_at
+          ? `<div class="text-xs text-green-700 mt-1">付款時間：${formatDate(b.paid_at)}</div>`
+          : '';
+
+        const receiptLink = b.stripe_receipt_url
+          ? `<a href="${b.stripe_receipt_url}" target="_blank" rel="noopener" class="text-xs text-accent hover:underline">查看收據 →</a>`
+          : '';
+
+        const companionsBlock = b.companions_info ? `
+          <div class="mt-3 pt-3 border-t border-cream-300">
+            <p class="text-xs font-semibold text-ink-500 uppercase tracking-wide mb-2">同行者</p>
+            <pre class="bg-cream-50 rounded-lg p-3 text-sm text-ink-700 whitespace-pre-wrap font-sans">${escapeHtml(b.companions_info)}</pre>
           </div>
         ` : '';
 
-        const partySizeBadge = r.partySize > 1
-          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent/10 text-accent text-xs font-medium rounded">${r.partySize} 人</span>`
-          : '';
+        const optionalBlock = (b.dietary || b.message) ? `
+          <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+            ${b.dietary ? `
+              <div>
+                <span class="text-ink-400 text-xs">飲食偏好</span>
+                <div class="text-ink-700">${escapeHtml(b.dietary)}</div>
+              </div>
+            ` : ''}
+            ${b.message ? `
+              <div class="md:col-span-1">
+                <span class="text-ink-400 text-xs">想說的話</span>
+                <div class="text-ink-700 italic">「${escapeHtml(b.message)}」</div>
+              </div>
+            ` : ''}
+          </div>
+        ` : '';
 
-        const priceBadge = s.price_total
-          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded">NT$${s.price_total.toLocaleString('en-US')}</span>`
-          : (s.party_size === '6+' ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded">另議</span>` : '');
+        const emailEsc = escapeHtml(b.email);
+        const lineEsc = escapeHtml(b.line_id);
 
         return `
           <div class="bg-white border border-cream-300 rounded-xl p-5 shadow-sm">
             <!-- Header row -->
             <div class="flex items-start justify-between gap-4 mb-3">
-              <div>
+              <div class="flex-1">
                 <div class="flex items-center gap-2 mb-1 flex-wrap">
                   <span class="text-ink-400 text-sm">#${i + 1}</span>
-                  <h3 class="text-lg font-semibold text-ink-900">${escapeHtml(s.name || '—')}</h3>
+                  <h3 class="text-lg font-semibold text-ink-900">${escapeHtml(b.name)}</h3>
+                  ${statusBadge(b.status)}
                   ${partySizeBadge}
                   ${priceBadge}
                 </div>
-                <p class="text-sm text-ink-500">${escapeHtml(r.role || '—')}</p>
+                <p class="text-sm text-ink-500">${escapeHtml(b.role)}</p>
+                ${paidAtRow}
               </div>
               <div class="text-right text-xs text-ink-400 whitespace-nowrap">
-                ${formatDate(r.created_at)}
+                ${formatDate(b.created_at)}
               </div>
             </div>
 
             <!-- Contact -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm mb-3">
-              <div>
-                <span class="text-ink-400 text-xs">Email</span>
-                <div class="text-ink-900">${escapeHtml(r.email)}</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-3">
+              <div class="flex items-start justify-between gap-2 bg-cream-50 rounded p-2">
+                <div class="min-w-0 flex-1">
+                  <span class="text-ink-400 text-xs">Email</span>
+                  <div class="text-ink-900 truncate">${emailEsc}</div>
+                </div>
+                <button type="button" onclick="window.__workshopCopy('${emailEsc}', this)" class="flex-shrink-0 px-2 py-1 text-xs bg-white border border-cream-300 text-ink-600 rounded hover:bg-cream-100 transition">複製</button>
               </div>
-              <div>
-                <span class="text-ink-400 text-xs">LINE</span>
-                <div class="text-ink-900">${escapeHtml(s.line_id || '—')}</div>
+              <div class="flex items-start justify-between gap-2 bg-cream-50 rounded p-2">
+                <div class="min-w-0 flex-1">
+                  <span class="text-ink-400 text-xs">LINE ID</span>
+                  <div class="text-ink-900 truncate">${lineEsc}</div>
+                </div>
+                <button type="button" onclick="window.__workshopCopy('${lineEsc}', this)" class="flex-shrink-0 px-2 py-1 text-xs bg-white border border-cream-300 text-ink-600 rounded hover:bg-cream-100 transition">複製</button>
               </div>
             </div>
 
-            ${s.city_pref ? `
-              <div class="mb-3">
-                <span class="text-ink-400 text-xs">偏好城市</span>
-                <div class="text-ink-900 text-sm font-medium">${escapeHtml(s.city_pref)}</div>
-              </div>
-            ` : ''}
-
-            <!-- Pain (highlighted - this is the case study material) -->
-            ${s.pain ? `
-              <div class="mt-3 bg-amber-50 border-l-4 border-amber-400 rounded-r p-3">
-                <p class="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">最痛的工作流問題</p>
-                <p class="text-sm text-ink-900 whitespace-pre-wrap">${escapeHtml(s.pain)}</p>
-              </div>
-            ` : ''}
-
-            <!-- Optional fields -->
-            ${(s.current_tools || s.dietary || s.message) ? `
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
-                ${s.current_tools ? `
-                  <div>
-                    <span class="text-ink-400 text-xs">目前工具</span>
-                    <div class="text-ink-700">${escapeHtml(s.current_tools)}</div>
-                  </div>
-                ` : ''}
-                ${s.dietary ? `
-                  <div>
-                    <span class="text-ink-400 text-xs">飲食偏好</span>
-                    <div class="text-ink-700">${escapeHtml(s.dietary)}</div>
-                  </div>
-                ` : ''}
-                ${s.message ? `
-                  <div class="md:col-span-3">
-                    <span class="text-ink-400 text-xs">想說的話</span>
-                    <div class="text-ink-700 italic">「${escapeHtml(s.message)}」</div>
-                  </div>
-                ` : ''}
-              </div>
-            ` : ''}
-
-            ${companionsHtml}
+            ${receiptLink ? `<div class="mb-2">${receiptLink}</div>` : ''}
+            ${optionalBlock}
+            ${companionsBlock}
           </div>
         `;
       }).join('');
     }
 
     function loadWorkshopData() {
-      const admin = (window as any).__admin;
+      const admin = window.__admin;
       if (!admin) return;
 
       const key = admin.getKey();
       if (!key) return;
 
-      fetch(`${admin.API_BASE}/api/survey/responses/workshop-signup-2026-q2?key=${encodeURIComponent(key)}`)
+      fetch(`${admin.API_BASE}/api/workshop/bookings?key=${encodeURIComponent(key)}&session=${encodeURIComponent(WORKSHOP_SESSION_ID)}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch');
           return res.json();
         })
-        .then(renderWorkshopData)
-        .catch(() => {
-          const loadingEl = document.getElementById('loading-state')!;
+        .then(json => {
+          if (!json.success) throw new Error(json.error || 'API error');
+          renderBookings(json.data);
+        })
+        .catch((err) => {
+          console.error(err);
+          const loadingEl = document.getElementById('loading-state');
           loadingEl.textContent = '載入失敗，請重新整理頁面。';
         });
     }
@@ -220,6 +245,6 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
         observer.disconnect();
       }
     });
-    observer.observe(document.getElementById('admin-auth-guard')!, { attributes: true });
+    observer.observe(document.getElementById('admin-auth-guard'), { attributes: true });
   </script>
 </AdminLayout>
