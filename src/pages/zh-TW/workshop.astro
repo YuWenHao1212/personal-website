@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'AI 生產力工作坊：目標 × 知識 × 自動化';
-const description = '6 小時一日工作坊 — 用 Claude Code + Obsidian 打造目標管理、知識管理、AI 自動化工作流。5 人小班，帶著能跑的系統回家。';
+const title = '用 AI 建你的個人指揮中心｜一日實作工作坊';
+const description = '8/22（六）台北。6 小時實作，帶走一套能跑的個人 AI 工作系統 — 目標管理、知識管理、AI 自動化工作流。5 月首班 12 人滿班，8 月第二班招生中。';
 
 // API base: localhost in dev, production in prod
 const API_BASE = import.meta.env.DEV
@@ -17,18 +17,15 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
   <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-3xl">
-        <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">Workshop</p>
-        <h1 class="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-6">
-          AI 生產力工作坊<br /><span class="text-[#5C5144] text-[1.5rem] md:text-[2rem] lg:text-[2.5rem]">目標 × 知識 × 自動化</span>
+        <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide">8/22（六）台北 · 招生中</p>
+        <h1 class="text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] font-bold text-[#2C2416] leading-[1.15] tracking-[-0.02em] mb-5 whitespace-nowrap">
+          用 AI 建你的個人指揮中心
         </h1>
+        <p class="text-lg md:text-xl leading-relaxed text-[#B8926A] font-medium mb-6">
+          多數人學 AI 的順序反了。我的順序 — 先方向、再系統，AI 才是槓桿。
+        </p>
         <p class="text-xl md:text-2xl leading-relaxed text-[#5C5144] mb-4">
-          一套系統，管目標、管知識、管客戶、管產出。
-        </p>
-        <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">
-          7 小時實作，帶走一套<strong class="text-[#2C2416]">能跑</strong>的 AI 工作系統 — 每天打「開工」3 分鐘就知道今天要做什麼。
-        </p>
-        <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-3">
-          <strong class="text-[#2C2416]">這套節奏是這堂課的成果，不是賣點。</strong>
+          一日實作工作坊 — 一套系統，管目標、管知識、管客戶、管產出。
         </p>
         <p class="text-base md:text-lg leading-relaxed text-[#8B7355] mb-10">
           不用會寫程式，用說的就好。
@@ -45,79 +42,101 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
         <div class="flex flex-wrap gap-3 text-sm text-[#5C5144]">
           <span class="inline-flex items-center gap-1.5 bg-white/60 backdrop-blur px-4 py-2 rounded-full">
             <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            招募中
+            2026/8/22（六）
           </span>
           <span class="inline-flex items-center gap-1.5 bg-white/60 backdrop-blur px-4 py-2 rounded-full">
             <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            7 小時實作 + Office Hour
+            6 小時實作
           </span>
           <span class="inline-flex items-center gap-1.5 bg-white/60 backdrop-blur px-4 py-2 rounded-full">
             <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            限 5 人成班
+            12 人小班
           </span>
           <span class="inline-flex items-center gap-1.5 bg-white/60 backdrop-blur px-4 py-2 rounded-full">
             <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            實體授課
+            台北 · 實體授課
           </span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Solution — 上完課你的早上長這樣 -->
+  <!-- Solution — FLUX 三層 × 以前 vs 現在 -->
   <section class="py-20 md:py-28 bg-[#2C2416]">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl mb-12">
+      <div class="max-w-3xl mb-14">
+        <p class="text-sm md:text-base font-medium text-[#B8926A] mb-3 tracking-wide">我的順序：FLUX 三層</p>
         <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-4">
           上完這堂課，你的工作長這樣
         </h2>
-        <p class="text-lg md:text-xl leading-relaxed text-[#C4B9A8] mb-4">
-          <strong class="text-white">會議前</strong>：你打「準備明天和客戶 A 的會議」。AI 從你的資料庫拉出過往互動、本週議題、應該帶的資料 — 你拿到一份會議手冊。
-        </p>
-        <p class="text-lg md:text-xl leading-relaxed text-[#C4B9A8] mb-4">
-          <strong class="text-white">會議中</strong>：照會議手冊跑，重點記下來。
-        </p>
-        <p class="text-lg md:text-xl leading-relaxed text-[#C4B9A8] mb-6">
-          <strong class="text-white">會議後</strong>：AI 把筆記轉成會議紀錄、抓出 follow-up 待辦、放進你的本週計畫。
-        </p>
-        <p class="text-lg md:text-xl leading-relaxed text-white font-medium">
-          你是導演，全部都在掌握中。
+        <p class="text-lg md:text-xl leading-relaxed text-[#C4B9A8]">
+          FLUX 是這個順序的具體答案 — <strong class="text-white">方向層、系統層、槓桿層</strong>，每天陪你跑完一個完整 loop。
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8">
-          <div class="w-12 h-12 rounded-xl bg-[#B8926A]/20 flex items-center justify-center mb-5">
-            <span class="text-2xl font-bold text-[#B8926A]">1</span>
+
+      <div class="space-y-6 md:space-y-8">
+        <!-- 方向層 -->
+        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6">
+          <div>
+            <p class="text-xs md:text-sm font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-2">方向層 · Focus</p>
+            <p class="text-2xl md:text-3xl font-bold text-white leading-tight">今天該推哪一步？</p>
           </div>
-          <p class="text-lg font-semibold text-white mb-2">目標管理</p>
-          <p class="text-base leading-relaxed text-[#C4B9A8]">把大目標拆成每週行動。不用靠意志力記得追蹤 — AI 每天提醒你進度，每週幫你校正方向。</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p class="text-xs font-medium text-[#8B7355] mb-1 tracking-wide uppercase">以前</p>
+              <p class="text-base leading-relaxed text-[#C4B9A8]">年初寫滿一頁年度目標、3 月忘光。每天打開電腦不知道該做什麼。</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-[#B8926A] mb-1 tracking-wide uppercase">現在</p>
+              <p class="text-base leading-relaxed text-white">12 週為單位、每天打「<span class="font-mono text-[#D4B696]">/daily</span>」3 分鐘就知道今天該推哪一步、本週優先順序在哪裡。</p>
+            </div>
+          </div>
         </div>
-        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8">
-          <div class="w-12 h-12 rounded-xl bg-[#B8926A]/20 flex items-center justify-center mb-5">
-            <span class="text-2xl font-bold text-[#B8926A]">2</span>
+
+        <!-- 系統層 -->
+        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6">
+          <div>
+            <p class="text-xs md:text-sm font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-2">系統層 · Learn + Upgrade</p>
+            <p class="text-2xl md:text-3xl font-bold text-white leading-tight">3 個月前學的、找得到嗎？</p>
           </div>
-          <p class="text-lg font-semibold text-white mb-2">知識 × 客戶管理</p>
-          <p class="text-base leading-relaxed text-[#C4B9A8]">用 Obsidian 建一個找得到東西的資料庫。讀過的文章、開會筆記、客戶資料、靈感想法 — AI 在你需要的時候幫你挖出來。</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p class="text-xs font-medium text-[#8B7355] mb-1 tracking-wide uppercase">以前</p>
+              <p class="text-base leading-relaxed text-[#C4B9A8]">學到的東西散在 Notion / Apple Notes / 收藏夾、3 個月後找不到。每次都從零再學一次。</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-[#B8926A] mb-1 tracking-wide uppercase">現在</p>
+              <p class="text-base leading-relaxed text-white">Atlas 收一張卡 = 一個概念、跟舊筆記自動連起來。打「<span class="font-mono text-[#D4B696]">[歸檔]</span>」、Claude 自動分類入庫。要找 — 5 秒。</p>
+            </div>
+          </div>
         </div>
-        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8">
-          <div class="w-12 h-12 rounded-xl bg-[#B8926A]/20 flex items-center justify-center mb-5">
-            <span class="text-2xl font-bold text-[#B8926A]">3</span>
+
+        <!-- 槓桿層 -->
+        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6">
+          <div>
+            <p class="text-xs md:text-sm font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-2">槓桿層 · eXecute</p>
+            <p class="text-2xl md:text-3xl font-bold text-white leading-tight">AI 真的幫到你嗎？</p>
           </div>
-          <p class="text-lg font-semibold text-white mb-2">AI 工作流</p>
-          <p class="text-base leading-relaxed text-[#C4B9A8]">Claude Code 不是聊天機器人，是住在你電腦裡的 AI 助理 — 能讀你的檔案、幫你整理資料、自動執行重複工作。</p>
-        </div>
-        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8">
-          <div class="w-12 h-12 rounded-xl bg-[#B8926A]/20 flex items-center justify-center mb-5">
-            <span class="text-2xl font-bold text-[#B8926A]">4</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p class="text-xs font-medium text-[#8B7355] mb-1 tracking-wide uppercase">以前</p>
+              <p class="text-base leading-relaxed text-[#C4B9A8]">每次叫 ChatGPT 做事都要重新解釋一次 context。AI 像個失憶的實習生。</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-[#B8926A] mb-1 tracking-wide uppercase">現在</p>
+              <p class="text-base leading-relaxed text-white">Claude Code 讀你的 <span class="font-mono text-[#D4B696]">CLAUDE.md</span> + Skills，第一句話就上手 — 知道你的工作習慣、找得到你的筆記、串得起你的 Gmail 和行事曆。</p>
+            </div>
           </div>
-          <p class="text-lg font-semibold text-white mb-2">會議全流程 × 自動化</p>
-          <p class="text-base leading-relaxed text-[#C4B9A8]">會議前 AI 幫你產會議手冊、會議中照本走、會議後自動轉紀錄 + 抓 follow-up 進本週計畫。做一次的事手動做，做三次以上就教 AI 自動跑。</p>
         </div>
       </div>
+
+      <p class="text-lg md:text-xl leading-relaxed text-white font-medium mt-12 max-w-3xl">
+        三層都在 — AI 才會變成你的槓桿，不是你的玩具。
+      </p>
     </div>
   </section>
 
-  <!-- What you'll take home -->
+  <!-- What you'll take home — 5/16 真實產出 -->
   <section class="py-20 md:py-28 bg-[#FFFDF9]">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
@@ -125,40 +144,65 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       </h2>
       <p class="text-lg text-[#5C5144] mb-12">不是投影片，不是筆記。是你電腦裡真的在跑的東西。</p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="text-center p-6">
-          <div class="w-16 h-16 rounded-2xl bg-[#FEF3C7] flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-[#D97706]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
-          </div>
-          <p class="text-lg font-semibold text-[#2C2416] mb-2">12 週目標追蹤表</p>
-          <p class="text-sm text-[#5C5144]">3 個目標 + 每週行動清單，AI 每天幫你追蹤進度</p>
+      <!-- 4 個系統 -->
+      <p class="text-xs font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-4">4 個系統</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
+          <p class="text-2xl font-bold text-[#B8926A] mb-3">01</p>
+          <p class="text-lg font-semibold text-[#2C2416] mb-1">AI 助理</p>
+          <p class="text-sm leading-relaxed text-[#2C2416] mb-2">你電腦裡的 AI 夥伴</p>
+          <p class="text-xs text-[#8B7355] font-mono">Claude Code + FLUX vault</p>
         </div>
-        <div class="text-center p-6">
-          <div class="w-16 h-16 rounded-2xl bg-[#DBEAFE] flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-[#2563EB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-          </div>
-          <p class="text-lg font-semibold text-[#2C2416] mb-2">個人資料庫</p>
-          <p class="text-sm text-[#5C5144]">筆記、客戶資料、會議紀錄互相連結，找東西只要兩秒</p>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
+          <p class="text-2xl font-bold text-[#B8926A] mb-3">02</p>
+          <p class="text-lg font-semibold text-[#2C2416] mb-1">目標系統</p>
+          <p class="text-sm leading-relaxed text-[#2C2416] mb-2">12 週目標追蹤、每天知道該做什麼</p>
+          <p class="text-xs text-[#8B7355] font-mono">PLAN.md + 週計分卡</p>
         </div>
-        <div class="text-center p-6">
-          <div class="w-16 h-16 rounded-2xl bg-[#E0E7FF] flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-[#4F46E5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-          </div>
-          <p class="text-lg font-semibold text-[#2C2416] mb-2">Claude Code AI 助理</p>
-          <p class="text-sm text-[#5C5144]">裝好 + 個人化設定，認識你的工作習慣</p>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
+          <p class="text-2xl font-bold text-[#B8926A] mb-3">03</p>
+          <p class="text-lg font-semibold text-[#2C2416] mb-1">知識系統</p>
+          <p class="text-sm leading-relaxed text-[#2C2416] mb-2">找得到東西的筆記庫</p>
+          <p class="text-xs text-[#8B7355] font-mono">Atlas 卡片庫 + 第一張卡</p>
         </div>
-        <div class="text-center p-6">
-          <div class="w-16 h-16 rounded-2xl bg-[#D1FAE5] flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
+          <p class="text-2xl font-bold text-[#B8926A] mb-3">04</p>
+          <p class="text-lg font-semibold text-[#2C2416] mb-1">自動化</p>
+          <p class="text-sm leading-relaxed text-[#2C2416] mb-2">Claude 連上你的 Gmail / Calendar</p>
+          <p class="text-xs text-[#8B7355] font-mono">Connector + 第一個 Skill</p>
+        </div>
+      </div>
+
+      <!-- 3 個 Skill -->
+      <p class="text-xs font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-4">3 個 Skill — 課堂上親手抽出來的</p>
+      <p class="text-sm text-[#5C5144] mb-5">Skill = 一個你訓練給 AI 的「指令」。打一次 — AI 跑一整套流程。</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
+          <div class="flex items-baseline gap-2 mb-2">
+            <span class="text-lg font-bold text-[#059669]">✓</span>
+            <p class="text-lg font-semibold text-[#2C2416]">自動把筆記分類入庫</p>
           </div>
-          <p class="text-lg font-semibold text-[#2C2416] mb-2">2 個自動化指令</p>
-          <p class="text-sm text-[#5C5144]">你親手做的，回家打「開工」就能跑</p>
+          <p class="text-xs font-mono text-[#8B7355]">/knowledge-keeper</p>
+        </div>
+        <div class="bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
+          <div class="flex items-baseline gap-2 mb-2">
+            <span class="text-lg font-bold text-[#059669]">✓</span>
+            <p class="text-lg font-semibold text-[#2C2416]">每天 3 分鐘知道今天該做什麼</p>
+          </div>
+          <p class="text-xs font-mono text-[#8B7355]">/daily</p>
+        </div>
+        <div class="bg-[#FEF3C7]/40 border-2 border-dashed border-[#D97706] rounded-xl p-5 md:p-6">
+          <div class="flex items-baseline gap-2 mb-2">
+            <span class="text-lg font-bold text-[#D97706]">⏳</span>
+            <p class="text-lg font-semibold text-[#2C2416]">每週對齊目標、算分、lock 下週</p>
+          </div>
+          <p class="text-xs font-mono text-[#8B7355]">/wam</p>
         </div>
       </div>
 
       <div class="mt-12 bg-[#F5F1EB] border border-[#E8E4DD] rounded-2xl p-6 md:p-8 text-center">
         <p class="text-lg md:text-xl font-semibold text-[#2C2416]">
-          全部串在一起 = 一套隔天就能用的個人工作系統
+          全部串在一起 = 一套隔天就能用的個人指揮中心
         </p>
       </div>
     </div>
@@ -170,7 +214,7 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
         課程大綱
       </h2>
-      <p class="text-lg text-[#5C5144] mb-12">7 小時實作，從個人工作系統到會議全流程，每個主題都有你親手做的成果帶回家。課後另有 1 小時 Office Hour 開放諮詢。</p>
+      <p class="text-lg text-[#5C5144] mb-12">6 小時實作，從個人工作系統到會議全流程，每個主題都有你親手做的成果帶回家。</p>
 
       <!-- Timeline -->
       <div class="relative">
@@ -178,32 +222,34 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
         <div class="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-[#E8E4DD]"></div>
 
         <div class="space-y-8">
-          <!-- Module 1: AI 助理 -->
+          <!-- Block 1: AI 助理 (槓桿層底座) -->
           <div class="relative flex gap-6 md:gap-8">
             <div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 rounded-2xl bg-[#E0E7FF] flex flex-col items-center justify-center z-10 border-2 border-white shadow-sm">
               <span class="text-xs font-bold text-[#4F46E5] leading-none">09:00</span>
             </div>
             <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex-1 shadow-sm">
-              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">AI 助理 — 先裝好你的新夥伴</h3>
-              <p class="text-base leading-relaxed text-[#5C5144] mb-4">第一件事：在你的電腦裝好 Claude Code — 一個能讀寫你電腦檔案的 AI 助理。教它認識你的工作習慣，寫好個人化設定檔。裝好之後，後面每個模組你都能直接用 AI 來做。</p>
+              <p class="text-xs font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-1.5">Block 1 · 槓桿層底座</p>
+              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">AI 助理 — 認識你的新夥伴</h3>
+              <p class="text-base leading-relaxed text-[#5C5144] mb-4">第一件事：在你的電腦裝好 Claude Code。教它認識你的工作環境（VS Code、Markdown、Obsidian、Terminal），寫好 CLAUDE.md 翻譯你的話給 AI 聽。裝好之後，後面每個 Block 都直接用 AI 來做。</p>
               <div class="flex items-center gap-2 text-sm">
                 <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <span class="text-[#B8926A] font-medium">產出：裝好 Claude Code + 個人化設定檔</span>
+                <span class="text-[#B8926A] font-medium">產出：Claude Code + FLUX vault（個人 AI 助理）</span>
               </div>
             </div>
           </div>
 
-          <!-- Module 2: 目標管理 -->
+          <!-- Block 2: 目標管理 (方向層) -->
           <div class="relative flex gap-6 md:gap-8">
             <div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 rounded-2xl bg-[#FEF3C7] flex flex-col items-center justify-center z-10 border-2 border-white shadow-sm">
               <span class="text-xs font-bold text-[#D97706] leading-none">10:30</span>
             </div>
             <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex-1 shadow-sm">
-              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">找到方向 + 目標管理</h3>
-              <p class="text-base leading-relaxed text-[#5C5144] mb-4">釐清你最重要的 3 件事，用 AI 幫你拆成每週具體行動。不是年度計畫那種寫完就忘的東西 — 是每天打開就知道「今天該推哪一步」的追蹤表。</p>
+              <p class="text-xs font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-1.5">Block 2 · 方向層</p>
+              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">目標管理 — 從 12 週目標到每天</h3>
+              <p class="text-base leading-relaxed text-[#5C5144] mb-4">用 12 週做時間單位，把目標切成 Effort + Lead/Lag 指標。WAM 每週對齊，<span class="font-mono">/daily</span> 每天 3 分鐘知道今天該推哪一步。不是年度計畫那種寫完就忘的東西。</p>
               <div class="flex items-center gap-2 text-sm">
                 <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <span class="text-[#B8926A] font-medium">產出：你的 12 週目標追蹤表（3 個目標 + 每週行動清單）</span>
+                <span class="text-[#B8926A] font-medium">產出：PLAN.md + WEEKLY-SCORECARD（你的目標系統）</span>
               </div>
             </div>
           </div>
@@ -218,66 +264,107 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
             </div>
           </div>
 
-          <!-- Module 3: 知識管理 -->
+          <!-- Block 3: 知識管理 (系統層) -->
           <div class="relative flex gap-6 md:gap-8">
             <div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 rounded-2xl bg-[#DBEAFE] flex flex-col items-center justify-center z-10 border-2 border-white shadow-sm">
               <span class="text-xs font-bold text-[#2563EB] leading-none">13:30</span>
             </div>
             <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex-1 shadow-sm">
-              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">知識管理 — 找得到東西的資料庫</h3>
-              <p class="text-base leading-relaxed text-[#5C5144] mb-4">用 AI 幫你建一個「找得到東西」的個人資料庫。不靠資料夾分類，用連結把筆記、客戶資料、會議紀錄串成網 — 三個月前讀的文章、上次和某客戶聊的內容，需要的時候兩秒就能找到。</p>
+              <p class="text-xs font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-1.5">Block 3 · 系統層</p>
+              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">知識管理 — 找得到東西的筆記庫</h3>
+              <p class="text-base leading-relaxed text-[#5C5144] mb-4">用 Atlas 把筆記分成 5 類卡片，一張卡 = 一個概念。打 <span class="font-mono">[歸檔]</span>、Claude 自動分類入庫、跟舊筆記連起來。動手建你的第 1、2 張卡，順便完成第一個 Skill：<span class="font-mono">/knowledge-keeper</span>。</p>
               <div class="flex items-center gap-2 text-sm">
                 <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <span class="text-[#B8926A] font-medium">產出：你的個人知識庫（完整架構 + 3 篇筆記，互相連結）</span>
+                <span class="text-[#B8926A] font-medium">產出：Atlas + 第一張卡 + <span class="font-mono">/knowledge-keeper</span> Skill</span>
               </div>
             </div>
           </div>
 
-          <!-- Module 4: 自動化實戰 -->
+          <!-- Block 4: 自動化 (槓桿層放大) -->
           <div class="relative flex gap-6 md:gap-8">
             <div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 rounded-2xl bg-[#D1FAE5] flex flex-col items-center justify-center z-10 border-2 border-white shadow-sm">
-              <span class="text-xs font-bold text-[#059669] leading-none">15:00</span>
+              <span class="text-xs font-bold text-[#059669] leading-none">14:45</span>
             </div>
             <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex-1 shadow-sm">
-              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">自動化實戰 — 解決你最痛的問題</h3>
-              <p class="text-base leading-relaxed text-[#5C5144] mb-4">這個段落會用<strong>你報名時填的工作情境</strong>當案例。我們會挑一個你最痛的工作流（會議前後處理 / 客戶資料整理 / 每日任務管理 / 你自己的場景），現場用 AI 跟著做。</p>
+              <p class="text-xs font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-1.5">Block 4 · 槓桿層放大</p>
+              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">自動化 — 連上你的世界</h3>
+              <p class="text-base leading-relaxed text-[#5C5144] mb-4">用 Connector 把 Gmail 和 Calendar 接進來，Claude 真的看得到你的世界。然後把今天用熟的 <span class="font-mono">/daily</span> 從 CLAUDE.md 抽出來、變成你的第一個正式 Skill。回家用同一份範本，繼續抽自己的下一個。</p>
               <div class="flex items-center gap-2 text-sm">
                 <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <span class="text-[#B8926A] font-medium">產出：1 個量身打造的自動化指令，回家直接用</span>
+                <span class="text-[#B8926A] font-medium">產出：Connector + <span class="font-mono">/daily</span> Skill（你的第一個正式 Skill）</span>
               </div>
             </div>
           </div>
 
-          <!-- Wrap-up -->
+          <!-- Finale -->
           <div class="relative flex gap-6 md:gap-8">
             <div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 rounded-2xl bg-[#2C2416] flex flex-col items-center justify-center z-10 border-2 border-white shadow-sm">
-              <span class="text-xs font-bold text-white leading-none">16:30</span>
+              <span class="text-xs font-bold text-white leading-none">15:30</span>
             </div>
             <div class="bg-white border-2 border-[#2C2416] rounded-xl p-6 md:p-8 flex-1 shadow-sm">
-              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">收尾：串起來 + 明天就能用</h3>
-              <p class="text-base leading-relaxed text-[#5C5144] mb-4">把今天建的四個主題串在一起，現場跑一次完整流程，確認每個人的系統都能動。回家打開電腦就能直接用。</p>
+              <p class="text-xs font-bold text-[#B8926A] tracking-[0.2em] uppercase mb-1.5">Finale · 三層串起來</p>
+              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">收尾：今天帶走 7 件事</h3>
+              <p class="text-base leading-relaxed text-[#5C5144] mb-4">把 4 個系統 + 3 個 Skill 串在一起，現場跑一次完整流程，確認每個人的系統都能動。早上的「五個工具、零個系統」變成現在 — 你有一套系統了。</p>
               <div class="flex items-center gap-2 text-sm">
                 <svg class="w-4 h-4 text-[#B8926A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <span class="text-[#B8926A] font-medium">產出：目標追蹤表 + 個人知識庫 + AI 助理 + 2 個自動化指令 — 全部串在一起，隔天就能用</span>
+                <span class="text-[#B8926A] font-medium">產出：4 個系統 + 3 個 Skill — 隔天就能用的個人指揮中心</span>
               </div>
-            </div>
-          </div>
-
-          <!-- Office Hour (Bonus, 不算正式課程) -->
-          <div class="relative flex gap-6 md:gap-8">
-            <div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 rounded-2xl bg-[#FEF3C7] border-2 border-[#D97706] flex flex-col items-center justify-center z-10 shadow-sm">
-              <span class="text-xs font-bold text-[#D97706] leading-none">17:00</span>
-            </div>
-            <div class="bg-[#FEF3C7]/40 border-2 border-dashed border-[#D97706] rounded-xl p-6 md:p-8 flex-1">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-xs font-bold text-[#D97706] tracking-wide uppercase">Bonus</span>
-                <span class="text-xs text-[#8B7355]">17:00 - 18:00</span>
-              </div>
-              <h3 class="text-xl font-semibold text-[#2C2416] mb-2">課後 Office Hour</h3>
-              <p class="text-base leading-relaxed text-[#5C5144]">課程結束後我會留下來開放諮詢時間，有問題的學員可自由參加，現場問現場解。不算正式課程時間，但歡迎留下來把你的系統 debug 完再走。</p>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 學員回饋（5/16 一班）-->
+  <section class="py-20 md:py-28 bg-[#2C2416]">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="text-sm md:text-base font-medium text-[#B8926A] mb-3 tracking-wide">5/16 首班學員回饋</p>
+      <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-4">
+        三個學員，三種驗證
+      </h2>
+      <p class="text-lg text-[#C4B9A8] mb-12">2026/5/16 首班，12 人滿班。以下是其中三位學員的回饋。</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Jay -->
+        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8 flex flex-col">
+          <div class="mb-4">
+            <p class="text-sm font-semibold text-[#B8926A] mb-1">Jay｜走過了</p>
+            <p class="text-xs text-[#8B7355]">軟體業工程主管 · 1.5 個月後還在用</p>
+          </div>
+          <blockquote class="text-base leading-relaxed text-[#E8DFD0] flex-1">
+            「從人生目標到每天任務管理，透過 FLUX 框架和 Claude Code 協作 — 整條路徑變得清晰、有方向感。」
+          </blockquote>
+        </div>
+
+        <!-- Yiling -->
+        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8 flex flex-col">
+          <div class="mb-4">
+            <p class="text-sm font-semibold text-[#B8926A] mb-1">Yiling｜感受到了</p>
+            <p class="text-xs text-[#8B7355]">從「被截止日期追著跑」到體感轉變</p>
+          </div>
+          <blockquote class="text-base leading-relaxed text-[#E8DFD0] flex-1">
+            「我成為一個有私人秘書的總裁級人物，還會有一個私人的圖書館以及圖書館員。」
+          </blockquote>
+        </div>
+
+        <!-- 延宗 -->
+        <div class="bg-[#3D3426] border border-[#5C5144] rounded-xl p-6 md:p-8 flex flex-col">
+          <div class="mb-4">
+            <p class="text-sm font-semibold text-[#B8926A] mb-1">延宗｜看見了</p>
+            <p class="text-xs text-[#8B7355]">自己組出 FLUX 三層的閉環結構</p>
+          </div>
+          <blockquote class="text-base leading-relaxed text-[#E8DFD0] flex-1">
+            「從工具思維升級至系統化流程，將目標、知識、任務與輸出整合成完整的閉環，真正將 AI 轉化為長期複利與實質的產能提升。」
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <a href="/zh-TW/blog/ai-cockpit-1-workshop-notes/" class="inline-flex items-center gap-2 text-[#B8926A] font-medium hover:text-[#D4B696] transition-colors">
+          看 5/16 首班的完整開課紀錄
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -288,7 +375,7 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
         這堂課適合誰
       </h2>
-      <p class="text-lg text-[#5C5144] mb-12">不需要會寫程式。你只需要帶著「想把工作流變好」的決心來。</p>
+      <p class="text-lg text-[#5C5144] mb-12">不需要會寫程式。你需要的是「先想清楚方向、再讓 AI 放大效果」的耐心。</p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <div class="flex gap-4 bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
@@ -296,8 +383,8 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
             <svg class="w-5 h-5 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
           </div>
           <div>
-            <p class="font-medium text-[#2C2416] mb-1">自由工作者 / 接案者</p>
-            <p class="text-sm text-[#5C5144]">一個人接案、管客戶名單、追績效，每天被瑣事淹沒，沒時間想方向</p>
+            <p class="font-medium text-[#2C2416] mb-1">想清楚方向、不只是學工具的人</p>
+            <p class="text-sm text-[#5C5144]">工具學了一堆但不知道要走哪 — 你缺的不是 AI 工具，是方向</p>
           </div>
         </div>
         <div class="flex gap-4 bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
@@ -305,8 +392,8 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
             <svg class="w-5 h-5 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
           </div>
           <div>
-            <p class="font-medium text-[#2C2416] mb-1">內容創作者</p>
-            <p class="text-sm text-[#5C5144]">想穩定更新但常常不知道寫什麼，靈感來了卻找不到之前的素材</p>
+            <p class="font-medium text-[#2C2416] mb-1">跨專案的管理職 / 主管</p>
+            <p class="text-sm text-[#5C5144]">同時管多個專案、團隊、自己的目標，靠記憶撐不住</p>
           </div>
         </div>
         <div class="flex gap-4 bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
@@ -314,8 +401,17 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
             <svg class="w-5 h-5 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
           </div>
           <div>
-            <p class="font-medium text-[#2C2416] mb-1">知識工作者</p>
-            <p class="text-sm text-[#5C5144]">每天處理大量資訊、客戶互動、會議紀錄，但重要的東西總是散落各處</p>
+            <p class="font-medium text-[#2C2416] mb-1">自由工作者</p>
+            <p class="text-sm text-[#5C5144]">一個人接案、管客戶、追進度、想推自己的計畫 — 系統幫你扛、不靠意志力</p>
+          </div>
+        </div>
+        <div class="flex gap-4 bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#D1FAE5] flex items-center justify-center">
+            <svg class="w-5 h-5 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+          </div>
+          <div>
+            <p class="font-medium text-[#2C2416] mb-1">試過很多生產力工具但都沒留下來</p>
+            <p class="text-sm text-[#5C5144]">Notion、Trello、各種 App，但工具越多越亂</p>
           </div>
         </div>
         <div class="flex gap-4 bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
@@ -325,15 +421,6 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           <div>
             <p class="font-medium text-[#2C2416] mb-1">用過 ChatGPT 但覺得「就這樣？」</p>
             <p class="text-sm text-[#5C5144]">會聊天，但沒辦法真正融入你的工作流</p>
-          </div>
-        </div>
-        <div class="flex gap-4 bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
-          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#D1FAE5] flex items-center justify-center">
-            <svg class="w-5 h-5 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-          </div>
-          <div>
-            <p class="font-medium text-[#2C2416] mb-1">試過很多生產力工具</p>
-            <p class="text-sm text-[#5C5144]">Notion、Trello、各種 App，但工具越多越亂</p>
           </div>
         </div>
         <div class="flex gap-4 bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
@@ -372,6 +459,9 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
               <p class="text-sm leading-relaxed text-[#5C5144]">
                 科技業 15 年（工程師 → PM → 數據分析），Minerva University 碩士。目前一個人用 AI 同時推進 5 個產品專案，同時為企業提供 AI 工作流導入顧問與內訓服務。每天靠這套系統管理所有工作流。
               </p>
+              <p class="text-sm leading-relaxed text-[#B8926A] mt-3 font-medium">
+                2026/5/16 首班 12 人滿班 · 8/22 第二班招生中
+              </p>
             </div>
           </div>
 
@@ -384,47 +474,29 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
               <div class="space-y-3">
                 <div class="flex justify-between items-center border-b border-[#E8E4DD] pb-3">
                   <span class="text-sm text-[#5C5144]">日期</span>
-                  <span class="text-sm font-medium text-[#2C2416] text-right">依招生狀況開班通知</span>
+                  <span class="text-sm font-medium text-[#2C2416] text-right">2026/8/22（六）</span>
                 </div>
                 <div class="flex justify-between items-start border-b border-[#E8E4DD] pb-3">
                   <span class="text-sm text-[#5C5144] flex-shrink-0 mr-3">時段</span>
-                  <span class="text-sm font-medium text-[#2C2416] text-right">09:00 - 18:00<br /><span class="text-xs text-[#8B7355]">7 小時實作 + 1 小時午餐<br />+ 1 小時課後 Office Hour（17:00-18:00）</span></span>
+                  <span class="text-sm font-medium text-[#2C2416] text-right">09:00 - 16:00<br /><span class="text-xs text-[#8B7355]">6 小時實作 + 1 小時午餐</span></span>
                 </div>
                 <div class="flex justify-between items-center border-b border-[#E8E4DD] pb-3">
                   <span class="text-sm text-[#5C5144]">地點</span>
-                  <span class="text-sm font-medium text-[#2C2416]">依招生狀況確認</span>
+                  <span class="text-sm font-medium text-[#2C2416] text-right">台北市區<br /><span class="text-xs text-[#8B7355]">場地確認中，成班後通知</span></span>
                 </div>
                 <div class="flex justify-between items-center border-b border-[#E8E4DD] pb-3">
                   <span class="text-sm text-[#5C5144]">人數</span>
-                  <span class="text-sm font-medium text-[#2C2416]">5 人成班</span>
+                  <span class="text-sm font-medium text-[#2C2416]">12 人小班</span>
                 </div>
                 <div class="flex justify-between items-center border-b border-[#E8E4DD] pb-3">
                   <span class="text-sm text-[#5C5144]">需要帶</span>
                   <span class="text-sm font-medium text-[#2C2416]">筆電 + Claude 帳號</span>
                 </div>
                 <div class="pt-2">
-                  <p class="text-sm text-[#5C5144] mb-3">費用（每人）</p>
-                  <div class="space-y-1.5">
-                    <div class="flex justify-between items-center text-sm">
-                      <span class="text-[#5C5144]">1 人</span>
-                      <span class="font-medium text-[#2C2416]">NT$9,800</span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm">
-                      <span class="text-[#5C5144]">2 人同行</span>
-                      <span class="font-medium text-[#2C2416]">NT$9,300 <span class="text-xs text-[#8B7355]">/ 人</span></span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm">
-                      <span class="text-[#5C5144]">3 人</span>
-                      <span class="font-medium text-[#2C2416]">NT$8,800 <span class="text-xs text-[#8B7355]">/ 人</span></span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm">
-                      <span class="text-[#5C5144]">4 人</span>
-                      <span class="font-medium text-[#2C2416]">NT$8,400 <span class="text-xs text-[#8B7355]">/ 人</span></span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm bg-[#FEF3C7]/50 -mx-2 px-2 py-1 rounded">
-                      <span class="text-[#5C5144] font-medium">5 人以上</span>
-                      <span class="font-bold text-[#D97706]">NT$8,000 <span class="text-xs font-normal">/ 人</span></span>
-                    </div>
+                  <p class="text-sm text-[#5C5144] mb-3">費用</p>
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-sm text-[#5C5144]">每人</span>
+                    <span class="text-xl font-bold text-[#2C2416]">NT$9,800</span>
                   </div>
                 </div>
               </div>
@@ -432,13 +504,13 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           </div>
         </div>
 
-        <!-- RIGHT: 報名前小調查 表單 -->
+        <!-- RIGHT: 報名表 -->
         <div>
           <h2 class="text-[1.5rem] md:text-[2rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-3">
-            報名前小調查
+            填寫報名表
           </h2>
           <p class="text-base leading-relaxed text-[#5C5144] mb-6">
-            這堂課的「自動化實戰」段落會用<strong class="text-[#2C2416]">你填的工作情境</strong>當案例。讓你帶走的不只是系統，而是「為你的工作量身打造的系統」。
+            送出後我會在 1-2 天內透過 LINE 或 email 跟你聯繫，安排課前 1:1 session 了解你的狀況、付款方式、場地資訊。
           </p>
 
       <form id="signup-form" class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 space-y-5">
@@ -447,13 +519,10 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           <label for="party_size" class="block text-sm font-medium text-[#2C2416] mb-2">這次幫幾個人報名？<span class="text-[#DC2626]">*</span></label>
           <select id="party_size" name="party_size" required class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20 bg-white">
             <option value="1">只有我一個人</option>
-            <option value="2">2 人（我 + 1 位同伴）</option>
-            <option value="3">3 人（我 + 2 位同伴）</option>
-            <option value="4">4 人（我 + 3 位同伴）</option>
-            <option value="5">5 人（我 + 4 位同伴）</option>
-            <option value="6+">6 人以上（請在「想跟我說的話」備註人數）</option>
+            <option value="2">2 人</option>
+            <option value="3+">3 人以上（請在下方備註人數）</option>
           </select>
-          <p class="text-xs text-[#8B7355] mt-1">選 2-5 人會展開同伴的資料欄位；6 人以上請另外開團</p>
+          <p class="text-xs text-[#8B7355] mt-1">每人 NT$9,800</p>
 
           <!-- Price preview -->
           <div id="price-preview" class="mt-3 bg-[#FEF3C7]/40 border border-[#D97706]/30 rounded-lg p-3 flex items-baseline justify-between">
@@ -488,55 +557,14 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           <p class="text-xs text-[#8B7355] mt-1">成班後通知用</p>
         </div>
 
-        <!-- 地點偏好 (checkbox 可複選) -->
-        <div>
-          <label class="block text-sm font-medium text-[#2C2416] mb-2">你偏好哪個城市上課？<span class="text-[#DC2626]">*</span></label>
-          <div class="space-y-2">
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" name="city_pref" value="台北" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
-              <span class="text-base text-[#2C2416]">台北</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" name="city_pref" value="台中" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
-              <span class="text-base text-[#2C2416]">台中</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" name="city_pref" value="新竹" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
-              <span class="text-base text-[#2C2416]">新竹</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" name="city_pref" value="高雄" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
-              <span class="text-base text-[#2C2416]">高雄</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" id="city_other_check" name="city_pref" value="其他" class="w-4 h-4 text-[#B8926A] focus:ring-[#B8926A]" />
-              <span class="text-base text-[#2C2416]">其他</span>
-            </label>
-          </div>
-          <input id="city_other_text" name="city_other_text" type="text" placeholder="請填其他城市" class="hidden mt-2 w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20" />
-          <p id="city_pref_error" class="hidden text-xs text-[#DC2626] mt-1">請至少選一個城市</p>
-          <p class="text-xs text-[#8B7355] mt-1">可複選 — 讓我知道你能配合哪些場次</p>
-        </div>
-
         <div>
           <label for="role" class="block text-sm font-medium text-[#2C2416] mb-2">你目前的工作角色 / 行業 <span class="text-[#DC2626]">*</span></label>
           <input id="role" name="role" type="text" required placeholder="例：自由設計師 / 醫師 / 金融業 PM / 內容創作者..." class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20" />
         </div>
 
-        <div>
-          <label for="pain" class="block text-sm font-medium text-[#2C2416] mb-2">你最常做的工作任務 + 最痛的問題 <span class="text-[#DC2626]">*</span></label>
-          <textarea id="pain" name="pain" rows="5" required placeholder="例：每天客戶提案要花 1 小時整理會議紀錄；寫文章常常找不到之前讀過的素材；答應的事情常常忘記跟進..." class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20"></textarea>
-          <p class="text-xs text-[#8B7355] mt-1">越具體越好 — 這會直接變成上課的案例</p>
-        </div>
-
         <hr class="border-[#E8E4DD]" />
 
         <p class="text-sm text-[#8B7355] font-medium">以下選填</p>
-
-        <div>
-          <label for="current_tools" class="block text-sm font-medium text-[#2C2416] mb-2">你目前用什麼工具管理工作？</label>
-          <input id="current_tools" name="current_tools" type="text" placeholder="例：Notion / Trello / 紙本 / Google Keep / 沒有..." class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20" />
-        </div>
 
         <div>
           <label for="dietary" class="block text-sm font-medium text-[#2C2416] mb-2">食物過敏 / 飲食偏好</label>
@@ -548,78 +576,13 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           <textarea id="message" name="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20"></textarea>
         </div>
 
-        <!-- Companion fields (hidden by default, JS controls visibility) -->
-        <div id="companions-wrapper" class="hidden space-y-6">
+        <!-- 同行者資訊（hidden by default, JS controls visibility）-->
+        <div id="companions-wrapper" class="hidden space-y-3">
           <hr class="border-[#E8E4DD]" />
-          <p class="text-sm font-bold text-[#2C2416]">同伴資料</p>
-          <p class="text-xs text-[#8B7355] -mt-3">幫同伴填基本資料，痛點選填（之後可由同伴自己補）</p>
-
-          <!-- Companion 1 -->
-          <div class="companion-block hidden bg-[#F5F1EB]/50 border border-[#E8E4DD] rounded-lg p-4 space-y-4" data-index="1">
-            <p class="text-sm font-medium text-[#5C5144]">同伴 #1</p>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">姓名 <span class="text-[#DC2626]">*</span></label>
-              <input name="c1_name" type="text" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">Email <span class="text-[#DC2626]">*</span></label>
-              <input name="c1_email" type="email" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">最痛的工作流問題（選填）</label>
-              <textarea name="c1_pain" rows="2" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]"></textarea>
-            </div>
-          </div>
-
-          <!-- Companion 2 -->
-          <div class="companion-block hidden bg-[#F5F1EB]/50 border border-[#E8E4DD] rounded-lg p-4 space-y-4" data-index="2">
-            <p class="text-sm font-medium text-[#5C5144]">同伴 #2</p>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">姓名 <span class="text-[#DC2626]">*</span></label>
-              <input name="c2_name" type="text" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">Email <span class="text-[#DC2626]">*</span></label>
-              <input name="c2_email" type="email" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">最痛的工作流問題（選填）</label>
-              <textarea name="c2_pain" rows="2" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]"></textarea>
-            </div>
-          </div>
-
-          <!-- Companion 3 -->
-          <div class="companion-block hidden bg-[#F5F1EB]/50 border border-[#E8E4DD] rounded-lg p-4 space-y-4" data-index="3">
-            <p class="text-sm font-medium text-[#5C5144]">同伴 #3</p>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">姓名 <span class="text-[#DC2626]">*</span></label>
-              <input name="c3_name" type="text" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">Email <span class="text-[#DC2626]">*</span></label>
-              <input name="c3_email" type="email" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">最痛的工作流問題（選填）</label>
-              <textarea name="c3_pain" rows="2" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]"></textarea>
-            </div>
-          </div>
-
-          <!-- Companion 4 -->
-          <div class="companion-block hidden bg-[#F5F1EB]/50 border border-[#E8E4DD] rounded-lg p-4 space-y-4" data-index="4">
-            <p class="text-sm font-medium text-[#5C5144]">同伴 #4</p>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">姓名 <span class="text-[#DC2626]">*</span></label>
-              <input name="c4_name" type="text" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">Email <span class="text-[#DC2626]">*</span></label>
-              <input name="c4_email" type="email" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]" />
-            </div>
-            <div>
-              <label class="block text-xs text-[#5C5144] mb-1">最痛的工作流問題（選填）</label>
-              <textarea name="c4_pain" rows="2" class="w-full px-3 py-2 rounded-lg border border-[#E8E4DD] text-sm focus:outline-none focus:border-[#B8926A]"></textarea>
-            </div>
+          <div>
+            <label for="companions_info" class="block text-sm font-medium text-[#2C2416] mb-2">同行者姓名 + Email <span class="text-[#DC2626]">*</span></label>
+            <textarea id="companions_info" name="companions_info" rows="3" placeholder="例：王小美 wang@example.com&#10;李大華 lee@example.com" class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20"></textarea>
+            <p class="text-xs text-[#8B7355] mt-1">課前我會分別聯繫每位學員</p>
           </div>
         </div>
 
@@ -639,7 +602,7 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
         </div>
         <h3 class="text-xl font-bold text-[#065F46] mb-2">報名表已收到！</h3>
         <p class="text-base text-[#065F46] mb-1">我會在 1-2 天內透過 LINE 或 email 跟你聯繫。</p>
-        <p class="text-sm text-[#047857]">滿 5 人即正式成班，會通知你最終日期與付款方式。</p>
+        <p class="text-sm text-[#047857]">確認可開班後，會通知你最終付款方式與場地資訊。</p>
       </div>
 
       <!-- Error message (hidden by default) -->
@@ -665,33 +628,10 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
     const errorMsg = document.getElementById('error-msg');
     const partySizeSelect = document.getElementById('party_size');
     const companionsWrapper = document.getElementById('companions-wrapper');
-    const companionBlocks = document.querySelectorAll('.companion-block');
 
-    // City preference "其他" checkbox → show text input
-    const cityOtherCheck = document.getElementById('city_other_check');
-    const cityOtherText = document.getElementById('city_other_text');
-    cityOtherCheck.addEventListener('change', () => {
-      if (cityOtherCheck.checked) {
-        cityOtherText.classList.remove('hidden');
-      } else {
-        cityOtherText.classList.add('hidden');
-        cityOtherText.value = '';
-      }
-    });
-
-    // Pricing tiers (per-person price by party size)
-    const PRICE_TIERS = {
-      1: 9800,
-      2: 9300,
-      3: 8800,
-      4: 8400,
-      5: 8000,  // 5+ all use 8000
-    };
-
-    function getPricePerPerson(size) {
-      if (size >= 5) return PRICE_TIERS[5];
-      return PRICE_TIERS[size];
-    }
+    // Pricing: 單一價 NT$9,800 / 人
+    const PRICE_PER_PERSON = 9800;
+    const companionsInfoEl = document.getElementById('companions_info');
 
     function formatTWD(n) {
       return 'NT$' + n.toLocaleString('en-US');
@@ -702,44 +642,31 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       const breakdownEl = document.getElementById('price-breakdown');
       const totalEl = document.getElementById('price-total');
 
-      if (value === '6+') {
-        breakdownEl.textContent = '6+ 人 × NT$8,000';
-        totalEl.textContent = 'NT$48,000+';
+      if (value === '3+') {
+        breakdownEl.textContent = '3+ 人 × NT$9,800';
+        totalEl.textContent = 'NT$29,400+';
         return;
       }
 
       const size = parseInt(value, 10);
-      const perPerson = getPricePerPerson(size);
-      const total = perPerson * size;
-      breakdownEl.textContent = `${size} 人 × ${formatTWD(perPerson)}`;
+      const total = PRICE_PER_PERSON * size;
+      breakdownEl.textContent = `${size} 人 × ${formatTWD(PRICE_PER_PERSON)}`;
       totalEl.textContent = formatTWD(total);
     }
 
-    // Party size dropdown — show/hide companion blocks + update price
+    // Party size dropdown — show/hide companions textarea + update price
     partySizeSelect.addEventListener('change', () => {
       const value = partySizeSelect.value;
-      // "6+" → no inline companion fields (user writes count in message)
-      const companionCount = value === '6+' ? 0 : parseInt(value, 10) - 1;
+      // 1 人 → 隱藏；2 人 / 3+ 人 → 顯示同行者資訊 textarea
+      const showCompanions = value !== '1';
 
-      if (companionCount === 0) {
-        companionsWrapper.classList.add('hidden');
-      } else {
+      if (showCompanions) {
         companionsWrapper.classList.remove('hidden');
+        companionsInfoEl.required = true;
+      } else {
+        companionsWrapper.classList.add('hidden');
+        companionsInfoEl.required = false;
       }
-
-      companionBlocks.forEach((block) => {
-        const idx = parseInt(block.dataset.index, 10);
-        const isVisible = idx <= companionCount;
-        if (isVisible) {
-          block.classList.remove('hidden');
-          block.querySelector('input[type="text"]').required = true;
-          block.querySelector('input[type="email"]').required = true;
-        } else {
-          block.classList.add('hidden');
-          block.querySelector('input[type="text"]').required = false;
-          block.querySelector('input[type="email"]').required = false;
-        }
-      });
 
       updatePricePreview();
     });
@@ -750,68 +677,29 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Validate city preference (at least 1 checkbox)
-      const cityChecked = form.querySelectorAll('input[name="city_pref"]:checked');
-      const cityErrorEl = document.getElementById('city_pref_error');
-      if (cityChecked.length === 0) {
-        cityErrorEl.classList.remove('hidden');
-        cityErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-      cityErrorEl.classList.add('hidden');
-
       submitBtn.disabled = true;
       submitBtn.textContent = '送出中...';
       errorMsg.classList.add('hidden');
 
       const formData = new FormData(form);
       const partySizeRaw = formData.get('party_size');
-      const isLargeGroup = partySizeRaw === '6+';
-      const partySize = isLargeGroup ? '6+' : parseInt(partySizeRaw, 10);
-      const companionCount = isLargeGroup ? 0 : partySize - 1;
-
-      // Build companion list
-      const companions = [];
-      for (let i = 1; i <= companionCount; i++) {
-        companions.push({
-          name: formData.get(`c${i}_name`) || '',
-          email: formData.get(`c${i}_email`) || '',
-          pain: formData.get(`c${i}_pain`) || '',
-        });
-      }
-
-      // Build city preference list (replace "其他" with custom text)
-      const cityRawValues = formData.getAll('city_pref');
-      const cityOther = formData.get('city_other_text')?.toString().trim() || '';
-      const cityList = cityRawValues.map(v => {
-        if (v === '其他') return cityOther ? `其他：${cityOther}` : '其他';
-        return v;
-      });
+      const isLargeGroup = partySizeRaw === '3+';
+      const partySize = isLargeGroup ? '3+' : parseInt(partySizeRaw, 10);
 
       // Compute price (server-side should re-verify on payment)
-      let pricePerPerson = 8000;
-      let priceTotal = 0;
-      if (isLargeGroup) {
-        pricePerPerson = 8000;
-        priceTotal = 0; // 6+ needs manual quote
-      } else {
-        pricePerPerson = getPricePerPerson(partySize);
-        priceTotal = pricePerPerson * partySize;
-      }
+      const pricePerPerson = PRICE_PER_PERSON;
+      const priceTotal = isLargeGroup ? 0 : pricePerPerson * partySize; // 3+ needs manual quote
 
       // Pack all fields except email/role into scenario JSON
       const scenarioData = {
         name: formData.get('name'),
         line_id: formData.get('line_id'),
-        pain: formData.get('pain'),
-        city_pref: cityList.join(', '),
-        current_tools: formData.get('current_tools') || '',
         dietary: formData.get('dietary') || '',
         message: formData.get('message') || '',
         party_size: partySize,
         price_per_person: pricePerPerson,
         price_total: priceTotal,
-        companions: companions,
+        companions_info: formData.get('companions_info') || '',
         submitted_at: new Date().toISOString(),
       };
 
