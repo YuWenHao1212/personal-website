@@ -321,11 +321,7 @@ Agent Skills 本身不難——就是 Markdown 加上一些結構。但它代表
 
 ---
 
-### 延伸閱讀
-
-Skills 寫了之後怎麼整合進完整的 AI 工作系統？[多數人學 AI 的順序反了——先方向、再系統，AI 才是槓桿](/zh-TW/blog/flux-direction-system-leverage/)，這是我把 FLUX 系統教給 12 個學員的第一手紀錄、包含 `/knowledge-keeper` 和 `/daily` 兩個 Skill 怎麼從 CLAUDE.md 抽出來。
-
-這套 AI 工作流方法要導入企業環境？[這篇記錄了我在現場的觀察](/zh-TW/blog/enterprise-ai-adoption-bottleneck/)——最大的瓶頸往往不在工具，在更前面。
+*Skills 是零件、不是系統。[整套 FLUX 是怎麼跑的 →](/zh-TW/blog/flux-direction-system-leverage/)*
 
 *如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
 
