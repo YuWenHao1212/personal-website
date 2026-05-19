@@ -230,10 +230,6 @@ says: "長尾關鍵字比短關鍵字更容易排名，且轉換率更高"
 
 ---
 
-### 延伸閱讀
-
-LYT 之上要搭什麼？[多數人學 AI 的順序反了——先方向、再系統，AI 才是槓桿](/zh-TW/blog/flux-direction-system-leverage/)，這是我把 LYT + 12 Week Year + Claude Code 整合成 FLUX 系統、教給 12 個學員的第一手紀錄。
-
 *如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
 
 *想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

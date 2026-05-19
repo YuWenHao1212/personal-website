@@ -303,9 +303,7 @@ Cursor 是 IDE（整合開發環境），一般是工程師用來開發軟體產
 
 ---
 
-### 延伸閱讀
-
-學完 Claude Code，想看整套 AI 工作系統怎麼跑？[多數人學 AI 的順序反了——先方向、再系統，AI 才是槓桿](/zh-TW/blog/flux-direction-system-leverage/)，這是我把 FLUX 系統教給 12 個學員的第一手紀錄。
+*學完 Claude Code 之後，整套系統長怎樣？看 [我教 12 個學員從零建 FLUX 個人指揮中心的紀錄 →](/zh-TW/blog/flux-direction-system-leverage/)*
 
 *如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
 
