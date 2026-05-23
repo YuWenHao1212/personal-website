@@ -1,0 +1,278 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'STUDIO A 學員專屬 — 三日工作坊課前安裝指南';
+const description = '6/2 / 6/5 / 6/9 三日工作坊課前環境建置指南：安裝 Claude Pro、VS Code、Claude Code、Obsidian，下載 FLUX-standard-studio-a vault。';
+---
+
+<BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
+  <article class="py-10 md:py-14 lg:py-16">
+    <div class="container-prose">
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">STUDIO A 學員專屬安裝指南</h1>
+        <p class="text-lg text-ink-600">三日工作坊（6/2、6/5、6/9）課前環境建置</p>
+        <p class="text-sm text-ink-400 mt-2">講師：余文皓 | mail@yu-wenhao.com</p>
+      </header>
+
+      <div class="prose prose-lg max-w-none">
+        <blockquote>
+          <p>
+            請在 <strong>5/30 (五) 前</strong>完成以下安裝。<br />
+            預估時間：30-45 分鐘（含等下載）。<br />
+            卡在任何步驟，截圖 LINE 給文皓 — 4 小時內回。<br />
+            <strong>不要自己亂試</strong>，特別是 mail server 設定。
+          </p>
+        </blockquote>
+
+        <p>這份指南專為 STUDIO A 員工的 Mac 電腦設計。整份要做的事分成兩個階段：</p>
+
+        <ol>
+          <li><strong>階段 1（這份頁面）</strong>：裝好 7 個基本工具（VS Code / Claude Code / Obsidian / Git / Python / Mail.app / Apple Calendar）+ 下載 vault</li>
+          <li><strong>階段 2（在 vault 內讓 Claude 自己跑）</strong>：跟 Claude 說「安裝 email skill」「安裝 calendar skill」— Claude 會讀 vault 內的 setup script 自動跑</li>
+        </ol>
+
+        <hr />
+
+        <h2>一、確認 Claude Pro 帳號（已有帳號可跳過）</h2>
+
+        <ol>
+          <li>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 登入</li>
+          <li>確認左下角顯示 <strong>Pro</strong> 字樣</li>
+        </ol>
+
+        <h3>設定 Profile</h3>
+
+        <p>登入後，前往 <strong>Settings → General</strong>，設定你的 Profile。</p>
+        <p>在 <strong>What personal preferences should Claude consider in responses?</strong> 欄位，貼上你的個人資訊，例如：</p>
+
+        <pre><code>{`我是 [你的名字]，STUDIO A [你的職稱/部門]。
+- 繁體中文溝通，台灣用語
+- 工作內容：[簡述你的主要工作]
+- 回應請簡潔直接`}</code></pre>
+
+        <blockquote>
+          <p>可以先自己設定，工作坊當天有問題我們會一起調整。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>二、安裝 VS Code（編輯器）</h2>
+
+        <p>VS Code 是看 <code>.md</code> 檔、改設定檔的工具。</p>
+
+        <ol>
+          <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
+          <li>下載 Mac 版</li>
+          <li>打開 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
+          <li>打開 VS Code，確認可以正常啟動</li>
+        </ol>
+
+        <h3>安裝 Git</h3>
+
+        <p>VS Code 第一次開啟時，可能會跳出提示詢問是否要安裝 Git。<strong>請點選安裝</strong>，後續會用到。</p>
+
+        <p>如果沒跳，打開終端機（按 <code>Cmd + 空白</code> 搜尋 <code>Terminal</code>），貼上：</p>
+
+        <pre><code>git --version</code></pre>
+
+        <p>第一次跑會跳「安裝命令列工具」對話框，點<strong>安裝</strong>。完成後再跑一次 <code>git --version</code>，看到版本號（例 <code>git version 2.39.x</code>）= 成功。</p>
+
+        <h3>安裝 VS Code 擴充功能</h3>
+
+        <ol>
+          <li>打開 VS Code</li>
+          <li>按 <code>Cmd + Shift + X</code> 打開擴充功能側欄</li>
+          <li>搜尋並安裝以下兩個擴充功能：</li>
+        </ol>
+
+        <p><strong>① Claude Code</strong>（作者 Anthropic）— 讓 Claude 在 VS Code 裡有圖形面板，按 <code>Cmd + Esc</code> 就能呼叫。工作坊全程會用到、<strong>一定要裝</strong>。</p>
+
+        <p>搜「<code>claude code</code>」，選作者是 <strong>Anthropic</strong> 那個（識別碼 <code>anthropic.claude-code</code>）：</p>
+
+        <img src="/images/studio-a-install/01-claude-code-extension.webp" alt="VS Code 擴充功能市集 — Claude Code for VS Code（Anthropic 出品）" />
+
+        <p><strong>② Chinese (Traditional) Language Pack</strong>（作者 Microsoft）— VS Code 介面中文化、選用。</p>
+
+        <p>搜「<code>Chinese</code>」，選作者是 <strong>Microsoft</strong>、寫「<strong>中文(繁體)</strong>」那個：</p>
+
+        <img src="/images/studio-a-install/02-chinese-language-pack.webp" alt="VS Code 擴充功能市集 — Chinese (Traditional) Language Pack（Microsoft 出品）" />
+
+        <ol start={4}>
+          <li>兩個都裝完、重新啟動 VS Code</li>
+          <li>裝好 Claude Code extension 後，VS Code 右上角會出現一個 <strong>✱</strong> 符號 — 點它可以開 Claude 對話面板（第一次會要求登入 Anthropic 帳號，等下面第三步處理就好）</li>
+        </ol>
+
+        <hr />
+
+        <h2>三、安裝 Obsidian（你的知識庫）</h2>
+
+        <p>Obsidian 是個人筆記庫，所有任務、日記、知識卡片都在這裡看。</p>
+
+        <ol>
+          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+          <li>下載 Mac 版</li>
+          <li>打開下載的 <code>.dmg</code> 檔案，將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
+          <li>打開 Obsidian，確認可以正常啟動</li>
+        </ol>
+
+        <blockquote>
+          <p>第一次打開 Obsidian 會問你要開啟什麼 Vault — 先關掉就好，下一步我們會設定。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>四、確認 Apple Mail 和 Apple Calendar 正常運作</h2>
+
+        <p>你平常上班用的 Apple Mail 和 Apple Calendar — 等下安裝 email skill / calendar skill 時，Claude 會直接接這兩個 app 拿你的公司信和公司行事曆。</p>
+
+        <p>請快速確認：</p>
+
+        <ul class="list-none pl-0">
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 打開 <strong>Mail.app</strong>、收得到 STUDIO A 公司新信</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 打開 <strong>Calendar.app</strong>、看得到自己這週的工作行程</li>
+        </ul>
+
+        <blockquote>
+          <p>兩個 app 都是 STUDIO A 員工平常就在用的、應該都已經設好了。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>五、下載 FLUX-standard-studio-a vault 並用 VS Code 打開</h2>
+
+        <p>FLUX-standard-studio-a 是為 STUDIO A 員工工作場景設計的個人 AI 工作區。</p>
+
+        <ol>
+          <li>點擊下方連結下載 vault：</li>
+        </ol>
+
+        <p>
+          <a href="https://drive.google.com/uc?export=download&id=18SPi6R98ITXs-mH9yQj_zL_bxWU2S3kW" target="_blank" rel="noopener" class="inline-block px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
+            📥 下載 FLUX-standard-studio-a.zip（約 280KB）
+          </a>
+        </p>
+
+        <ol start={2}>
+          <li>下載後雙擊 <code>.zip</code> 解壓縮</li>
+          <li>把解壓縮後的 <code>FLUX-standard-studio-a</code> 資料夾<strong>放到 <code>~/Documents/</code> 下</strong>（你的「文件」資料夾）</li>
+        </ol>
+
+        <blockquote>
+          <p><strong>⚠️ 重要：不要把 vault 放在會雲端同步的位置</strong>。安裝完之後 vault 內會有你的公司 email 密碼。如果你開啟了 <strong>系統設定 → Apple 帳號 → iCloud → iCloud 雲碟 → 「桌面與文件夾」</strong>同步，你的密碼會跟著同步到 iCloud 和其他裝置。</p>
+          <p>建議：保持「桌面與文件夾」<strong>關閉</strong>同步、或把 vault 改放在 <code>~/</code>（家目錄）下而不是 <code>~/Documents/</code>。</p>
+        </blockquote>
+
+        <ol start={4}>
+          <li>打開 <strong>VS Code</strong>，選單 <strong>File → Open Folder…</strong>（檔案 → 開啟資料夾），選剛才那個 <code>FLUX-standard-studio-a</code> 資料夾</li>
+          <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是、信任」</strong>（Yes, I trust the authors）</li>
+          <li>左側 Explorer 看到 <code>Inbox / Atlas / Calendar / Cockpit / Efforts / Guides / Templates / CLAUDE.md / Home.md</code> = 開對了</li>
+        </ol>
+
+        <p>同一個資料夾，Obsidian 也要打開一次（之後上課會用 Obsidian 看筆記、用 VS Code 跟 Claude 對話）：</p>
+
+        <ol start={7}>
+          <li>打開 <strong>Obsidian</strong>，點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+          <li>選同一個 <code>FLUX-standard-studio-a</code> 資料夾</li>
+          <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
+        </ol>
+
+        <hr />
+
+        <h2>六、安裝 Claude Code 並登入</h2>
+
+        <p>Claude Code 是讓 AI 直接在你電腦裡讀寫檔案、執行指令的工具。安裝後，你跟 AI 說的事它真的會做。</p>
+
+        <ol>
+          <li>回到 VS Code（已經打開 <code>FLUX-standard-studio-a</code> 資料夾的那個視窗）</li>
+          <li>按 <code>Ctrl + `</code>（鍵盤左上角 ESC 下方的反引號鍵）打開 VS Code 內建終端機</li>
+          <li>在終端機中貼上以下指令、按 Enter 執行：</li>
+        </ol>
+
+        <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+        <ol start={4}>
+          <li>安裝完成後，貼上以下指令設定路徑：</li>
+        </ol>
+
+        <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc`}</code></pre>
+
+        <ol start={5}>
+          <li>在終端機中輸入 <code>exit</code> 關閉 session，再按 <code>Ctrl + `</code> 打開新的終端機</li>
+          <li>輸入 <code>claude</code>、按 Enter 進入 Claude Code session</li>
+        </ol>
+
+        <pre><code>claude</code></pre>
+
+        <ol start={7}>
+          <li>系統會要求你登入 — 按照畫面指示登入你的 Claude 帳號（同 claude.ai 那個）</li>
+          <li>登入成功後，看到 Claude Code 的對話介面 — Claude 會自動讀這個資料夾根目錄的 <code>CLAUDE.md</code>，知道這是你的個人 vault</li>
+        </ol>
+
+        <hr />
+
+        <h2>七、讓 Claude 跑 setup</h2>
+
+        <p>承接第六步、不要離開 Claude 對話介面。跟 Claude 說一句話：</p>
+
+        <pre><code>裝 Claude skill</code></pre>
+
+        <p>Claude 會自動讀 <code>Inbox/setup-claude-skills.md</code>、依序跑：</p>
+
+        <ul>
+          <li><strong>Part A：Email skill</strong> — Claude 會用 <code>security</code> CLI 自動從鑰匙圈拿你的 IMAP 帳密（你按一次 macOS 系統對話框「永遠允許」+ 輸入 Mac 登入密碼），再問 Apple Sender、自動驗證連線、測試草稿到 Apple Mail 草稿匣</li>
+          <li><strong>Part B：Calendar skill</strong> — 問你工作行事曆名稱（在 Apple Calendar 左側欄看到的那個）、測試讀取行程</li>
+          <li><strong>Part C：結案</strong> — 驗證兩個 skill 都裝好、自動清掉 <code>Inbox/</code> 裡的 setup 檔案</li>
+        </ul>
+
+        <blockquote>
+          <p><strong>⚠️ 過程中 macOS 會跳兩次系統彈窗</strong>：「Terminal 想要控制 Mail」「Terminal 想要控制 Calendar」 — 請按「<strong>好</strong>」/「<strong>允許</strong>」、Claude 才能繼續。</p>
+        </blockquote>
+
+        <blockquote>
+          <p><strong>裝到一半卡住？</strong>Claude 會跟你說「請找講師」就停下來。不要自己 debug 公司 mail server 設定 — LINE 文皓，4 小時內回。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>八、驗證安裝成功</h2>
+
+        <p>跟 Claude 說：「<strong>跑驗證</strong>」、或自己手動試這兩件事：</p>
+
+        <ol>
+          <li>跟 Claude 說：「<strong>讀我今天最後 5 封信、做摘要</strong>」 — 看到 Claude 列出 5 封信的主旨 + 摘要 = email skill OK</li>
+          <li>跟 Claude 說：「<strong>看我今天的會議</strong>」 — 看到今天行程列表 = calendar skill OK</li>
+        </ol>
+
+        <p>下方逐項打勾：</p>
+
+        <ul class="list-none pl-0">
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號可登入 claude.ai</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 安裝完成、可正常開啟</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>git --version</code> 有輸出</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>claude</code> 能進入 Claude Code</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 可開啟 FLUX-standard-studio-a vault</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Apple Mail 能收發 STUDIO A 公司信</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Apple Calendar 看得到工作行程</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude 能讀公司 email、做摘要</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude 能看公司行事曆</li>
+        </ul>
+
+        <p>都打勾，你就準備好上 6/2 第一堂了！</p>
+
+        <hr />
+
+        <h2>卡住的時候</h2>
+
+        <ol>
+          <li><strong>裝環境卡住</strong>（VS Code / Claude Code / Obsidian 裝不起來）→ LINE 文皓</li>
+          <li><strong>Mail / Calendar 收不到信、看不到行事曆</strong> → 依平常方式找 STUDIO A IT 處理</li>
+          <li><strong>Claude 跑 setup script 卡住</strong> → Claude 會自己說「請找講師」就停下、複製 Claude 的最後一段訊息 LINE 文皓</li>
+          <li><strong>真的搞不定</strong> → mail@yu-wenhao.com，4 小時內文皓回覆</li>
+        </ol>
+
+        <p><em>余文皓 | mail@yu-wenhao.com</em></p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
