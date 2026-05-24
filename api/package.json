@@ -1,8 +1,0 @@
-{
-  "name": "personal-website-api",
-  "version": "1.0.0",
-  "description": "Azure Functions API for personal website",
-  "dependencies": {
-    "openai": "^4.0.0"
-  }
-}
