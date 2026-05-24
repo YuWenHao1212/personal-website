@@ -14,7 +14,7 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
         <p class="text-sm text-ink-400 mt-2">講師：余文皓 | mail@yu-wenhao.com</p>
       </header>
 
-      <div class="prose prose-lg max-w-none">
+      <div class="prose prose-lg max-w-none [&_blockquote]:!border-l-slate-400">
         <blockquote>
           <p>
             請在<strong>我們一對一會議前</strong>完成以下安裝。<br />
@@ -30,6 +30,21 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
           <button data-os-btn="windows" class="flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-ink-200 text-ink-500 hover:border-ink-300">⊞ Windows</button>
         </div>
 
+        <p>整份要做的事：<strong>確認 Claude Pro</strong> → <strong>裝 4 個工具</strong>（VS Code / Git / Claude Code / Obsidian）→ <strong>下載 FLUX Vault</strong> → <span data-os="windows"><strong>讓 Claude Code 還原資料夾</strong> → </span>用 Obsidian 打開。</p>
+
+        <hr />
+
+        <!-- ====== Block 1: 課前安裝 ====== -->
+        <div class="not-prose mt-12 mb-8 py-5 px-6 bg-accent text-white rounded-lg">
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="mac">階段 1 / 2</div>
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="windows">階段 1 / 3</div>
+          <div class="text-2xl font-bold" data-os="mac">💻 課前安裝（步驟一 ~ 六）</div>
+          <div class="text-2xl font-bold" data-os="windows">💻 課前安裝（步驟一 ~ 五）</div>
+          <div class="text-sm mt-1 opacity-80">確認 Claude Pro + 裝 4 個工具 + 下載 vault · 約 20 分鐘</div>
+        </div>
+
+        <div class="border-l-4 border-accent pl-6 my-6">
+
         <h2>一、確認 Claude Pro 帳號（已有帳號可跳過）</h2>
 
         <ol>
@@ -40,32 +55,20 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
         <img src="/images/workshop/setup/02-claude-login-2.png" alt="Claude 登入選擇" />
 
         <ol start={2}>
-          <li>確認左下角顯示 <strong>Pro</strong> 字樣</li>
+          <li>確認左下角顯示 <strong>Pro</strong> 字樣（沒有 Pro 訂閱、後面 Claude Code 跑不起來）</li>
         </ol>
 
-        <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="Claude Pro 標示" />
-
-        <h3>設定 Profile</h3>
-
-        <p>登入後，前往 <strong>Settings → General</strong>，設定你的 Profile。</p>
-        <p>在 <strong>What personal preferences should Claude consider in responses?</strong> 欄位，貼上你的個人資訊，例如：</p>
-
-        <pre><code>{`我是 [你的名字]，[你的職稱/角色]。
-- 繁體中文溝通，台灣用語
-- 工作內容：[簡述你的主要工作]
-- 回應請簡潔直接`}</code></pre>
-
-        <img src="/images/workshop/setup/04-claude-profile-settings.png" alt="Claude Profile 設定" />
+        <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="claude.ai 左下角顯示 Pro 字樣 — 確認訂閱已生效" />
 
         <blockquote>
-          <p>可以先自己設定，有問題會議時再一起調整。</p>
+          <p>圖中是年繳方案（$17/月）— 月繳（$20/月）也 OK，只要有 <strong>Pro</strong> 訂閱即可。</p>
         </blockquote>
 
         <hr />
 
-        <h2>二、安裝 VS Code（我們的工作環境）</h2>
+        <h2>二、安裝 VS Code（編輯器）</h2>
 
-        <p>VS Code 是我們的工作環境，所有操作都在這裡進行。</p>
+        <p>VS Code 是看 <code>.md</code> 檔、改設定檔的工具。</p>
 
         <ol>
           <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
@@ -77,51 +80,94 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
 
         <div data-os="mac">
           <ol start={3}>
-            <li>下載完成後，打開 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
+            <li>打開下載的 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
             <li>打開 VS Code，確認可以正常啟動</li>
           </ol>
         </div>
 
         <div data-os="windows">
           <ol start={3}>
-            <li>下載完成後，執行 <code>.exe</code> 安裝檔，按照安裝精靈步驟完成安裝</li>
+            <li>執行下載的 <code>.exe</code> 安裝檔，按照安裝精靈步驟完成安裝</li>
             <li>打開 VS Code，確認可以正常啟動</li>
           </ol>
         </div>
 
-        <h3>安裝 Git</h3>
+        <h3>安裝 VS Code 擴充功能</h3>
 
-        <div data-os="mac">
-          <p>VS Code 第一次開啟時，可能會跳出提示詢問是否要安裝 Git。<strong>請點選安裝</strong>，後續會用到。</p>
-        </div>
-
-        <div data-os="windows">
-          <p>打開 VS Code 的終端機（按 <code>Ctrl + `</code>），貼上以下指令：</p>
-          <pre><code>winget install Git.Git</code></pre>
-          <p>安裝完成後，<strong>關掉 VS Code 再重開</strong>。</p>
-        </div>
-
-        <h3>安裝中文語言套件（選用）</h3>
         <ol>
           <li>打開 VS Code</li>
-          <li data-os="mac">按 <code>Cmd + Shift + X</code> 打開擴充功能</li>
-          <li data-os="windows">按 <code>Ctrl + Shift + X</code> 打開擴充功能</li>
-          <li>搜尋 <code>Chinese</code>，安裝 <strong>Chinese (Traditional) Language Pack</strong></li>
-          <li>重新啟動 VS Code</li>
+          <li data-os="mac">按 <code>Cmd + Shift + X</code> 打開擴充功能側欄</li>
+          <li data-os="windows">按 <code>Ctrl + Shift + X</code> 打開擴充功能側欄</li>
+          <li>搜尋並安裝以下兩個擴充功能：</li>
         </ol>
 
-        <img src="/images/workshop/setup/06-vscode-chinese-pack.png" alt="VS Code 中文語言套件" />
+        <p><strong>① Claude Code</strong>（作者 Anthropic）— 讓 VS Code 跟 Claude 整合的擴充功能。<strong>一定要裝</strong>。</p>
+
+        <p>搜「<code>claude code</code>」，選作者是 <strong>Anthropic</strong> 那個：</p>
+
+        <img src="/images/studio-a-install/01-claude-code-extension.webp" alt="VS Code 擴充功能市集 — Claude Code for VS Code（Anthropic 出品）" />
+
+        <p><strong>② Chinese (Traditional) Language Pack</strong>（作者 Microsoft）— VS Code 介面中文化、選用。</p>
+
+        <p>搜「<code>Chinese</code>」，選作者是 <strong>Microsoft</strong>、寫「<strong>中文(繁體)</strong>」那個：</p>
+
+        <img src="/images/studio-a-install/02-chinese-language-pack.webp" alt="VS Code 擴充功能市集 — Chinese (Traditional) Language Pack（Microsoft 出品）" />
+
+        <ol start={4}>
+          <li>兩個都裝完、重新啟動 VS Code</li>
+          <li>裝好 Claude Code extension 後，VS Code 右上角會出現一個 <strong>✱</strong> 符號 — 點它可以開 Claude 對話面板（第一次會要求登入 Anthropic 帳號，留到步驟六開 vault 後一起處理）</li>
+        </ol>
 
         <hr />
 
-        <h2>三、安裝 Claude Code</h2>
+        <h2>三、安裝 Git</h2>
 
-        <p>Claude Code 是讓 AI 直接在你電腦裡工作的工具。安裝後，AI 就能讀寫檔案、執行指令、幫你完成實際的工作。</p>
+        <p>Git 是版本控制工具、後續 Claude workflow 會用到。</p>
+
+        <div data-os="mac">
+          <p>macOS 沒預裝 Git、需透過終端機觸發 macOS Command Line Tools 安裝（會把 <strong>Python 3</strong> 也一起裝上）：</p>
+
+          <ol>
+            <li>打開剛裝好的 <strong>VS Code</strong>（不用開資料夾、空狀態即可）</li>
+            <li>按 <code>Ctrl + `</code> 打開 VS Code 內建終端機（cwd 在你的家目錄）</li>
+            <li>貼上以下指令、按 Enter：</li>
+          </ol>
+
+          <pre><code>git --version</code></pre>
+
+          <p>第一次跑會跳「安裝命令列工具」對話框（macOS 內建的開發者工具包、約 700MB、含 Git + Python + 其他）— 點<strong>安裝</strong>。下載 + 安裝完成後再跑一次 <code>git --version</code>。</p>
+
+          <p><strong>✓ 看到版本號（例 <code>git version 2.39.x</code>）= 成功。</strong></p>
+        </div>
+
+        <div data-os="windows">
+          <p>Windows 需透過 winget 安裝 Git：</p>
+
+          <ol>
+            <li>打開 VS Code</li>
+            <li>按 <code>Ctrl + `</code> 打開內建終端機（PowerShell）</li>
+            <li>貼上以下指令、按 Enter：</li>
+          </ol>
+
+          <pre><code>winget install Git.Git</code></pre>
+
+          <ol start={4}>
+            <li>安裝完成後，<strong>關掉 VS Code 再重開</strong></li>
+            <li>打開新的終端機，輸入 <code>git --version</code></li>
+          </ol>
+
+          <p><strong>✓ 看到版本號（例 <code>git version 2.49.x</code>）= 成功。</strong></p>
+        </div>
+
+        <hr />
+
+        <h2>四、安裝 Claude Code CLI</h2>
+
+        <p>Claude Code 是讓 AI 直接在你電腦裡讀寫檔案、執行指令的工具 — 工作坊全程主要用這個 CLI 版本（步驟二裝的 extension 是 GUI 版本、互補不衝突）。</p>
 
         <ol>
-          <li>打開 VS Code</li>
-          <li>按 <code>Ctrl + `</code>（左上角 ESC 下方的按鍵）打開終端機（Terminal）</li>
-          <li>在終端機中貼上以下指令，按 Enter 執行：</li>
+          <li>繼續用剛才的 VS Code 內建終端機（沒開的話按 <code>Ctrl + `</code> 打開）</li>
+          <li>貼上以下指令、按 Enter 執行：</li>
         </ol>
 
         <div data-os="mac">
@@ -129,20 +175,21 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Cl
 
           <img src="/images/workshop/setup/07-terminal-install-claude.png" alt="終端機安裝 Claude Code" />
 
-          <ol start={4}>
-            <li>安裝完成後，貼上以下指令設定路徑：</li>
+          <ol start={3}>
+            <li>安裝完成後、貼上以下指令設定路徑：</li>
           </ol>
 
           <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc`}</code></pre>
 
-          <ol start={5}>
-            <li>在終端機中輸入 <code>exit</code> 關閉 session，再按 <code>Ctrl + `</code> 打開新的終端機</li>
+          <ol start={4}>
+            <li>關閉這個終端機（輸入 <code>exit</code>）、再按 <code>Ctrl + `</code> 打開新的</li>
+            <li>輸入 <code>claude --version</code> 驗證有版本號</li>
           </ol>
         </div>
 
         <div data-os="windows">
-          <p>在終端機（PowerShell）中貼上以下指令，全部一次執行：</p>
+          <p>在終端機（PowerShell）中貼上以下指令、全部一次執行：</p>
 
           <pre><code>{`irm https://claude.ai/install.ps1 | iex
 $claudePath = "$env:USERPROFILE\\.local\\bin"
@@ -151,118 +198,197 @@ if ($currentPath -notlike "*$claudePath*") {
   [Environment]::SetEnvironmentVariable("Path", "$currentPath;$claudePath", "User")
 }`}</code></pre>
 
-          <ol start={4}>
-            <li>完成後，<strong>關掉 VS Code 再重開</strong>，打開新的終端機</li>
-          </ol>
-        </div>
-
-        <ol start={6}>
-          <li>在終端機中輸入 <code>claude</code>，按 Enter</li>
-        </ol>
-
-        <pre><code>claude</code></pre>
-
-        <ol start={7}>
-          <li>系統會要求你登入 — 按照畫面指示登入你的 Claude 帳號</li>
-        </ol>
-
-        <img src="/images/workshop/setup/08-claude-code-auth.png" alt="Claude Code 登入授權" />
-        <img src="/images/workshop/setup/09-claude-code-auth-2.png" alt="Claude Code 登入授權" />
-
-        <ol start={8}>
-          <li>登入成功後，你會看到 Claude Code 的對話介面</li>
-        </ol>
-
-        <img src="/images/workshop/setup/10-claude-code-ready.png" alt="Claude Code 就緒" />
-
-        <hr />
-
-        <h2>四、安裝 Obsidian</h2>
-
-        <p>Obsidian 是你的個人知識庫。所有的目標、筆記、每日規劃都在這裡查看。</p>
-
-        <ol>
-          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
-          <li>下載你的作業系統對應版本並安裝</li>
-        </ol>
-
-        <div data-os="mac">
           <ol start={3}>
-            <li>打開下載的 <code>.dmg</code> 檔案，將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
-            <li>打開 Obsidian，確認可以正常啟動</li>
+            <li>完成後、<strong>關掉 VS Code 再重開</strong>、打開新的終端機</li>
+            <li>輸入 <code>claude --version</code> 驗證有版本號</li>
           </ol>
         </div>
 
-        <div data-os="windows">
-          <ol start={3}>
-            <li>執行下載的 <code>.exe</code> 安裝檔，按照步驟完成安裝</li>
-            <li>打開 Obsidian，確認可以正常啟動</li>
-          </ol>
-        </div>
+        <p><strong>✓ <code>claude --version</code> 有版本號 = 裝好了。</strong></p>
 
         <blockquote>
-          <p>第一次打開 Obsidian 會問你要開啟什麼 Vault——先關掉就好，下一步我們會設定。</p>
+          <p>暫時不要跑 <code>claude</code>、登入留到<span data-os="mac">步驟六</span><span data-os="windows">步驟六</span>（開 vault 後）再做 — 那時跑起來會自動讀 vault 設定、體驗最完整。</p>
         </blockquote>
 
         <hr />
 
-        <h2>五、下載 FLUX Vault</h2>
+        <h2>五、下載 FLUX Vault 並用 VS Code 打開</h2>
 
-        <p>FLUX 是我們在工作坊中使用的個人作業系統模板。下載後用 Obsidian 開啟，就是你的個人指揮中心。</p>
+        <p>FLUX 是我們在工作坊中使用的個人作業系統模板。下載後就是你的個人指揮中心。</p>
 
         <ol>
-          <li>點擊下方連結下載 FLUX Vault：</li>
+          <li>點擊下方連結進入下載資料夾：</li>
         </ol>
 
         <p>
           <a href="https://drive.google.com/drive/folders/1C45gNRkGQQmnBC6pFgWhCdYj8FT0bl30?usp=drive_link" target="_blank" rel="noopener" class="inline-block px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
-            📥 下載 FLUX Vault（Google Drive）
+            📥 開啟 FLUX Vault 下載資料夾（Google Drive）
           </a>
         </p>
 
         <ol start={2}>
-          <li>下載後解壓縮 <code>.zip</code> 檔案</li>
+          <li>選擇對應你作業系統的版本、點右上角下載 icon（⬇）下載到你的電腦：</li>
         </ol>
 
         <div data-os="mac">
-          <ol start={3}>
-            <li>把解壓縮後的 <code>FLUX</code> 資料夾放到你方便找到的地方（例如桌面或文件夾）</li>
-          </ol>
+          <ul>
+            <li><code>FLUX-standard-mac.zip</code></li>
+          </ul>
         </div>
 
         <div data-os="windows">
-          <ol start={3}>
-            <li>把解壓縮後的 <code>FLUX</code> 資料夾放到你方便找到的地方（例如桌面或文件資料夾）</li>
-          </ol>
+          <ul>
+            <li><code>FLUX-standard-windows.zip</code></li>
+          </ul>
         </div>
 
-        <ol start={4}>
-          <li>打開 Obsidian，點選 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
-          <li>選擇剛才解壓縮的 <code>FLUX</code> 資料夾</li>
-          <li>Obsidian 會問你是否信任此 Vault 的外掛 — 點選<strong>信任並啟用</strong></li>
-          <li>你會看到 FLUX Vault 的首頁，代表設定成功</li>
+        <ol start={3}>
+          <li>下載後解壓縮 <code>.zip</code> 檔案</li>
+          <li>把解壓縮後的 <code>FLUX-standard</code> 資料夾<strong>放到桌面</strong>（最容易找）</li>
+          <li>打開 <strong>VS Code</strong>、選單 <strong>File → Open Folder…</strong>（檔案 → 開啟資料夾）、選剛才那個 <code>FLUX-standard</code> 資料夾</li>
+          <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是、信任」</strong>（Yes, I trust the authors）</li>
         </ol>
 
+        <div data-os="mac">
+          <p><strong>✓ 左側 Explorer 看到 <code>Atlas / Calendar / Cockpit / Efforts / Guides / Inbox / Templates / .claude / .obsidian / CLAUDE.md / Home.md</code> = 開對了。</strong></p>
+        </div>
+
+        <div data-os="windows">
+          <p><strong>✓ 左側 Explorer 看到 <code>Atlas / Calendar / Cockpit / Efforts / Guides / Inbox / Templates / _claude / _obsidian / CLAUDE.md / Home.md</code> = 開對了。</strong></p>
+        </div>
+
+        <!-- Mac-only: step 六 Obsidian 在 Block 1 內 -->
+        <div data-os="mac">
+
         <hr />
 
-        <h2>六、驗證安裝成功</h2>
+        <h2>六、安裝 Obsidian 並打開 FLUX vault</h2>
 
-        <p>完成以上步驟後，請確認：</p>
+        <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
+
+        <ol>
+          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+          <li>下載 Mac 版</li>
+          <li>打開下載的 <code>.dmg</code> 檔案、將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
+          <li>打開 <strong>Obsidian</strong>、選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
+          <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+          <li>選剛才解壓的 <code>FLUX-standard</code> 資料夾</li>
+          <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
+        </ol>
+
+        <p><strong>✓ 看到 FLUX Vault 的首頁（<code>Home.md</code>）= 設定成功。</strong></p>
+
+        </div>
+
+        </div>
+        <!-- ====== End Block 1 ====== -->
+
+        <!-- ====== Block 2: Windows 限定 Claude Code 還原 ====== -->
+        <div data-os="windows">
+        <hr />
+
+        <div class="not-prose mt-12 mb-8 py-5 px-6 bg-emerald-700 text-white rounded-lg">
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">階段 2 / 3 · Windows 限定</div>
+          <div class="text-2xl font-bold">🤖 Claude 自己跑（步驟六）</div>
+          <div class="text-sm mt-1 opacity-80">跑一段 vault 設定 · 約 1 分鐘</div>
+        </div>
+
+        <div class="border-l-4 border-emerald-500 pl-6 my-6">
+
+        <h2>六、用 Claude Code 完成 vault 設定</h2>
+
+        <ol>
+          <li>繼續用剛才已打開 <code>FLUX-standard</code> 的 VS Code 視窗</li>
+          <li>按 <code>Ctrl + `</code> 打開內建終端機（cwd 自動在 vault 內）</li>
+          <li>輸入 <code>claude</code>、按 Enter 啟動 Claude Code</li>
+          <li>第一次跑會要求登入 — 按畫面指示登入你的 Claude 帳號（同 claude.ai 那個）</li>
+          <li>登入後、貼上以下這句話：</li>
+        </ol>
+
+        <pre><code>請讀取 Inbox/SETUP-CLAUDE.md 並依步驟執行</code></pre>
+
+        <ol start={6}>
+          <li>Claude Code 會自動偵測 + rename + 驗證。過程中可能會請你按「<strong>允許</strong>」執行某些指令（rename 資料夾、檢查結構）— 按允許即可</li>
+        </ol>
+
+        <p><strong>✓ 看到 Claude 回報 <code>VAULT OK</code> = 完成。</strong></p>
+
+        </div>
+        </div>
+        <!-- ====== End Block 2 ====== -->
+
+        <hr />
+
+        <!-- ====== Block 3: 驗證（Mac）/ 打開 vault + 驗證（Windows） ====== -->
+        <div class="not-prose mt-12 mb-8 py-5 px-6 bg-accent text-white rounded-lg">
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="mac">階段 2 / 2</div>
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="windows">階段 3 / 3</div>
+          <div class="text-2xl font-bold" data-os="mac">✅ 驗證（步驟七）</div>
+          <div class="text-2xl font-bold" data-os="windows">✅ 打開 vault + 驗證（步驟七 ~ 八）</div>
+          <div class="text-sm mt-1 opacity-80" data-os="mac">確認全部裝好 · 約 3 分鐘</div>
+          <div class="text-sm mt-1 opacity-80" data-os="windows">用 Obsidian 開 vault + 確認全部裝好 · 約 5 分鐘</div>
+        </div>
+
+        <div class="border-l-4 border-accent pl-6 my-6">
+
+        <!-- Windows-only step 七: Obsidian -->
+        <div data-os="windows">
+
+        <h2>七、安裝 Obsidian 並打開 FLUX vault</h2>
+
+        <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
+
+        <ol>
+          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+          <li>下載 Windows 版</li>
+          <li>執行下載的 <code>.exe</code> 安裝檔、按照步驟完成安裝</li>
+          <li>打開 <strong>Obsidian</strong>、選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
+          <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+          <li>選剛才解壓的 <code>FLUX-standard</code> 資料夾</li>
+          <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
+        </ol>
+
+        <p><strong>✓ 看到 FLUX Vault 的首頁（<code>Home.md</code>）= 設定成功。</strong></p>
+
+        <hr />
+
+        </div>
+
+        <!-- 共用 verification（Mac step 七 / Windows step 八）-->
+        <h2 data-os="mac">七、驗證安裝成功</h2>
+        <h2 data-os="windows">八、驗證安裝成功</h2>
+
+        <p>下方逐項打勾：</p>
 
         <ul class="list-none pl-0">
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號已訂閱，可登入 claude.ai</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 已安裝，可正常開啟</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機中輸入 <code>claude</code> 可進入 Claude Code</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 已安裝，可正常開啟</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> FLUX Vault 在 Obsidian 中可開啟，看到首頁</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號可登入 claude.ai</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 已安裝、可正常開啟</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>git --version</code> 有輸出</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>claude --version</code> 有輸出</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 已安裝、可正常開啟</li>
+          <li class="flex items-start gap-2" data-os="windows"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Code 跑完 <code>SETUP-CLAUDE.md</code>、看到 <code>VAULT OK</code></li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> FLUX Vault 在 Obsidian 中可開啟、看到首頁</li>
         </ul>
 
-        <p>以上五項都完成，你就準備好了！</p>
+        <p>都打勾、你就準備好我們的會議了！</p>
+
+        </div>
+        <!-- ====== End Block 3 ====== -->
 
         <hr />
 
-        <p><em>有任何問題，隨時 LINE 或 email 聯繫我。</em><br />
-        <em>余文皓 | mail@yu-wenhao.com</em></p>
+        <h2>卡住的時候</h2>
+
+        <p>有任何步驟卡住、請：</p>
+
+        <ol>
+          <li>把錯誤訊息截圖</li>
+          <li>傳給我（LINE 或 email <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>）</li>
+        </ol>
+
+        <p>我會盡快回覆協助。會議時也可以一起 troubleshoot、不用擔心。</p>
+
+        <p><em>余文皓 | mail@yu-wenhao.com</em></p>
       </div>
     </div>
   </article>
