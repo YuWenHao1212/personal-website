@@ -85,6 +85,14 @@ const products = lang === 'en' ? [
                   required
                   class="flex-1 px-5 py-4 border-2 border-[#2C2416] bg-[#FFFDF9] text-[#2C2416] placeholder-[#8B7355] focus:outline-none focus:ring-0 text-base"
                 />
+                <input
+                  type="text"
+                  name="website"
+                  tabindex="-1"
+                  autocomplete="off"
+                  aria-hidden="true"
+                  style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;"
+                />
                 <button
                   type="submit"
                   class="px-8 py-4 bg-[#2C2416] text-[#FAF8F5] text-base font-medium hover:bg-[#3D3220] transition-colors whitespace-nowrap"
@@ -237,10 +245,11 @@ const products = lang === 'en' ? [
 
       const formData = new FormData(form);
       const email = formData.get('email_address') as string;
+      const website = (formData.get('website') as string) || '';
       const thankYouUrl = form.dataset.thankYouUrl || '/zh-TW/thank-you';
 
       try {
-        await fetch(`${API_BASE}/api/newsletter/subscribe-form?email=${encodeURIComponent(email)}`, {
+        await fetch(`${API_BASE}/api/newsletter/subscribe-form?email=${encodeURIComponent(email)}&website=${encodeURIComponent(website)}`, {
           method: 'POST',
         });
 
