@@ -6,5 +6,8 @@ Disallow: /zh-TW/tools/
 Disallow: /en/tools/
 Disallow: /data/panopticon/
 
+# Disallow STUDIO A 學員專屬投影片（unlisted）
+Disallow: /studio-a/
+
 # Sitemap
 Sitemap: https://yu-wenhao.com/sitemap-index.xml
