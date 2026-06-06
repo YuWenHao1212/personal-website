@@ -1,0 +1,1533 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<title>AI 指揮中心工作坊（台中）· Block 5 — Claude Design 設計</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&amp;family=Noto+Sans+TC:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    /* palette — 沿用 AI Cockpit Block 0 */
+    --cream: #F5EDE4;
+    --cream-2: #E8DCCB;
+    --cream-3: #FFFAF5;
+    --ink: #2A211C;
+    --ink-muted: #7A6A5E;
+    --rule: #D9CDBE;
+    --brick: #C25B3F;
+    --brick-deep: #9F462E;
+
+    /* type scale @ 1920x1080 */
+    --type-cover: 128px;
+    --type-display: 112px;
+    --type-title: 84px;
+    --type-h2: 56px;
+    --type-large: 44px;
+    --type-body: 32px;
+    --type-small: 26px;
+    --type-mono: 28px;
+    --type-eyebrow: 22px;
+
+    /* spacing */
+    --pad-x: 120px;
+    --pad-y: 96px;
+    --gap-title: 52px;
+    --gap-item: 28px;
+
+    /* fonts */
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
+    --mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  }
+
+  html, body { margin:0; padding:0; background:#000; font-family: var(--sans); color: var(--ink); }
+
+  /* slide base */
+  section.slide{
+    box-sizing: border-box;
+    display:flex; flex-direction:column;
+    padding: var(--pad-y) var(--pad-x);
+    overflow:hidden;
+    position: relative;
+    background: var(--cream);
+  }
+  section.slide.ink { background: var(--ink); color: var(--cream); }
+  section.slide.dim { background: var(--cream-2); }
+
+  /* eyebrow */
+  .eyebrow{
+    display:flex; align-items:center; gap:18px;
+    font-family: var(--mono);
+    font-size: var(--type-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+  }
+  .ink .eyebrow { color: rgba(245,237,228,0.6); }
+  .eyebrow .dot{ width:8px; height:8px; background: var(--brick); border-radius:50%; display:inline-block; }
+  .eyebrow .rule{ height:1px; flex:0 0 64px; background: currentColor; opacity: .4; }
+  .eyebrow .num{ color: var(--brick); }
+
+  /* titles */
+  .title{
+    font-family: var(--serif);
+    font-weight: 500;
+    color: var(--ink);
+    font-size: var(--type-title);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .ink .title{ color: var(--cream); }
+  .display{
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: var(--type-display);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .cover-title{
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: var(--type-cover);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+
+  .subtitle{
+    font-family: var(--sans);
+    font-size: var(--type-large);
+    color: var(--ink-muted);
+    font-weight: 400;
+  }
+  .ink .subtitle{ color: rgba(245,237,228,0.7); }
+
+  .body{
+    font-family: var(--sans);
+    font-size: var(--type-body);
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .ink .body{ color: var(--cream); }
+  .small{ font-size: var(--type-small); color: var(--ink-muted); }
+  .ink .small{ color: rgba(245,237,228,0.65); }
+
+  .mono { font-family: var(--mono); }
+  .accent { color: var(--brick); }
+  .ink .accent{ color: #E47A5C; }
+
+  /* footer slide number */
+  .slide-num{
+    position:absolute; right:var(--pad-x); bottom: 48px;
+    font-family: var(--mono); font-size: 18px; color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .ink .slide-num{ color: rgba(245,237,228,0.45); }
+
+  .footer-mark{
+    position:absolute; left:var(--pad-x); bottom: 48px;
+    font-family: var(--mono); font-size: 18px; color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .ink .footer-mark{ color: rgba(245,237,228,0.45); }
+
+  /* layout helpers */
+  .row { display:flex; gap: 60px; }
+  .col { display:flex; flex-direction:column; gap: var(--gap-item); }
+  .grow { flex:1; }
+  .spacer { flex:1; }
+
+  /* slide-body — eyebrow + 標題釘頂、正文 top-align 緊接標題、footer 留底（原則 9）*/
+  /* 預設 top-align：留白沉到底部，不置中（置中會讓標題孤兒）。*/
+  .slide-body{ flex:1; display:flex; flex-direction:column; justify-content:flex-start; }
+  /* .fill：多拍頁用，把正文分布鋪滿版面（首拍接標題、收尾 punch 錨底、留白攤在拍與拍之間）。*/
+  .slide-body.fill{ justify-content:space-between; }
+  /* .fillgrid：結構/參考頁用，讓 grid 撐滿 slide-body 剩餘高度、卡片內容垂直置中（原則 9：給量體填滿、不改文案）。*/
+  .slide-body > .fillgrid{ flex:1; align-content:stretch; }
+  .slide-body > .fillgrid.rows{ grid-auto-rows:1fr; }
+  .slide-body > .fillgrid > *{ display:flex; flex-direction:column; justify-content:center; }
+
+  /* terminal mock */
+  .terminal{
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 36px 44px;
+    font-family: var(--mono);
+    font-size: 30px;
+    line-height: 1.6;
+    box-shadow: 0 24px 48px -24px rgba(42,33,28,0.3);
+  }
+  .terminal .prompt { color: #E47A5C; }
+  .terminal .dim { color: rgba(245,237,228,0.55); }
+  .terminal .caret{
+    display:inline-block; width:14px; height:30px; background:var(--cream);
+    vertical-align: -4px; margin-left: 4px;
+    animation: blink 1.1s steps(2,start) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .terminal .bar{
+    display:flex; gap:8px; padding-bottom: 20px; margin-bottom: 20px;
+    border-bottom: 1px solid rgba(245,237,228,0.12);
+  }
+  .terminal .bar span { width:12px; height:12px; border-radius:50%; background: rgba(245,237,228,0.2); display:inline-block; }
+
+  /* rules */
+  .hr-accent{ width:64px; height:3px; background: var(--brick); border:0; margin: 0; }
+  .hr-thin{ height:1px; background: var(--rule); border:0; }
+
+  /* number badge */
+  .numbadge{
+    font-family: var(--mono);
+    font-size: 22px;
+    color: var(--brick);
+    letter-spacing: 0.1em;
+  }
+
+  /* big numeral */
+  .bignum{
+    font-family: var(--mono);
+    font-size: 96px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--brick);
+  }
+
+  /* arrow flow */
+  .flowline{
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    column-gap: 36px;
+    row-gap: 24px;
+    font-family: var(--sans);
+    font-size: 38px;
+  }
+  .flowline .arrow{
+    color: var(--brick);
+    font-family: var(--mono);
+    font-size: 32px;
+    letter-spacing: 0;
+  }
+  .flowline .src { text-align:right; color: var(--ink-muted); }
+  .flowline .dst { color: var(--ink); font-weight: 500; }
+
+  /* two-state contrast (P02 兩個場景) */
+  .twostate{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+  }
+  .twostate .panel{ display:flex; flex-direction:column; gap: 20px; }
+  .twostate .panel .when{ font-family: var(--mono); font-size: 26px; color: var(--brick); letter-spacing: 0.1em;}
+  .twostate .panel .h{ font-family: var(--serif); font-size: 44px; color: var(--ink); line-height: 1.3; font-weight: 500;}
+
+  /* pile — 字體大小遞進、無 box */
+  .pile{ display:flex; flex-direction:column; gap: 8px; }
+  .pile .item{
+    font-family: var(--sans); color: var(--ink); line-height: 1.4;
+  }
+  .pile .item.x1{ font-size: 36px; color: var(--ink-muted); }
+  .pile .item.x2{ font-size: 42px; color: var(--ink); }
+  .pile .item.x3{ font-size: 50px; color: var(--brick-deep); font-weight: 500; }
+  .pile .item.x4{ font-size: 60px; color: var(--brick); font-weight: 600; }
+
+  /* leaders list — `—` 句首 */
+  .leaders{ font-family: var(--sans); font-size: 30px; line-height: 1.85; color: var(--ink); }
+  .leaders .l{ display:flex; align-items: baseline; gap: 18px; }
+  .leaders .l::before{ content: "—"; color: var(--brick); font-family: var(--mono); flex: 0 0 auto; }
+  .ink .leaders{ color: var(--cream); }
+  .ink .leaders .l::before{ color: #E47A5C; }
+
+  /* timeline (vertical) */
+  .timeline{ display:flex; flex-direction:column; gap: 0; }
+  .timeline .row {
+    display:grid;
+    grid-template-columns: 200px 24px 1fr;
+    align-items: flex-start;
+    column-gap: 32px;
+  }
+  .timeline .when { font-family: var(--mono); font-size: 28px; color: var(--brick); padding-top: 8px; letter-spacing: 0.05em; }
+  .timeline .axis { position: relative; height: 100%; }
+  .timeline .axis::before{
+    content:""; position:absolute; left: 11px; top: 18px; bottom: -36px; width: 2px; background: var(--rule);
+  }
+  .timeline .row:last-child .axis::before{ display:none; }
+  .timeline .node { width:18px; height:18px; border-radius:50%; background: var(--brick); margin: 12px 0 0 2px; position: relative; z-index: 1;}
+  .timeline .node.muted { background: var(--rule); }
+  .timeline .what { padding-bottom: 44px; }
+  .timeline .what .h { font-family: var(--serif); font-size: 40px; color: var(--ink); line-height: 1.3; }
+  .timeline .what .d { font-family: var(--sans); font-size: 26px; color: var(--ink-muted); line-height: 1.55; margin-top: 8px; }
+
+  /* identity 3-col */
+  .threecol{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 56px;
+  }
+  .threecol .card{
+    display:flex; flex-direction: column; gap: 22px;
+    padding-top: 26px;
+    border-top: 2px solid var(--ink);
+  }
+  .threecol .card .num{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.18em; }
+  .threecol .card .h{ font-family: var(--serif); font-size: 42px; color: var(--ink); line-height: 1.2; font-weight: 500;}
+  .threecol .card .b{ font-family: var(--sans); font-size: 26px; color: var(--ink-muted); line-height: 1.65;}
+
+  /* 4 deliverables grid (quad) */
+  .quad{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 36px 60px;
+  }
+  .quad .card{
+    display:flex; flex-direction: column; gap: 14px;
+  }
+  .quad .card .num{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.18em; }
+  .quad .card .h{ font-family: var(--serif); font-size: 36px; color: var(--ink); line-height: 1.25; font-weight: 500;}
+  .quad .card .b{ font-family: var(--sans); font-size: 24px; color: var(--ink-muted); line-height: 1.55;}
+
+  /* cover */
+  .cover .top-rule{ width: 96px; height: 4px; background: var(--brick); margin-bottom: 56px; }
+  .cover .meta{
+    position:absolute; right: var(--pad-x); bottom: var(--pad-y);
+    text-align: right; font-family: var(--mono); font-size: 22px; color: var(--ink-muted); line-height: 1.7; letter-spacing: 0.06em;
+  }
+  .cover .meta .lecturer{ color: var(--ink); }
+
+  /* cover bg — 比預設米色更深、增加質感 */
+  section.slide.cover{ background: #EADBC7; }
+
+  /* cover radar — 簡化：3 同心圓 + 中心點（仿 AI Cockpit P01 原版） */
+  .cover .radar{
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1040px;
+    height: 1040px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cover .radar svg{ width: 100%; height: 100%; display: block; }
+  .cover .radar .ring{ fill: none; stroke: var(--brick-deep); stroke-width: 2.4; }
+  .cover .radar .ring-outer{ opacity: 0.28; }
+  .cover .radar .ring-mid  { opacity: 0.4; }
+  .cover .radar .ring-inner{ opacity: 0.55; stroke-dasharray: 10 8; }
+  .cover .radar .sweep{ stroke: var(--brick); stroke-width: 2.4; opacity: 0.45; }
+  .cover .radar .center{ fill: var(--brick); }
+  .cover .radar .center-halo{ fill: var(--brick); opacity: 0.15; }
+  .cover .top-rule,
+  .cover .eyebrow,
+  .cover-title,
+  .cover .subtitle,
+  .cover .meta,
+  .cover .footer-mark{ position: relative; z-index: 1; }
+
+  /* full bleed dark transition */
+  .transition{
+    justify-content: center;
+  }
+  .transition .display{ color: var(--cream); }
+
+  /* takeaway box */
+  .takeaway{
+    background: var(--ink); color: var(--cream); padding: 36px 48px; border-radius: 14px;
+    display: flex; flex-direction: column; gap: 6px;
+    font-family: var(--serif); font-size: 32px; line-height: 1.5;
+  }
+  .takeaway .last{ color: #E47A5C; font-size: 38px; font-weight: 600; margin-top: 6px; }
+
+  /* commitments three-col */
+  .commit{
+    display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 56px;
+  }
+  .commit .c{ display:flex; flex-direction:column; gap: 18px; }
+  .commit .c .num{ font-family: var(--mono); font-size: 84px; color: var(--brick); line-height: 1; font-weight: 500;}
+  .commit .c .h{ font-family: var(--serif); font-size: 36px; color: var(--ink); line-height: 1.3; font-weight: 500;}
+  .commit .c .b{ font-family: var(--sans); font-size: 24px; color: var(--ink-muted); line-height: 1.6;}
+
+  /* callout box */
+  .callout-box{
+    background: var(--ink); color: var(--cream);
+    padding: 28px 36px; border-radius: 10px;
+    font-family: var(--serif); font-size: 28px; line-height: 1.5;
+  }
+  .callout-box .accent{ color: #E47A5C; }
+  .callout-box.cream{ background: var(--cream-3); color: var(--ink); border: 1px solid var(--rule); }
+
+  /* B0 P04 full bleed Peggy transition */
+  .peggy-transition{
+    justify-content: center; align-items: center; text-align: center;
+  }
+  .peggy-transition .display{ text-align: center; }
+  .peggy-transition .subtitle{ text-align: center; }
+
+  /* B0 P07 promise — 簡化：純 leader list、無 box */
+  .promise{
+    display:flex; flex-direction: column; gap: 32px;
+    font-family: var(--sans);
+  }
+  .promise .p-item{
+    display:flex; gap: 20px; align-items: baseline;
+    font-family: var(--sans);
+    font-size: 34px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .promise .p-item::before{
+    content: "—"; color: var(--brick); font-family: var(--mono);
+    flex: 0 0 auto;
+  }
+  .promise .p-item .d{
+    color: var(--ink-muted); font-size: 24px; margin-left: 8px;
+  }
+
+  /* ===========================================
+     B1 CSS additions (P09-P22)
+     =========================================== */
+
+  /* P09 · L1 hosts — quad grid 2x2 with star highlight */
+  .quad-grid{
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+    gap: 32px 56px;
+  }
+  .quad-grid .qcard{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 28px 32px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .quad-grid .qcard.star{
+    background: var(--ink); color: var(--cream);
+    border: 2px solid var(--brick);
+    box-shadow: 0 14px 36px -18px rgba(194,91,63,0.45);
+  }
+  .quad-grid .qcard .qnum{ font-family:var(--mono); font-size:20px; color:var(--brick); letter-spacing:0.18em; }
+  .quad-grid .qcard.star .qnum{ color:#E47A5C; }
+  .quad-grid .qcard .qname{ font-family:var(--serif); font-size:42px; color:var(--ink); font-weight:500; line-height:1.2; }
+  .quad-grid .qcard.star .qname{ color:var(--cream); }
+  .quad-grid .qcard .qenv{ font-family:var(--mono); font-size:18px; color:var(--ink-muted); letter-spacing:0.18em; }
+  .quad-grid .qcard.star .qenv{ color: rgba(245,237,228,0.65); }
+  .quad-grid .qcard .qbody{ font-family:var(--sans); font-size:22px; color:var(--ink); line-height:1.55; }
+  .quad-grid .qcard.star .qbody{ color:var(--cream); }
+  .quad-grid .qcard .qstar{
+    position:absolute; top:-14px; right:24px;
+    background: var(--brick); color: var(--cream);
+    font-family: var(--mono); font-size:16px;
+    padding: 6px 14px; border-radius: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  /* P10 · 為什麼 Code — compare 2col with divider */
+  .compare-2col{
+    display:grid; grid-template-columns:1fr auto 1fr; gap:48px;
+    align-items:stretch;
+  }
+  .compare-2col .cpanel{
+    display:flex; flex-direction:column; gap:18px;
+    padding: 32px 40px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+  }
+  .compare-2col .cpanel.accent{ border: 2px solid var(--brick); }
+  .compare-2col .cpanel .cmark{ font-family:var(--mono); font-size:20px; color:var(--brick); letter-spacing:0.18em; }
+  .compare-2col .cpanel .cmark.dim{ color:var(--ink-muted); }
+  .compare-2col .cpanel .cname{ font-family:var(--serif); font-size:38px; color:var(--ink); font-weight:500; }
+  .compare-2col .cpanel .cdiv{ height:1px; background:var(--rule); margin:6px 0; }
+  .compare-2col .cpanel .cdiv.brick{ background:var(--brick); height:2px; }
+  .compare-2col .cpanel .cline{ font-family:var(--sans); font-size:26px; line-height:1.5; }
+  .compare-2col .cpanel .cline.x{ color: var(--ink-muted); }
+  .compare-2col .cpanel .cline.v{ color: var(--ink); font-weight: 500; }
+  .compare-2col .cmid{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  }
+  .compare-2col .cmid .vline{ width:1px; flex:1; background:var(--rule); }
+  .compare-2col .cmid .midlabel{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.1em; text-align:center; line-height:1.5; }
+
+  /* P11 · L2 integrations — trio cards */
+  .trio{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap: 36px;
+  }
+  .trio .tcard{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 30px 30px 26px;
+    border: 2px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .trio .tcard .tnum{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.18em; }
+  .trio .tcard .ticon{ font-size:48px; color:var(--brick); line-height:1; }
+  .trio .tcard .tname{ font-family:var(--serif); font-size:30px; color:var(--ink); font-weight:500; line-height:1.2; }
+  .trio .tcard .ttag{
+    font-family:var(--mono); font-size:15px; padding: 5px 12px;
+    align-self:flex-start; letter-spacing:0.1em;
+  }
+  .trio .tcard .ttag.brick{ background: var(--brick); color: var(--cream); }
+  .trio .tcard .ttag.deep{ background: var(--ink); color: var(--cream); }
+  .trio .tcard .tbody{ font-family:var(--sans); font-size:21px; color:var(--ink-muted); line-height:1.55; }
+
+  /* P12 (v2) · enlarged VS Code with 3 numbered regions (ref FLUX-standard 09) */
+  .vs3{
+    display:grid; grid-template-columns: 1.4fr 1fr; gap: 56px;
+    align-items: stretch;
+  }
+  .vs3-mock{
+    background:#1e1e1e; border-radius:8px; overflow:hidden;
+    box-shadow: 0 30px 60px -30px rgba(42,33,28,0.4);
+    display:flex; flex-direction:column;
+    border: 2px solid var(--brick);
+  }
+  .vs3-bar{ background:#2d2d2d; padding:10px 14px; display:flex; align-items:center; }
+  .vs3-bar .dot-r{ width:13px; height:13px; border-radius:50%; background:#ff5f57; display:inline-block; }
+  .vs3-bar .dot-y{ width:13px; height:13px; border-radius:50%; background:#febc2e; display:inline-block; margin-left:8px; }
+  .vs3-bar .dot-g{ width:13px; height:13px; border-radius:50%; background:#28c840; display:inline-block; margin-left:8px; }
+  .vs3-bar .vs3-title{ margin-left:auto; color:#888; font-size:13px; font-family:var(--mono); }
+  .vs3-body{ display:grid; grid-template-columns: 220px 1fr; flex:1; min-height:380px; }
+  .vs3-tree{ background:#252525; padding:14px 14px; font-family:var(--mono); font-size:13px; color:#cccccc; }
+  .vs3-tree .vs3-files{ line-height:1.85; }
+  .vs3-right-pane{ display:grid; grid-template-rows: 1fr 180px; }
+  .vs3-edit{ background:#1e1e1e; padding:14px 20px; font-family:var(--mono); font-size:13px; color:#d4d4d4; line-height:1.75; }
+  .vs3-term{ background:#0f0f0f; padding:12px 20px; font-family:var(--mono); font-size:13px; color:#e8dccb; border-top:1px solid #333; line-height:1.75; }
+  .vs3-label{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .vs3-label .ringnum{
+    background:var(--brick); color:#fff;
+    width:22px; height:22px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-weight:700; font-size:13px;
+  }
+  .vs3-label .ringtxt{ color:#888; font-size:11px; letter-spacing:0.08em; font-family:var(--mono); }
+  .caret-mac{ display:inline-block; width:8px; height:14px; background:var(--brick); margin-left:4px; vertical-align:-2px; animation: blink 1.1s steps(2,start) infinite; }
+  .vs3-text{ display:flex; flex-direction:column; gap:26px; justify-content:center; }
+  .vs3-card{ display:flex; gap:22px; align-items:flex-start; }
+  .vs3-card .vs3-num{
+    flex-shrink:0;
+    width:54px; height:54px; border-radius:50%;
+    background:var(--brick); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-weight:700; font-size:28px;
+  }
+  .vs3-card .vs3-h{ font-family:var(--serif); font-size:34px; color:var(--ink); font-weight:600; line-height:1.2; }
+  .vs3-card .vs3-d{ font-family:var(--sans); font-size:20px; color:var(--ink-muted); margin-top:6px; }
+  .vs3-quote{
+    margin-top:18px; padding-top:20px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans); font-style: italic;
+    font-size: 22px; color: var(--ink-muted); line-height: 1.55;
+  }
+
+  /* P13 · split-screen mockup + text — Obsidian intro (retained for P13) */
+  .split-screen{
+    display:grid; grid-template-columns:1.1fr 1fr; gap: 56px;
+    align-items:stretch;
+  }
+  .split-screen .ss-mock{ display:flex; flex-direction:column; }
+  .split-screen .ss-text{ display:flex; flex-direction:column; gap:28px; justify-content:center; }
+  .split-screen .ss-h{ font-family:var(--serif); font-size:36px; color:var(--ink); font-weight:500; line-height:1.3; }
+  .split-screen .ss-list{ display:flex; flex-direction:column; gap:22px; }
+  .split-screen .ss-bullet{
+    display:flex; gap:18px; align-items:flex-start;
+    font-family:var(--sans); font-size:24px; color:var(--ink); line-height:1.55;
+  }
+  .split-screen .ss-bullet .bnum{
+    font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.18em;
+    padding-top: 6px; flex:0 0 32px;
+  }
+
+  /* VS Code mockup (P12, P18) */
+  .vsmock{
+    background:#1e1e1e; color:#d4d4d4;
+    border-radius:8px; overflow:hidden;
+    font-family:var(--mono);
+    display:flex; flex-direction:column;
+    height:100%;
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
+    border: 2px solid var(--brick);
+  }
+  .vsmock-bar{
+    background:#323232; padding:10px 14px;
+    display:flex; gap:6px; align-items:center;
+    border-bottom:1px solid #1e1e1e;
+  }
+  .vsmock-bar > span:not(.vsmock-title){ width:12px; height:12px; border-radius:50%; background:#555; display:inline-block; }
+  .vsmock-bar .vsmock-title{ margin-left:16px; font-size:14px; color:#aaa; }
+  .vsmock-body{
+    display:grid; grid-template-columns: 200px 1fr;
+    flex:1; min-height:340px;
+  }
+  .vsmock-tree{
+    background:#252526; padding:12px;
+    font-size:14px; color:#cccccc;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .vsmock-tree .vt-root{ color:#fff; font-weight:bold; }
+  .vsmock-tree .vt-item{ padding: 3px 4px 3px 14px; color:#cccccc; border-radius: 3px; }
+  .vsmock-tree .vt-item.active{ background:#094771; color:#fff; }
+  .vsmock-edit{
+    display:grid; grid-template-rows: auto 1fr auto;
+    background:#1e1e1e;
+  }
+  .vsmock-tab{ background:#2d2d2d; padding:8px 16px; font-size:13px; color:#fff; border-bottom:2px solid var(--brick); display:inline-block; max-width:fit-content; }
+  .vsmock-code{ padding:16px; font-size:14px; color:#d4d4d4; line-height:1.7; }
+  .vsmock-code > div:first-child{ color:#569cd6; font-weight:bold; }
+  .vsmock-claude{ background:#252526; padding:12px 16px; border-top:1px solid #333; }
+  .vsmock-claude-h{ font-size:12px; color:#E47A5C; letter-spacing:0.15em; margin-bottom:6px; }
+  .vsmock-claude-msg{ font-size:13px; color:#cccccc; }
+
+  /* P13 · Obsidian mockup + dual text */
+  .obmock{
+    background:#2a2a2e; color:#d4d4d4;
+    border-radius:8px; overflow:hidden;
+    font-family:var(--mono);
+    display:flex; flex-direction:column;
+    height:100%;
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
+    border: 2px solid var(--brick);
+  }
+  .obmock-bar{
+    background:#323232; padding:10px 14px;
+    display:flex; gap:6px; align-items:center;
+    border-bottom:1px solid #1e1e1e;
+  }
+  .obmock-bar > span:not(.vsmock-title){ width:12px; height:12px; border-radius:50%; background:#555; display:inline-block; }
+  .obmock-body{
+    display:grid; grid-template-columns: 180px 1fr 150px;
+    flex:1; min-height:340px;
+  }
+  .obmock-tree{
+    background:#1e1e22; padding:12px;
+    font-size:13px; color:#cccccc;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .obmock-tree .vt-sub{ padding-left: 22px; font-size:12px; color:#999; }
+  .obmock-preview{
+    padding:16px; background:#2a2a2e;
+    font-size:13px; line-height:1.65; color:#d4d4d4;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .obmock-preview .obp-h{ color:#fff; font-size:16px; font-weight:bold; margin-bottom:4px; }
+  .obmock-preview .wikilink{ color:#6a9fff; text-decoration:underline; }
+  .obmock-graph{
+    background:#1e1e22; padding:14px; border-left:1px solid #333;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ss-dual{ display:flex; flex-direction:column; gap:22px; }
+  .ss-dual .ssd-block{ display:flex; flex-direction:column; gap:10px; }
+  .ss-dual .ssd-h{ font-family:var(--serif); font-size:28px; color:var(--ink); font-weight:500; }
+  .ss-dual .ssd-l{ font-family:var(--sans); font-size:21px; color:var(--ink-muted); line-height:1.55; }
+  .ss-dual .ssd-l code{ font-family:var(--mono); background:var(--cream-2); padding:2px 8px; border-radius:4px; color:var(--brick); font-size:19px; }
+  .ss-dual .ssd-divider{ height:1px; background:var(--rule); }
+
+  /* P15 · FLUX 4-letter loop (SVG ring + 4 cards) */
+  .loop{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px;
+    align-items:center;
+  }
+  .loop-ring{ display:flex; align-items:center; justify-content:center; }
+  .loop-ring svg{ width:100%; max-width:480px; display:block; }
+  .loop-cards{ display:flex; flex-direction:column; gap:18px; }
+  .loop-cards .lcard{
+    display:grid; grid-template-columns: 76px 1fr; gap:20px; align-items:center;
+    padding: 18px 24px;
+    border-left: 4px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .loop-cards .lcard .lc-letter{ font-size:48px; color:var(--brick); line-height:1; text-align:center; font-weight:600; font-family:var(--serif); }
+  .loop-cards .lcard .lc-name{ font-family:var(--serif); font-size:24px; color:var(--ink); font-weight:500; }
+  .loop-cards .lcard .lc-body{ font-family:var(--sans); font-size:19px; color:var(--ink-muted); margin-top:4px; }
+  .loop-quote{ font-family:var(--mono); font-size:20px; color:var(--brick); letter-spacing:0.1em; text-align:center; margin-top:24px; padding-top:18px; border-top:1px solid var(--rule); }
+
+  /* P23 · 三層架構 stack3 (v2 仿 ref #15: FOUNDATION 高亮、UPPER dim、底座 callout) */
+  .stack3{ display:flex; flex-direction:column; gap:8px; }
+  .stack3 .layer{
+    display:grid; grid-template-columns:240px 1fr; gap:32px;
+    padding: 20px 32px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    align-items: center;
+  }
+  .stack3 .layer.upper{ background: rgba(245,237,228,0.55); opacity: 0.78; }
+  .stack3 .layer.middle{ background: var(--cream-3); }
+  .stack3 .layer.foundation{
+    background: var(--cream-2);
+    border: 2px solid var(--brick);
+    box-shadow: 0 12px 32px -16px rgba(194,91,63,0.35);
+    padding: 24px 32px;
+  }
+  .stack3 .layer .layer-l{ display:flex; flex-direction:column; gap:4px; }
+  .stack3 .layer .layer-num{ font-family:var(--mono); font-size:18px; color:var(--ink-muted); letter-spacing:0.18em; }
+  .stack3 .layer.middle .layer-num{ color: var(--brick); }
+  .stack3 .layer.foundation .layer-num{ color: var(--brick); font-weight:700; }
+  .stack3 .layer .layer-h{ font-family:var(--serif); font-size:28px; color:var(--ink-muted); font-weight:600; }
+  .stack3 .layer.middle .layer-h{ color: var(--ink); font-size:30px; }
+  .stack3 .layer.foundation .layer-h{ color: var(--ink); font-size:36px; font-weight:700; }
+  .stack3 .layer .layer-r{ display:flex; flex-direction:column; gap:4px; }
+  .stack3 .layer .layer-body{ font-family:var(--sans); font-size:22px; color:var(--ink); line-height:1.4; }
+  .stack3 .layer.upper .layer-body{ color:var(--ink-muted); }
+  .stack3 .layer.foundation .layer-body{ font-family:var(--serif); font-size:28px; font-weight:600; }
+  .stack3 .layer .layer-mono{ font-family:var(--mono); font-size:18px; color:var(--ink-muted); line-height:1.5; }
+  .stack3 .layer.foundation .layer-mono{ font-size:20px; color:var(--ink); }
+  .stack3 .layer-link{ text-align:center; font-family:var(--mono); font-size:15px; color:var(--ink-muted); letter-spacing:0.16em; }
+  /* layer-callout 不在 .stack3 內、需 root selector */
+  .layer-callout{
+    background: var(--ink); color: var(--cream);
+    padding: 28px 40px; border-radius: 8px;
+    display:flex; justify-content:space-between; align-items:center; gap: 40px;
+    margin-top: 22px;
+    box-shadow: 0 14px 32px -16px rgba(42,33,28,0.5);
+  }
+  .layer-callout .punch{
+    font-family:var(--serif); font-size:38px; color:#E47A5C; font-weight:700;
+    line-height: 1.25;
+  }
+  .layer-callout .recipe{
+    font-family:var(--mono); font-size:17px; color:rgba(245,237,228,0.55);
+    letter-spacing:0.12em; text-align:right; max-width: 380px; line-height: 1.55;
+  }
+
+  /* P22 · Vault grid 4×2 (7 folders + 1 CLAUDE.md card · 對齊真實 vault) */
+  .vault-grid{
+    display:grid; grid-template-columns:1fr 1fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:24px 24px;
+  }
+  .vault-grid .vcard{
+    display:flex; flex-direction:column; gap:8px;
+    padding: 18px 22px;
+    border-top: 2px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .vault-grid .vcard.dim{ border-top-color: var(--rule); opacity: 0.7; }
+  .vault-grid .vcard.star{ border-top-width: 3px; box-shadow: 0 6px 18px -10px rgba(194,91,63,0.4); }
+  .vault-grid .vcard.file{ background: var(--ink); color: var(--cream); border-top: 2px solid #E47A5C; }
+  .vault-grid .vcard .vname{ font-family:var(--mono); font-size:22px; color:var(--brick); font-weight:500; }
+  .vault-grid .vcard.dim .vname{ color:var(--ink-muted); }
+  .vault-grid .vcard.file .vname{ color: #E47A5C; }
+  .vault-grid .vcard .vh{ font-family:var(--serif); font-size:20px; color:var(--ink); line-height:1.3; font-weight:500; }
+  .vault-grid .vcard.file .vh{ color: var(--cream); }
+  .vault-grid .vcard .vb{ font-family:var(--sans); font-size:16px; color:var(--ink-muted); }
+  .vault-grid .vcard.file .vb{ color: rgba(245,237,228,0.7); }
+  .vault-grid .vcard .vstar{ font-family:var(--mono); font-size:13px; color:var(--brick); letter-spacing:0.1em; margin-top:auto; }
+
+  /* P18 · Vault 物理樣貌 — full VS Code + legend */
+  .vsfull{ display:grid; grid-template-columns:1.6fr 1fr; gap:40px; align-items:stretch; }
+  .vsfull-body{
+    display:grid; grid-template-columns:220px 1fr;
+    flex:1; min-height:380px;
+  }
+  .vsfull-tree{
+    background:#252526; padding:14px;
+    font-family:var(--mono); font-size:14px; color:#cccccc;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .vsfull-tree .vt-root{ color:#fff; font-weight:bold; padding:3px 4px; }
+  .vsfull-tree .vt-item{ padding: 4px 8px 4px 14px; color:#cccccc; border-radius:3px; }
+  .vsfull-tree .vt-item.annot{ border-left: 3px solid transparent; padding-left: 11px; }
+  .vsfull-tree .vt-item.annot-brick{ background: rgba(194,91,63,0.28); border-left-color:#C25B3F; color:#fff; }
+  .vsfull-tree .vt-item.annot-blue{ background: rgba(106,159,255,0.18); border-left-color:#6a9fff; }
+  .vsfull-tree .vt-item.annot-green{ background: rgba(112,194,151,0.18); border-left-color:#70c297; }
+  .vsfull-tree .vt-item.annot-yellow{ background: rgba(245,200,90,0.18); border-left-color:#f5c85a; }
+  .vsfull-tree .vt-item.annot-purple{ background: rgba(178,140,224,0.18); border-left-color:#b28ce0; }
+  .vsfull-edit{ background:#1e1e1e; display:grid; grid-template-rows: auto 1fr; }
+  .vsfull-code{ padding:18px; font-family:var(--mono); font-size:14px; color:#d4d4d4; line-height:1.75; }
+  .vsfull-code .line .kw{ color:#569cd6; font-weight:bold; }
+  .vsfull-legend{ display:flex; flex-direction:column; gap:18px; justify-content:center; }
+  .vsfull-legend .leg-item{ font-family:var(--sans); font-size:20px; color:var(--ink); display:flex; align-items:center; gap:14px; }
+  .vsfull-legend .leg-item .mono{ color:var(--brick); }
+  .vsfull-legend .leg-dot{ width:14px; height:14px; border-radius:50%; flex:0 0 14px; }
+  .vsfull-legend .leg-dot.brick{ background:#C25B3F; }
+  .vsfull-legend .leg-dot.blue{ background:#6a9fff; }
+  .vsfull-legend .leg-dot.green{ background:#70c297; }
+  .vsfull-legend .leg-dot.yellow{ background:#f5c85a; }
+  .vsfull-legend .leg-dot.purple{ background:#b28ce0; }
+
+  /* P26 · PARA + 卡片盒 + 12WY trio (v2 三方法論) */
+  .duo-method{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:26px;
+    align-items:stretch;
+  }
+  .duo-method .dm-card{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 22px 26px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+  }
+  .duo-method .dm-card .dm-tag{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.16em; }
+  .duo-method .dm-card .dm-h{ font-family:var(--serif); font-size:24px; color:var(--ink); font-weight:500; line-height:1.3; }
+  .duo-method .dm-card .dm-h .dm-sub{ font-size:16px; color:var(--ink-muted); font-weight:400; display:block; margin-top:2px; }
+  .duo-method .dm-card .dm-list{ display:flex; flex-direction:column; gap:7px; margin-top:4px; }
+  .duo-method .dm-card .dm-item{ font-family:var(--sans); font-size:18px; color:var(--ink); line-height:1.45; }
+  .duo-method .dm-card .dm-item .dm-k{ color:var(--brick); font-weight:600; margin-right:4px; }
+  .duo-method .dm-card .dm-foot{ font-family:var(--mono); font-size:17px; color:var(--brick); margin-top:auto; padding-top:10px; border-top:1px solid var(--rule); }
+  .duo-method .dm-divider{ display:none; }
+
+  /* P20 · contrast (sans/with CLAUDE.md dialog) */
+  .contrast{
+    display:grid; grid-template-columns:1fr auto 1fr; gap:32px;
+    align-items:stretch;
+  }
+  .contrast .ct-side{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 22px 26px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+  }
+  .contrast .ct-side.accent{ border:2px solid var(--brick); }
+  .contrast .ct-tag{ font-family:var(--mono); font-size:18px; padding:4px 12px; align-self:flex-start; letter-spacing:0.1em; }
+  .contrast .ct-tag.dim{ color:var(--ink-muted); background:var(--cream-2); }
+  .contrast .ct-tag.brick{ color:var(--cream); background:var(--brick); }
+  .contrast .ct-bubble{
+    padding:10px 14px;
+    font-family:var(--sans); font-size:17px; line-height:1.5;
+    border-radius:10px;
+    display:flex; flex-direction:column; gap:2px;
+  }
+  .contrast .ct-bubble.user{ background:var(--cream-2); align-self:flex-end; max-width:85%; }
+  .contrast .ct-bubble.ai{ background:var(--cream); border:1px solid var(--rule); align-self:flex-start; max-width:92%; }
+  .contrast .ct-bubble.ai.dim{ opacity:0.7; }
+  .contrast .ct-bubble.ai.brick{ background:var(--ink); color:var(--cream); border-color:var(--brick); }
+  .contrast .ct-bubble .ct-from{ font-family:var(--mono); font-size:13px; color:var(--brick); letter-spacing:0.12em; }
+  .contrast .ct-bubble.ai.brick .ct-from{ color:#E47A5C; }
+  .contrast .ct-bubble .ct-msg{ color:var(--ink); }
+  .contrast .ct-bubble.ai.brick .ct-msg{ color:var(--cream); }
+  .contrast .ct-foot{ font-family:var(--mono); font-size:17px; margin-top:auto; padding-top:10px; text-align:center; }
+  .contrast .ct-foot.dim{ color:var(--ink-muted); }
+  .contrast .ct-foot.brick{ color:var(--brick); }
+  .contrast .ct-mid{ display:flex; align-items:center; justify-content:center; }
+  .contrast .ct-arrow{ font-size:64px; color:var(--brick); }
+
+  /* P21 · 觸發語 roadmap (terminal already exists) */
+  .roadmap{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;
+  }
+  .roadmap .rm-card{
+    display:flex; flex-direction:column; gap:6px;
+    padding: 14px 22px;
+    border: 2px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .roadmap .rm-card .rm-when{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.18em; }
+  .roadmap .rm-card .rm-body{ font-family:var(--sans); font-size:19px; color:var(--ink); line-height:1.5; }
+  .roadmap .rm-card .rm-body .mono{ color:var(--brick); }
+
+  /* P22 · hands-on steplist */
+  .steplist{ display:grid; grid-template-columns:1fr 1.25fr; gap:48px; }
+  .steplist .sl-left{ display:flex; flex-direction:column; gap:0; }
+  .steplist .sl-step{
+    display:grid; grid-template-columns:64px 1fr; gap:18px;
+    padding: 14px 0;
+    position:relative;
+  }
+  .steplist .sl-step:not(:last-child)::after{
+    content:""; position:absolute; left:28px; top:62px; bottom:0; width:2px; background:var(--rule);
+  }
+  .steplist .sl-step .sl-num{
+    width:54px; height:54px; border-radius:50%;
+    background:var(--brick); color:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-size:26px; font-weight:600;
+    position:relative; z-index:1;
+  }
+  .steplist .sl-step .sl-content{ display:flex; flex-direction:column; gap:4px; padding-top:8px; }
+  .steplist .sl-step .sl-h{ font-family:var(--serif); font-size:24px; color:var(--ink); font-weight:500; line-height:1.3; }
+  .steplist .sl-step .sl-h .mono{ background:var(--cream-2); padding:2px 8px; border-radius:4px; color:var(--brick); font-size:20px; }
+  .steplist .sl-step .sl-d{ font-family:var(--sans); font-size:18px; color:var(--ink-muted); }
+  .steplist .sl-step .sl-d .mono{ background:var(--cream-2); padding:2px 6px; border-radius:3px; color:var(--brick); }
+  .steplist .sl-right{ display:flex; flex-direction:column; gap:18px; }
+  .steplist .sl-trouble{
+    background: var(--cream-3); border: 1px solid var(--rule);
+    padding: 16px 22px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .steplist .sl-trouble .trh{ font-family:var(--mono); font-size:15px; color:var(--brick); letter-spacing:0.18em; margin-bottom:4px; }
+  .steplist .sl-trouble .tr-item{ font-family:var(--sans); font-size:16px; color:var(--ink); line-height:1.5; }
+  .steplist .sl-trouble .tr-item .mono{ background:var(--cream-2); padding:1px 6px; border-radius:3px; color:var(--brick); font-size:14px; }
+
+  /* ===========================================
+     B1 ref 4-8 expansion (new P11-P14 + P16)
+     =========================================== */
+
+  /* P11 · 那 Cowork 呢 — Cowork question + huge punch */
+  .cowork-box{
+    padding: 28px 36px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+    display: flex; gap: 48px; align-items: center;
+    margin-bottom: 40px;
+  }
+  .cowork-box .cb-tag{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.16em; }
+  .cowork-box .cb-h{ font-family: var(--serif); font-size: 40px; color: var(--ink); font-weight: 600; margin-top: 12px; line-height: 1.2; }
+  .cowork-box .cb-divider{ width: 1px; height: 100px; background: var(--rule); flex-shrink: 0; }
+  .cowork-box .cb-body{ font-family: var(--sans); font-size: 26px; color: var(--ink-muted); line-height: 1.6; }
+  .cowork-box .cb-body .mono{ color: var(--ink); }
+  .cowork-q-text{
+    font-family: var(--serif); font-size: 50px; color: var(--ink); line-height: 1.35;
+  }
+  .cowork-q-text .q{
+    font-size: 80px; color: var(--brick); font-weight: 700;
+    margin-top: 20px; line-height: 1.1; display: block;
+  }
+
+  /* P12 · 差別在形狀 — Cowork (has shape) vs Code (no shape) */
+  .shape-vs{
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 56px; align-items: center;
+    flex: 1;
+  }
+  .shape-vs .sv-side{ display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .shape-vs .sv-mock{ display: flex; align-items: center; justify-content: center; }
+  .shape-vs .sv-label{ text-align: center; }
+  .shape-vs .sv-label .mono{ font-family: var(--mono); font-size: 20px; color: var(--ink-muted); letter-spacing: 0.18em; }
+  .shape-vs .sv-label .mono.brick{ color: var(--brick); }
+  .shape-vs .sv-label .h{ font-family: var(--serif); font-size: 50px; font-weight: 700; margin-top: 8px; color: var(--ink); line-height: 1.1; }
+  .shape-vs .sv-label .h.brick{ color: var(--brick); }
+  .shape-vs .sv-label .d{ font-family: var(--sans); font-size: 20px; color: var(--ink-muted); margin-top: 12px; line-height: 1.55; max-width: 340px; }
+  .shape-vs .sv-mid{
+    font-family: var(--mono); font-size: 48px; color: var(--brick); font-weight: 700; letter-spacing: 0.1em;
+  }
+  .shape-callout{
+    background: var(--ink); color: var(--cream);
+    padding: 20px 32px; text-align: center;
+    font-family: var(--serif); font-size: 38px; font-weight: 600;
+    margin-top: 28px;
+    border-radius: 6px;
+  }
+  .shape-callout .dim{ color: rgba(245,237,228,0.55); }
+  .shape-callout .accent{ color: #E47A5C; }
+
+  /* P13 · 裝得進任何形狀 — versatility list */
+  .fits-grid{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px 64px;
+    margin-top: 36px;
+    flex: 1;
+    align-content: start;
+  }
+  .fits-grid .fitem{
+    display: flex; align-items: baseline; gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .fits-grid .fitem .fkey{ font-family: var(--mono); font-size: 26px; color: var(--ink-muted); width: 220px; flex-shrink: 0; letter-spacing: 0.04em; }
+  .fits-grid .fitem .farrow{ font-family: var(--mono); font-size: 22px; color: var(--brick); }
+  .fits-grid .fitem .fval{ font-family: var(--serif); font-size: 28px; color: var(--ink); }
+  .fits-grid .fitem.last .fval{ color: var(--ink-muted); }
+  .fits-quote{
+    font-family: var(--serif); font-size: 60px; color: var(--brick); font-weight: 700;
+    margin-top: 24px; text-align: right; line-height: 1.2;
+  }
+
+  /* P14 · 長得像你 dark quote (uses .slide.ink + custom layout via inline) */
+  /* P16 · 今天的工作環境 transition (uses .slide + custom inline) */
+
+  /* ===========================================
+     B1 Phase 2 — ref #10/#12/#13/#14 expansion
+     (NEW P19 Markdown · NEW P20 Terminal · redesign P21 FLUX 出場 · redesign P22 4 letter)
+     =========================================== */
+
+  /* P19 · Markdown — source → preview */
+  .md-grid{
+    display:grid; grid-template-columns: 1fr auto 1fr; gap: 36px;
+    flex:1; min-height: 0;
+  }
+  .md-col{ display:flex; flex-direction:column; gap:14px; }
+  .md-col .ml-label{ font-family:var(--mono); font-size:20px; color:var(--ink-muted); letter-spacing:0.14em; }
+  .md-source{
+    background: var(--ink); color: var(--cream);
+    padding: 32px 40px; border-radius: 12px;
+    font-family: var(--mono); font-size: 26px; line-height: 1.7;
+    flex:1;
+  }
+  .md-source .file-path{ color: #888; font-size: 14px; margin-bottom: 14px; letter-spacing: 0.08em; }
+  .md-source .md-syn{ color: #E47A5C; }
+  .md-mid{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+  }
+  .md-mid .arr{ font-family: var(--mono); font-size:52px; color:var(--brick); }
+  .md-mid .arr.flip{ transform: scaleX(-1); }
+  .md-mid .shortcut{
+    background: var(--ink); color: var(--cream);
+    padding: 14px 22px; border-radius: 8px;
+    font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.04em;
+  }
+  .md-mid .preview-label{ font-family: var(--mono); font-size: 14px; color: var(--ink-muted); letter-spacing: 0.18em; text-align: center; }
+  .md-preview{
+    background: var(--cream-3); border: 1px solid var(--rule);
+    padding: 40px 36px; flex:1;
+  }
+  .md-preview .pv-h{ font-family: var(--serif); font-size: 46px; font-weight: 700; color: var(--ink); }
+  .md-preview .pv-bold{ font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--ink); margin-top: 22px; }
+  .md-preview .pv-list{ font-family: var(--sans); font-size: 26px; color: var(--ink); margin-top: 22px; padding-left: 28px; line-height: 1.7; }
+  .md-quote{
+    text-align: center; margin-top: 24px;
+    font-family: var(--serif); font-size: 40px; color: var(--brick); font-weight: 600;
+  }
+
+  /* P20 · Terminal intro */
+  .term-grid{
+    display:grid; grid-template-columns: 1.1fr 1fr; gap: 60px;
+    flex:1; min-height: 0;
+  }
+  .term-grid .term-mock{
+    background: var(--ink); color: var(--cream);
+    padding: 46px 50px; border-radius: 12px;
+    font-family: var(--mono); font-size: 30px; line-height: 1.75;
+    flex: 1;
+    box-shadow: 0 24px 48px -24px rgba(42,33,28,0.4);
+  }
+  .term-grid .term-mock .head{ color: #888; font-size: 16px; margin-bottom: 18px; letter-spacing: 0.1em; }
+  .term-grid .term-mock .prompt{ color: var(--brick); }
+  .term-grid .term-mock .ghost{ color: rgba(232,220,203,0.7); margin-top: 22px; }
+  .term-grid .term-mock .blink{ display:inline-block; width:10px; height:24px; background:var(--cream); vertical-align:-3px; margin-left:6px; animation: blink 1.1s steps(2,start) infinite; }
+  .term-right{ display:flex; flex-direction:column; justify-content:center; gap:40px; }
+  .term-item{ display:flex; flex-direction:column; gap:10px; }
+  .term-item .ti-tag{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.14em; }
+  .term-item .ti-h{ font-family: var(--serif); font-size: 44px; color: var(--ink); font-weight: 600; line-height: 1.2; }
+  .term-item .ti-h .key{ font-family: var(--mono); background: var(--ink); color: var(--cream); padding: 6px 16px; font-size: 38px; letter-spacing: 0.04em; border-radius: 4px; }
+  .term-item .ti-d{ font-family: var(--sans); font-size: 24px; color: var(--ink-muted); line-height: 1.5; }
+  .term-item .ti-d .key{ font-family: var(--mono); color: var(--brick); }
+  .term-divider{ height: 1px; background: var(--rule); }
+  .term-quote{
+    text-align: center; margin-top: 20px;
+    font-family: var(--serif); font-size: 44px; color: var(--brick); font-weight: 600;
+  }
+
+  /* P21 · FLUX 出場 (ref #13 巨大字、ink) — uses .slide.ink + inline */
+
+  /* P22 · FLUX 4 letter loop (ref #14 巨大字) */
+  .flux-grid{
+    display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px;
+    flex:1; align-items: center;
+  }
+  .flux-grid .fl-col{
+    display:flex; flex-direction:column; align-items:center; gap: 14px;
+    position: relative;
+  }
+  .flux-grid .fl-letter{
+    font-family: var(--serif); font-size: 180px; font-weight: 900;
+    color: var(--brick); line-height: 1; letter-spacing: -0.04em;
+  }
+  .flux-grid .fl-mono{
+    font-family: var(--mono); font-size: 24px; color: var(--ink); letter-spacing: 0.06em;
+  }
+  .flux-grid .fl-mono .accent{ color: var(--brick); }
+  .flux-grid .fl-h{
+    font-family: var(--serif); font-size: 32px; color: var(--ink); font-weight: 600;
+  }
+  .flux-grid .fl-d{
+    font-family: var(--sans); font-size: 18px; color: var(--ink-muted);
+    text-align: center; line-height: 1.5; max-width: 220px;
+  }
+  .flux-flow{
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+    margin-top: 24px;
+    font-family: var(--mono); font-size: 22px; color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .flux-flow .arrow{ color: var(--brick); font-size: 24px; }
+  .flux-flow .loop{ color: var(--brick); font-size: 26px; }
+
+  /* ===========================================
+     動手計時器（P47/P48/P49/P50/P50b/P51）
+     class scheme: .timer-display(.on-dark/.warn) > .td-time
+                   .timer-controls > .t-btn(.primary)
+     =========================================== */
+  .timer-display{
+    display:inline-flex; align-items:center;
+    font-family: var(--mono); font-weight: 600;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .timer-display .td-time{
+    color: var(--brick); letter-spacing: 0.02em;
+    transition: color .2s ease;
+  }
+  .timer-display.on-dark .td-time{ color: #E47A5C; }
+  .timer-display.warn .td-time{ color: var(--brick); animation: timerPulse 1s ease-in-out infinite; }
+  @keyframes timerPulse{ 50%{ opacity: .35; } }
+
+  .timer-controls{ display:flex; gap: 12px; }
+  .t-btn{
+    font-family: var(--mono); font-size: 20px; font-weight: 600;
+    letter-spacing: 0.12em;
+    padding: 12px 26px; border-radius: 8px; cursor: pointer;
+    border: 2px solid var(--ink-muted); color: var(--ink-muted);
+    background: transparent;
+    transition: border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .t-btn:hover{ border-color: var(--brick); color: var(--brick); }
+  .t-btn.primary{
+    background: var(--brick); border-color: var(--brick); color: var(--cream-3);
+  }
+  .t-btn.primary:hover{ background: var(--brick-deep); border-color: var(--brick-deep); color: var(--cream-3); }
+  .t-btn:disabled{ opacity: .5; cursor: default; }
+  .t-btn:disabled:hover{ border-color: var(--ink-muted); color: var(--ink-muted); }
+  /* on-dark 情境（P51 下課深色頁）：非 primary 的 RESET 鈕加亮、避免低對比 */
+  .timer-display.on-dark ~ .timer-controls .t-btn{
+    border-color: rgba(245,237,228,0.4); color: rgba(245,237,228,0.8);
+  }
+  .timer-display.on-dark ~ .timer-controls .t-btn:hover{ border-color: #E47A5C; color: #E47A5C; }
+  .timer-display.on-dark ~ .timer-controls .t-btn.primary{
+    background: var(--brick); border-color: var(--brick); color: var(--cream-3);
+  }
+
+</style>
+</head>
+<body style="">
+
+<deck-stage width="1920" height="1080" no-rail style="--deck-rail-w: 188px;">
+
+  <!-- ============================================ -->
+  <section class="slide ink transition" data-label="P52 BRIDGE B4→B5">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 4 → BLOCK 5</span><span class="rule"></span><span>最後一個升級</span></div>
+    <div style="flex:1"></div>
+    <div class="display" style="font-size:74px;">3 個 skill 做完了 ——<br>最後 <span style="color:#E47A5C;">把 research 變整份 deck</span>。</div>
+    <div style="height:34px"></div>
+    <div style="font-family:'Noto Serif TC',serif; font-size:36px; color:rgba(245,237,228,0.85);">前面歸檔進 Atlas 的那份 research —— 現在輪到它了。</div>
+    <div style="flex:1"></div>
+    <div class="slide-num">1 / 12</div>
+    <div class="footer-mark">BLOCK 4 → BLOCK 5 · Claude Design</div>
+  </section>
+
+  <!-- ============ B5 開場 · 一次研究、兩種產出（parked，貼回）============ -->
+  <section class="slide" data-label="P53 Claude Design · 雙產出">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · Claude Design</span><span class="rule"></span><span>一次研究、兩種產出</span></div>
+    <div style="height:20px"></div>
+    <div class="title">一份 research ——<br><span class="accent">兩種產出</span>。</div>
+    <div class="slide-body" style="padding-top:30px; gap:32px;">
+
+      <!-- fork：1 份 research → 分岔 → 2 種產出 -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+        <div style="padding:22px 44px; background:#1A1410; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:26px; color:#F5EDE4;">1 份 research <span style="color:rgba(245,237,228,0.5);">· MMT vs 人類圖</span></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:32px; color:#C44A2B; line-height:1;">↓</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; width:100%;">
+          <div style="padding:32px 36px; background:var(--cream-3); border:1.5px solid var(--rule); border-left:5px solid #C44A2B; border-radius:0 10px 10px 0;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.1em; margin-bottom:14px;">產出 ①</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:34px; color:#3A281E; line-height:1.4;">變一批 <strong>知識卡片</strong></div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:var(--ink-muted); margin-top:12px;">[歸檔] 拆進 Atlas / Dots（前面做過了）</div>
+          </div>
+          <div style="padding:32px 36px; background:var(--cream-3); border:1.5px solid var(--rule); border-left:5px solid #C44A2B; border-radius:0 10px 10px 0;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.1em; margin-bottom:14px;">產出 ②</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:34px; color:#3A281E; line-height:1.4;">變一份 <strong>deck</strong></div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:24px; color:var(--ink-muted); margin-top:12px;">研究先轉成設計稿、再用 Claude Design 生</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- callout -->
+      <div style="padding:28px 36px; background:#3A281E; color:#F5EDE4; border-radius:2px; font-family:'Noto Serif TC',serif; font-size:30px; line-height:1.5; text-align:center;">① 知識卡片 前面做過了、現在做 ② <span style="color:#E47A5C;">deck</span> —— 同一份 research，<strong>卡片留著長 Atlas（半年後還在）</strong>、<strong style="color:#E47A5C;">deck 拿去提案</strong>。</div>
+
+    </div>
+    <div class="slide-num">2 / 12</div>
+    <div class="footer-mark">BLOCK 5 · Claude Design · 一次研究兩種產出</div>
+  </section>
+
+  <!-- ============ B5 · 為什麼要轉一手（research → 設計稿 → deck）============ -->
+  <section class="slide" data-label="P54 Claude Design 為什麼轉一手">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · Claude Design</span><span class="rule"></span><span>中間要轉一手</span></div>
+    <div style="height:18px"></div>
+    <div class="title">research 不能直接丟 ——<br>中間要先變 <span class="accent">設計稿</span>。</div>
+    <div class="slide-body fill" style="padding-top:24px; gap:24px;">
+
+      <div style="padding:24px 32px; background:rgba(245,237,228,0.6); border-left:4px solid #C44A2B; border-radius:0 8px 8px 0; font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.55;">research 是「<strong>內容</strong>」、deck 是「<strong>一頁一頁的設計</strong>」—— Claude Design 照<strong style="color:#C44A2B;">設計稿</strong>做，不會幫你決定簡報長怎樣。</div>
+
+      <div style="display:grid; grid-template-columns:1fr auto 1.25fr auto 1fr; gap:16px; align-items:center;">
+        <div style="padding:24px 18px; background:rgba(217,205,190,0.3); border-radius:8px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--ink-muted); letter-spacing:0.08em; margin-bottom:8px;">你有的</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; font-weight:600;">research.md</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:22px; color:var(--ink-muted); margin-top:6px;">一坨內容</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:34px; color:#C44A2B;">&#8594;</div>
+        <div style="padding:24px 18px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:8px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; margin-bottom:8px;">你要做的</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; font-weight:600;">prompt.md · 設計稿</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:22px; color:var(--ink-muted); margin-top:6px;">頁數 / 標題 / 視覺 / 風格</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:34px; color:#C44A2B;">&#8594;</div>
+        <div style="padding:24px 18px; background:#1A1410; border-radius:8px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#E47A5C; letter-spacing:0.08em; margin-bottom:8px;">Claude Design</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#F5EDE4; font-weight:600;">deck</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:22px; color:rgba(245,237,228,0.6); margin-top:6px;">照稿生成</div>
+        </div>
+      </div>
+
+      <div style="padding:26px 36px; background:#3A281E; color:#F5EDE4; border-radius:2px; text-align:center; font-family:'Noto Serif TC',serif; font-size:30px; line-height:1.5;">功夫在 <span style="color:#E47A5C;">中間那手</span> —— 設計稿對了、deck 就對。</div>
+
+    </div>
+    <div class="slide-num">3 / 12</div>
+    <div class="footer-mark">BLOCK 5 · Claude Design · 為什麼轉一手</div>
+  </section>
+
+  <!-- ============ B5 · 設計稿要寫什麼（prompt.md 5 欄位）============ -->
+  <section class="slide" data-label="P55 設計稿 想的順序">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · 設計稿</span><span class="rule"></span><span>想的順序</span></div>
+    <div style="height:18px"></div>
+    <div class="title">設計稿 —— 先想，<span class="accent">最後</span>才排版。</div>
+    <div class="slide-body fill" style="padding-top:26px; padding-bottom:8px; gap:18px;">
+
+      <div style="display:flex; align-items:baseline; gap:26px; padding:24px 34px; background:var(--cream-3); border:1.5px solid var(--rule); border-left:5px solid #C44A2B; border-radius:0 10px 10px 0;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:23px; color:#C44A2B; letter-spacing:0.08em; min-width:210px; flex-shrink:0;">&#9312; 目的 + 對象</div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.4;">給誰看？要他做什麼決定 / 行動？—— 先定這個</div>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:26px; padding:24px 34px; background:var(--cream-3); border:1.5px solid var(--rule); border-left:8px solid #C44A2B; border-radius:0 10px 10px 0;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:23px; color:#C44A2B; letter-spacing:0.08em; min-width:210px; flex-shrink:0;">&#9313; 故事線</div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.4;">怎麼鋪陳最有說服力？結論先講 / 問題→方案… <span style="color:#C44A2B; font-weight:600;">最關鍵、最常被跳過</span></div>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:26px; padding:24px 34px; background:var(--cream-3); border:1.5px solid var(--rule); border-left:5px solid #C44A2B; border-radius:0 10px 10px 0;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:23px; color:#C44A2B; letter-spacing:0.08em; min-width:210px; flex-shrink:0;">&#9314; 逐頁排版</div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.4;">照故事線：每頁 標題 + 一個重點 + 該不該配視覺 —— 不擠也不空（頁數從故事線長出來）</div>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:26px; padding:24px 34px; background:var(--cream-3); border:1.5px solid var(--rule); border-left:5px solid #C44A2B; border-radius:0 10px 10px 0;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:23px; color:#C44A2B; letter-spacing:0.08em; min-width:210px; flex-shrink:0;">&#9315; 設計系統</div>
+        <div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.4;">風格 / 配色 / 字級 —— 一句話寫進 prompt（給你一組乾淨風：白底 / 一個主色 / 數字大）</div>
+      </div>
+
+    </div>
+    <div class="slide-num">4 / 12</div>
+    <div class="footer-mark">BLOCK 5 · 設計稿 · 想的順序</div>
+  </section>
+
+  <!-- ============ B5 · 設計稿範例（prompt.md 長這樣）============ -->
+  <section class="slide" data-label="P56 prompt.md 範例">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · 講師示範</span><span class="rule"></span><span>怎麼問 → prompt.md</span></div>
+    <div style="height:14px"></div>
+    <div class="title">設計稿（<span class="accent">prompt.md</span>）—— 怎麼問、長怎樣。</div>
+    <div class="slide-body fill" style="padding-top:20px; gap:18px;">
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch;">
+
+        <!-- LEFT: prompt.md 產出 -->
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.1em;">設計稿 prompt.md（產出）</div>
+          <div style="flex:1; background:#1A1410; border-radius:8px; padding:24px 28px; font-family:'JetBrains Mono',monospace; font-size:22px; color:#F5EDE4; line-height:1.6; box-shadow:0 6px 20px rgba(0,0,0,0.2); display:flex; flex-direction:column; gap:7px;">
+            <div style="color:#E47A5C;"># MMT 天賦系統 vs 人類圖</div>
+            <div>目的：分不清兩者的一般大眾 → 分辨差異、自己判斷哪套適合</div>
+            <div>故事線：<span style="color:#E47A5C;">精確度一刀切開 → 各是什麼 → 五維對比 → 三個差異 → 給判斷尺</span></div>
+            <div>設計系統：中立科普、數字大　底#FFFFFF 主色#1E73C8</div>
+            <div style="color:rgba(245,237,228,0.4);">——— 逐頁（照故事線長出）———</div>
+            <div>P1 封面　·　P2 為什麼要比：<span style="color:#E47A5C;">真的都一樣嗎？</span></div>
+            <div>P3 <span style="color:#E47A5C;">精確度信念</span>（一刀切開）　·　P4 兩張身分卡</div>
+            <div>P5 五維度全對比　·　P6 三個該記住的差異</div>
+            <div>P7 全景座標　·　P8 <span style="color:#E47A5C;">該信哪個</span>（給判斷尺）</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: 從 research → prompt.md 的示範 prompt -->
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.1em;">你照貼這段 → 叫它寫出左邊（<span style="color:#3A281E;">{ } 自己填</span>）</div>
+          <div data-copy="讀 Atlas 那份 MMT vs 人類圖 研究報告，幫我寫一份給 Claude Design 用的簡報設計稿、存成 prompt.md。先想清楚再排版，照這順序填：&#10;① 目的 + 對象：{給誰看、要他做什麼決定}&#10;② 故事線：怎麼講最有說服力？（你依 research 判斷）&#10;③ 照故事線想要幾頁：每頁的標題 + 內容重點 + 視覺化方案；不擠也不空&#10;④ 設計系統：簡潔商務、數字放大；底 #FFFFFF ／ 主色 #1E73C8 ／ 字 #16181D；標題粗黑體、內文黑體&#10;把 ①②③④ 寫成一份完整的 prompt.md 給我看就好，先別生 deck —— 我拿去 Claude Design 生。" style="flex:1; background:#1A1410; border-radius:8px; padding:24px 28px; font-family:'JetBrains Mono',monospace; font-size:22px; color:#F5EDE4; line-height:1.6; box-shadow:0 6px 20px rgba(0,0,0,0.2); display:flex; flex-direction:column; gap:9px;">
+            <div><span style="color:#E47A5C;">&gt;</span> 讀 Atlas 那份 MMT vs 人類圖 研究報告，幫我寫一份<strong style="color:#E47A5C;">給 Claude Design 用的簡報設計稿</strong>、存成 <span style="font-family:'JetBrains Mono',monospace; color:#E47A5C;">prompt.md</span>。先想清楚再排版，照這順序填：</div>
+            <div style="padding-left:18px;">① 目的 + 對象：<span style="color:#E47A5C;">{給誰看、要他做什麼決定}</span></div>
+            <div style="padding-left:18px;">② <strong style="color:#E47A5C;">故事線</strong>：怎麼講最有說服力？（你依 research 判斷）</div>
+            <div style="padding-left:18px;">③ 照<strong style="color:#E47A5C;">故事線</strong>想<strong style="color:#E47A5C;">要幾頁</strong>：每頁的標題 + 內容重點 + 視覺化方案；不擠也不空</div>
+            <div style="padding-left:18px;">④ 設計系統：簡潔商務、數字放大；<br>　 底 #FFFFFF ／ 主色 #1E73C8 ／ 字 #16181D；標題粗黑體、內文黑體</div>
+            <div>把 ①②③④ 寫成一份完整的 <span style="font-family:'JetBrains Mono',monospace;">prompt.md</span> 給我看就好，<strong style="color:#E47A5C;">先別生 deck</strong> —— 我拿去 Claude Design 生。</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="padding:22px 36px; background:rgba(245,237,228,0.6); border-left:4px solid #C44A2B; border-radius:0 6px 6px 0; font-family:'Noto Serif TC',serif; font-size:26px; color:#3A281E; line-height:1.5;">關鍵是 <strong>先想故事線、別一上來就排版</strong>；<span style="font-family:'JetBrains Mono',monospace;">{ }</span> 是你要填的、設計系統用我們給的這組（一組乾淨的中立風）就好 —— 改設計稿比改 deck 快。</div>
+
+    </div>
+    <div class="slide-num">5 / 12</div>
+    <div class="footer-mark">BLOCK 5 · 講師示範 · prompt.md 範例</div>
+  </section>
+
+    <!-- ============ B5 · Claude Design 的畫面（screenshot 導覽）============ -->
+  <section class="slide" data-label="P57 Claude Design 畫面導覽">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · Claude Design</span><span class="rule"></span><span>開 claude.ai/design</span></div>
+    <div style="height:14px"></div>
+    <div class="title">這就是 <span class="accent">Claude Design</span> 的畫面。</div>
+    <div class="slide-body" style="justify-content:center; padding-top:16px; gap:26px;">
+
+      <!-- screenshot framed as window -->
+      <div style="display:flex; justify-content:center;">
+        <img src="img/claude-design-ui.webp" alt="Claude Design 介面：Slide deck 分頁 + Design systems" style="width:1460px; max-width:100%; height:auto; border:1.5px solid var(--rule); border-radius:10px; box-shadow:0 18px 46px -16px rgba(42,33,28,0.5);">
+      </div>
+
+      <!-- step chips -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+        <div style="padding:20px 28px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:6px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; margin-bottom:8px;">① 開網址</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:25px; color:#3A281E; line-height:1.4;"><span style="font-family:'JetBrains Mono',monospace; color:#C44A2B;">claude.ai/design</span></div>
+        </div>
+        <div style="padding:20px 28px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:6px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; margin-bottom:8px;">② 生 deck</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:25px; color:#3A281E; line-height:1.4;">選 <strong>Slide deck</strong> → 貼 prompt.md → 按 <strong>Create</strong></div>
+        </div>
+        <div style="padding:20px 28px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:6px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; margin-bottom:8px;">③ 設計系統 · 進階</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:25px; color:#3A281E; line-height:1.4;"><strong>Design systems</strong> 教它你的品牌（= 設計稿 ⑤）</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="slide-num">6 / 12</div>
+    <div class="footer-mark">BLOCK 5 · Claude Design · 畫面導覽</div>
+  </section>
+
+  <!-- ============ B5 (b2) · Claude Design 生出的 deck（真實截圖 · 讓學員看感覺）============ -->
+  <section class="slide" data-label="P57b Claude Design 生出的 deck">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · Claude Design</span><span class="rule"></span><span>它生出來長這樣</span></div>
+    <div style="height:14px"></div>
+    <div class="title">同一份研究 —— 它生出 <span class="accent">8 頁 deck</span>。</div>
+    <div class="slide-body" style="justify-content:center; padding-top:14px; gap:16px;">
+
+      <div style="height:640px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:16px 18px; min-height:0;">
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-1.png" alt="P1 封面" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P1</span> · 封面</div></div>
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-2.png" alt="P2 為什麼要比" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P2</span> · 為什麼要比</div></div>
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-3.png" alt="P3 精確度信念" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P3</span> · 精確度信念</div></div>
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-4.png" alt="P4 兩位主角" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P4</span> · 兩位主角</div></div>
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-5.png" alt="P5 五維對比" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P5</span> · 五維對比</div></div>
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-6.png" alt="P6 三點差異" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P6</span> · 三點差異</div></div>
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-7.png" alt="P7 全景地圖" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P7</span> · 全景地圖</div></div>
+        <div style="display:flex; flex-direction:column; gap:6px; min-height:0;"><div style="flex:1; min-height:0; border:1.5px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 6px 16px -8px rgba(42,33,28,0.4); display:flex; align-items:center; justify-content:center;"><img src="img/mmt-deck-8.png" alt="P8 判斷尺" style="max-width:100%; max-height:100%; object-fit:contain; display:block;"></div><div style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--ink-muted); text-align:center;"><span style="color:#C44A2B; font-weight:700;">P8</span> · 判斷尺</div></div>
+      </div>
+
+      <div style="font-family:'Noto Serif TC',serif; font-size:23px; color:var(--ink-muted); text-align:center;">你寫的 <span style="font-family:'JetBrains Mono',monospace;">prompt.md</span> 餵進去 —— <span style="color:#3A281E;">8 頁、字級配色圖表全照你的設計系統</span> 長出來。</div>
+
+    </div>
+    <div class="slide-num">7 / 12</div>
+    <div class="footer-mark">BLOCK 5 · Claude Design · 生出的 deck</div>
+  </section>
+
+  <!-- ============ B5 (c) 學員實作 · 生 deck（Timer 15 min）============ -->
+  <section class="slide" data-label="P58 動手 生 deck" data-timer-single>
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · 動手</span><span class="rule"></span><span>換你做 · 20 MIN</span></div>
+    <div style="height:14px"></div>
+    <div class="title">換你 —— 用 <span class="accent">同一個 prompt</span>，把研究變 deck。</div>
+    <div class="slide-body" style="justify-content:center; padding-bottom:12px;">
+      <div style="display:grid; grid-template-columns:1.55fr 1fr; gap:40px; align-items:start;">
+
+        <!-- LEFT: 同一個 reuse prompt（檔案換 @你的研究報告）-->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.12em;">就是剛剛那個 prompt · 檔案用 @ 自己選</div>
+          <div data-copy="讀 @你的研究報告，幫我寫一份給 Claude Design 用的簡報設計稿、存成 prompt.md。先想清楚再排版，照這順序填：&#10;① 目的 + 對象：{給誰看、要他做什麼決定}&#10;② 故事線：怎麼講最有說服力？（你依 research 判斷）&#10;③ 照故事線想要幾頁：每頁的標題 + 內容重點 + 視覺化方案；不擠也不空&#10;④ 設計系統：簡潔商務、數字放大；底 #FFFFFF ／ 主色 #1E73C8 ／ 字 #16181D；標題粗黑體、內文黑體&#10;把 ①②③④ 寫成一份完整的 prompt.md 給我看就好，先別生 deck —— 我拿去 Claude Design 生。" style="background:#1A1410; border-radius:8px; padding:24px 28px; font-family:'JetBrains Mono',monospace; font-size:20px; color:#F5EDE4; line-height:1.55; box-shadow:0 6px 20px rgba(0,0,0,0.2); display:flex; flex-direction:column; gap:8px;">
+            <div><span style="color:#E47A5C;">&gt;</span> 讀 <span style="color:#E47A5C;">@你的研究報告</span>，幫我寫一份<strong style="color:#E47A5C;">給 Claude Design 用的簡報設計稿</strong>、存成 prompt.md。先想清楚再排版，照這順序填：</div>
+            <div style="padding-left:18px;">① 目的 + 對象：<span style="color:#E47A5C;">{給誰看、要他做什麼決定}</span></div>
+            <div style="padding-left:18px;">② <strong style="color:#E47A5C;">故事線</strong>：怎麼講最有說服力？（你依 research 判斷）</div>
+            <div style="padding-left:18px;">③ 照故事線<strong style="color:#E47A5C;">想要幾頁</strong>：每頁標題 + 內容重點 + 視覺化方案</div>
+            <div style="padding-left:18px;">④ 設計系統：簡潔商務、數字放大；底 #FFFFFF ／ 主色 #1E73C8 ／ 字 #16181D</div>
+            <div>把 ①②③④ 寫成完整 prompt.md 給我看，<strong style="color:#E47A5C;">先別生 deck</strong> —— 我拿去 Claude Design 生。</div>
+          </div>
+          <div style="padding:14px 22px; background:rgba(217,205,190,0.30); border-left:3px solid #C44A2B; border-radius:4px; font-family:'Noto Serif TC',serif; font-size:21px; color:#3A281E; line-height:1.5;"><strong style="color:#C44A2B;">開頭的 @ 自己打</strong> → 跳檔案選單、選你那份研究報告（別把字直接貼）。</div>
+        </div>
+
+        <!-- RIGHT: 15min timer -->
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;">
+          <div class="timer-display" data-td>
+            <div class="td-time" data-td-time style="font-size:120px;">20:00</div>
+          </div>
+          <div class="timer-controls">
+            <button class="t-btn primary" data-t-action="start">START</button>
+            <button class="t-btn" data-t-action="reset">RESET</button>
+          </div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:23px; color:var(--ink-muted); line-height:1.55; text-align:center; max-width:440px;"><strong style="color:#3A281E;">示範一位 AirPlay、大家同時做。</strong><br>寫好 prompt.md → 餵 Claude Design → 生 deck → 翻一遍、改一處。</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="slide-num">8 / 12</div>
+    <div class="footer-mark">BLOCK 5 · 動手 · 換你做 · 20 MIN</div>
+    <script>
+      (function(){
+        const slide = document.currentScript.closest('section');
+        const tdWrap = slide.querySelector('[data-td]');
+        const tdTime = slide.querySelector('[data-td-time]');
+        const startBtn = slide.querySelector('[data-t-action="start"]');
+        const resetBtn = slide.querySelector('[data-t-action="reset"]');
+        const DURATION = 20 * 60;
+        let remaining = DURATION; let running = false; let tickId = null;
+        function fmt(s){ const m = Math.floor(s/60), r = s%60; return String(m).padStart(2,'0') + ':' + String(r).padStart(2,'0'); }
+        function render(){
+          tdTime.textContent = fmt(remaining);
+          tdWrap.classList.toggle('warn', remaining <= 60 && remaining > 0);
+          if (remaining === 0){ startBtn.textContent = 'DONE'; startBtn.disabled = true; running = false; }
+          else { startBtn.disabled = false; if (running) startBtn.textContent = 'PAUSE'; else if (remaining === DURATION) startBtn.textContent = 'START'; else startBtn.textContent = 'RESUME'; }
+        }
+        function tick(){ if (!running) return; if (remaining > 0){ remaining--; render(); tickId = setTimeout(tick, 1000); } }
+        function start(){ if (running){ running = false; clearTimeout(tickId); render(); } else { running = true; render(); tickId = setTimeout(tick, 1000); } }
+        function reset(){ running = false; clearTimeout(tickId); remaining = DURATION; startBtn.disabled = false; render(); }
+        startBtn.addEventListener('click', start); resetBtn.addEventListener('click', reset); render();
+      })();
+    </script>
+  </section>
+
+  <!-- ============ B5 · 短下課 5 分鐘（動手後 breather）============ -->
+  <section class="slide ink" data-label="P58br 短下課 · 5 分鐘" data-timer-single>
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5</span><span class="rule"></span><span>動手後 · 喘口氣</span></div>
+    <div style="flex:1"></div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:28px;">
+      <div style="font-family:'Noto Serif TC',serif; font-size:64px; color:#F5EDE4; line-height:1.2; letter-spacing:0.06em;">休息一下 · 5 分鐘</div>
+      <div class="timer-display on-dark" data-td><div class="td-time" data-td-time style="font-size:150px;">05:00</div></div>
+      <div class="timer-controls">
+        <button class="t-btn primary" data-t-action="start">START</button>
+        <button class="t-btn" data-t-action="reset">RESET</button>
+      </div>
+      <div style="font-family:'Noto Serif TC',serif; font-size:30px; color:rgba(245,237,228,0.85); line-height:1.5; text-align:center; max-width:880px;">回來收尾 —— 把 <span style="color:#E47A5C;">deck 抓回來改</span>。</div>
+    </div>
+    <div style="flex:1"></div>
+    <div class="slide-num">9 / 12</div>
+    <div class="footer-mark">BLOCK 5 · 短下課 5 分鐘</div>
+    <script>
+      (function(){
+        const slide = document.currentScript.closest('section');
+        const tdWrap = slide.querySelector('[data-td]');
+        const tdTime = slide.querySelector('[data-td-time]');
+        const startBtn = slide.querySelector('[data-t-action="start"]');
+        const resetBtn = slide.querySelector('[data-t-action="reset"]');
+        const DURATION = 5 * 60;
+        let remaining = DURATION; let running = false; let tickId = null;
+        function fmt(s){ const m = Math.floor(s/60), r = s%60; return String(m).padStart(2,'0') + ':' + String(r).padStart(2,'0'); }
+        function render(){
+          tdTime.textContent = fmt(remaining);
+          tdWrap.classList.toggle('warn', remaining <= 60 && remaining > 0);
+          if (remaining === 0){ startBtn.textContent = 'DONE'; startBtn.disabled = true; running = false; }
+          else { startBtn.disabled = false; if (running) startBtn.textContent = 'PAUSE'; else if (remaining === DURATION) startBtn.textContent = 'START'; else startBtn.textContent = 'RESUME'; }
+        }
+        function tick(){ if (!running) return; if (remaining > 0){ remaining--; render(); tickId = setTimeout(tick, 1000); } }
+        function start(){ if (running){ running = false; clearTimeout(tickId); render(); } else { running = true; render(); tickId = setTimeout(tick, 1000); } }
+        function reset(){ running = false; clearTimeout(tickId); remaining = DURATION; startBtn.disabled = false; render(); }
+        startBtn.addEventListener('click', start); resetBtn.addEventListener('click', reset); render();
+      })();
+    </script>
+  </section>
+
+  <!-- ============ B5 (c2) · Send to Claude Code（把 deck 抓回來用程式改）============ -->
+  <section class="slide" data-label="P58c Send to Claude Code">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · Claude Design</span><span class="rule"></span><span>抓回來改</span></div>
+    <div style="height:14px"></div>
+    <div class="title">想再改？把 deck <span class="accent">抓回 Claude Code</span>。</div>
+    <div class="slide-body" style="justify-content:center; padding-top:14px; gap:22px;">
+
+      <div style="display:flex; justify-content:center;">
+        <img src="img/send-to-claude-code.png" alt="Claude Design — Send to · Claude Code" style="max-width:100%; max-height:600px; height:auto; border:1.5px solid var(--rule); border-radius:10px; box-shadow:0 18px 46px -16px rgba(42,33,28,0.5);">
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+        <div style="padding:20px 28px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:6px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; margin-bottom:8px;">① 在 Claude Design</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:25px; color:#3A281E; line-height:1.4;">點右上 <strong>Send to → Claude Code</strong></div>
+        </div>
+        <div style="padding:20px 28px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:6px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; margin-bottom:8px;">② 貼進 Claude Code</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:25px; color:#3A281E; line-height:1.4;">它給你<strong>一行指令</strong> → 貼上、enter</div>
+        </div>
+        <div style="padding:20px 28px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:6px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; margin-bottom:8px;">③ 用程式精修</div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:25px; color:#3A281E; line-height:1.4;">整份 deck 變<strong>可編輯檔案</strong> → 叫 Claude 微調</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="slide-num">10 / 12</div>
+    <div class="footer-mark">BLOCK 5 · Claude Design · 抓回 Claude Code 改</div>
+  </section>
+
+  <!-- ============ B5 (c3) · 動手 把 deck 抓回來改一處（Timer 10min）============ -->
+  <section class="slide" data-label="P58d 動手 · 抓回來改" data-timer-single>
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · 動手</span><span class="rule"></span><span>抓回來改 · 10 MIN</span></div>
+    <div style="height:14px"></div>
+    <div class="title">換你 —— 把你的 deck <span class="accent">抓回來改一處</span>。</div>
+    <div class="slide-body" style="justify-content:center; padding-bottom:12px;">
+      <div style="display:grid; grid-template-columns:1.55fr 1fr; gap:40px; align-items:start;">
+
+        <!-- LEFT: 三步驟 + 可複製修改 prompt -->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; gap:14px; align-items:baseline;"><span style="font-family:'JetBrains Mono',monospace; font-size:20px; color:#F5EDE4; background:#C44A2B; width:34px; height:34px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">1</span><div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A281E; line-height:1.4;">在 Claude Design 按 <strong>Send to → Claude Code</strong>、複製它給的指令</div></div>
+            <div style="display:flex; gap:14px; align-items:baseline;"><span style="font-family:'JetBrains Mono',monospace; font-size:20px; color:#F5EDE4; background:#C44A2B; width:34px; height:34px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">2</span><div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A281E; line-height:1.4;">貼進 Claude Code、enter → 它把整份 deck <strong>抓成檔案</strong></div></div>
+            <div style="display:flex; gap:14px; align-items:baseline;"><span style="font-family:'JetBrains Mono',monospace; font-size:20px; color:#F5EDE4; background:#C44A2B; width:34px; height:34px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">3</span><div style="font-family:'Noto Serif TC',serif; font-size:24px; color:#3A281E; line-height:1.4;">叫它<strong>上網抓一張相關的圖加到封面</strong>（下面照貼、<span style="font-family:'JetBrains Mono',monospace;">{ }</span> 換成你的）</div></div>
+          </div>
+          <div data-copy="上網找一張和「{你的題目}」相關的圖，下載、加到封面（放哪你決定、能在封面顯示就好）。找不到清楚的就換一張。改完跟我說圖放哪、動了哪個檔。" style="background:#1A1410; border-radius:8px; padding:22px 28px; font-family:'JetBrains Mono',monospace; font-size:22px; color:#F5EDE4; line-height:1.65; box-shadow:0 6px 20px rgba(0,0,0,0.2);">
+            <span style="color:#E47A5C;">&gt;</span> 上網找一張「<span style="color:#E47A5C;">{你的題目}</span>」的官方產品圖，下載、加到封面（放哪你決定、能在封面顯示就好）。找不到清楚的就換一張。改完跟我說圖放哪、動了哪個檔。
+          </div>
+          <div style="padding:12px 18px; background:rgba(217,205,190,0.30); border-left:3px solid #C44A2B; border-radius:4px; font-family:'Noto Serif TC',serif; font-size:21px; color:#3A281E; line-height:1.5;">圖醜、要喊它換幾張都正常 —— 看到它<strong>真的上網抓圖、放進你的 deck</strong>，就成功了。</div>
+        </div>
+
+        <!-- RIGHT: 10min timer -->
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;">
+          <div class="timer-display" data-td>
+            <div class="td-time" data-td-time style="font-size:120px;">10:00</div>
+          </div>
+          <div class="timer-controls">
+            <button class="t-btn primary" data-t-action="start">START</button>
+            <button class="t-btn" data-t-action="reset">RESET</button>
+          </div>
+          <div style="font-family:'Noto Serif TC',serif; font-size:21px; color:var(--ink-muted); line-height:1.5; text-align:center; max-width:380px;">卡住沒關係 —— 看懂「<strong style="color:#3A281E;">能上網抓圖、放進 deck</strong>」就夠。</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="slide-num">11 / 12</div>
+    <div class="footer-mark">BLOCK 5 · 動手 · 抓回來改 · 10 MIN</div>
+    <script>
+      (function(){
+        const slide = document.currentScript.closest('section');
+        const tdWrap = slide.querySelector('[data-td]');
+        const tdTime = slide.querySelector('[data-td-time]');
+        const startBtn = slide.querySelector('[data-t-action="start"]');
+        const resetBtn = slide.querySelector('[data-t-action="reset"]');
+        const DURATION = 10 * 60;
+        let remaining = DURATION; let running = false; let tickId = null;
+        function fmt(s){ const m = Math.floor(s/60), r = s%60; return String(m).padStart(2,'0') + ':' + String(r).padStart(2,'0'); }
+        function render(){
+          tdTime.textContent = fmt(remaining);
+          tdWrap.classList.toggle('warn', remaining <= 60 && remaining > 0);
+          if (remaining === 0){ startBtn.textContent = 'DONE'; startBtn.disabled = true; running = false; }
+          else { startBtn.disabled = false; if (running) startBtn.textContent = 'PAUSE'; else if (remaining === DURATION) startBtn.textContent = 'START'; else startBtn.textContent = 'RESUME'; }
+        }
+        function tick(){ if (!running) return; if (remaining > 0){ remaining--; render(); tickId = setTimeout(tick, 1000); } }
+        function start(){ if (running){ running = false; clearTimeout(tickId); render(); } else { running = true; render(); tickId = setTimeout(tick, 1000); } }
+        function reset(){ running = false; clearTimeout(tickId); remaining = DURATION; startBtn.disabled = false; render(); }
+        startBtn.addEventListener('click', start); resetBtn.addEventListener('click', reset); render();
+      })();
+    </script>
+  </section>
+
+  <!-- ============ B5 (d) reflect · 兩種 slide 工作流對比 ============ -->
+  <section class="slide" data-label="P59 reflect 兩種工作流">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 5 · 回看</span><span class="rule"></span><span>兩種做 slide 的路</span></div>
+    <div style="height:18px"></div>
+    <div class="title">你現在會 <span class="accent">兩種</span> 做 slide 的路了。</div>
+    <div class="slide-body fill" style="padding-top:24px; gap:24px;">
+
+      <!-- 對比表（左 上次 · 右 今天，三列同 schema：原料 / 你做什麼 / 產出）-->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div style="padding:32px 36px; background:rgba(217,205,190,0.3); border-radius:10px; display:flex; flex-direction:column; gap:22px;">
+          <div style="display:flex; align-items:baseline; gap:16px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--ink-muted); letter-spacing:0.12em;">想快 · 自己排</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:32px; color:#3A281E; font-weight:600;">PowerPoint / Canva</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; gap:18px; align-items:baseline;"><div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--ink-muted); letter-spacing:0.08em; min-width:88px;">原料</div><div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.45;">腦裡<strong>想講的</strong>內容</div></div>
+            <div style="height:1px; background:var(--rule);"></div>
+            <div style="display:flex; gap:18px; align-items:baseline;"><div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--ink-muted); letter-spacing:0.08em; min-width:88px;">你做什麼</div><div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.45;">自己<strong>一頁一頁</strong>排版、找圖</div></div>
+            <div style="height:1px; background:var(--rule);"></div>
+            <div style="display:flex; gap:18px; align-items:baseline;"><div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--ink-muted); letter-spacing:0.08em; min-width:88px;">產出</div><div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.45;">一份<strong>普通 deck</strong></div></div>
+          </div>
+        </div>
+        <div style="padding:32px 36px; background:var(--cream-3); border:1.5px solid var(--rule); border-top:3px solid #C44A2B; border-radius:10px; display:flex; flex-direction:column; gap:22px;">
+          <div style="display:flex; align-items:baseline; gap:16px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.12em;">要正式 · 提案型</div>
+            <div style="font-family:'Noto Serif TC',serif; font-size:32px; color:#3A281E; font-weight:600;">Claude Design</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; gap:18px; align-items:baseline;"><div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; min-width:88px;">原料</div><div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.45;">一份<strong>研究</strong>（前面存的那份）</div></div>
+            <div style="height:1px; background:var(--rule);"></div>
+            <div style="display:flex; gap:18px; align-items:baseline;"><div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; min-width:88px;">你做什麼</div><div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.45;">寫設計稿（prompt.md）</div></div>
+            <div style="height:1px; background:var(--rule);"></div>
+            <div style="display:flex; gap:18px; align-items:baseline;"><div style="font-family:'JetBrains Mono',monospace; font-size:22px; color:#C44A2B; letter-spacing:0.08em; min-width:88px;">產出</div><div style="font-family:'Noto Serif TC',serif; font-size:27px; color:#3A281E; line-height:1.45;"><strong>整份提案 deck 自動長出</strong></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- payoff punch 錨底 -->
+      <div style="padding:30px 40px; background:#3A281E; color:#F5EDE4; border-radius:2px; text-align:center; font-family:'Noto Serif TC',serif; font-size:32px; line-height:1.5;">想快、自己刻幾頁就好；<span style="color:#E47A5C;">要正式提案</span>、研究 → 設計稿、整份自動長出。<br><span style="font-size:25px; color:rgba(245,237,228,0.72);">同一件事，你現在有兩隻手。</span></div>
+
+    </div>
+    <div class="slide-num">12 / 12</div>
+    <div class="footer-mark">BLOCK 5 · 回看 · 兩種工作流</div>
+  </section>
+<script src="copy-prompt.js"></script>
+</deck-stage>
+</body></html>

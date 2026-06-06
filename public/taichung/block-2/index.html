@@ -1,0 +1,1930 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<title>Block 2 — 目標管理：從 12 週目標到每天</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    /* palette */
+    --brick: #C25B3F;
+    --brick-deep: #9F462E;
+    --cream-0: #FFFAF5;
+    --cream-1: #F5EDE4;
+    --cream-2: #E8DCCB;
+    --ink: #2A211C;
+    --ink-2: #3A2F28;
+    --muted: #7A6A5E;
+    --rule: #D9CDBE;
+    --rule-strong: #B9A88F;
+
+    /* type scale */
+    --type-display: 168px;
+    --type-title: 96px;
+    --type-h2: 72px;
+    --type-h3: 56px;
+    --type-subtitle: 44px;
+    --type-body: 34px;
+    --type-small: 28px;
+    --type-eye: 22px;
+
+    /* spacing */
+    --pad-top: 96px;
+    --pad-bottom: 88px;
+    --pad-x: 120px;
+    --gap-title: 48px;
+    --gap-item: 28px;
+
+    /* fonts */
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  html,body{margin:0;padding:0;background:#000;color:var(--ink);font-family:var(--sans);}
+  *{box-sizing:border-box;}
+
+  deck-stage{font-family:var(--sans);}
+  deck-stage > section{
+    background:var(--cream-1);
+    color:var(--ink);
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* ============ Reusable atoms ============ */
+
+  .frame{
+    position:absolute;inset:0;
+    padding:var(--pad-top) var(--pad-x) var(--pad-bottom);
+    display:flex;flex-direction:column;
+  }
+  .frame.center{justify-content:center;align-items:flex-start;}
+  .frame.middle{justify-content:center;}
+  .frame.tight-bot{padding-bottom:64px;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:var(--type-eye);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;align-items:center;gap:18px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--brick);display:inline-block;}
+  .eyebrow .num{color:var(--brick);font-weight:600;}
+
+  .slide-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:var(--type-title);
+    line-height:1.08;
+    color:var(--ink);
+    letter-spacing:-.01em;
+    margin:0;
+  }
+  .slide-sub{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:var(--type-subtitle);
+    line-height:1.2;
+    color:var(--muted);
+    margin:0;
+  }
+  .body{
+    font-family:var(--sans);
+    font-size:var(--type-body);
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .small{
+    font-family:var(--sans);
+    font-size:var(--type-small);
+    color:var(--muted);
+    line-height:1.5;
+  }
+  .mono{font-family:var(--mono);}
+  .brick{color:var(--brick);}
+  .ink{color:var(--ink);}
+  .mut{color:var(--muted);}
+
+  /* page numbers + footer marker */
+  .slide-foot{
+    position:absolute;
+    left:var(--pad-x);right:var(--pad-x);
+    bottom:36px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);
+    font-size:18px;
+    letter-spacing:.18em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+  .slide-foot .pg{color:var(--ink);}
+  .slide-foot.on-dark{color:rgba(245,237,228,.55);}
+  .slide-foot.on-dark .pg{color:var(--cream-1);}
+
+  /* dark slide variant */
+  .dark{background:var(--ink);color:var(--cream-1);}
+  .dark .slide-title,.dark .body,.dark .small{color:var(--cream-1);}
+  .dark .eyebrow{color:rgba(245,237,228,.6);}
+  .dark .eyebrow .dot{background:var(--brick);}
+
+  /* ============ Mini map (5 stations) ============ */
+  .minimap{
+    position:absolute;right:60px;bottom:60px;
+    display:flex;align-items:center;gap:18px;
+    font-family:var(--mono);font-size:18px;letter-spacing:.18em;
+    color:rgba(245,237,228,.6);
+  }
+  .minimap .st{
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .minimap .node{
+    width:18px;height:18px;border-radius:50%;
+    border:1.5px solid rgba(245,237,228,.4);
+    background:transparent;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .minimap .node.done{background:rgba(245,237,228,.85);border-color:rgba(245,237,228,.85);}
+  .minimap .node.done::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--ink);}
+  .minimap .node.active{width:28px;height:28px;background:var(--brick);border-color:var(--brick);box-shadow:0 0 0 6px rgba(194,91,63,.18);}
+  .minimap .label{font-size:14px;display:none;}
+  .minimap .conn{width:34px;height:1px;background:rgba(245,237,228,.25);}
+
+  /* ============ Slide 2.01 Transition (dark) ============ */
+  .transition .frame{padding-top:120px;}
+  .transition .block-tag{
+    font-family:var(--mono);font-size:24px;letter-spacing:.32em;color:var(--brick);
+  }
+  .transition h1{
+    font-family:var(--serif);font-weight:600;
+    font-size:140px;line-height:1.04;letter-spacing:-.015em;
+    color:var(--cream-1);margin:.4em 0 .3em;
+  }
+  .transition .sub{
+    font-family:var(--mono);font-size:26px;letter-spacing:.24em;color:rgba(245,237,228,.7);
+    text-transform:uppercase;
+  }
+  .transition .mid-line{
+    margin-top:120px;
+    font-family:var(--serif);font-size:48px;font-weight:400;
+    color:rgba(245,237,228,.78);
+    max-width:1100px;
+  }
+
+  /* ============ 4 actions list ============ */
+  .num-list{display:flex;flex-direction:column;gap:28px;margin:0;padding:0;list-style:none;}
+  .num-list li{
+    display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:36px;
+    padding:22px 0;border-bottom:1px solid var(--rule);
+  }
+  .num-list .n{
+    width:78px;height:78px;border-radius:50%;
+    background:var(--brick);color:var(--cream-0);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-weight:500;font-size:30px;
+  }
+  .num-list .t{font-family:var(--serif);font-size:46px;font-weight:500;color:var(--ink);}
+  .num-list .meta{font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.12em;}
+
+  .pull-quote{
+    font-family:var(--serif);font-weight:500;font-size:54px;line-height:1.3;
+    color:var(--ink);max-width:1500px;
+  }
+  .pull-quote .brick{color:var(--brick);}
+
+  /* ============ Narrative (2.03) ============ */
+  .narrative{
+    font-family:var(--serif);font-size:80px;line-height:1.4;font-weight:400;color:var(--ink);
+    max-width:1400px;
+  }
+  .narrative .quoted{font-weight:600;color:var(--ink);}
+  .narrative .aside{color:var(--muted);font-style:normal;font-size:54px;}
+
+  /* ============ Stats grid (2.04) ============ */
+  .stats-row{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    padding:48px 0;
+  }
+  .stat{display:flex;flex-direction:column;align-items:flex-start;gap:14px;border-right:1px solid var(--rule);padding:0 36px;}
+  .stat:last-child{border-right:none;}
+  .stat .n{font-family:var(--mono);font-weight:500;font-size:148px;line-height:1;color:var(--brick);letter-spacing:-.02em;}
+  .stat .l{font-family:var(--sans);font-size:26px;color:var(--muted);line-height:1.35;letter-spacing:.04em;}
+  /* text variant for stat (no big number, mono phrase instead) */
+  .stat.txt .phrase{font-family:var(--mono);font-weight:500;font-size:64px;line-height:1.1;color:var(--brick);letter-spacing:.02em;}
+
+  .speaker-q{
+    margin-top:60px;
+    padding:36px 44px;
+    background:var(--cream-2);
+    border-left:6px solid var(--brick);
+    max-width:1500px;
+    font-family:var(--serif);font-size:42px;line-height:1.4;color:var(--ink);
+  }
+  .speaker-q .who{font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.2em;display:block;margin-bottom:10px;text-transform:uppercase;}
+  .speaker-q .brick{color:var(--brick);font-weight:600;}
+
+  /* ============ Quote slide (dark) ============ */
+  .quote-slide{background:var(--ink);}
+  .quote-slide .qmark{
+    font-family:var(--serif);font-size:240px;color:rgba(194,91,63,.22);line-height:.5;margin-bottom:.1em;
+  }
+  .quote-slide .qbody{
+    font-family:var(--serif);font-weight:500;font-size:104px;line-height:1.18;color:var(--cream-1);
+    max-width:1500px;
+  }
+  .quote-slide .qbody .brick{color:var(--brick);}
+  .quote-slide .qbody .big{font-size:144px;font-weight:700;}
+
+  /* ============ Pivot (2.06) ============ */
+  .pivot-pre{font-family:var(--serif);font-size:48px;color:var(--muted);}
+  .pivot-main{font-family:var(--serif);font-size:108px;font-weight:600;color:var(--brick);line-height:1.12;max-width:1500px;margin-top:24px;}
+  .pivot-foot{margin-top:60px;font-family:var(--sans);font-size:30px;color:var(--muted);}
+
+  /* ============ Transition sub (米色 2.07) ============ */
+  .transition-sub{background:var(--cream-1);}
+  .transition-sub h1{font-family:var(--serif);font-weight:600;font-size:140px;line-height:1.04;color:var(--ink);margin:.3em 0 .3em;letter-spacing:-.01em;}
+  .transition-sub .sub{font-family:var(--mono);font-size:30px;letter-spacing:.28em;color:var(--brick);text-transform:uppercase;}
+  .transition-sub .body{margin-top:64px;font-family:var(--serif);font-size:40px;line-height:1.6;color:var(--ink-2);max-width:1100px;}
+
+  /* ============ Funnel grid (2.08) ============ */
+  /* 2.08 funnel + WAM — 對齊 Roger page 8 */
+  .two-col{display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:start;}
+  .funnel{display:flex;flex-direction:column;gap:12px;}
+  .funnel .row{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:24px;
+    background:var(--cream-2);
+    padding:22px 32px;border-radius:4px;
+    position:relative;
+  }
+  .funnel .row .name{font-family:var(--mono);font-size:24px;font-weight:600;color:var(--ink);letter-spacing:.06em;}
+  .funnel .row .desc{font-family:var(--sans);font-size:22px;color:var(--muted);}
+  .funnel .row .tag{font-family:var(--mono);font-size:16px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;}
+  /* funnel 寬度遞縮 */
+  .funnel .row.f1{width:100%;}
+  .funnel .row.f2{width:88%;align-self:center;}
+  .funnel .row.f3{width:76%;align-self:center;background:var(--brick);}
+  .funnel .row.f4{width:64%;align-self:center;}
+  .funnel .row.f5{width:52%;align-self:center;background:var(--cream-1);border:1px solid var(--rule-strong);}
+  /* muted state for VISION / STRATEGY (虛線、今天不寫) */
+  .funnel .row.muted{background:transparent;border:2px dashed var(--rule-strong);}
+  .funnel .row.muted .name{color:var(--muted);}
+  .funnel .row.muted .desc{color:var(--muted);opacity:.8;}
+  .funnel .row.muted .tag{color:var(--muted);opacity:.8;}
+  /* star = 12-WEEK-PLAN.md 主場 magic brick filled */
+  .funnel .row.star .name{color:var(--cream-0);}
+  .funnel .row.star .desc{color:rgba(255,250,245,.85);}
+  .funnel .row.star .tag{color:var(--cream-0);opacity:.85;}
+  .funnel .star-mark{
+    position:absolute;left:-22px;top:50%;transform:translateY(-50%);
+    width:34px;height:34px;background:var(--brick-deep);color:var(--cream-0);
+    display:flex;align-items:center;justify-content:center;font-size:20px;border-radius:50%;
+    box-shadow:0 0 0 4px var(--cream-1);
+  }
+  .funnel .arrow{
+    align-self:center;font-family:var(--mono);color:var(--rule-strong);font-size:22px;line-height:0;height:12px;
+  }
+
+  /* WAM card — warm 米底 + brick 邊框 callout 風格 */
+  .wam-card{
+    background:var(--cream-0);
+    border:2px solid var(--brick);
+    color:var(--ink);
+    padding:36px 40px 32px;border-radius:4px;
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .wam-card .head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;}
+  .wam-card .h{font-family:var(--serif);font-size:48px;font-weight:700;color:var(--brick);line-height:1;}
+  .wam-card .sh{font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;}
+  .wam-card .rules{display:flex;flex-direction:column;gap:0;}
+  .wam-card .r{
+    display:grid;grid-template-columns:42px 1fr;gap:16px;
+    padding:18px 0;border-top:1px solid var(--rule);
+  }
+  .wam-card .r .k{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--brick);}
+  .wam-card .r .v{font-family:var(--mono);font-size:22px;color:var(--ink);line-height:1.45;letter-spacing:.02em;}
+  .wam-card .r .v small{display:block;font-family:var(--sans);color:var(--muted);font-size:20px;margin-top:6px;letter-spacing:0;}
+  .wam-card .foot{font-family:var(--mono);font-size:16px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;}
+
+  /* 2.08 head — 左 title + 右 tagline */
+  .funnel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:36px;}
+  .funnel-head .tagline{
+    font-family:var(--serif);font-size:30px;line-height:1.3;color:var(--muted);text-align:right;
+  }
+  .funnel-head .tagline b{color:var(--brick);font-weight:500;}
+
+  .foot-note{margin-top:36px;font-family:var(--sans);font-size:24px;color:var(--muted);line-height:1.5;}
+  .foot-note .mono-tag{font-family:var(--mono);background:var(--cream-2);padding:2px 10px;border-radius:3px;color:var(--ink);}
+
+  /* ============ Case 1 (2.10) ============ */
+  .case-stack{display:flex;flex-direction:column;gap:36px;max-width:1500px;}
+  .case-row{
+    display:grid;grid-template-columns:140px 1fr;gap:36px;align-items:center;
+    padding:36px 40px;border:1px solid var(--rule);background:var(--cream-0);
+  }
+  .case-row.lag{opacity:.7;}
+  .case-row.lead{border-color:var(--brick);background:#fff7f1;}
+  .case-row .tag{font-family:var(--mono);font-size:22px;letter-spacing:.18em;color:var(--muted);}
+  .case-row.lead .tag{color:var(--brick);}
+  .case-row .txt{font-family:var(--serif);font-size:48px;color:var(--ink);font-weight:500;}
+  .case-row .ck{font-family:var(--mono);font-size:36px;}
+  .case-row.lag .ck{color:var(--muted);}
+  .case-row.lead .ck{color:var(--brick);}
+
+  /* ============ Lead vs Lag table (2.11) ============ */
+  .ll-table{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:1px solid var(--rule);
+    background:var(--cream-0);
+    max-width:1640px;
+  }
+  .ll-cell{padding:34px 40px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+  .ll-cell:nth-child(2n){border-right:none;}
+  .ll-cell.row-last,.ll-cell.row-last + .ll-cell{border-bottom:none;}
+  .ll-head{background:var(--ink);color:var(--cream-1);}
+  .ll-head.lead{background:var(--brick);}
+  .ll-head .k{font-family:var(--mono);font-size:22px;letter-spacing:.2em;color:rgba(245,237,228,.7);text-transform:uppercase;}
+  .ll-head .v{font-family:var(--serif);font-size:46px;font-weight:600;margin-top:8px;}
+  .ll-cell .ex{font-family:var(--serif);font-size:42px;font-weight:500;color:var(--ink);}
+  .ll-cell .note{margin-top:14px;font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.08em;}
+  .ll-cell .note.brick{color:var(--brick);}
+
+  .ll-rules{
+    margin-top:40px;background:var(--ink);color:var(--cream-1);
+    padding:30px 40px;display:flex;gap:80px;max-width:1640px;
+  }
+  .ll-rules .r{font-family:var(--sans);font-size:26px;line-height:1.5;}
+  .ll-rules .r b{color:var(--brick);font-family:var(--mono);font-size:22px;letter-spacing:.14em;display:block;margin-bottom:6px;text-transform:uppercase;}
+  .ll-foot{margin-top:18px;font-family:var(--sans);font-size:24px;color:var(--muted);text-align:right;max-width:1640px;}
+
+  /* ============ Steps 2 (2.13) ============ */
+  .steps2{display:flex;flex-direction:column;gap:32px;max-width:1500px;}
+  .step{display:grid;grid-template-columns:96px 1fr 160px;gap:32px;align-items:start;padding:28px 0;border-bottom:1px solid var(--rule);}
+  .step .n{width:80px;height:80px;border-radius:50%;background:var(--brick);color:var(--cream-0);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:30px;}
+  .step .h{font-family:var(--serif);font-size:46px;font-weight:500;}
+  .step .d{font-family:var(--sans);font-size:26px;color:var(--muted);margin-top:6px;line-height:1.45;}
+  .step .t{font-family:var(--mono);font-size:30px;color:var(--brick);text-align:right;letter-spacing:.08em;}
+  .step.sub{padding-left:96px;border-bottom:none;padding-top:6px;}
+  .step.sub .h{font-size:34px;color:var(--muted);}
+  .step.sub .d{font-size:22px;}
+  .step.sub .t{font-size:22px;color:var(--muted);}
+
+  /* ============ Pair share 5a (2.14) top/bottom ============ */
+  .pair-stack{display:flex;flex-direction:column;gap:0;max-width:1640px;}
+  .pair-box{padding:36px 44px;border:1px solid var(--rule);background:var(--cream-0);position:relative;}
+  .pair-box .role{font-family:var(--mono);font-size:22px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between;align-items:baseline;}
+  .pair-box .role .t{color:var(--brick);}
+  .pair-box .body-l{margin-top:18px;font-family:var(--serif);font-size:38px;line-height:1.4;color:var(--ink);}
+  .pair-box .body-l .q{color:var(--brick);font-weight:600;}
+  .pair-box.bottom{background:#fff7f1;border-color:var(--brick);border-top:none;}
+  .pair-divider{display:flex;align-items:center;gap:24px;padding:18px 44px;background:var(--ink);color:var(--cream-1);font-family:var(--mono);font-size:24px;letter-spacing:.18em;text-transform:uppercase;}
+  .pair-divider .swap{color:var(--brick);}
+  .pair-warn{
+    margin-top:30px;padding:28px 40px;background:var(--ink);color:var(--cream-1);
+    max-width:1640px;border-left:6px solid var(--brick);
+  }
+  .pair-warn .lab{font-family:var(--mono);font-size:20px;letter-spacing:.18em;color:var(--brick);text-transform:uppercase;}
+  .pair-warn .t{font-family:var(--serif);font-size:32px;margin-top:8px;line-height:1.45;}
+  .pair-warn .t b{color:var(--brick);}
+
+  /* ============ Terminal (reused) ============ */
+  .terminal{
+    background:var(--ink);color:var(--cream-1);
+    font-family:var(--mono);
+    border-radius:6px;padding:28px 32px;
+    font-size:26px;line-height:1.55;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .terminal .row{display:flex;gap:10px;align-items:baseline;}
+  .terminal .prompt{color:var(--brick);}
+  .terminal .out{color:rgba(245,237,228,.7);}
+  .terminal .cmd{color:var(--brick);font-weight:600;}
+  .terminal .caret{display:inline-block;width:.6ch;background:var(--cream-1);color:transparent;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{background:transparent;}}
+
+  /* ============ Claude flow (2.15) ============ */
+  .flow-right h3{font-family:var(--mono);font-size:22px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin:0 0 22px;}
+  .flow-q{display:flex;flex-direction:column;gap:18px;}
+  .flow-q .qi{display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:baseline;}
+  .flow-q .qi .n{font-family:var(--mono);color:var(--brick);font-size:30px;}
+  .flow-q .qi .t{font-family:var(--serif);font-size:34px;color:var(--ink);line-height:1.4;}
+  .flow-checks{margin-top:32px;padding:24px 32px;background:var(--cream-0);border:1px solid var(--rule);display:flex;flex-direction:column;gap:12px;}
+  .flow-checks .ck{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:baseline;font-family:var(--sans);font-size:22px;color:var(--ink);}
+  .flow-checks .ck .c{color:var(--brick);font-family:var(--mono);font-size:22px;}
+  .flow-checks .ck .path{font-family:var(--mono);font-size:18px;color:var(--muted);}
+
+  /* ============ Timer (2.16/2.20/2.25) ============ */
+  .timer-slide{background:var(--ink);color:var(--cream-1);}
+  .timer-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;width:100%;}
+  .timer-eyebrow{font-family:var(--mono);font-size:22px;letter-spacing:.32em;color:var(--brick);text-transform:uppercase;}
+  .timer-title{font-family:var(--serif);font-size:64px;color:var(--cream-1);font-weight:500;}
+  .timer-display{
+    font-family:var(--mono);font-weight:500;
+    font-size:300px;line-height:1;letter-spacing:-.02em;
+    color:var(--cream-1);
+    font-variant-numeric:tabular-nums;
+  }
+  .timer-display.warn{color:var(--brick);animation:pulseRed 1s ease-in-out infinite;}
+  @keyframes pulseRed{50%{opacity:.6;}}
+  .timer-task{font-family:var(--serif);font-size:42px;color:var(--cream-1);}
+  .timer-hint{
+    display:inline-flex;gap:18px;align-items:center;
+    padding:18px 32px;
+    background:rgba(194,91,63,.18);border:1px solid var(--brick);
+    font-family:var(--sans);font-size:24px;color:var(--cream-1);
+  }
+  .timer-hint .raise{color:var(--brick);font-size:30px;}
+  .timer-tip{position:absolute;right:60px;bottom:60px;font-family:var(--mono);font-size:18px;color:rgba(245,237,228,.55);max-width:520px;text-align:right;letter-spacing:.06em;}
+  .timer-controls{position:absolute;left:60px;bottom:60px;display:flex;gap:14px;}
+  .timer-controls button{
+    background:transparent;border:1px solid rgba(245,237,228,.3);color:rgba(245,237,228,.7);
+    font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;
+    padding:10px 18px;cursor:pointer;border-radius:3px;
+  }
+  .timer-controls button:hover{border-color:var(--brick);color:var(--brick);}
+
+  /* ============ Pair-share start button (2.16) — small, top-right floating ============ */
+  .pair-start{
+    position:absolute;top:96px;right:120px;z-index:10;
+  }
+  .pair-start button{
+    background:var(--brick);border:none;color:var(--cream-0);
+    font-family:var(--mono);font-size:16px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+    padding:12px 24px;cursor:pointer;border-radius:4px;
+    transition:background .2s;
+  }
+  .pair-start button:hover{background:var(--brick-deep);}
+  .pair-start .play-icon{margin-right:8px;}
+
+  /* ============ Full-screen pair-share timer overlay ============ */
+  .pair-overlay{
+    position:fixed;inset:0;
+    background:var(--ink);color:var(--cream-1);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:9999;
+    flex-direction:column;gap:48px;
+  }
+  .pair-overlay.active{display:flex;animation:overlayFadeIn .3s ease-out;}
+  @keyframes overlayFadeIn{from{opacity:0;}to{opacity:1;}}
+
+  .pair-overlay .po-phase{
+    font-family:var(--mono);font-size:36px;letter-spacing:.32em;color:var(--brick);text-transform:uppercase;
+    transition:color .3s;
+  }
+  .pair-overlay .po-role{
+    font-family:var(--serif);font-size:96px;color:var(--cream-1);font-weight:600;line-height:1.15;
+  }
+  .pair-overlay .po-role .num{color:var(--brick);font-weight:700;}
+  .pair-overlay .po-display{
+    font-family:var(--mono);font-weight:500;
+    font-size:360px;line-height:1;letter-spacing:-.02em;
+    color:var(--cream-1);
+    font-variant-numeric:tabular-nums;
+  }
+  .pair-overlay .po-display.warn{color:var(--brick);animation:pulseRed 1s ease-in-out infinite;}
+  .pair-overlay .po-hint{
+    font-family:var(--sans);font-size:24px;color:rgba(245,237,228,.55);letter-spacing:.08em;
+  }
+  .pair-overlay .po-hint kbd{
+    font-family:var(--mono);background:rgba(245,237,228,.1);padding:4px 12px;border-radius:3px;
+    border:1px solid rgba(245,237,228,.25);margin:0 4px;
+  }
+  .pair-overlay .po-controls{
+    position:absolute;left:60px;bottom:60px;display:flex;gap:14px;
+  }
+  .pair-overlay .po-controls button{
+    background:transparent;border:1px solid rgba(245,237,228,.3);color:rgba(245,237,228,.7);
+    font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;
+    padding:10px 18px;cursor:pointer;border-radius:3px;
+  }
+  .pair-overlay .po-controls button:hover{border-color:var(--brick);color:var(--brick);}
+  .pair-overlay .po-close{
+    position:absolute;right:60px;top:60px;
+    background:transparent;border:1px solid rgba(245,237,228,.3);color:rgba(245,237,228,.7);
+    font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;
+    padding:10px 18px;cursor:pointer;border-radius:3px;
+  }
+  .pair-overlay .po-close:hover{border-color:var(--brick);color:var(--brick);}
+
+  /* phase 2 切換 flash — 磚紅閃光 0.5s */
+  .pair-overlay .po-flash{
+    position:absolute;inset:0;
+    background:var(--brick);
+    opacity:0;pointer-events:none;
+  }
+  .pair-overlay .po-flash.flash{
+    animation:phaseFlash .6s ease-out;
+  }
+  @keyframes phaseFlash{
+    0%{opacity:0;}
+    20%{opacity:.85;}
+    100%{opacity:0;}
+  }
+
+  /* done state — 全 brick */
+  .pair-overlay[data-phase="done"] .po-phase{color:var(--brick);}
+  .pair-overlay[data-phase="done"] .po-role{color:var(--brick);font-size:120px;font-weight:700;}
+  .pair-overlay[data-phase="done"] .po-display{display:none;}
+
+  /* ============ Split contrast (2.17) ============ */
+  .split{display:grid;grid-template-columns:1fr 220px 1fr;gap:32px;align-items:stretch;max-width:1700px;}
+  .split .card{
+    border:1px solid var(--rule);
+    background:var(--cream-0);
+    padding:48px 44px;
+    display:flex;flex-direction:column;gap:28px;
+    position:relative;
+  }
+  .split .card.proj{background:#fff7f1;border-color:var(--brick);}
+  .split .card .icon{
+    width:64px;height:64px;border-radius:50%;
+    border:2px solid var(--muted);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:30px;color:var(--muted);
+  }
+  .split .card.proj .icon{border-color:var(--brick);color:var(--brick);}
+  .split .card .h{font-family:var(--serif);font-size:72px;font-weight:600;color:var(--ink);line-height:1;}
+  .split .card .sh{font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.14em;}
+  .split .card.proj .sh{color:var(--brick);}
+  .split .card .ex{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+  .split .card .ex span{
+    display:inline-block;align-self:flex-start;
+    background:var(--cream-2);
+    padding:8px 18px;font-family:var(--mono);font-size:22px;color:var(--ink);border-radius:3px;
+  }
+  .split .card.proj .ex span{background:rgba(194,91,63,.14);color:var(--brick-deep);}
+  .split .card .q{margin-top:auto;padding-top:24px;border-top:1px solid var(--rule);font-family:var(--serif);font-size:30px;color:var(--ink);}
+  .split .card.proj .q{border-top-color:var(--brick);}
+  .split .mid{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:var(--muted);font-family:var(--mono);font-size:24px;
+  }
+  .split .mid .vrule{width:1px;flex:1;background:var(--rule);}
+  .split .mid .q{
+    writing-mode:horizontal-tb;
+    font-family:var(--serif);font-size:36px;color:var(--ink);text-align:center;
+    padding:18px 0;
+  }
+  .split-q{
+    grid-column:2;
+    align-self:center;
+    background:var(--cream-1);padding:20px 14px;text-align:center;
+    font-family:var(--serif);font-size:24px;font-weight:600;color:var(--brick);
+    border:1px solid var(--brick);line-height:1.4;
+    z-index:2;
+  }
+
+  /* ============ Chat bubbles (2.18) ============ */
+  .chat{
+    background:var(--cream-0);
+    border:1px solid var(--rule);
+    padding:36px 44px;
+    max-width:1640px;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .chat .who{font-family:var(--mono);font-size:18px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:14px;}
+  .chat .who::after{content:"";flex:1;height:1px;background:var(--rule);}
+  .chat .who.right{flex-direction:row-reverse;}
+  .chat .who.right::after{content:"";}
+  .chat .who.right::before{content:"";flex:1;height:1px;background:var(--rule);}
+  .chat .who.right::after{display:none;}
+  .chat .bubbles{display:flex;flex-direction:column;gap:14px;}
+  .chat .bubbles.right{align-items:flex-end;}
+  .chat .b{
+    max-width:1100px;
+    padding:22px 28px;border-radius:18px;
+    background:var(--cream-2);color:var(--ink);
+    font-family:var(--serif);font-size:32px;line-height:1.45;
+    border-bottom-left-radius:4px;
+    display:flex;gap:16px;align-items:baseline;
+  }
+  .chat .b .n{font-family:var(--mono);color:var(--brick);font-size:24px;}
+  .chat .b.right{background:var(--brick);color:var(--cream-0);border-bottom-left-radius:18px;border-bottom-right-radius:4px;}
+  .chat .b.right .n{color:rgba(255,255,255,.7);}
+  /* speaker tag — small label above bubble showing who is speaking */
+  .chat .speaker-tag{
+    font-family:var(--mono);font-size:18px;color:var(--brick);font-weight:600;letter-spacing:.12em;
+    margin-bottom:4px;
+  }
+  .chat .bubbles.right .speaker-tag{align-self:flex-end;}
+  .chat .typing{font-family:var(--mono);font-size:16px;color:var(--muted);letter-spacing:.18em;}
+
+  /* ============ Decision tree (2.19) ============ */
+  .tree{display:grid;grid-template-rows:auto auto auto auto;gap:36px;justify-items:center;width:100%;max-width:1500px;margin:0 auto;}
+  .tree .node{
+    background:var(--cream-0);border:1px solid var(--rule);
+    padding:22px 36px;font-family:var(--serif);font-size:36px;color:var(--ink);
+    text-align:center;border-radius:4px;
+  }
+  .tree .root{background:var(--brick);color:var(--cream-0);border-color:var(--brick);font-weight:600;}
+  .tree .branches{display:grid;grid-template-columns:1fr 1fr;gap:120px;width:100%;}
+  .tree .branch{
+    padding:32px 36px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;
+    background:var(--cream-0);border:1px solid var(--rule);border-radius:4px;
+  }
+  .tree .branch.proj{background:#fff7f1;border-color:var(--brick);}
+  .tree .branch .lab{font-family:var(--mono);font-size:22px;letter-spacing:.18em;color:var(--muted);}
+  .tree .branch.proj .lab{color:var(--brick);}
+  .tree .branch .h{font-family:var(--serif);font-size:54px;font-weight:600;color:var(--ink);}
+  .tree .branch .cmd{font-family:var(--mono);font-size:24px;color:var(--brick);background:var(--ink);padding:10px 18px;border-radius:3px;}
+  .tree .branch .path{font-family:var(--mono);font-size:22px;color:var(--muted);}
+  .tree .merge{
+    width:100%;padding:24px 36px;background:var(--ink);color:var(--cream-1);
+    border-radius:4px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;
+  }
+  .tree .merge .h{font-family:var(--serif);font-size:30px;color:var(--cream-1);}
+  .tree .merge ol{font-family:var(--mono);font-size:22px;display:flex;gap:36px;margin:0;padding:0;list-style:none;color:rgba(245,237,228,.85);}
+  .tree .merge ol li{display:flex;gap:8px;align-items:baseline;}
+  .tree .merge ol li b{color:var(--brick);}
+
+  .tree .down-arr{font-family:var(--mono);color:var(--rule-strong);font-size:20px;line-height:1;}
+
+  /* prompt-template cards for 2.21 (Area / Project prompt 範本) */
+  .prompt-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;width:100%;max-width:1700px;margin:0 auto;}
+  .prompt-card{
+    display:flex;flex-direction:column;gap:14px;
+    padding:28px 32px;
+    background:var(--cream-0);border:1px solid var(--rule);border-radius:4px;
+  }
+  .prompt-card.proj{background:#fff7f1;border-color:var(--brick);}
+  .prompt-card .lab{font-family:var(--mono);font-size:20px;letter-spacing:.22em;color:var(--muted);}
+  .prompt-card.proj .lab{color:var(--brick);}
+  .prompt-card .ht{font-family:var(--serif);font-size:42px;font-weight:600;color:var(--ink);line-height:1;}
+  .prompt-card .terminal{
+    background:var(--ink);color:var(--cream-1);
+    padding:20px 24px;border-radius:3px;
+    font-family:var(--mono);font-size:19px;line-height:1.7;
+  }
+  .prompt-card .terminal p{margin:0 0 14px;}
+  .prompt-card .terminal p:last-child{margin-bottom:0;}
+  .prompt-card .terminal ol{margin:0;padding-left:28px;}
+  .prompt-card .terminal ol li{margin-bottom:4px;}
+  .prompt-card .terminal .prompt{color:rgba(245,237,228,.45);}
+  .prompt-card .terminal b{color:var(--brick);font-weight:600;}
+
+  /* ============ /daily 4 things (2.21) ============ */
+  .daily-list{display:flex;flex-direction:column;gap:24px;max-width:1600px;}
+  .daily-list .it{display:grid;grid-template-columns:90px 1fr 1fr;gap:36px;align-items:center;padding:24px 0;border-bottom:1px solid var(--rule);}
+  .daily-list .it .n{font-family:var(--mono);font-size:28px;color:var(--brick);letter-spacing:.06em;}
+  .daily-list .it .t{font-family:var(--serif);font-size:40px;color:var(--ink);font-weight:500;}
+  .daily-list .it .d{font-family:var(--sans);font-size:26px;color:var(--muted);}
+  .daily-list .it.focus .t{color:var(--brick);}
+  .daily-list .it.focus .d{color:var(--ink);}
+
+  /* ============ Hint (2.22) ============ */
+  .hint-list{font-family:var(--mono);font-size:38px;color:var(--muted);display:flex;flex-direction:column;gap:14px;margin-top:32px;}
+  .hint-list .x{color:var(--brick);}
+
+  /* ============ Terminal cmd (2.23) ============ */
+  .cmd-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:1700px;}
+  .cmd-row .big-term{
+    background:var(--ink);color:var(--cream-1);font-family:var(--mono);
+    padding:48px 44px;font-size:34px;line-height:1.5;border-radius:6px;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .cmd-row .big-term .row{display:flex;gap:14px;align-items:baseline;}
+  .cmd-row .big-term .prompt{color:rgba(245,237,228,.5);}
+  .cmd-row .big-term .cmd{color:var(--brick);font-size:48px;font-weight:600;}
+  .cmd-row .flow{display:flex;flex-direction:column;gap:14px;}
+  .cmd-row .flow .row{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;padding:14px 0;border-bottom:1px dashed var(--rule);}
+  .cmd-row .flow .row .n{font-family:var(--mono);font-size:24px;color:var(--brick);}
+  .cmd-row .flow .row .t{font-family:var(--sans);font-size:24px;color:var(--ink);}
+  .cmd-row .flow .row .t .mut{color:var(--muted);}
+  .cmd-row .flow .row.focus .t{color:var(--brick);font-weight:600;font-family:var(--serif);font-size:28px;}
+
+  /* ============ 3 traps (2.24) ============ */
+  .traps{display:flex;flex-direction:column;gap:28px;max-width:1600px;}
+  .trap{display:grid;grid-template-columns:160px 1fr;gap:36px;padding:28px 36px;background:var(--cream-0);border:1px solid var(--rule);}
+  .trap.mute{opacity:.65;}
+  .trap.live{background:#fff7f1;border-color:var(--brick);}
+  .trap .lab{font-family:var(--mono);font-size:22px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;}
+  .trap.live .lab{color:var(--brick);}
+  .trap .body{font-family:var(--serif);font-size:34px;color:var(--ink);line-height:1.4;}
+  .trap .arr{color:var(--muted);font-family:var(--mono);margin-right:8px;}
+  .trap.live .arr{color:var(--brick);}
+
+  /* ============ Checklist large (2.26) ============ */
+  .check-list{display:flex;flex-direction:column;gap:22px;max-width:1700px;}
+  .check-list .ck{display:grid;grid-template-columns:78px 1fr;gap:30px;align-items:center;padding:28px 36px;background:var(--cream-0);border:1px solid var(--rule);}
+  .check-list .ck .mk{
+    width:60px;height:60px;border-radius:50%;background:var(--brick);color:var(--cream-0);
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:30px;
+  }
+  .check-list .ck .path{font-family:var(--mono);font-size:32px;color:var(--ink);}
+  .check-list .ck .d{font-family:var(--sans);font-size:24px;color:var(--muted);margin-top:6px;}
+
+  /* ============ Block 3 transition (2.28) ============ */
+  .block3 .q-card{
+    margin-top:60px;
+    background:var(--cream-1);color:var(--ink);
+    padding:48px 56px;
+    max-width:1500px;
+    border-left:8px solid var(--brick);
+    font-family:var(--serif);font-size:42px;line-height:1.5;
+  }
+  .block3 .q-card .lab{font-family:var(--mono);font-size:22px;color:var(--brick);letter-spacing:.18em;display:block;margin-bottom:18px;text-transform:uppercase;}
+  .block3 .q-card .body{color:var(--ink);}
+  .block3 .q-card .body .brick{color:var(--brick);font-weight:600;}
+  .block3 .next-line{margin-top:56px;font-family:var(--serif);font-size:60px;color:var(--cream-1);}
+  .block3 .next-line .brick{color:var(--brick);font-weight:600;}
+  .block3 .lunch{
+    display:inline-flex;align-items:center;gap:18px;
+    margin-top:40px;padding:18px 32px;background:var(--brick);color:var(--cream-0);
+    font-family:var(--mono);font-size:22px;letter-spacing:.2em;text-transform:uppercase;
+  }
+
+  /* ============ Title row (eyebrow + h2) reusable ============ */
+  .head{display:flex;flex-direction:column;gap:22px;margin-bottom:52px;}
+  .head h2{font-family:var(--serif);font-weight:600;font-size:var(--type-h2);line-height:1.1;color:var(--ink);margin:0;letter-spacing:-.01em;}
+  .head .sub{font-family:var(--serif);font-size:var(--type-subtitle);color:var(--muted);}
+
+</style>
+
+<script type="application/json" id="speaker-notes">
+[
+  "Block 1 結束、現場可能還有人在問問題、用這張穩住節奏。深呼吸、看一下台下、再開口。「我們進到第二站」、講完讓字停在那裡 3 秒。不需要解釋為什麼、直接接下一張。",
+  "兩個小時、四個動作 — 我幫你把待會兒會發生什麼、攤在這。重點不是把每個動作講清楚、重點是讓他們知道「不是來上課、是來動手的」。最後那句『會自己跑的東西』停一下、那是 Block 2 的承諾。",
+  "把語速降下來。這段是 hook、講的是我自己的故事、不是教學。「去年 2 月、我離開全職工作」短暫停頓、「一個朋友問我、你最近在幹嘛 — 我答不出來。」最後那句要苦笑、不要演。",
+  "把行事曆攤開的畫面講出來。22 場會、400 封信、6 個競品、12 篇報告、9 篇筆記 — 不要急著念完、每個數字停半秒。最後朋友那句『那你做出來了什麼』、看著台下、不解釋、進下一張。",
+  "金句頁、停 8-10 秒。不要解釋。讓『但拿不出證據』那行打進去。",
+  "從痛點 pivot 到解法。「你不缺努力」— 確認台下點頭 — 「你缺的是一套、把努力對準幾個目標的東西。」最後那句『接下來 1 小時、我把這套東西、給你』要直視台下、像承諾。",
+  "節奏 reset、進到段 3。「12 週剛剛好」念出來、配上副標『年太遠 · 月太短』。底下三行短句、不要逐字念、挑兩句就好。",
+  "Block 2 最重要的視覺、要停 3 分鐘以上。從上往下走 4 層、VISION 課前 1on1 已寫好、快快帶過。12-WEEK-PLAN.md 那層停下來、指 ★ — 「今天我們填的、是這層」。然後切到右邊 WAM、3 條規則念過、強調『今天先知道有這東西、回家每週跑』。",
+  "金句頁、不解釋。讓兩行字打進去。",
+  "Lead vs Lag 第一個例子。「想減脂的人」這 5 個字念出來就好。然後攤開兩個寫法。第一行『體脂降到 20%』停一下、配 ✗。第二行『每週重訓 3 次』、配 ✓。差別不用解釋、下一張對比表就懂。",
+  "對比表、停 2 分半。指 LAG 那欄『你想要的結果』、指 LEAD 那欄『你能控制的動作』。兩組例子各念一次。然後底下規則：Lead 是 100% 控制、Lag 是副產品。最後右下那句『今天我們寫 Lead、Lag 寫下來當參考、不追蹤』— 這句重要、避免他們等下卡在 Lag。",
+  "金句頁、停 10 秒。「控制 Lead、結果是副產品。」",
+  "進實作。「你動手、30 分鐘、兩個步驟」。把兩個步驟講清楚、特別強調 Pair share 在前、Claude 在後。最後那句『先用嘴巴講、再給 Claude』— 這是整個 5a 的精神、慢念。",
+  "Pair share 規則、這張會在實作期間一直顯示在台上。講者 4 分鐘講你想推進什麼。聽者 4 分鐘 — 只做一件事：問『這個你能 100% 控制嗎？』答不出來就是 Lag、請對方換寫法。最後那個紅字警告念出來：『聽者不評論目標的內容』— 這個重要、避免變成互相給建議。",
+  "簡短說明 Claude 流程。左邊 terminal — 輸入『設定目標』。右邊 — Claude 會問你 3 件事。底下 — Claude 會做的 5 件事不用念完、強調最後兩個：『寫進 12-WEEK-PLAN.md』『填 Weekly-Commitment 本週』。30 秒講完、切到下一張 timer。",
+  "計時 15 分鐘。「現在跑」、然後安靜下台。我巡場、看誰卡住。最後 1 分鐘倒數會變紅、那時候提醒『寫完打開 Goals/12-WEEK-PLAN.md 看 Claude 寫了什麼』。",
+  "進 5b。Area vs Project。「Area 沒有結束日、Project 有結束日」。中間問句『這件事 12 週後會結束嗎』停一下、這是分類的唯一準則。底下那句『不確定預設選 Area』要講、避免他們糾結。",
+  "Pair share 規則 2.0。這次講者要問 3 個問題（Area 還是 Project / 叫什麼名字 / 接下來 12 週會做什麼）、聽者只問一個：『你打算什麼時候開始做第一件事？』— 暖場結束。和 5a 一樣、警告聽者不評論。",
+  "Claude 流程說明。重點是這個分叉：Area 用『新增領域』指令、Project 用『新增專案』指令。底下 5 步驟不用念、強調『先做選擇、再跑流程』。30 秒講完、切 timer。",
+  "計時 13 分鐘。同樣動作 — 開跑、巡場。寫完打開 Efforts/OVERVIEW.md 看自己建了什麼。",
+  "進段 6、/daily 介紹。「你說『開工』、Claude 做 4 件事」— 4 件事念過、第 4 件『最多 3 件、選 1 個焦點』停一下、那是 /daily 的精神。下一步直接切螢幕、demo 跑一次。",
+  "demo 結束、回到 slide。「現在 /daily 只讀本地檔案」— 看不到 Email、Calendar、其他外部資料。這是伏筆、不展開、直接說『下午我們會升級它』。最後一句『但上午、先把基礎跑通』— 把節奏拉回。",
+  "進段 7、學員實作 /daily。Terminal 輸入『開工』— 念出來。右邊 6 步驟過一遍、特別強調第 4 步『Claude 問你今天推進哪個 Lead』— 這是學員要回答的、其他都是 Claude 自己跑。",
+  "預警。3 個卡點 — 前兩個（沒昨天 daily / BACKLOG 空的）是『不用擔心』、Claude 自己跳過。第三個（Claude 問你今天推進哪個 Lead）是『你要回答的』。最後那句『跑就對了、卡住舉手』— 切 timer。",
+  "計時 10 分鐘。最後一輪實作、整個工作坊上半場到這結束。同樣動作 — 開跑、巡場、寫完打開 Daily Note 看。",
+  "接通。「你把目標、接上了每天的執行」— 慢念。上 2 層（12 週目標 + Efforts）淡色快帶、課前就設好；指『↓ 這兩小時你接上了』、強調下 2 層（本週 lock + 今天 daily）才是這兩小時補上的。最後『這不是一張紙、是一條從目標通到今天的線』停一下、進金句頁。",
+  "金句、Block 2 高潮。「系統開始跑了」— 一行、停 10 秒、不解釋。",
+  "Block 3 預告 + 午餐。「剛剛設目標的時候、有沒有閃過一個念頭 — 這個目標、我之前好像想過 / 學過 / 讀過類似的東西、但具體是什麼、想不起來。」念完、看台下、然後『下午回來、建你的知識網』。最後『午餐 1 小時、下午回來』— 收場。"
+]
+</script>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080" no-rail>
+
+  <!-- ============ 2.01 Block 2 Transition ============ -->
+  <section class="transition dark" data-label="01 Block 2 Transition">
+    <div class="frame">
+      <div class="block-tag">BLOCK 2 · STATION 02</div>
+      <h1>目標管理<br><span style="color:var(--brick);">從 12 週目標<br>到每天</span></h1>
+      <div class="sub">在 Cockpit 裡 · 建你的第一個系統</div>
+      <div class="mid-line">第二站 — 把模糊的「我想做點什麼」<br>變成系統會幫你追的東西。</div>
+    </div>
+    <div class="minimap">
+      <div class="st"><div class="node done"></div><div class="label">01</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node active"></div><div class="label" style="color:var(--brick);">02</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node"></div><div class="label">03</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node"></div><div class="label">04</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node"></div><div class="label">05</div></div>
+    </div>
+    <div class="slide-foot on-dark"><span>BLOCK 2 · 目標管理</span><span class="pg">1 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.02 4 actions ============ -->
+  <section data-label="02 接下來 2 小時、4 個動作">
+    <div class="frame">
+      <div class="head">
+        <h2 class="slide-title">接下來 2 小時、4 個動作</h2>
+      </div>
+      <ul class="num-list" style="gap:18px;">
+        <li><span class="n">01</span><span class="t">設你的 12 週目標</span><span class="meta">12-WEEK-PLAN.md</span></li>
+        <li><span class="n">02</span><span class="t">建對應的 Effort 資料夾</span><span class="meta">Areas / Projects</span></li>
+        <li><span class="n">03</span><span class="t">lock 本週 work items</span><span class="meta">WAM</span></li>
+        <li><span class="n">04</span><span class="t">跑一次「開工」</span><span class="meta">/daily</span></li>
+      </ul>
+      <div class="pull-quote" style="margin-top:40px;font-size:44px;">今天不是再教你設目標 — <span class="brick">是啟動一個會自己跑的東西。</span></div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">2 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.03 去年 4 月 ============ -->
+  <section data-label="03 去年 4 月">
+    <div class="frame">
+      <div class="head">
+        <h2 class="slide-title">去年 4 月、我離開全職工作</h2>
+      </div>
+      <div class="narrative" style="margin-top:48px;">
+        一個朋友問我 ——
+        <div style="margin-top:36px;" class="quoted">「你最近在幹嘛？」</div>
+        <div style="margin-top:36px;" class="aside">（我答不出來。）</div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">3 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.04 我打開電腦給他看 ============ -->
+  <section data-label="04 我打開電腦給他看">
+    <div class="frame">
+      <div class="head">
+        <h2 class="slide-title">我打開電腦給他看</h2>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="n">22</div><div class="l">場<br>會議</div></div>
+        <div class="stat"><div class="n">400</div><div class="l">封<br>信</div></div>
+        <div class="stat"><div class="n">3</div><div class="l">個<br>Project</div></div>
+        <div class="stat txt"><div class="phrase">散落<br>各處</div><div class="l">筆記</div></div>
+      </div>
+      <div class="speaker-q">
+        <span class="who">朋友看完、問我一句 ——</span>
+        <span>「那、你<span class="brick">做出來了什麼</span>？」</span>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">4 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.05 我做了很多事。但拿不出證據。 ============ -->
+  <section class="quote-slide dark" data-label="05 但拿不出證據">
+    <div class="frame middle">
+      <div class="qmark">"</div>
+      <div class="qbody">
+        我做了很多事。<br>
+        <span class="big brick">但拿不出證據。</span>
+      </div>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">5 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.06 我不是不努力 ============ -->
+  <section data-label="06 我不是不努力">
+    <div class="frame">      <div class="pivot-pre">我不是不努力 ——</div>
+      <div class="pivot-main">
+        我們缺的是一套<br>
+        把努力對準<br>
+        <span style="text-decoration:underline;text-decoration-color:var(--brick);text-decoration-thickness:6px;text-underline-offset:14px;">幾個目標的東西</span>
+      </div>
+      <div class="pivot-foot">接下來 1 小時、我把這套東西、給你。</div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">6 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.07 12 週剛剛好 (transition-sub) ============ -->
+  <section class="transition-sub" data-label="07 12 週剛剛好">
+    <div class="frame">
+      <h1>12 週剛剛好</h1>
+      <div class="sub">年太遠 · 月太短</div>
+      <div class="body">
+        12 週 = 3 個月。<br>
+        夠長、做得到一件像樣的事。<br>
+        夠短、你會記得自己設了什麼。
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">7 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.08 5 層漏斗 + WAM ============ -->
+  <section data-label="08 5 層漏斗 + WAM">
+    <div class="frame">
+      <div class="funnel-head">
+        <div>
+          <h2 class="slide-title" style="font-size:64px;margin-top:18px;">12 週目標、在一個結構裡</h2>
+        </div>
+        <div class="tagline">比月長 · 比年短<br><b>看得到推進</b></div>
+      </div>
+      <div class="two-col">
+        <div class="funnel">
+          <div class="row f1 muted">
+            <div>
+              <div class="name">VISION.md</div>
+              <div class="desc">想要的人生 · 5–10 年</div>
+            </div>
+            <div class="tag">課前 1on1 已寫</div>
+          </div>
+          <div class="arrow">▼</div>
+          <div class="row f3 star">
+            <div class="star-mark">★</div>
+            <div>
+              <div class="name">12-WEEK-PLAN.md</div>
+              <div class="desc">這 12 週要推進什麼</div>
+            </div>
+          </div>
+          <div class="arrow">▼</div>
+          <div class="row f4">
+            <div>
+              <div class="name">Weekly-Commitment.md</div>
+              <div class="desc">這週的 Lead</div>
+            </div>
+            <div class="tag">今天填本週</div>
+          </div>
+          <div class="arrow">▼</div>
+          <div class="row f5">
+            <div>
+              <div class="name">Daily/YYYY-MM-DD.md</div>
+              <div class="desc">今天做什麼</div>
+            </div>
+            <div class="tag">/daily</div>
+          </div>
+        </div>
+
+        <div class="wam-card">
+          <div class="head">
+            <div class="h">WAM</div>
+            <div class="sh">每週 · 15 分鐘</div>
+          </div>
+          <div class="rules">
+            <div class="r"><div class="k">01</div><div class="v">Score = 完成 / 總數<small>算給自己看、不是給老闆看</small></div></div>
+            <div class="r"><div class="k">02</div><div class="v">70 分是甜蜜點<small>不是越高越好。100% 代表目標訂太低。</small></div></div>
+            <div class="r"><div class="k">03</div><div class="v">結算本週 · lock 下週<small>15 分鐘儀式、不超時</small></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot-note" style="margin-top:24px;font-size:20px;line-height:1.4;white-space:nowrap;">每一層都對應 FLUX 裡 <span class="mono-tag">Cockpit/Goals/</span> 的一個檔案。今天填的是 <b style="color:var(--brick);">12-WEEK-PLAN.md</b> + <b style="color:var(--brick);">Weekly-Commitment 本週</b>。</div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">8 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.09 quote 年太遠 ============ -->
+  <section class="quote-slide dark" data-label="09 年太遠月太短">
+    <div class="frame middle">
+      <div class="qbody" style="font-family:var(--mono);font-size:60px;color:rgba(245,237,228,.85);font-weight:400;letter-spacing:.08em;">
+        年太遠 · 月太短
+      </div>
+      <div class="qbody" style="margin-top:48px;">
+        <span class="big brick">12 週剛剛好</span>
+      </div>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">9 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.10 怎麼知道你在前進？ ============ -->
+  <section data-label="10 怎麼知道你在前進">
+    <div class="frame">
+      <div class="head">
+        <h2 class="slide-title">目標寫好了 — 怎麼知道你在前進？</h2>
+      </div>
+      <div style="margin-top:48px;display:flex;flex-direction:column;gap:36px;">
+        <div style="font-family:var(--serif);font-size:38px;line-height:1.6;color:var(--ink);">
+          你寫「<b>我要做個人品牌</b>」<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;「<b>我要減重</b>」<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;「<b>我要當超級業務</b>」
+        </div>
+        <div style="font-family:var(--mono);font-size:24px;color:var(--muted);letter-spacing:.18em;padding-left:8px;">
+          ↓ &nbsp;&nbsp;12 週後
+        </div>
+        <div style="font-family:var(--serif);font-size:48px;font-weight:600;color:var(--brick);">
+          ???&nbsp;&nbsp;你怎麼知道、有沒有真的在前進？
+        </div>
+      </div>
+      <div class="pull-quote" style="margin-top:56px;font-size:42px;">
+        你需要<span class="brick">量一個東西</span>。<br>
+        <span class="mut" style="font-size:30px;">該量什麼 — 有兩種選法。</span>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">10 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.11 想減脂的人 ============ -->
+  <section data-label="11 想減脂的人">
+    <div class="frame">
+      <div class="head">
+        <h2 class="slide-title">想減脂的人 — 你會量什麼？</h2>
+      </div>
+      <div class="case-stack">
+        <div class="case-row lag">
+          <div class="tag">LAG</div>
+          <div class="txt">你寫「<b>體脂降到 20%</b>」 — 想要的結果、控制不了</div>
+          <div class="ck">✗</div>
+        </div>
+        <div class="case-row lead">
+          <div class="tag">LEAD</div>
+          <div class="txt">你寫「<b>每週重訓 3 次</b>」 — 為了達到 Lag、你願意做的事</div>
+          <div class="ck">✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">11 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.12 Lead vs Lag table ============ -->
+  <section data-label="12 Lead vs Lag 對比">
+    <div class="frame">
+      <div class="head" style="margin-bottom:36px;">
+        <h2 class="slide-title">Lead vs Lag</h2>
+      </div>
+      <div class="ll-table">
+        <div class="ll-cell ll-head"><div class="k">LAG</div><div class="v">你想要的結果</div></div>
+        <div class="ll-cell ll-head lead"><div class="k">LEAD</div><div class="v">為了 Lag、你願意做的事</div></div>
+        <div class="ll-cell"><div class="ex">體脂降到 20%</div><div class="note">✗ 控制不了</div></div>
+        <div class="ll-cell"><div class="ex">每週重訓 3 次</div><div class="note brick">✓ 100% 控制</div></div>
+        <div class="ll-cell row-last"><div class="ex">網站訪客數一個月 5,000</div><div class="note">✗ 控制不了</div></div>
+        <div class="ll-cell row-last"><div class="ex">每週發 1 篇 Blog</div><div class="note brick">✓ 100% 控制</div></div>
+      </div>
+      <div class="ll-rules">
+        <div class="r"><b>LAG</b>你想要的結果（成功長什麼樣子）</div>
+        <div class="r"><b>LEAD</b>為了 Lag、你願意做、且能 100% 控制的動作</div>
+      </div>
+      <div class="ll-foot">今天我們寫 Lead。Lag 寫下來當參考、不追蹤。</div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">12 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.12 quote 控制 Lead ============ -->
+  <section class="quote-slide dark" data-label="13 控制 Lead 結果是副產品">
+    <div class="frame middle">
+      <div class="qbody">
+        控制 Lead<br>
+        <span class="big brick">結果是副產品</span>
+      </div>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">13 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.14 但會出兩種狀況 ============ -->
+  <section data-label="14 但會出兩種狀況">
+    <div class="frame">
+      <div class="head" style="margin-bottom:32px;">
+        <h2 class="slide-title">但會出兩種狀況</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:24px;">
+        <!-- Mode 1 -->
+        <div style="padding:32px 36px;background:var(--cream-0);border:1px solid var(--rule);border-radius:4px;display:flex;flex-direction:column;gap:18px;">
+          <div style="font-family:var(--mono);font-size:22px;color:var(--brick);letter-spacing:.22em;">MODE 1</div>
+          <div style="font-family:var(--serif);font-size:36px;font-weight:600;color:var(--ink);line-height:1.25;">Lead 達成<br>Lag 沒跟上</div>
+          <div style="height:1px;background:var(--rule);"></div>
+          <div style="font-family:var(--sans);font-size:24px;color:var(--ink);line-height:1.5;">
+            你「<b>每週重訓 3 次</b>」 ✓<br>
+            <span style="color:var(--muted);">但體脂沒降。</span>
+          </div>
+          <div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.12em;">↓ 可能原因</div>
+          <div style="font-family:var(--sans);font-size:24px;color:var(--ink);line-height:1.4;">
+            Lead 跟 Lag 沒掛鉤<br>
+            <span style="color:var(--muted);font-size:22px;">（你在健身房滑手機？）</span>
+          </div>
+          <div style="margin-top:auto;padding-top:14px;font-family:var(--serif);font-size:26px;color:var(--brick);font-weight:600;">
+            → 換 Lead<br>
+            <span style="font-family:var(--sans);font-size:22px;color:var(--muted);font-weight:400;">（例如：重訓改成有教練盯）</span>
+          </div>
+        </div>
+
+        <!-- Mode 2 -->
+        <div style="padding:32px 36px;background:var(--cream-0);border:1px solid var(--rule);border-radius:4px;display:flex;flex-direction:column;gap:18px;">
+          <div style="font-family:var(--mono);font-size:22px;color:var(--brick);letter-spacing:.22em;">MODE 2</div>
+          <div style="font-family:var(--serif);font-size:36px;font-weight:600;color:var(--ink);line-height:1.25;">Lead<br>達成度低</div>
+          <div style="height:1px;background:var(--rule);"></div>
+          <div style="font-family:var(--sans);font-size:24px;color:var(--ink);line-height:1.5;">
+            你想「<b>每週重訓 3 次</b>」<br>
+            <span style="color:var(--muted);">但只做到 1 次。</span>
+          </div>
+          <div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.12em;">↓ 可能原因</div>
+          <div style="font-family:var(--sans);font-size:24px;color:var(--ink);line-height:1.4;">
+            目標訂太高<br>
+            <span style="color:var(--muted);font-size:22px;">一週時間擠不出來</span>
+          </div>
+          <div style="margin-top:auto;padding-top:14px;font-family:var(--serif);font-size:26px;color:var(--brick);font-weight:600;">
+            → 調 Lead 的量<br>
+            <span style="font-family:var(--sans);font-size:22px;color:var(--muted);font-weight:400;">（或砍其他 Lead 騰時間）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote" style="margin-top:36px;font-size:36px;">
+        <span class="brick">WAM</span> 就是讀這兩種訊號的時候。
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">14 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.15 你動手 30 min 2 步驟 ============ -->
+  <section data-label="15 你動手 28 分鐘">
+    <div class="frame">
+      <div class="head">
+        <h2 class="slide-title">你動手 · 28 分鐘</h2>
+      </div>
+      <div class="steps2">
+        <div class="step">
+          <div class="n">01</div>
+          <div>
+            <div class="h">Pair share</div>
+            <div class="d">用嘴巴把目標講出來、互測 Lead / Lag</div>
+          </div>
+          <div class="t">16 min</div>
+        </div>
+        <div class="step">
+          <div class="n">02</div>
+          <div>
+            <div class="h">跟 Claude 跑流程</div>
+            <div class="d">寫進 12-WEEK-PLAN.md + Weekly-Commitment</div>
+          </div>
+          <div class="t">12 min</div>
+        </div>
+      </div>
+      <div class="pull-quote" style="margin-top:48px;font-size:46px;">先用嘴巴講、<span class="brick">再給 Claude。</span></div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">15 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.14 Pair share rules 5a ============ -->
+  <section data-label="16 Pair share 5a">
+    <div class="frame">
+      <div class="head" style="margin-bottom:20px;">
+        <h2 class="slide-title" style="font-size:80px;">Pair share 規則</h2>
+        <div class="sub" style="font-size:26px;margin-top:10px;">總共 <b style="color:var(--brick);">16 分鐘</b> · 一半換一次 role · 配對前先決定誰是 <b style="color:var(--brick);">1 號</b> / <b style="color:var(--brick);">2 號</b></div>
+      </div>
+
+      <!-- start button (opens full-screen overlay timer) -->
+      <div class="pair-start">
+        <button data-pair-launch
+                data-duration="960"
+                data-phase1='<span class="num">1 號</span> 講 · <span class="num">2 號</span> 問'
+                data-phase2='<span class="num">2 號</span> 講 · <span class="num">1 號</span> 問'>
+          <span class="play-icon">▶</span>START · 16 分鐘
+        </button>
+      </div>
+
+      <div class="pair-stack" data-phase="0" style="margin-top:20px;">
+        <div class="pair-box" style="padding:30px 40px;">
+          <div class="role" style="font-size:22px;"><span>PHASE 1 · 8 min</span><span class="t">1 號講 · 2 號問</span></div>
+          <div class="body-l" style="font-size:34px;margin-top:18px;line-height:1.4;">
+            <b style="color:var(--brick);">1 號</b>：講你 12 週後想推進什麼（1–3 個目標、邊講邊想）<br>
+            <b style="color:var(--brick);">2 號</b>：問「<span class="q">這個你能 100% 控制嗎？</span>」
+          </div>
+        </div>
+        <div class="pair-divider" style="padding:18px 40px;font-size:22px;">
+          <span>08:00 到</span><span class="swap">→ 換 role</span>
+        </div>
+        <div class="pair-box bottom" style="padding:30px 40px;">
+          <div class="role" style="font-size:22px;"><span>PHASE 2 · 8 min</span><span class="t">2 號講 · 1 號問</span></div>
+          <div class="body-l" style="font-size:34px;margin-top:18px;line-height:1.4;">
+            <b style="color:var(--brick);">2 號</b>：講你 12 週後想推進什麼<br>
+            <b style="color:var(--brick);">1 號</b>：問「<span class="q">這個你能 100% 控制嗎？</span>」答不出來 = Lag。
+          </div>
+        </div>
+      </div>
+      <div class="pair-warn" style="margin-top:28px;padding:24px 40px;">
+        <div class="lab" style="font-size:22px;">⚠ 聽方不評論目標的內容</div>
+        <div class="t" style="font-size:28px;margin-top:10px;">不說「太大」「太小」「我覺得應該⋯」、只測試 <b>Lead / Lag</b>。</div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">16 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.14b 你的目標在 Cockpit（台中新增・reuse 自 D1 #37 · 用 block-2 樣式重建）============ -->
+  <section data-label="16b 你的目標在 Cockpit">
+    <div class="frame">
+      <div class="head" style="margin-bottom:24px;">
+        <h2 class="slide-title">你課前設的目標 —— 放在 <span style="color:var(--brick);">Cockpit / Goals</span></h2>
+      </div>
+      <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:56px; align-items:stretch; flex:1;">
+        <!-- 左：VS Code file tree · Cockpit 高亮 -->
+        <div style="display:flex; flex-direction:column; border-radius:10px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.18);">
+          <div style="background:#2d2d2d; padding:13px 16px; display:flex; align-items:center; gap:9px;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#ff5f57;display:inline-block;"></span><span style="width:13px;height:13px;border-radius:50%;background:#febc2e;display:inline-block;"></span><span style="width:13px;height:13px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+            <span style="margin-left:auto; color:#888; font-size:14px; font-family:var(--mono);">FLUX-standard — VS Code</span>
+          </div>
+          <div style="flex:1; background:#252526; padding:28px 32px; font-family:var(--mono); font-size:23px; line-height:1.95; color:#cccccc;">
+            <div style="opacity:0.45;">📁 Inbox</div>
+            <div style="background:#094771; color:#fff; padding:6px 10px; margin:5px -10px; border-radius:4px; font-weight:700;">📂 Cockpit</div>
+            <div style="padding-left:30px; color:#fff; font-weight:600;">📂 Goals</div>
+            <div style="padding-left:60px; color:#9cdcfe;">📄 VISION.md<span style="color:#777; font-size:18px;">　課前 1on1 寫的</span></div>
+            <div style="padding-left:60px; color:#ce9178;">📄 12-WEEK-PLAN.md<span style="color:#777; font-size:18px;">　課前設好</span></div>
+            <div style="padding-left:60px; color:#ce9178;">📄 Weekly-Commitment.md<span style="color:#777; font-size:18px;">　本週 3–5 件</span></div>
+            <div style="padding-left:30px; color:#9cdcfe;">📁 Daily<span style="color:#777; font-size:18px;">　今天 3 件</span></div>
+            <div style="opacity:0.45;">📁 Efforts</div>
+            <div style="opacity:0.45;">📁 Atlas</div>
+            <div style="opacity:0.45; color:#C44A2B;">📄 CLAUDE.md</div>
+          </div>
+        </div>
+        <!-- 右：說明 -->
+        <div style="display:flex; flex-direction:column; justify-content:center; gap:22px;">
+          <div style="font-family:var(--serif); font-size:40px; color:var(--ink); font-weight:600; line-height:1.35;"><span style="color:var(--brick); font-family:var(--mono);">Cockpit/</span><br>= 你的控制中心</div>
+          <div style="padding:22px 26px; background:#FFF7F1; border-left:4px solid var(--brick); border-radius:0 8px 8px 0; font-family:var(--serif); font-size:25px; color:var(--ink); line-height:1.55;">課前 1on1 設好的 <strong>12 週目標</strong>，就在 <span style="color:var(--brick); font-family:var(--mono);">Cockpit/Goals/</span> 這三個檔 —— 等下打開 Claude 就是檢查它們。</div>
+          <div style="padding:22px 26px; background:#FFF7F1; border-left:4px solid var(--brick); border-radius:0 8px 8px 0; font-family:var(--serif); font-size:25px; color:var(--ink); line-height:1.55;">每天「<strong>開工</strong>」讀這裡、排今天 3 件到 <span style="color:var(--brick); font-family:var(--mono);">Daily/</span>；週末 WAM 結算、lock 下週。</div>
+          <div style="font-family:var(--serif); font-size:27px; color:var(--brick); font-weight:600; margin-top:4px;">開工、收工、看今天做什麼 —— 都從 Cockpit 開始。</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">17 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.15 Claude 設定目標（review）============ -->
+  <section data-label="17 跟 Claude review 目標">
+    <div class="frame">
+      <div class="head" style="margin-bottom:32px;">
+        <h2 class="slide-title">檢查你課前設的 12 週目標</h2>
+      </div>
+      <div class="cmd-row">
+        <div class="big-term" data-copy="幫我 review 課前設好的 12 週目標完不完整：
+讀 12-WEEK-PLAN.md 和 VISION.md，逐一檢查每個目標 —
+① 有對齊我的 VISION 嗎？
+② 有清楚的 Lead（我能控制的行動）+ Lag（只觀察的結果）嗎？
+③ 數量在 1–3 個嗎？
+缺的地方、和我討論如何補上，優化、更新 12-WEEK-PLAN.md。">
+          <div class="row"><span class="prompt">~/FLUX $</span><span>claude</span></div>
+          <div style="display:flex; gap:14px; align-items:baseline; margin-top:8px;">
+            <span class="prompt">&gt;</span>
+            <div style="color:#E8DCCB; font-size:25px; line-height:1.75; font-weight:500;">幫我 review 課前設好的 12 週目標完不完整：<br>讀 <b style="color:var(--brick);">12-WEEK-PLAN.md</b> 和 <b style="color:var(--brick);">VISION.md</b>，逐一檢查每個目標 —<br><span style="color:var(--brick);">①</span> 有對齊我的 VISION 嗎？<br><span style="color:var(--brick);">②</span> 有清楚的 Lead（我能控制的行動）+ Lag（只觀察的結果）嗎？<br><span style="color:var(--brick);">③</span> 數量在 1–3 個嗎？<br>缺的地方、和我討論如何補上，優化、更新 12-WEEK-PLAN.md。<span class="caret">_</span></div>
+          </div>
+        </div>
+        <div class="flow-right">
+          <h3>Claude 會幫你檢查</h3>
+          <div class="flow-q">
+            <div class="qi"><div class="n">1</div><div class="t">每個目標都對齊你的 <b style="color:var(--brick);">VISION</b> 嗎？</div></div>
+            <div class="qi"><div class="n">2</div><div class="t">每個都有 <b style="color:var(--brick);">Lead + Lag</b>、分清楚了嗎？</div></div>
+            <div class="qi"><div class="n">3</div><div class="t">目標是不是 <b style="color:var(--brick);">1–3 個</b>（太多做不完）？</div></div>
+          </div>
+          <div class="flow-checks">
+            <div class="ck"><span class="c">✓</span><span>缺的、跟你討論怎麼補上</span><span class="path"></span></div>
+            <div class="ck"><span class="c">✓</span><span>Lead vs Lag 沒分清的、幫你重寫</span><span class="path"></span></div>
+            <div class="ck"><span class="c">✓</span><span>改好寫回</span><span class="path">Cockpit/Goals/12-WEEK-PLAN.md</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">18 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.16 Timer 15 min ============ -->
+  <section class="timer-slide dark" data-label="18 倒數 8 min 檢查目標">
+    <div class="frame middle" style="align-items:center;justify-content:center;">
+      <div class="timer-wrap">
+        <div class="timer-eyebrow">段 5a · 跑 Claude</div>
+        <div class="timer-title">學員實作中 — 跟 Claude review 你的 12 週目標</div>
+        <div class="timer-display" data-timer data-duration="480">08:00</div>
+        <div class="timer-hint"><span class="raise">✋</span><span>卡住舉手 · 余文皓巡場</span></div>
+      </div>
+    </div>
+    <div class="timer-tip">寫完打開 <b>Cockpit/Goals/12-WEEK-PLAN.md</b><br>看 Claude 寫了什麼</div>
+    <div class="timer-controls">
+      <button data-timer-action="toggle">START / PAUSE</button>
+      <button data-timer-action="reset">RESET</button>
+      <button data-timer-action="add60">+1 min</button>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">19 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.16b 你在做的事在 Efforts（台中新增・對應 Cockpit 頁的 pattern）============ -->
+  <section data-label="18b 你在做的事在 Efforts">
+    <div class="frame">
+      <div class="head" style="margin-bottom:24px;">
+        <h2 class="slide-title">你在做的事 —— 放在 <span style="color:var(--brick);">Efforts</span></h2>
+      </div>
+      <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:56px; align-items:stretch; flex:1;">
+        <!-- 左：VS Code file tree · Efforts 高亮 -->
+        <div style="display:flex; flex-direction:column; border-radius:10px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.18);">
+          <div style="background:#2d2d2d; padding:13px 16px; display:flex; align-items:center; gap:9px;">
+            <span style="width:13px;height:13px;border-radius:50%;background:#ff5f57;display:inline-block;"></span><span style="width:13px;height:13px;border-radius:50%;background:#febc2e;display:inline-block;"></span><span style="width:13px;height:13px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+            <span style="margin-left:auto; color:#888; font-size:14px; font-family:var(--mono);">FLUX-standard — VS Code</span>
+          </div>
+          <div style="flex:1; background:#252526; padding:28px 32px; font-family:var(--mono); font-size:23px; line-height:1.9; color:#cccccc;">
+            <div style="opacity:0.45;">📁 Inbox</div>
+            <div style="opacity:0.45;">📁 Cockpit</div>
+            <div style="background:#094771; color:#fff; padding:6px 10px; margin:5px -10px; border-radius:4px; font-weight:700;">📂 Efforts</div>
+            <div style="padding-left:30px; color:#9cdcfe;">📁 Areas<span style="color:#777; font-size:18px;">　永續經營・沒結束日</span></div>
+            <div style="padding-left:30px; color:#fff; font-weight:600;">📂 Projects</div>
+            <div style="padding-left:60px; color:#ce9178;">📁 Active<span style="color:#777; font-size:18px;">　進行中・有結束日</span></div>
+            <div style="padding-left:60px; opacity:0.6;">📁 Idle<span style="color:#777; font-size:18px;">　暫停（可恢復）</span></div>
+            <div style="padding-left:60px; opacity:0.6;">📁 Sleeping<span style="color:#777; font-size:18px;">　休眠</span></div>
+            <div style="padding-left:60px; opacity:0.6;">📁 Done<span style="color:#777; font-size:18px;">　完成歸檔</span></div>
+            <div style="opacity:0.45;">📁 Atlas</div>
+            <div style="opacity:0.45; color:#C44A2B;">📄 CLAUDE.md</div>
+          </div>
+        </div>
+        <!-- 右：說明 -->
+        <div style="display:flex; flex-direction:column; justify-content:center; gap:22px;">
+          <div style="font-family:var(--serif); font-size:40px; color:var(--ink); font-weight:600; line-height:1.35;"><span style="color:var(--brick); font-family:var(--mono);">Efforts/</span><br>= 你在做的事</div>
+          <div style="padding:22px 26px; background:#FFF7F1; border-left:4px solid var(--brick); border-radius:0 8px 8px 0; font-family:var(--serif); font-size:25px; color:var(--ink); line-height:1.55;">永續經營的 = <strong>Area</strong>（沒結束日）；有 deadline 的成果 = <strong>Project</strong>。下一頁細講、等下你建第一個。</div>
+          <div style="padding:22px 26px; background:#FFF7F1; border-left:4px solid var(--brick); border-radius:0 8px 8px 0; font-family:var(--serif); font-size:25px; color:var(--ink); line-height:1.55;">做完搬去 <span style="color:var(--brick); font-family:var(--mono);">Done/</span>、暫停搬 <span style="color:var(--brick); font-family:var(--mono);">Idle/</span> —— 用資料夾位置管狀態，不用標籤。</div>
+          <div style="font-family:var(--serif); font-size:27px; color:var(--brick); font-weight:600; margin-top:4px;">這些就是你 12 週目標下面、真正在推進的事。</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">20 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.17 Area vs Project ============ -->
+  <section data-label="19 Area vs Project">
+    <div class="frame">
+      <div class="head" style="margin-bottom:40px;">
+        <h2 class="slide-title">Effort 分兩種</h2>
+      </div>
+      <div class="split">
+        <div class="card">
+          <div class="icon">∞</div>
+          <div>
+            <div class="sh">沒有結束日 · 永續經營</div>
+            <div class="h">Area</div>
+          </div>
+          <div class="ex" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <span>個人品牌</span>
+            <span>專案管理</span>
+            <span>健康</span>
+            <span>前端設計</span>
+            <span>家庭</span>
+            <span>AI</span>
+          </div>
+          <div class="q">沒有結束日 → Area</div>
+        </div>
+        <div class="split-q">「這件事<br>有結束日<br>嗎？」</div>
+        <div class="card proj">
+          <div class="icon">⚑</div>
+          <div>
+            <div class="sh">會結束 · 何時結束不重要</div>
+            <div class="h">Project</div>
+          </div>
+          <div class="ex" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <span>完成 X 認證</span>
+            <span>導入新 CRM</span>
+            <span>辦完研討會</span>
+            <span>寫滿 12 篇 Blog</span>
+            <span>出一本書</span>
+            <span>跑完馬拉松</span>
+          </div>
+          <div class="q">有結束日（即使很遠）→ Project</div>
+        </div>
+      </div>
+      <div class="foot-note" style="margin-top:32px;">不確定 → 預設選 <b>Area</b>（之後可以改）</div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">21 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.18 Chat bubbles 5b ============ -->
+  <section data-label="20 Pair share 5b 對話氣泡">
+    <div class="frame">
+      <div class="head" style="margin-bottom:20px;">
+        <h2 class="slide-title" style="font-size:80px;">Pair share 規則</h2>
+        <div class="sub" style="font-size:26px;margin-top:10px;">總共 <b style="color:var(--brick);">8 分鐘</b> · 一半換一次 role · 沿用 5a 的 <b style="color:var(--brick);">1 號</b> / <b style="color:var(--brick);">2 號</b></div>
+      </div>
+
+      <!-- start button (opens full-screen overlay timer) -->
+      <div class="pair-start">
+        <button data-pair-launch
+                data-duration="480"
+                data-phase1='<span class="num">1 號</span> 講 · <span class="num">2 號</span> 問'
+                data-phase2='<span class="num">2 號</span> 講 · <span class="num">1 號</span> 問'>
+          <span class="play-icon">▶</span>START · 8 分鐘
+        </button>
+      </div>
+
+      <div class="pair-stack" data-phase="0" style="margin-top:20px;">
+        <div class="pair-box" style="padding:30px 40px;">
+          <div class="role" style="font-size:22px;"><span>PHASE 1 · 4 min</span><span class="t">1 號講 · 2 號問</span></div>
+          <div class="body-l" style="font-size:34px;margin-top:18px;line-height:1.4;">
+            <b style="color:var(--brick);">1 號</b>：講自己建的 Effort（Area / Project / 名字）<br>
+            <b style="color:var(--brick);">2 號</b>：問「<span class="q">這個 Effort、跟你剛設的 12 週目標有關聯嗎？</span>」
+          </div>
+        </div>
+        <div class="pair-divider" style="padding:18px 40px;font-size:22px;">
+          <span>04:00 到</span><span class="swap">→ 換 role</span>
+        </div>
+        <div class="pair-box bottom" style="padding:30px 40px;">
+          <div class="role" style="font-size:22px;"><span>PHASE 2 · 4 min</span><span class="t">2 號講 · 1 號問</span></div>
+          <div class="body-l" style="font-size:34px;margin-top:18px;line-height:1.4;">
+            <b style="color:var(--brick);">2 號</b>：講自己建的 Effort（Area / Project / 名字）<br>
+            <b style="color:var(--brick);">1 號</b>：問「<span class="q">這個 Effort、跟你剛設的 12 週目標有關聯嗎？</span>」
+          </div>
+        </div>
+      </div>
+      <div class="pair-warn" style="margin-top:24px;padding:20px 40px;">
+        <div class="lab" style="font-size:22px;">⚠ 答「沒關聯」不代表 Effort 要砍</div>
+        <div class="t" style="font-size:26px;margin-top:8px;line-height:1.45;">你有兩個選擇：<b style="color:var(--brick);">(a)</b> 調整 12 週目標、把這個 Effort 納入 ｜ <b style="color:var(--brick);">(b)</b> 不調整、承認它是 <b>overhead</b>（會繼續跑、但不計分）</div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">22 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.19 Decision tree ============ -->
+  <section data-label="21 review + 補你的 Effort">
+    <div class="frame">
+      <div class="head" style="margin-bottom:20px;">
+        <h2 class="slide-title" style="font-size:54px;">回到 Terminal · review + 補你的 Effort</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:stretch; flex:1;">
+        <!-- ① 主：review 課前建好的 Effort -->
+        <div style="display:flex; flex-direction:column;">
+          <div style="font-family:var(--mono); font-size:19px; color:var(--brick); letter-spacing:0.1em; margin-bottom:10px;">① 先 review 課前建好的</div>
+          <div class="big-term" data-copy="幫我 review 課前建好的 Effort：
+讀 Efforts/Areas/ 和 Efforts/Projects/Active/ 每個資料夾裡已放的文件 —
+① 理解每個 Effort 在做什麼、對照 12-WEEK-PLAN.md 看對應哪個目標
+② 有目標還沒對應的 Effort 嗎？缺的一起補建
+③ Project 都有 finish line（結束日）嗎？
+根據裡面的內容、跟我討論、更新每個 README（對應目標 + 重點 + 下一步）。" style="flex:1; background:var(--ink); color:var(--cream-1); font-family:var(--mono); border-radius:8px; padding:28px 32px; font-size:22px; line-height:1.6; display:flex; flex-direction:column; gap:8px;">
+            <div class="row" style="display:flex; gap:12px; align-items:baseline;"><span class="prompt">~/FLUX $</span><span>claude</span></div>
+            <div style="display:flex; gap:12px; align-items:baseline; margin-top:6px;">
+              <span class="prompt">&gt;</span>
+              <div style="color:#E8DCCB; font-size:22px; line-height:1.72; font-weight:500;">幫我 review 課前建好的 Effort：<br>讀 <b style="color:var(--brick);">Efforts/Areas/</b> 和 <b style="color:var(--brick);">Efforts/Projects/Active/</b> 每個資料夾裡<b style="color:var(--brick);">已放的文件</b> —<br><span style="color:var(--brick);">①</span> 理解每個 Effort 在做什麼、對照 12-WEEK-PLAN.md 看對應哪個目標<br><span style="color:var(--brick);">②</span> 有目標還沒對應的 Effort 嗎？缺的一起補建<br><span style="color:var(--brick);">③</span> Project 都有 finish line（結束日）嗎？<br>根據裡面的內容、跟我討論、<b style="color:var(--brick);">更新每個 README</b>（對應目標 + 重點 + 下一步）。<span class="caret">_</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- ② 次：缺的才建 -->
+        <div style="display:flex; flex-direction:column;">
+          <div style="font-family:var(--mono); font-size:19px; color:var(--muted); letter-spacing:0.1em; margin-bottom:12px;">② 找到沒對應的目標、才用這個建</div>
+          <div style="flex:1; display:flex; flex-direction:column; justify-content:space-evenly; gap:20px;">
+          <div class="prompt-card" style="padding:22px 24px;">
+            <div class="lab" style="font-size:16px;">AREA · 永續經營・沒結束日</div>
+            <div class="terminal" data-copy="我要建一個 Area Folder、名字「________」。對應我 12 週目標「________」。
+請建好資料夾 + README，標明對應的 12 週目標、寫好骨架。" style="font-size:18px; line-height:1.55; padding:18px 20px;"><p style="margin:0;">我要建一個 <b>Area</b> Folder、名字「________」、對應 12 週目標「________」。請建好資料夾 + README，標明對應目標、寫好骨架。</p></div>
+          </div>
+          <div class="prompt-card proj" style="padding:22px 24px;">
+            <div class="lab" style="font-size:16px;">PROJECT · 有 finish line</div>
+            <div class="terminal" data-copy="我要建一個 Project Folder、名字「________」。對應我 12 週目標「________」。預計完成 YYYY-MM-DD（會結束）。
+請建好資料夾 + README + tasks/in-progress/，標明對應目標 + finish line。" style="font-size:18px; line-height:1.55; padding:18px 20px;"><p style="margin:0;">我要建一個 <b>Project</b> Folder、名字「________」、對應 12 週目標「________」、預計完成 <b>YYYY-MM-DD</b>。請建好資料夾 + README + tasks/in-progress/，標明對應目標 + finish line。</p></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">23 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.20 Timer 13 min ============ -->
+  <section class="timer-slide dark" data-label="22 倒數 10 min review Effort">
+    <div class="frame middle" style="align-items:center;justify-content:center;">
+      <div class="timer-wrap">
+        <div class="timer-eyebrow">段 5b · 跑 Claude</div>
+        <div class="timer-title">學員實作中 — 跟 Claude review 你的 Effort</div>
+        <div class="timer-display" data-timer data-duration="600">10:00</div>
+        <div class="timer-hint"><span class="raise">✋</span><span>卡住舉手 · 余文皓巡場</span></div>
+      </div>
+    </div>
+    <div class="timer-tip">跑完打開各 Effort 的 <b>README</b><br>看更新後的內容</div>
+    <div class="timer-controls">
+      <button data-timer-action="toggle">START / PAUSE</button>
+      <button data-timer-action="reset">RESET</button>
+      <button data-timer-action="add60">+1 min</button>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">24 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.22 WAM Claude flow ============ -->
+  <section data-label="24 跟 Claude 寫本週 commitment">
+    <div class="frame">
+      <div class="head" style="margin-bottom:18px;">
+        <h2 class="slide-title" style="font-size:52px;">補上「本週」這一層 — lock 你的 Weekly-Commitment</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:0.85fr 1.15fr; gap:52px; align-items:center; flex:1;">
+        <!-- 左：為什麼 -->
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div style="font-family:var(--serif); font-size:27px; color:var(--ink); line-height:1.5;">你已經有 <b>12-WEEK-PLAN</b>（12 週目標）+ <b>Efforts</b>（要做的事）。</div>
+          <div style="font-family:var(--serif); font-size:42px; color:var(--ink); font-weight:600; line-height:1.4;">依據你的目標和 <b style="color:var(--brick);">Lead</b> ——<br><span style="color:var(--brick);">這一週你該完成什麼？</span></div>
+          <div style="font-family:var(--serif); font-size:27px; color:var(--ink); line-height:1.5;">現在把它寫下來 —— 就是本週的 <b style="color:var(--brick);">Weekly-Commitment</b>。</div>
+        </div>
+        <!-- 右：prompt -->
+        <div class="prompt-card proj" style="margin:0;">
+          <div class="lab">WEEK N LOCK · 把本週該推進的 Lead + Effort 拆成 work items</div>
+          <div class="terminal" data-copy="幫我 lock 本週的 work items —— 先搞清楚我在第幾週：
+1. 讀 12-WEEK-PLAN.md 的週期資訊 + 今天日期，算出我現在是第幾週
+2. 讀本週該推進的 Lead Indicators + 我的 Effort（Efforts/Areas/ + Efforts/Projects/Active/）
+3. 把 Lead 和 Effort 結合、拆成本週 3–5 個具體 work items（含哪天做、做多少）
+4. 寫進 Weekly-Commitment.md 的「本週」段">
+            <p><b>幫我 lock 本週的 work items</b> —— 先搞清楚我在第幾週：</p>
+            <ol>
+              <li>讀 <b>12-WEEK-PLAN.md</b> 的週期資訊 + 今天日期，算出我現在<b>第幾週</b></li>
+              <li>讀本週該推進的 Lead Indicators + 我的 Effort（<b>Efforts/Areas/</b> + <b>Efforts/Projects/Active/</b>）</li>
+              <li>把 Lead 和 Effort 結合、拆成本週 3–5 個具體 work items（含哪天做、做多少）</li>
+              <li>寫進 <b>Weekly-Commitment.md</b> 的「本週」段</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="foot-note" style="margin-top:24px;text-align:center;font-size:22px;">貼上 Claude 直接跑 —— 它會先算出你在第幾週、再把本週的 work items 寫進 Weekly-Commitment.md。</div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">25 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.23 Timer 8 min ============ -->
+  <section class="timer-slide dark" data-label="25 倒數 8 min 寫本週 commitment">
+    <div class="frame middle" style="align-items:center;justify-content:center;">
+      <div class="timer-wrap">
+        <div class="timer-eyebrow">段 5c · 跑 Claude</div>
+        <div class="timer-title">學員實作中 — 跟 Claude 寫本週 Weekly-Commitment</div>
+        <div class="timer-display" data-timer data-duration="480">08:00</div>
+        <div class="timer-hint"><span class="raise">✋</span><span>卡住舉手 · 余文皓巡場</span></div>
+      </div>
+    </div>
+    <div class="timer-tip">跑完打開 <b>Cockpit/Goals/Weekly-Commitment.md</b><br>看你本週 work items</div>
+    <div class="timer-controls">
+      <button data-timer-action="toggle">START / PAUSE</button>
+      <button data-timer-action="reset">RESET</button>
+      <button data-timer-action="add60">+1 min</button>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">26 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.24 /daily 4 things ============ -->
+  <section data-label="26 /daily 系統開機鍵 + 本地 caveat">
+    <div class="frame">
+      <div class="head" style="margin-bottom:16px;">
+        <h2 class="slide-title">/daily — 你的系統開機鍵</h2>
+        <div class="sub">一上午建的全部就位了 —— 打一個指令、叫醒整套系統。</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1.05fr 0.95fr; gap:52px; align-items:center; flex:1;">
+        <!-- 左：/daily 讀你建的一切 -->
+        <div class="daily-list">
+          <div class="it"><div class="n">01</div><div class="t">讀昨天 daily</div><div class="d">看完成了什麼、卡了什麼</div></div>
+          <div class="it"><div class="n">02</div><div class="t">讀 Weekly-Commitment</div><div class="d">本週剛 lock 的 work items</div></div>
+          <div class="it"><div class="n">03</div><div class="t">讀 BACKLOG + Inbox</div><div class="d">今天可順手做的事</div></div>
+          <div class="it focus"><div class="n">04</div><div class="t">討論今天</div><div class="d">最多 3 件 · 選 1 個焦點</div></div>
+        </div>
+        <!-- 右：本地 caveat + 就位 -->
+        <div style="display:flex; flex-direction:column; gap:28px;">
+          <div style="padding:22px 26px; background:var(--cream-2); border-left:4px solid var(--muted); border-radius:0 8px 8px 0; font-family:var(--sans); font-size:23px; color:var(--ink); line-height:1.5;"><b>目前只讀本地檔案</b> —— 看不到 Email / Calendar。<br><span style="color:var(--muted);">下午接外部、上午先把基礎跑通。</span></div>
+          <div style="font-family:var(--serif); font-size:31px; color:var(--ink); line-height:1.45;">你的<b>目標</b> · <b>Effort</b> · <b>本週 work items</b><br>—— <span style="color:var(--brick); font-weight:600;">全部就位了。</span></div>
+        </div>
+      </div>
+      <div style="margin-top:22px; text-align:center; font-family:var(--serif); font-size:38px; color:var(--brick); font-weight:600;">現在 —— 換你按下開機鍵。</div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">27 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.23 換你 開工 ============ -->
+  <section data-label="28 換你 開工">
+    <div class="frame">
+      <div class="head" style="margin-bottom:32px;">
+        <h2 class="slide-title">換你 — Terminal 輸入</h2>
+      </div>
+      <div class="cmd-row" style="align-items:center; flex:1;">
+        <div class="big-term" data-copy="開工">
+          <div class="row"><span class="prompt">~/FLUX $</span><span>claude</span></div>
+          <div class="row"></div>
+          <div class="row"><span class="prompt">&gt;</span><span class="cmd">開工<span class="caret">_</span></span></div>
+        </div>
+        <div class="flow">
+          <div class="row"><div class="n">1</div><div class="t">讀昨天 daily <span class="mut">→ 跳過（你還沒寫過）</span></div></div>
+          <div class="row"><div class="n">2</div><div class="t">讀 Weekly-Commitment <span class="mut">→ 讀你剛 lock 的本週 work items</span></div></div>
+          <div class="row"><div class="n">3</div><div class="t">讀 BACKLOG <span class="mut">→ 跳過（是空的）</span></div></div>
+          <div class="row focus"><div class="n">4</div><div class="t">問你 → 「今天推進哪個 work item？」</div></div>
+          <div class="row"><div class="n">5</div><div class="t">你回答 <span class="mut">→ 1–3 件事、選 1 個焦點</span></div></div>
+          <div class="row"><div class="n">6</div><div class="t">寫進 <span class="mut">→ Cockpit/Daily/YYYY-MM-DD.md</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">28 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.29 Timer 10 min ============ -->
+  <section class="timer-slide dark" data-label="29 倒數 5 min 開工">
+    <div class="frame middle" style="align-items:center;justify-content:center;">
+      <div class="timer-wrap">
+        <div class="timer-eyebrow">段 7 · 跑 /daily</div>
+        <div class="timer-title">學員實作中 — 跟 Claude 跑「開工」</div>
+        <div class="timer-display" data-timer data-duration="300">05:00</div>
+        <div class="timer-hint"><span class="raise">✋</span><span>卡住舉手 · 余文皓在場</span></div>
+      </div>
+    </div>
+    <div class="timer-tip">和 Claude <b>討論</b>、把今天要做的 3 件事談定<br>再讓它寫進 Daily Note</div>
+    <div class="timer-controls">
+      <button data-timer-action="toggle">START / PAUSE</button>
+      <button data-timer-action="reset">RESET</button>
+      <button data-timer-action="add60">+1 min</button>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">29 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.26 Checklist large ============ -->
+  <section data-label="30 把目標接上每天執行">
+    <div class="frame" style="padding-bottom:120px;padding-top:72px;">
+      <div class="head" style="margin-bottom:22px;">
+        <h2 class="slide-title" style="font-size:60px;">你把目標 —— 接上了<span style="color:var(--brick);">每天的執行</span></h2>
+        <div class="sub" style="font-size:30px;">從 12 週、到本週、到今天 —— 一條線通了。</div>
+      </div>
+      <div class="check-list" style="gap:12px;">
+        <div class="ck" style="padding:16px 32px; opacity:0.7;"><div class="mk">✓</div><div><div class="path">Cockpit/Goals/12-WEEK-PLAN.md</div><div class="d">12 週目標 · <span style="color:var(--muted);">課前設好、今天 review 過</span></div></div></div>
+        <div class="ck" style="padding:16px 32px; opacity:0.7;"><div class="mk">✓</div><div><div class="path">Efforts/Areas/ 或 Projects/Active/</div><div class="d">要做的事 · <span style="color:var(--muted);">課前建好、今天補齊</span></div></div></div>
+        <div style="font-family:var(--mono); font-size:23px; color:var(--brick); letter-spacing:0.08em; padding:8px 0 8px 6px; font-weight:600;">↓ 這兩小時、你接上了 ——</div>
+        <div class="ck" style="padding:18px 32px; border-left:5px solid var(--brick);"><div class="mk">✓</div><div><div class="path">Cockpit/Goals/Weekly-Commitment.md</div><div class="d"><b style="color:var(--ink);">本週要做的 work items</b> · 今天 lock 好</div></div></div>
+        <div class="ck" style="padding:18px 32px; border-left:5px solid var(--brick);"><div class="mk">✓</div><div><div class="path">Cockpit/Daily/YYYY-MM-DD.md</div><div class="d"><b style="color:var(--ink);">今天的 3 件事</b> · 剛剛開工跑出來的</div></div></div>
+      </div>
+      <div class="pull-quote" style="margin-top:16px;font-size:34px;">這不是一張紙 —— 是一條<span class="brick">從目標通到今天的線。</span></div>
+    </div>
+    <div class="slide-foot"><span>AI Cockpit · Block 2</span><span class="pg">30 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.27 quote 系統開始跑了 ============ -->
+  <section class="quote-slide dark" data-label="31 系統開始跑了">
+    <div class="frame middle">
+      <div class="qbody">
+        <span style="font-size:200px;font-weight:700;color:var(--brick);font-family:var(--serif);line-height:1.1;display:block;">系統開始跑了。</span>
+      </div>
+    </div>
+    <div class="slide-foot on-dark"><span>AI Cockpit · Block 2</span><span class="pg">31 / 32</span></div>
+  </section>
+
+  <!-- ============ 2.28 Block 3 transition ============ -->
+  <section class="transition dark block3" data-label="32 Block 3 Transition">
+    <div class="frame">
+      <div class="block-tag">BLOCK 3 · STATION 03</div>
+      <h1 style="font-size:120px;">第三站</h1>
+      <div class="q-card">
+        <span class="lab">剛剛設目標的時候 ——</span>
+        <div class="body">
+          有沒有閃過一個念頭：<br>
+          「這個目標、我之前好像<span class="brick">想過 / 學過 / 讀過類似的東西</span>⋯<br>
+          但具體是什麼、<b>想不起來。</b>」
+        </div>
+      </div>
+      <div class="next-line">下午回來、建你的 <span class="brick">知識網。</span></div>
+      <div class="lunch">● 午餐 1 小時 · 下午回來</div>
+    </div>
+    <div class="minimap">
+      <div class="st"><div class="node done"></div><div class="label">01</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node done"></div><div class="label">02</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node active"></div><div class="label" style="color:var(--brick);">03</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node"></div><div class="label">04</div></div>
+      <div class="conn"></div>
+      <div class="st"><div class="node"></div><div class="label">05</div></div>
+    </div>
+    <div class="slide-foot on-dark"><span>BLOCK 3 · 預告</span><span class="pg">32 / 32</span></div>
+  </section>
+
+</deck-stage>
+
+<!-- ============ Full-screen pair-share timer overlay (2.16) ============ -->
+<div class="pair-overlay" id="pairOverlay" data-phase="0">
+  <div class="po-flash" id="pairFlash"></div>
+  <button class="po-close" id="pairClose">ESC · 關閉</button>
+  <div class="po-phase" id="pairPhase">PHASE 1</div>
+  <div class="po-role" id="pairRole"><span class="num">1 號</span> 講 · <span class="num">2 號</span> 問</div>
+  <div class="po-display" id="pairDisplay">16:00</div>
+  <div class="po-hint">按 <kbd>SPACE</kbd> 暫停 / 繼續 · 按 <kbd>ESC</kbd> 關閉</div>
+  <div class="po-controls">
+    <button id="pairToggle">PAUSE</button>
+    <button id="pairReset">RESET</button>
+  </div>
+</div>
+
+<script>
+// ============ Timer component (used on slides 16, 20, 25) ============
+(function(){
+  const timers = new Map();
+
+  function fmt(s){
+    s = Math.max(0, s|0);
+    const m = String((s/60)|0).padStart(2,"0");
+    const ss = String(s%60).padStart(2,"0");
+    return `${m}:${ss}`;
+  }
+
+  function getState(el){
+    if(timers.has(el)) return timers.get(el);
+    const dur = parseInt(el.dataset.duration || "600", 10);
+    const st = { el, total: dur, remaining: dur, running:false, intervalId:null };
+    timers.set(el, st);
+    return st;
+  }
+
+  function render(st){
+    st.el.textContent = fmt(st.remaining);
+    if(st.remaining <= 60) st.el.classList.add("warn");
+    else st.el.classList.remove("warn");
+  }
+
+  function tick(st){
+    st.remaining = Math.max(0, st.remaining - 1);
+    render(st);
+    if(st.remaining === 0){
+      clearInterval(st.intervalId);
+      st.intervalId = null;
+      st.running = false;
+    }
+  }
+
+  function toggle(st){
+    if(st.running){
+      clearInterval(st.intervalId);
+      st.intervalId = null;
+      st.running = false;
+    } else {
+      if(st.remaining === 0) st.remaining = st.total;
+      st.running = true;
+      st.intervalId = setInterval(()=>tick(st), 1000);
+    }
+  }
+
+  function reset(st){
+    clearInterval(st.intervalId);
+    st.intervalId = null;
+    st.running = false;
+    st.remaining = st.total;
+    render(st);
+  }
+
+  function add60(st){
+    st.remaining += 60;
+    render(st);
+  }
+
+  function init(){
+    document.querySelectorAll("[data-timer]").forEach(el => {
+      const st = getState(el);
+      render(st);
+      const slide = el.closest("section");
+      if(!slide) return;
+      slide.querySelectorAll("[data-timer-action]").forEach(btn => {
+        btn.addEventListener("click", (e)=>{
+          e.stopPropagation();
+          const a = btn.dataset.timerAction;
+          if(a === "toggle") toggle(st);
+          else if(a === "reset") reset(st);
+          else if(a === "add60") add60(st);
+        });
+      });
+    });
+
+    // pause timers on slides when not active
+    document.addEventListener("keydown", ()=>{}, true);
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>
+// ============ Full-screen pair-share timer (slides 2.16 + 2.20) ============
+// Reads duration + phase texts from each launch button's data attributes.
+(function(){
+  function fmt(s){
+    s = Math.max(0, s|0);
+    const m = String((s/60)|0).padStart(2,"0");
+    const ss = String(s%60).padStart(2,"0");
+    return `${m}:${ss}`;
+  }
+
+  function init(){
+    const overlay = document.getElementById("pairOverlay");
+    const flash = document.getElementById("pairFlash");
+    const phaseEl = document.getElementById("pairPhase");
+    const roleEl = document.getElementById("pairRole");
+    const displayEl = document.getElementById("pairDisplay");
+    const toggleBtn = document.getElementById("pairToggle");
+    const resetBtn = document.getElementById("pairReset");
+    const closeBtn = document.getElementById("pairClose");
+    const launchBtns = document.querySelectorAll("[data-pair-launch]");
+
+    if(!overlay || launchBtns.length === 0) return;
+
+    // active config — populated when launch button is clicked
+    let TOTAL = 960;
+    let SWITCH_AT = 480;
+    let phase1Html = '<span class="num">1 號</span> 講 · <span class="num">2 號</span> 問';
+    let phase2Html = '<span class="num">2 號</span> 講 · <span class="num">1 號</span> 問';
+
+    let remaining = TOTAL;
+    let running = false;
+    let intervalId = null;
+    let phase = 0;
+
+    function applyConfig(btn){
+      TOTAL = parseInt(btn.dataset.duration || "960", 10);
+      SWITCH_AT = TOTAL / 2;
+      phase1Html = btn.dataset.phase1 || phase1Html;
+      phase2Html = btn.dataset.phase2 || phase2Html;
+    }
+
+    function setPhase(p){
+      if(phase === p) return;
+      phase = p;
+      overlay.dataset.phase = p;
+      if(p === 1){
+        phaseEl.textContent = "PHASE 1";
+        roleEl.innerHTML = phase1Html;
+      } else if(p === 2){
+        phaseEl.textContent = "PHASE 2";
+        roleEl.innerHTML = phase2Html;
+        // flash animation
+        flash.classList.remove("flash");
+        void flash.offsetWidth;
+        flash.classList.add("flash");
+        setTimeout(()=>flash.classList.remove("flash"), 700);
+      } else if(p === "done"){
+        phaseEl.textContent = "完成";
+        roleEl.textContent = "✓ 回來坐下";
+      }
+    }
+
+    function render(){
+      displayEl.textContent = fmt(remaining);
+      if(remaining <= 60) displayEl.classList.add("warn");
+      else displayEl.classList.remove("warn");
+      toggleBtn.textContent = running ? "PAUSE" : (remaining === TOTAL ? "START" : "RESUME");
+    }
+
+    function tick(){
+      remaining = Math.max(0, remaining - 1);
+      if(phase === 1 && remaining <= SWITCH_AT && remaining > 0){
+        setPhase(2);
+      }
+      if(remaining === 0){
+        clearInterval(intervalId);
+        intervalId = null;
+        running = false;
+        setPhase("done");
+      }
+      render();
+    }
+
+    function start(){
+      if(running) return;
+      if(remaining === TOTAL || phase === 0) setPhase(1);
+      running = true;
+      intervalId = setInterval(tick, 1000);
+      render();
+    }
+
+    function pause(){
+      if(!running) return;
+      clearInterval(intervalId);
+      intervalId = null;
+      running = false;
+      render();
+    }
+
+    function reset(){
+      clearInterval(intervalId);
+      intervalId = null;
+      running = false;
+      remaining = TOTAL;
+      phase = 0;
+      overlay.dataset.phase = "0";
+      phaseEl.textContent = "PHASE 1";
+      roleEl.innerHTML = phase1Html;
+      flash.classList.remove("flash");
+      render();
+    }
+
+    function openOverlay(btn){
+      applyConfig(btn);
+      reset();
+      overlay.classList.add("active");
+      start();  // auto-start when opening
+    }
+
+    function closeOverlay(){
+      pause();
+      overlay.classList.remove("active");
+    }
+
+    launchBtns.forEach(btn => {
+      btn.addEventListener("click", ()=>openOverlay(btn));
+    });
+    closeBtn.addEventListener("click", closeOverlay);
+    toggleBtn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      if(running) pause();
+      else start();
+    });
+    resetBtn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      reset();
+    });
+
+    // keyboard shortcuts when overlay is open
+    document.addEventListener("keydown", (e)=>{
+      if(!overlay.classList.contains("active")) return;
+      if(e.key === "Escape"){
+        e.preventDefault();
+        closeOverlay();
+      } else if(e.key === " "){
+        e.preventDefault();
+        if(running) pause();
+        else start();
+      }
+    });
+
+    render();
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script src="copy-prompt.js"></script>
+</body>
+</html>
