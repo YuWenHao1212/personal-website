@@ -9,5 +9,8 @@ Disallow: /data/panopticon/
 # Disallow STUDIO A 學員專屬投影片（unlisted）
 Disallow: /studio-a/
 
+# Disallow AI Cockpit 台中 學員專屬投影片（unlisted）
+Disallow: /taichung/
+
 # Sitemap
 Sitemap: https://yu-wenhao.com/sitemap-index.xml

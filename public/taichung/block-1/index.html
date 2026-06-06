@@ -1,0 +1,2012 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<title>AI 指揮中心工作坊（台中）· Block 1 — AI 助理</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&amp;family=Noto+Sans+TC:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    /* palette — 沿用 AI Cockpit Block 0 */
+    --cream: #F5EDE4;
+    --cream-2: #E8DCCB;
+    --cream-3: #FFFAF5;
+    --ink: #2A211C;
+    --ink-muted: #7A6A5E;
+    --rule: #D9CDBE;
+    --brick: #C25B3F;
+    --brick-deep: #9F462E;
+
+    /* type scale @ 1920x1080 */
+    --type-cover: 128px;
+    --type-display: 112px;
+    --type-title: 84px;
+    --type-h2: 56px;
+    --type-large: 44px;
+    --type-body: 32px;
+    --type-small: 26px;
+    --type-mono: 28px;
+    --type-eyebrow: 22px;
+
+    /* spacing */
+    --pad-x: 120px;
+    --pad-y: 96px;
+    --gap-title: 52px;
+    --gap-item: 28px;
+
+    /* fonts */
+    --serif: "Noto Serif TC", "Songti TC", serif;
+    --sans: "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
+    --mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  }
+
+  html, body { margin:0; padding:0; background:#000; font-family: var(--sans); color: var(--ink); }
+
+  /* slide base */
+  section.slide{
+    box-sizing: border-box;
+    display:flex; flex-direction:column;
+    padding: var(--pad-y) var(--pad-x);
+    overflow:hidden;
+    position: relative;
+    background: var(--cream);
+  }
+  section.slide.ink { background: var(--ink); color: var(--cream); }
+  section.slide.dim { background: var(--cream-2); }
+
+  /* eyebrow */
+  .eyebrow{
+    display:flex; align-items:center; gap:18px;
+    font-family: var(--mono);
+    font-size: var(--type-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+  }
+  .ink .eyebrow { color: rgba(245,237,228,0.6); }
+  .eyebrow .dot{ width:8px; height:8px; background: var(--brick); border-radius:50%; display:inline-block; }
+  .eyebrow .rule{ height:1px; flex:0 0 64px; background: currentColor; opacity: .4; }
+  .eyebrow .num{ color: var(--brick); }
+
+  /* titles */
+  .title{
+    font-family: var(--serif);
+    font-weight: 500;
+    color: var(--ink);
+    font-size: var(--type-title);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .ink .title{ color: var(--cream); }
+  .display{
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: var(--type-display);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .cover-title{
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: var(--type-cover);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+
+  .subtitle{
+    font-family: var(--sans);
+    font-size: var(--type-large);
+    color: var(--ink-muted);
+    font-weight: 400;
+  }
+  .ink .subtitle{ color: rgba(245,237,228,0.7); }
+
+  .body{
+    font-family: var(--sans);
+    font-size: var(--type-body);
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .ink .body{ color: var(--cream); }
+  .small{ font-size: var(--type-small); color: var(--ink-muted); }
+  .ink .small{ color: rgba(245,237,228,0.65); }
+
+  .mono { font-family: var(--mono); }
+  .accent { color: var(--brick); }
+  .ink .accent{ color: #E47A5C; }
+
+  /* footer slide number */
+  .slide-num{
+    position:absolute; right:var(--pad-x); bottom: 48px;
+    font-family: var(--mono); font-size: 18px; color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .ink .slide-num{ color: rgba(245,237,228,0.45); }
+
+  .footer-mark{
+    position:absolute; left:var(--pad-x); bottom: 48px;
+    font-family: var(--mono); font-size: 18px; color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .ink .footer-mark{ color: rgba(245,237,228,0.45); }
+
+  /* layout helpers */
+  .row { display:flex; gap: 60px; }
+  .col { display:flex; flex-direction:column; gap: var(--gap-item); }
+  .grow { flex:1; }
+  .spacer { flex:1; }
+
+  /* terminal mock */
+  .terminal{
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 36px 44px;
+    font-family: var(--mono);
+    font-size: 30px;
+    line-height: 1.6;
+    box-shadow: 0 24px 48px -24px rgba(42,33,28,0.3);
+  }
+  .terminal .prompt { color: #E47A5C; }
+  .terminal .dim { color: rgba(245,237,228,0.55); }
+  .terminal .caret{
+    display:inline-block; width:14px; height:30px; background:var(--cream);
+    vertical-align: -4px; margin-left: 4px;
+    animation: blink 1.1s steps(2,start) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .terminal .bar{
+    display:flex; gap:8px; padding-bottom: 20px; margin-bottom: 20px;
+    border-bottom: 1px solid rgba(245,237,228,0.12);
+  }
+  .terminal .bar span { width:12px; height:12px; border-radius:50%; background: rgba(245,237,228,0.2); display:inline-block; }
+
+  /* rules */
+  .hr-accent{ width:64px; height:3px; background: var(--brick); border:0; margin: 0; }
+  .hr-thin{ height:1px; background: var(--rule); border:0; }
+
+  /* number badge */
+  .numbadge{
+    font-family: var(--mono);
+    font-size: 22px;
+    color: var(--brick);
+    letter-spacing: 0.1em;
+  }
+
+  /* big numeral */
+  .bignum{
+    font-family: var(--mono);
+    font-size: 96px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--brick);
+  }
+
+  /* arrow flow */
+  .flowline{
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    column-gap: 36px;
+    row-gap: 24px;
+    font-family: var(--sans);
+    font-size: 38px;
+  }
+  .flowline .arrow{
+    color: var(--brick);
+    font-family: var(--mono);
+    font-size: 32px;
+    letter-spacing: 0;
+  }
+  .flowline .src { text-align:right; color: var(--ink-muted); }
+  .flowline .dst { color: var(--ink); font-weight: 500; }
+
+  /* two-state contrast (P02 兩個場景) */
+  .twostate{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+  }
+  .twostate .panel{ display:flex; flex-direction:column; gap: 20px; }
+  .twostate .panel .when{ font-family: var(--mono); font-size: 26px; color: var(--brick); letter-spacing: 0.1em;}
+  .twostate .panel .h{ font-family: var(--serif); font-size: 44px; color: var(--ink); line-height: 1.3; font-weight: 500;}
+
+  /* pile — 字體大小遞進、無 box */
+  .pile{ display:flex; flex-direction:column; gap: 8px; }
+  .pile .item{
+    font-family: var(--sans); color: var(--ink); line-height: 1.4;
+  }
+  .pile .item.x1{ font-size: 36px; color: var(--ink-muted); }
+  .pile .item.x2{ font-size: 42px; color: var(--ink); }
+  .pile .item.x3{ font-size: 50px; color: var(--brick-deep); font-weight: 500; }
+  .pile .item.x4{ font-size: 60px; color: var(--brick); font-weight: 600; }
+
+  /* leaders list — `—` 句首 */
+  .leaders{ font-family: var(--sans); font-size: 30px; line-height: 1.85; color: var(--ink); }
+  .leaders .l{ display:flex; align-items: baseline; gap: 18px; }
+  .leaders .l::before{ content: "—"; color: var(--brick); font-family: var(--mono); flex: 0 0 auto; }
+  .ink .leaders{ color: var(--cream); }
+  .ink .leaders .l::before{ color: #E47A5C; }
+
+  /* timeline (vertical) */
+  .timeline{ display:flex; flex-direction:column; gap: 0; }
+  .timeline .row {
+    display:grid;
+    grid-template-columns: 200px 24px 1fr;
+    align-items: flex-start;
+    column-gap: 32px;
+  }
+  .timeline .when { font-family: var(--mono); font-size: 28px; color: var(--brick); padding-top: 8px; letter-spacing: 0.05em; }
+  .timeline .axis { position: relative; height: 100%; }
+  .timeline .axis::before{
+    content:""; position:absolute; left: 11px; top: 18px; bottom: -36px; width: 2px; background: var(--rule);
+  }
+  .timeline .row:last-child .axis::before{ display:none; }
+  .timeline .node { width:18px; height:18px; border-radius:50%; background: var(--brick); margin: 12px 0 0 2px; position: relative; z-index: 1;}
+  .timeline .node.muted { background: var(--rule); }
+  .timeline .what { padding-bottom: 44px; }
+  .timeline .what .h { font-family: var(--serif); font-size: 40px; color: var(--ink); line-height: 1.3; }
+  .timeline .what .d { font-family: var(--sans); font-size: 26px; color: var(--ink-muted); line-height: 1.55; margin-top: 8px; }
+
+  /* identity 3-col */
+  .threecol{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 56px;
+  }
+  .threecol .card{
+    display:flex; flex-direction: column; gap: 22px;
+    padding-top: 26px;
+    border-top: 2px solid var(--ink);
+  }
+  .threecol .card .num{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.18em; }
+  .threecol .card .h{ font-family: var(--serif); font-size: 42px; color: var(--ink); line-height: 1.2; font-weight: 500;}
+  .threecol .card .b{ font-family: var(--sans); font-size: 26px; color: var(--ink-muted); line-height: 1.65;}
+
+  /* 4 deliverables grid (quad) */
+  .quad{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 36px 60px;
+  }
+  .quad .card{
+    display:flex; flex-direction: column; gap: 14px;
+  }
+  .quad .card .num{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.18em; }
+  .quad .card .h{ font-family: var(--serif); font-size: 36px; color: var(--ink); line-height: 1.25; font-weight: 500;}
+  .quad .card .b{ font-family: var(--sans); font-size: 24px; color: var(--ink-muted); line-height: 1.55;}
+
+  /* cover */
+  .cover .top-rule{ width: 96px; height: 4px; background: var(--brick); margin-bottom: 56px; }
+  .cover .meta{
+    position:absolute; right: var(--pad-x); bottom: var(--pad-y);
+    text-align: right; font-family: var(--mono); font-size: 22px; color: var(--ink-muted); line-height: 1.7; letter-spacing: 0.06em;
+  }
+  .cover .meta .lecturer{ color: var(--ink); }
+
+  /* cover bg — 比預設米色更深、增加質感 */
+  section.slide.cover{ background: #EADBC7; }
+
+  /* cover radar — 簡化：3 同心圓 + 中心點（仿 AI Cockpit P01 原版） */
+  .cover .radar{
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1040px;
+    height: 1040px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cover .radar svg{ width: 100%; height: 100%; display: block; }
+  .cover .radar .ring{ fill: none; stroke: var(--brick-deep); stroke-width: 2.4; }
+  .cover .radar .ring-outer{ opacity: 0.28; }
+  .cover .radar .ring-mid  { opacity: 0.4; }
+  .cover .radar .ring-inner{ opacity: 0.55; stroke-dasharray: 10 8; }
+  .cover .radar .sweep{ stroke: var(--brick); stroke-width: 2.4; opacity: 0.45; }
+  .cover .radar .center{ fill: var(--brick); }
+  .cover .radar .center-halo{ fill: var(--brick); opacity: 0.15; }
+  .cover .top-rule,
+  .cover .eyebrow,
+  .cover-title,
+  .cover .subtitle,
+  .cover .meta,
+  .cover .footer-mark{ position: relative; z-index: 1; }
+
+  /* full bleed dark transition */
+  .transition{
+    justify-content: center;
+  }
+  .transition .display{ color: var(--cream); }
+
+  /* takeaway box */
+  .takeaway{
+    background: var(--ink); color: var(--cream); padding: 36px 48px; border-radius: 14px;
+    display: flex; flex-direction: column; gap: 6px;
+    font-family: var(--serif); font-size: 32px; line-height: 1.5;
+  }
+  .takeaway .last{ color: #E47A5C; font-size: 38px; font-weight: 600; margin-top: 6px; }
+
+  /* commitments three-col */
+  .commit{
+    display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 56px;
+  }
+  .commit .c{ display:flex; flex-direction:column; gap: 18px; }
+  .commit .c .num{ font-family: var(--mono); font-size: 84px; color: var(--brick); line-height: 1; font-weight: 500;}
+  .commit .c .h{ font-family: var(--serif); font-size: 36px; color: var(--ink); line-height: 1.3; font-weight: 500;}
+  .commit .c .b{ font-family: var(--sans); font-size: 24px; color: var(--ink-muted); line-height: 1.6;}
+
+  /* callout box */
+  .callout-box{
+    background: var(--ink); color: var(--cream);
+    padding: 28px 36px; border-radius: 10px;
+    font-family: var(--serif); font-size: 28px; line-height: 1.5;
+  }
+  .callout-box .accent{ color: #E47A5C; }
+  .callout-box.cream{ background: var(--cream-3); color: var(--ink); border: 1px solid var(--rule); }
+
+  /* B0 P04 full bleed Peggy transition */
+  .peggy-transition{
+    justify-content: center; align-items: center; text-align: center;
+  }
+  .peggy-transition .display{ text-align: center; }
+  .peggy-transition .subtitle{ text-align: center; }
+
+  /* B0 P07 promise — 簡化：純 leader list、無 box */
+  .promise{
+    display:flex; flex-direction: column; gap: 32px;
+    font-family: var(--sans);
+  }
+  .promise .p-item{
+    display:flex; gap: 20px; align-items: baseline;
+    font-family: var(--sans);
+    font-size: 34px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .promise .p-item::before{
+    content: "—"; color: var(--brick); font-family: var(--mono);
+    flex: 0 0 auto;
+  }
+  .promise .p-item .d{
+    color: var(--ink-muted); font-size: 24px; margin-left: 8px;
+  }
+
+  /* ===========================================
+     B1 CSS additions (P09-P22)
+     =========================================== */
+
+  /* P09 · L1 hosts — quad grid 2x2 with star highlight */
+  .quad-grid{
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+    gap: 32px 56px;
+  }
+  .quad-grid .qcard{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 28px 32px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .quad-grid .qcard.star{
+    background: var(--ink); color: var(--cream);
+    border: 2px solid var(--brick);
+    box-shadow: 0 14px 36px -18px rgba(194,91,63,0.45);
+  }
+  .quad-grid .qcard .qnum{ font-family:var(--mono); font-size:20px; color:var(--brick); letter-spacing:0.18em; }
+  .quad-grid .qcard.star .qnum{ color:#E47A5C; }
+  .quad-grid .qcard .qname{ font-family:var(--serif); font-size:42px; color:var(--ink); font-weight:500; line-height:1.2; }
+  .quad-grid .qcard.star .qname{ color:var(--cream); }
+  .quad-grid .qcard .qenv{ font-family:var(--mono); font-size:18px; color:var(--ink-muted); letter-spacing:0.18em; }
+  .quad-grid .qcard.star .qenv{ color: rgba(245,237,228,0.65); }
+  .quad-grid .qcard .qbody{ font-family:var(--sans); font-size:22px; color:var(--ink); line-height:1.55; }
+  .quad-grid .qcard.star .qbody{ color:var(--cream); }
+  .quad-grid .qcard .qstar{
+    position:absolute; top:-14px; right:24px;
+    background: var(--brick); color: var(--cream);
+    font-family: var(--mono); font-size:16px;
+    padding: 6px 14px; border-radius: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  /* P10 · 為什麼 Code — compare 2col with divider */
+  .compare-2col{
+    display:grid; grid-template-columns:1fr auto 1fr; gap:48px;
+    align-items:stretch;
+  }
+  .compare-2col .cpanel{
+    display:flex; flex-direction:column; gap:18px;
+    padding: 32px 40px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+  }
+  .compare-2col .cpanel.accent{ border: 2px solid var(--brick); }
+  .compare-2col .cpanel .cmark{ font-family:var(--mono); font-size:20px; color:var(--brick); letter-spacing:0.18em; }
+  .compare-2col .cpanel .cmark.dim{ color:var(--ink-muted); }
+  .compare-2col .cpanel .cname{ font-family:var(--serif); font-size:38px; color:var(--ink); font-weight:500; }
+  .compare-2col .cpanel .cdiv{ height:1px; background:var(--rule); margin:6px 0; }
+  .compare-2col .cpanel .cdiv.brick{ background:var(--brick); height:2px; }
+  .compare-2col .cpanel .cline{ font-family:var(--sans); font-size:26px; line-height:1.5; }
+  .compare-2col .cpanel .cline.x{ color: var(--ink-muted); }
+  .compare-2col .cpanel .cline.v{ color: var(--ink); font-weight: 500; }
+  .compare-2col .cmid{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  }
+  .compare-2col .cmid .vline{ width:1px; flex:1; background:var(--rule); }
+  .compare-2col .cmid .midlabel{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.1em; text-align:center; line-height:1.5; }
+
+  /* P11 · L2 integrations — trio cards */
+  .trio{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap: 36px;
+  }
+  .trio .tcard{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 30px 30px 26px;
+    border: 2px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .trio .tcard .tnum{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.18em; }
+  .trio .tcard .ticon{ font-size:48px; color:var(--brick); line-height:1; }
+  .trio .tcard .tname{ font-family:var(--serif); font-size:30px; color:var(--ink); font-weight:500; line-height:1.2; }
+  .trio .tcard .ttag{
+    font-family:var(--mono); font-size:15px; padding: 5px 12px;
+    align-self:flex-start; letter-spacing:0.1em;
+  }
+  .trio .tcard .ttag.brick{ background: var(--brick); color: var(--cream); }
+  .trio .tcard .ttag.deep{ background: var(--ink); color: var(--cream); }
+  .trio .tcard .tbody{ font-family:var(--sans); font-size:21px; color:var(--ink-muted); line-height:1.55; }
+
+  /* P12 (v2) · enlarged VS Code with 3 numbered regions (ref FLUX-standard 09) */
+  .vs3{
+    display:grid; grid-template-columns: 1.4fr 1fr; gap: 56px;
+    align-items: stretch;
+  }
+  .vs3-mock{
+    background:#1e1e1e; border-radius:8px; overflow:hidden;
+    box-shadow: 0 30px 60px -30px rgba(42,33,28,0.4);
+    display:flex; flex-direction:column;
+    border: 2px solid var(--brick);
+  }
+  .vs3-bar{ background:#2d2d2d; padding:10px 14px; display:flex; align-items:center; }
+  .vs3-bar .dot-r{ width:13px; height:13px; border-radius:50%; background:#ff5f57; display:inline-block; }
+  .vs3-bar .dot-y{ width:13px; height:13px; border-radius:50%; background:#febc2e; display:inline-block; margin-left:8px; }
+  .vs3-bar .dot-g{ width:13px; height:13px; border-radius:50%; background:#28c840; display:inline-block; margin-left:8px; }
+  .vs3-bar .vs3-title{ margin-left:auto; color:#888; font-size:13px; font-family:var(--mono); }
+  .vs3-body{ display:grid; grid-template-columns: 220px 1fr; flex:1; min-height:380px; }
+  .vs3-tree{ background:#252525; padding:14px 14px; font-family:var(--mono); font-size:13px; color:#cccccc; }
+  .vs3-tree .vs3-files{ line-height:1.85; }
+  .vs3-right-pane{ display:grid; grid-template-rows: 1fr 180px; }
+  .vs3-edit{ background:#1e1e1e; padding:14px 20px; font-family:var(--mono); font-size:13px; color:#d4d4d4; line-height:1.75; }
+  .vs3-term{ background:#0f0f0f; padding:12px 20px; font-family:var(--mono); font-size:13px; color:#e8dccb; border-top:1px solid #333; line-height:1.75; }
+  .vs3-label{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .vs3-label .ringnum{
+    background:var(--brick); color:#fff;
+    width:22px; height:22px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-weight:700; font-size:13px;
+  }
+  .vs3-label .ringtxt{ color:#888; font-size:11px; letter-spacing:0.08em; font-family:var(--mono); }
+  .caret-mac{ display:inline-block; width:8px; height:14px; background:var(--brick); margin-left:4px; vertical-align:-2px; animation: blink 1.1s steps(2,start) infinite; }
+  .vs3-text{ display:flex; flex-direction:column; gap:26px; justify-content:center; }
+  .vs3-card{ display:flex; gap:22px; align-items:flex-start; }
+  .vs3-card .vs3-num{
+    flex-shrink:0;
+    width:54px; height:54px; border-radius:50%;
+    background:var(--brick); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-weight:700; font-size:28px;
+  }
+  .vs3-card .vs3-h{ font-family:var(--serif); font-size:34px; color:var(--ink); font-weight:600; line-height:1.2; }
+  .vs3-card .vs3-d{ font-family:var(--sans); font-size:20px; color:var(--ink-muted); margin-top:6px; }
+  .vs3-quote{
+    margin-top:18px; padding-top:20px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans); font-style: italic;
+    font-size: 22px; color: var(--ink-muted); line-height: 1.55;
+  }
+
+  /* P13 · split-screen mockup + text — Obsidian intro (retained for P13) */
+  .split-screen{
+    display:grid; grid-template-columns:1.1fr 1fr; gap: 56px;
+    align-items:stretch;
+  }
+  .split-screen .ss-mock{ display:flex; flex-direction:column; }
+  .split-screen .ss-text{ display:flex; flex-direction:column; gap:28px; justify-content:center; }
+  .split-screen .ss-h{ font-family:var(--serif); font-size:36px; color:var(--ink); font-weight:500; line-height:1.3; }
+  .split-screen .ss-list{ display:flex; flex-direction:column; gap:22px; }
+  .split-screen .ss-bullet{
+    display:flex; gap:18px; align-items:flex-start;
+    font-family:var(--sans); font-size:24px; color:var(--ink); line-height:1.55;
+  }
+  .split-screen .ss-bullet .bnum{
+    font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.18em;
+    padding-top: 6px; flex:0 0 32px;
+  }
+
+  /* VS Code mockup (P12, P18) */
+  .vsmock{
+    background:#1e1e1e; color:#d4d4d4;
+    border-radius:8px; overflow:hidden;
+    font-family:var(--mono);
+    display:flex; flex-direction:column;
+    height:100%;
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
+    border: 2px solid var(--brick);
+  }
+  .vsmock-bar{
+    background:#323232; padding:10px 14px;
+    display:flex; gap:6px; align-items:center;
+    border-bottom:1px solid #1e1e1e;
+  }
+  .vsmock-bar > span:not(.vsmock-title){ width:12px; height:12px; border-radius:50%; background:#555; display:inline-block; }
+  .vsmock-bar .vsmock-title{ margin-left:16px; font-size:14px; color:#aaa; }
+  .vsmock-body{
+    display:grid; grid-template-columns: 200px 1fr;
+    flex:1; min-height:340px;
+  }
+  .vsmock-tree{
+    background:#252526; padding:12px;
+    font-size:14px; color:#cccccc;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .vsmock-tree .vt-root{ color:#fff; font-weight:bold; }
+  .vsmock-tree .vt-item{ padding: 3px 4px 3px 14px; color:#cccccc; border-radius: 3px; }
+  .vsmock-tree .vt-item.active{ background:#094771; color:#fff; }
+  .vsmock-edit{
+    display:grid; grid-template-rows: auto 1fr auto;
+    background:#1e1e1e;
+  }
+  .vsmock-tab{ background:#2d2d2d; padding:8px 16px; font-size:13px; color:#fff; border-bottom:2px solid var(--brick); display:inline-block; max-width:fit-content; }
+  .vsmock-code{ padding:16px; font-size:14px; color:#d4d4d4; line-height:1.7; }
+  .vsmock-code > div:first-child{ color:#569cd6; font-weight:bold; }
+  .vsmock-claude{ background:#252526; padding:12px 16px; border-top:1px solid #333; }
+  .vsmock-claude-h{ font-size:12px; color:#E47A5C; letter-spacing:0.15em; margin-bottom:6px; }
+  .vsmock-claude-msg{ font-size:13px; color:#cccccc; }
+
+  /* P13 · Obsidian mockup + dual text */
+  .obmock{
+    background:#2a2a2e; color:#d4d4d4;
+    border-radius:8px; overflow:hidden;
+    font-family:var(--mono);
+    display:flex; flex-direction:column;
+    height:100%;
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
+    border: 2px solid var(--brick);
+  }
+  .obmock-bar{
+    background:#323232; padding:10px 14px;
+    display:flex; gap:6px; align-items:center;
+    border-bottom:1px solid #1e1e1e;
+  }
+  .obmock-bar > span:not(.vsmock-title){ width:12px; height:12px; border-radius:50%; background:#555; display:inline-block; }
+  .obmock-body{
+    display:grid; grid-template-columns: 180px 1fr 150px;
+    flex:1; min-height:340px;
+  }
+  .obmock-tree{
+    background:#1e1e22; padding:12px;
+    font-size:13px; color:#cccccc;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .obmock-tree .vt-sub{ padding-left: 22px; font-size:12px; color:#999; }
+  .obmock-preview{
+    padding:16px; background:#2a2a2e;
+    font-size:13px; line-height:1.65; color:#d4d4d4;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .obmock-preview .obp-h{ color:#fff; font-size:16px; font-weight:bold; margin-bottom:4px; }
+  .obmock-preview .wikilink{ color:#6a9fff; text-decoration:underline; }
+  .obmock-graph{
+    background:#1e1e22; padding:14px; border-left:1px solid #333;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ss-dual{ display:flex; flex-direction:column; gap:22px; }
+  .ss-dual .ssd-block{ display:flex; flex-direction:column; gap:10px; }
+  .ss-dual .ssd-h{ font-family:var(--serif); font-size:28px; color:var(--ink); font-weight:500; }
+  .ss-dual .ssd-l{ font-family:var(--sans); font-size:21px; color:var(--ink-muted); line-height:1.55; }
+  .ss-dual .ssd-l code{ font-family:var(--mono); background:var(--cream-2); padding:2px 8px; border-radius:4px; color:var(--brick); font-size:19px; }
+  .ss-dual .ssd-divider{ height:1px; background:var(--rule); }
+
+  /* P15 · FLUX 4-letter loop (SVG ring + 4 cards) */
+  .loop{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px;
+    align-items:center;
+  }
+  .loop-ring{ display:flex; align-items:center; justify-content:center; }
+  .loop-ring svg{ width:100%; max-width:480px; display:block; }
+  .loop-cards{ display:flex; flex-direction:column; gap:18px; }
+  .loop-cards .lcard{
+    display:grid; grid-template-columns: 76px 1fr; gap:20px; align-items:center;
+    padding: 18px 24px;
+    border-left: 4px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .loop-cards .lcard .lc-letter{ font-size:48px; color:var(--brick); line-height:1; text-align:center; font-weight:600; font-family:var(--serif); }
+  .loop-cards .lcard .lc-name{ font-family:var(--serif); font-size:24px; color:var(--ink); font-weight:500; }
+  .loop-cards .lcard .lc-body{ font-family:var(--sans); font-size:19px; color:var(--ink-muted); margin-top:4px; }
+  .loop-quote{ font-family:var(--mono); font-size:20px; color:var(--brick); letter-spacing:0.1em; text-align:center; margin-top:24px; padding-top:18px; border-top:1px solid var(--rule); }
+
+  /* P23 · 三層架構 stack3 (v2 仿 ref #15: FOUNDATION 高亮、UPPER dim、底座 callout) */
+  .stack3{ display:flex; flex-direction:column; gap:8px; }
+  .stack3 .layer{
+    display:grid; grid-template-columns:240px 1fr; gap:32px;
+    padding: 20px 32px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    align-items: center;
+  }
+  .stack3 .layer.upper{ background: rgba(245,237,228,0.55); opacity: 0.78; }
+  .stack3 .layer.middle{ background: var(--cream-3); }
+  .stack3 .layer.foundation{
+    background: var(--cream-2);
+    border: 2px solid var(--brick);
+    box-shadow: 0 12px 32px -16px rgba(194,91,63,0.35);
+    padding: 24px 32px;
+  }
+  .stack3 .layer .layer-l{ display:flex; flex-direction:column; gap:4px; }
+  .stack3 .layer .layer-num{ font-family:var(--mono); font-size:18px; color:var(--ink-muted); letter-spacing:0.18em; }
+  .stack3 .layer.middle .layer-num{ color: var(--brick); }
+  .stack3 .layer.foundation .layer-num{ color: var(--brick); font-weight:700; }
+  .stack3 .layer .layer-h{ font-family:var(--serif); font-size:28px; color:var(--ink-muted); font-weight:600; }
+  .stack3 .layer.middle .layer-h{ color: var(--ink); font-size:30px; }
+  .stack3 .layer.foundation .layer-h{ color: var(--ink); font-size:36px; font-weight:700; }
+  .stack3 .layer .layer-r{ display:flex; flex-direction:column; gap:4px; }
+  .stack3 .layer .layer-body{ font-family:var(--sans); font-size:22px; color:var(--ink); line-height:1.4; }
+  .stack3 .layer.upper .layer-body{ color:var(--ink-muted); }
+  .stack3 .layer.foundation .layer-body{ font-family:var(--serif); font-size:28px; font-weight:600; }
+  .stack3 .layer .layer-mono{ font-family:var(--mono); font-size:18px; color:var(--ink-muted); line-height:1.5; }
+  .stack3 .layer.foundation .layer-mono{ font-size:20px; color:var(--ink); }
+  .stack3 .layer-link{ text-align:center; font-family:var(--mono); font-size:15px; color:var(--ink-muted); letter-spacing:0.16em; }
+  /* layer-callout 不在 .stack3 內、需 root selector */
+  .layer-callout{
+    background: var(--ink); color: var(--cream);
+    padding: 28px 40px; border-radius: 8px;
+    display:flex; justify-content:space-between; align-items:center; gap: 40px;
+    margin-top: 22px;
+    box-shadow: 0 14px 32px -16px rgba(42,33,28,0.5);
+  }
+  .layer-callout .punch{
+    font-family:var(--serif); font-size:38px; color:#E47A5C; font-weight:700;
+    line-height: 1.25;
+  }
+  .layer-callout .recipe{
+    font-family:var(--mono); font-size:17px; color:rgba(245,237,228,0.55);
+    letter-spacing:0.12em; text-align:right; max-width: 380px; line-height: 1.55;
+  }
+
+  /* P22 · Vault grid 4×2 (7 folders + 1 CLAUDE.md card · 對齊真實 vault) */
+  .vault-grid{
+    display:grid; grid-template-columns:1fr 1fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:24px 24px;
+  }
+  .vault-grid .vcard{
+    display:flex; flex-direction:column; gap:8px;
+    padding: 18px 22px;
+    border-top: 2px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .vault-grid .vcard.dim{ border-top-color: var(--rule); opacity: 0.7; }
+  .vault-grid .vcard.star{ border-top-width: 3px; box-shadow: 0 6px 18px -10px rgba(194,91,63,0.4); }
+  .vault-grid .vcard.file{ background: var(--ink); color: var(--cream); border-top: 2px solid #E47A5C; }
+  .vault-grid .vcard .vname{ font-family:var(--mono); font-size:22px; color:var(--brick); font-weight:500; }
+  .vault-grid .vcard.dim .vname{ color:var(--ink-muted); }
+  .vault-grid .vcard.file .vname{ color: #E47A5C; }
+  .vault-grid .vcard .vh{ font-family:var(--serif); font-size:20px; color:var(--ink); line-height:1.3; font-weight:500; }
+  .vault-grid .vcard.file .vh{ color: var(--cream); }
+  .vault-grid .vcard .vb{ font-family:var(--sans); font-size:16px; color:var(--ink-muted); }
+  .vault-grid .vcard.file .vb{ color: rgba(245,237,228,0.7); }
+  .vault-grid .vcard .vstar{ font-family:var(--mono); font-size:13px; color:var(--brick); letter-spacing:0.1em; margin-top:auto; }
+
+  /* P18 · Vault 物理樣貌 — full VS Code + legend */
+  .vsfull{ display:grid; grid-template-columns:1.6fr 1fr; gap:40px; align-items:stretch; }
+  .vsfull-body{
+    display:grid; grid-template-columns:220px 1fr;
+    flex:1; min-height:380px;
+  }
+  .vsfull-tree{
+    background:#252526; padding:14px;
+    font-family:var(--mono); font-size:14px; color:#cccccc;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .vsfull-tree .vt-root{ color:#fff; font-weight:bold; padding:3px 4px; }
+  .vsfull-tree .vt-item{ padding: 4px 8px 4px 14px; color:#cccccc; border-radius:3px; }
+  .vsfull-tree .vt-item.annot{ border-left: 3px solid transparent; padding-left: 11px; }
+  .vsfull-tree .vt-item.annot-brick{ background: rgba(194,91,63,0.28); border-left-color:#C25B3F; color:#fff; }
+  .vsfull-tree .vt-item.annot-blue{ background: rgba(106,159,255,0.18); border-left-color:#6a9fff; }
+  .vsfull-tree .vt-item.annot-green{ background: rgba(112,194,151,0.18); border-left-color:#70c297; }
+  .vsfull-tree .vt-item.annot-yellow{ background: rgba(245,200,90,0.18); border-left-color:#f5c85a; }
+  .vsfull-tree .vt-item.annot-purple{ background: rgba(178,140,224,0.18); border-left-color:#b28ce0; }
+  .vsfull-edit{ background:#1e1e1e; display:grid; grid-template-rows: auto 1fr; }
+  .vsfull-code{ padding:18px; font-family:var(--mono); font-size:14px; color:#d4d4d4; line-height:1.75; }
+  .vsfull-code .line .kw{ color:#569cd6; font-weight:bold; }
+  .vsfull-legend{ display:flex; flex-direction:column; gap:18px; justify-content:center; }
+  .vsfull-legend .leg-item{ font-family:var(--sans); font-size:20px; color:var(--ink); display:flex; align-items:center; gap:14px; }
+  .vsfull-legend .leg-item .mono{ color:var(--brick); }
+  .vsfull-legend .leg-dot{ width:14px; height:14px; border-radius:50%; flex:0 0 14px; }
+  .vsfull-legend .leg-dot.brick{ background:#C25B3F; }
+  .vsfull-legend .leg-dot.blue{ background:#6a9fff; }
+  .vsfull-legend .leg-dot.green{ background:#70c297; }
+  .vsfull-legend .leg-dot.yellow{ background:#f5c85a; }
+  .vsfull-legend .leg-dot.purple{ background:#b28ce0; }
+
+  /* P26 · PARA + 卡片盒 + 12WY trio (v2 三方法論) */
+  .duo-method{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:26px;
+    align-items:stretch;
+  }
+  .duo-method .dm-card{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 22px 26px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+  }
+  .duo-method .dm-card .dm-tag{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.16em; }
+  .duo-method .dm-card .dm-h{ font-family:var(--serif); font-size:24px; color:var(--ink); font-weight:500; line-height:1.3; }
+  .duo-method .dm-card .dm-h .dm-sub{ font-size:16px; color:var(--ink-muted); font-weight:400; display:block; margin-top:2px; }
+  .duo-method .dm-card .dm-list{ display:flex; flex-direction:column; gap:7px; margin-top:4px; }
+  .duo-method .dm-card .dm-item{ font-family:var(--sans); font-size:18px; color:var(--ink); line-height:1.45; }
+  .duo-method .dm-card .dm-item .dm-k{ color:var(--brick); font-weight:600; margin-right:4px; }
+  .duo-method .dm-card .dm-foot{ font-family:var(--mono); font-size:17px; color:var(--brick); margin-top:auto; padding-top:10px; border-top:1px solid var(--rule); }
+  .duo-method .dm-divider{ display:none; }
+
+  /* P20 · contrast (sans/with CLAUDE.md dialog) */
+  .contrast{
+    display:grid; grid-template-columns:1fr auto 1fr; gap:32px;
+    align-items:stretch;
+  }
+  .contrast .ct-side{
+    display:flex; flex-direction:column; gap:12px;
+    padding: 22px 26px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+  }
+  .contrast .ct-side.accent{ border:2px solid var(--brick); }
+  .contrast .ct-tag{ font-family:var(--mono); font-size:18px; padding:4px 12px; align-self:flex-start; letter-spacing:0.1em; }
+  .contrast .ct-tag.dim{ color:var(--ink-muted); background:var(--cream-2); }
+  .contrast .ct-tag.brick{ color:var(--cream); background:var(--brick); }
+  .contrast .ct-bubble{
+    padding:10px 14px;
+    font-family:var(--sans); font-size:17px; line-height:1.5;
+    border-radius:10px;
+    display:flex; flex-direction:column; gap:2px;
+  }
+  .contrast .ct-bubble.user{ background:var(--cream-2); align-self:flex-end; max-width:85%; }
+  .contrast .ct-bubble.ai{ background:var(--cream); border:1px solid var(--rule); align-self:flex-start; max-width:92%; }
+  .contrast .ct-bubble.ai.dim{ opacity:0.7; }
+  .contrast .ct-bubble.ai.brick{ background:var(--ink); color:var(--cream); border-color:var(--brick); }
+  .contrast .ct-bubble .ct-from{ font-family:var(--mono); font-size:13px; color:var(--brick); letter-spacing:0.12em; }
+  .contrast .ct-bubble.ai.brick .ct-from{ color:#E47A5C; }
+  .contrast .ct-bubble .ct-msg{ color:var(--ink); }
+  .contrast .ct-bubble.ai.brick .ct-msg{ color:var(--cream); }
+  .contrast .ct-foot{ font-family:var(--mono); font-size:17px; margin-top:auto; padding-top:10px; text-align:center; }
+  .contrast .ct-foot.dim{ color:var(--ink-muted); }
+  .contrast .ct-foot.brick{ color:var(--brick); }
+  .contrast .ct-mid{ display:flex; align-items:center; justify-content:center; }
+  .contrast .ct-arrow{ font-size:64px; color:var(--brick); }
+
+  /* P21 · 觸發語 roadmap (terminal already exists) */
+  .roadmap{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;
+  }
+  .roadmap .rm-card{
+    display:flex; flex-direction:column; gap:6px;
+    padding: 14px 22px;
+    border: 2px solid var(--brick);
+    background: var(--cream-3);
+  }
+  .roadmap .rm-card .rm-when{ font-family:var(--mono); font-size:18px; color:var(--brick); letter-spacing:0.18em; }
+  .roadmap .rm-card .rm-body{ font-family:var(--sans); font-size:19px; color:var(--ink); line-height:1.5; }
+  .roadmap .rm-card .rm-body .mono{ color:var(--brick); }
+
+  /* P22 · hands-on steplist */
+  .steplist{ display:grid; grid-template-columns:1fr 1.25fr; gap:48px; }
+  .steplist .sl-left{ display:flex; flex-direction:column; gap:0; }
+  .steplist .sl-step{
+    display:grid; grid-template-columns:64px 1fr; gap:18px;
+    padding: 14px 0;
+    position:relative;
+  }
+  .steplist .sl-step:not(:last-child)::after{
+    content:""; position:absolute; left:28px; top:62px; bottom:0; width:2px; background:var(--rule);
+  }
+  .steplist .sl-step .sl-num{
+    width:54px; height:54px; border-radius:50%;
+    background:var(--brick); color:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-size:26px; font-weight:600;
+    position:relative; z-index:1;
+  }
+  .steplist .sl-step .sl-content{ display:flex; flex-direction:column; gap:4px; padding-top:8px; }
+  .steplist .sl-step .sl-h{ font-family:var(--serif); font-size:24px; color:var(--ink); font-weight:500; line-height:1.3; }
+  .steplist .sl-step .sl-h .mono{ background:var(--cream-2); padding:2px 8px; border-radius:4px; color:var(--brick); font-size:20px; }
+  .steplist .sl-step .sl-d{ font-family:var(--sans); font-size:18px; color:var(--ink-muted); }
+  .steplist .sl-step .sl-d .mono{ background:var(--cream-2); padding:2px 6px; border-radius:3px; color:var(--brick); }
+  .steplist .sl-right{ display:flex; flex-direction:column; gap:18px; }
+  .steplist .sl-trouble{
+    background: var(--cream-3); border: 1px solid var(--rule);
+    padding: 16px 22px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .steplist .sl-trouble .trh{ font-family:var(--mono); font-size:15px; color:var(--brick); letter-spacing:0.18em; margin-bottom:4px; }
+  .steplist .sl-trouble .tr-item{ font-family:var(--sans); font-size:16px; color:var(--ink); line-height:1.5; }
+  .steplist .sl-trouble .tr-item .mono{ background:var(--cream-2); padding:1px 6px; border-radius:3px; color:var(--brick); font-size:14px; }
+
+  /* ===========================================
+     B1 ref 4-8 expansion (new P11-P14 + P16)
+     =========================================== */
+
+  /* P11 · 那 Cowork 呢 — Cowork question + huge punch */
+  .cowork-box{
+    padding: 28px 36px;
+    background: var(--cream-3);
+    border: 1px solid var(--rule);
+    display: flex; gap: 48px; align-items: center;
+    margin-bottom: 40px;
+  }
+  .cowork-box .cb-tag{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.16em; }
+  .cowork-box .cb-h{ font-family: var(--serif); font-size: 40px; color: var(--ink); font-weight: 600; margin-top: 12px; line-height: 1.2; }
+  .cowork-box .cb-divider{ width: 1px; height: 100px; background: var(--rule); flex-shrink: 0; }
+  .cowork-box .cb-body{ font-family: var(--sans); font-size: 26px; color: var(--ink-muted); line-height: 1.6; }
+  .cowork-box .cb-body .mono{ color: var(--ink); }
+  .cowork-q-text{
+    font-family: var(--serif); font-size: 50px; color: var(--ink); line-height: 1.35;
+  }
+  .cowork-q-text .q{
+    font-size: 80px; color: var(--brick); font-weight: 700;
+    margin-top: 20px; line-height: 1.1; display: block;
+  }
+
+  /* P12 · 差別在形狀 — Cowork (has shape) vs Code (no shape) */
+  .shape-vs{
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 56px; align-items: center;
+    flex: 1;
+  }
+  .shape-vs .sv-side{ display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .shape-vs .sv-mock{ display: flex; align-items: center; justify-content: center; }
+  .shape-vs .sv-label{ text-align: center; }
+  .shape-vs .sv-label .mono{ font-family: var(--mono); font-size: 20px; color: var(--ink-muted); letter-spacing: 0.18em; }
+  .shape-vs .sv-label .mono.brick{ color: var(--brick); }
+  .shape-vs .sv-label .h{ font-family: var(--serif); font-size: 50px; font-weight: 700; margin-top: 8px; color: var(--ink); line-height: 1.1; }
+  .shape-vs .sv-label .h.brick{ color: var(--brick); }
+  .shape-vs .sv-label .d{ font-family: var(--sans); font-size: 20px; color: var(--ink-muted); margin-top: 12px; line-height: 1.55; max-width: 340px; }
+  .shape-vs .sv-mid{
+    font-family: var(--mono); font-size: 48px; color: var(--brick); font-weight: 700; letter-spacing: 0.1em;
+  }
+  .shape-callout{
+    background: var(--ink); color: var(--cream);
+    padding: 20px 32px; text-align: center;
+    font-family: var(--serif); font-size: 38px; font-weight: 600;
+    margin-top: 28px;
+    border-radius: 6px;
+  }
+  .shape-callout .dim{ color: rgba(245,237,228,0.55); }
+  .shape-callout .accent{ color: #E47A5C; }
+
+  /* P13 · 裝得進任何形狀 — versatility list */
+  .fits-grid{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px 64px;
+    margin-top: 36px;
+    flex: 1;
+    align-content: start;
+  }
+  .fits-grid .fitem{
+    display: flex; align-items: baseline; gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .fits-grid .fitem .fkey{ font-family: var(--mono); font-size: 26px; color: var(--ink-muted); width: 220px; flex-shrink: 0; letter-spacing: 0.04em; }
+  .fits-grid .fitem .farrow{ font-family: var(--mono); font-size: 22px; color: var(--brick); }
+  .fits-grid .fitem .fval{ font-family: var(--serif); font-size: 28px; color: var(--ink); }
+  .fits-grid .fitem.last .fval{ color: var(--ink-muted); }
+  .fits-quote{
+    font-family: var(--serif); font-size: 60px; color: var(--brick); font-weight: 700;
+    margin-top: 24px; text-align: right; line-height: 1.2;
+  }
+
+  /* P14 · 長得像你 dark quote (uses .slide.ink + custom layout via inline) */
+  /* P16 · 今天的工作環境 transition (uses .slide + custom inline) */
+
+  /* ===========================================
+     B1 Phase 2 — ref #10/#12/#13/#14 expansion
+     (NEW P19 Markdown · NEW P20 Terminal · redesign P21 FLUX 出場 · redesign P22 4 letter)
+     =========================================== */
+
+  /* P19 · Markdown — source → preview */
+  .md-grid{
+    display:grid; grid-template-columns: 1fr auto 1fr; gap: 36px;
+    flex:1; min-height: 0;
+  }
+  .md-col{ display:flex; flex-direction:column; gap:14px; }
+  .md-col .ml-label{ font-family:var(--mono); font-size:20px; color:var(--ink-muted); letter-spacing:0.14em; }
+  .md-source{
+    background: var(--ink); color: var(--cream);
+    padding: 32px 40px; border-radius: 12px;
+    font-family: var(--mono); font-size: 26px; line-height: 1.7;
+    flex:1;
+  }
+  .md-source .file-path{ color: #888; font-size: 14px; margin-bottom: 14px; letter-spacing: 0.08em; }
+  .md-source .md-syn{ color: #E47A5C; }
+  .md-mid{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+  }
+  .md-mid .arr{ font-family: var(--mono); font-size:52px; color:var(--brick); }
+  .md-mid .arr.flip{ transform: scaleX(-1); }
+  .md-mid .shortcut{
+    background: var(--ink); color: var(--cream);
+    padding: 14px 22px; border-radius: 8px;
+    font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.04em;
+  }
+  .md-mid .preview-label{ font-family: var(--mono); font-size: 14px; color: var(--ink-muted); letter-spacing: 0.18em; text-align: center; }
+  .md-preview{
+    background: var(--cream-3); border: 1px solid var(--rule);
+    padding: 40px 36px; flex:1;
+  }
+  .md-preview .pv-h{ font-family: var(--serif); font-size: 46px; font-weight: 700; color: var(--ink); }
+  .md-preview .pv-bold{ font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--ink); margin-top: 22px; }
+  .md-preview .pv-list{ font-family: var(--sans); font-size: 26px; color: var(--ink); margin-top: 22px; padding-left: 28px; line-height: 1.7; }
+  .md-quote{
+    text-align: center; margin-top: 24px;
+    font-family: var(--serif); font-size: 40px; color: var(--brick); font-weight: 600;
+  }
+
+  /* P20 · Terminal intro */
+  .term-grid{
+    display:grid; grid-template-columns: 1.1fr 1fr; gap: 60px;
+    flex:1; min-height: 0;
+  }
+  .term-grid .term-mock{
+    background: var(--ink); color: var(--cream);
+    padding: 46px 50px; border-radius: 12px;
+    font-family: var(--mono); font-size: 30px; line-height: 1.75;
+    flex: 1;
+    box-shadow: 0 24px 48px -24px rgba(42,33,28,0.4);
+  }
+  .term-grid .term-mock .head{ color: #888; font-size: 16px; margin-bottom: 18px; letter-spacing: 0.1em; }
+  .term-grid .term-mock .prompt{ color: var(--brick); }
+  .term-grid .term-mock .ghost{ color: rgba(232,220,203,0.7); margin-top: 22px; }
+  .term-grid .term-mock .blink{ display:inline-block; width:10px; height:24px; background:var(--cream); vertical-align:-3px; margin-left:6px; animation: blink 1.1s steps(2,start) infinite; }
+  .term-right{ display:flex; flex-direction:column; justify-content:center; gap:40px; }
+  .term-item{ display:flex; flex-direction:column; gap:10px; }
+  .term-item .ti-tag{ font-family: var(--mono); font-size: 22px; color: var(--brick); letter-spacing: 0.14em; }
+  .term-item .ti-h{ font-family: var(--serif); font-size: 44px; color: var(--ink); font-weight: 600; line-height: 1.2; }
+  .term-item .ti-h .key{ font-family: var(--mono); background: var(--ink); color: var(--cream); padding: 6px 16px; font-size: 38px; letter-spacing: 0.04em; border-radius: 4px; }
+  .term-item .ti-d{ font-family: var(--sans); font-size: 24px; color: var(--ink-muted); line-height: 1.5; }
+  .term-item .ti-d .key{ font-family: var(--mono); color: var(--brick); }
+  .term-divider{ height: 1px; background: var(--rule); }
+  .term-quote{
+    text-align: center; margin-top: 20px;
+    font-family: var(--serif); font-size: 44px; color: var(--brick); font-weight: 600;
+  }
+
+  /* P21 · FLUX 出場 (ref #13 巨大字、ink) — uses .slide.ink + inline */
+
+  /* P22 · FLUX 4 letter loop (ref #14 巨大字) */
+  .flux-grid{
+    display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px;
+    flex:1; align-items: center;
+  }
+  .flux-grid .fl-col{
+    display:flex; flex-direction:column; align-items:center; gap: 14px;
+    position: relative;
+  }
+  .flux-grid .fl-letter{
+    font-family: var(--serif); font-size: 180px; font-weight: 900;
+    color: var(--brick); line-height: 1; letter-spacing: -0.04em;
+  }
+  .flux-grid .fl-mono{
+    font-family: var(--mono); font-size: 24px; color: var(--ink); letter-spacing: 0.06em;
+  }
+  .flux-grid .fl-mono .accent{ color: var(--brick); }
+  .flux-grid .fl-h{
+    font-family: var(--serif); font-size: 32px; color: var(--ink); font-weight: 600;
+  }
+  .flux-grid .fl-d{
+    font-family: var(--sans); font-size: 18px; color: var(--ink-muted);
+    text-align: center; line-height: 1.5; max-width: 220px;
+  }
+  .flux-flow{
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+    margin-top: 24px;
+    font-family: var(--mono); font-size: 22px; color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .flux-flow .arrow{ color: var(--brick); font-size: 24px; }
+  .flux-flow .loop{ color: var(--brick); font-size: 26px; }
+
+</style>
+</head>
+<body style="">
+
+<deck-stage width="1920" height="1080" no-rail style="--deck-rail-w: 188px;">
+
+  <!-- ============================================ -->
+  <!-- B1 Claude 生態系 + FLUX 完整講（60 min / 15 頁） -->
+  <!-- ============================================ -->
+
+  <!-- ============ P08 BLOCK 1 TRANSITION 你今天用的工具是什麼 ============ -->
+  <section class="slide ink transition" data-label="P08 Block 1 transition · 你今天用的工具是什麼">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 1</span><span class="rule"></span><span>你的工具</span></div>
+    <div style="flex:1"></div>
+    <div class="display">你今天用的<br><span style="color:#E47A5C">工具是什麼</span>？</div>
+    <div style="height:48px"></div>
+    <div class="subtitle">Claude 不只一個產品 ——<br>是一個生態系。</div>
+    <div style="flex:1.2"></div>
+    <div class="slide-num">1 / 24</div>
+    <div class="footer-mark">BLOCK 1 · CLAUDE 生態系 + FLUX · 90 MIN</div>
+  </section>
+
+  <!-- ============ P09 L1 · 你在哪跟 Claude 講話 (4 個 host) ============ -->
+  <section class="slide" data-label="P09 L1 · 4 個 host 平台">
+    <div class="eyebrow"><span class="dot"></span><span class="num">L1 · YOU TALK TO CLAUDE</span><span class="rule"></span><span>4 個 host 平台</span></div>
+    <div style="height:32px"></div>
+    <div class="title">Claude 給你 ——<br><span class="accent">4 個地方</span>跟它對話。</div>
+    <div style="height:56px"></div>
+    <div class="quad-grid grow">
+      <div class="qcard">
+        <div class="qnum">01 / 04</div>
+        <div class="qname">Claude.ai</div>
+        <div class="qenv">BROWSER</div>
+        <div class="qbody">開分頁、跟它聊天。<br>跟 ChatGPT 同一類。</div>
+      </div>
+      <div class="qcard star">
+        <div class="qstar">★ 今天主角</div>
+        <div class="qnum">02 / 04</div>
+        <div class="qname">Claude Code</div>
+        <div class="qenv">LOCAL</div>
+        <div class="qbody">跟你的檔案在同一空間 ——<br>能讀、能寫、能跑腳本。</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">03 / 04</div>
+        <div class="qname">Claude Cowork</div>
+        <div class="qenv">DESKTOP APP</div>
+        <div class="qbody">知識工作者用的、2026 / 04 GA。<br>跟 Code 像、長相不同。</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">04 / 04</div>
+        <div class="qname">Claude API</div>
+        <div class="qenv">DEVELOPER</div>
+        <div class="qbody">工程師串接用、今天不用。<br>知道有這東西就好。</div>
+      </div>
+    </div>
+    <div class="slide-num">2 / 24</div>
+    <div class="footer-mark">BLOCK 1 · L1 HOST 平台</div>
+  </section>
+
+  <!-- ============ P10 為什麼今天是 Claude Code (vs Claude.ai) ============ -->
+  <section class="slide" data-label="P10 為什麼今天是 Claude Code">
+    <div class="eyebrow"><span class="dot"></span><span class="num">WHY CODE</span><span class="rule"></span><span>第一個分界</span></div>
+    <div style="height:32px"></div>
+    <div class="title">為什麼<br>不用 <span class="accent">Claude.ai</span>？</div>
+    <div style="height:56px"></div>
+    <div class="compare-2col grow">
+      <div class="cpanel">
+        <div class="cmark dim">在瀏覽器</div>
+        <div class="cname">CLAUDE.AI</div>
+        <div class="cdiv"></div>
+        <div class="cline x">✗ 讀不到你電腦的目標檔案</div>
+        <div class="cline x">✗ 存不了整理好的內容</div>
+        <div class="cline x">✗ 只能在分頁裡跟你講話</div>
+      </div>
+      <div class="cmid">
+        <div class="vline"></div>
+        <div class="midlabel">這是<br>第一個分界</div>
+        <div class="vline"></div>
+      </div>
+      <div class="cpanel accent">
+        <div class="cmark">在你電腦上</div>
+        <div class="cname">CLAUDE CODE</div>
+        <div class="cdiv brick"></div>
+        <div class="cline v">✓ 跟你的檔案在同一空間</div>
+        <div class="cline v">✓ 能讀、能寫、能跑腳本</div>
+        <div class="cline v">✓ 有 CLAUDE.md 記得你是誰</div>
+      </div>
+    </div>
+    <div class="slide-num">3 / 24</div>
+    <div class="footer-mark">BLOCK 1 · WHY CODE</div>
+  </section>
+
+
+  <!-- ============ P10b 那 Cowork 呢 (ref FLUX-standard #04) ============ -->
+  <section class="slide" data-label="P10b 那 Cowork 呢">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE COWORK QUESTION</span><span class="rule"></span><span>第二個分界</span></div>
+    <div style="height:32px"></div>
+    <div class="title">那 <span class="accent">Cowork</span> 呢？</div>
+    <div style="flex:1"></div>
+    <div style="display:flex; align-items:center; gap:40px; padding:28px 36px; border:1px solid var(--rule); border-radius:8px; background:var(--cream-3); max-width:1180px;">
+      <div>
+        <div style="font-family:var(--mono); font-size:20px; color:var(--brick); letter-spacing:0.16em;">CLAUDE COWORK</div>
+        <div style="font-family:var(--serif); font-size:40px; font-weight:600; color:var(--ink); margin-top:10px;">桌面 App · 給知識工作者</div>
+      </div>
+      <div style="width:1px; height:96px; background:var(--rule);"></div>
+      <div style="font-family:var(--sans); font-size:26px; line-height:1.6; color:var(--ink-muted);"><span style="font-family:var(--mono); color:var(--ink);">2026 / 04</span> 正式上線。<br>跟 Code 一樣 —— 也在你電腦上、也能讀寫檔案。</div>
+    </div>
+    <div style="height:44px"></div>
+    <div style="font-family:var(--serif); font-size:44px; color:var(--ink-muted); line-height:1.35;">Cowork 也在你電腦上、也能讀寫檔案 ——</div>
+    <div style="height:18px"></div>
+    <div style="font-family:var(--serif); font-size:80px; font-weight:700; color:var(--brick); line-height:1.08;">那為什麼<span style="color:var(--brick-deep);">不用 Cowork</span>？</div>
+    <div style="flex:1.2"></div>
+    <div class="slide-num">4 / 24</div>
+    <div class="footer-mark">BLOCK 1 · COWORK?</div>
+  </section>
+
+
+  <!-- ============ P11 差別在形狀 (ref FLUX-standard #05) ============ -->
+  <section class="slide" data-label="P11 差別在形狀">
+    <div class="eyebrow"><span class="dot"></span><span class="num">SHAPE</span><span class="rule"></span><span>形狀論</span></div>
+    <div style="height:32px"></div>
+    <div class="title">差別在<span class="accent">形狀</span>。</div>
+    <div style="height:32px"></div>
+    <div class="shape-vs">
+      <div class="sv-side">
+        <div class="sv-mock">
+          <svg width="320" height="220" viewBox="0 0 380 280" fill="none" aria-hidden="true">
+            <rect x="6" y="6" width="368" height="268" rx="6" fill="#E8DCCB" stroke="#7A6A5E" stroke-width="2"/>
+            <rect x="6" y="6" width="368" height="44" fill="#7A6A5E"/>
+            <circle cx="24" cy="28" r="5" fill="#E8DCCB"/>
+            <circle cx="40" cy="28" r="5" fill="#E8DCCB"/>
+            <circle cx="56" cy="28" r="5" fill="#E8DCCB"/>
+            <rect x="22" y="70" width="100" height="186" fill="#F5EDE4" stroke="#D9CDBE"/>
+            <rect x="138" y="70" width="220" height="60" fill="#FFFAF5" stroke="#D9CDBE"/>
+            <rect x="138" y="142" width="220" height="60" fill="#FFFAF5" stroke="#D9CDBE"/>
+            <rect x="138" y="214" width="220" height="42" fill="#FFFAF5" stroke="#D9CDBE"/>
+            <rect x="34" y="84" width="76" height="10" fill="#D9CDBE"/>
+            <rect x="34" y="104" width="56" height="8" fill="#D9CDBE"/>
+            <rect x="34" y="120" width="64" height="8" fill="#D9CDBE"/>
+          </svg>
+        </div>
+        <div class="sv-label">
+          <div class="mono">COWORK</div>
+          <div class="h">有形狀</div>
+          <div class="d">桌面 App · GUI · 預設工作流 ——<br>Anthropic 想好的形狀。</div>
+        </div>
+      </div>
+      <div class="sv-mid">vs</div>
+      <div class="sv-side">
+        <div class="sv-mock">
+          <svg width="320" height="220" viewBox="0 0 380 280" fill="none" aria-hidden="true">
+            <circle cx="190" cy="140" r="14" fill="#C25B3F"/>
+          </svg>
+        </div>
+        <div class="sv-label">
+          <div class="mono brick">CODE</div>
+          <div class="h brick">沒形狀</div>
+          <div class="d">Terminal · 對話框 · 讀寫檔案 ——<br>裝得進任何形狀。</div>
+        </div>
+      </div>
+    </div>
+    <div class="shape-callout"><span class="dim">Cowork 有形狀。</span> <span class="accent">Code 沒形狀。</span></div>
+    <div class="slide-num">5 / 24</div>
+    <div class="footer-mark">BLOCK 1 · SHAPE</div>
+  </section>
+
+  <!-- ============ P12 沒形狀 = 裝得進任何形狀 (ref FLUX-standard #06、STUDIO A 12 items) ============ -->
+  <section class="slide" data-label="P12 裝得進任何形狀">
+    <div class="eyebrow"><span class="dot"></span><span class="num">FITS ANY SHAPE</span><span class="rule"></span><span>萬用</span></div>
+    <div style="height:32px"></div>
+    <div class="title">沒形狀、<br>代表它<span class="accent">裝得進任何形狀</span>。</div>
+    <div class="fits-grid">
+      <div class="fitem"><span class="fkey">整理訪談逐字稿</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">排這週內容行事曆</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">長文改寫成電子報</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">算接案報價</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">寫每日工作回顧</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">整理客戶會議筆記</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">整理會議記錄</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">回覆客戶信</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">做選題研究</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">找這週寫什麼題目</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem"><span class="fkey">跑週會 + EOD</span><span class="farrow">→</span><span class="fval">可以</span></div>
+      <div class="fitem last"><span class="fkey">⋯⋯</span><span class="farrow">→</span><span class="fval">都可以</span></div>
+    </div>
+    <div class="fits-quote">一個工具、所有事。</div>
+    <div class="slide-num">6 / 24</div>
+    <div class="footer-mark">BLOCK 1 · FITS ANY SHAPE</div>
+  </section>
+
+  <!-- ============ P13 長得像你 dark quote (ref FLUX-standard #07) ============ -->
+  <section class="slide ink" data-label="P13 長得像你" style="justify-content:center;">
+    <div class="eyebrow"><span class="dot"></span><span class="num">YOUR CODE</span><span class="rule"></span><span>SHAPE</span></div>
+    <div style="flex:1"></div>
+    <div style="font-family:var(--serif); font-size:56px; color:rgba(245,237,228,0.55); margin-bottom:18px; line-height:1.2;">這趟跑完 ——</div>
+    <div style="font-family:var(--serif); font-size:64px; color:var(--cream); margin-bottom:40px; line-height:1.2;">你電腦上會有一個 Code。</div>
+    <div style="font-family:var(--serif); font-size:112px; color:#E47A5C; font-weight:700; line-height:1.05;">它的形狀、<br>長得像<span style="color:var(--cream);">你的工作</span>。</div>
+    <div style="flex:1.2"></div>
+    <div class="slide-num">7 / 24</div>
+    <div class="footer-mark">BLOCK 1 · YOUR CODE</div>
+  </section>
+
+  <!-- ============ P15 今天的工作環境 transition (ref FLUX-standard #08) ============ -->
+  <section class="slide" data-label="P15 今天的工作環境">
+    <div class="eyebrow"><span class="dot"></span><span class="num">YOUR WORKBENCH</span><span class="rule"></span><span>環境 · 4 個工具</span></div>
+    <div style="height:32px"></div>
+    <div style="font-family:var(--serif); font-size:112px; font-weight:500; color:var(--ink); line-height:1.05; letter-spacing:-0.015em;">今天的<br>工作環境。</div>
+    <div style="height:24px"></div>
+    <div class="subtitle">4 個工具 · 先把名字對齊。</div>
+    <div style="height:24px"></div>
+    <div class="small" style="border-top:1px solid var(--rule); padding-top:20px; max-width:760px;">對齊名字 + 位置 —— 不囉嗦、進 hands-on。</div>
+    <div style="flex:1"></div>
+    <div style="display:flex; gap:36px;">
+      <div style="font-family:var(--mono); font-size:22px; color:var(--brick); letter-spacing:0.14em;">▸ VS CODE</div>
+      <div style="font-family:var(--mono); font-size:22px; color:var(--ink-muted); letter-spacing:0.14em;">/ TERMINAL</div>
+      <div style="font-family:var(--mono); font-size:22px; color:var(--ink-muted); letter-spacing:0.14em;">/ OBSIDIAN</div>
+      <div style="font-family:var(--mono); font-size:22px; color:var(--ink-muted); letter-spacing:0.14em;">/ MARKDOWN</div>
+    </div>
+    <div class="slide-num">8 / 24</div>
+    <div class="footer-mark">BLOCK 1 · ENVIRONMENT</div>
+  </section>
+
+  <!-- ============ P16 VS Code · 我們今天的工作環境 (v3 修正：Claude Code 住終端機、VS Code 只是載體) ============ -->
+  <section class="slide" data-label="P16 VS Code · 我們今天的工作環境">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE WORKSPACE</span><span class="rule"></span><span>VS CODE</span></div>
+    <div style="height:28px"></div>
+    <div class="title">Claude Code 跑在<span class="accent">終端機</span>。<br>我們今天用 <span class="accent">VS Code</span> 開。</div>
+    <div style="height:40px"></div>
+    <div class="vs3 grow">
+      <!-- Left: enlarged VS Code mockup with 3 numbered regions -->
+      <div class="vs3-mock">
+        <div class="vs3-bar">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <span class="vs3-title">FLUX-standard — Visual Studio Code</span>
+        </div>
+        <div class="vs3-body">
+          <!-- Region 1 · File Tree (對齊真實 vault) -->
+          <div class="vs3-tree">
+            <div class="vs3-label"><span class="ringnum">1</span><span class="ringtxt">FLUX-STANDARD</span></div>
+            <div class="vs3-files">
+              <div>📁 Inbox</div>
+              <div style="background:#094771; color:#fff; padding-left:4px; margin-left:-4px; border-radius:3px;">📁 Cockpit</div>
+              <div>📁 Efforts</div>
+              <div>📁 Calendar</div>
+              <div>📁 Atlas</div>
+              <div>📁 Guides</div>
+              <div>📁 Templates</div>
+              <div style="color:var(--brick); font-weight:600;">📄 CLAUDE.md</div>
+            </div>
+          </div>
+          <!-- Right pane: editor + terminal stacked -->
+          <div class="vs3-right-pane">
+            <!-- Region 2 · Editor -->
+            <div class="vs3-edit">
+              <div class="vs3-label"><span class="ringnum">2</span><span class="ringtxt"># Cockpit / Weekly-Commitment.md</span></div>
+              <div style="color:#569cd6; margin-top:6px;"># 本週</div>
+              <div style="margin-top:6px;">- Week：本週（2026-06-07 起）</div>
+              <div><span style="color:#608b4e;">- [ ]</span> 寫完品牌合作提案</div>
+              <div><span style="color:#608b4e;">- [ ]</span> 這週電子報排程</div>
+              <div><span style="color:#608b4e;">- [x]</span> 上週回顧 + 選題</div>
+            </div>
+            <!-- Region 3 · Terminal -->
+            <div class="vs3-term">
+              <div class="vs3-label"><span class="ringnum">3</span><span class="ringtxt">▾ TERMINAL</span></div>
+              <div style="margin-top:4px;"><span style="color:var(--brick);">~/FLUX-standard $</span> claude</div>
+              <div style="color:rgba(232,220,203,0.7);">早安。今天要做什麼？</div>
+              <div><span style="color:var(--brick);">&gt;</span><span class="caret-mac"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right column: 3 numbered cards + italic quote -->
+      <div class="vs3-text">
+        <div class="vs3-card">
+          <div class="vs3-num">1</div>
+          <div>
+            <div class="vs3-h">File Tree</div>
+            <div class="vs3-d">檔案總管 · 你的 Vault 攤在這</div>
+          </div>
+        </div>
+        <div class="vs3-card">
+          <div class="vs3-num">2</div>
+          <div>
+            <div class="vs3-h">編輯器</div>
+            <div class="vs3-d">看 Claude 改 · 你自己也改</div>
+          </div>
+        </div>
+        <div class="vs3-card">
+          <div class="vs3-num">3</div>
+          <div>
+            <div class="vs3-h">Terminal <span style="font-size:16px; color:var(--brick); font-family:var(--mono); letter-spacing:0.1em; margin-left:10px; font-weight:500;">★ CLAUDE CODE 跑在這</span></div>
+            <div class="vs3-d">跟 Claude 對話的入口</div>
+          </div>
+        </div>
+        <div class="vs3-quote">Claude Code 跑在<span class="accent">終端機</span>裡 ——<br>VS Code 把它跟你的<span class="accent">檔案 + 編輯器</span>擺在一起。</div>
+      </div>
+    </div>
+    <div class="slide-num">9 / 24</div>
+    <div class="footer-mark">BLOCK 1 · THE HOST</div>
+  </section>
+
+  <!-- ============ P17 Obsidian · Vault 的窗（真實截圖） ============ -->
+  <section class="slide" data-label="P17 Obsidian · Vault 的窗">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE LENS</span><span class="rule"></span><span>OBSIDIAN</span></div>
+    <div style="height:32px"></div>
+    <div class="title">Obsidian 是<span class="accent">看 Vault 的窗</span>。</div>
+    <div style="height:40px"></div>
+    <div class="split-screen grow">
+      <div class="ss-mock" style="display:flex; align-items:stretch;">
+        <img src="img/p18-obsidian-vault.png" alt="Obsidian 視窗 · FLUX vault 真實截圖" style="width:100%; height:auto; max-height:540px; object-fit:contain; border-radius:8px; border:2px solid var(--brick); box-shadow: 0 20px 40px -20px rgba(42,33,28,0.4); display:block;">
+      </div>
+      <div class="ss-text">
+        <div class="ss-dual">
+          <div class="ssd-block">
+            <div class="ssd-h">Obsidian = Vault 的窗</div>
+            <div class="ssd-l">— 免費、跨平台、可離線</div>
+            <div class="ssd-l">— Wikilink 互連、graph view 視覺化</div>
+            <div class="ssd-l">— 你看 Vault 就用它</div>
+          </div>
+          <div class="ssd-divider"></div>
+          <div class="ssd-block">
+            <div class="ssd-h">同一份 .md 檔 · 兩個視角</div>
+            <div class="ssd-l">— Claude 在 Terminal 改、你在 Obsidian 看</div>
+            <div class="ssd-l">— 中間不轉檔、即時同步</div>
+            <div class="ssd-l">— 下一頁講 Markdown 格式本身</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">10 / 24</div>
+    <div class="footer-mark">BLOCK 1 · THE LENS</div>
+  </section>
+
+
+
+  <!-- ============ P17b Markdown · 統一格式（台中新增・補 D1 trim 掉的 Markdown 教學）============ -->
+  <section class="slide" data-label="P17b Markdown · 統一格式">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE FORMAT</span><span class="rule"></span><span>MARKDOWN · 統一格式</span></div>
+    <div style="height:32px"></div>
+    <div class="title">那 Markdown 是什麼？<br>—— 所有檔案的<span class="accent">統一格式</span>。</div>
+    <div style="height:44px"></div>
+    <div class="row" style="gap:48px; align-items:stretch;">
+      <div style="flex:1; display:flex; flex-direction:column;">
+        <div class="small mono" style="margin-bottom:12px; letter-spacing:0.08em; color:var(--ink-muted);">你打的 —— 純文字 + 幾個符號</div>
+        <div class="terminal" style="flex:1;">
+          <div class="bar"><span></span><span></span><span></span></div>
+          <div><span style="color:var(--brick);">#</span> 本週</div>
+          <div style="height:6px"></div>
+          <div><span style="color:var(--brick);">**</span>主要任務<span style="color:var(--brick);">**</span></div>
+          <div><span style="color:var(--brick);">-</span> 寫一篇 blog</div>
+          <div><span style="color:var(--brick);">-</span> 排這週電子報</div>
+          <div><span style="color:var(--brick);">-</span> 回客戶提案</div>
+        </div>
+      </div>
+      <div style="flex:0.28; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;">
+        <div class="mono" style="color:var(--ink-muted); font-size:16px; background:#E8DCCB; padding:6px 12px; border-radius:6px;">⌘ ⇧ V</div>
+        <div style="font-size:44px; color:var(--brick); line-height:1;">→</div>
+        <div class="small" style="color:var(--ink-muted);">渲染</div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column;">
+        <div class="small mono" style="margin-bottom:12px; letter-spacing:0.08em; color:var(--ink-muted);">Obsidian 顯示的 —— 漂亮排版</div>
+        <div style="flex:1; background:#FFFAF5; border:1px solid var(--rule); border-radius:8px; padding:28px 32px;">
+          <div style="font-family:var(--serif); font-size:40px; font-weight:600; color:var(--ink); border-bottom:1px solid var(--rule); padding-bottom:12px;">本週</div>
+          <div style="height:16px"></div>
+          <div style="font-weight:700; color:var(--ink); font-size:25px; margin-bottom:10px;">主要任務</div>
+          <div style="color:var(--ink); font-size:25px; line-height:1.85;">• 寫一篇 blog<br>• 排這週電子報<br>• 回客戶提案</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+    <div class="small" style="border-top:1px solid var(--rule); padding-top:20px;"><span class="accent" style="font-weight:600;">AI 看得懂 · 不綁任何工具 · 100 年後還打得開。</span>　同一份 .md、Claude 在 Terminal 寫、你在 Obsidian 看。</div>
+    <div class="slide-num">11 / 24</div>
+    <div class="footer-mark">BLOCK 1 · MARKDOWN</div>
+  </section>
+
+  <!-- ============ P25→移到此 · 兩種叫法（工作環境段收尾：VS Code / Obsidian / Markdown / 終端機+GUI）============ -->
+  <section class="slide" data-label="P25 兩種叫法">
+    <div class="eyebrow"><span class="dot"></span><span class="num">INTERFACE</span><span class="rule"></span><span>選你習慣的入口</span></div>
+    <div style="height:32px"></div>
+    <div class="title">兩種方式叫 Claude ——<br><span class="accent">選你習慣的</span>。</div>
+    <div style="height:48px"></div>
+    <div class="vs3 grow">
+      <!-- 一個 VS Code 視窗、兩個入口 -->
+      <div class="vs3-mock">
+        <div class="vs3-bar">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <span class="vs3-title">FLUX-standard — Visual Studio Code</span>
+        </div>
+        <div style="display:grid; grid-template-columns: 170px 1fr 360px; min-height:540px;">
+          <!-- 檔案樹 · file tree -->
+          <div class="vs3-tree">
+            <div style="color:#888; font-size:11px; letter-spacing:0.12em; margin-bottom:10px;">EXPLORER</div>
+            <div class="vs3-files">
+              <div>📁 Inbox</div>
+              <div style="background:#094771; color:#fff; padding-left:4px; margin-left:-4px; border-radius:3px;">📁 Cockpit</div>
+              <div>📁 Efforts</div>
+              <div>📁 Calendar</div>
+              <div>📁 Atlas</div>
+              <div>📁 Guides</div>
+              <div>📁 Templates</div>
+              <div style="color:var(--brick); font-weight:600;">📄 CLAUDE.md</div>
+            </div>
+          </div>
+          <!-- 中：編輯器 + 終端機（① 命令列入口）-->
+          <div style="display:grid; grid-template-rows: 1fr 210px; border-left:1px solid #333; border-right:1px solid #333;">
+            <div class="vs3-edit">
+              <div style="color:#569cd6;"># Cockpit / Weekly-Commitment.md</div>
+              <div style="margin-top:6px;"># 本週</div>
+              <div><span style="color:#608b4e;">- [ ]</span> 寫完品牌合作提案</div>
+              <div><span style="color:#608b4e;">- [ ]</span> 這週電子報排程</div>
+            </div>
+            <div class="vs3-term">
+              <div class="vs3-label"><span class="ringnum">1</span><span class="ringtxt">▾ TERMINAL · 命令列入口</span></div>
+              <div style="margin-top:6px;"><span style="color:var(--brick);">~/FLUX-standard $</span> claude</div>
+              <div style="color:rgba(232,220,203,0.7);">早安。今天要做什麼？</div>
+              <div><span style="color:var(--brick);">&gt;</span><span class="caret-mac"></span></div>
+            </div>
+          </div>
+          <!-- 右：Claude 對話面板（② 圖形介面入口）-->
+          <div style="background:#252526; display:flex; flex-direction:column;">
+            <div style="padding:12px 16px; border-bottom:1px solid #333; display:flex; align-items:center;">
+              <div class="vs3-label" style="margin:0;"><span class="ringnum">2</span><span class="ringtxt">◆ CLAUDE · 圖形介面入口</span></div>
+            </div>
+            <div style="padding:18px 16px; font-family:'Noto Sans TC',sans-serif; font-size:15px; color:#d4d4d4; line-height:1.7; flex:1;">
+              <div style="background:#37373d; border-radius:8px; padding:10px 14px; margin-bottom:14px;">幫我看這週要追什麼</div>
+              <div style="color:rgba(212,212,212,0.85);">好的、我讀了你的 Weekly-Commitment ——<br>本週 3 件、「電子報排程」還沒開始。</div>
+            </div>
+            <div style="padding:12px 16px; border-top:1px solid #333; color:#888; font-size:14px; font-family:'Noto Sans TC',sans-serif;">▌ 輸入訊息…</div>
+          </div>
+        </div>
+      </div>
+      <!-- 右欄：①② 說明卡 -->
+      <div class="vs3-text">
+        <div class="vs3-card">
+          <div class="vs3-num">1</div>
+          <div>
+            <div class="vs3-h">Terminal · 命令列</div>
+            <div class="vs3-d"><span class="mono accent">⌘ J</span> 開終端機、打 <span class="mono accent">claude</span> —— 純打字對話</div>
+          </div>
+        </div>
+        <div class="vs3-card">
+          <div class="vs3-num">2</div>
+          <div>
+            <div class="vs3-h">Chat Panel · 圖形介面</div>
+            <div class="vs3-d">點側邊欄 Claude icon 或 <span class="mono accent">⌘ Esc</span> —— 像聊天視窗</div>
+          </div>
+        </div>
+        <div class="vs3-quote">兩個都在<span class="accent">同一個 VS Code</span> 裡 ——<br>選你習慣的 panel、跟的是<span class="accent">同一個 Claude</span>。</div>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="takeaway" style="padding:22px 36px; font-size:22px;">兩種叫法、同一個 Claude ——<br><span class="last" style="font-size:26px;">下一步動手時、選你習慣的一個就好。</span></div>
+    <div class="slide-num">12 / 24</div>
+    <div class="footer-mark">BLOCK 1 · TWO WAYS TO INVOKE</div>
+  </section>
+
+  <!-- ============ P18 FLUX 出場 + 名字 reveal (v2 仿 ref #13 巨大字 + Learn/Upgrade) ============ -->
+  <section class="slide ink" data-label="P18 FLUX 出場 + 名字 reveal" style="justify-content:flex-start;">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE REVEAL</span><span class="rule"></span><span>NAMING · THE COCKPIT</span></div>
+    <div style="flex:1"></div>
+    <div style="font-family:var(--serif); font-size:44px; color:rgba(245,237,228,0.6); line-height:1.2;">
+      我用快一年的這套 AI Workspace ——<br>我把它的設計命名為 ——
+    </div>
+    <div style="height:36px"></div>
+    <div style="font-family:var(--serif); font-size:240px; font-weight:900; color:#E47A5C; line-height:1; letter-spacing:-0.02em;">FLUX</div>
+    <div style="height:32px"></div>
+    <div style="font-family:var(--serif); font-size:52px; color:var(--cream); line-height:1.25;">
+      給你的<span style="color:#E47A5C;">指揮中心</span>。
+    </div>
+    <div style="height:28px"></div>
+    <div style="font-family:var(--mono); font-size:22px; color:rgba(245,237,228,0.65); letter-spacing:0.2em;">
+      FOCUS · LEARN · UPGRADE · EXECUTE
+    </div>
+    <div style="flex:1"></div>
+    <div class="slide-num">13 / 24</div>
+    <div class="footer-mark">BLOCK 1 · THE REVEAL · AI WORKSPACE = PRODUCT · FLUX = 框架</div>
+  </section>
+
+  <!-- ============ P19 FLUX 4 字母循環 (v2 仿 ref #14 4-col 巨大字 + Learn/Upgrade) ============ -->
+  <section class="slide" data-label="P19 FLUX 4 字母循環">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE LOOP</span><span class="rule"></span><span>4 LETTERS · 1 CYCLE</span></div>
+    <div style="height:32px"></div>
+    <div class="title">一個<span class="accent">循環</span>、不是清單。</div>
+    <div style="height:48px"></div>
+    <div class="flux-grid">
+      <div class="fl-col">
+        <div class="fl-letter">F</div>
+        <div class="fl-mono">Focus</div>
+        <div class="fl-h">專注目標</div>
+        <div class="fl-d">早上開工、聚焦今天 3 件事</div>
+      </div>
+      <div class="fl-col">
+        <div class="fl-letter">L</div>
+        <div class="fl-mono">Learn</div>
+        <div class="fl-h">連結知識</div>
+        <div class="fl-d">把今天學到的、寫進 Atlas</div>
+      </div>
+      <div class="fl-col">
+        <div class="fl-letter">U</div>
+        <div class="fl-mono">Upgrade</div>
+        <div class="fl-h">迭代升級</div>
+        <div class="fl-d">調 CLAUDE.md · 加 Skill · 助理越用越懂你</div>
+      </div>
+      <div class="fl-col">
+        <div class="fl-letter">X</div>
+        <div class="fl-mono">e<span class="accent">X</span>ecute</div>
+        <div class="fl-h">每日執行</div>
+        <div class="fl-d">隔天開工、循環接起來</div>
+      </div>
+    </div>
+    <div class="flux-flow">
+      <span>設目標</span> <span class="arrow">→</span>
+      <span>累積知識</span> <span class="arrow">→</span>
+      <span>升級系統</span> <span class="arrow">→</span>
+      <span>執行</span> <span class="loop">↻</span>
+      <span>重新校準</span>
+    </div>
+    <div class="slide-num">14 / 24</div>
+    <div class="footer-mark">BLOCK 1 · THE LOOP</div>
+  </section>
+
+  <!-- ============ P20 三層架構 · FLUX 有層次 (v2 仿 ref #15 · FOUNDATION 高亮 · 底座 callout) ============ -->
+  <section class="slide" data-label="P20 三層架構 · FLUX 有層次">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THREE LAYERS</span><span class="rule"></span><span>FLUX 有層次</span></div>
+    <div style="height:32px"></div>
+    <div class="title">FLUX 不是平鋪的、<br>是<span class="accent">有層次</span>的。</div>
+    <div style="height:36px"></div>
+    <div class="stack3 grow">
+      <!-- UPPER · 場景 (dim · 最輕、最常用、但站在下面兩層上) -->
+      <div class="layer upper">
+        <div class="layer-l">
+          <div class="layer-num">UPPER</div>
+          <div class="layer-h">場景</div>
+        </div>
+        <div class="layer-r">
+          <div class="layer-body">你的工作流</div>
+          <div class="layer-mono">跑開工 · 整理逐字稿 · 寫電子報 · 每日回顧 · 整理會議記錄 ⋯⋯</div>
+        </div>
+      </div>
+      <div class="layer-link">↑ 疊在它上面 ↑</div>
+      <!-- MIDDLE · 原子能力 -->
+      <div class="layer middle">
+        <div class="layer-l">
+          <div class="layer-num">MIDDLE</div>
+          <div class="layer-h">原子能力</div>
+        </div>
+        <div class="layer-r">
+          <div class="layer-body">觸發語 · Skill</div>
+          <div class="layer-mono">「開工」「整理這份 Excel」「研究 [主題]」「[歸檔]」⋯⋯</div>
+        </div>
+      </div>
+      <div class="layer-link">↑ 疊在它上面 ↑</div>
+      <!-- FOUNDATION · 底座 (brick 高亮 · shadow · 重) -->
+      <div class="layer foundation">
+        <div class="layer-l">
+          <div class="layer-num">FOUNDATION</div>
+          <div class="layer-h">底座</div>
+        </div>
+        <div class="layer-r">
+          <div class="layer-body">FLUX Vault</div>
+          <div class="layer-mono">資料夾結構（Inbox / Cockpit / Efforts / Calendar / Atlas / Guides / Templates）+ CLAUDE.md</div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-callout">
+      <div style="display:flex; flex-direction:column; gap:6px; flex:1;">
+        <span style="font-family:var(--mono); font-size:18px; color:rgba(245,237,228,0.55); letter-spacing:0.08em;">原則：底座沒打好、上面都會歪。</span>
+        <span class="punch">你的底座已就位 —— AI 從這帶你前進。</span>
+      </div>
+      <span class="recipe">FLUX Vault + CLAUDE.md 已配置 · 今天把 UPPER + MIDDLE 兩層疊上去</span>
+    </div>
+    <div class="slide-num">15 / 24</div>
+    <div class="footer-mark">BLOCK 1 · LAYERS</div>
+  </section>
+
+  <!-- ============ P21 三套方法論 · PARA + 卡片盒 + 12WY ============ -->
+  <section class="slide" data-label="P21 三套方法論 · PARA + 卡片盒 + 12WY">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE METHODOLOGY</span><span class="rule"></span><span>PARA + 卡片盒 + 12WY</span></div>
+    <div style="height:32px"></div>
+    <div class="title">FLUX 站在<span class="accent">三套方法論</span>上 ——<br>管行動 + 管知識 + 管執行。</div>
+    <div style="height:32px"></div>
+    <div class="duo-method grow">
+      <!-- 1. PARA · 管行動 → Efforts/ -->
+      <div class="dm-card">
+        <div class="dm-tag">PARA · 管行動</div>
+        <div class="dm-h" style="display:flex; gap:14px; align-items:flex-start;">
+          <img src="img/p17-second-brain.webp" alt="打造第二大腦 · Tiago Forte" style="width:62px; height:auto; border-radius:2px; box-shadow:0 2px 8px rgba(0,0,0,0.18); flex-shrink:0;">
+          <div>Tiago Forte<span class="dm-sub">《打造第二大腦》</span></div>
+        </div>
+        <div class="dm-list">
+          <div class="dm-item"><span class="dm-k">P</span> · Projects — 有 deadline</div>
+          <div class="dm-item"><span class="dm-k">A</span> · Areas — 持續經營</div>
+          <div class="dm-item"><span class="dm-k">R</span> · Resources — 主題參考</div>
+          <div class="dm-item"><span class="dm-k">A</span> · Archive — 沉睡舊案</div>
+        </div>
+        <div class="dm-foot">
+          → <strong>Efforts/</strong> 資料夾
+          <div style="font-family:var(--mono); font-size:13px; color:var(--ink-muted); letter-spacing:0.04em; margin-top:6px; font-weight:normal; opacity:0.85;">日常動 P + A · R / Archive 之後再分</div>
+        </div>
+      </div>
+      <!-- 2. 卡片盒 · 管知識 → Atlas/ -->
+      <div class="dm-card">
+        <div class="dm-tag">卡片盒筆記 · 管知識</div>
+        <div class="dm-h" style="display:flex; gap:14px; align-items:flex-start;">
+          <img src="img/p17-smart-notes.webp" alt="卡片盒筆記 · Sönke Ahrens" style="width:62px; height:auto; border-radius:2px; box-shadow:0 2px 8px rgba(0,0,0,0.18); flex-shrink:0;">
+          <div>Luhmann · Sönke Ahrens<span class="dm-sub">《卡片盒筆記》Zettelkasten</span></div>
+        </div>
+        <div class="dm-list">
+          <div class="dm-item"><span class="dm-k">·</span> Dots — 一卡一概念</div>
+          <div class="dm-item"><span class="dm-k">·</span> Sources — 書 / 影片 / Link</div>
+          <div class="dm-item"><span class="dm-k">·</span> Wikilink — 卡片互相連結</div>
+          <div class="dm-item"><span class="dm-k">·</span> Maps — 主題索引（把相關 Dots 串起來）</div>
+        </div>
+        <div class="dm-foot">
+          → <strong>Atlas/</strong> · LYT (Nick Milo) Obsidian 實現
+          <div style="font-family:var(--mono); font-size:13px; color:var(--ink-muted); letter-spacing:0.04em; margin-top:6px; font-weight:normal; opacity:0.85;">知識管理段深教 · 你會建第一張 Dot 卡</div>
+        </div>
+      </div>
+      <!-- 3. 12 Week Year · 管執行 → Cockpit/ -->
+      <div class="dm-card">
+        <div class="dm-tag">12 週年 · 管執行</div>
+        <div class="dm-h" style="display:flex; gap:14px; align-items:flex-start;">
+          <img src="img/p17-12-week-year.webp" alt="12週做完一年工作 · Brian Moran" style="width:62px; height:auto; border-radius:2px; box-shadow:0 2px 8px rgba(0,0,0,0.18); flex-shrink:0;">
+          <div>Brian Moran<span class="dm-sub">《12週做完一年工作・實踐版》</span></div>
+        </div>
+        <div class="dm-list">
+          <div class="dm-item"><span class="dm-k">·</span> Vision — 3 年願景</div>
+          <div class="dm-item"><span class="dm-k">·</span> 12-week Goals — 這季 1-3 件大事</div>
+          <div class="dm-item"><span class="dm-k">·</span> Weekly Commit — 本週推進</div>
+          <div class="dm-item"><span class="dm-k">·</span> Daily Execution — 今天 3 件事</div>
+        </div>
+        <div class="dm-foot">
+          → <strong>Cockpit/</strong> 資料夾
+          <div style="font-family:var(--mono); font-size:13px; color:var(--ink-muted); letter-spacing:0.04em; margin-top:6px; font-weight:normal; opacity:0.85;">目標管理段深教 · 你會設 3 個目標、拆到週</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="takeaway">行動 + 知識 + 執行 三方分開存、wikilink 串起來 ——<br><span class="last">就成了一個會自己流的工作系統。</span></div>
+    <div class="slide-num">16 / 24</div>
+    <div class="footer-mark">BLOCK 1 · THE METHODOLOGY</div>
+  </section>
+
+  <!-- ============ P22 Vault 全貌 · 7 個資料夾 + CLAUDE.md（對齊真實 vault） ============ -->
+  <!-- ============ P24→移到此 · 打開 vault（接三套方法論後：先打開、再看裡面）============ -->
+  <section class="slide" data-label="P24 打開 vault">
+    <div class="eyebrow"><span class="dot"></span><span class="num">SETUP</span><span class="rule"></span><span>一次設定 · 之後不用做</span></div>
+    <div style="height:32px"></div>
+    <div class="title">先打開 vault ——<br><span class="accent">Claude 才認得 FLUX</span>。</div>
+    <div style="height:48px"></div>
+    <div class="steplist grow">
+      <div class="sl-left">
+        <div class="sl-step">
+          <div class="sl-num">1</div>
+          <div class="sl-content">
+            <div class="sl-h">打開 VS Code</div>
+            <div class="sl-d">從 Dock 或 Launchpad 開</div>
+          </div>
+        </div>
+        <div class="sl-step">
+          <div class="sl-num">2</div>
+          <div class="sl-content">
+            <div class="sl-h">File → Open Folder...</div>
+            <div class="sl-d">或按 <span class="mono">⌘ + O</span></div>
+          </div>
+        </div>
+        <div class="sl-step">
+          <div class="sl-num">3</div>
+          <div class="sl-content">
+            <div class="sl-h">選 <span class="mono">FLUX-standard/</span></div>
+            <div class="sl-d">點 Open → 左側出現你的 vault tree</div>
+          </div>
+        </div>
+      </div>
+      <div class="sl-right">
+        <div style="position:relative; align-self:start;">
+          <img src="img/p29-vscode-empty.png" alt="VS Code empty state — open folder" style="width:100%; display:block; border-radius:8px; box-shadow:0 24px 48px -24px rgba(42,33,28,0.3);" />
+          <!-- ① 滑鼠：開啟資料夾 藍色按鈕 -->
+          <div style="position:absolute; top:20.5%; left:3.5%; width:25%; height:4.4%; border:3px solid var(--brick); border-radius:8px; box-shadow:0 0 0 4px rgba(194,91,63,0.18);"></div>
+          <div style="position:absolute; top:14.5%; left:3.5%; color:var(--brick); font-family:var(--mono); font-size:14px; font-weight:600; letter-spacing:0.14em; background:var(--cream-3); padding:3px 8px; border-radius:4px; border:1px solid var(--brick);">① 滑鼠派</div>
+          <!-- ② 鍵盤：⌘O 快捷鍵 -->
+          <div style="position:absolute; top:71.6%; left:56%; width:26%; height:4%; border:3px solid var(--brick); border-radius:8px; box-shadow:0 0 0 4px rgba(194,91,63,0.18);"></div>
+          <div style="position:absolute; top:65.4%; left:56%; color:var(--brick); font-family:var(--mono); font-size:14px; font-weight:600; letter-spacing:0.14em; background:var(--cream-3); padding:3px 8px; border-radius:4px; border:1px solid var(--brick);">② 鍵盤派</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="takeaway" style="padding:22px 36px; font-size:22px;">Claude 讀「你打開的資料夾」的 CLAUDE.md ——<br><span class="last" style="font-size:26px;">所以動手前、vault 一定要先打開。</span></div>
+    <div class="slide-num">17 / 24</div>
+    <div class="footer-mark">BLOCK 1 · OPEN YOUR VAULT</div>
+  </section>
+
+  <!-- ============ P21b Vault file-tree mockup（台中新增：你電腦上長這樣）============ -->
+  <section class="slide" data-label="P21b Vault · 你電腦上長這樣">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE VAULT</span><span class="rule"></span><span>你電腦上的樣子</span></div>
+    <div style="height:28px"></div>
+    <div class="title">打開資料夾 ——<br>你的 Vault <span class="accent">長這樣</span>。</div>
+    <div style="height:40px"></div>
+    <div class="row" style="gap:56px; align-items:stretch; flex:1;">
+      <div style="flex:1.1; background:#1A1410; border-radius:10px; padding:34px 38px; font-family:var(--mono); font-size:25px; line-height:2; color:#E8DCCB; display:flex; flex-direction:column; justify-content:center;">
+        <div style="color:rgba(232,220,203,0.5); font-size:17px; letter-spacing:0.16em; margin-bottom:16px;">~/FLUX-standard</div>
+        <div>FLUX-standard/</div>
+        <div style="background:rgba(194,91,63,0.18); margin:0 -12px; padding:0 12px;">├── CLAUDE.md&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--brick);">★</span></div>
+        <div style="background:rgba(194,91,63,0.18); margin:0 -12px; padding:0 12px;">├── Cockpit/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--brick);">★</span></div>
+        <div style="background:rgba(194,91,63,0.18); margin:0 -12px; padding:0 12px;">├── Atlas/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--brick);">★</span></div>
+        <div style="background:rgba(194,91,63,0.18); margin:0 -12px; padding:0 12px;">├── Efforts/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--brick);">★</span></div>
+        <div style="background:rgba(194,91,63,0.18); margin:0 -12px; padding:0 12px;">├── Inbox/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--brick);">★</span></div>
+        <div style="color:rgba(232,220,203,0.55);">├── Calendar/</div>
+        <div style="color:rgba(232,220,203,0.55);">├── Guides/</div>
+        <div style="color:rgba(232,220,203,0.55);">└── Templates/</div>
+      </div>
+      <div style="flex:0.9; display:flex; flex-direction:column; justify-content:center; gap:22px;">
+        <div style="font-family:var(--serif); font-size:36px; color:var(--ink); font-weight:500; line-height:1.4;">就是一個資料夾、<br>放在你電腦上。</div>
+        <div class="body" style="color:var(--ink-muted); font-size:24px; line-height:1.6;">沒有雲端、沒有帳號、沒有訂閱。<br>Claude 讀寫的、就是這幾個資料夾裡的純文字檔。</div>
+        <div style="margin-top:6px; padding:18px 24px; background:#E8DCCB; border-radius:8px;"><span style="font-family:var(--mono); color:var(--brick); font-size:18px;">★</span> <span style="color:var(--ink); font-size:23px;">標星的 = 今天會動到的</span></div>
+      </div>
+    </div>
+    <div class="slide-num">18 / 24</div>
+    <div class="footer-mark">BLOCK 1 · VAULT TREE</div>
+  </section>
+
+  <!-- ============ P22 Vault 全貌 · 7 + 1（卡片詳解）============ -->
+  <section class="slide" data-label="P22 Vault 全貌 · 7 + 1">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE VAULT</span><span class="rule"></span><span>7 + 1 · STRUCTURE</span></div>
+    <div style="height:32px"></div>
+    <div class="title">Vault = 你助理的<span class="accent">記憶體</span>。<br>7 個資料夾 + 1 份說明書。</div>
+    <div style="height:36px"></div>
+    <div class="vault-grid grow">
+      <div class="vcard">
+        <div class="vname">Inbox/</div>
+        <div class="vh">想法快速捕捉</div>
+        <div class="vb">未分類進這、之後再整理</div>
+      </div>
+      <div class="vcard star">
+        <div class="vname">Cockpit/</div>
+        <div class="vh">控制中心</div>
+        <div class="vb">週 / 日 commitment ·「開工」跑這裡</div>
+        <div class="vstar">★ 今天動這裡</div>
+      </div>
+      <div class="vcard star">
+        <div class="vname">Efforts/</div>
+        <div class="vh">Projects + Areas</div>
+        <div class="vb">對應 PARA 框架</div>
+        <div class="vstar">★ 目標管理段</div>
+      </div>
+      <div class="vcard">
+        <div class="vname">Calendar/</div>
+        <div class="vh">個人日記 + 時間軸</div>
+        <div class="vb">Days / Weeks / Records</div>
+      </div>
+      <div class="vcard star">
+        <div class="vname">Atlas/</div>
+        <div class="vh">知識卡 + Sources</div>
+        <div class="vb">對應 LYT 框架（Dots / MOC）</div>
+        <div class="vstar">★ 知識管理段</div>
+      </div>
+      <div class="vcard">
+        <div class="vname">Guides/</div>
+        <div class="vh">操作手冊 · SOP</div>
+        <div class="vb">常用流程說明</div>
+      </div>
+      <div class="vcard dim">
+        <div class="vname">Templates/</div>
+        <div class="vh">模板</div>
+        <div class="vb">已設好初版 · 進階用</div>
+      </div>
+      <div class="vcard file">
+        <div class="vname">CLAUDE.md</div>
+        <div class="vh">助理使用說明書</div>
+        <div class="vb">不是資料夾 · root 一個檔</div>
+      </div>
+    </div>
+    <div style="height:20px"></div>
+    <div class="callout-box cream">今天主要動 <strong class="accent">Cockpit / Atlas</strong> · 其他先看過、之後用得上</div>
+    <div class="slide-num">19 / 24</div>
+    <div class="footer-mark">BLOCK 1 · THE VAULT</div>
+  </section>
+
+
+  <!-- ============ P22c 沒記憶 PROBLEM/SOLUTION（台中新增・重建自台北 #19、用 D1 安全樣式）============ -->
+  <section class="slide" data-label="P22c 沒記憶 · PROBLEM / SOLUTION">
+    <div class="eyebrow"><span class="dot"></span><span class="num">04 · CLAUDE.md</span><span class="rule"></span><span>NO MEMORY</span></div>
+    <div style="height:28px"></div>
+    <div class="title">Claude Code <span class="accent">沒有記憶</span>。</div>
+    <div style="height:44px"></div>
+    <div class="row" style="gap:36px; align-items:stretch; flex:1;">
+      <!-- PROBLEM -->
+      <div style="flex:1; background:#FFFAF5; border:1px solid var(--rule); border-radius:10px; padding:36px 40px; display:flex; flex-direction:column;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div style="width:50px; height:50px; border:2px solid var(--ink-muted); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:30px; color:var(--ink-muted); font-weight:700;">?</div>
+          <div style="font-family:var(--mono); font-size:20px; color:var(--ink-muted); letter-spacing:0.14em;">PROBLEM · 問題</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:18px; font-size:28px; color:var(--ink); line-height:1.4;">
+          <div><span style="font-family:var(--mono); color:var(--ink-muted); margin-right:14px;">01</span>每次打 <span style="font-family:var(--mono); background:var(--ink); color:#F5EDE4; padding:2px 10px; font-size:22px;">claude</span> = 全新對話</div>
+          <div><span style="font-family:var(--mono); color:var(--ink-muted); margin-right:14px;">02</span>教過的事 · 它不記得</div>
+          <div><span style="font-family:var(--mono); color:var(--ink-muted); margin-right:14px;">03</span>昨天的設定 · 今天從頭問</div>
+        </div>
+        <div style="margin-top:auto; padding-top:24px; border-top:1px dashed var(--rule); font-size:22px; color:var(--ink-muted); font-style:italic;">是它的設計、不是 bug。</div>
+      </div>
+      <!-- ARROW -->
+      <div style="flex:0 0 88px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;">
+        <div style="font-family:var(--serif); font-size:24px; color:var(--ink-muted); writing-mode:vertical-rl; letter-spacing:0.2em;">靠什麼解決</div>
+        <div style="font-family:var(--mono); font-size:60px; color:var(--brick); line-height:1;">↓</div>
+      </div>
+      <!-- SOLUTION -->
+      <div style="flex:1; background:var(--brick); border-radius:10px; padding:36px 40px; display:flex; flex-direction:column; color:#FFFAF5;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+          <div style="width:50px; height:50px; border:2px solid #FFFAF5; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:26px; color:#FFFAF5; font-weight:700;">✓</div>
+          <div style="font-family:var(--mono); font-size:20px; color:#FFFAF5; letter-spacing:0.14em; opacity:0.85;">SOLUTION · 解法</div>
+        </div>
+        <div style="font-family:var(--mono); font-size:34px; color:#FFFAF5; font-weight:700; margin-bottom:22px;">CLAUDE.md</div>
+        <div style="display:flex; flex-direction:column; gap:18px; font-size:28px; color:#FFFAF5; line-height:1.4;">
+          <div><span style="font-family:var(--mono); opacity:0.6; margin-right:14px;">01</span>每次開機第一件事就讀它</div>
+          <div><span style="font-family:var(--mono); opacity:0.6; margin-right:14px;">02</span>寫一次 · 它每次都記得</div>
+          <div><span style="font-family:var(--mono); opacity:0.6; margin-right:14px;">03</span>你的 FLUX-standard 裡 · 已經有一份</div>
+        </div>
+        <div style="margin-top:auto; padding-top:24px; border-top:1px dashed rgba(255,250,245,0.4); font-size:22px; color:#FFFAF5; font-style:italic; opacity:0.9;">Claude Code 的使用說明書。</div>
+      </div>
+    </div>
+    <div class="slide-num">20 / 24</div>
+    <div class="footer-mark">BLOCK 1 · NO MEMORY</div>
+  </section>
+
+  <!-- ============ P23 Claude 沒記憶 → CLAUDE.md 解 ============ -->
+  <section class="slide" data-label="P23 Claude 沒記憶 → CLAUDE.md">
+    <div class="eyebrow"><span class="dot"></span><span class="num">THE TRICK</span><span class="rule"></span><span>為什麼 Claude 認得你</span></div>
+    <div style="height:32px"></div>
+    <div class="title">Claude 沒記憶 ——<br>就像<span class="accent">《我的失憶女友》</span>。</div>
+    <div style="height:14px"></div>
+    <div style="font-family:var(--sans); font-size:22px; color:var(--ink-muted); line-height:1.6; max-width:1100px;">
+      電影裡她每天醒來都忘了 —— 靠<strong style="color:var(--ink);">把要記得的事寫進日記、起床先讀一遍</strong>、才能繼續生活。<br>
+      <strong style="color:var(--ink);">Claude Code 一樣 —— 那本日記叫 CLAUDE.md。</strong>
+    </div>
+    <div style="height:30px"></div>
+    <div class="contrast grow">
+      <div class="ct-side">
+        <div class="ct-tag dim">✗ 沒 CLAUDE.md</div>
+        <div class="ct-bubble user"><div class="ct-from">USER</div><div class="ct-msg">幫我把這篇改成我的風格</div></div>
+        <div class="ct-bubble ai dim"><div class="ct-from">CLAUDE</div><div class="ct-msg">你的風格是什麼？</div></div>
+        <div class="ct-bubble user"><div class="ct-from">USER</div><div class="ct-msg">我是寫品牌文案的自由工作者</div></div>
+        <div class="ct-bubble ai dim"><div class="ct-from">CLAUDE</div><div class="ct-msg">了解、但下次新對話我又會忘</div></div>
+        <div class="ct-foot dim">每次對話都從零教 = 浪費 5 分鐘</div>
+      </div>
+      <div class="ct-mid"><span class="ct-arrow">→</span></div>
+      <div class="ct-side accent">
+        <div class="ct-tag brick">✓ 有 CLAUDE.md</div>
+        <div class="ct-bubble user"><div class="ct-from">USER</div><div class="ct-msg">幫我把這篇改成我的風格</div></div>
+        <div class="ct-bubble ai brick"><div class="ct-from">CLAUDE</div><div class="ct-msg">（讀完 CLAUDE.md）好的、用你慣用的口語品牌語氣、段落短、結尾帶 CTA。</div></div>
+        <div class="ct-bubble user"><div class="ct-from">USER</div><div class="ct-msg">明天開新對話也記得？</div></div>
+        <div class="ct-bubble ai brick"><div class="ct-from">CLAUDE</div><div class="ct-msg">會、那是我的日記、每次開工先讀。</div></div>
+        <div class="ct-foot brick"><strong>CLAUDE.md = Claude 的日記</strong></div>
+      </div>
+    </div>
+    <div class="slide-num">21 / 24</div>
+    <div class="footer-mark">BLOCK 1 · THE TRICK</div>
+  </section>
+
+
+  <!-- ============ P23b CLAUDE.md 內容 mockup（台中新增：展示真實 CLAUDE.md）============ -->
+  <section class="slide" data-label="P23b CLAUDE.md · 裡面長這樣">
+    <div class="eyebrow"><span class="dot"></span><span class="num">04 · CLAUDE.md</span><span class="rule"></span><span>裡面長這樣</span></div>
+    <div style="height:28px"></div>
+    <div class="title">打開 CLAUDE.md ——<br>就是<span class="accent">一份說明書</span>。</div>
+    <div style="height:36px"></div>
+    <div class="row" style="gap:48px; align-items:stretch; flex:1;">
+      <!-- 左：VS Code 編輯器開著 CLAUDE.md -->
+      <div style="flex:1.35; display:flex; flex-direction:column; border-radius:10px; overflow:hidden; box-shadow:0 8px 28px rgba(0,0,0,0.18);">
+        <div class="vs3-bar"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span><span class="vs3-title">CLAUDE.md — FLUX-standard</span></div>
+        <div style="flex:1; background:#1e1e1e; padding:28px 34px; font-family:var(--mono); font-size:19px; line-height:1.9; color:#d4d4d4;">
+          <div style="color:#569cd6;"># FLUX Vault — AI 指令</div>
+          <div style="color:rgba(212,212,212,0.65);">你是使用者的個人助手、協助管理 FLUX 系統。</div>
+          <div style="height:14px"></div>
+          <div style="color:#569cd6;">## 你是誰</div>
+          <div>- 稱呼：<span style="color:#ce9178;">王小雅</span></div>
+          <div>- 角色：<span style="color:#ce9178;">自由工作者</span></div>
+          <div>- 職業：<span style="color:#ce9178;">內容創作 / 品牌文案</span></div>
+          <div style="height:14px"></div>
+          <div style="color:#569cd6;">## 基本行為</div>
+          <div><span style="color:var(--brick);">-</span> 用繁體中文回覆（台灣用語）</div>
+          <div><span style="color:var(--brick);">-</span> 建新檔先讀 Templates/ 模板</div>
+          <div style="height:14px"></div>
+          <div style="color:#569cd6;">## 溝通風格</div>
+          <div>1. 先給結論、再給理由（倒金字塔）</div>
+          <div>2. 最多給 2 個選項</div>
+          <div style="color:rgba(212,212,212,0.4);">⋯⋯</div>
+        </div>
+      </div>
+      <!-- 右：三段重點標註 -->
+      <div style="flex:0.8; display:flex; flex-direction:column; justify-content:center; gap:24px;">
+        <div>
+          <div style="font-family:var(--mono); color:var(--brick); font-size:18px; letter-spacing:0.08em;">你是誰</div>
+          <div style="font-family:var(--serif); font-size:27px; color:var(--ink); line-height:1.4; margin-top:4px;">填一次 —— 它記得你的稱呼 / 角色 / 職業</div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono); color:var(--brick); font-size:18px; letter-spacing:0.08em;">基本行為</div>
+          <div style="font-family:var(--serif); font-size:27px; color:var(--ink); line-height:1.4; margin-top:4px;">講繁中、怎麼建檔 —— 你的規矩</div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono); color:var(--brick); font-size:18px; letter-spacing:0.08em;">溝通風格</div>
+          <div style="font-family:var(--serif); font-size:27px; color:var(--ink); line-height:1.4; margin-top:4px;">它要怎麼跟你講話 —— 你自己定</div>
+        </div>
+        <div style="margin-top:6px; padding:18px 22px; background:#E8DCCB; border-radius:8px; font-size:22px; color:var(--ink); line-height:1.5;">純文字、你<strong>看得懂也改得動</strong> —— 想調就直接改這份檔。</div>
+      </div>
+    </div>
+    <div class="slide-num">22 / 24</div>
+    <div class="footer-mark">BLOCK 1 · CLAUDE.md INSIDE</div>
+  </section>
+
+  <!-- ============ P26 讓 Claude 認識你 · 動手改 CLAUDE.md (v3 改名、Upgrade framing overclaiming) ============ -->
+  <section class="slide" data-label="P26 讓 Claude 認識你">
+    <div class="eyebrow"><span class="dot"></span><span class="num">HANDS-ON</span><span class="rule"></span><span>讓 CLAUDE 認識你 · 10 MIN</span></div>
+    <div style="height:28px"></div>
+    <div class="title">讓 Claude 認識你 ——<br><span class="accent">一句話的事</span>。</div>
+    <div style="height:32px"></div>
+    <div class="steplist grow">
+      <div class="sl-left">
+        <div class="sl-step">
+          <div class="sl-num">1</div>
+          <div class="sl-content">
+            <div class="sl-h">打開 Claude Code</div>
+            <div class="sl-d">用你習慣的方式 —— <span class="mono">⌘ + J</span> 開 terminal 打 <span class="mono">claude</span>、或點側邊 Claude icon</div>
+          </div>
+        </div>
+        <div class="sl-step">
+          <div class="sl-num">2</div>
+          <div class="sl-content">
+            <div class="sl-h">跟 Claude 說（口述 · 不用打 Markdown）</div>
+            <div class="sl-d">
+              · 你的<strong>稱呼</strong><br>
+              · <strong>你的工作 / 身分</strong>（例：自由接案內容創作者）<br>
+              · 「請更新 CLAUDE.md 並確認你認得我」
+            </div>
+          </div>
+        </div>
+        <div class="sl-step">
+          <div class="sl-num">3</div>
+          <div class="sl-content">
+            <div class="sl-h">看 Claude 跑 3 件事</div>
+            <div class="sl-d">
+              (a) 問你要不要改檔 — 按 <span class="mono">1</span> 同意（第一次都選 1、看它在做什麼）<br>
+              (b) 編輯 CLAUDE.md 寫進「你是誰」欄<br>
+              (c) 回答時用你剛填的資訊
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sl-right">
+        <div class="terminal" style="font-size:17px; padding:22px 28px;">
+          <div class="bar"><span></span><span></span><span></span></div>
+          <div><span class="prompt">&gt;</span> 我叫 王小雅、自由接案的內容創作者、主要寫品牌行銷文案。</div>
+          <div style="padding-left:14px;">請更新 CLAUDE.md。</div>
+          <div style="height:10px"></div>
+          <div class="dim">⏺ Edit(CLAUDE.md)</div>
+          <div class="dim" style="padding-left:14px;">⎿ 想新增「你是誰」: 王小雅 / 自由接案內容創作者 ...</div>
+          <div style="height:10px"></div>
+          <div style="border:1px solid rgba(245,237,228,0.28); border-radius:6px; padding:10px 14px; background:rgba(245,237,228,0.04);">
+            <div style="color:#f5ede4;">? Do you want to make this edit to <span style="color:#E47A5C;">CLAUDE.md</span>?</div>
+            <div style="height:6px"></div>
+            <div style="color:#f5ede4;"><span style="color:#E47A5C;">❯ 1.</span> Yes <span style="color:rgba(245,237,228,0.55); font-family:var(--sans); font-size:15px; margin-left:10px;">← 第一次選 1、看 Claude 在做什麼 ★</span></div>
+            <div style="color:rgba(245,237,228,0.72);">&nbsp;&nbsp; 2. Yes, and don't ask again this session <span style="color:rgba(245,237,228,0.42); font-family:var(--sans); font-size:15px; margin-left:10px;">← 整 session 不再問（趕時間時用）</span></div>
+            <div style="color:rgba(245,237,228,0.72);">&nbsp;&nbsp; 3. No, and tell Claude what to do differently <span style="color:rgba(245,237,228,0.42); font-family:var(--sans); font-size:15px; margin-left:10px;">← 想改方向（讓它重新規劃）</span></div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="dim">⏺ Edit(CLAUDE.md) ✓</div>
+          <div style="height:8px"></div>
+          <div class="dim">⏺ 好的 小雅。我認識你了：</div>
+          <div class="dim" style="padding-left:14px;">· 稱呼：王小雅</div>
+          <div class="dim" style="padding-left:14px;">· 工作：自由接案內容創作者<span class="caret"></span></div>
+        </div>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="takeaway" style="padding:22px 36px; font-size:22px;">Claude 現在認識你了 ——<br><span class="last" style="font-size:26px;">之後它都會用你的工作脈絡回答你。</span></div>
+    <div class="slide-num">23 / 24</div>
+    <div class="footer-mark">BLOCK 1 · LET CLAUDE KNOW YOU</div>
+  </section>
+
+  <!-- ============ P28 Block 1 â 2 transition Â· å·¥å·æäºãé£è¦å®åä»éº¼ ============ -->
+  <section class="slide ink transition" data-label="P28 Block 1 → 2 · 工具有了、那要它做什麼">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 1 → 2</span><span class="rule"></span><span>下一站</span></div>
+    <div style="flex:1"></div>
+    <div class="display">工具有了 ——<br>但它還不知道<br><span style="color:#E47A5C">你要往哪去</span>。</div>
+    <div style="height:48px"></div>
+    <div class="subtitle">下一站．目標管理 ——<br>把「我想做點什麼」、<br>變成系統會幫你追的東西。</div>
+    <div style="flex:1.2"></div>
+    <div class="slide-num">24 / 24</div>
+    <div class="footer-mark">BLOCK 1 → BLOCK 2 · 目標管理</div>
+  </section>
+
+<script src="copy-prompt.js"></script>
+
+</deck-stage>
+
+</body></html>
