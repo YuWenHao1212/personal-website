@@ -494,21 +494,9 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
                 </div>
                 <div class="pt-2">
                   <p class="text-sm text-[#5C5144] mb-3">費用</p>
-                  <div class="space-y-2.5">
-                    <div class="flex justify-between items-baseline">
-                      <span class="text-sm text-[#5C5144]">
-                        單人<span id="fee-eb-tag" class="ml-1 inline-block text-[0.7rem] font-medium text-[#D97706] bg-[#FEF3C7] rounded px-1.5 py-0.5 align-middle">早鳥 · 7/22 前</span>
-                      </span>
-                      <span class="text-right whitespace-nowrap">
-                        <span id="fee-regular-strike" class="text-sm text-[#8B7355] line-through mr-1.5">NT$9,800</span>
-                        <span id="fee-single" class="text-xl font-bold text-[#2C2416]">NT$8,800</span>
-                      </span>
-                    </div>
-                    <div class="flex justify-between items-baseline">
-                      <span class="text-sm text-[#5C5144]">兩人以上 <span class="text-xs text-[#8B7355]">每人</span></span>
-                      <span id="fee-duo" class="text-xl font-bold text-[#2C2416]">NT$8,000</span>
-                    </div>
-                    <p id="fee-note" class="text-xs text-[#8B7355] leading-relaxed">兩人以上每人省 NT$1,800，早鳥結束後仍適用。</p>
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-sm text-[#5C5144]">每人</span>
+                    <span class="text-xl font-bold text-[#2C2416]">NT$9,800</span>
                   </div>
                 </div>
               </div>
@@ -532,18 +520,18 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           <select id="party_size" name="party_size" required class="w-full px-4 py-3 rounded-lg border border-[#E8E4DD] text-base text-[#2C2416] focus:outline-none focus:border-[#B8926A] focus:ring-2 focus:ring-[#B8926A]/20 bg-white">
             <option value="1">只有我一個人</option>
             <option value="2">2 人</option>
-            <option value="3">3 人</option>
+            <option value="3+">3 人以上（請在下方備註人數）</option>
           </select>
-          <p class="text-xs text-[#8B7355] mt-1" id="form-price-hint">早鳥 NT$8,800（原價 NT$9,800）· 兩人以上每人 NT$8,000</p>
+          <p class="text-xs text-[#8B7355] mt-1">每人 NT$9,800</p>
 
           <!-- Price preview -->
           <div id="price-preview" class="mt-3 bg-[#FEF3C7]/40 border border-[#D97706]/30 rounded-lg p-3 flex items-baseline justify-between">
             <div>
-              <p class="text-xs text-[#8B7355]" id="price-breakdown">1 人 × NT$8,800（早鳥）</p>
+              <p class="text-xs text-[#8B7355]" id="price-breakdown">1 人 × NT$9,800</p>
             </div>
             <div class="text-right">
               <p class="text-xs text-[#8B7355]">合計</p>
-              <p class="text-lg font-bold text-[#D97706]" id="price-total">NT$8,800</p>
+              <p class="text-lg font-bold text-[#D97706]" id="price-total">NT$9,800</p>
             </div>
           </div>
         </div>
@@ -641,15 +629,8 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
     const partySizeSelect = document.getElementById('party_size');
     const companionsWrapper = document.getElementById('companions-wrapper');
 
-    // Pricing — 後端 /availability 是唯一 source of truth（依台北時間決定早鳥是否截止）。
-    // 預設帶早鳥值避免載入前閃爍；loadPricing() 會用後端值覆蓋。
-    let pricing = {
-      isEarlyBird: true,
-      priceRegular: 9800,  // 原價
-      priceSingle: 8800,   // 當前單人價（早鳥期 8800 / 截止後 9800）
-      priceDuo: 8000,      // 兩人同行每人（全程有效）
-      earlyBirdEnd: '2026-07-22',
-    };
+    // Pricing: 單一價 NT$9,800 / 人
+    const PRICE_PER_PERSON = 9800;
     const companionsInfoEl = document.getElementById('companions_info');
 
     function formatTWD(n) {
@@ -661,58 +642,16 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       const breakdownEl = document.getElementById('price-breakdown');
       const totalEl = document.getElementById('price-total');
 
+      if (value === '3+') {
+        breakdownEl.textContent = '3+ 人 × NT$9,800';
+        totalEl.textContent = 'NT$29,400+';
+        return;
+      }
+
       const size = parseInt(value, 10);
-      const unit = size >= 2 ? pricing.priceDuo : pricing.priceSingle;
-      const label = size >= 2 ? '（揪團價）' : (pricing.isEarlyBird ? '（早鳥）' : '');
-      breakdownEl.textContent = `${size} 人 × ${formatTWD(unit)}${label}`;
-      totalEl.textContent = formatTWD(unit * size);
-    }
-
-    // 把當前定價同步到費用卡 / 表單小字 / price-preview
-    function applyPricingToUI() {
-      const tag = document.getElementById('fee-eb-tag');
-      const strike = document.getElementById('fee-regular-strike');
-      const single = document.getElementById('fee-single');
-      const duo = document.getElementById('fee-duo');
-      const note = document.getElementById('fee-note');
-      const hint = document.getElementById('form-price-hint');
-      const duoSaved = formatTWD(pricing.priceRegular - pricing.priceDuo);
-
-      if (single) single.textContent = formatTWD(pricing.priceSingle);
-      if (duo) duo.textContent = formatTWD(pricing.priceDuo);
-
-      if (pricing.isEarlyBird) {
-        if (strike) { strike.textContent = formatTWD(pricing.priceRegular); strike.classList.remove('hidden'); }
-        if (tag) tag.classList.remove('hidden');
-        if (note) note.textContent = `兩人以上每人省 ${duoSaved}，早鳥結束後仍適用。`;
-        if (hint) hint.textContent = `早鳥 ${formatTWD(pricing.priceSingle)}（原價 ${formatTWD(pricing.priceRegular)}）· 兩人以上每人 ${formatTWD(pricing.priceDuo)}`;
-      } else {
-        if (strike) strike.classList.add('hidden');
-        if (tag) tag.classList.add('hidden');
-        if (note) note.textContent = `兩人以上每人省 ${duoSaved}。`;
-        if (hint) hint.textContent = `${formatTWD(pricing.priceRegular)} · 兩人以上每人 ${formatTWD(pricing.priceDuo)}`;
-      }
-      updatePricePreview();
-    }
-
-    async function loadPricing() {
-      try {
-        const res = await fetch(`${API_BASE}/api/workshop/availability`);
-        const json = await res.json();
-        const d = json && json.data;
-        if (d && typeof d.price_single_twd === 'number') {
-          pricing = {
-            isEarlyBird: !!d.is_early_bird,
-            priceRegular: d.price_regular_twd,
-            priceSingle: d.price_single_twd,
-            priceDuo: d.price_duo_per_person_twd,
-            earlyBirdEnd: d.early_bird_end || pricing.earlyBirdEnd,
-          };
-        }
-      } catch (err) {
-        console.error('availability fetch failed, using default pricing', err);
-      }
-      applyPricingToUI();
+      const total = PRICE_PER_PERSON * size;
+      breakdownEl.textContent = `${size} 人 × ${formatTWD(PRICE_PER_PERSON)}`;
+      totalEl.textContent = formatTWD(total);
     }
 
     // Party size dropdown — show/hide companions textarea + update price
@@ -732,9 +671,8 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       updatePricePreview();
     });
 
-    // Initial render（預設早鳥值）→ 立即套 UI，再用後端台北時間覆蓋
-    applyPricingToUI();
-    loadPricing();
+    // Initial price render
+    updatePricePreview();
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -745,8 +683,48 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
 
       const formData = new FormData(form);
       const partySizeRaw = formData.get('party_size');
+      const isLargeGroup = partySizeRaw === '3+';
 
-      // 全部走 Stripe Checkout：1 人早鳥/原價、2 人以上每人 8000（後端算價）
+      // 3+ 人不走 Stripe 直接刷卡 — 改走 survey 流程，由你私訊聯繫
+      if (isLargeGroup) {
+        const scenarioData = {
+          name: formData.get('name'),
+          line_id: formData.get('line_id'),
+          dietary: formData.get('dietary') || '',
+          message: formData.get('message') || '',
+          party_size: '3+',
+          companions_info: formData.get('companions_info') || '',
+          submitted_at: new Date().toISOString(),
+        };
+        try {
+          const res = await fetch(`${API_BASE}/api/survey/submit`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              survey_id: SURVEY_ID,
+              email: formData.get('email'),
+              role: formData.get('role'),
+              scenario: JSON.stringify(scenarioData),
+            }),
+          });
+          const json = await res.json();
+          if (json.success) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            throw new Error(json.error || 'Submission failed');
+          }
+        } catch (err) {
+          console.error(err);
+          errorMsg.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.textContent = '重新送出';
+        }
+        return;
+      }
+
+      // 1 人或 2 人 — 直接建 Stripe Checkout Session 跳轉
       const partySize = parseInt(partySizeRaw, 10);
 
       try {
