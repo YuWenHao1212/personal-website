@@ -12,7 +12,13 @@
 - **Styling**: Tailwind CSS
 - **Content**: MDX (Content Collections)
 - **i18n**: Astro 內建 i18n
-- **Hosting**: Azure Static Web Apps
+- **Hosting**: Cloudflare Pages（前身 Azure Static Web Apps，已遷移）
+
+### Deployment
+
+- **Push to main → Cloudflare Pages 自動 build + deploy**（repo 內沒有 GitHub Actions、設定在 Cloudflare 平台端）
+- 生效時間約 1-3 分鐘，push 後用 `curl -s -o /dev/null -w "%{http_code}" <url>` 輪詢驗證
+- 新增 `public/` 靜態檔（zip / 圖片）也是同一條 pipeline，跟著 push 上線
 
 ---
 
