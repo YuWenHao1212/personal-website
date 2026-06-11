@@ -1,0 +1,362 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'SO NICE 學員專屬 — 三場工作坊課前安裝指南（Windows）';
+const description = '6/17 / 6/29 / 6/30 三場 AI 工作流導入工作坊課前環境建置指南（Windows）：確認 Claude Pro、安裝 VS Code、Git、Python、Claude Code，下載 FLUX vault，加裝 Claude for Excel + PowerPoint。';
+---
+
+<BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
+  <article class="py-10 md:py-14 lg:py-16">
+    <div class="container-prose">
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">SO NICE 學員專屬安裝指南</h1>
+        <p class="text-lg text-ink-600">三場工作坊（6/17、6/29、6/30）課前環境建置 · Windows 版</p>
+        <p class="text-sm text-ink-400 mt-2">講師：余文皓 | mail@yu-wenhao.com</p>
+      </header>
+
+      <div class="prose prose-lg max-w-none [&_blockquote]:!border-l-slate-400">
+        <p>這份指南專為 SO NICE 同仁的 <strong>Windows 電腦</strong>設計。整份要做的事分成兩個階段：</p>
+
+        <div class="not-prose my-8 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-3 items-stretch">
+          <div class="flex flex-col p-5 rounded-lg border-2 border-accent/40 bg-accent/5">
+            <div class="text-xs font-semibold text-accent uppercase tracking-wider mb-2">階段 1</div>
+            <div class="text-lg font-bold mb-3">💻 你自己做</div>
+            <ul class="text-sm space-y-1.5 text-ink-700 flex-1 list-none pl-0">
+              <li>• 確認 Claude Pro 帳號</li>
+              <li>• 裝 5 個工具<br /><span class="text-xs text-ink-500 pl-3">VS Code / Git / Python / Claude Code / Obsidian</span></li>
+              <li>• 下載 + 解壓 vault 到桌面</li>
+            </ul>
+            <div class="text-xs text-ink-500 mt-3 pt-3 border-t border-ink-200">⏱ 約 30 分鐘</div>
+          </div>
+
+          <div class="flex items-center justify-center text-2xl text-ink-400 md:rotate-0 rotate-90">→</div>
+
+          <div class="flex flex-col p-5 rounded-lg border-2 border-accent/40 bg-accent/5">
+            <div class="text-xs font-semibold text-accent uppercase tracking-wider mb-2">階段 2</div>
+            <div class="text-lg font-bold mb-3">🤖 Claude 自己跑</div>
+            <ul class="text-sm space-y-1.5 text-ink-700 flex-1 list-none pl-0">
+              <li>• 在 vault 裡跑 <code>claude</code> 並登入</li>
+              <li>• Claude 讀 setup 檔、自動驗證 vault 結構</li>
+              <li>• 確認 Claude Code 跑得起來</li>
+            </ul>
+            <div class="text-xs text-ink-500 mt-3 pt-3 border-t border-ink-200">⏱ 約 5-10 分鐘</div>
+          </div>
+        </div>
+
+        <p>💡 另外有一個 <strong>Bonus 章節 — Claude for Excel + PowerPoint</strong>，<strong>工作坊會用到、請務必裝完</strong>。</p>
+
+        <blockquote>
+          <p>公司行事曆（釘釘）和 Email（Outlook）接進 Claude Code 的整合，<strong>會在工作坊現場另外處理</strong>，不在這份課前安裝範圍 — 你只要照這份把環境裝好即可。</p>
+        </blockquote>
+
+        <hr />
+
+        <div class="not-prose mt-16 mb-8 py-6 px-6 bg-accent text-white rounded-lg">
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">階段 1 / 2</div>
+          <div class="text-2xl font-bold">💻 你自己做（步驟一 ~ 七）</div>
+          <div class="text-sm mt-1 opacity-80">確認帳號 + 裝 5 個工具 + 下載 vault · 約 30 分鐘</div>
+        </div>
+
+        <div class="border-l-4 border-accent pl-6 my-6">
+
+        <h2>一、確認 Claude Pro 帳號（已有帳號可跳過）</h2>
+
+        <ol>
+          <li>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 登入</li>
+          <li>確認左下角顯示 <strong>Pro</strong> 字樣（沒有 Pro 訂閱、後面 Claude Code 跑不起來）</li>
+        </ol>
+
+        <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="claude.ai 左下角顯示 Pro 字樣 — 確認訂閱已生效" />
+
+        <blockquote>
+          <p>圖中是年繳方案（$17/月）— 月繳（$20/月）也 OK，只要有 <strong>Pro</strong> 訂閱即可。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>二、安裝 VS Code（編輯器）</h2>
+
+        <ol>
+          <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
+          <li>點 <strong>Windows</strong> 那個藍色按鈕，下載 <strong>User Installer（64 bit）</strong></li>
+          <li>打開下載的 <code>.exe</code>，接受授權合約、一路按<strong>「下一步」</strong>到底（畫面上的選項<strong>用預設值就好</strong>，「加入 PATH」預設已勾選），最後按<strong>「安裝」</strong></li>
+          <li>安裝完成、打開 VS Code，確認可以正常啟動</li>
+        </ol>
+
+        <h3>安裝 VS Code 擴充功能</h3>
+
+        <ol>
+          <li>打開 VS Code</li>
+          <li>按 <code>Ctrl + Shift + X</code> 打開擴充功能側欄</li>
+          <li>搜尋並安裝以下兩個擴充功能：</li>
+        </ol>
+
+        <p><strong>① Chinese (Traditional) Language Pack</strong>（作者 Microsoft）— 介面中文化、建議裝。搜「<code>Chinese</code>」、選作者是 <strong>Microsoft</strong>、寫「<strong>中文(繁體)</strong>」那個：</p>
+
+        <img src="/images/studio-a-install/02-chinese-language-pack.webp" alt="VS Code 擴充功能市集 — Chinese (Traditional) Language Pack（Microsoft 出品）" />
+
+        <p><strong>② Claude Code</strong>（作者 Anthropic）— <strong>一定要裝</strong>。搜「<code>claude code</code>」，選作者是 <strong>Anthropic</strong> 那個（識別碼 <code>anthropic.claude-code</code>）：</p>
+
+        <img src="/images/studio-a-install/01-claude-code-extension.webp" alt="VS Code 擴充功能市集 — Claude Code for VS Code（Anthropic 出品）" />
+
+        <ol start={4}>
+          <li>裝完、重新啟動 VS Code（裝完繁中語言包後它會問要不要重啟切換語言、按重啟即可）</li>
+        </ol>
+
+        <hr />
+
+        <h2>三、安裝 Git for Windows</h2>
+
+        <p>Git 用來做版本控制（工作坊「卡點自救」會用到「一鍵還原」），同時讓 Claude Code 在 Windows 上能用更完整的指令工具：</p>
+
+        <ol>
+          <li>前往 <a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">Git for Windows 下載頁面</a></li>
+          <li>下載 <strong>64-bit Git for Windows Setup</strong></li>
+          <li>打開下載的 <code>.exe</code>，安裝精靈畫面很多 — <strong>全部用預設值、一直按「Next」到最後</strong>、再按「Install」</li>
+          <li>安裝完成、按「Finish」（不用勾「打開 Git Bash」）</li>
+        </ol>
+
+        <blockquote>
+          <p>裝完 Git 不用馬上驗證 — 等步驟五全部裝完、重開 VS Code 後一次驗。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>四、安裝 Python 與 Node.js</h2>
+
+        <p>第一場「報表整併分析」會用 Python 處理 Excel 多表合併，請先裝好：</p>
+
+        <ol>
+          <li>前往 <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python 官方下載頁</a></li>
+          <li>點黃色大按鈕 <strong>Download Python 3.x.x</strong>（會自動給你 Windows 版）</li>
+          <li>打開下載的 <code>.exe</code> 安裝程式</li>
+        </ol>
+
+        <blockquote>
+          <p><strong>⚠️ 最關鍵的一步</strong>：安裝程式第一個畫面<strong>最下面</strong>，請<strong>務必勾選「Add python.exe to PATH」</strong>（加入 PATH），再按上方的「<strong>Install Now</strong>」。<br />沒勾這格，後面終端機會找不到 Python，整步要重來。</p>
+        </blockquote>
+
+        <ol start={4}>
+          <li>裝完按「Close」</li>
+        </ol>
+
+        <h3>接著裝 Node.js（工作坊現場串接 Outlook 會用到）</h3>
+
+        <ol>
+          <li>前往 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 官方下載頁</a></li>
+          <li>下載 <strong>LTS 版</strong>（v20 以上）的 Windows Installer（<code>.msi</code>）</li>
+          <li>打開安裝程式、<strong>全部用預設值</strong>一路「Next」到底、按「Install」（會要求系統管理員權限、按「是」）</li>
+          <li>裝完按「Finish」</li>
+        </ol>
+
+        <hr />
+
+        <h2>五、安裝 Claude Code 並驗證前四步</h2>
+
+        <p>Git、Python、Node.js 裝好後，VS Code 要<strong>完全關閉再重開</strong>一次，終端機才會吃到新的設定：</p>
+
+        <ol>
+          <li><strong>完全關閉 VS Code</strong>（所有視窗都關），再重新打開</li>
+          <li>用選單 <strong>檢視 → 終端機</strong>（View → Terminal）打開 VS Code 內建終端機 — 預設是 <strong>PowerShell</strong></li>
+          <li>貼上以下指令、按 Enter 安裝 Claude Code（這是 Windows PowerShell 官方安裝方式）：</li>
+        </ol>
+
+        <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+
+        <blockquote>
+          <p>若跳出 <code>'irm' 不是內部或外部命令</code>，代表你開到的是 CMD 不是 PowerShell — 終端機右上角的下拉選單選 <strong>PowerShell</strong> 再貼一次。</p>
+        </blockquote>
+
+        <ol start={4}>
+          <li>裝完後<strong>關掉這個終端機</strong>（輸入 <code>exit</code> 按 Enter）、再用選單 <strong>檢視 → 終端機</strong> 開一個新的（或點終端機面板右上角的 <strong>+</strong>）</li>
+          <li>在新終端機<strong>一次驗證前四步</strong>，逐行貼、每行按 Enter，四個都要看到版本號：</li>
+        </ol>
+
+        <pre><code>git --version</code></pre>
+        <pre><code>python --version</code></pre>
+        <pre><code>node --version</code></pre>
+        <pre><code>claude --version</code></pre>
+
+        <p>四行各自印出版本號（例如 <code>git version 2.x</code>、<code>Python 3.x.x</code>、<code>v22.x.x</code>、<code>2.x.x (Claude Code)</code>）= 前面都裝對了。</p>
+
+        <blockquote>
+          <p>先<strong>不要</strong>跑 <code>claude</code> 登入 — 留到步驟八（讓 Claude 跑 setup）時做，那時 vault 已下載、<code>claude</code> 跑起來會自動讀 vault 的 <code>CLAUDE.md</code>、體驗最完整。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>六、下載 FLUX vault 並用 VS Code 打開</h2>
+
+        <p>
+          <a href="/downloads/FLUX-standard-sonice.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
+            📥 下載 FLUX vault（SO NICE 版）
+          </a>
+        </p>
+
+        <ol>
+          <li>下載後在檔案上<strong>按右鍵 → 解壓縮全部</strong>（Extract All）</li>
+          <li>把解壓縮後的 <code>FLUX-standard-sonice</code> 資料夾<strong>放到桌面</strong>（最容易找）</li>
+          <li>打開 <strong>VS Code</strong>、選單 <strong>檔案 → 開啟資料夾…</strong>（File → Open Folder）、選剛才那個 <code>FLUX-standard-sonice</code> 資料夾</li>
+          <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是，我信任作者」</strong>（Yes, I trust the authors）</li>
+          <li>左側 Explorer 看到 <code>Inbox / Atlas / Calendar / Cockpit / Efforts / Guides / Templates / CLAUDE.md / Home.md</code> 之類的資料夾與檔案 = 開對了</li>
+        </ol>
+
+        <blockquote>
+          <p>若你看到資料夾叫 <code>_claude</code>、<code>_obsidian</code>（前面是底線不是點），這是 Windows 解壓的正常現象 — <strong>不用手動改</strong>，步驟八 Claude 跑 setup 時會自動修正。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>七、安裝 Obsidian 並打開 FLUX vault</h2>
+
+        <ol>
+          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+          <li>下載 <strong>Windows</strong> 版（<code>.exe</code>）</li>
+          <li>打開下載的 <code>.exe</code> 安裝（會直接裝進你的使用者目錄、不需系統管理員權限）</li>
+          <li>打開 <strong>Obsidian</strong>、在開啟畫面點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+          <li>選剛才解壓的 <code>FLUX-standard-sonice</code> 資料夾</li>
+          <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong>（Trust author and enable plugins）</li>
+        </ol>
+
+        </div>
+
+        <hr />
+
+        <div class="not-prose mt-16 mb-8 py-6 px-6 bg-emerald-700 text-white rounded-lg">
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">階段 2 / 2</div>
+          <div class="text-2xl font-bold">🤖 Claude 自己跑（步驟八）</div>
+          <div class="text-sm mt-1 opacity-80">Claude 登入 + 自動驗證 vault 結構 · 約 5-10 分鐘</div>
+        </div>
+
+        <div class="border-l-4 border-emerald-500 pl-6 my-6">
+
+        <h2>八、讓 Claude 跑 setup</h2>
+
+        <p>承接步驟六、在 VS Code 已開啟 <code>FLUX-standard-sonice</code> 資料夾的視窗，用選單 <strong>檢視 → 終端機</strong>（View → Terminal）打開 VS Code 內建終端機（路徑會自動在 vault 裡），輸入：</p>
+
+        <pre><code>claude</code></pre>
+
+        <ol>
+          <li>第一次跑會要求登入 — 按畫面指示、用瀏覽器登入你的 Claude 帳號（同 claude.ai 那個）</li>
+          <li>登入後跟 Claude 說：</li>
+        </ol>
+
+        <pre><code>請讀取 Inbox/SETUP-CLAUDE.md 並依步驟執行</code></pre>
+
+        <p>Claude 會：驗證 vault 結構是否完整、（若是 <code>_claude</code>/<code>_obsidian</code>）自動改回正確名稱、用完後自動刪除這個 setup 檔，最後回報「Vault 設定完成」。</p>
+
+        <blockquote>
+          <p>過程中 Claude Code 會跳「<strong>允許執行這個指令？</strong>」之類的彈窗 — 按<strong>「允許 / Yes」</strong>、Claude 才能繼續。</p>
+        </blockquote>
+
+        <blockquote>
+          <p><strong>裝到一半卡住？</strong>不要自己硬 debug — 截圖卡住的畫面，傳到 LINE 群找講師、或寫信給 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>。</p>
+        </blockquote>
+
+        </div>
+
+        <hr />
+
+        <div class="not-prose mt-16 mb-8 py-6 px-6 bg-amber-600 text-white rounded-lg">
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">BONUS / 必裝</div>
+          <div class="text-2xl font-bold">🎁 Claude for Excel + PowerPoint</div>
+          <div class="text-sm mt-1 opacity-80">⏱ 約 15 分鐘</div>
+        </div>
+
+        <div class="border-l-4 border-amber-500 pl-6 my-6">
+
+        <h2>九、安裝 Claude for Excel + PowerPoint（Web 版）</h2>
+
+        <p><strong>前置條件</strong>：</p>
+
+        <ul>
+          <li>✅ Microsoft 365 帳號（SO NICE 公司的 Outlook / Office 帳號）</li>
+          <li>✅ Claude Pro 訂閱（步驟一已確認）</li>
+        </ul>
+
+        <p>兩個 add-in 流程一樣、差別只在打開哪個 Web app、Marketplace URL（<a href="https://appsource.microsoft.com/en-us/product/office/WA200009404" target="_blank" rel="noopener">Excel</a> / <a href="https://marketplace.microsoft.com/en-us/product/office/wa200010001" target="_blank" rel="noopener">PowerPoint</a>）、和驗證指令。</p>
+
+        <ol>
+          <li>前往 <a href="https://office.com" target="_blank" rel="noopener">office.com</a>、用 SO NICE 給你的 Microsoft 365 公司帳號登入</li>
+        </ol>
+
+        <div class="not-prose my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex flex-col p-5 rounded-lg border-2 border-amber-400/40 bg-amber-50">
+            <div class="text-lg font-bold mb-3">🟢 Claude for Excel</div>
+            <ol class="text-sm space-y-2 text-ink-700 pl-5 list-decimal" start={2}>
+              <li>點左側 Excel icon、開啟 Excel Web 版、開一個空白活頁簿</li>
+              <li>前往 Marketplace：<a href="https://appsource.microsoft.com/en-us/product/office/WA200009404" target="_blank" rel="noopener">Claude by Anthropic for Excel</a></li>
+              <li>點藍色「<strong>Get it now</strong>」/「<strong>立即取得</strong>」按鈕</li>
+            </ol>
+            <img src="/images/studio-a-install/03-claude-excel-appsource.webp" alt="Microsoft Marketplace — Claude by Anthropic for Excel" class="mt-4 rounded" />
+          </div>
+
+          <div class="flex flex-col p-5 rounded-lg border-2 border-amber-400/40 bg-amber-50">
+            <div class="text-lg font-bold mb-3">🟠 Claude for PowerPoint</div>
+            <ol class="text-sm space-y-2 text-ink-700 pl-5 list-decimal" start={2}>
+              <li>點左側 PowerPoint icon、開啟 PowerPoint Web 版、開一個空白簡報</li>
+              <li>前往 Marketplace：<a href="https://marketplace.microsoft.com/en-us/product/office/wa200010001" target="_blank" rel="noopener">Claude by Anthropic for PowerPoint</a></li>
+              <li>點藍色「<strong>Get it now</strong>」/「<strong>立即取得</strong>」按鈕</li>
+            </ol>
+            <img src="/images/studio-a-install/05-claude-powerpoint-appsource.webp" alt="Microsoft Marketplace — Claude by Anthropic for PowerPoint" class="mt-4 rounded" />
+          </div>
+        </div>
+
+        <blockquote>
+          <p>頁面會顯示「<strong>Additional purchase may be required</strong>（可能需要額外購買）」— 這是 Microsoft 的標準提示。<strong>裝 add-in 本身免費</strong>、Microsoft 不會跟你收錢；要使用 Claude 服務需要 Claude Pro 訂閱（你已經有了）。</p>
+        </blockquote>
+
+        <ol start={5}>
+          <li>跟著 Microsoft 提示完成授權、回到對應的 Web app</li>
+          <li>裝好後 <strong>Claude 按鈕會 pin 在 ribbon 上</strong>（Home 區塊右側、橘色 ✱ 圖示）— 點它打開右側 sidebar</li>
+          <li>Sidebar 點「<strong>Sign in</strong>」、用你的 Claude 帳號（同 claude.ai）登入並授權</li>
+          <li><strong>驗證</strong>：兩個 sidebar 都試一次（見下圖）</li>
+        </ol>
+
+        <div class="not-prose my-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <figure>
+            <img src="/images/studio-a-install/04-claude-excel-sidebar.webp" alt="Excel Web 開啟 Claude sidebar 成功" class="rounded" />
+            <figcaption class="text-sm text-ink-600 mt-2"><strong>Excel</strong>：A1 輸入 <code>Hello</code>、sidebar 問「這個試算表有什麼？」</figcaption>
+          </figure>
+          <figure>
+            <img src="/images/studio-a-install/06-claude-powerpoint-sidebar.webp" alt="PowerPoint Web 開啟 Claude sidebar 成功" class="rounded" />
+            <figcaption class="text-sm text-ink-600 mt-2"><strong>PowerPoint</strong>：新增空白投影片、sidebar 問「這個簡報有什麼？」</figcaption>
+          </figure>
+        </div>
+
+        </div>
+
+        <hr />
+
+        <h2>裝完對一下（逐項打勾）</h2>
+
+        <ul class="list-none pl-0">
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號可登入 claude.ai</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 安裝完成、可正常開啟</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>git --version</code> 有版本號</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>python --version</code> 有版本號</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>node --version</code> 有版本號</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>claude --version</code> 有版本號</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 在 vault 裡 <code>claude</code> 能進入並完成登入</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude 跑完 setup、回報「Vault 設定完成」</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 可開啟 FLUX vault</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Excel Web 能開啟 Claude sidebar、能回答試算表內容（Bonus）</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> PowerPoint Web 能開啟 Claude sidebar、能回答簡報內容（Bonus）</li>
+        </ul>
+
+        <p>都打勾，你就準備好上 6/17 第一場了！</p>
+
+        <hr />
+
+        <h2>卡住的時候</h2>
+
+        <ol>
+          <li><strong>公司帳號 / 網路 / 權限問題</strong>（裝不了、連不上、被擋）→ 先依平常方式找 SO NICE IT 協助</li>
+          <li><strong>其他任何卡住</strong>（環境裝不起來 / Claude 跑 setup 卡住 / 不知道怎麼辦）→ 截圖卡住畫面傳到 LINE 群找講師、或直接寫信給 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>。</li>
+        </ol>
+
+        <p><em>余文皓 | mail@yu-wenhao.com</em></p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
