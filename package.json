@@ -4,8 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/generate-redirects.js",
-    "build": "npm run prebuild && astro build",
+    "build": "astro build",
     "postbuild": "npm run check:seo",
     "check:seo": "node scripts/check-hreflang.js",
     "preview": "astro preview",
