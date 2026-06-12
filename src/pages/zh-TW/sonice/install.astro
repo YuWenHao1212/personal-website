@@ -316,6 +316,48 @@ const description = '6/17 / 6/29 / 6/30 三場 AI 工作流導入工作坊課前
 
         <hr />
 
+        <div class="not-prose mt-16 mb-8 py-6 px-6 bg-sky-600 text-white rounded-lg">
+          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">進階串接 / 建議完成</div>
+          <div class="text-2xl font-bold">📅 釘釘行事曆 + 📧 Outlook 信件</div>
+          <div class="text-sm mt-1 opacity-80">⏱ 約 10 分鐘 · 行事曆需人資核准一次（課前沒跑完，第一場現場也會帶大家做）</div>
+        </div>
+
+        <div class="border-l-4 border-sky-500 pl-6 my-6">
+
+        <h2>十、串接釘釘行事曆</h2>
+
+        <p><strong>前置條件</strong>：步驟八完成（Claude 回報過「Vault 設定完成」）、手機上有釘釘 App（公司帳號）。</p>
+
+        <p>在 vault 的 Claude Code 輸入：</p>
+
+        <pre><code>請讀取 Inbox/SETUP-CALENDAR.md 並依步驟執行</code></pre>
+
+        <p>Claude 會自動安裝釘釘官方工具並引導你完成。過程中有兩個地方換你動手：</p>
+
+        <ol>
+          <li><strong>手機掃 QR code</strong> — 瀏覽器會開釘釘登入頁，用手機釘釘 App 掃碼、選 SO NICE、按授權</li>
+          <li><strong>等管理員核准</strong> — 如果畫面顯示「等待管理員核准」，<strong>這不是錯誤</strong>：LINE 通知人資到釘釘後台按核准，通常一分鐘內就過、會自動繼續</li>
+        </ol>
+
+        <blockquote>
+          <p>核准<strong>只需要一次</strong>。完成後跟 Claude 說「<strong>看我今天的行程</strong>」就能用。</p>
+        </blockquote>
+
+        <h3>📧 Outlook 信件助手 — 已內建，不用安裝</h3>
+
+        <p>你的 vault 已內建 Outlook 信件助手。條件：公司電腦有<strong>桌面版 Outlook</strong> 且開著。直接跟 Claude 說：</p>
+
+        <pre><code>看一下我最近的信</code></pre>
+
+        <ul>
+          <li>第一次使用如果跳出「<strong>有程式正在嘗試存取 Outlook</strong>」→ 按<strong>允許</strong></li>
+          <li>AI 只會<strong>建立草稿</strong>（存在草稿匣）— 寄出永遠由你自己在 Outlook 按傳送</li>
+        </ul>
+
+        </div>
+
+        <hr />
+
         <h2>裝完對一下（逐項打勾）</h2>
 
         <ul class="list-none pl-0">
@@ -330,6 +372,8 @@ const description = '6/17 / 6/29 / 6/30 三場 AI 工作流導入工作坊課前
           <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 可開啟 FLUX vault</li>
           <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Excel Web 能開啟 Claude sidebar、能回答試算表內容（Bonus）</li>
           <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> PowerPoint Web 能開啟 Claude sidebar、能回答簡報內容（Bonus）</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 行事曆：Claude 能列出你今天的釘釘日程（進階串接）</li>
+          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Email：Claude 能列出你最近的 Outlook 信件（進階串接）</li>
         </ul>
 
         <p>都打勾，你就準備好上 6/17 第一場了！</p>
