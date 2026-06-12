@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'SO NICE 管理員 — 開通 Claude Team plan + 邀請學員';
+const description = 'SO NICE 工作坊管理員專屬：用公司帳號開通 Claude Team plan、設定席位、邀請學員加入。學員端零付費，標準席位即含 Claude Code。';
+---
+
+<BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
+  <article class="py-10 md:py-14 lg:py-16">
+    <div class="container-prose">
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">SO NICE 管理員設定指南</h1>
+        <p class="text-lg text-ink-600">開通 Claude Team plan + 邀請學員 · 給 Carol（管理員）</p>
+        <p class="text-sm text-ink-400 mt-2">講師：余文皓 | mail@yu-wenhao.com</p>
+      </header>
+
+      <div class="prose prose-lg max-w-none [&_blockquote]:!border-l-slate-400">
+        <p>Carol 你好 👋 這份是<strong>給你（管理員）一個人看的</strong>設定指南。三場工作坊的學員會用到 Claude Code，最順的做法是 <strong>SO NICE 用公司帳號統一買一個 Team plan、再把學員邀請進來</strong>——這樣學員不用各自刷卡，課後公司也能繼續留用。</p>
+
+        <div class="not-prose my-8 p-5 rounded-lg border-2 border-accent/40 bg-accent/5">
+          <div class="text-lg font-bold mb-3">🎯 你要做的事（約 10 分鐘）</div>
+          <ol class="text-sm space-y-1.5 text-ink-700 pl-5 list-decimal">
+            <li>用 SO NICE 公司 email 登入 claude.ai</li>
+            <li>設定 → Billing → Upgrade plan</li>
+            <li>切到「Team and Enterprise」→ 選 Team plan</li>
+            <li>取團隊名稱（SO NICE）→ 選席位數（= 學員人數）→ 付款</li>
+            <li>邀請學員 email 加入團隊</li>
+          </ol>
+          <div class="text-xs text-ink-500 mt-3 pt-3 border-t border-ink-200">學員端只需收信、點接受 —— 學員版指南我會另外發。</div>
+        </div>
+
+        <hr />
+
+        <h2>開始前：用 SO NICE 公司 email 登入</h2>
+        <p>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>，用 <strong>SO NICE 公司 email</strong> 登入（沒有帳號就用公司 email 註冊一個）。這個帳號會是整個 Team 的「擁有者 / 計費帳號」，建議用公司公用信箱或你常用的公司信箱。</p>
+
+        <h2>步驟一：設定 → Billing → Upgrade plan</h2>
+        <p>登入後點右上角頭像進入設定。在左側選 <strong>Billing</strong>（①），再點右上角的 <strong>Upgrade plan</strong>（②）。</p>
+        <img src="/images/sonice-admin/01-billing-upgrade.webp" alt="Claude 設定頁面 — 左側 Billing 分頁與右上角 Upgrade plan 按鈕" class="rounded border border-ink-200" />
+
+        <h2>步驟二：切到「Team and Enterprise」分頁</h2>
+        <p>進到方案頁後，預設停在 <strong>Individual</strong>（個人方案）。點上方的 <strong>Team and Enterprise</strong> 分頁切過去。</p>
+        <img src="/images/sonice-admin/02-team-enterprise-tab.webp" alt="Claude 方案選擇頁 — 切換到 Team and Enterprise 分頁" class="rounded border border-ink-200" />
+
+        <h2>步驟三：選 Team plan</h2>
+        <p>會看到 <strong>Team</strong> 和 <strong>Enterprise</strong> 兩張卡。我們要的是左邊的 <strong>Team</strong>，點 <strong>Get Team plan</strong>。</p>
+        <img src="/images/sonice-admin/03-team-plan-seats.webp" alt="Claude Team plan 方案卡 — 標準席位 USD 20、進階席位 USD 100，Get Team plan 按鈕" class="rounded border border-ink-200" />
+
+        <div class="not-prose my-6 p-5 rounded-lg bg-ink-50 border border-ink-200">
+          <div class="font-bold mb-2">💡 兩種席位，這場工作坊用「標準席位」就夠</div>
+          <ul class="text-sm space-y-1 text-ink-700 list-none pl-0">
+            <li>• <strong>標準席位 — USD $20/席/月（年繳）</strong>或 $25（月繳）：已含 Claude Code，用量是個人 Pro 的 1.25 倍。<strong>工作坊用這個</strong>。</li>
+            <li>• 進階席位 — USD $100/席/月：用量 6.25 倍，給重度使用者，這次用不到。</li>
+          </ul>
+          <div class="text-xs text-ink-500 mt-3">兩種席位可混搭，之後在後台隨時調整。預設「不用你的內容做模型訓練」（No model training on your content by default）。</div>
+        </div>
+
+        <h2>步驟四：取團隊名稱</h2>
+        <p>系統會請你幫團隊取個名字，填 <strong>SO NICE</strong>（或 So-Nice）即可，這是學員收到邀請時會看到的團隊名稱。填好按 <strong>Continue</strong>。</p>
+        <img src="/images/sonice-admin/04-create-team-name.webp" alt="Claude 建立團隊頁面 — 填入團隊名稱 So-Nice" class="rounded border border-ink-200" />
+
+        <h2>步驟五：選席位數 + 付款</h2>
+        <p>最後一步是選席位數量、計費週期、填付款資訊。</p>
+        <img src="/images/sonice-admin/05-choose-seats-payment.webp" alt="Claude Team plan 結帳頁 — 選擇月繳或年繳、標準席位數量、填寫付款資訊" class="rounded border border-ink-200" />
+        <ul>
+          <li><strong>Standard seats 數量 = 參加工作坊的學員人數</strong>（最低 5 席）。建議多抓 1–2 席當備位。<strong>Premium seats 維持 0</strong>，這次用不到。</li>
+          <li>左上角選 <strong>Monthly（月繳，$25/席）</strong>或 <strong>Annually（年繳，$20/席，省 20%）</strong>：若課後 SO NICE 會繼續用，年繳較省；若只想用工作坊那陣子，月繳較有彈性、可隨時取消。</li>
+          <li>下方填 <strong>Full name / Country（Taiwan）/ Postal code</strong> 等付款資訊 → 結帳完成。</li>
+        </ul>
+        <p class="text-sm text-ink-500">（上圖示意：9 席標準席位 × 月繳 = 每月 USD $225；實際金額依你選的席位數與計費週期而定。）</p>
+
+        <h2>步驟六：邀請學員加入</h2>
+        <p>付款完成後，進團隊設定的 <strong>Members（成員）</strong>頁，<strong>用學員的 email 逐一邀請</strong>（或貼上多個 email 批次邀請）。</p>
+        <ul>
+          <li>學員會收到一封 Claude 的邀請信 → 點信中連結 → 登入或註冊 → 自動加入 SO NICE 團隊。</li>
+          <li>邀請哪個 email，學員就用哪個 email 接受。建議統一用<strong>公司 email</strong>邀請。</li>
+        </ul>
+
+        <blockquote>
+          <p>⏰ <strong>請在第一場工作坊（6/17）前幾天就完成邀請</strong>，因為學員需要時間收信、接受、並在課前安裝指南的「步驟一」確認自己已加入團隊。</p>
+        </blockquote>
+
+        <hr />
+
+        <h2>完成後給我回報</h2>
+        <p>席位開好、學員邀請發出後，跟我說一聲即可（或把已邀請的學員名單給我）。學員端我會發一份<strong>課前安裝指南</strong>，第一步就是請他們確認「已收到 SO NICE 的 Team 邀請信並接受」。</p>
+        <p>過程卡住、或想確認席位數怎麼抓，隨時 LINE 我或寫信到 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>。</p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
