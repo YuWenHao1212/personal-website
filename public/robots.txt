@@ -12,5 +12,8 @@ Disallow: /studio-a/
 # Disallow AI Cockpit 台中 學員專屬投影片（unlisted）
 Disallow: /taichung/
 
+# Disallow SO NICE 學員專屬投影片 + 課堂數據（unlisted）
+Disallow: /sonice/
+
 # Sitemap
 Sitemap: https://yu-wenhao.com/sitemap-index.xml
