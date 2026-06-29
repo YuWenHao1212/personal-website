@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>roll-up · Carol · 李總 — 你這塊的 playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5EDE4; --cream-2:#E8DCCB; --cream-3:#FFFAF5;
+    --ink:#2A211C; --ink-muted:#7A6A5E; --rule:#D9CDBE;
+    --brick:#C25B3F; --brick-deep:#9F462E; --accent:#E47A5C;
+    --serif:"Noto Serif TC","Songti TC",serif;
+    --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased;line-height:1.6;}
+  .wrap{max-width:940px;margin:0 auto;padding:52px 36px 120px}
+  .back{display:inline-block;font-family:var(--mono);font-size:14px;color:var(--ink-muted);text-decoration:none;margin-bottom:30px;letter-spacing:.04em}
+  .back:hover{color:var(--brick)}
+  .accentline{height:3px;background:var(--brick);width:56px;margin-bottom:22px}
+  .eyebrow{font-family:var(--mono);font-size:15px;letter-spacing:.18em;color:var(--brick);margin-bottom:14px}
+  header{border-bottom:2px solid var(--rule);padding-bottom:24px;margin-bottom:40px}
+  h1{font-weight:700;font-size:46px;margin:0;color:var(--ink);letter-spacing:-.5px}
+  h1 small{font-weight:400;font-size:24px;color:var(--ink-muted);margin-left:14px}
+  .who{font-family:var(--mono);font-size:16px;color:var(--ink-muted);margin-top:14px;letter-spacing:.04em}
+  .who b{color:var(--brick)}
+  h2{font-weight:700;font-size:26px;margin:50px 0 18px;color:var(--ink);display:flex;align-items:center;gap:12px}
+  h2 .tag{font-family:var(--mono);font-size:15px;letter-spacing:.1em;color:var(--brick);background:rgba(194,91,63,0.1);padding:5px 12px;border-radius:4px;font-weight:500}
+  .card{background:var(--cream-3);border:1.5px solid var(--rule);border-left:5px solid var(--brick);border-radius:10px;padding:26px 30px;font-size:21px;line-height:1.7;color:var(--ink)}
+  .card strong{font-weight:700}
+  .deliver{display:flex;flex-wrap:wrap;gap:11px;margin-top:18px}
+  .chip{font-size:17px;border:1.5px solid var(--rule);background:var(--cream);padding:8px 16px;border-radius:6px;color:var(--ink)}
+  .preview{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:15px;color:var(--brick);text-decoration:none;margin-top:18px;border:1.5px solid var(--brick);border-radius:8px;padding:9px 16px}
+  .preview:hover{background:var(--brick);color:#fff}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+  ol.steps li{counter-increment:s;position:relative;padding:22px 0 22px 52px;border-bottom:1.5px solid var(--rule);font-size:21px;line-height:1.65;color:var(--ink)}
+  ol.steps li:last-child{border-bottom:0}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:20px;width:34px;height:34px;background:var(--ink);color:var(--cream);font-family:var(--mono);font-weight:500;font-size:17px;display:flex;align-items:center;justify-content:center;border-radius:7px}
+  ol.steps li.talk::before{background:var(--brick)}
+  ol.steps li strong{font-weight:700}
+  .sh{font-weight:700;font-size:23px;color:var(--ink);margin-bottom:4px}
+  .sh .mini{font-family:var(--mono);font-size:14px;color:var(--ink-muted);letter-spacing:.08em;margin-left:10px;font-weight:400}
+  .dl{display:inline-flex;align-items:center;gap:9px;background:var(--brick);color:#fff;font-weight:700;font-size:18px;padding:12px 22px;border-radius:9px;text-decoration:none;margin:8px 10px 2px 0}
+  .dl.alt{background:var(--cream);color:var(--ink);border:1.5px solid var(--ink)}
+  .dl:hover{background:var(--brick-deep);color:#fff}
+  .dl.alt:hover{background:var(--ink);color:var(--cream)}
+  .pblock{position:relative;background:#1A1410;border-radius:9px;padding:18px 96px 18px 22px;margin-top:12px;
+    font-family:var(--mono);font-size:14.5px;line-height:1.7;color:#F5EDE4;white-space:pre-wrap;box-shadow:0 4px 14px rgba(42,33,28,0.14)}
+  .pblock .pl{color:var(--accent)}
+  .copy-sm{position:absolute;top:12px;right:12px;background:var(--cream);color:var(--ink);border:1.5px solid var(--ink);border-radius:6px;
+    font-family:var(--mono);font-size:12px;padding:7px 14px;cursor:pointer;letter-spacing:.04em}
+  .copy-sm:hover,.copy-sm.done{background:var(--brick);color:#fff;border-color:var(--brick)}
+  .say{background:rgba(194,91,63,0.07);border:1.5px solid var(--rule);border-left:4px solid var(--brick);border-radius:8px;padding:16px 22px;margin-top:12px;font-size:19px;line-height:1.7;color:var(--ink)}
+  .say .lbl{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--brick);margin-bottom:8px}
+  .say em{font-style:normal;color:var(--brick-deep);font-weight:600}
+  .note{font-size:16px;color:var(--ink-muted);margin-top:26px;line-height:1.65}
+  .note code{font-family:var(--mono);font-size:14px;background:var(--cream-2);padding:2px 7px;border-radius:4px;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="javascript:history.back()">← 回分工</a>
+  <div class="accentline"></div>
+  <div class="eyebrow">BLOCK 3 · 案例二 · 你這塊的 playbook</div>
+  <header>
+    <h1>roll-up <small>全公司戰情室 · 最後合體</small></h1>
+    <div class="who">你這塊 · <b>Carol</b> · <b>李總</b>　｜　SO NICE 戰情室</div>
+  </header>
+
+  <h2><span class="tag">目標</span>做出來大概長這樣（你可以加減）</h2>
+  <div class="card">
+    把七個人的戰情室收成<strong>一張</strong> —— 李總打開一頁，<strong>公司總業績 + 五業務紅綠燈</strong>一眼看完，點一塊就鑽進那個人的 dashboard。
+    <div class="deliver">
+      <span class="chip">其他組（FB · 品類）一條連結直達</span>
+      <span class="chip">公司總業績 = 線上 ＋ 門市 ＋ 蝦皮（三通路相加）</span>
+      <span class="chip">五業務卡（達成 / 線上 / 蝦皮 / 庫存 / 競品）+ YoY 紅綠燈</span>
+      <span class="chip">點一張卡 → 鑽進該負責人 dashboard</span>    </div>  </div>
+
+  <h2><span class="tag">這次怎麼做</span>你這塊跟別人不一樣</h2>
+  <div class="card" style="border-left-color:var(--ink)">
+    別人顧一張表，<strong>你是把大家收成李總一頁看全公司</strong>。今天<strong>親手建一次</strong> —— 之後換真資料、加新組你都做得到。先花一分鐘看懂它怎麼運作：
+  </div>
+
+  <h2><span class="tag">先懂架構</span>李總一頁看全公司 —— 靠兩個「共用的地方」</h2>
+  <div class="card">
+    七個人各自做自己的儀表板、各自上線到自己的網址。李總要一頁看完 —— <strong>不是叫七個儀表板互相對話</strong>，是大家把東西放到兩個共用的地方，你的 roll-up 去那兩邊<strong>撿</strong>。
+    <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:20px; font-size:17px; line-height:1.55;">
+      <div style="flex:1; min-width:260px; background:var(--cream); border:1.5px solid var(--rule); border-top:3px solid var(--brick); border-radius:8px; padding:16px 18px;">
+        <div style="font-family:var(--mono); font-size:13px; color:var(--brick); letter-spacing:.1em; margin-bottom:8px;">① 資料（數字）</div>
+        流量 / 達成 / 蝦皮 / 庫存 的 <strong>CSV</strong>，每份只有自己那條通路。公司總業績<strong>沒寫在任何一份裡</strong> —— 是你把線上＋門市＋蝦皮 三份<strong>加起來</strong>才生出來的。<span style="color:var(--ink-muted)">整合就發生在這層。</span>
+      </div>
+      <div style="flex:1; min-width:260px; background:var(--cream); border:1.5px solid var(--rule); border-top:3px solid var(--brick); border-radius:8px; padding:16px 18px;">
+        <div style="font-family:var(--mono); font-size:13px; color:var(--brick); letter-spacing:.1em; margin-bottom:8px;">② 公佈欄（各組門牌 · 競品情報）</div>
+        一塊<strong>共用白板</strong>。每個人部署完就把<strong>自己的網址</strong>貼上去。<span style="color:var(--ink-muted)">你讀它 → 知道每組 dashboard 在哪、點卡連去哪；競品的即時資料也掛在這。</span>
+      </div>
+    </div>
+    <div style="margin-top:16px; padding:14px 20px; background:#3A281E; border-radius:8px; font-size:18px; color:#F5EDE4; line-height:1.6;">
+      你的 <strong>roll-up</strong> = 讀 ① 算出公司總業績＋五業務卡，讀 ② 讓每張卡點得進那個人的 dashboard、競品資料也跟著進來。<span style="color:#E47A5C;">它只是個讀取者，把兩邊撿來拼成一頁。</span>
+    </div>
+    <div class="note" style="margin-top:14px">公佈欄是<strong>老師課前架好的後端</strong> —— 網址在你的 <code>戰情室設定.txt</code> 裡（步驟 1 下載），你是<strong>拿到、不是自己寫</strong>。競品的即時資料也掛在公佈欄上（家喻的爬蟲），roll-up 跟著它讀，你不用另外填。</div>
+  </div>
+
+  <h2><span class="tag">操作步驟</span>照著走</h2>
+  <ol class="steps">
+
+    <li>
+      <div class="sh">下載你的材料 <span class="mini">各組資料 ＋ 品牌 ＋ 公佈欄設定</span></div>
+      收齊各組的資料（線上 / 門市 / 蝦皮 / 庫存）＋ 老師給的<strong>公佈欄設定</strong>。<br>
+      <a class="dl" href="流量.csv" download="流量.csv">⬇ 流量.csv（線上）</a>
+      <a class="dl" href="達成.csv" download="達成.csv">⬇ 達成.csv（門市）</a>
+      <a class="dl" href="蝦皮.csv" download="蝦皮.csv">⬇ 蝦皮.csv</a>
+      <a class="dl" href="庫存-商品.csv" download="庫存-商品.csv">⬇ 庫存-商品.csv</a>
+      <a class="dl alt" href="#" onclick="dlTxt('戰情室設定.txt');return false;">⬇ 戰情室設定（公佈欄網址）</a>
+    </li>
+
+    <li>
+      <div class="sh">開專案、把檔案收進去</div>
+      把下面這句照貼給 Claude Code：
+      <div class="pblock" data-copy="在 Efforts/Projects/Active 開一個新專案叫 Demo_李總戰情室，把我下載的 流量.csv、達成.csv、蝦皮.csv、庫存-商品.csv、戰情室設定.txt 搬進去，之後在裡面做事。"><button class="copy-sm" onclick="copyText(this)">複製</button>在 Efforts/Projects/Active 開一個新專案叫 <span class="pl">Demo_李總戰情室</span>，把我下載的 <span class="pl">流量.csv、達成.csv、蝦皮.csv、庫存-商品.csv</span> 和 <span class="pl">戰情室設定.txt</span> 搬進去，之後在裡面做事。</div>
+    </li>
+
+    <li>
+      <div class="sh">研究 <span class="mini">先別做</span></div>
+      讓 Claude 先看懂這幾份表怎麼相加 —— 先別動手：
+      <div class="pblock" data-copy="研究這幾份 CSV：流量.csv 是線上（有 2026 和 2025 同週資料，直接比 YoY）、達成.csv 是門市 46 家當週快照（沒有週次欄，去年同週業績用「當週營業額 ÷ (1 + 去年同週成長率)」反推）、蝦皮.csv 是蝦皮（同樣有 2026/2025 對照，用「實際業績」欄、不用接單業績）、庫存-商品.csv 是庫存。公司總業績 = 線上營業額 ＋ 門市 46 家當週加總 ＋ 蝦皮實際業績，三通路不重疊。線上沒有目標欄，所以線上那張卡只顯示 YoY、不顯示達成率。每張卡只給數字和紅綠燈判定就好——不要解釋為什麼漲或跌，衰退或成長的原因留給我現場講；你不確定的事直接說不知道、不要用推測補。先別動手做，先跟我講你打算怎麼算、這張板該放哪些關鍵數字。"><button class="copy-sm" onclick="copyText(this)">複製</button>研究這幾份 CSV：<span class="pl">流量.csv</span> 是線上（有 2026 和 2025 同週資料，直接比 YoY）、<span class="pl">達成.csv</span> 是門市 46 家<span class="pl">當週快照</span>（沒有週次欄，去年同週業績用「當週營業額 ÷ (1 + 去年同週成長率)」反推）、<span class="pl">蝦皮.csv</span> 是蝦皮（用<span class="pl">實際業績</span>欄、不用接單業績）、<span class="pl">庫存-商品.csv</span> 是庫存。公司總業績 = 線上營業額 ＋ 門市 46 家當週加總 ＋ 蝦皮實際業績，三通路不重疊。<span class="pl">線上沒有目標欄，線上卡只顯示 YoY</span>、不顯示達成率。<span class="pl">每張卡只給數字和紅綠燈、不要解釋漲跌原因</span>，原因留給我現場講、不確定就說不知道。<span class="pl">先別動手做</span>，先跟我講你打算怎麼算、這張板該放哪些關鍵數字。</div>
+    </li>
+
+    <li class="talk">
+      <div class="sh">討論 <span class="mini">你最懂李總要看什麼</span></div>
+      Claude 提案後，用李總的眼光回它 —— 他每週第一眼要看的、紅綠燈怎麼定。
+      <div class="say"><div class="lbl">你可以這樣說</div>「<em>公司總業績是我第一眼，其他都輔助</em>」「<em>輸去年同週就紅 —— 賠錢、衰退我要馬上看到</em>」</div>
+    </li>
+
+    <li>
+      <div class="sh">做第一版 <span class="mini">公司總覽 · 用 CSV 馬上能做</span></div>
+      <strong>不用等別人</strong> —— 你手上的 CSV 就能把整張公司總覽做出來：
+      <div class="pblock" data-copy="好，照我們討論的，做一頁李總戰情室 HTML，讀同資料夾那幾份 CSV。最上面放「公司總業績」= 線上 + 門市 + 蝦皮 三通路相加、跟去年同週比 YoY，旁邊用長條顯示三通路各占多少。下面五張業務卡：門市達成 / 線上 / 蝦皮 / 庫存 / 競品，每張一個關鍵數字 + 紅綠燈（照我們剛剛討論的紅綠燈規則）。版面一次擺到位、外部資料先留空：競品卡先顯示「—」；五張卡都先做成「之後可以點」的樣子（先不用真的連得出去）；卡片下面預留一條細連結列「其他組戰報：FB · 品類」。這些等下接公佈欄再填 —— 現在先只讀本地 CSV、不要連任何外部網址。外觀套 SO NICE 品牌風格。這頁等下要放上 Cloudflare Pages 給大家看，資料 CSV 會跟著一起放上去、頁面直接讀它 —— 別做那種要先開個伺服器、一直掛著才看得到的。做完直接幫我用瀏覽器打開。"><button class="copy-sm" onclick="copyText(this)">複製</button>好，照我們討論的，做一頁李總戰情室 HTML，讀同資料夾那幾份 CSV。最上面放「<span class="pl">公司總業績</span>」= 線上 ＋ 門市 ＋ 蝦皮 <span class="pl">三通路相加</span>、跟去年同週比 YoY，旁邊用長條顯示三通路各占多少。下面<span class="pl">五張業務卡</span>：門市達成 / 線上 / 蝦皮 / 庫存 / 競品，每張一個關鍵數字 + <span class="pl">紅綠燈（照我們剛剛討論的規則）</span>。<span class="pl">版面一次擺到位、外部資料先留空</span>：競品卡先顯示「—」、五張卡先做成「<span class="pl">之後可以點</span>」的樣子、下面預留一條<span class="pl">「其他組戰報：FB · 品類」</span>連結列 —— 這些等下接公佈欄再填，<span class="pl">現在先只讀本地 CSV、不連任何外部網址</span>。外觀套 SO NICE 品牌風格。這頁等下要放上 Cloudflare Pages 給大家看，資料 CSV 會跟著一起放上去、頁面直接讀它 —— 別做那種要先開個伺服器、一直掛著才看得到的。做完直接幫我用瀏覽器打開。</div>
+    </li>
+
+    <li>
+      <div class="sh">接公佈欄 <span class="mini">把各組網址 + 競品數字灌進預留的位置 · 合體的關鍵</span></div>
+      上一步把位置都留好了，這步只接真資料 —— 卡片變得點得進去、FB／品類 連得到、競品數字進來：
+      <div class="pblock" data-copy="上一步已經把五張卡、FB／品類 連結列、競品卡的位置都留好了。現在接公佈欄、把真資料灌進那些位置：去讀 戰情室設定.txt 裡那個公佈欄網址 —— 它告訴你各組部署好的 dashboard 網址、競品資料掛在哪（你先讀讀看內容）。① 把五張業務卡和「其他組戰報：FB · 品類」那條連結，填上各組真實網址、點了用新分頁開。② 競品卡的「—」換成公佈欄指到的競品資料（新品數）。只填資料、不要動版面；也不要做「誰交了／未交」的狀態追蹤或一直刷新 —— 七組上課時都已經做完了，這是最後合體的總覽、不是監控板。"><button class="copy-sm" onclick="copyText(this)">複製</button>上一步已經把卡片、FB／品類 連結列、競品卡的位置都留好了。現在<span class="pl">接公佈欄、把真資料灌進去</span>：去讀 <span class="pl">戰情室設定.txt</span> 裡那個公佈欄網址 —— 它告訴你各組 dashboard 的網址、競品資料掛在哪（你先讀讀看內容）。① 把五張卡和「<span class="pl">其他組戰報：FB · 品類</span>」那條連結，填上<span class="pl">各組真實網址</span>、點了開新分頁；② <span class="pl">競品卡</span>的「—」換成公佈欄指到的競品資料。<span class="pl">只填資料、不動版面</span>，也不要做交件追蹤或刷新 —— 七組都已經做完了，這是最後合體的總覽、不是監控板。</div>
+    </li>
+
+    <li class="talk">
+      <div class="sh">微調 <span class="mini">改到李總順眼</span></div>
+      它做一版、你看、說哪裡改 —— 來回幾次到順眼為止。
+      <div class="say"><div class="lbl">你可以這樣說</div>「<em>公司總業績數字再大一點</em>」「<em>這張卡紅綠燈反了，本週低於去年才紅</em>」「<em>交件看板放最上面、最顯眼</em>」</div>
+    </li>
+
+    <li>
+      <div class="sh">deploy 上線</div>
+      用你下課裝好的 wrangler，把整個資料夾部署到 Cloudflare：
+      <div class="pblock" data-copy="幫我用 wrangler 把現在這個資料夾（戰情室 + 那幾份 CSV）部署到 Cloudflare Pages。第一次先用 wrangler 建一個 Pages 專案，名字用 sonice-warroom（全球不能重複，撞名就加數字）。建好就用 wrangler 部署，之後更新再 wrangler 部署一次就好。弄好直接幫我用瀏覽器打開那個網址、也把網址貼給我。"><button class="copy-sm" onclick="copyText(this)">複製</button>幫我<span class="pl">用 wrangler</span> 把這個資料夾部署到 <span class="pl">Cloudflare Pages</span>。第一次建一個專案，名字用 <span class="pl">sonice-warroom</span>（全球不能撞名，撞名就加數字）。建好就部署，弄好<span class="pl">直接幫我打開網址</span>、把網址貼給我。</div>
+    </li>
+
+  </ol>
+
+  <h2><span class="tag">最後</span>合體驗收</h2>
+  <div class="card" style="border-left-color:var(--brick)">
+    這張<strong>就是李總的板</strong> —— 不用回報給誰。七組都部署、登記到公佈欄之後，把 roll-up 部署上線、投上大螢幕。李總打開這一頁：最上面公司總業績＋三通路占比，下面五張業務卡紅綠燈一眼掃完，<strong>點任一張就鑽進那一組的 dashboard</strong> 看細節。<strong>一頁 = 全公司看完。</strong>
+  </div>
+
+  <div class="note" style="margin-top:22px"><strong>課後要繼續用</strong>：把這幾份 CSV 換成每週真實匯出（<strong>欄位名不動</strong>），板自己更新；要加新一組，跟 Claude 說一句就好。正式版可把資料源搬到公司治理的儲存（有權限、有稽核）。</div>
+
+  <div class="note">卡關？把<strong>錯誤訊息整段貼回去給 Claude</strong> —— 它會幫你修。真的卡住就<strong>舉手</strong>，老師過去看。<br>提醒：要從<strong>有這幾份 CSV 的資料夾、用 http 開啟</strong>（Claude 部署 / 開瀏覽器時會處理好），直接雙擊檔案會讀不到資料源。</div>
+
+</div>
+
+<script>
+function dlTxt(filename){
+  fetch(filename)
+    .then(r=>r.blob())
+    .then(blob=>{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download=filename; a.click();
+      URL.revokeObjectURL(url);
+    });
+}
+function copyText(btn){
+  const block = btn.closest('.pblock');
+  const txt = block.getAttribute('data-copy') || '';
+  const done = ()=>{ btn.textContent='✓ 已複製'; btn.classList.add('done'); setTimeout(()=>{btn.textContent='複製'; btn.classList.remove('done');}, 1600); };
+  navigator.clipboard.writeText(txt).then(done).catch(done);
+}
+</script>
+</body>
+</html>

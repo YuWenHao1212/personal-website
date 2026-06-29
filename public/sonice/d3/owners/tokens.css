@@ -1,0 +1,37 @@
+/* ============================================================
+   SO NICE — Design Tokens
+   都會時尚女裝 · 成熟精緻 · 黑白極簡
+   /design-sync source — 換掉這個檔 = 換一個品牌皮膚（三牌 token 名一致）
+   ============================================================ */
+:root{
+  /* ---- color ---- */
+  --ds-bg:           #FFFFFF;  /* 純白底，永遠大面積留白 */
+  --ds-surface:      #F7F7F7;  /* 淺灰卡面 */
+  --ds-primary:      #111111;  /* 主色 = 近黑（logo 黑） */
+  --ds-primary-deep: #000000;  /* 純黑強調 */
+  --ds-ink:          #111111;  /* 標題 */
+  --ds-body:         #3A3A3A;  /* 內文 */
+  --ds-muted:        #8A8A8A;  /* 註解 / 來源 */
+  --ds-line:         #E5E5E5;  /* 分隔線 */
+  --ds-accent:       #6E2639;  /* 深酒紅 — 唯一彩色、一頁最多一處（呼應 FW 主色） */
+  --ds-on-primary:   #FFFFFF;
+
+  /* ---- type ---- */
+  --ds-font-heading: 'Noto Sans TC','Helvetica Neue',Arial,sans-serif;
+  --ds-font-body:    'Noto Sans TC','Helvetica Neue',Arial,sans-serif;
+  --ds-weight-heading: 800;    /* 粗黑 */
+  --ds-weight-body:    400;
+
+  /* ---- deck type scale (1920×1080) ---- */
+  --ds-size-display: 92px;
+  --ds-size-h1:      56px;
+  --ds-size-h2:      34px;
+  --ds-size-body:    26px;
+  --ds-size-caption: 20px;
+  --ds-size-stat:    150px;    /* 大數字 */
+
+  /* ---- shape ---- */
+  --ds-radius:       4px;      /* 銳利、近方 */
+  --ds-radius-card:  8px;
+  --ds-rule:         2px;      /* 黑細線 */
+}

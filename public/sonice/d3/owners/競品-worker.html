@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>競品 · 第 1 步：讓它自己每週跑 — 家喻</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5EDE4; --cream-2:#E8DCCB; --cream-3:#FFFAF5;
+    --ink:#2A211C; --ink-muted:#7A6A5E; --rule:#D9CDBE;
+    --brick:#C25B3F; --brick-deep:#9F462E; --accent:#E47A5C;
+    --serif:"Noto Serif TC","Songti TC",serif;
+    --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased;line-height:1.6;}
+  .wrap{max-width:940px;margin:0 auto;padding:52px 36px 120px}
+  .back{display:inline-block;font-family:var(--mono);font-size:14px;color:var(--ink-muted);text-decoration:none;margin-bottom:30px;letter-spacing:.04em}
+  .back:hover{color:var(--brick)}
+  .accentline{height:3px;background:var(--brick);width:56px;margin-bottom:22px}
+  .eyebrow{font-family:var(--mono);font-size:15px;letter-spacing:.18em;color:var(--brick);margin-bottom:14px}
+  header{border-bottom:2px solid var(--rule);padding-bottom:24px;margin-bottom:40px}
+  h1{font-weight:700;font-size:42px;margin:0;color:var(--ink);letter-spacing:-.5px}
+  h1 small{font-weight:400;font-size:22px;color:var(--ink-muted);margin-left:14px}
+  .who{font-family:var(--mono);font-size:16px;color:var(--ink-muted);margin-top:14px;letter-spacing:.04em}
+  .who b{color:var(--brick)}
+  h2{font-weight:700;font-size:26px;margin:50px 0 18px;color:var(--ink);display:flex;align-items:center;gap:12px}
+  h2 .tag{font-family:var(--mono);font-size:15px;letter-spacing:.1em;color:var(--brick);background:rgba(194,91,63,0.1);padding:5px 12px;border-radius:4px;font-weight:500}
+  .card{background:var(--cream-3);border:1.5px solid var(--rule);border-left:5px solid var(--brick);border-radius:10px;padding:26px 30px;font-size:21px;line-height:1.7;color:var(--ink)}
+  .card strong{font-weight:700}
+  .card.warn{border-left-color:var(--ink);background:#FBF3EA}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+  ol.steps li{counter-increment:s;position:relative;padding:24px 0 24px 52px;border-bottom:1.5px solid var(--rule);font-size:21px;line-height:1.65;color:var(--ink)}
+  ol.steps li:last-child{border-bottom:0}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:22px;width:34px;height:34px;background:var(--ink);color:var(--cream);font-family:var(--mono);font-weight:500;font-size:17px;display:flex;align-items:center;justify-content:center;border-radius:7px}
+  .sh{font-weight:700;font-size:23px;color:var(--ink);margin-bottom:4px}
+  .sh .mini{font-family:var(--mono);font-size:14px;color:var(--ink-muted);letter-spacing:.08em;margin-left:10px;font-weight:400}
+  .pblock{position:relative;background:#1A1410;border-radius:9px;padding:18px 96px 18px 22px;margin-top:12px;
+    font-family:var(--mono);font-size:15px;line-height:1.75;color:#F5EDE4;white-space:pre-wrap;box-shadow:0 4px 14px rgba(42,33,28,0.14)}
+  .pblock .pl{color:var(--accent)}
+  .copy-sm{position:absolute;top:12px;right:12px;background:var(--cream);color:var(--ink);border:1.5px solid var(--ink);border-radius:6px;
+    font-family:var(--mono);font-size:12px;padding:7px 14px;cursor:pointer;letter-spacing:.04em}
+  .copy-sm:hover,.copy-sm.done{background:var(--brick);color:#fff;border-color:var(--brick)}
+  .why{background:rgba(194,91,63,0.07);border:1.5px solid var(--rule);border-left:4px solid var(--brick);border-radius:8px;padding:14px 20px;margin-top:12px;font-size:17px;line-height:1.6;color:var(--ink)}
+  .why .lbl{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--brick);margin-bottom:6px}
+  details.fallback{margin-top:26px;border:1.5px dashed var(--rule);border-radius:10px;padding:0 22px;background:var(--cream-3)}
+  details.fallback summary{cursor:pointer;padding:18px 0;font-weight:700;font-size:18px;color:var(--ink-muted);list-style:none}
+  details.fallback summary::-webkit-details-marker{display:none}
+  details.fallback summary::before{content:"▸ ";color:var(--brick)}
+  details.fallback[open] summary::before{content:"▾ "}
+  details.fallback .inner{padding-bottom:22px}
+  details.fallback .lead{font-size:16px;color:var(--ink-muted);line-height:1.6;margin-bottom:10px}
+  textarea{width:100%;height:300px;background:#1A1410;color:#F5EDE4;border:none;border-radius:10px;padding:20px 22px;
+    font-family:var(--mono);font-size:12.5px;line-height:1.6;resize:vertical;white-space:pre;overflow:auto}
+  .copy{position:absolute;top:12px;right:12px;background:var(--cream);color:var(--ink);border:1.5px solid var(--ink);border-radius:6px;font-family:var(--mono);font-size:12px;padding:8px 15px;cursor:pointer}
+  .copy:hover,.copy.done{background:var(--brick);color:#fff;border-color:var(--brick)}
+  .promptbox{position:relative}
+  .bnote{background:#3A281E;color:#F5EDE4;border-radius:10px;padding:22px 28px;margin-top:18px;font-size:18px;line-height:1.7}
+  .bnote .lbl{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--accent);margin-bottom:8px}
+  .bnote code{font-family:var(--mono);font-size:15px;color:#E2C08D;background:rgba(0,0,0,.25);padding:2px 7px;border-radius:4px}
+  .note{font-size:16px;color:var(--ink-muted);margin-top:26px;line-height:1.65}
+  .note code{font-family:var(--mono);font-size:14px;background:var(--cream-2);padding:2px 7px;border-radius:4px;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="javascript:history.back()">← 回分工</a>
+  <div class="accentline"></div>
+  <div class="eyebrow">BLOCK 3 · 案例二 · 你這塊的 playbook（第 1 步）</div>
+  <header>
+    <h1>競品 · 讓它自己每週跑 <small>第 1 步</small></h1>
+    <div class="who">你這塊 · <b>家喻</b>　｜　SO NICE 戰情室</div>
+  </header>
+
+  <div class="card warn">
+    競品這塊<strong>比別人多一步</strong> —— 你剛在電腦上做好的那支爬蟲，這一步把它<strong>搬上雲端</strong>：不用你開電腦，它也會自己跑、<strong>每週自動更新</strong>。做好會給你一個<strong>資料網址</strong>，下一頁戰情室（<a href="競品.html" style="color:var(--brick);font-weight:700">競品.html</a>）讀它。
+  </div>
+
+  <h2><span class="tag">先搞懂</span>這一步在做什麼 —— 把爬蟲變成一台自己運轉的小機器</h2>
+  <div class="card">
+    <strong>案例一</strong>：你在電腦上「按一次、抓一次」—— 證明抓得到，但電腦一關就停。<br>
+    <strong>這一步</strong>：同一支爬蟲，加兩個零件、送上雲端，變成一台自己運轉的小機器 ——
+    <div style="margin:10px 0 10px 4px; line-height:1.8;">
+      · <strong>爬蟲</strong>（你已經做好的）—— 去對手網站抓本週新品<br>
+      · <strong>倉庫</strong>（資料庫）—— 抓到就存起來<br>
+      · <strong>鬧鐘</strong>（排程）—— 每週一自動叫它跑一次，不用你動手
+    </div>
+    做好後它開<strong>兩個出口</strong>：一個<strong>你打開、點一下就抓／看結果的頁</strong>（試跑用）、一個<strong>給下一頁戰情室讀的資料網址</strong>。<br>
+    <span style="color:var(--ink-muted)">所以你不是再做一個漂亮展示頁（那是下一頁的新品牆）—— 你是幫爬蟲裝上倉庫和鬧鐘、送上雲端。</span>
+  </div>
+
+  <h2><span class="tag">操作步驟</span>在你案例一做爬蟲的那個 Claude 裡接著做</h2>
+  <ol class="steps">
+
+    <li>
+      <div class="sh">做出來、直接放上 Cloudflare <span class="mini">照貼</span></div>
+      在你<strong>案例一做爬蟲的那個 Claude Code</strong> 裡，照貼下面這段（白話講需求 ＋ 直接上線，怎麼做交給它）：
+      <div class="pblock" data-copy="把我剛剛這支抓 N.ONE 新品的程式，升級成「會自己每週跑」的版本，直接放上我下課登入的 Cloudflare、讓它自己每週跑：&#10;· 每週一自己去抓這禮拜 N.ONE 的新品（每件一張封面人穿圖就好，跟案例一一樣），不用我手動&#10;· 抓到就存起來；萬一哪次被對方擋住，就用上次存的補上、不開天窗&#10;· 給我一個資料網址，把整理好的新品資料吐出來，讓我等下要做的戰情室讀得到&#10;· 再給我一個用瀏覽器打開、點一下就「現在就抓一次」的頁面，我要先試跑、確認真的有抓到（我不會打指令，也別用密碼鎖我）&#10;這隻是背景抓資料用的、不用做得漂亮（漂亮的展示牆我下一頁另外做）。只用 Cloudflare 這一個平台（我登入的那個）就好，別牽扯 GitHub 或其他服務；我不是工程師，要設定的密鑰越少越好。要建什麼、要設定什麼，你直接用 wrangler 幫我處理好。弄好後用白話清楚告訴我這兩個網址各是哪一個：哪個是「點了就抓一次」的、哪個是「貼去登記給戰情室讀」的，別讓我對著一堆網址猜。"><button class="copy-sm" onclick="copyText(this)">複製</button>把我剛剛抓 N.ONE 新品的程式，升級成「<span class="pl">自己每週跑</span>」、<span class="pl">直接放上我登入的 Cloudflare</span>：
+· 每週一<span class="pl">自己去抓</span>這禮拜的新品（每件一張封面圖，跟案例一一樣），不用我手動
+· 抓到就<span class="pl">存起來</span>；被擋就用上次存的、不開天窗
+· 給我一個<span class="pl">資料網址</span>，把整理好的資料吐出來，給我下一頁的戰情室讀
+· 再給我一個<span class="pl">用瀏覽器打開、點一下就「現在就抓一次」的頁面</span>（我不會打指令、別用密碼鎖）
+這隻是背景抓資料用的、不用漂亮（展示牆下一頁做）。<span class="pl">只用 Cloudflare 一個平台（我登入的那個）</span>，別牽扯 GitHub 或其他服務；我不是工程師，密鑰越少越好。要建、要設定的，你直接<span class="pl">用 wrangler 處理好</span>。弄好<span class="pl">清楚告訴我哪個網址「點了就抓」、哪個「貼去登記給戰情室讀」</span>。</div>
+    </li>
+
+    <li>
+      <div class="sh">先試跑一次 <span class="mini">關鍵 · 別跳過</span></div>
+      打開 Claude 給你的「<strong>現在就抓</strong>」那一頁（它做完會告訴你是哪個網址）→ 按一下 → 等它抓到本週新品（<strong>十幾到三十件都正常</strong>）。
+      <div class="why"><div class="lbl">為什麼一定要先按這一次</div><strong>確認它真的抓得到</strong>（不是空的）。</div>
+    </li>
+
+    <li>
+      <div class="sh">登記你的資料網址 <span class="mini">填一次、自動帶</span></div>
+      Claude 做完會給你<strong>好幾個網址</strong> —— 你要貼的是它標明「<strong>給戰情室讀 / 新品資料</strong>」的那一個（不是「點了就抓」那個、也不是看狀態的）。貼進來按「登記」—— <strong>下一頁戰情室會自動帶、李總那張也會改讀你這隻</strong>。
+      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <input id="dsurl" type="url" placeholder="貼上你的資料網址（Claude 標『給戰情室讀』的那個）" style="flex:1; min-width:340px; font-family:var(--mono); font-size:14px; padding:12px 15px; border:1.5px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink);">
+        <button onclick="regData()" style="background:var(--brick); color:#fff; font-family:var(--serif); font-weight:700; font-size:17px; padding:12px 24px; border:none; border-radius:9px; cursor:pointer;">登記</button>
+      </div>
+      <div id="dsmsg" style="margin-top:12px; font-size:16px; color:var(--brick-deep); min-height:22px;"></div>
+    </li>
+
+  </ol>
+
+  <div class="bnote">
+    <div class="lbl">真的卡住 · 講師備援</div>
+    來不及、怎麼都跑不起來？先用<strong>講師的現成版</strong>當資料網址，戰情室照樣有資料、demo 不中斷，等下再回頭弄你自己的：<br>
+    <code>https://none-crawler.hence-yu.workers.dev/data.json</code>
+  </div>
+
+  <div class="note">弄好了 → 下一頁用你的資料網址做戰情室：<a href="競品.html" style="color:var(--brick);font-weight:700">競品.html</a>。卡關就<strong>舉手</strong>找老師。</div>
+
+</div>
+
+<script>
+function regData(){
+  const url=(document.getElementById('dsurl').value||'').trim();
+  const msg=document.getElementById('dsmsg');
+  if(!/^https?:\/\//.test(url)){ msg.textContent='⚠ 先貼上你的資料網址（要 https:// 開頭）'; return; }
+  try{ localStorage.setItem('sonice_comp_data', url); }catch(e){}
+  msg.textContent='登記中…';
+  fetch('https://sonice-registry.hence-yu.workers.dev/report',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({source:'競品資料源', url})
+  }).then(r=>r.json()).then(()=>{ msg.innerHTML='✓ 已登記！下一頁戰情室會自動帶，李總那張約 1 分內改讀你的。'; })
+   .catch(()=>{ msg.textContent='登記失敗，再按一次，或舉手找老師。'; });
+}
+function copyText(btn){
+  const block=btn.closest('.pblock'); const txt=block.getAttribute('data-copy')||'';
+  const done=()=>{ btn.textContent='✓ 已複製'; btn.classList.add('done'); setTimeout(()=>{btn.textContent='複製'; btn.classList.remove('done');},1600); };
+  navigator.clipboard.writeText(txt).then(done).catch(done);
+}
+</script>
+</body>
+</html>
