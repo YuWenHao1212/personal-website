@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品銷售 YOY 比較報表 · SO NICE</title>
+<style>
+/* ============================================================
+   SO NICE — 商品銷售 YOY 報表模板 v1
+   品牌：都會時尚女裝 · 黑白極簡 + 一點酒紅（tokens 來自 design-systems/sonice）
+   方向訊號：衰退 = 酒紅 / 成長 = 沉穩墨綠（為數據報表新增的第二色，克制）
+   ============================================================ */
+:root{
+  --bg:#FFFFFF; --surface:#F7F7F7; --ink:#111111; --body:#3A3A3A;
+  --muted:#8A8A8A; --line:#E5E5E5; --accent:#6E2639;           /* 酒紅 */
+  --down:#6E2639;  --up:#2F5D43;                                /* 衰退酒紅 / 成長墨綠 */
+  --font:'Noto Sans TC','Helvetica Neue',Arial,sans-serif;
+  --radius:4px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--surface);color:var(--body);font-family:var(--font);
+  font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;padding:40px 20px;}
+.page{max-width:1040px;margin:0 auto;background:var(--bg);
+  border:1px solid var(--line);border-radius:var(--radius);padding:56px 60px 48px;}
+
+/* ---- header ---- */
+.rpt-head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid var(--ink);padding-bottom:20px;}
+.wordmark{font-weight:800;font-size:30px;letter-spacing:0.18em;color:var(--ink);}
+.rpt-head .meta{text-align:right;font-size:14px;color:var(--muted);line-height:1.7;}
+h1{font-weight:800;font-size:34px;color:var(--ink);margin-top:30px;letter-spacing:0.01em;}
+.subtitle{font-size:15px;color:var(--muted);margin-top:6px;}
+
+/* ---- KPI strip ---- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:34px;}
+.kpi{background:var(--bg);padding:22px 24px;}
+.kpi .label{font-size:13px;color:var(--muted);letter-spacing:0.04em;}
+.kpi .num{font-weight:800;font-size:40px;color:var(--ink);line-height:1.1;margin-top:8px;
+  font-variant-numeric:tabular-nums;}
+.kpi .num .unit{font-size:18px;font-weight:400;color:var(--muted);margin-left:3px;}
+.kpi .yoy{font-size:15px;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums;}
+.up{color:var(--up);} .down{color:var(--down);}
+
+/* ---- 觀察 callout ---- */
+.observe{margin-top:34px;background:var(--surface);border-left:3px solid var(--accent);
+  border-radius:var(--radius);padding:22px 28px;}
+.observe h2{font-weight:800;font-size:18px;color:var(--ink);display:flex;align-items:baseline;gap:12px;}
+.observe h2 .tag{font-size:12px;font-weight:400;color:var(--muted);letter-spacing:0.04em;}
+.observe ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:11px;}
+.observe li{font-size:15.5px;color:var(--body);padding-left:20px;position:relative;}
+.observe li::before{content:"—";position:absolute;left:0;color:var(--accent);}
+.observe li strong{color:var(--ink);font-weight:700;}
+.observe li .flag{color:var(--accent);font-weight:700;}
+
+/* ---- 明細表 ---- */
+h2.sec{font-weight:800;font-size:18px;color:var(--ink);margin-top:40px;
+  padding-bottom:10px;border-bottom:1px solid var(--line);}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-variant-numeric:tabular-nums;}
+th{font-size:12.5px;font-weight:700;color:var(--muted);text-align:right;padding:10px 14px;
+  border-bottom:2px solid var(--ink);letter-spacing:0.02em;white-space:nowrap;}
+th:first-child{text-align:left;}
+td{font-size:14.5px;color:var(--body);text-align:right;padding:11px 14px;
+  border-bottom:1px solid var(--line);white-space:nowrap;}
+td:first-child{text-align:left;}
+tr.cat td{font-weight:800;color:var(--ink);background:var(--surface);}
+tr.sub td:first-child{padding-left:30px;color:var(--body);}
+tr.total td{font-weight:800;color:var(--ink);border-top:2px solid var(--ink);
+  border-bottom:none;background:#fff;}
+.cat-name{font-weight:800;}
+.yoy-cell{font-weight:700;}
+
+footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--muted);line-height:1.7;}
+footer .accent{color:var(--accent);}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .page{border:none;border-radius:0;max-width:100%;padding:24px 28px;}
+  .kpis{break-inside:avoid;} table{break-inside:auto;} tr{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="rpt-head">
+    <div class="wordmark">SO&nbsp;NICE</div>
+    <div class="meta">
+      商品銷售 YOY 比較報表<br>
+      本期 2026 vs 去年同期 2024<br>
+      生成日：YYYY-MM-DD
+    </div>
+  </div>
+
+  <h1>商品銷售 YOY 比較報表</h1>
+  <div class="subtitle">線上營運 · 商品銷售（依主分類 × 新舊款）· 同期比較</div>
+
+  <!-- ============ KPI 總覽 ============ -->
+  <div class="kpis">
+    <div class="kpi">
+      <div class="label">總業績（TWD）</div>
+      <div class="num">17,798,988</div>
+      <div class="yoy down">YoY −6%　去年 18,835,237</div>
+    </div>
+    <div class="kpi">
+      <div class="label">總銷量</div>
+      <div class="num">17,291<span class="unit">件</span></div>
+      <div class="yoy down">YoY −3%　去年 17,872</div>
+    </div>
+    <div class="kpi">
+      <div class="label">上架款式數</div>
+      <div class="num">917<span class="unit">款</span></div>
+      <div class="yoy up">YoY +17%　去年 784</div>
+    </div>
+    <div class="kpi">
+      <div class="label">平均單價 / 轉換率</div>
+      <div class="num">1,029<span class="unit">元</span></div>
+      <div class="yoy"><span style="color:var(--muted)">轉換率 1.3%　瀏覽 1,298,280</span></div>
+    </div>
+  </div>
+
+  <!-- ============ 本月觀察（AI 草擬）============ -->
+  <div class="observe">
+    <h2>本月觀察 <span class="tag">AI 初步草擬 · 待禮嘉確認 / 改寫</span></h2>
+    <ul>
+      <li>總業績 <strong>YoY −6%（−104 萬）</strong>，拖累集中在<span class="flag">當季新品的「舊款」−29%（−218 萬）</span>—— 去年主力款今年明顯退力。</li>
+      <li><strong>飾品配件逆勢成長 +28%（+16 萬）</strong>，靠當月新品大舉鋪貨（+52 款、+46%）；但平均單價僅 343 元，走量不走價、留意毛利稀釋。</li>
+      <li><strong>內著效率最好</strong>：轉換率 2.4%（全類最高）、業績 +5%，量小但精準，值得加碼。</li>
+      <li><span class="flag">瀏覽數 −17%、跌幅大於業績 −6%</span>：流量在縮、轉換頂住，引流端要補。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 明細表 ============ -->
+  <h2 class="sec">主分類 × 新舊款 明細</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>分類</th>
+        <th>款式數</th>
+        <th>銷量</th>
+        <th>業績（TWD）</th>
+        <th>平均單價</th>
+        <th>瀏覽數</th>
+        <th>轉換率</th>
+        <th>業績 YoY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 當季新品 -->
+      <tr class="cat"><td>當季新品</td><td>443</td><td>9,641</td><td>12,896,826</td><td>1,338</td><td>895,106</td><td>1.1%</td><td class="yoy-cell down">−8%</td></tr>
+      <tr class="sub"><td>當月新品</td><td>131</td><td>5,435</td><td>7,457,334</td><td>1,372</td><td>541,286</td><td>1.0%</td><td class="yoy-cell up">+15%</td></tr>
+      <tr class="sub"><td>舊款</td><td>312</td><td>4,206</td><td>5,439,492</td><td>1,293</td><td>353,820</td><td>1.2%</td><td class="yoy-cell down">−29%</td></tr>
+      <!-- STAR -->
+      <tr class="cat"><td>STAR</td><td>79</td><td>3,975</td><td>3,501,229</td><td>881</td><td>231,633</td><td>1.7%</td><td class="yoy-cell down">−1%</td></tr>
+      <tr class="sub"><td>當月新品</td><td>18</td><td>2,406</td><td>2,132,602</td><td>886</td><td>117,708</td><td>2.0%</td><td class="yoy-cell down">−9%</td></tr>
+      <tr class="sub"><td>舊款</td><td>61</td><td>1,569</td><td>1,368,627</td><td>872</td><td>113,925</td><td>1.4%</td><td class="yoy-cell up">+14%</td></tr>
+      <!-- 內著 -->
+      <tr class="cat"><td>內著</td><td>47</td><td>1,509</td><td>658,909</td><td>437</td><td>63,067</td><td>2.4%</td><td class="yoy-cell up">+5%</td></tr>
+      <tr class="sub"><td>當月新品</td><td>8</td><td>672</td><td>286,156</td><td>426</td><td>24,157</td><td>2.8%</td><td class="yoy-cell up">+18%</td></tr>
+      <tr class="sub"><td>舊款</td><td>39</td><td>837</td><td>372,753</td><td>445</td><td>38,910</td><td>2.2%</td><td class="yoy-cell down">−2%</td></tr>
+      <!-- 飾品配件 -->
+      <tr class="cat"><td>飾品配件</td><td>348</td><td>2,166</td><td>742,024</td><td>343</td><td>108,474</td><td>2.0%</td><td class="yoy-cell up">+28%</td></tr>
+      <tr class="sub"><td>當月新品</td><td>110</td><td>1,056</td><td>376,952</td><td>357</td><td>59,476</td><td>1.8%</td><td class="yoy-cell up">+46%</td></tr>
+      <tr class="sub"><td>舊款</td><td>238</td><td>1,110</td><td>365,072</td><td>329</td><td>48,998</td><td>2.3%</td><td class="yoy-cell up">+14%</td></tr>
+      <!-- 總計 -->
+      <tr class="total"><td>總計</td><td>917</td><td>17,291</td><td>17,798,988</td><td>1,029</td><td>1,298,280</td><td>1.3%</td><td class="yoy-cell down">−6%</td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    資料來源：商品銷售報表（本期 + 去年同期）· 由 <span class="accent">product-yoy-report</span> skill 生成。<br>
+    指標定義：平均單價＝業績÷銷量；轉換率＝銷量÷瀏覽數；YoY＝(本期−去年)÷去年。新舊款依銷售開始日期判定。
+  </footer>
+
+</div>
+</body>
+</html>
