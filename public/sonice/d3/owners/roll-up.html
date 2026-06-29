@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<title>SO NICE 戰情室 · 李總總覽</title>
+<style>
+  :root{--bg:#FFFFFF;--surface:#F7F7F7;--ink:#111111;--body:#3A3A3A;--muted:#8A8A8A;--line:#E5E5E5;--rule:#111111;--accent:#6E2639;--good:#1F6B4D;--warn:#8A6A1F;--bad:#6E2639;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:'Noto Sans TC','Helvetica Neue',Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:42px 30px 90px}
+  header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--rule);padding-bottom:16px;margin-bottom:8px}
+  h1{font-weight:900;font-size:34px;margin:0;color:var(--ink);letter-spacing:-.4px}
+  h1 small{font-weight:400;font-size:15px;color:var(--muted);margin-left:12px}
+  h2{font-weight:900;font-size:16px;margin:40px 0 16px;color:var(--ink);letter-spacing:.2px}
+  .period{font-size:13px;color:var(--muted)}
+  .accentline{height:3px;background:var(--accent);width:60px;margin-bottom:18px}
+  .sub-h{font-size:13px;color:var(--muted);margin-bottom:30px}
+  /* 本週交件看板 */
+  .board-head{display:flex;align-items:baseline;gap:16px;margin:30px 0 16px}
+  .board-head h2{margin:0}
+  .board-count{font-weight:900;font-size:15px;color:var(--ink)}
+  .board-count b{color:var(--accent);font-size:20px}
+  .board{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .bcell{background:#fff;padding:18px 14px;border-top:3px solid #C9C9C9;text-decoration:none;color:inherit;display:block;min-height:118px;transition:background .12s}
+  .bcell.done{border-top-color:var(--good)}
+  .bcell.done[href]:hover{background:#FAFAFA}
+  .bcell .src{font-size:14px;font-weight:700;color:var(--ink)}
+  .bcell .who{font-size:11px;color:var(--muted);margin-top:3px}
+  .bcell .st{font-size:12px;margin-top:14px;font-weight:700}
+  .bcell.done .st{color:var(--good)}
+  .bcell.pending .st{color:var(--muted)}
+  .bcell .wk{font-size:11px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+  .bcell .go{font-size:11px;color:var(--accent);margin-top:10px;letter-spacing:.3px}
+  /* 五業務卡 */
+  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .card{background:#fff;padding:24px 20px;border-top:3px solid var(--ink);cursor:pointer;transition:background .12s;text-decoration:none;color:inherit;display:block}
+  .card:hover{background:#FAFAFA}
+  .card.alert{border-top-color:var(--accent)}
+  .card .biz{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:16px;letter-spacing:.3px}
+  .card .num{font-weight:900;font-size:30px;line-height:1;color:var(--ink)}
+  .card .yoy{font-size:13px;margin-top:8px;font-weight:700}
+  .card .meta{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6}
+  .card .enter{font-size:11px;color:var(--muted);margin-top:16px;letter-spacing:.5px}
+  .hero{border:1px solid var(--line);border-top:3px solid var(--accent);background:#fff;padding:26px 28px;margin-bottom:18px;display:flex;align-items:flex-end;justify-content:space-between;gap:34px;flex-wrap:wrap}
+  .hero .htxt .lbl{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:.3px}
+  .hero .htxt .big{font-weight:900;font-size:52px;line-height:1;color:var(--ink);margin-top:10px}
+  .hero .htxt .hy{font-size:15px;font-weight:700;margin-top:12px}
+  .hero .comp{flex:1;min-width:320px;max-width:480px}
+  .hero .crow{display:grid;grid-template-columns:60px 1fr 124px;align-items:center;gap:12px;margin:8px 0;font-size:13px}
+  .hero .crow .cn{color:var(--ink);font-weight:500}
+  .hero .ctrack{background:#F2F2F2;height:12px;overflow:hidden}
+  .hero .cfill{height:100%;background:var(--ink)}
+  .hero .crow .cv{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  .g{color:var(--good)} .r{color:var(--bad)} .a{color:var(--warn)}
+  .dot{display:inline-block;width:8px;height:8px;margin-right:5px;vertical-align:1px}
+  .bg-g{background:var(--good)} .bg-r{background:var(--bad)} .bg-a{background:var(--warn)}
+  .ai{margin-top:30px;border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--surface);padding:22px 26px}
+  .ai .tag{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:10px}
+  .ai .txt{font-size:15px;line-height:1.9;color:var(--ink)}
+  .note{font-size:12px;color:var(--muted);margin-top:24px}
+  .loading{padding:48px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><div class="accentline"></div><h1>SO NICE 戰情室 <small>李總總覽</small></h1></div>
+    <div class="period" id="period">載入中…</div>
+  </header>
+
+  <div class="board-head">
+    <h2>本週交件看板</h2>
+    <div class="board-count" id="bcount">— / 7</div>
+    <div style="font-size:12px;color:var(--muted)">每 8 秒自動刷新 · 點已交的進那個人的戰情室</div>
+  </div>
+  <div class="board" id="board"><div class="loading" style="grid-column:1/-1">讀取交件狀態…</div></div>
+
+  <h2 style="margin-top:44px">公司總覽 <span style="font-weight:400;font-size:12px;color:var(--muted)">公司總業績 = 線上 + 門市 + 蝦皮（資料層相加、互不重疊）· 點卡進該負責人 dashboard</span></h2>
+  <div class="hero" id="hero"><div class="loading" style="width:100%">讀取資料源中…</div></div>
+  <div class="cards" id="cards"></div>
+  <div class="ai" id="ai" style="display:none">
+    <div class="tag">AI 一句解讀</div>
+    <div class="txt" id="aitxt"></div>
+  </div>
+
+  <div class="note">交件看板讀「公佈欄」registry（學員按「我做完了」即時回報）· 公司總業績讀戰情室共用資料源 · 整合在資料層、不在 dashboard 互相對話</div>
+</div>
+
+<script>
+const REGISTRY = "https://sonice-registry.hence-yu.workers.dev/status";
+const COMP_BACKUP = "https://none-crawler.hence-yu.workers.dev/data.json";  // 講師 backup；家喻登記後自動改讀她的
+let COMP_DS = null, lastDS;
+const OWNERS = {"流量":"Karen","FB":"Elaine","庫存":"靖宜","蝦皮":"集鍵","品類":"禮嘉","達成":"Elena·Wayne","競品":"家喻"};
+const ORDER = ["流量","FB","庫存","蝦皮","品類","達成","競品"];
+let STATUS = {};
+
+const fmt = n => Math.round(n).toLocaleString("en-US");
+const wan = n => fmt(n/10000);
+const pct = n => (n*100).toFixed(1)+"%";
+function parseCSV(t){
+  t = t.charCodeAt(0)===0xFEFF ? t.slice(1) : t;
+  const split = l => { const o=[]; let c="",q=false;
+    for(let i=0;i<l.length;i++){const ch=l[i];
+      if(q){ if(ch==='"'){ if(l[i+1]==='"'){c+='"';i++;} else q=false; } else c+=ch; }
+      else { if(ch===","){o.push(c);c="";} else if(ch==='"'){q=true;} else c+=ch; } }
+    o.push(c); return o; };
+  const lines = t.trim().split(/\r?\n/);
+  const head = split(lines[0]);
+  return lines.slice(1).map(l=>{const c=split(l);const o={};head.forEach((h,i)=>o[h]=c[i]);return o;});
+}
+const get = f => fetch(f).then(r=>r.text()).then(parseCSV);
+const getJSON = u => fetch(u).then(r=>r.json()).catch(()=>null);
+
+// ── 本週交件看板（讀 registry /status，live 刷新）──
+async function loadBoard(){
+  let data=null;
+  try{ data = await fetch(REGISTRY).then(r=>r.json()); }catch(e){}
+  STATUS = {};
+  (data&&data.sources||[]).forEach(s=>{ STATUS[s.source]=s; });
+  COMP_DS = (data && data.datasource && data.datasource.url) || null;
+  if (COMP_DS !== lastDS) { lastDS = COMP_DS; loadCompany(); }  // 家喻登記/換源 → 自動重載競品卡，不用重整
+  let done=0;
+  const cells = ORDER.map(src=>{
+    const s = STATUS[src]||{};
+    const ok = !!s.ts;
+    if(ok) done++;
+    const who = OWNERS[src]||"";
+    const tag = ok? "✓ 已交" : "⏳ 還沒";
+    const wk = ok && s.week ? s.week : "";
+    const go = ok && s.url ? `<div class="go">進他的戰情室 →</div>` : "";
+    const openAttr = ok && s.url ? ` href="${s.url}" target="_blank"` : "";
+    return `<a class="bcell ${ok?'done':'pending'}"${openAttr}>
+      <div class="src">${src}</div><div class="who">${who}</div>
+      <div class="st">${tag}</div><div class="wk">${wk}</div>${go}</a>`;
+  }).join("");
+  document.getElementById("board").innerHTML = cells;
+  document.getElementById("bcount").innerHTML = `<b>${done}</b> / 7 已交`;
+}
+
+// ── 公司總覽（讀共用資料源，載入一次）──
+function loadCompany(){
+  Promise.all([get("流量.csv"),get("蝦皮.csv"),get("達成.csv"),get("庫存-商品.csv"),getJSON(COMP_DS || COMP_BACKUP)])
+  .then(([d01,d05,d04,d03,comp])=>{
+    const num=(o,k)=>+o[k];
+    const c01 = d01.filter(o=>o["週次"].startsWith("2026-")).sort((a,b)=>a["週次"]<b["週次"]?1:-1)[0];
+    const wk = c01["週次"], lastWk="2025-"+wk.split("-")[1];
+    const p01 = d01.find(o=>o["週次"]===lastWk);
+    const rev=num(c01,"營業額"), revLast=num(p01,"營業額"), revYoY=(rev-revLast)/revLast;
+    const c05 = d05.filter(o=>o["週次"].startsWith("2026-")).sort((a,b)=>a["週次"]<b["週次"]?1:-1)[0];
+    const p05 = d05.find(o=>o["週次"]==="2025-"+wk.split("-")[1]);
+    const shipNow=num(c05,"可出貨業績"), shipLast=num(p05,"可出貨業績"), shipYoY=(shipNow-shipLast)/shipLast;
+    const shopRate=num(c05,"達成率_接單"), shopRoas=num(c05,"總ROAS");
+    const totRev=d04.reduce((s,o)=>s+num(o,"當週營業額"),0);
+    const storeOverall=totRev/d04.reduce((s,o)=>s+num(o,"當週店目標"),0), red=d04.filter(o=>num(o,"達成率")<0.7).length;
+    const slow=d03.filter(o=>num(o,"銷比")<0.15).length, turn=d03.reduce((s,o)=>s+num(o,"週轉率"),0)/d03.length;
+    // 競品 = N.ONE worker /data.json（本週新品數 + 主推品類）
+    const compTotal = comp&&comp.total || 0;
+    const compTop = comp&&comp.summary&&comp.summary.topCat;
+    const st26=totRev, st25=d04.reduce((s,o)=>s+num(o,"當週營業額")/(1+num(o,"去年同週成長率")),0);
+    const sp26r=num(c05,"實際業績"), sp25r=num(p05,"實際業績");
+    const co26=rev+st26+sp26r, co25=revLast+st25+sp25r, coYoY=(co26-co25)/co25;
+    const wy=v=>`<span class="${v>=0?'g':'r'}">${v>=0?'▲':'▼'} ${(Math.abs(v)*100).toFixed(1)}% YoY</span>`;
+    const compBars=[["線上",rev],["門市",st26],["蝦皮",sp26r]].sort((a,b)=>b[1]-a[1]);
+    const cmax=Math.max(...compBars.map(c=>c[1]));
+    document.getElementById("hero").innerHTML = `
+      <div class="htxt"><div class="lbl">公司總業績 · ${wk}（${c01["檔期"]}）</div>
+        <div class="big">$${wan(co26)} 萬</div>
+        <div class="hy">${wy(coYoY)}　<span style="color:var(--muted);font-weight:400">去年同週 $${wan(co25)} 萬</span></div></div>
+      <div class="comp">${compBars.map(c=>`<div class="crow"><span class="cn">${c[0]}</span><div class="ctrack"><div class="cfill" style="width:${c[1]/cmax*100}%"></div></div><span class="cv">$${wan(c[1])} 萬 · ${(c[1]/co26*100).toFixed(0)}%</span></div>`).join("")}</div>`;
+    document.getElementById("period").textContent = wk+"（"+c01["檔期"]+"）· vs "+lastWk;
+    const yoyHTML=(v)=>`<span class="${v>=0?'g':'r'}">${v>=0?'▲':'▼'} ${(Math.abs(v)*100).toFixed(1)}% YoY</span>`;
+    const link = src => (STATUS[src]&&STATUS[src].url) ? STATUS[src].url : null;
+    const cards=[
+      {src:"達成", alert:red>0, biz:"門市業績", num:"$"+wan(st26)+" 萬", yoy:`<span class="${red>0?'r':'g'}"><span class="dot bg-${red>0?'r':'g'}"></span>${red} 家紅燈</span>`, meta:`達成率 ${pct(storeOverall)}・${d04.length} 店`},
+      {src:"流量", alert:revYoY<0, biz:"線上業績", num:"$"+wan(rev)+" 萬", yoy:yoyHTML(revYoY), meta:`官網 $${wan(num(c01,"官網業績"))} 萬・APP $${wan(num(c01,"APP業績"))} 萬`},
+      {src:"蝦皮", alert:false, biz:"蝦皮業績", num:"$"+wan(shipNow)+" 萬", yoy:yoyHTML(shipYoY), meta:`接單達成 ${pct(shopRate)}・總 ROAS ${shopRoas.toFixed(1)}`},
+      {src:"庫存", alert:slow>0, biz:"庫存", num:slow+" 款", yoy:`<span class="${slow>0?'a':'g'}"><span class="dot bg-${slow>0?'a':'g'}"></span>滯銷待調轉</span>`, meta:`${d03.length} 款新品・平均週轉 ${turn.toFixed(1)}`},
+      {src:"競品", alert:false, biz:"競品", num:compTotal?compTotal+" 件":"—", yoy:`<span style="color:var(--muted)"><span class="dot" style="background:var(--muted)"></span>本週新品</span>`, meta: compTop?`主推「${compTop[0]}」（${compTop[1]} 件）`:"資料引擎監控中"},
+    ];
+    document.getElementById("cards").innerHTML = cards.map(c=>{
+      const u=link(c.src); const tag=u?`<a class="card ${c.alert?'alert':''}" href="${u}" target="_blank">`:`<div class="card ${c.alert?'alert':''}" style="cursor:default">`;
+      const end=u?'<div class="enter">進入 dashboard →</div></a>':'<div class="enter" style="color:#C9C9C9">尚未交件</div></div>';
+      return `${tag}<div class="biz">${c.biz}</div><div class="num">${c.num}</div><div class="yoy">${c.yoy}</div><div class="meta">${c.meta}</div>${end}`;
+    }).join("");
+    const ai = `本週公司總業績 <strong>$${wan(co26)} 萬</strong>、YoY <strong class="${coYoY<0?'r':'g'}">${coYoY<0?'衰退':'成長'} ${(Math.abs(coYoY)*100).toFixed(1)}%</strong>——門市占 ${(st26/co26*100).toFixed(0)}%、YoY ${((st26-st25)/st25*100).toFixed(1)}% 是主要量體；線上 YoY <span class="r">${(revYoY*100).toFixed(1)}%</span> 跌最深、蝦皮 <span class="g">逆勢 +${((sp26r-sp25r)/sp25r*100).toFixed(0)}%</span> 撐住；門市 <strong class="${red>0?'r':'g'}">${red} 家紅燈</strong>、整體達成 ${pct(storeOverall)}；庫存 ${slow} 款滯銷待調轉${compTop?`，競品本週上 ${compTotal} 件新品、主推「${compTop[0]}」`:""}。`;
+    document.getElementById("aitxt").innerHTML = ai;
+    document.getElementById("ai").style.display = "block";
+  }).catch(e=>{
+    document.getElementById("hero").innerHTML = `<div class="loading r" style="width:100%">讀不到資料源（${e}）。需從有這些 CSV 的資料夾、用 http 開啟（不能直接雙擊）。</div>`;
+  });
+}
+
+loadBoard();
+setInterval(loadBoard, 8000);
+</script>
+</body>
+</html>

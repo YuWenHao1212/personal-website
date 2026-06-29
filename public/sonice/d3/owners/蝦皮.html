@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蝦皮 · 集鍵 — 你這塊的 playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5EDE4; --cream-2:#E8DCCB; --cream-3:#FFFAF5;
+    --ink:#2A211C; --ink-muted:#7A6A5E; --rule:#D9CDBE;
+    --brick:#C25B3F; --brick-deep:#9F462E; --accent:#E47A5C;
+    --serif:"Noto Serif TC","Songti TC",serif;
+    --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased;line-height:1.6;}
+  .wrap{max-width:940px;margin:0 auto;padding:52px 36px 120px}
+  .back{display:inline-block;font-family:var(--mono);font-size:14px;color:var(--ink-muted);text-decoration:none;margin-bottom:30px;letter-spacing:.04em}
+  .back:hover{color:var(--brick)}
+  .accentline{height:3px;background:var(--brick);width:56px;margin-bottom:22px}
+  .eyebrow{font-family:var(--mono);font-size:15px;letter-spacing:.18em;color:var(--brick);margin-bottom:14px}
+  header{border-bottom:2px solid var(--rule);padding-bottom:24px;margin-bottom:40px}
+  h1{font-weight:700;font-size:46px;margin:0;color:var(--ink);letter-spacing:-.5px}
+  h1 small{font-weight:400;font-size:24px;color:var(--ink-muted);margin-left:14px}
+  .who{font-family:var(--mono);font-size:16px;color:var(--ink-muted);margin-top:14px;letter-spacing:.04em}
+  .who b{color:var(--brick)}
+  h2{font-weight:700;font-size:26px;margin:50px 0 18px;color:var(--ink);display:flex;align-items:center;gap:12px}
+  h2 .tag{font-family:var(--mono);font-size:15px;letter-spacing:.1em;color:var(--brick);background:rgba(194,91,63,0.1);padding:5px 12px;border-radius:4px;font-weight:500}
+  .card{background:var(--cream-3);border:1.5px solid var(--rule);border-left:5px solid var(--brick);border-radius:10px;padding:26px 30px;font-size:21px;line-height:1.7;color:var(--ink)}
+  .card strong{font-weight:700}
+  .deliver{display:flex;flex-wrap:wrap;gap:11px;margin-top:18px}
+  .chip{font-size:17px;border:1.5px solid var(--rule);background:var(--cream);padding:8px 16px;border-radius:6px;color:var(--ink)}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+  ol.steps li{counter-increment:s;position:relative;padding:22px 0 22px 52px;border-bottom:1.5px solid var(--rule);font-size:21px;line-height:1.65;color:var(--ink)}
+  ol.steps li:last-child{border-bottom:0}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:20px;width:34px;height:34px;background:var(--ink);color:var(--cream);font-family:var(--mono);font-weight:500;font-size:17px;display:flex;align-items:center;justify-content:center;border-radius:7px}
+  ol.steps li.talk::before{background:var(--brick)}
+  ol.steps li strong{font-weight:700}
+  .sh{font-weight:700;font-size:23px;color:var(--ink);margin-bottom:4px}
+  .sh .mini{font-family:var(--mono);font-size:14px;color:var(--ink-muted);letter-spacing:.08em;margin-left:10px;font-weight:400}
+  .dl{display:inline-flex;align-items:center;gap:9px;background:var(--brick);color:#fff;font-weight:700;font-size:18px;padding:12px 22px;border-radius:9px;text-decoration:none;margin:8px 10px 2px 0}
+  .dl.alt{background:var(--cream);color:var(--ink);border:1.5px solid var(--ink)}
+  .dl:hover{background:var(--brick-deep);color:#fff}
+  .dl.alt:hover{background:var(--ink);color:var(--cream)}
+  .pblock{position:relative;background:#1A1410;border-radius:9px;padding:18px 96px 18px 22px;margin-top:12px;
+    font-family:var(--mono);font-size:14.5px;line-height:1.7;color:#F5EDE4;white-space:pre-wrap;box-shadow:0 4px 14px rgba(42,33,28,0.14)}
+  .pblock .pl{color:var(--accent)}
+  .copy-sm{position:absolute;top:12px;right:12px;background:var(--cream);color:var(--ink);border:1.5px solid var(--ink);border-radius:6px;
+    font-family:var(--mono);font-size:12px;padding:7px 14px;cursor:pointer;letter-spacing:.04em}
+  .copy-sm:hover,.copy-sm.done{background:var(--brick);color:#fff;border-color:var(--brick)}
+  .say{background:rgba(194,91,63,0.07);border:1.5px solid var(--rule);border-left:4px solid var(--brick);border-radius:8px;padding:16px 22px;margin-top:12px;font-size:19px;line-height:1.7;color:var(--ink)}
+  .say .lbl{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--brick);margin-bottom:8px}
+  .say em{font-style:normal;color:var(--brick-deep);font-weight:600}
+  .note{font-size:16px;color:var(--ink-muted);margin-top:26px;line-height:1.65}
+  .note code{font-family:var(--mono);font-size:14px;background:var(--cream-2);padding:2px 7px;border-radius:4px;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="javascript:history.back()">← 回分工</a>
+  <div class="accentline"></div>
+  <div class="eyebrow">BLOCK 3 · 案例二 · 你這塊的 playbook</div>
+  <header>
+    <h1>蝦皮 <small>廣告通路 ROAS</small></h1>
+    <div class="who">你這塊 · <b>集鍵</b>　｜　SO NICE 戰情室</div>
+  </header>
+
+  <h2><span class="tag">目標</span>做出來大概長這樣（你可以加減）</h2>
+  <div class="card">
+    把<strong>蝦皮戰況週報</strong>變成一塊會自己算、自己亮燈的戰情室 —— ROAS、可出貨、退貨，一眼看完。
+    <div class="deliver">
+      <span class="chip">4 張 KPI（可出貨業績 / 接單達成率 / 總ROAS / 退貨率）</span>
+      <span class="chip">四廣告通路 ROAS 長條</span>
+      <span class="chip">通路明細 + ROAS YoY</span>
+      <span class="chip">可出貨業績週趨勢</span>
+    </div>
+  </div>
+
+  <h2><span class="tag">這次怎麼做</span>不是貼上、是練習</h2>
+  <div class="card" style="border-left-color:var(--ink)">
+    跟案例一一樣 —— 你跟 Claude <strong>研究 → 討論 → 做一版 → 改到好</strong>。<strong>你最懂蝦皮</strong>，怎麼算、看什麼重點，你來判斷；Claude 負責做。
+  </div>
+
+  <h2><span class="tag">操作步驟</span>照著走</h2>
+  <ol class="steps">
+
+    <li>
+      <div class="sh">下載你的材料</div>
+      蝦皮廣告週報，含四大通路 ROAS、可出貨業績、接單達成率、退貨率及 YoY 比較。<br>
+      <a class="dl" href="蝦皮.csv" download="蝦皮.csv">⬇ 蝦皮.csv</a>
+    </li>
+
+    <li>
+      <div class="sh">開專案、把檔案收進去</div>
+      把下面這句照貼給 Claude Code：
+      <div class="pblock" data-copy="在 Efforts/Projects/Active 開一個新專案叫 Demo_蝦皮戰情室，把我下載的 蝦皮.csv 搬進去，之後在裡面做事。"><button class="copy-sm" onclick="copyText(this)">複製</button>在 Efforts/Projects/Active 開一個新專案叫 <span class="pl">Demo_蝦皮戰情室</span>，把我下載的 <span class="pl">蝦皮.csv</span> 搬進去，之後在裡面做事。</div>
+    </li>
+
+    <li>
+      <div class="sh">研究 <span class="mini">先別做</span></div>
+      讓 Claude 先看懂你的資料、提案 —— 先別動手：
+      <div class="pblock" data-copy="研究 蝦皮.csv 這份資料 —— 有哪些欄位、最新是哪一週、可以算出哪些重點（例如跟去年/去期比的變化）？我是顧蝦皮的，建議我這張蝦皮戰情室該放哪些關鍵數字和圖。先別動手做，先跟我講你的提案。"><button class="copy-sm" onclick="copyText(this)">複製</button>研究 <span class="pl">蝦皮.csv</span> —— 有哪些欄位、最新是哪一週、可以算出哪些重點？我是顧蝦皮的，建議我這張蝦皮戰情室該放哪些關鍵數字和圖。<span class="pl">先別動手做</span>，先跟我講你的提案。</div>
+    </li>
+
+    <li class="talk">
+      <div class="sh">討論 <span class="mini">你最懂這塊</span></div>
+      Claude 提案後，用你的眼光回它 —— 哪些是你每週真的在看的、哪些不用。
+      <div class="say"><div class="lbl">你可以這樣說</div>「<em>總 ROAS 和可出貨業績最重要</em>」「<em>退貨率要顯眼</em>」「<em>ROAS 低於 5 才紅</em>」</div>
+    </li>
+
+    <li>
+      <div class="sh">做第一版</div>
+      討論定了，請它做出來 —— 用大家共同的 SO NICE 品牌：
+      <div class="pblock" data-copy="好，照我們討論的，做一頁戰情室 HTML，讀同資料夾的 蝦皮.csv。外觀套 SO NICE 品牌風格。這頁等下要放上 Cloudflare Pages 給大家看，資料 CSV 會跟著一起放上去、頁面直接讀它 —— 別做那種要先開個伺服器、一直掛著才看得到的。做完直接幫我用瀏覽器打開。"><button class="copy-sm" onclick="copyText(this)">複製</button>好，照我們討論的，做一頁戰情室 HTML，讀同資料夾的 <span class="pl">蝦皮.csv</span>。外觀套 SO NICE 品牌風格。這頁等下要放上 Cloudflare Pages 給大家看，資料 CSV 會跟著一起放上去、頁面直接讀它 —— 別做那種要先開個伺服器、一直掛著才看得到的。做完直接幫我用瀏覽器打開。</div>
+    </li>
+
+    <li class="talk">
+      <div class="sh">微調 <span class="mini">改到你滿意</span></div>
+      它做一版、你看、說哪裡改 —— 來回幾次到順眼為止。
+      <div class="say"><div class="lbl">你可以這樣說</div>「<em>四通路 bar 照 ROAS 排序</em>」「<em>退貨率做成紅綠燈</em>」「<em>加一塊週趨勢</em>」</div>
+    </li>
+
+    <li>
+      <div class="sh">deploy 上線</div>
+      用你下課裝好的 wrangler，把整個資料夾（戰情室＋蝦皮.csv）部署到 Cloudflare：
+      <div class="pblock" data-copy="幫我用 wrangler 把現在這個資料夾（戰情室 + 蝦皮.csv）部署到 Cloudflare Pages。第一次先用 wrangler 建一個 Pages 專案，名字用 sonice-我的英文名-dashboard（例：sonice-jijian-dashboard，全球不能重複，撞名就加數字）。建好就用 wrangler 部署，之後更新再 wrangler 部署一次就好。弄好直接幫我用瀏覽器打開那個網址、也把網址貼給我。"><button class="copy-sm" onclick="copyText(this)">複製</button>幫我<span class="pl">用 wrangler</span> 把這個資料夾部署到 <span class="pl">Cloudflare Pages</span>。第一次建一個專案，名字用 <span class="pl">sonice-我的英文名-dashboard</span>（例：sonice-jijian-dashboard，全球不能撞名）。建好就部署，弄好<span class="pl">直接幫我打開網址</span>、把網址貼給我。</div>
+    </li>
+
+  </ol>
+
+  <h2><span class="tag">最後</span>回報給李總</h2>
+  <div class="card" style="border-left-color:var(--brick)">
+    部署好、拿到網址了 → 貼到這裡按「我做完了」，<strong>李總的看板上「蝦皮」這塊就會變綠 ✓</strong>（約 1 分內）。
+    <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+      <input id="myurl" type="url" placeholder="貼上你的網址（https://sonice-jijian-dashboard.pages.dev）" style="flex:1; min-width:360px; font-family:var(--mono); font-size:15px; padding:13px 16px; border:1.5px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink);">
+      <button onclick="markDone()" style="background:var(--brick); color:#fff; font-family:var(--serif); font-weight:700; font-size:18px; padding:13px 28px; border:none; border-radius:9px; cursor:pointer;">✓ 我做完了</button>
+    </div>
+    <div id="donemsg" style="margin-top:14px; font-size:17px; color:var(--brick-deep); min-height:24px;"></div>
+  </div>
+
+  <div class="note">卡關？把<strong>錯誤訊息整段貼回去給 Claude</strong> —— 它會幫你修。真的卡住就<strong>舉手</strong>，老師過去看。</div>
+
+</div>
+
+<script>
+function isoWeek(d){
+  const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  const day=(t.getUTCDay()+6)%7; t.setUTCDate(t.getUTCDate()-day+3);
+  const firstThu=new Date(Date.UTC(t.getUTCFullYear(),0,4));
+  const wk=1+Math.round(((t-firstThu)/86400000-3+((firstThu.getUTCDay()+6)%7))/7);
+  return t.getUTCFullYear()+"-W"+String(wk).padStart(2,"0");
+}
+function markDone(){
+  const url=(document.getElementById('myurl').value||'').trim();
+  const msg=document.getElementById('donemsg');
+  if(!/^https?:\/\//.test(url)){ msg.textContent='⚠ 先貼上你的網址（要 https:// 開頭）'; return; }
+  msg.textContent='送出中…';
+  fetch('https://sonice-registry.hence-yu.workers.dev/report',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({source:'蝦皮', week:isoWeek(new Date()), url})
+  }).then(r=>r.json()).then(()=>{ msg.innerHTML='✓ 已回報！李總看板上「蝦皮」這塊約 1 分內變綠。'; })
+   .catch(()=>{ msg.textContent='回報失敗，再按一次，或舉手找老師。'; });
+}
+function copyText(btn){
+  const block = btn.closest('.pblock');
+  const txt = block.getAttribute('data-copy') || '';
+  const done = ()=>{ btn.textContent='✓ 已複製'; btn.classList.add('done'); setTimeout(()=>{btn.textContent='複製'; btn.classList.remove('done');}, 1600); };
+  navigator.clipboard.writeText(txt).then(done).catch(done);
+}
+</script>
+</body>
+</html>
