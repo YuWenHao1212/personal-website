@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SO NICE 團隊共用 Skill 設定指南</title>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a4a;
+    --line:#e7e3dd;
+    --paper:#ffffff;
+    --bg:#f6f3ee;
+    --accent:#b08968;
+    --accent-soft:#f3ece4;
+    --code-bg:#2b2b2b;
+    --code-ink:#f4f1ec;
+    --ok:#5c8a5c;
+    --warn:#b08968;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC",Helvetica,Arial,sans-serif;
+    line-height:1.75;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:56px 24px 96px;}
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:40px 44px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  header.doc{margin-bottom:8px;}
+  .eyebrow{
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 12px;
+  }
+  h1{
+    font-size:30px;
+    line-height:1.3;
+    margin:0 0 14px;
+    font-weight:700;
+  }
+  .lede{
+    font-size:17px;
+    color:var(--ink-soft);
+    margin:0 0 4px;
+  }
+  .meta{
+    font-size:13px;
+    color:#9a9389;
+    margin-top:20px;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+  }
+  h2{
+    font-size:21px;
+    margin:48px 0 14px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--accent-soft);
+    font-weight:700;
+  }
+  h3{font-size:17px;margin:28px 0 8px;font-weight:700;}
+  p{margin:0 0 14px;}
+  ul,ol{margin:0 0 16px;padding-left:22px;}
+  li{margin:6px 0;}
+  .step-num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;height:26px;
+    background:var(--accent);
+    color:#fff;
+    border-radius:50%;
+    font-size:14px;
+    font-weight:700;
+    margin-right:10px;
+    flex:0 0 auto;
+  }
+  .callout{
+    background:var(--accent-soft);
+    border-left:4px solid var(--accent);
+    border-radius:0 10px 10px 0;
+    padding:16px 20px;
+    margin:20px 0;
+    font-size:15px;
+  }
+  .callout strong{color:#8a6a4a;}
+  .callout.note{background:#f0f4ef;border-left-color:var(--ok);}
+  .callout.note strong{color:var(--ok);}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:16px 0 22px;
+    font-size:14.5px;
+  }
+  th,td{
+    text-align:left;
+    padding:11px 14px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  th{
+    background:var(--accent-soft);
+    font-weight:700;
+    color:#6e5642;
+  }
+  td.y{color:var(--ok);font-weight:600;}
+  td.n{color:#b85c5c;font-weight:600;}
+  code{
+    background:#efe9e1;
+    padding:1.5px 6px;
+    border-radius:5px;
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    font-size:13.5px;
+    color:#7a5a3a;
+  }
+  pre{
+    background:var(--code-bg);
+    color:var(--code-ink);
+    padding:18px 20px;
+    border-radius:10px;
+    overflow-x:auto;
+    font-size:13.5px;
+    line-height:1.6;
+    margin:14px 0 18px;
+  }
+  pre code{background:none;color:inherit;padding:0;font-size:13.5px;}
+  .analogy{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px;
+    margin:18px 0;
+  }
+  .analogy .a{
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 18px;
+    background:#fbf9f6;
+  }
+  .analogy .a .t{font-weight:700;margin-bottom:4px;}
+  .analogy .a .d{font-size:14px;color:var(--ink-soft);}
+  .paths{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin:20px 0;
+  }
+  @media(max-width:640px){.paths{grid-template-columns:1fr;}}
+  .path{
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:20px 22px;
+    background:#fbf9f6;
+    display:flex;
+    flex-direction:column;
+  }
+  .path h4{margin:0 0 2px;font-size:16.5px;font-weight:700;}
+  .path .sub{
+    font-size:12.5px;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 12px;
+  }
+  .path ul{margin:0 0 12px;padding-left:18px;}
+  .path li{font-size:14.5px;margin:5px 0;line-height:1.6;}
+  .path .fit{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+    margin:auto 0 0;
+  }
+  .signpost{
+    background:#eef1f4;
+    border-left:4px solid #9aa7b2;
+    border-radius:0 10px 10px 0;
+    padding:14px 18px;
+    font-size:14.5px;
+    color:#4a5560;
+    line-height:1.7;
+    margin:0 0 22px;
+  }
+  .signpost strong{color:#2f3a45;}
+  .ctx{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:600;
+    padding:3px 11px;
+    border-radius:6px;
+    margin:0 0 7px;
+  }
+  .ctx.cc{background:#e3edf7;color:#356092;}
+  .ctx.term{background:#e9e4f0;color:#664e87;}
+  .ctx.web{background:#f1e9df;color:#8a6440;}
+  .flow{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin:18px 0;
+  }
+  .flow .f{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:#fbf9f6;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+  }
+  .flow .f .label{font-weight:700;font-size:14px;color:var(--accent);min-width:64px;}
+  footer.doc{
+    margin-top:48px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:13px;
+    color:#9a9389;
+  }
+  footer.doc a{color:var(--accent);}
+  .tag{
+    display:inline-block;
+    background:var(--accent-soft);
+    color:#6e5642;
+    border-radius:20px;
+    padding:3px 12px;
+    font-size:12.5px;
+    font-weight:600;
+    margin:0 6px 6px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+
+  <header class="doc">
+    <p class="eyebrow">SO NICE × AI 工作流導入</p>
+    <h1>把團隊的 Skill 共用到每個人的 Claude Code</h1>
+    <p class="lede">SO NICE 使用的是 Claude Team 方案，這份文件就以此為前提，說明做好一個 Skill 之後，要怎麼讓整個團隊在自己的 Claude Code 裡都用得到——含完整步驟，照著做就能完成。</p>
+    <p class="meta">給 Carol ｜ SO NICE 團隊（Claude Team 方案）｜ 2026-06-29</p>
+  </header>
+
+  <h2>一、先搞懂兩個詞</h2>
+  <p>整個流程只牽涉兩個概念，先用一句話分清楚，後面就不會混淆：</p>
+
+  <div class="analogy">
+    <div class="a">
+      <div class="t">Skill（技能）</div>
+      <div class="d">一個「能力」。一個資料夾 + 一份 <code>SKILL.md</code>，教 Claude 怎麼做某一件事（例如：產出商品分析報表）。</div>
+    </div>
+    <div class="a">
+      <div class="t">Plugin（外掛包）</div>
+      <div class="d">一個「安裝包」。可以把一個或多個 Skill 打包在一起，方便發佈、安裝、更新與版本控管。</div>
+    </div>
+  </div>
+
+  <p>用 App Store 來比喻最直覺：</p>
+  <div class="analogy">
+    <div class="a"><div class="t">Skill ＝ 一個 App</div><div class="d">單一功能</div></div>
+    <div class="a"><div class="t">Plugin ＝ 上架的安裝包</div><div class="d">一包可含多個 App</div></div>
+    <div class="a"><div class="t">Marketplace ＝ App Store</div><div class="d">列出有哪些包可裝</div></div>
+  </div>
+
+  <p>所以要把 Skill 給整個團隊用，標準做法是：<strong>把 Skill 包成 Plugin，放到一個團隊專屬的 Marketplace（其實就是一個 GitHub repo），再由管理者把這個來源集中下發給全團隊。</strong></p>
+
+  <h2>二、一個重要前提（避免走錯路）</h2>
+  <div class="callout">
+    <strong>claude.ai 網頁版的「上傳 Skill」和 Claude Code 是兩套系統，彼此不互通。</strong><br>
+    在 claude.ai 後台上傳的 Skill，<u>不會</u>出現在大家的 Claude Code；反過來也一樣。SO NICE 團隊是用 Claude Code 工作，所以要走下面這套 Plugin / Marketplace 的方式。
+  </div>
+
+  <h2>三、整體流程一眼看懂</h2>
+  <p>因為是 Team 方案，管理者可以從後台「集中下發」設定，整體流程比個人方案更省事：</p>
+  <div class="flow">
+    <div class="f"><span class="label">管理者</span><span>把做好的 Skill 包成 Plugin，放進一個 GitHub repo（這個 repo 就是團隊的 Marketplace）。</span></div>
+    <div class="f"><span class="label">管理者</span><span>在 claude.ai 後台一次設定，把這個 repo 自動下發給全團隊、並限定只能裝公司核可的來源。</span></div>
+    <div class="f"><span class="label">團隊成員</span><span>一登入，Marketplace 已自動就位，只需安裝一步：<code>/plugin install sonice-plugin@sonice-marketplace</code>。</span></div>
+    <div class="f"><span class="label">日後更新</span><span>管理者改版本推上去 → 自動更新，全團隊同步。</span></div>
+  </div>
+
+  <p><strong>關鍵釐清：</strong>不論哪個方案（Pro / Team / Enterprise），Claude Code 的 Skill 內容都需要一個 GitHub repo 當家——Anthropic 不會替你「託管」這份內容。Team 方案的價值不在託管，而在於：管理者能把這個 repo <u>集中下發</u>給所有人、並<u>限定安裝來源</u>，這是個人 Pro 方案做不到的。</p>
+
+  <h2>四、開始前，先做一個選擇</h2>
+  <p>既然一定要一個 GitHub repo，第一個（也是唯一需要拿主意的）決定是：這個 repo 要<strong>公開</strong>還是<strong>私有</strong>？判斷標準只有一條——<strong>Skill 內容有沒有機密。</strong></p>
+  <div class="paths">
+    <div class="path">
+      <h4>路徑 A · 公開（public）</h4>
+      <p class="sub">最省事</p>
+      <ul>
+        <li>repo 設為 public，把 Skill 放進去即可。</li>
+        <li>成員<strong>不需要 GitHub 帳號、也不用登入</strong>，貼一行指令就能裝。</li>
+        <li>代價：repo 內容公開可見，任何人都看得到裡面的 Skill。</li>
+      </ul>
+      <p class="fit"><strong>適合：</strong>報表格式、分析流程提示詞這類不涉及機密的內容。</p>
+    </div>
+    <div class="path">
+      <h4>路徑 B · 私有（private）</h4>
+      <p class="sub">較安全，需設權限</p>
+      <ul>
+        <li><strong>每位成員都要有 GitHub 帳號</strong>，這是私有的前提。</li>
+        <li>管理者用 <u>GitHub Organization</u> 開 repo，把成員加進來、給「讀取」權限。</li>
+        <li>每位成員的電腦要先登入一次 GitHub（<code>gh auth login</code> 或設 SSH key）。</li>
+      </ul>
+      <p class="fit"><strong>適合：</strong>含內部數據邏輯、定價策略等不能外流的內容。</p>
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--ink-soft);">補充：GitHub Organization 用免費方案就能開無限個私有 repo，不需付費。</p>
+
+  <h2>五、管理者設定步驟</h2>
+  <h3><span class="step-num">1</span>建立一個 GitHub repo 當團隊 Marketplace</h3>
+  <p>例如取名 <code>sonice/claude-skills</code>，依上一節的選擇設成 public 或 private。整個 repo 結構長這樣：</p>
+  <pre><code>sonice-claude-skills/
+├── .claude-plugin/
+│   └── marketplace.json          ← 列出有哪些 plugin 可裝
+└── plugins/
+    └── sonice-plugin/
+        ├── .claude-plugin/
+        │   └── plugin.json        ← 這個包的名稱、版本、說明
+        └── skills/
+            └── 商品分析/
+                └── SKILL.md       ← 你的 Skill 本體（注意大寫 SKILL.md）</code></pre>
+
+  <h3><span class="step-num">2</span>寫 <code>marketplace.json</code>（目錄）</h3>
+  <p>這裡的 <code>"name"</code> 就是「來源名稱」（安裝指令 <code>@</code> 右邊那個）。</p>
+  <pre><code>{
+  "name": "sonice-marketplace",
+  "owner": { "name": "SO NICE" },
+  "plugins": [
+    {
+      "name": "sonice-plugin",
+      "source": "./plugins/sonice-plugin",
+      "description": "SO NICE 內部 AI 工作流工具包"
+    }
+  ]
+}</code></pre>
+
+  <h3><span class="step-num">3</span>寫 <code>plugin.json</code>（這包的身分證）</h3>
+  <p>這裡的 <code>"name"</code> 就是「外掛包名稱」（安裝指令 <code>@</code> 左邊那個），要和上面 <code>marketplace.json</code> 裡的 <code>plugins[].name</code> 一致。</p>
+  <pre><code>{
+  "name": "sonice-plugin",
+  "description": "SO NICE 商品分析、報表等內部 Skill",
+  "version": "1.0.0",
+  "author": { "name": "SO NICE" }
+}</code></pre>
+
+  <h3><span class="step-num">4</span>放入你的 Skill</h3>
+  <p>把已經做好的 Skill 資料夾（含 <code>SKILL.md</code>）放進 <code>plugins/sonice-plugin/skills/</code> 底下。要加幾個 Skill 就放幾個。</p>
+  <div class="callout note">
+    <strong>檔名提醒：</strong>在 Claude Code 裡，主檔名一律是<u>大寫</u> <code>SKILL.md</code>。（claude.ai 網頁版用的是小寫 <code>skill.md</code>，兩者不要搞混。）
+  </div>
+
+  <h3><span class="step-num">5</span>Commit 並推上 GitHub</h3>
+  <p class="ctx term">終端機 · 可直接請 Claude Code 代跑</p>
+  <pre><code>git add .
+git commit -m "init: SO NICE 團隊 skill marketplace"
+git push</code></pre>
+  <p style="font-size:14px;color:var(--ink-soft);">其實步驟 1–5（建 repo、寫設定檔、放 Skill、commit、push）都可以直接跟 Claude Code 說「幫我建好並推上去」，它會代為執行。前提是電腦裝了 <code>gh</code> 並登入過一次（<code>gh auth login</code>，這個登入授權要你本人完成一次）。</p>
+
+  <h3><span class="step-num">6</span>在 claude.ai 後台集中下發給全團隊</h3>
+    <p>這是 Team 方案的關鍵步驟，也是 Claude Code 幫不了你的一步（它進不了後台）。到 <strong>claude.ai 後台 → Claude Code → Managed settings</strong>，填入：</p>
+  <pre><code>{
+  "extraKnownMarketplaces": {
+    "sonice-marketplace": {
+      "source": { "source": "github", "repo": "sonice/claude-skills" },
+      "autoUpdate": true
+    }
+  },
+  "strictKnownMarketplaces": true
+}</code></pre>
+  <p>送出後，<strong>所有團隊成員下次登入時，這個 Marketplace 會自動註冊好、自動更新，而且只能安裝公司核可的來源。</strong>成員不需要自己手動「加入 Marketplace」。</p>
+
+  <h2>六、團隊成員安裝步驟</h2>
+  <p>因為管理者已經把 Marketplace 集中下發，成員端只剩<strong>一行指令</strong>：</p>
+  <p class="ctx cc">在 Claude Code 對話視窗輸入</p>
+  <pre><code>/plugin install sonice-plugin@sonice-marketplace</code></pre>
+  <p>裝完之後，團隊 Skill 在<strong>任何專案</strong>裡都能用。</p>
+  <div class="callout note">
+    <strong>安裝是一次性的。</strong>成員只要跑一次上面的指令（或在系統跳出提示時點「安裝」）即可；日後管理者更新版本時，會自動同步到每個人，成員不需要再做任何事。
+  </div>
+
+  <h3>看懂這行指令：<code>@</code> 的左右各是什麼</h3>
+  <p>格式是 <code>/plugin install &lt;外掛包名稱&gt;@&lt;來源名稱&gt;</code>，讀法是「從某個來源、裝某個包」：</p>
+  <table>
+    <tr><th>位置</th><th>是什麼</th><th>定義在哪</th></tr>
+    <tr><td><code>@</code> 左邊：<code>sonice-plugin</code></td><td>要裝的外掛包</td><td><code>plugin.json</code> 的 <code>"name"</code></td></tr>
+    <tr><td><code>@</code> 右邊：<code>sonice-marketplace</code></td><td>從哪個來源裝</td><td><code>marketplace.json</code> 的 <code>"name"</code></td></tr>
+  </table>
+
+  <h3>完整指令清單（備查）</h3>
+  <p style="font-size:14px;color:var(--ink-soft);">以下都是 <span class="ctx cc" style="margin:0;">Claude Code</span> 視窗裡的斜線指令。</p>
+  <p><strong>成員端日常會用到：</strong></p>
+  <pre><code># 安裝外掛包（後台已下發 marketplace，成員只需這行）
+/plugin install sonice-plugin@sonice-marketplace
+
+# 開啟互動選單：瀏覽 marketplace 裡有哪些 plugin、安裝、啟用/停用
+/plugin
+
+# 列出目前加了哪些 marketplace（不吃參數）
+/plugin marketplace list</code></pre>
+
+  <p><strong>管理者端建置與維護：</strong></p>
+  <pre><code># 加入一個 marketplace（沒走後台下發時才需要手動跑）
+# 來源可用 GitHub 簡寫、完整 git URL、或本機路徑
+/plugin marketplace add sonice/claude-skills
+
+# 更新 marketplace（抓最新的 plugin 清單與版本）
+/plugin marketplace update sonice-marketplace
+
+# 移除某個 marketplace
+/plugin marketplace remove sonice-marketplace</code></pre>
+  <div class="callout note">
+    <strong>命名建議：</strong>這裡刻意把「來源」取名 <code>sonice-marketplace</code>、「外掛包」取名 <code>sonice-plugin</code>，讓指令一看就懂。正式上線時，外掛包通常會改取功能性名稱（例如 <code>sonice-data-deck</code>），裝多個包時看名字就知道誰是誰。命名一律用連字號（kebab-case），跟 Claude Code 慣例一致。
+  </div>
+
+  <h2>結語</h2>
+  <p>整套的核心很單純：<strong>把 Skill 包成 Plugin、放進一個 GitHub repo、在 claude.ai 後台集中下發、團隊各自安裝一次。</strong>之後維護就是「改版本、推上去、自動同步」。SO NICE 是 Team 方案，所以可以善用集中下發與來源限定這兩項，讓管理更省事、更安全。</p>
+
+  <footer class="doc">
+    <p><span class="tag">Claude Code</span><span class="tag">Plugin Marketplace</span><span class="tag">Claude Team 方案</span></p>
+    參考來源：Claude Code 官方文件 — Plugin marketplaces、Discover plugins、Server-managed settings（code.claude.com/docs）
+  </footer>
+
+</div>
+</div>
+</body>
+</html>
