@@ -152,11 +152,11 @@
   .analogy .a .d{font-size:14px;color:var(--ink-soft);}
   .paths{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(3,1fr);
     gap:16px;
     margin:20px 0;
   }
-  @media(max-width:640px){.paths{grid-template-columns:1fr;}}
+  @media(max-width:760px){.paths{grid-template-columns:1fr;}}
   .path{
     border:1px solid var(--line);
     border-radius:12px;
@@ -164,6 +164,22 @@
     background:#fbf9f6;
     display:flex;
     flex-direction:column;
+    position:relative;
+  }
+  .path.rec{
+    border:2px solid var(--accent);
+    background:#fbf6f0;
+  }
+  .path .rec-tag{
+    position:absolute;
+    top:-11px;left:20px;
+    background:var(--accent);
+    color:#fff;
+    font-size:11.5px;
+    font-weight:700;
+    padding:2px 10px;
+    border-radius:20px;
+    letter-spacing:.02em;
   }
   .path h4{margin:0 0 2px;font-size:16.5px;font-weight:700;}
   .path .sub{
@@ -282,43 +298,54 @@
   <h2>三、整體流程一眼看懂</h2>
   <p>因為是 Team 方案，管理者可以從後台「集中下發」設定，整體流程比個人方案更省事：</p>
   <div class="flow">
-    <div class="f"><span class="label">管理者</span><span>把做好的 Skill 包成 Plugin，放進一個 GitHub repo（這個 repo 就是團隊的 Marketplace）。</span></div>
+    <div class="f"><span class="label">管理者</span><span>把做好的 Skill 包成 Plugin，放進一個 git repo（GitHub 或公司內部 NAS，這個 repo 就是團隊的 Marketplace）。</span></div>
     <div class="f"><span class="label">管理者</span><span>在 claude.ai 後台一次設定，把這個 repo 自動下發給全團隊、並限定只能裝公司核可的來源。</span></div>
     <div class="f"><span class="label">團隊成員</span><span>一登入，Marketplace 已自動就位，只需安裝一步：<code>/plugin install sonice-plugin@sonice-marketplace</code>。</span></div>
     <div class="f"><span class="label">日後更新</span><span>管理者改版本推上去 → 自動更新，全團隊同步。</span></div>
   </div>
 
-  <p><strong>關鍵釐清：</strong>不論哪個方案（Pro / Team / Enterprise），Claude Code 的 Skill 內容都需要一個 GitHub repo 當家——Anthropic 不會替你「託管」這份內容。Team 方案的價值不在託管，而在於：管理者能把這個 repo <u>集中下發</u>給所有人、並<u>限定安裝來源</u>，這是個人 Pro 方案做不到的。</p>
+  <p><strong>關鍵釐清：</strong>不論哪個方案（Pro / Team / Enterprise），Claude Code 的 Skill 內容都需要一個 git repo 當家（GitHub 或公司內部 NAS 皆可）——Anthropic 不會替你「託管」這份內容。Team 方案的價值不在託管，而在於：管理者能把這個 repo <u>集中下發</u>給所有人、並<u>限定安裝來源</u>，這是個人 Pro 方案做不到的。</p>
 
-  <h2>四、開始前，先做一個選擇</h2>
-  <p>既然一定要一個 GitHub repo，第一個（也是唯一需要拿主意的）決定是：這個 repo 要<strong>公開</strong>還是<strong>私有</strong>？判斷標準只有一條——<strong>Skill 內容有沒有機密。</strong></p>
+  <h2>四、開始前，先做一個選擇：repo 放哪裡</h2>
+  <p>既然一定要一個 git repo 當家，唯一需要拿主意的就是：這個 repo <strong>放在哪裡</strong>？三個選項，依「內容有沒有機密」「要不要放外部雲端」來挑：</p>
   <div class="paths">
     <div class="path">
-      <h4>路徑 A · 公開（public）</h4>
+      <h4>A · GitHub 公開</h4>
       <p class="sub">最省事</p>
       <ul>
         <li>repo 設為 public，把 Skill 放進去即可。</li>
-        <li>成員<strong>不需要 GitHub 帳號、也不用登入</strong>，貼一行指令就能裝。</li>
-        <li>代價：repo 內容公開可見，任何人都看得到裡面的 Skill。</li>
+        <li>成員<strong>不需要帳號、也不用登入</strong>，貼一行指令就能裝。</li>
+        <li>代價：內容公開可見，任何人都看得到。</li>
       </ul>
-      <p class="fit"><strong>適合：</strong>報表格式、分析流程提示詞這類不涉及機密的內容。</p>
+      <p class="fit"><strong>適合：</strong>報表格式、流程提示詞這類不涉及機密的內容。</p>
     </div>
     <div class="path">
-      <h4>路徑 B · 私有（private）</h4>
-      <p class="sub">較安全，需設權限</p>
+      <h4>B · GitHub 私有</h4>
+      <p class="sub">安全，但需外部帳號</p>
       <ul>
-        <li><strong>每位成員都要有 GitHub 帳號</strong>，這是私有的前提。</li>
-        <li>管理者用 <u>GitHub Organization</u> 開 repo，把成員加進來、給「讀取」權限。</li>
-        <li>每位成員的電腦要先登入一次 GitHub（<code>gh auth login</code> 或設 SSH key）。</li>
+        <li>用 GitHub Organization 開 private repo，加成員給「讀取」權限。</li>
+        <li><strong>每位成員都要有 GitHub 帳號</strong>、電腦登入一次。</li>
+        <li>內容存在 GitHub（外部雲端），只有被授權的人看得到。</li>
       </ul>
-      <p class="fit"><strong>適合：</strong>含內部數據邏輯、定價策略等不能外流的內容。</p>
+      <p class="fit"><strong>適合：</strong>內容需保密、但可接受放在外部雲端。</p>
+    </div>
+    <div class="path rec">
+      <span class="rec-tag">最適合 SO NICE</span>
+      <h4>C · 公司內部 NAS</h4>
+      <p class="sub">不外流 · 免 GitHub 帳號</p>
+      <ul>
+        <li>在 NAS 上開 git 服務（Synology 內建 Git Server，或裝 Gitea），repo 放這裡。</li>
+        <li>認證用<strong>現有的公司 / NAS 帳號</strong>，不用辦 GitHub。</li>
+        <li>內容完全留在公司，不進任何外部雲端。</li>
+      </ul>
+      <p class="fit"><strong>適合：</strong>公司政策不允許文檔外流、不想每人辦帳號。<br><span style="color:var(--accent);">限制：安裝/更新要在公司內網（遠端需 VPN）。</span></p>
     </div>
   </div>
-  <p style="font-size:14px;color:var(--ink-soft);">補充：GitHub Organization 用免費方案就能開無限個私有 repo，不需付費。</p>
+  <p style="font-size:14px;color:var(--ink-soft);">補充：GitHub Organization 私有 repo 免費；NAS 方案 Claude Code 完全支援——它只認「一個 git 網址」，不管背後是 GitHub 還是內部 NAS。</p>
 
   <h2>五、管理者設定步驟</h2>
-  <h3><span class="step-num">1</span>建立一個 GitHub repo 當團隊 Marketplace</h3>
-  <p>例如取名 <code>sonice/claude-skills</code>，依上一節的選擇設成 public 或 private。整個 repo 結構長這樣：</p>
+  <h3><span class="step-num">1</span>建立一個 git repo 當團隊 Marketplace</h3>
+  <p>例如取名 <code>claude-skills</code>，放在上一節選的地方（GitHub 或公司內部 NAS）。內部結構都一樣，長這樣：</p>
   <pre><code>sonice-claude-skills/
 ├── .claude-plugin/
 │   └── marketplace.json          ← 列出有哪些 plugin 可裝
@@ -359,12 +386,12 @@
     <strong>檔名提醒：</strong>在 Claude Code 裡，主檔名一律是<u>大寫</u> <code>SKILL.md</code>。（claude.ai 網頁版用的是小寫 <code>skill.md</code>，兩者不要搞混。）
   </div>
 
-  <h3><span class="step-num">5</span>Commit 並推上 GitHub</h3>
+  <h3><span class="step-num">5</span>Commit 並推上 git repo（GitHub 或 NAS）</h3>
   <p class="ctx term">終端機 · 可直接請 Claude Code 代跑</p>
   <pre><code>git add .
 git commit -m "init: SO NICE 團隊 skill marketplace"
 git push</code></pre>
-  <p style="font-size:14px;color:var(--ink-soft);">其實步驟 1–5（建 repo、寫設定檔、放 Skill、commit、push）都可以直接跟 Claude Code 說「幫我建好並推上去」，它會代為執行。前提是電腦裝了 <code>gh</code> 並登入過一次（<code>gh auth login</code>，這個登入授權要你本人完成一次）。</p>
+  <p style="font-size:14px;color:var(--ink-soft);">其實步驟 1–5（建 repo、寫設定檔、放 Skill、commit、push）都可以直接跟 Claude Code 說「幫我建好並推上去」，它會代為執行。前提是這台電腦的 git 已能連到目標 repo：走 GitHub 就 <code>gh auth login</code> 一次；走 NAS 就用<strong>公司 / NAS 帳號</strong>登入一次 git（不需 <code>gh</code>）。</p>
 
   <h3><span class="step-num">6</span>在 claude.ai 後台集中下發給全團隊</h3>
     <p>這是 Team 方案的關鍵步驟，也是 Claude Code 幫不了你的一步（它進不了後台）。到 <strong>claude.ai 後台 → Claude Code → Managed settings</strong>，填入：</p>
@@ -377,6 +404,8 @@ git push</code></pre>
   },
   "strictKnownMarketplaces": true
 }</code></pre>
+  <p style="font-size:14px;color:var(--ink-soft);">上面是 GitHub 的寫法。若走公司 NAS，把 <code>source</code> 換成 git 網址（實際網址問 IT）：</p>
+  <pre><code>"source": { "source": "git", "url": "https://nas.sonice.internal/git/claude-skills.git" }</code></pre>
   <p>送出後，<strong>所有團隊成員下次登入時，這個 Marketplace 會自動註冊好、自動更新，而且只能安裝公司核可的來源。</strong>成員不需要自己手動「加入 Marketplace」。</p>
 
   <h2>六、團隊成員安裝步驟</h2>
@@ -410,8 +439,9 @@ git push</code></pre>
 
   <p><strong>管理者端建置與維護：</strong></p>
   <pre><code># 加入一個 marketplace（沒走後台下發時才需要手動跑）
-# 來源可用 GitHub 簡寫、完整 git URL、或本機路徑
-/plugin marketplace add sonice/claude-skills
+# 來源可用 GitHub 簡寫、完整 git URL（含 NAS）、或本機路徑
+/plugin marketplace add sonice/claude-skills                                # GitHub
+/plugin marketplace add https://nas.sonice.internal/git/claude-skills.git   # 公司 NAS
 
 # 更新 marketplace（抓最新的 plugin 清單與版本）
 /plugin marketplace update sonice-marketplace
