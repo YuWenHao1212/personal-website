@@ -1,7 +1,7 @@
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
-  Content-Security-Policy: frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.google.com https://assets.calendly.com https://calendly.com https://js.stripe.com https://hooks.stripe.com
+  Content-Security-Policy: frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.google.com https://assets.calendly.com https://calendly.com https://js.stripe.com https://hooks.stripe.com https://miro.com https://*.miro.com
   Referrer-Policy: strict-origin-when-cross-origin
 
 /zh-TW/*
