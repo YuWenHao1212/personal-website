@@ -9,7 +9,7 @@ focusKeyphrase: "迴圈工程"
 heroImage: /images/blog/loop-engineering.webp
 translationKey: loop-engineering
 draft: false
-featured: false
+featured: true
 relatedPosts: ["ai-harness.md", "personal-panopticon.md", "claude-code-tutorial.md", "agentic-coding-guide.md"]
 faq:
   - question: "迴圈工程（Loop Engineering）是什麼？"
