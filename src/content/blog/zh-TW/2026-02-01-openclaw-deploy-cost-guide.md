@@ -7,7 +7,7 @@ category: building-products
 tags: ["AI", "獨立開發者", "數位工具", "OpenClaw", "self-hosted AI"]
 lang: zh-TW
 translationKey: openclaw-deploy-cost-guide
-featured: true
+featured: false
 relatedPosts: ["personal-panopticon.md", "free-azure-startup-credits.md", "openclaw-tools-skills-tutorial.md"]
 heroImage: /images/blog/openclaw-deploy-cost.webp
 keywords: ["OpenClaw deploy", "OpenClaw hosting cost", "Oracle Cloud free tier", "Hetzner VPS", "LLM API pricing", "self-hosted AI agent", "personal AI assistant", "GPT-OSS-120B", "OpenClaw heartbeat cost"]
