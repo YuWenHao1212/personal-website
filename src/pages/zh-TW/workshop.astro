@@ -470,6 +470,8 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
             <h2 class="text-[1.5rem] md:text-[2rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-5">
               報名資訊
             </h2>
+            <!-- 動態名額（後端 /availability 的 remaining 驅動；門檻 ≤5 秀數字。JS 載入後才顯示） -->
+            <div id="availability-badge" class="hidden mb-4"></div>
             <div class="bg-white border border-[#E8E4DD] rounded-xl p-5 md:p-6">
               <div class="space-y-3">
                 <div class="flex justify-between items-center border-b border-[#E8E4DD] pb-3">
@@ -482,7 +484,7 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
                 </div>
                 <div class="flex justify-between items-center border-b border-[#E8E4DD] pb-3">
                   <span class="text-sm text-[#5C5144]">地點</span>
-                  <span class="text-sm font-medium text-[#2C2416] text-right">台北市區<br /><span class="text-xs text-[#8B7355]">場地確認中，成班後通知</span></span>
+                  <span class="text-sm font-medium text-[#2C2416] text-right">台北 Happ. 小樹屋<br /><span class="text-xs text-[#8B7355]">合歡 B301・近台北車站（完整地址報名後提供）</span></span>
                 </div>
                 <div class="flex justify-between items-center border-b border-[#E8E4DD] pb-3">
                   <span class="text-sm text-[#5C5144]">人數</span>
@@ -606,6 +608,9 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
           </div>
         </div>
 
+        <!-- 動態名額（送出鈕上方 echo；額滿時換候補 CTA）。JS 控制顯示 -->
+        <div id="availability-inline" class="hidden"></div>
+
         <button type="submit" id="submit-btn" class="w-full py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
           送出報名
         </button>
@@ -659,6 +664,7 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       earlyBirdEnd: '2026-07-22',
     };
     const companionsInfoEl = document.getElementById('companions_info');
+    let currentRemaining = null; // 後端 remaining；額滿時擋送出
 
     function formatTWD(n) {
       return 'NT$' + n.toLocaleString('en-US');
@@ -703,6 +709,47 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       updatePricePreview();
     }
 
+    // 動態名額顯示 — 真實 remaining 驅動（門檻 ≤5 秀數字），額滿進場即擋（不讓填完表單才撞 409）
+    function applyAvailability(remaining) {
+      currentRemaining = remaining;
+      if (typeof remaining !== 'number') return;
+      const badge = document.getElementById('availability-badge');
+      const inline = document.getElementById('availability-inline');
+
+      let cls, dot, label;
+      if (remaining <= 0) {
+        cls = 'bg-[#F3F4F6] text-[#6B7280] border-[#E5E7EB]'; dot = 'bg-[#9CA3AF]'; label = '本梯已額滿';
+      } else if (remaining === 1) {
+        cls = 'bg-[#FEE2E2] text-[#DC2626] border-[#DC2626]/40'; dot = 'bg-[#DC2626] animate-pulse'; label = '僅剩最後 1 個名額';
+      } else if (remaining <= 5) {
+        cls = 'bg-[#FEF3C7] text-[#B45309] border-[#D97706]/40'; dot = 'bg-[#D97706]'; label = `僅剩 ${remaining} 個名額`;
+      } else {
+        cls = 'bg-[#D1FAE5] text-[#047857] border-[#059669]/30'; dot = 'bg-[#059669]'; label = '開放報名中';
+      }
+
+      if (badge) {
+        badge.innerHTML = `<span class="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold ${cls}"><span class="w-2 h-2 rounded-full ${dot}"></span>${label}</span>`;
+        badge.classList.remove('hidden');
+      }
+
+      if (remaining <= 0) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '本梯已額滿';
+        if (inline) {
+          inline.innerHTML = '本梯名額已滿 — <a href="mailto:mail@yu-wenhao.com?subject=8%2F22%20%E5%B7%A5%E4%BD%9C%E5%9D%8A%E5%80%99%E8%A3%9C" class="font-semibold underline">寫信加入候補 →</a>';
+          inline.className = 'text-sm text-center text-[#991B1B] bg-[#FEE2E2] border border-[#DC2626]/30 rounded-lg p-3';
+        }
+      } else if (inline) {
+        if (remaining <= 5) {
+          inline.textContent = remaining === 1 ? '僅剩最後 1 個名額，把握機會' : `僅剩 ${remaining} 個名額`;
+          inline.className = 'text-sm text-center font-semibold ' + (remaining === 1 ? 'text-[#DC2626]' : 'text-[#B45309]');
+          inline.classList.remove('hidden');
+        } else {
+          inline.classList.add('hidden');
+        }
+      }
+    }
+
     async function loadPricing() {
       try {
         const res = await fetch(`${API_BASE}/api/workshop/availability`);
@@ -716,6 +763,9 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
             priceDuo: d.price_duo_per_person_twd,
             earlyBirdEnd: d.early_bird_end || pricing.earlyBirdEnd,
           };
+        }
+        if (d && typeof d.remaining === 'number') {
+          applyAvailability(d.remaining);
         }
       } catch (err) {
         console.error('availability fetch failed, using default pricing', err);
@@ -750,6 +800,8 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      if (currentRemaining !== null && currentRemaining <= 0) return; // 已額滿，擋送出
 
       submitBtn.disabled = true;
       submitBtn.textContent = '建立付款連結...';
