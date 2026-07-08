@@ -31,7 +31,7 @@ Through all of it, I never gave it a single instruction.
 
 Over the past year, more and more developers have been describing the same shift: they've stopped prompting their AI one line at a time and started designing a process that prompts the AI for them. What this piece records is what that shift looks like when it lands on one ordinary working person — and what it can, and can't yet, do.
 
-## A Name Surfaces, Mid-2026
+## Loop Engineering: A Name Surfaces, Mid-2026
 
 On June 7, 2026, the developer Peter Steinberger posted [a single line](https://x.com/steipete/status/2063697162748260627) on X that got passed around the developer world within days. Steinberger is the author of OpenClaw, the open-source AI assistant that blew up late last year, and since February 2026 he has worked at OpenAI. He wrote:
 
@@ -47,7 +47,7 @@ By 2026, the models are smart enough. What actually decides whether an AI is any
 
 A harness has several layers, and one of them is the loop: observe, decide, act, verify, update — around and around until the work is done. Loop engineering is the practice of pulling that one layer out and designing it deliberately.
 
-The Claude Code I run all this on is already a finished harness, with those layers built in. It's one person — me — plus this thing, running an entire business. Normally I use it on a laptop, back and forth, tethered to a screen. The real shift began when I started moving myself, step by step, out of that tethered position.
+The [Claude Code](/en/blog/claude-code-tutorial/) I run all this on is already a finished harness, with those layers built in. It's one person — me — plus this thing, running an entire business. Normally I use it on a laptop, back and forth, tethered to a screen. The real shift began when I started moving myself, step by step, out of that tethered position.
 
 ## Three Steps Back
 
