@@ -11,7 +11,7 @@ draft: false
 featured: false
 heroImage: /images/blog/ai-harness.webp
 focus_keyphrase: "agent harness"
-relatedPosts: ["agentic-coding.md", "agentic-coding-guide.md", "claude-code-tutorial.md"]
+relatedPosts: ["loop-engineering.md", "agentic-coding.md", "agentic-coding-guide.md", "claude-code-tutorial.md"]
 faq:
   - question: "AI Harness 是什麼？"
     answer: "Harness 是包在 AI 模型外面、把原始認知能力轉化為可靠產出的整套系統。原意是馬具 — 套在馬身上，把力量導向特定方向的裝備。在 AI 語境下，模型是引擎，harness 是整台車。包含六個層次：迴圈、工具、上下文管理、持久化、驗證、限制條件。"
@@ -142,7 +142,15 @@ Harness 不是新概念，但為什麼所有人突然都在談？因為模型夠
 
 這就是為什麼 Aakash Gupta 寫了一篇文章叫：[「2025 年是 Agent 年，2026 年是 Agent Harness 年」](https://aakashgupta.medium.com/2025-was-agents-2026-is-agent-harnesses-heres-why-that-changes-everything-073e9877655e)。
 
-前沿正在從「prompt engineering」轉向 **「harness engineering」** — 設計迴圈、工具鏈、驗證流程、上下文策略的系統工程。
+前沿正在從「prompt engineering」轉向 **「harness engineering」**，而這個轉向最近被正式當成一門學科來談。
+
+---
+
+## 從 Prompt Engineering 到 Harness Engineering
+
+差別其實很簡單：prompt engineering 是把你對 AI 下的那一句話寫好；**harness engineering** 是把 AI 工作的整套系統設計好：迴圈怎麼跑、能用哪些工具、看得到哪些上下文、做完誰來驗、哪裡不准碰。那句 prompt 寫得再漂亮，也抵不過一副設計良好的 harness。
+
+而再往前推一步，不只設計系統，而是設計一個會自己對 AI 反覆下指令的**迴圈**，讓它無人看管也能一輪一輪跑到做完，就是[迴圈工程（Loop Engineering）](/zh-TW/blog/loop-engineering/)。我在那篇裡記錄了它落在一個一人工作者身上、半夜無人自動跑的樣子。
 
 ---
 
