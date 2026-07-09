@@ -11,7 +11,7 @@ draft: false
 featured: false
 heroImage: /images/blog/ai-harness.webp
 focus_keyphrase: "agent harness"
-relatedPosts: ["agentic-coding.md", "agentic-coding-guide.md", "claude-code-tutorial.md"]
+relatedPosts: ["loop-engineering.md", "agentic-coding.md", "agentic-coding-guide.md", "claude-code-tutorial.md"]
 faq:
   - question: "What is an agent harness?"
     answer: "An agent harness is the complete system wrapped around an AI model that turns raw cognitive ability into reliable output. The word comes from horse harnesses — equipment that directs a horse's raw power toward useful work. In AI, the model is the engine; the harness is the entire car. It consists of six layers: loop, tools, context management, persistence, verification, and constraints."
@@ -140,7 +140,15 @@ Then everyone noticed: **the gap between models keeps shrinking, but the same mo
 
 That's why Aakash Gupta wrote a piece titled: ["2025 Was Agents. 2026 Is Agent Harnesses."](https://aakashgupta.medium.com/2025-was-agents-2026-is-agent-harnesses-heres-why-that-changes-everything-073e9877655e)
 
-The frontier is shifting from "prompt engineering" to **"harness engineering"** — the systems engineering of designing loops, tool chains, verification workflows, and context strategies.
+The frontier is shifting from "prompt engineering" to **"harness engineering"**, and lately that shift has started to be treated as a discipline in its own right.
+
+---
+
+## From Prompt Engineering to Harness Engineering
+
+The difference is actually simple: prompt engineering is about writing the one instruction you give the AI well; **harness engineering** is about designing the whole system the AI works inside: how the loop runs, which tools it can reach, what context it sees, who checks the output, where it isn't allowed to go. However well you write that prompt, it can't beat a well-designed harness.
+
+Push it one step further, not just designing the system but designing a loop that prompts the AI over and over on its own, so it runs round after round to completion with no one watching, and you're into [loop engineering](/en/blog/loop-engineering/). I wrote about what that looks like landing on a solo operator, running unattended at 2:30 in the morning.
 
 ---
 
