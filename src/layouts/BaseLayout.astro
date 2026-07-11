@@ -22,6 +22,7 @@ interface Props {
   hasAlternate?: boolean;
   ogTitle?: string;
   faq?: FaqItem[];
+  profilePage?: boolean;
 }
 
 const {
@@ -36,6 +37,7 @@ const {
   hasAlternate = true,
   ogTitle,
   faq,
+  profilePage = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -63,7 +65,21 @@ const lang = getLangFromUrl(Astro.url);
 
     <!-- Load fonts asynchronously with font-display: swap -->
     <!-- Satoshi from Fontshare -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" />
+    </noscript>
     <!-- Google Fonts -->
     <link
       rel="preload"
@@ -94,6 +110,7 @@ const lang = getLangFromUrl(Astro.url);
       hasAlternate={hasAlternate}
       ogTitle={ogTitle}
       faq={faq}
+      profilePage={profilePage}
     />
 
     <!-- Google Analytics -->

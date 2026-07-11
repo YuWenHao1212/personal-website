@@ -17,6 +17,7 @@ interface Props {
   hasAlternate?: boolean;
   ogTitle?: string;
   faq?: FaqItem[];
+  profilePage?: boolean;
 }
 
 const {
@@ -30,6 +31,7 @@ const {
   hasAlternate = true,
   ogTitle,
   faq,
+  profilePage = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -37,10 +39,35 @@ const alternateLang = lang === 'zh-TW' ? 'en' : 'zh-TW';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const alternateURL = new URL(await getAlternatePath(Astro.url), Astro.site);
 const ogImage = new URL(image, Astro.site);
+// Dimensions are only known for the default OG image; per-post hero images vary.
+const isDefaultOgImage = image === '/images/og-default.jpg';
 
 const siteName = 'WenHao Yu';
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 const ogTitleFinal = ogTitle || fullTitle;
+
+// Single Person entity (@id) shared across all schema blocks, so search
+// engines and AI crawlers resolve author/profile references to one node.
+const person = {
+  "@type": "Person",
+  "@id": "https://yu-wenhao.com/#person",
+  "name": "WenHao Yu",
+  "alternateName": "余文皓",
+  "url": "https://yu-wenhao.com",
+  "jobTitle": lang === 'zh-TW' ? '企業 AI 工作流導入顧問' : 'AI Workflow Consultant',
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Minerva University",
+  },
+  "knowsAbout": [
+    "AI workflow design",
+    "Claude Code",
+    "agentic coding",
+    "knowledge management",
+    "Obsidian",
+  ],
+  "sameAs": ["https://www.linkedin.com/in/hence/"],
+};
 ---
 
 <!-- Primary Meta Tags -->
@@ -65,8 +92,12 @@ const ogTitleFinal = ogTitle || fullTitle;
 <meta property="og:title" content={ogTitleFinal} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="800" />
+{isDefaultOgImage && (
+  <>
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+  </>
+)}
 <meta property="og:site_name" content={siteName} />
 <meta property="og:locale" content={lang === 'zh-TW' ? 'zh_TW' : 'en_US'} />
 <meta property="og:locale:alternate" content={lang === 'zh-TW' ? 'en_US' : 'zh_TW'} />
@@ -98,20 +129,20 @@ const ogTitleFinal = ogTitle || fullTitle;
     "image": ogImage.href,
     "datePublished": publishedTime,
     "dateModified": modifiedTime || publishedTime,
-    "author": {
-      "@type": "Person",
-      "name": "WenHao Yu",
-      "url": "https://yu-wenhao.com"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "WenHao Yu",
-      "url": "https://yu-wenhao.com"
-    },
+    "author": person,
+    "publisher": person,
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": canonicalURL.href
     }
+  })} />
+) : profilePage ? (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "name": fullTitle,
+    "url": canonicalURL.href,
+    "mainEntity": person
   })} />
 ) : (
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -119,11 +150,7 @@ const ogTitleFinal = ogTitle || fullTitle;
     "@type": "WebSite",
     "name": siteName,
     "url": "https://yu-wenhao.com",
-    "author": {
-      "@type": "Person",
-      "name": "WenHao Yu",
-      "url": "https://yu-wenhao.com"
-    }
+    "author": person
   })} />
 )}
 

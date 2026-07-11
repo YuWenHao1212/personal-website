@@ -52,7 +52,14 @@ export default defineConfig({
     }),
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/workshop') && !page.includes('/admin'),
+      // Unlisted student-only pages (sonice/studio-a/taichung) must stay out of
+      // the sitemap — they rely on noindex, and the sitemap would announce them.
+      filter: (page) =>
+        !page.includes('/workshop') &&
+        !page.includes('/admin') &&
+        !page.includes('/sonice/') &&
+        !page.includes('/studio-a/') &&
+        !page.includes('/taichung/'),
       i18n: {
         defaultLocale: 'zh-TW',
         locales: {
