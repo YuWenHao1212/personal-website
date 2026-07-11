@@ -1,6 +1,6 @@
 # Yu WenHao (余文皓)
 
-> I Build Products with AI. 14 years away from engineering, I used AI to build complete SaaS products independently. I write about AI-powered development, productivity systems, and solo entrepreneurship.
+> I help companies turn AI from a chat tool into a working system. AI workflow consultant and independent developer. 14 years away from engineering, I used AI to build complete SaaS products independently. I write about AI-powered development, productivity systems, and solo entrepreneurship.
 
 ## About
 
@@ -11,9 +11,15 @@
 
 ## What I Do
 
-I'm an independent developer and writer based in Taiwan. After 14 years away from coding (working as PM, doing project management and data analysis), I discovered Claude Code in mid-2025 and built a SaaS product independently in 6 months. I hold an MDA degree from Minerva University and combine 15 years of hands-on experience with AI tools.
+I'm an AI workflow consultant and independent developer based in Taiwan. After 14 years away from coding (working as PM, doing project management and data analysis), I discovered Claude Code in mid-2025 and built a SaaS product independently in 6 months. I hold an MDA degree from Minerva University and combine 15 years of hands-on experience with AI tools.
+
+Today I help companies adopt AI where it actually matters: turning repetitive daily work — email, calendars, document comparison, report generation — into workflows AI can run.
 
 Core belief: In the AI era, individuals can create more.
+
+## Services
+
+- [AI Consulting & Workshops](https://yu-wenhao.com/zh-TW/services/): Enterprise AI adoption consulting, AI Coding corporate training, and one-day hands-on workshops (page in Traditional Chinese)
 
 ## Products
 
@@ -29,13 +35,13 @@ Core belief: In the AI era, individuals can create more.
 
 ## Key Articles (English)
 
+- [2:30 A.M., Nobody at the Keyboard: Loop Engineering From One Desk](https://yu-wenhao.com/en/blog/loop-engineering/): How one person running a business on Claude Code steps back while the system works overnight
 - [The Complete Guide to Agentic Coding](https://yu-wenhao.com/en/blog/agentic-coding-guide/): From Vibe Coding to Autonomous Development
 - [Agentic Coding: One Year from Vibes to Agentic Engineering](https://yu-wenhao.com/en/blog/agentic-coding/)
 - [The AI Arbitrage Opportunity: Code Just Got Cheap](https://yu-wenhao.com/en/blog/ai-coding-arbitrage/)
 - [14 Years Away From Code. Then AI Changed Everything.](https://yu-wenhao.com/en/blog/nocode-to-ai-coding/)
-- [From Obsidian to Claude Code: Building a Programmable Life](https://yu-wenhao.com/en/blog/personal-panopticon/)
+- [How I Built an AI Second Brain with Claude Code + Obsidian](https://yu-wenhao.com/en/blog/ai-second-brain/)
 - [How to Use Claude Code: From Setup to Your First Task](https://yu-wenhao.com/en/blog/claude-code-tutorial/)
-- [Why Yearly Goals Fail - And the AI System I Built to Fix It](https://yu-wenhao.com/en/blog/ai-goal-management-system/)
 - [OpenClaw Setup Guide: 25 Tools + 53 Skills Explained](https://yu-wenhao.com/en/blog/openclaw-tools-skills-tutorial/)
 - [Is OpenClaw Safe? 5 Security Settings You Must Configure](https://yu-wenhao.com/en/blog/2026-02-04-is-openclaw-safe-security-guide/)
 - [Why I Left Roam Research After 5 Years (And Switched to Obsidian)](https://yu-wenhao.com/en/blog/roam-research-to-obsidian/)
@@ -47,12 +53,12 @@ Core belief: In the AI era, individuals can create more.
 
 ## Key Articles (Traditional Chinese)
 
+- [凌晨兩點半的無人流程：一個工作者的迴圈工程（Loop Engineering）現場](https://yu-wenhao.com/zh-TW/blog/loop-engineering/)
 - [Agentic Coding 完全指南：從 Vibe Coding 到 AI 自主開發](https://yu-wenhao.com/zh-TW/blog/agentic-coding-guide/)
 - [Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化](https://yu-wenhao.com/zh-TW/blog/agentic-coding/)
 - [AI 時代的套利機會：程式碼從昂貴變便宜](https://yu-wenhao.com/zh-TW/blog/ai-coding-arbitrage/)
 - [離開工程師 14 年，我用 AI 做出一個完整產品](https://yu-wenhao.com/zh-TW/blog/nocode-to-ai-coding/)
 - [Claude Code 教學：5 分鐘完成安裝與第一個任務](https://yu-wenhao.com/zh-TW/blog/claude-code-tutorial/)
-- [年度目標總是失敗？我用 Claude Code 建了一套目標管理系統](https://yu-wenhao.com/zh-TW/blog/ai-goal-management-system/)
 - [從 Obsidian 到 Claude Code：打造可程式化的人生](https://yu-wenhao.com/zh-TW/blog/personal-panopticon/)
 - [OpenClaw 教學：25 個 Tools + 53 個 Skills 完整指南](https://yu-wenhao.com/zh-TW/blog/openclaw-tools-skills-tutorial/)
 - [OpenClaw 安全嗎？5 個必做的安全設定](https://yu-wenhao.com/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/)

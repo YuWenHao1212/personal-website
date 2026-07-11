@@ -1,4 +1,5 @@
 /*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Content-Security-Policy: frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.google.com https://assets.calendly.com https://calendly.com https://js.stripe.com https://hooks.stripe.com https://miro.com https://*.miro.com
@@ -13,3 +14,18 @@
 /images/*
   ! X-Frame-Options
   ! Content-Security-Policy
+
+/studio-a/*
+  X-Robots-Tag: noindex
+
+/taichung/*
+  X-Robots-Tag: noindex
+
+/sonice/*
+  X-Robots-Tag: noindex
+
+/zh-TW/studio-a/*
+  X-Robots-Tag: noindex
+
+/zh-TW/sonice/*
+  X-Robots-Tag: noindex
