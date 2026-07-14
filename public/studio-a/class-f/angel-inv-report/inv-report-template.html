@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STUDIO A · 教育事業部 · 各區進銷存週報</title>
+<!--
+  STUDIO A design-system 風格的「進銷存週報」HTML 範本
+  用途：D2 B5「以終為始 · 對帳」數據 skill 的產出範本（Angel 進銷存 anchor）
+  — 供投影片 iframe 展示成品，也供學員下載當「風格起手式」（等同 sonice 的 yoy-report-template.html）
+  品牌：白底 / 近黑 / 一點 A 藍（#2D7DD2）/ Noto Sans / 無 serif / 大留白
+  資料為去識別化仿造樣本，非真實業績。建立 2026-07-10
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1D1D1F; --body:#3A3A3D; --muted:#86868B; --faint:#B0B0B5;
+    --line:#E3E3E6; --line-2:#F0F0F2; --paper:#FFFFFF; --panel:#F7F8FA;
+    --a:#2D7DD2; --a-soft:#E8F1FB;
+    --up:#1F9D57; --up-bg:#E7F6ED;
+    --down:#D0402E; --down-bg:#FBE9E6;
+    --sans:"Noto Sans TC","PingFang TC",-apple-system,system-ui,sans-serif;
+    --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E9E9EC;font-family:var(--sans);color:var(--body);-webkit-font-smoothing:antialiased;}
+  .page{width:1000px;margin:0 auto;background:var(--paper);padding:64px 72px 56px;}
+
+  /* header */
+  .rpt-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--ink);padding-bottom:22px;}
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand .logo{width:44px;height:44px;border-radius:9px;background:var(--ink);color:#fff;font-weight:900;font-size:19px;display:flex;align-items:center;justify-content:center;letter-spacing:.5px;}
+  .brand .who{font-size:14px;color:var(--muted);line-height:1.5;}
+  .brand .who b{display:block;font-size:18px;color:var(--ink);font-weight:700;letter-spacing:.02em;}
+  .rpt-title{text-align:right;}
+  .rpt-title .t{font-size:27px;font-weight:900;color:var(--ink);letter-spacing:-.01em;}
+  .rpt-title .m{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:.04em;}
+
+  /* KPI row */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:30px 0 8px;}
+  .kpi{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--panel);}
+  .kpi .k{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+  .kpi .v{font-size:30px;font-weight:900;color:var(--ink);margin-top:8px;line-height:1;letter-spacing:-.02em;}
+  .kpi .d{font-family:var(--mono);font-size:13px;margin-top:8px;font-weight:600;}
+  .up{color:var(--up);} .down{color:var(--down);}
+
+  .sec{font-size:13px;font-weight:700;color:var(--a);letter-spacing:.14em;text-transform:uppercase;margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+  .sec::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--a);}
+
+  /* table */
+  table{width:100%;border-collapse:collapse;font-size:15px;}
+  thead th{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;text-align:right;padding:10px 14px;border-bottom:1.5px solid var(--ink);}
+  thead th:first-child{text-align:left;}
+  tbody td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--line-2);color:var(--body);}
+  tbody td:first-child{text-align:left;color:var(--ink);font-weight:500;}
+  tbody tr:hover{background:var(--panel);}
+  .cat{display:inline-flex;align-items:center;gap:8px;}
+  .cat .swatch{width:9px;height:9px;border-radius:2px;flex:none;}
+  tfoot td{padding:12px 14px;text-align:right;font-weight:700;color:var(--ink);border-top:1.5px solid var(--ink);background:var(--a-soft);}
+  tfoot td:first-child{text-align:left;}
+  .pill{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;}
+  .pill.up{background:var(--up-bg);} .pill.down{background:var(--down-bg);}
+  .flag{color:var(--down);font-weight:700;}
+
+  /* observation */
+  .obs{margin-top:14px;border:1px solid var(--line);border-left:4px solid var(--a);border-radius:0 12px 12px 0;padding:22px 26px;background:var(--panel);}
+  .obs ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .obs li{font-size:15.5px;line-height:1.5;color:var(--body);padding-left:26px;position:relative;}
+  .obs li::before{content:"›";position:absolute;left:6px;top:-1px;color:var(--a);font-weight:700;font-size:18px;}
+  .obs b{color:var(--ink);}
+  .obs .r{color:var(--down);font-weight:700;} .obs .g{color:var(--up);font-weight:700;}
+
+  .foot{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.03em;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="rpt-head">
+    <div class="brand">
+      <div class="logo">SA</div>
+      <div class="who"><b>STUDIO A</b>教育事業部 · 各區進銷存</div>
+    </div>
+    <div class="rpt-title">
+      <div class="t">進銷存週報</div>
+      <div class="m">W27 · 2026-06-29 → 07-05　|　TW-SA · TW-ST · HK</div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">本週銷售額 (TWD)</div><div class="v">307.2M</div><div class="d down">▼ 0.3% WoW</div></div>
+    <div class="kpi"><div class="k">銷售量 (台/件)</div><div class="v">33,636</div><div class="d">平板占額 52%</div></div>
+    <div class="kpi"><div class="k">期末庫存 (台/件)</div><div class="v">78,370</div><div class="d down">配件占 86%</div></div>
+    <div class="kpi"><div class="k">整體週轉</div><div class="v">0.43</div><div class="d">銷量 / 期末庫存</div></div>
+  </div>
+
+  <div class="sec">主分類彙總 · 三區合計（TW-SA 56店＋TW-ST＋HK · 幣別已統一 TWD）</div>
+  <table>
+    <thead>
+      <tr><th>主分類</th><th>銷售量</th><th>銷售額 (TWD)</th><th>期末庫存</th><th>週轉</th><th>WoW 銷售額</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="cat"><span class="swatch" style="background:#2D7DD2"></span>平板</span></td><td>5,803</td><td>159,877,700</td><td>6,845</td><td>0.85</td><td><span class="pill up">＋1.0%</span></td></tr>
+      <tr><td><span class="cat"><span class="swatch" style="background:#1D1D1F"></span>筆電</span></td><td>636</td><td>24,574,400</td><td>724</td><td>0.88</td><td><span class="pill up">＋4.7%</span></td></tr>
+      <tr><td><span class="cat"><span class="swatch" style="background:#86868B"></span>配件</span></td><td>24,550</td><td>115,797,714</td><td class="flag">67,687</td><td class="flag">0.36</td><td><span class="pill down">−0.2%</span></td></tr>
+      <tr><td><span class="cat"><span class="swatch" style="background:#C9A227"></span>教材</span></td><td>2,647</td><td>6,949,310</td><td>3,114</td><td>0.85</td><td><span class="pill down">−31.4%</span></td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td>合計</td><td>33,636</td><td>307,199,124</td><td>78,370</td><td>0.43</td><td><span class="pill down">−0.3%</span></td></tr>
+    </tfoot>
+  </table>
+
+  <div class="sec">觀察分析 · 樞紐算不出來的那一段</div>
+  <div class="obs">
+    <ul>
+      <li><b>教材</b>銷售額 <span class="r">WoW −31.4%</span>，全類掉最兇 —— 對照上週推測是<b>校園採購檔期收尾</b>，非需求崩，下週回穩機率高、先別砍備貨。</li>
+      <li><b>配件</b>賣最多（銷量 24,550），但<b>期末庫存堆到 67,687</b>（佔總庫存 86%）、週轉 <span class="r">0.36 全類最低</span> —— 壓貨風險，補貨節奏放慢、優先出清。</li>
+      <li><b>平板</b>占總銷售額 <span class="g">52%</span>、<span class="g">＋1.0%</span> —— 主力盤穩，56 店與專案量價都撐住，資源優先保這一類。</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    <span>STUDIO A · 教育事業部 · 進銷存週報範本（去識別化仿造資料）</span>
+    <span>幣別：HK 數字 ×4.0 換算 TWD · 由進銷存週報 skill 產出</span>
+  </div>
+
+</div>
+</body></html>
