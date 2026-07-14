@@ -6,6 +6,28 @@ import mdx from '@astrojs/mdx';
 import expressiveCode from 'astro-expressive-code';
 import rehypeMermaid from 'rehype-mermaid';
 import { visit } from 'unist-util-visit';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// Build slug → lastmod map from blog frontmatter (updatedDate ?? pubDate) so the
+// sitemap can tell Google which posts changed and when. Filename = URL slug.
+function buildBlogLastmodMap() {
+  const map = new Map();
+  for (const lang of ['zh-TW', 'en']) {
+    const dir = path.resolve(`./src/content/blog/${lang}`);
+    if (!fs.existsSync(dir)) continue;
+    for (const file of fs.readdirSync(dir)) {
+      if (!/\.(md|mdx)$/.test(file)) continue;
+      const raw = fs.readFileSync(path.join(dir, file), 'utf-8');
+      const date =
+        raw.match(/^updatedDate:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1] ??
+        raw.match(/^pubDate:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+      if (date) map.set(`/${lang}/blog/${file.replace(/\.(md|mdx)$/, '')}/`, date);
+    }
+  }
+  return map;
+}
+const blogLastmod = buildBlogLastmodMap();
 
 // All links in blog content open in new tab to avoid interrupting reading
 function rehypeAllLinksNewTab() {
@@ -66,6 +88,14 @@ export default defineConfig({
           'zh-TW': 'zh-TW',
           'en': 'en',
         },
+      },
+      // Stamp blog posts with lastmod from frontmatter; other pages stay unstamped
+      // (a blanket build-date lastmod would be inaccurate and ignored by Google).
+      serialize(item) {
+        const pathname = new URL(item.url).pathname;
+        const lastmod = blogLastmod.get(pathname);
+        if (lastmod) item.lastmod = lastmod;
+        return item;
       },
     }),
     mdx(),
