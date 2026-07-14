@@ -15,6 +15,11 @@
   ! X-Frame-Options
   ! Content-Security-Policy
 
+# D2 deck 需要 iframe 這份同源報表範本做預覽（無害靜態 HTML、已 noindex）
+/studio-a/class-f/angel-inv-report/*
+  ! X-Frame-Options
+  ! Content-Security-Policy
+
 /studio-a/*
   X-Robots-Tag: noindex
 
