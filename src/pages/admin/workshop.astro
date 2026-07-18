@@ -1,10 +1,8 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
+import { adminSessions } from '../../data/cohorts';
 
-const WORKSHOP_SESSIONS = [
-  { id: 'workshop-2026-10-24', label: '10/24 台北 · 第四班（招生中）' },
-  { id: 'workshop-2026-08-22', label: '8/22 台北 · 第三班（已滿）' },
-];
+const WORKSHOP_SESSIONS = adminSessions();
 ---
 
 <AdminLayout title="Workshop 報名">

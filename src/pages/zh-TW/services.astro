@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MotionLayer from '../../components/MotionLayer.astro';
+import { CURRENT_COHORT as cohort, PRICING_DEFAULTS, formatTWD } from '../../data/cohorts';
 
 const title = '一日實作工作坊・個人 AI 工作系統・企業 AI 導入';
 const description =
@@ -44,11 +45,11 @@ const description =
           一日實作工作坊，6 小時帶走三套在你電腦上跑起來的系統 — 目標管理、知識管理、AI 自動化工作流。
         </p>
         <p class="rv text-base md:text-lg text-[#8B7355] leading-relaxed mb-8">
-          5 月台北、6 月台中、8 月台北三班全滿 — <strong class="text-[#D97706] font-semibold">10/24 第四班開放報名中</strong> · NT$9,800，早鳥與兩人同行優惠見報名頁
+          5 月台北、6 月台中、8 月台北三班全滿 — <strong class="text-[#D97706] font-semibold">{cohort.dateShort} {cohort.name}開放報名中</strong> · {formatTWD(PRICING_DEFAULTS.priceRegular)}，早鳥與兩人同行優惠見報名頁
         </p>
         <div class="rv flex flex-wrap gap-4 mb-6">
           <a href="/zh-TW/workshop/#signup" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200" data-umami-event="services_workshop_click">
-            報名 10/24 第四班 &rarr;
+            報名 {cohort.dateShort} {cohort.name} &rarr;
           </a>
           <a href="/zh-TW/workshop/#outline" class="inline-flex items-center justify-center px-8 py-4 border-2 border-[#B8926A]/40 text-[#8B7355] text-base md:text-lg font-medium rounded-full hover:border-[#B8926A] hover:text-[#B8926A] transition-all duration-200" data-umami-event="services_workshop_outline_click">
             看完整課綱
