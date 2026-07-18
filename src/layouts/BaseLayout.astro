@@ -158,6 +158,29 @@ const lang = getLangFromUrl(Astro.url);
       });
     </script>
 
+    <!-- Umami: non-blocking link tracking.
+         Umami's auto-track intercepts same-tab clicks on [data-umami-event] links
+         (preventDefault → POST → navigate on settle), which freezes navigation while
+         the self-hosted tracker cold-starts. Strip the attribute and fire the event
+         ourselves without holding up navigation. -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('a[data-umami-event]').forEach((a) => {
+          const name = a.getAttribute('data-umami-event');
+          if (!name) return;
+          const data: Record<string, string> = {};
+          a.getAttributeNames().forEach((attr) => {
+            const m = attr.match(/^data-umami-event-(.+)$/);
+            if (m) data[m[1]] = a.getAttribute(attr) || '';
+          });
+          a.removeAttribute('data-umami-event');
+          a.addEventListener('click', () => {
+            (window as any).umami?.track(name, Object.keys(data).length ? data : undefined);
+          });
+        });
+      });
+    </script>
+
     <!-- Scroll fade-in animation -->
     <script>
       const observerOptions = {
