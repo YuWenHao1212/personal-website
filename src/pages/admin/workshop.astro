@@ -1,7 +1,10 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
 
-const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
+const WORKSHOP_SESSIONS = [
+  { id: 'workshop-2026-10-24', label: '10/24 台北 · 第四班（招生中）' },
+  { id: 'workshop-2026-08-22', label: '8/22 台北 · 第三班（已滿）' },
+];
 ---
 
 <AdminLayout title="Workshop 報名">
@@ -9,8 +12,10 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
 
     <!-- Session indicator -->
     <div class="mb-6 flex items-center gap-3 text-sm text-ink-500">
-      <span class="px-3 py-1 bg-ink-900 text-white text-xs font-mono rounded">{WORKSHOP_SESSION_ID}</span>
-      <span>當前梯次 · 12 人小班</span>
+      <select id="session-select" class="px-3 py-1.5 bg-ink-900 text-white text-xs font-mono rounded border-0 cursor-pointer">
+        {WORKSHOP_SESSIONS.map((s) => <option value={s.id}>{s.label}</option>)}
+      </select>
+      <span>12 人小班</span>
     </div>
 
     <!-- Stats (7 metrics) -->
@@ -54,7 +59,8 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
 
   </div>
 
-  <script define:vars={{ WORKSHOP_SESSION_ID }}>
+  <script define:vars={{ WORKSHOP_SESSIONS }}>
+    let currentSession = WORKSHOP_SESSIONS[0].id;
     function escapeHtml(str) {
       const div = document.createElement('div');
       div.textContent = str;
@@ -243,7 +249,7 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
       const key = admin.getKey();
       if (!key) return;
 
-      fetch(`${admin.API_BASE}/api/workshop/bookings?key=${encodeURIComponent(key)}&session=${encodeURIComponent(WORKSHOP_SESSION_ID)}`)
+      fetch(`${admin.API_BASE}/api/workshop/bookings?key=${encodeURIComponent(key)}&session=${encodeURIComponent(currentSession)}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch');
           return res.json();
@@ -268,5 +274,14 @@ const WORKSHOP_SESSION_ID = 'workshop-2026-08-22';
       }
     });
     observer.observe(document.getElementById('admin-auth-guard'), { attributes: true });
+
+    const sessionSelect = document.getElementById('session-select');
+    if (sessionSelect) {
+      sessionSelect.value = currentSession;
+      sessionSelect.addEventListener('change', () => {
+        currentSession = sessionSelect.value;
+        loadWorkshopData();
+      });
+    }
   </script>
 </AdminLayout>
