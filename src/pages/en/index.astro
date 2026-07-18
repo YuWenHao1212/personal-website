@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
+import MotionLayer from '../../components/MotionLayer.astro';
 import FeaturedPosts from '../../components/FeaturedPosts.astro';
 
 const title = 'Building Products, Systems, and a Life with AI';
@@ -81,7 +82,7 @@ const featuredTools = [
 
       <!-- Section header -->
       <div class="flex items-baseline justify-between mb-10 md:mb-12">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
+        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
           Featured Posts
         </h2>
         <a
@@ -104,7 +105,7 @@ const featuredTools = [
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="mb-12 md:mb-16">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
+        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
           Recommended Tools
         </h2>
         <p class="mt-4 text-lg text-[#5C5144]">
@@ -143,4 +144,5 @@ const featuredTools = [
     </div>
   </section>
 
+  <MotionLayer />
 </BaseLayout>

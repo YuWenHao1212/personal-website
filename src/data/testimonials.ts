@@ -27,6 +27,8 @@ export interface Testimonial {
   avatarTop?: boolean;
   /** optional 延伸閱讀 links (profile cards) */
   links?: { label: string; href: string }[];
+  /** which pages show this card; omit = all pages */
+  pages?: Array<'services' | 'workshop'>;
 }
 
 export const testimonials: Testimonial[] = [
@@ -57,6 +59,7 @@ export const testimonials: Testimonial[] = [
     variant: 'compact',
     name: '陳芊名',
     title: '新娘造型師',
+    avatar: '/images/workshop/chen-qianming.jpg',
     quote:
       '這套系統提升了我的工作效率，也幫我把 IG 流量做起來，多了好多新客戶 — 太實用了，每天都好快樂！',
   },
@@ -84,6 +87,24 @@ export const testimonials: Testimonial[] = [
     title: 'IC 設計業 PM 主管',
     quote:
       '這堂課幫我快速建立一套透過 AI 達成目標的導航系統 — 完整的架構加上老師細心的教學，讓 AI 從聊天變成生活與任務的助理。很適合不知道怎麼開始善用 AI 的人。',
+  },
+  {
+    // Quote already public on workshop page + blog 開課紀錄 since May.
+    variant: 'compact',
+    name: 'Jay',
+    title: '軟體業工程主管',
+    pages: ['workshop'],
+    quote:
+      '從人生目標到每天任務管理，透過 FLUX 框架和 Claude Code 協作 — 整條路徑變得清晰、有方向感。',
+  },
+  {
+    // Quote already public on workshop page + blog 開課紀錄 since May.
+    variant: 'compact',
+    name: '延宗',
+    title: '5/16 學員',
+    pages: ['workshop'],
+    quote:
+      '從工具思維升級至系統化流程，將目標、知識、任務與輸出整合成完整的閉環，真正將 AI 轉化為長期複利與實質的產能提升。',
   },
   {
     variant: 'profile',

@@ -1,0 +1,104 @@
+---
+// Shared GSAP motion layer (services + workshop pages).
+// Discipline (per Confluence DS v2 motion rules): one focal animation per section,
+// transform/opacity only, 0.6-1.2s, power-family ease, enter-once, no loops.
+// Selector conventions — apply what exists on the page, skip the rest:
+//   .sv-hero-title .ln > .ln-i  → line-masked hero headline reveal
+//   .rv                         → scroll-batch stagger reveal
+//   .sv-tl-line / .sv-tl-node   → cohort timeline draw + sequential node light-up
+//   .cnt                        → integer count-up
+// prefers-reduced-motion → static page (html.motion never set).
+---
+
+<style is:global>
+  html.motion .rv { opacity: 0; }
+  .sv-hero-title .ln { display: block; overflow: hidden; }
+  .sv-hero-title .ln-i { display: block; }
+  html.motion .sv-hero-title .ln-i { transform: translateY(110%); }
+  html.motion-off .rv,
+  html.motion-off .sv-hero-title .ln-i { opacity: 1 !important; transform: none !important; }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduced) {
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('motion');
+
+    const EASE = 'power3.out';
+
+    // Hero: line-masked headline reveal, then supporting elements in the same section
+    const heroLines = gsap.utils.toArray<HTMLElement>('.sv-hero-title .ln-i');
+    const heroSection = document.querySelector('.sv-hero-title')?.closest('section');
+    const heroRvs = heroSection ? gsap.utils.toArray<HTMLElement>(heroSection.querySelectorAll('.rv')) : [];
+    if (heroLines.length) {
+      gsap.set(heroRvs, { autoAlpha: 0, y: 24 });
+      gsap
+        .timeline({ defaults: { ease: EASE } })
+        .to(heroLines, { yPercent: 0, y: 0, duration: 0.9, stagger: 0.12, startAt: { yPercent: 110 } }, 0.1)
+        .to(heroRvs, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.45);
+    }
+
+    // Sections: element-level stagger reveal, enter once
+    const rest = gsap.utils.toArray<HTMLElement>('.rv').filter((el) => !heroRvs.includes(el));
+    gsap.set(rest, { autoAlpha: 0, y: 24 });
+    ScrollTrigger.batch(rest, {
+      start: 'top 82%',
+      once: true,
+      onEnter: (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.07 }),
+    });
+
+    // Cohort timeline: line draws across, nodes light up in sequence (section signature)
+    const tlLine = document.querySelector<HTMLElement>('.sv-tl-line');
+    const tlNodes = gsap.utils.toArray<HTMLElement>('.sv-tl-node');
+    if (tlLine && tlNodes.length) {
+      gsap.set(tlLine, { scaleX: 0 });
+      gsap.set(tlNodes, { autoAlpha: 0, y: 12 });
+      ScrollTrigger.create({
+        trigger: tlNodes[0],
+        start: 'top 82%',
+        once: true,
+        onEnter: () => {
+          gsap
+            .timeline({ defaults: { ease: 'power2.out' } })
+            .to(tlLine, { scaleX: 1, duration: 0.9 }, 0)
+            .to(tlNodes, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.16 }, 0.15);
+        },
+      });
+    }
+
+    // Count-up numbers
+    gsap.utils.toArray<HTMLElement>('.cnt').forEach((el) => {
+      const target = parseInt(el.textContent || '', 10);
+      if (isNaN(target)) return;
+      const obj = { v: 0 };
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        once: true,
+        onEnter: () =>
+          gsap.to(obj, {
+            v: target,
+            duration: 1.1,
+            ease: 'power1.inOut',
+            onUpdate: () => (el.textContent = String(Math.round(obj.v))),
+          }),
+      });
+    });
+
+    // Safety: reveal anything still hidden in-viewport if a trigger never fires
+    setTimeout(() => {
+      document.querySelectorAll<HTMLElement>('.rv, .sv-tl-node').forEach((el) => {
+        if (getComputedStyle(el).opacity === '0' && el.getBoundingClientRect().top < window.innerHeight) {
+          gsap.to(el, { autoAlpha: 1, y: 0, duration: 0.5 });
+        }
+      });
+    }, 2500);
+  } else {
+    document.documentElement.classList.add('motion-off');
+  }
+</script>
