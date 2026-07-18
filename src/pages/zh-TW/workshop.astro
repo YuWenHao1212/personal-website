@@ -625,7 +625,7 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
     </div>
   </section>
 
-  <script define:vars={{ API_BASE, SURVEY_ID, PRICING_DEFAULTS }}>
+  <script define:vars={{ API_BASE, SURVEY_ID, PRICING_DEFAULTS, COHORT_DATE_SHORT: cohort.dateShort }}>
     const form = document.getElementById('signup-form');
     const submitBtn = document.getElementById('submit-btn');
     const successMsg = document.getElementById('success-msg');
@@ -715,7 +715,8 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
         submitBtn.disabled = true;
         submitBtn.textContent = '本梯已額滿';
         if (inline) {
-          inline.innerHTML = '本梯名額已滿 — <a href="mailto:mail@yu-wenhao.com?subject=8%2F22%20%E5%B7%A5%E4%BD%9C%E5%9D%8A%E5%80%99%E8%A3%9C" class="font-semibold underline">寫信加入候補 →</a>';
+          const waitlistSubject = encodeURIComponent(`${COHORT_DATE_SHORT} 工作坊候補`);
+          inline.innerHTML = `本梯名額已滿 — <a href="mailto:mail@yu-wenhao.com?subject=${waitlistSubject}" class="font-semibold underline">寫信加入候補 →</a>`;
           inline.className = 'text-sm text-center text-[#991B1B] bg-[#FEE2E2] border border-[#DC2626]/30 rounded-lg p-3';
         }
       } else if (inline) {
