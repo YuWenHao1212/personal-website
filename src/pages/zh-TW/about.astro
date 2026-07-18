@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MotionLayer from '../../components/MotionLayer.astro';
 
 const title = '關於我';
 const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自己的工作方式，把過程寫下來，現在也幫企業把 AI 真正導入流程。';
@@ -19,14 +20,14 @@ const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自
           class="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-lg flex-shrink-0"
         />
         <div>
-          <h1 class="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-            我是文皓
+          <h1 class="sv-hero-title text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+            <span class="ln"><span class="ln-i">我是文皓</span></span>
           </h1>
-          <p class="text-xl md:text-2xl leading-relaxed text-[#5C5144] mb-6">
+          <p class="rv text-xl md:text-2xl leading-relaxed text-[#5C5144] mb-6">
             我用 AI 改變自己的工作方式，把過程寫下來。<br class="hidden md:block" />
             現在也以企業 AI 導入顧問的身份，幫團隊把 AI 真正用起來。
           </p>
-          <div class="flex flex-wrap gap-3 text-sm text-[#8B7355]">
+          <div class="rv flex flex-wrap gap-3 text-sm text-[#8B7355]">
             <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">獨立開發者</span>
             <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">企業 AI 導入顧問</span>
             <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">產品人 × 10 年</span>
@@ -41,27 +42,27 @@ const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自
   <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-3xl">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-8 md:mb-10">
+        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-8 md:mb-10">
           這條路我走過
         </h2>
         <div class="space-y-5 text-base md:text-lg lg:text-xl leading-relaxed text-[#5C5144]">
           <p>我在科技業待了十多年，PM 做了快十年。產品規劃、商業決策、跨部門協調——該會的都碰過，遇到什麼事大概知道下一步該怎麼走。</p>
           <p>但做越久越覺得在原地踏步。能力在長，可是每天的精力都花在讓別人同意我做事上面。</p>
           <p class="text-lg md:text-xl lg:text-2xl font-semibold text-[#2C2416] py-2">
-            2023 年，我決定離開。
+            2023 年，我決定打掉重練。
           </p>
-          <p>去唸了 Minerva University 的碩士，重新學怎麼做決策。2025 年 AI 工具成熟，我開始用 Claude Code 一個人做產品——四個月做了 <a href="https://airesumeadvisor.com/zh-TW/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">AI Resume Advisor</a>，三天做了 <a href="https://www.neatoolkit.com/zh-TW" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">NeatToolkit</a>（上線第一天四千人來用）。</p>
+          <p>一邊工作，一邊唸 Minerva University 的碩士，重新學怎麼做決策。2025 年，我離開公司 — 剛好 Claude Code 在那年 5 月上線，我是第一批使用者，開始用它一個人做產品：四個月做了 <a href="https://airesumeadvisor.com/zh-TW/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">AI Resume Advisor</a>，三天做了 <a href="https://www.neatoolkit.com/zh-TW" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">NeatToolkit</a>（上線第一天四千人來用）。</p>
           <p>從產品概念、開發、到上線推廣，全部一個人包。做的過程中，我慢慢摸出一套自己的工作方式——怎麼用 AI 拆任務、怎麼串工具、怎麼讓整個流程跑得動。</p>
           <p class="text-lg md:text-xl lg:text-2xl font-semibold text-[#2C2416] py-2">
             我把這些過程寫下來。
           </p>
-          <p>發在 Facebook 和 Blog，三個月內，Blog 每月超過 15 萬次閱讀。愈來愈多人寫信來說：「看了你的文章，我也開始用 AI 改自己的工作流了。」</p>
+          <p>發在 Facebook 和 Blog，三個月內，Blog 每月超過 15 萬次閱讀。愈來愈多人寫信來問：「你這套系統是怎麼建起來的？可以教我嗎？」我把大家最容易卡住的那段路，做成了<a href="/zh-TW/workshop/" class="text-[#B8926A] hover:underline">「用 AI 建你的個人指揮中心」一日實作工作坊</a>。</p>
           <p>同時，也有企業主管來問：「我們公司也能這樣做嗎？」</p>
-          <p>能。所以我現在做兩件事：繼續寫、繼續做產品，同時以企業 AI 導入顧問的角色，幫團隊把 AI 真正接進流程裡。</p>
+          <p>能。企業的 AI 導入與內訓，由我創辦的匯流顧問團隊提供。而我自己，繼續寫、繼續做產品 — 你在這個網站看到的，就是這套系統每天跑出來的樣子。</p>
         </div>
 
         <!-- Belief -->
-        <div class="mt-10 md:mt-14 pl-6 md:pl-8 py-4 md:py-6 border-l-4 border-[#B8926A]">
+        <div class="rv mt-10 md:mt-14 pl-6 md:pl-8 py-4 md:py-6 border-l-4 border-[#B8926A]">
           <p class="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] font-bold text-[#2C2416] leading-[1.2] tracking-[-0.02em] mb-4">
             方向比速度重要。系統比目標重要。
           </p>
@@ -76,29 +77,42 @@ const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自
   <!-- What I Do Now: Dual Track -->
   <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
+      <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
         現在在做的事
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         <!-- Track 1: Writing & Sharing -->
-        <div class="bg-white border border-[#E8E4DD] rounded-xl p-8 md:p-10">
-          <span class="inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">寫作 & 分享</span>
+        <div class="rv bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex flex-col">
+          <span class="self-start inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">寫作 & 分享</span>
           <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-4">
             把一路上學到的，寫給也在這條路上的人
           </h3>
           <div class="space-y-3 text-base md:text-lg leading-relaxed text-[#5C5144] mb-6">
             <p>AI 工作流怎麼設計、工具怎麼串、一個人怎麼做產品——我把每一步都寫下來，不藏私。</p>
-            <p>每週一封信，聊我那週想通的事。</p>
+            <p>有想通的事，就寫成一封信寄給你。</p>
           </div>
-          <div class="flex flex-wrap gap-3">
+          <div class="mt-auto flex flex-wrap gap-3">
             <a href="/zh-TW/blog/" class="text-[#B8926A] hover:underline font-medium">→ 看文章</a>
-            <a href="/zh-TW/#newsletter-form" class="text-[#B8926A] hover:underline font-medium">→ 訂閱每週一封信</a>
+            <a href="/zh-TW/#newsletter-form" class="text-[#B8926A] hover:underline font-medium">→ 訂閱電子報</a>
           </div>
         </div>
 
-        <!-- Track 2: Enterprise -->
-        <div class="bg-white border border-[#E8E4DD] rounded-xl p-8 md:p-10">
-          <span class="inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">企業合作</span>
+        <!-- Track 2: Workshop -->
+        <div class="rv bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex flex-col">
+          <span class="self-start inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">教學</span>
+          <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-4">
+            帶你把自己的系統，一天建起來
+          </h3>
+          <div class="space-y-3 text-base md:text-lg leading-relaxed text-[#5C5144] mb-6">
+            <p>最多人卡在第一步的建置。一日實作工作坊，6 小時把目標、知識、AI 工作流一次建好帶回家。</p>
+            <p>不用會寫程式，用說的就好。</p>
+          </div>
+          <a href="/zh-TW/workshop/" class="mt-auto self-start text-[#B8926A] hover:underline font-medium">→ 看工作坊</a>
+        </div>
+
+        <!-- Track 3: Enterprise -->
+        <div class="rv bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex flex-col">
+          <span class="self-start inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">企業合作</span>
           <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-4">
             幫企業把 AI 從「買了帳號」變成「真的在用」
           </h3>
@@ -106,7 +120,7 @@ const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自
             <p>從流程盤點、工作流設計、到內訓落地——不用花數百萬導大系統，從一個流程開始跑通就好。</p>
             <p>這件事我做了十年，只是以前叫「導系統」。</p>
           </div>
-          <a href="/zh-TW/services/" class="text-[#B8926A] hover:underline font-medium">→ 看完整服務內容</a>
+          <a href="/zh-TW/services/#enterprise" class="mt-auto self-start text-[#B8926A] hover:underline font-medium">→ 看完整服務內容</a>
         </div>
       </div>
     </div>
@@ -116,19 +130,19 @@ const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自
   <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-        <div>
-          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2">15 萬+</p>
+        <div class="rv">
+          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2"><span class="cnt">15</span> 萬+</p>
           <p class="text-base md:text-lg text-[#5C5144]">每月 Blog 閱讀</p>
         </div>
-        <div>
-          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2">15+</p>
+        <div class="rv">
+          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2"><span class="cnt">15</span>+</p>
           <p class="text-base md:text-lg text-[#5C5144]">年科技業經驗</p>
         </div>
-        <div>
-          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2">4 個</p>
+        <div class="rv">
+          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2"><span class="cnt">4</span> 個</p>
           <p class="text-base md:text-lg text-[#5C5144]">獨立開發產品</p>
         </div>
-        <div>
+        <div class="rv">
           <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2">Day 1</p>
           <p class="text-base md:text-lg text-[#5C5144]">Claude Code 使用者</p>
         </div>
@@ -136,62 +150,28 @@ const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自
     </div>
   </section>
 
-  <!-- Dual CTA -->
+  <!-- Closing CTA: single action for readers who finished the story -->
   <section class="py-20 md:py-28 lg:py-32">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
-        <!-- CTA: Enterprise -->
-        <div class="bg-[#F5F1EB] rounded-2xl p-8 md:p-10 text-center">
-          <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-3">
-            企業 AI 導入，從一個流程開始
-          </h3>
-          <p class="text-base md:text-lg text-[#5C5144] mb-6 leading-relaxed">
-            不用花數百萬導大系統。聊聊你的狀況，我幫你看下一步怎麼走。
-          </p>
-          <div class="flex flex-col gap-3">
-            <a
-              href="mailto:mail@yu-wenhao.com"
-              class="inline-flex items-center justify-center px-6 py-3 bg-[#B8926A] text-white text-base font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200"
-              data-umami-event="about_click_mailto"
-            >
-              直接寫信聊聊
-            </a>
-            <a
-              href="/zh-TW/services/"
-              class="inline-flex items-center justify-center px-6 py-3 border-2 border-[#B8926A] text-[#B8926A] text-base font-medium rounded-full hover:bg-[#B8926A] hover:text-white transition-all duration-200"
-              data-umami-event="about_click_services"
-            >
-              看服務內容
-            </a>
-          </div>
-        </div>
-
-        <!-- CTA: Readers -->
-        <div class="bg-[#F5F1EB] rounded-2xl p-8 md:p-10 text-center">
-          <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-3">
-            想自己動手試試看？
-          </h3>
-          <p class="text-base md:text-lg text-[#5C5144] mb-6 leading-relaxed">
-            每週一封信，聊 AI 工作流和一路上想通的事。
-          </p>
-          <div class="flex flex-col gap-3">
-            <a
-              href="/zh-TW/#newsletter-form"
-              class="inline-flex items-center justify-center px-6 py-3 bg-[#B8926A] text-white text-base font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200"
-              data-umami-event="about_click_subscribe"
-            >
-              訂閱每週一封信
-            </a>
-            <a
-              href="/zh-TW/blog/"
-              class="inline-flex items-center justify-center px-6 py-3 border-2 border-[#B8926A] text-[#B8926A] text-base font-medium rounded-full hover:bg-[#B8926A] hover:text-white transition-all duration-200"
-              data-umami-event="about_click_blog"
-            >
-              看所有文章
-            </a>
-          </div>
-        </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="rv text-xl md:text-2xl font-bold text-[#2C2416] leading-relaxed mb-3">
+          這個網站的每篇文章、每個系統，都是這套方法每天跑出來的。
+        </p>
+        <p class="text-base md:text-lg text-[#5C5144] mb-8 leading-relaxed">
+          想跟著走一段 — 訂閱我的電子報，我把想通的事寫成信寄給你。
+        </p>
+        <a
+          href="/zh-TW/#newsletter-form"
+          class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200"
+          data-umami-event="about_click_subscribe"
+        >
+          訂閱電子報
+        </a>
+        <p class="text-sm text-[#8B7355] mt-6">
+          企業合作或其他事？寫信到 <a href="mailto:mail@yu-wenhao.com" class="text-[#B8926A] hover:underline" data-umami-event="about_click_mailto">mail@yu-wenhao.com</a>
+        </p>
       </div>
     </div>
   </section>
+  <MotionLayer />
 </BaseLayout>

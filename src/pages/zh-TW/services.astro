@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { testimonials } from '../../data/testimonials';
+import MotionLayer from '../../components/MotionLayer.astro';
 
 const title = '一日實作工作坊・個人 AI 工作系統・企業 AI 導入';
 const description =
@@ -32,171 +32,31 @@ const description =
     </div>
   </section>
 
-  <!-- ============ Section 1: Workshop (main stage) ============ -->
+  <!-- ============ Section 1: Workshop teaser（完整銷售頁在 /zh-TW/workshop/）============ -->
   <section id="workshop" class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-12 md:mb-16">
-        <span class="rv inline-block px-4 py-1.5 text-sm font-bold bg-[#FEF3C7] text-[#D97706] rounded-full mb-4 tracking-wide">三梯全滿 · 10/24 第四梯開放報名</span>
+      <div class="max-w-3xl">
+        <span class="rv inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">公開教學</span>
         <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
           用 AI 建你的個人指揮中心
         </h2>
-        <p class="rv text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
-          一日實作工作坊，6 小時。不是聽完一場演講 — 是帶著一套已經在你電腦上跑起來的系統回家。
+        <p class="rv text-xl md:text-2xl text-[#5C5144] leading-relaxed mb-4">
+          一日實作工作坊，6 小時帶走三套在你電腦上跑起來的系統 — 目標管理、知識管理、AI 自動化工作流。
         </p>
-      </div>
-
-      <!-- What you walk away with: FLUX three layers -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
-        <div class="rv group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <p class="text-sm font-bold text-[#B8926A] tracking-wide uppercase mb-3">方向</p>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">目標管理系統</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">十二週目標拆成每週承諾，每天打開就知道今天該做什麼。年初設的目標，不再三月就不見。</p>
+        <p class="rv text-base md:text-lg text-[#8B7355] leading-relaxed mb-8">
+          5 月台北、6 月台中、8 月台北三班全滿 — <strong class="text-[#D97706] font-semibold">10/24 第四班開放報名中</strong> · NT$9,800，早鳥與兩人同行優惠見報名頁
+        </p>
+        <div class="rv flex flex-wrap gap-4 mb-6">
+          <a href="/zh-TW/workshop/#signup" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200" data-umami-event="services_workshop_click">
+            報名 10/24 第四班 &rarr;
+          </a>
+          <a href="/zh-TW/workshop/#outline" class="inline-flex items-center justify-center px-8 py-4 border-2 border-[#B8926A]/40 text-[#8B7355] text-base md:text-lg font-medium rounded-full hover:border-[#B8926A] hover:text-[#B8926A] transition-all duration-200" data-umami-event="services_workshop_outline_click">
+            看完整課綱
+          </a>
         </div>
-        <div class="rv group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <p class="text-sm font-bold text-[#B8926A] tracking-wide uppercase mb-3">系統</p>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">知識管理系統</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">讀過的書、開過的會、想過的事，進一個找得到東西的知識庫 — 不再存了就忘。</p>
-        </div>
-        <div class="rv group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <p class="text-sm font-bold text-[#B8926A] tracking-wide uppercase mb-3">槓桿</p>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI 自動化工作流</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">Claude Code 接進日常 — 每天的規劃、整理、產出交給 AI 跑，你只做需要判斷的事。</p>
-        </div>
-      </div>
-
-      <p class="rv text-center text-base md:text-lg text-[#5C5144] -mt-4 mb-12">
-        為什麼是這三層、順序為什麼重要 — 我寫成了完整的方法論：<a href="/zh-TW/blog/flux-direction-system-leverage/" class="text-[#B8926A] hover:underline font-medium" data-umami-event="services_methodology_click">〈不是教 AI 工具、是教一個系統〉</a>
-      </p>
-
-      <!-- Cohort timeline + classroom reel + pricing/CTA -->
-      <!-- NOTE before publish: workshop.astro still sells 8/22 (hero + form). Sync it to
-           8/22=已滿 + 10/24 open (backend availability) before this page goes live.
-           10/24 CTA mechanism (正式報名 vs 候補) pending 文皓 confirmation. -->
-      <div class="rv bg-[#F5F1EB] rounded-2xl p-6 md:p-10">
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-10 lg:gap-12 items-center">
-          <div>
-            <!-- Timeline: 4 cohorts, line draws + nodes light up in sequence -->
-            <div class="relative mb-10">
-              <div class="sv-tl-line hidden md:block absolute top-[8px] left-[12%] right-[12%] h-[2px] bg-[#D6CDBF] origin-left"></div>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="sv-tl-node text-center relative">
-                  <div class="w-4 h-4 rounded-full bg-[#B8926A] ring-4 ring-[#F5F1EB] mx-auto mb-3 relative z-10"></div>
-                  <p class="font-semibold text-[#2C2416]">5/16 台北</p>
-                  <p class="text-sm text-[#8B7355]">第一梯 · 滿班</p>
-                  <a href="/zh-TW/blog/flux-direction-system-leverage/" class="text-xs text-[#B8926A] hover:underline" data-umami-event="services_cohort_record_click">開課紀錄 &rarr;</a>
-                </div>
-                <div class="sv-tl-node text-center relative">
-                  <div class="w-4 h-4 rounded-full bg-[#B8926A] ring-4 ring-[#F5F1EB] mx-auto mb-3 relative z-10"></div>
-                  <p class="font-semibold text-[#2C2416]">6/7 台中</p>
-                  <p class="text-sm text-[#8B7355]">第二梯 · 滿班</p>
-                </div>
-                <div class="sv-tl-node text-center relative">
-                  <div class="w-4 h-4 rounded-full bg-[#B8926A] ring-4 ring-[#F5F1EB] mx-auto mb-3 relative z-10"></div>
-                  <p class="font-semibold text-[#2C2416]">8/22 台北</p>
-                  <p class="text-sm text-[#8B7355]">第三梯 · 已滿</p>
-                </div>
-                <div class="sv-tl-node text-center relative">
-                  <div class="w-4 h-4 rounded-full bg-[#D97706] ring-4 ring-[#FEF3C7] mx-auto mb-3 relative z-10"></div>
-                  <p class="font-bold text-[#D97706]">10/24 台北</p>
-                  <p class="text-sm font-medium text-[#D97706]">第四梯 · 開放報名</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row md:items-center gap-6 pt-6 border-t border-[#E2DBD0]">
-              <div class="flex-1 flex gap-8 justify-center md:justify-start">
-                <div>
-                  <p class="text-2xl md:text-3xl font-bold text-[#2C2416]">12 人</p>
-                  <p class="text-sm text-[#8B7355]">小班實作</p>
-                </div>
-                <div>
-                  <p class="text-2xl md:text-3xl font-bold text-[#2C2416]">6 小時</p>
-                  <p class="text-sm text-[#8B7355]">全程動手做</p>
-                </div>
-                <div>
-                  <p class="text-2xl md:text-3xl font-bold text-[#2C2416]">三梯</p>
-                  <p class="text-sm text-[#8B7355]">連續滿班</p>
-                </div>
-              </div>
-              <div class="flex-shrink-0 text-center md:text-right">
-                <p class="text-sm text-[#8B7355] mb-2">NT$9,800 · 早鳥與兩人同行優惠見報名頁</p>
-                <a href="/zh-TW/workshop/" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200" data-umami-event="services_workshop_click">
-                  報名 10/24 第四梯 &rarr;
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Classroom reel: 6/7 Taichung, muted loop -->
-          <div class="mx-auto lg:mx-0 w-[200px]">
-            <video
-              class="w-full rounded-2xl border border-[#E8E4DD] shadow-lg"
-              src="/videos/workshop-taichung-reel.mp4"
-              poster="/images/workshop/taichung-reel-poster.jpg"
-              autoplay muted loop playsinline preload="metadata"
-            ></video>
-            <p class="text-xs text-[#8B7355] text-center mt-3">6/7 台中場 · 課堂實況</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ Section 2: Social Proof Wall ============ -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-        他們怎麼說
-      </h2>
-      <p class="rv text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
-        心理師、大學教授、IC 設計業 PM、新娘造型師 — 不同背景，同一套系統。
-      </p>
-
-      <!-- Unified masonry wall, data-driven: cards live in src/data/testimonials.ts —
-           append an entry there and it flows in automatically, no layout work. -->
-      <div class="sv-wall columns-1 md:columns-2 lg:columns-3 gap-5">
-        {testimonials.map((t) =>
-          t.variant === 'profile' ? (
-            <div class="rv break-inside-avoid mb-5 bg-white border border-[#E8E4DD] rounded-xl p-6">
-              <div class="flex items-center gap-4 mb-5">
-                {t.avatar && (
-                  <img src={t.avatar} alt={`${t.name} ${t.title}`} class={`w-14 h-14 rounded-full object-cover ${t.avatarTop ? 'object-top' : ''}`} />
-                )}
-                <div>
-                  <p class="font-semibold text-[#2C2416]">
-                    {t.orgUrl ? (
-                      <a href={t.orgUrl} target="_blank" rel="noopener noreferrer" class="hover:text-[#B8926A] transition-colors">{t.org}</a>
-                    ) : (
-                      t.org
-                    )}
-                    {t.orgSuffix && ` ${t.orgSuffix}`}
-                  </p>
-                  <p class="text-sm text-[#8B7355]">{t.subtitle}</p>
-                </div>
-              </div>
-              <p class="text-base leading-relaxed text-[#5C5144]">「{t.quote}」</p>
-              {t.links && (
-                <div class="mt-6 pt-5 border-t border-[#E8E4DD]">
-                  <p class="text-sm text-[#8B7355] font-medium mb-3">延伸閱讀</p>
-                  {t.links.map((l) => (
-                    <p class="text-sm mb-2 last:mb-0">
-                      <a href={l.href} target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">{l.label}</a>
-                    </p>
-                  ))}
-                </div>
-              )}
-            </div>
-          ) : (
-            <div class="rv break-inside-avoid mb-5 bg-white border border-[#E8E4DD] rounded-xl p-6">
-              <p class="text-base leading-relaxed text-[#5C5144] mb-5">「{t.quote}」</p>
-              <div class="flex items-center gap-3">
-                {t.avatar && <img src={t.avatar} alt={t.name} class="w-10 h-10 rounded-full object-cover" />}
-                <p class="text-sm font-medium text-[#2C2416]">{t.name}<span class="text-[#8B7355] font-normal">｜{t.title}</span></p>
-              </div>
-            </div>
-          )
-        )}
-
+        <p class="rv text-sm md:text-base text-[#5C5144]">
+          這套方法的完整思路：<a href="/zh-TW/blog/flux-direction-system-leverage/" class="text-[#B8926A] hover:underline font-medium" data-umami-event="services_methodology_click">〈不是教 AI 工具、是教一個系統〉</a>
+        </p>
       </div>
     </div>
   </section>
@@ -318,107 +178,9 @@ const description =
     </div>
   </section>
 
-  <!-- Motion CSS: hidden states only apply when JS confirms motion is on (html.motion).
-       Fallback: if GSAP never runs, .motion is absent and everything renders normally. -->
-  <style is:global>
-    html.motion .rv { opacity: 0; }
-    /* Masonry wall: never split a card across columns (belt-and-suspenders for all children) */
-    .sv-wall > * {
-      break-inside: avoid;
-      page-break-inside: avoid;
-      -webkit-column-break-inside: avoid;
-    }
-    .sv-hero-title .ln { display: block; overflow: hidden; }
-    .sv-hero-title .ln-i { display: block; }
-    html.motion .sv-hero-title .ln-i { transform: translateY(110%); }
-    html.motion-off .rv,
-    html.motion-off .sv-hero-title .ln-i { opacity: 1 !important; transform: none !important; }
-  </style>
+  <MotionLayer />
 
   <script>
-    // Motion layer — discipline per Confluence DS v2 motion rules:
-    // one focal animation per section, transform/opacity only, 0.6-1.2s, ease power family,
-    // enter-once (no loops), prefers-reduced-motion => static page.
-    import gsap from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!reduced) {
-      gsap.registerPlugin(ScrollTrigger);
-      const html = document.documentElement;
-      html.classList.add('motion');
-
-      const EASE = 'power3.out';
-
-      // Hero: line-masked headline reveal, then supporting elements
-      const heroLines = gsap.utils.toArray<HTMLElement>('.sv-hero-title .ln-i');
-      const heroRvs = gsap.utils.toArray<HTMLElement>('section:first-of-type .rv');
-      gsap.set(heroRvs, { autoAlpha: 0, y: 24 });
-      gsap
-        .timeline({ defaults: { ease: EASE } })
-        .to(heroLines, { yPercent: 0, y: 0, duration: 0.9, stagger: 0.12, startAt: { yPercent: 110 } }, 0.1)
-        .to(heroRvs, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.45);
-
-      // Sections: element-level stagger reveal, enter once
-      const rest = gsap.utils.toArray<HTMLElement>('.rv').filter((el) => !heroRvs.includes(el));
-      gsap.set(rest, { autoAlpha: 0, y: 24 });
-      ScrollTrigger.batch(rest, {
-        start: 'top 82%',
-        once: true,
-        onEnter: (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.07 }),
-      });
-
-      // Cohort timeline: line draws across, nodes light up in sequence (section signature)
-      const tlLine = document.querySelector<HTMLElement>('.sv-tl-line');
-      const tlNodes = gsap.utils.toArray<HTMLElement>('.sv-tl-node');
-      if (tlLine && tlNodes.length) {
-        gsap.set(tlLine, { scaleX: 0 });
-        gsap.set(tlNodes, { autoAlpha: 0, y: 12 });
-        ScrollTrigger.create({
-          trigger: tlNodes[0],
-          start: 'top 82%',
-          once: true,
-          onEnter: () => {
-            gsap
-              .timeline({ defaults: { ease: 'power2.out' } })
-              .to(tlLine, { scaleX: 1, duration: 0.9 }, 0)
-              .to(tlNodes, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.16 }, 0.15);
-          },
-        });
-      }
-
-      // Count-up numbers (credibility tiles)
-      gsap.utils.toArray<HTMLElement>('.cnt').forEach((el) => {
-        const target = parseInt(el.textContent || '', 10);
-        if (isNaN(target)) return;
-        const obj = { v: 0 };
-        ScrollTrigger.create({
-          trigger: el,
-          start: 'top 85%',
-          once: true,
-          onEnter: () =>
-            gsap.to(obj, {
-              v: target,
-              duration: 1.1,
-              ease: 'power1.inOut',
-              onUpdate: () => (el.textContent = String(Math.round(obj.v))),
-            }),
-        });
-      });
-
-      // Safety: reveal anything still hidden in-viewport if a trigger never fires
-      setTimeout(() => {
-        document.querySelectorAll<HTMLElement>('.rv, .sv-tl-node').forEach((el) => {
-          if (getComputedStyle(el).opacity === '0' && el.getBoundingClientRect().top < window.innerHeight) {
-            gsap.to(el, { autoAlpha: 1, y: 0, duration: 0.5 });
-          }
-        });
-      }, 2500);
-    } else {
-      document.documentElement.classList.add('motion-off');
-    }
-
     // Umami: track when CTA section becomes visible
     const ctaSection = document.getElementById('services-cta');
     if (ctaSection) {
@@ -436,4 +198,5 @@ const description =
       observer.observe(ctaSection);
     }
   </script>
+
 </BaseLayout>
