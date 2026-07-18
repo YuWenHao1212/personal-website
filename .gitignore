@@ -35,3 +35,6 @@ public/*.jpg
 public/*.jpeg
 public/*.png
 !public/images/
+
+# local handoff docs (internal context, never publish)
+handoff-*.md
