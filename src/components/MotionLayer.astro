@@ -23,6 +23,15 @@
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+  // Deep links (#signup, #outline): media loading after the initial anchor jump
+  // shifts layout and strands the viewport — re-anchor once everything is loaded.
+  if (location.hash) {
+    window.addEventListener('load', () => {
+      const target = document.querySelector(location.hash);
+      if (target) setTimeout(() => target.scrollIntoView(), 50);
+    });
+  }
+
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduced) {
@@ -46,10 +55,13 @@
     // Sections: element-level stagger reveal, enter once
     const rest = gsap.utils.toArray<HTMLElement>('.rv').filter((el) => !heroRvs.includes(el));
     gsap.set(rest, { autoAlpha: 0, y: 24 });
+    const reveal = (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.07 });
     ScrollTrigger.batch(rest, {
       start: 'top 82%',
       once: true,
-      onEnter: (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.07 }),
+      onEnter: reveal,
+      // Deep-link landings scroll UP into earlier sections — reveal on reverse entry too
+      onEnterBack: reveal,
     });
 
     // Cohort timeline: line draws across, nodes light up in sequence (section signature)
@@ -58,16 +70,18 @@
     if (tlLine && tlNodes.length) {
       gsap.set(tlLine, { scaleX: 0 });
       gsap.set(tlNodes, { autoAlpha: 0, y: 12 });
+      const drawTimeline = () => {
+        gsap
+          .timeline({ defaults: { ease: 'power2.out' } })
+          .to(tlLine, { scaleX: 1, duration: 0.9 }, 0)
+          .to(tlNodes, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.16 }, 0.15);
+      };
       ScrollTrigger.create({
         trigger: tlNodes[0],
         start: 'top 82%',
         once: true,
-        onEnter: () => {
-          gsap
-            .timeline({ defaults: { ease: 'power2.out' } })
-            .to(tlLine, { scaleX: 1, duration: 0.9 }, 0)
-            .to(tlNodes, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.16 }, 0.15);
-        },
+        onEnter: drawTimeline,
+        onEnterBack: drawTimeline,
       });
     }
 
