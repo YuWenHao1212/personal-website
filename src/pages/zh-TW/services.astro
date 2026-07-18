@@ -1,178 +1,261 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { testimonials } from '../../data/testimonials';
 
-const title = 'AI 導入顧問・企業內訓・一日實作工作坊';
-const description = '企業 AI 導入顧問、AI Coding 內訓與一日實作工作坊 — 不是再教一套工具，而是把 Email、文件比對、報告產出這些日常流程，串成 AI 能自動執行的工作流，導入後留下一套自己能跑的系統。';
+const title = '一日實作工作坊・個人 AI 工作系統・企業 AI 導入';
+const description =
+  '用 AI 建你的個人指揮中心 — 一日實作工作坊 6 小時，帶走能跑的目標管理、知識管理與 AI 自動化工作流。企業 AI 導入與內訓由匯流顧問團隊提供。';
 ---
 
 <BaseLayout title={title} description={description} hideLanguageSwitcher={true}>
-  <!-- Hero -->
+  <!-- ============ Hero ============ -->
   <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-3xl">
-        <p class="text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">Services</p>
-        <h1 class="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-6">
-          不是再多教一套工具，<br />是把你的工作流真正串起來。
+        <p class="rv text-sm md:text-base font-medium text-[#B8926A] mb-4 tracking-wide uppercase">Services</p>
+        <h1 class="sv-hero-title text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.15] tracking-[-0.02em] mb-6">
+          <span class="ln"><span class="ln-i">不是你追著 AI 跑，</span></span>
+          <span class="ln"><span class="ln-i">是 AI 放大你的每一步。</span></span>
         </h1>
-        <p class="text-xl md:text-2xl leading-relaxed text-[#5C5144]">
-          用過 ChatGPT、Gamma，回到工作上還是 copy-paste。工具不缺，缺的是把它們串成一條線的人。我做的就是這件事 — 讓 AI 在你的工作裡真正跑起來。
+        <p class="rv text-xl md:text-2xl leading-relaxed text-[#5C5144] mb-8">
+          新工具、新功能追不完，也不用追。先有方向、再建系統，AI 才是槓桿 — 這套用 AI 達成目標的方法，我叫它 FLUX。
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 1: AI Consulting -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-12 md:mb-16">
-        <span class="inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">企業服務</span>
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-          AI 導入顧問
-        </h2>
-        <p class="text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
-          從內訓、工作流設計、內容產出到網站建置 — 拆掉斷點，讓 AI 在你的團隊裡真正落地。
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <!-- Training -->
-        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
-            </svg>
-          </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI Coding 企業內訓</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">訓練完隔天，團隊就能用 AI 寫出可用的程式和產品原型。不是聽完一場演講，是帶著能用的技能回去。</p>
-          <p class="text-sm text-[#8B7355]">適合：技術團隊、PM 團隊、想導入 AI 開發流程的企業</p>
-        </div>
-
-        <!-- Workflow -->
-        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
-          </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI 工作流規劃與導入</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">團隊用了五六種 AI 工具，但中間還是靠人工搬資料、對格式。導入後，一個流程從頭跑到尾，不再斷在工具之間。</p>
-          <p class="text-sm text-[#8B7355]">適合：用了很多 AI 工具但串不起來的團隊</p>
-        </div>
-
-        <!-- Website -->
-        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
-            </svg>
-          </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">企業網站建置與代管</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">上線就有 SEO 基礎、能被搜尋到、會幫你帶來客戶的網站。不是交一個作品給你，是交一個持續工作的業務。</p>
-          <p class="text-sm text-[#8B7355]">適合：需要官網、品牌網站、或部落格的中小企業</p>
-        </div>
-
-        <!-- SEO -->
-        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-[#F5F1EB] flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
-            </svg>
-          </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">SEO 內容策略與 AI 產出</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-4">你有專業，但 Google 上找不到你。做完之後，目標客戶搜關鍵字就能找到你的文章，從讀者變成詢問。</p>
-          <p class="text-sm text-[#8B7355]">適合：有專業但沒有線上能見度、想用內容行銷帶來客戶的企業</p>
-        </div>
-      </div>
-
-      <p class="mt-10 text-center text-base md:text-lg text-[#5C5144]">
-        想了解怎麼在你的團隊落地？<a href="#services-cta" class="text-[#B8926A] hover:underline font-medium">預約免費諮詢 &rarr;</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- Section 2: AI Productivity Systems -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-12 md:mb-16">
-        <span class="inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">個人 / 團隊</span>
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-          AI 效率系統設計
-        </h2>
-        <p class="text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
-          工具人人都會用，但系統才決定你走多遠。我陪你建一套每天能跑、會持續複利的工作系統。
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-        <!-- Knowledge -->
-        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-[#FFFDF9] flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-            </svg>
-          </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">知識管理系統</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">讀過的書、上過的課、開過的會 — 不再存了就忘。我陪你從零建起自己的知識系統，直到你每天自然在用它。</p>
-        </div>
-
-        <!-- Goals -->
-        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-[#FFFDF9] flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-            </svg>
-          </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">目標管理系統</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">年初設的目標，三月就不記得了。我陪你建一套每天打開就知道該做什麼的系統，跑幾週之後你自己就能持續。</p>
-        </div>
-
-        <!-- AI Workflow -->
-        <div class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-[#FFFDF9] flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#B8926A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-            </svg>
-          </div>
-          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI 驅動工作流</h3>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">從筆記整理、週計畫到內容產出，我陪你把 AI 一步步接進日常。省下來的時間，拿去做真正需要你判斷的事。</p>
-        </div>
-      </div>
-
-      <p class="mt-10 text-center text-base md:text-lg text-[#5C5144]">
-        不確定從哪個系統開始？<a href="#services-cta" class="text-[#B8926A] hover:underline font-medium">聊聊你的狀況 &rarr;</a>
-      </p>
-
-      <!-- Workshop CTA callout -->
-      <div class="mt-10 bg-[#FEF3C7]/40 border-2 border-dashed border-[#D97706] rounded-2xl p-6 md:p-8 max-w-3xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-          <div class="flex-1">
-            <p class="text-xs font-bold text-[#D97706] tracking-wide uppercase mb-2">8/22 三班招生中</p>
-            <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-2">用 AI 建你的個人指揮中心</h3>
-            <p class="text-base leading-relaxed text-[#5C5144]">一日實作工作坊 6 小時，帶你把 FLUX 三層（方向 / 系統 / 槓桿）串成一套自己能跑的系統。5/16 首班 12 人滿班。</p>
-          </div>
-          <a href="/zh-TW/workshop/" class="flex-shrink-0 inline-flex items-center justify-center px-6 py-3 bg-[#B8926A] text-white text-base font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg transition-all duration-200 whitespace-nowrap">
-            了解工作坊 &rarr;
+        <div class="rv flex flex-wrap gap-4">
+          <a href="#workshop" class="inline-flex items-center justify-center px-7 py-3.5 bg-[#B8926A] text-white text-base font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg transition-all duration-200" data-umami-event="services_hero_workshop">
+            一日實作工作坊 &rarr;
+          </a>
+          <a href="#enterprise" class="inline-flex items-center justify-center px-7 py-3.5 border-2 border-[#B8926A]/40 text-[#8B7355] text-base font-medium rounded-full hover:border-[#B8926A] hover:text-[#B8926A] transition-all duration-200" data-umami-event="services_hero_enterprise">
+            企業 AI 導入
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Credibility -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
+  <!-- ============ Section 1: Workshop (main stage) ============ -->
+  <section id="workshop" class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-        為什麼找我
-      </h2>
-      <p class="text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
-        不是紙上談兵。我自己每天跑這套系統，有真實產品和數據可以看。
+      <div class="mb-12 md:mb-16">
+        <span class="rv inline-block px-4 py-1.5 text-sm font-bold bg-[#FEF3C7] text-[#D97706] rounded-full mb-4 tracking-wide">三梯全滿 · 10/24 第四梯開放報名</span>
+        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+          用 AI 建你的個人指揮中心
+        </h2>
+        <p class="rv text-xl md:text-2xl text-[#5C5144] max-w-2xl leading-relaxed">
+          一日實作工作坊，6 小時。不是聽完一場演講 — 是帶著一套已經在你電腦上跑起來的系統回家。
+        </p>
+      </div>
+
+      <!-- What you walk away with: FLUX three layers -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+        <div class="rv group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <p class="text-sm font-bold text-[#B8926A] tracking-wide uppercase mb-3">方向</p>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">目標管理系統</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">十二週目標拆成每週承諾，每天打開就知道今天該做什麼。年初設的目標，不再三月就不見。</p>
+        </div>
+        <div class="rv group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <p class="text-sm font-bold text-[#B8926A] tracking-wide uppercase mb-3">系統</p>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">知識管理系統</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">讀過的書、開過的會、想過的事，進一個找得到東西的知識庫 — 不再存了就忘。</p>
+        </div>
+        <div class="rv group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300">
+          <p class="text-sm font-bold text-[#B8926A] tracking-wide uppercase mb-3">槓桿</p>
+          <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3">AI 自動化工作流</h3>
+          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">Claude Code 接進日常 — 每天的規劃、整理、產出交給 AI 跑，你只做需要判斷的事。</p>
+        </div>
+      </div>
+
+      <p class="rv text-center text-base md:text-lg text-[#5C5144] -mt-4 mb-12">
+        為什麼是這三層、順序為什麼重要 — 我寫成了完整的方法論：<a href="/zh-TW/blog/flux-direction-system-leverage/" class="text-[#B8926A] hover:underline font-medium" data-umami-event="services_methodology_click">〈不是教 AI 工具、是教一個系統〉</a>
       </p>
 
+      <!-- Cohort timeline + classroom reel + pricing/CTA -->
+      <!-- NOTE before publish: workshop.astro still sells 8/22 (hero + form). Sync it to
+           8/22=已滿 + 10/24 open (backend availability) before this page goes live.
+           10/24 CTA mechanism (正式報名 vs 候補) pending 文皓 confirmation. -->
+      <div class="rv bg-[#F5F1EB] rounded-2xl p-6 md:p-10">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-10 lg:gap-12 items-center">
+          <div>
+            <!-- Timeline: 4 cohorts, line draws + nodes light up in sequence -->
+            <div class="relative mb-10">
+              <div class="sv-tl-line hidden md:block absolute top-[8px] left-[12%] right-[12%] h-[2px] bg-[#D6CDBF] origin-left"></div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="sv-tl-node text-center relative">
+                  <div class="w-4 h-4 rounded-full bg-[#B8926A] ring-4 ring-[#F5F1EB] mx-auto mb-3 relative z-10"></div>
+                  <p class="font-semibold text-[#2C2416]">5/16 台北</p>
+                  <p class="text-sm text-[#8B7355]">第一梯 · 滿班</p>
+                  <a href="/zh-TW/blog/flux-direction-system-leverage/" class="text-xs text-[#B8926A] hover:underline" data-umami-event="services_cohort_record_click">開課紀錄 &rarr;</a>
+                </div>
+                <div class="sv-tl-node text-center relative">
+                  <div class="w-4 h-4 rounded-full bg-[#B8926A] ring-4 ring-[#F5F1EB] mx-auto mb-3 relative z-10"></div>
+                  <p class="font-semibold text-[#2C2416]">6/7 台中</p>
+                  <p class="text-sm text-[#8B7355]">第二梯 · 滿班</p>
+                </div>
+                <div class="sv-tl-node text-center relative">
+                  <div class="w-4 h-4 rounded-full bg-[#B8926A] ring-4 ring-[#F5F1EB] mx-auto mb-3 relative z-10"></div>
+                  <p class="font-semibold text-[#2C2416]">8/22 台北</p>
+                  <p class="text-sm text-[#8B7355]">第三梯 · 已滿</p>
+                </div>
+                <div class="sv-tl-node text-center relative">
+                  <div class="w-4 h-4 rounded-full bg-[#D97706] ring-4 ring-[#FEF3C7] mx-auto mb-3 relative z-10"></div>
+                  <p class="font-bold text-[#D97706]">10/24 台北</p>
+                  <p class="text-sm font-medium text-[#D97706]">第四梯 · 開放報名</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row md:items-center gap-6 pt-6 border-t border-[#E2DBD0]">
+              <div class="flex-1 flex gap-8 justify-center md:justify-start">
+                <div>
+                  <p class="text-2xl md:text-3xl font-bold text-[#2C2416]">12 人</p>
+                  <p class="text-sm text-[#8B7355]">小班實作</p>
+                </div>
+                <div>
+                  <p class="text-2xl md:text-3xl font-bold text-[#2C2416]">6 小時</p>
+                  <p class="text-sm text-[#8B7355]">全程動手做</p>
+                </div>
+                <div>
+                  <p class="text-2xl md:text-3xl font-bold text-[#2C2416]">三梯</p>
+                  <p class="text-sm text-[#8B7355]">連續滿班</p>
+                </div>
+              </div>
+              <div class="flex-shrink-0 text-center md:text-right">
+                <p class="text-sm text-[#8B7355] mb-2">NT$9,800 · 早鳥與兩人同行優惠見報名頁</p>
+                <a href="/zh-TW/workshop/" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200" data-umami-event="services_workshop_click">
+                  報名 10/24 第四梯 &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Classroom reel: 6/7 Taichung, muted loop -->
+          <div class="mx-auto lg:mx-0 w-[200px]">
+            <video
+              class="w-full rounded-2xl border border-[#E8E4DD] shadow-lg"
+              src="/videos/workshop-taichung-reel.mp4"
+              poster="/images/workshop/taichung-reel-poster.jpg"
+              autoplay muted loop playsinline preload="metadata"
+            ></video>
+            <p class="text-xs text-[#8B7355] text-center mt-3">6/7 台中場 · 課堂實況</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 2: Social Proof Wall ============ -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+        他們怎麼說
+      </h2>
+      <p class="rv text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
+        心理師、大學教授、IC 設計業 PM、新娘造型師 — 不同背景，同一套系統。
+      </p>
+
+      <!-- Unified masonry wall, data-driven: cards live in src/data/testimonials.ts —
+           append an entry there and it flows in automatically, no layout work. -->
+      <div class="sv-wall columns-1 md:columns-2 lg:columns-3 gap-5">
+        {testimonials.map((t) =>
+          t.variant === 'profile' ? (
+            <div class="rv break-inside-avoid mb-5 bg-white border border-[#E8E4DD] rounded-xl p-6">
+              <div class="flex items-center gap-4 mb-5">
+                {t.avatar && (
+                  <img src={t.avatar} alt={`${t.name} ${t.title}`} class={`w-14 h-14 rounded-full object-cover ${t.avatarTop ? 'object-top' : ''}`} />
+                )}
+                <div>
+                  <p class="font-semibold text-[#2C2416]">
+                    {t.orgUrl ? (
+                      <a href={t.orgUrl} target="_blank" rel="noopener noreferrer" class="hover:text-[#B8926A] transition-colors">{t.org}</a>
+                    ) : (
+                      t.org
+                    )}
+                    {t.orgSuffix && ` ${t.orgSuffix}`}
+                  </p>
+                  <p class="text-sm text-[#8B7355]">{t.subtitle}</p>
+                </div>
+              </div>
+              <p class="text-base leading-relaxed text-[#5C5144]">「{t.quote}」</p>
+              {t.links && (
+                <div class="mt-6 pt-5 border-t border-[#E8E4DD]">
+                  <p class="text-sm text-[#8B7355] font-medium mb-3">延伸閱讀</p>
+                  {t.links.map((l) => (
+                    <p class="text-sm mb-2 last:mb-0">
+                      <a href={l.href} target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">{l.label}</a>
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div class="rv break-inside-avoid mb-5 bg-white border border-[#E8E4DD] rounded-xl p-6">
+              <p class="text-base leading-relaxed text-[#5C5144] mb-5">「{t.quote}」</p>
+              <div class="flex items-center gap-3">
+                {t.avatar && <img src={t.avatar} alt={t.name} class="w-10 h-10 rounded-full object-cover" />}
+                <p class="text-sm font-medium text-[#2C2416]">{t.name}<span class="text-[#8B7355] font-normal">｜{t.title}</span></p>
+              </div>
+            </div>
+          )
+        )}
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 3: Enterprise signpost ============ -->
+  <section id="enterprise" class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div>
+          <span class="rv inline-block px-4 py-1.5 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-4 tracking-wide">企業服務</span>
+          <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-6">
+            企業 AI 導入與內訓
+          </h2>
+          <p class="rv text-lg md:text-xl leading-relaxed text-[#5C5144] mb-6">
+            企業端的 AI 導入 — 流程診斷、團隊內訓、系統導入 — 由<strong class="text-[#2C2416]">匯流顧問（Confluence Partners）</strong>提供。這是一個由多位顧問組成的團隊，我是創辦人，也是其中一位顧問。
+          </p>
+          <p class="rv text-lg md:text-xl leading-relaxed text-[#5C5144]">
+            我們做的不是「教工具」的課程，而是把 AI 整合進企業真實的工作流程 — 導入之後，留下的是你們自己能維運、能擴展的系統。
+          </p>
+          <!-- PHASE 2 (Aug, after CCAF pass): add founder CCAF credential line here -->
+          <!-- PHASE 3 (after Confluence Partners site goes public): swap CTA target to confluence-partners.ai + alliance wording -->
+        </div>
+
+        <div class="rv bg-[#F5F1EB] rounded-2xl p-8 md:p-10">
+          <p class="text-sm font-bold text-[#B8926A] tracking-wide uppercase mb-4">合作怎麼開始</p>
+          <p class="text-lg md:text-xl text-[#2C2416] font-semibold leading-relaxed mb-3">
+            先談一次。
+          </p>
+          <p class="text-base md:text-lg text-[#5C5144] leading-relaxed mb-8">
+            聊聊你們的現況 — 流程卡在哪、AI 用到什麼程度，一起判斷幫不幫得上忙、從哪裡開始，再決定下一步。
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="https://calendly.com/mail-yu-wenhao/30min?utm_source=website&utm_medium=services_page&utm_content=enterprise" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 bg-[#2C2416] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#4A3D2C] hover:shadow-lg transition-all duration-200" data-umami-event="services_book_consultation">
+              預約會談
+            </a>
+            <a href="mailto:mail@yu-wenhao.com?subject=%E4%BC%81%E6%A5%AD%20AI%20%E5%B0%8E%E5%85%A5%E6%B4%BD%E8%A9%A2" class="inline-flex items-center justify-center px-8 py-4 border-2 border-[#2C2416]/25 text-[#2C2416] text-base md:text-lg font-medium rounded-full hover:border-[#2C2416] hover:shadow-md transition-all duration-200" data-umami-event="services_enterprise_email">
+              先寫信聊聊
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 4: Credibility ============ -->
+  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
+        為什麼找我
+      </h2>
+      <p class="rv text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
+        不是紙上談兵。我自己每天跑這套系統，有真實產品和數據可以看。
+      </p>
+      <!-- PHASE 2 (Aug, after CCAF pass): add CCAF certification tile here -->
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <div class="flex gap-5">
+        <div class="rv flex gap-5">
           <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
-            <span class="text-2xl font-bold text-white">15</span>
+            <span class="text-2xl font-bold text-white"><span class="cnt">15</span></span>
           </div>
           <div>
             <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">年科技業經驗</p>
@@ -180,7 +263,7 @@ const description = '企業 AI 導入顧問、AI Coding 內訓與一日實作工
           </div>
         </div>
 
-        <div class="flex gap-5">
+        <div class="rv flex gap-5">
           <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
             <span class="text-lg font-bold text-white">Day 1</span>
           </div>
@@ -190,9 +273,9 @@ const description = '企業 AI 導入顧問、AI Coding 內訓與一日實作工
           </div>
         </div>
 
-        <div class="flex gap-5">
+        <div class="rv flex gap-5">
           <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
-            <span class="text-lg font-bold text-white">4K</span>
+            <span class="text-lg font-bold text-white"><span class="cnt">4</span>K</span>
           </div>
           <div>
             <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">真實產品驗證</p>
@@ -200,81 +283,32 @@ const description = '企業 AI 導入顧問、AI Coding 內訓與一日實作工
           </div>
         </div>
 
-        <div class="flex gap-5">
+        <div class="rv flex gap-5">
           <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-[#B8926A] flex items-center justify-center">
-            <span class="text-lg font-bold text-white">60K</span>
+            <span class="text-lg font-bold text-white"><span class="cnt">150</span>K</span>
           </div>
           <div>
             <p class="text-lg md:text-xl font-semibold text-[#2C2416] mb-2">你現在就在看成果</p>
-            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">這個網站月流量 60,000+，兩個月內從零長出來。你會找到這裡，本身就是這套 SEO 策略在運作。同一套方法，我也幫客戶做。</p>
+            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">這個網站的內容、SEO、部署全部用這套系統產出，從零長到最高單月 150,000 瀏覽。你會找到這裡，就是系統在運作的證明。</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-        他們怎麼說
-      </h2>
-      <p class="text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16 max-w-2xl leading-relaxed">
-        不同背景，同樣的改變 — 用 AI 打造自己的工作流。
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- 杰克爸 -->
-        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
-          <div class="flex items-center gap-4 mb-6">
-            <img src="/images/workshop/jack-liu.jpg" alt="劉子維 臨床心理師" class="w-16 h-16 rounded-full object-cover object-top" />
-            <div>
-              <p class="font-semibold text-[#2C2416]">
-                <a href="https://warmflowpsy.tw/" target="_blank" rel="noopener noreferrer" class="hover:text-[#B8926A] transition-colors">暖流人心規劃顧問</a> 執行長
-              </p>
-              <p class="text-sm text-[#8B7355]">暖陽身心診所 心理科主任 劉子維 臨床心理師</p>
-            </div>
-          </div>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144] mb-6">「我是臨床心理師，聽到『你也可以用 Claude Code 建自己的工作流系統』的時候，心裡想你在開我玩笑吧？結果在余老師手把手的引導下，我從覺得『這種東西我不可能學得會』，到現在用一成的時間完成拖了大半年的雜事，剩下九成拿來思考品牌和產品。用 AI 打造自己的工作流，才是真正的改變。」</p>
-          <div class="pt-5 border-t border-[#E8E4DD]">
-            <p class="text-sm text-[#8B7355] font-medium mb-3">延伸閱讀</p>
-            <p class="text-sm mb-2">
-              <a href="https://warmflowpsy.tw/psychologist-learns-vscode/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">子維的視角：〈臨床心理師學會用 Claude Code 的那一天〉</a>
-            </p>
-            <p class="text-sm">
-              <a href="/zh-TW/blog/teaching-48yo-psychologist-claude-code/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">我的視角：〈我教一個 48 歲的心理師用 Claude Code〉</a>
-            </p>
-          </div>
-        </div>
-
-        <!-- 鼎倫 -->
-        <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8">
-          <div class="flex items-center gap-4 mb-6">
-            <img src="/images/workshop/lin-dinglun.png" alt="林鼎倫" class="w-16 h-16 rounded-full object-cover" />
-            <div>
-              <p class="font-semibold text-[#2C2416]">卡佶特品牌策略有限公司</p>
-              <p class="text-sm text-[#8B7355]">品牌總監 林鼎倫</p>
-            </div>
-          </div>
-          <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">「做品牌策略，手上永遠同時跑好幾個專案，以前進度散在不同工具裡，靠自己搬來搬去，常常漏掉東西。我用過 ChatGPT，但它就是另一個聊天視窗，問完還是要自己動手。Claude Code 完全不同 — 它直接讀我電腦裡的檔案，跟我討論策略、規劃排程，然後直接幫我執行。它不只是我的策略夥伴，也是我的執行秘書，我終於不用一個人扛所有事。這才是 AI 該有的樣子。」</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
+  <!-- ============ CTA ============ -->
   <section id="services-cta" class="py-20 md:py-28 lg:py-32 bg-[#2C2416]">
     <div class="max-w-6xl mx-auto px-6">
       <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-4">
-          不確定從哪開始？
+        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-4">
+          不確定自己卡在哪一層？
         </h2>
-        <p class="text-lg md:text-xl text-[#C4B9A8] mb-8 md:mb-10 leading-relaxed">
-          知道方向，但不確定怎麼開始？聊聊，我幫你看看下一步怎麼走。
+        <p class="rv text-lg md:text-xl text-[#C4B9A8] mb-8 md:mb-10 leading-relaxed">
+          有人缺方向、有人缺系統、有人工具用不起來。30 分鐘線上聊聊（免費），我幫你看清楚卡在哪、下一步從哪開始。
         </p>
-        <div class="flex flex-wrap gap-4 justify-center">
+        <div class="rv flex flex-wrap gap-4 justify-center">
           <a href="https://calendly.com/mail-yu-wenhao/30min?utm_source=website&utm_medium=services_page" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200" data-umami-event="services_book_consultation">
-            預約免費諮詢
+            預約 30 分鐘聊聊
           </a>
           <a href="mailto:mail@yu-wenhao.com" class="inline-flex items-center justify-center px-8 py-4 border-2 border-[#B8926A] text-[#B8926A] text-base md:text-lg font-medium rounded-full hover:bg-[#B8926A] hover:text-white hover:shadow-md hover:scale-105 transition-all duration-200" data-umami-event="services_email_contact">
             時間不合？寫信給我
@@ -284,18 +318,121 @@ const description = '企業 AI 導入顧問、AI Coding 內訓與一日實作工
     </div>
   </section>
 
+  <!-- Motion CSS: hidden states only apply when JS confirms motion is on (html.motion).
+       Fallback: if GSAP never runs, .motion is absent and everything renders normally. -->
+  <style is:global>
+    html.motion .rv { opacity: 0; }
+    /* Masonry wall: never split a card across columns (belt-and-suspenders for all children) */
+    .sv-wall > * {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+    }
+    .sv-hero-title .ln { display: block; overflow: hidden; }
+    .sv-hero-title .ln-i { display: block; }
+    html.motion .sv-hero-title .ln-i { transform: translateY(110%); }
+    html.motion-off .rv,
+    html.motion-off .sv-hero-title .ln-i { opacity: 1 !important; transform: none !important; }
+  </style>
+
   <script>
+    // Motion layer — discipline per Confluence DS v2 motion rules:
+    // one focal animation per section, transform/opacity only, 0.6-1.2s, ease power family,
+    // enter-once (no loops), prefers-reduced-motion => static page.
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduced) {
+      gsap.registerPlugin(ScrollTrigger);
+      const html = document.documentElement;
+      html.classList.add('motion');
+
+      const EASE = 'power3.out';
+
+      // Hero: line-masked headline reveal, then supporting elements
+      const heroLines = gsap.utils.toArray<HTMLElement>('.sv-hero-title .ln-i');
+      const heroRvs = gsap.utils.toArray<HTMLElement>('section:first-of-type .rv');
+      gsap.set(heroRvs, { autoAlpha: 0, y: 24 });
+      gsap
+        .timeline({ defaults: { ease: EASE } })
+        .to(heroLines, { yPercent: 0, y: 0, duration: 0.9, stagger: 0.12, startAt: { yPercent: 110 } }, 0.1)
+        .to(heroRvs, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.45);
+
+      // Sections: element-level stagger reveal, enter once
+      const rest = gsap.utils.toArray<HTMLElement>('.rv').filter((el) => !heroRvs.includes(el));
+      gsap.set(rest, { autoAlpha: 0, y: 24 });
+      ScrollTrigger.batch(rest, {
+        start: 'top 82%',
+        once: true,
+        onEnter: (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.07 }),
+      });
+
+      // Cohort timeline: line draws across, nodes light up in sequence (section signature)
+      const tlLine = document.querySelector<HTMLElement>('.sv-tl-line');
+      const tlNodes = gsap.utils.toArray<HTMLElement>('.sv-tl-node');
+      if (tlLine && tlNodes.length) {
+        gsap.set(tlLine, { scaleX: 0 });
+        gsap.set(tlNodes, { autoAlpha: 0, y: 12 });
+        ScrollTrigger.create({
+          trigger: tlNodes[0],
+          start: 'top 82%',
+          once: true,
+          onEnter: () => {
+            gsap
+              .timeline({ defaults: { ease: 'power2.out' } })
+              .to(tlLine, { scaleX: 1, duration: 0.9 }, 0)
+              .to(tlNodes, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.16 }, 0.15);
+          },
+        });
+      }
+
+      // Count-up numbers (credibility tiles)
+      gsap.utils.toArray<HTMLElement>('.cnt').forEach((el) => {
+        const target = parseInt(el.textContent || '', 10);
+        if (isNaN(target)) return;
+        const obj = { v: 0 };
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 85%',
+          once: true,
+          onEnter: () =>
+            gsap.to(obj, {
+              v: target,
+              duration: 1.1,
+              ease: 'power1.inOut',
+              onUpdate: () => (el.textContent = String(Math.round(obj.v))),
+            }),
+        });
+      });
+
+      // Safety: reveal anything still hidden in-viewport if a trigger never fires
+      setTimeout(() => {
+        document.querySelectorAll<HTMLElement>('.rv, .sv-tl-node').forEach((el) => {
+          if (getComputedStyle(el).opacity === '0' && el.getBoundingClientRect().top < window.innerHeight) {
+            gsap.to(el, { autoAlpha: 1, y: 0, duration: 0.5 });
+          }
+        });
+      }, 2500);
+    } else {
+      document.documentElement.classList.add('motion-off');
+    }
+
     // Umami: track when CTA section becomes visible
     const ctaSection = document.getElementById('services-cta');
     if (ctaSection) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            window.umami?.track('services_cta_visible');
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.3 });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              window.umami?.track('services_cta_visible');
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
       observer.observe(ctaSection);
     }
   </script>
