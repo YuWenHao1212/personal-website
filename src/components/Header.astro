@@ -175,8 +175,10 @@ const currentPath = Astro.url.pathname;
     });
   });
 
-  // Umami: track nav clicks to services
+  // Umami: track nav clicks to services (fire-and-forget, never block navigation)
   document.querySelectorAll('header a[href*="/services/"]').forEach((a) => {
-    a.setAttribute('data-umami-event', 'nav_click_services');
+    a.addEventListener('click', () => {
+      (window as any).umami?.track('nav_click_services');
+    });
   });
 </script>
