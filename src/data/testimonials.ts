@@ -81,6 +81,19 @@ export const testimonials: Testimonial[] = [
       '上課之前，我對專案管理幾乎是一片空白，不知道該從哪裡開始。課程結束後，我學會運用工具梳理專案架構，讓原本混亂的資訊變得清楚有條理，資料整合也有了非常明顯的進步。',
   },
   {
+    // Composite cut from 2026-07-20 LINE feedback (full text: FLUX Vault
+    // efforts/areas/personal-brand/social-proof/2026-07-20-chen-bocang-workshop-feedback.md)
+    // — final excerpt pending Stephen's confirmation before publish.
+    variant: 'profile',
+    name: '陳柏蒼',
+    title: 'ICF PCC 認證教練',
+    org: '陳柏蒼Stephen',
+    subtitle: '國際教練聯盟ICF PCC認證教練',
+    avatar: '/images/workshop/chen-bocang.jpg',
+    quote:
+      '上完課才發現，我不只是學會用 AI，而是開始建立自己的第二大腦。原來過去那些一再重複操作的工作流程，都可以透過 AI 寫成一套套 SOP，而且 AI 會幫你記住所有細節和步驟。課程結束後，我不斷把過去思考、研究、規劃過的想法上傳，跟 AI 對話、請 AI 幫我研究 — 第二大腦正一步一步建立起來，也讓我用一個新的角度，重新看待自己過去累積的成果與經驗。更重要的是，內心生出了一種信心：自己的個人品牌和一對一教練事業，會慢慢地建立起來。',
+  },
+  {
     // Employer (聯發科技) intentionally NOT shown — signature uses industry-level title only.
     variant: 'compact',
     name: '林虹君',
