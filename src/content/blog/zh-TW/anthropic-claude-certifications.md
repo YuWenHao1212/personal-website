@@ -66,9 +66,9 @@ Anthropic 認證體系目前共四張。根據官方 [Partner Academy FAQ](https
 
 先處理一個你很可能已經遇過的混淆 — 台灣媒體在這件事上反覆搞混，值得講清楚。
 
-在社群上廣泛流傳的「免費拿 Claude 證書」，指的是 [Anthropic 官方學習平台](https://anthropic.skilljar.com/)上的四門 Skilljar 結業課程：Claude Code in Action、Introduction to Model Context Protocol、Introduction to Agent Skills、Building with the Claude API。這四門課免費修、修完頒發課程結業證書。
+在社群上廣泛流傳的「免費拿 Claude 證書」，指的是 [Anthropic 官方學習平台](https://anthropic.skilljar.com/)上的免費課程結業證書。平台上的課有二十多門 — 從 Claude Code in Action、Introduction to Model Context Protocol、Building with the Claude API，到給非技術職的 AI Fluency 系列 — 免費修、修完發課程結業證書。
 
-這四張課程結業證書，跟本文介紹的四張 Claude 證照（CCAO-F / CCDV-F / CCAR-F / CCAR-P），完全不是同一件事。
+這些課程結業證書，跟本文介紹的四張 Claude 證照（CCAO-F / CCDV-F / CCAR-F / CCAR-P），完全不是同一件事。
 
 前者是線上課程的修畢記錄，沒有監考、沒有統一過線標準、沒有 Credly 徽章。後者是 Pearson VUE 第三方監考的標準化測驗，有全球統一的計分系統。
 
