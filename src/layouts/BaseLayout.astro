@@ -122,8 +122,13 @@ const lang = getLangFromUrl(Astro.url);
       gtag('config', 'G-Z8H0XBXS0S');
     </script>
 
-    <!-- Umami Analytics -->
-    <script defer src="https://analytics.yu-wenhao.com/script.js" data-website-id="dd3449c5-95e2-4c5e-8f19-ec99000f9010"></script>
+    <!-- Umami Analytics — MUST stay `async`, never `defer`.
+         Deferred classic scripts share one in-order execution queue with Astro's
+         type="module" bundles and gate DOMContentLoaded. When the self-hosted
+         tracker cold-starts (Azure scale-to-zero, 10-30s), a deferred script.js
+         stalls that whole queue: page renders but every click handler on the
+         site (mobile menu included) is dead until the container wakes. -->
+    <script async src="https://analytics.yu-wenhao.com/script.js" data-website-id="dd3449c5-95e2-4c5e-8f19-ec99000f9010"></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <!-- Skip Link for Accessibility -->
