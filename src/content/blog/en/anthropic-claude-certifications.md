@@ -46,7 +46,7 @@ These are official list prices per Anthropic Partner Academy FAQ. There are no p
 
 Before going further, there is a distinction that keeps getting muddled in the press, and it is worth settling.
 
-Anthropic's official [course catalog](https://anthropic.skilljar.com/) hosts four free Skilljar courses: Claude Code in Action, Introduction to Model Context Protocol, Introduction to Agent Skills, and Building with the Claude API. Complete any of them and you receive a course-completion certificate. These have circulated widely on social media under the headline "free Claude certificates."
+Anthropic's official [course catalog](https://anthropic.skilljar.com/) hosts more than twenty free courses — from Claude Code in Action, Introduction to Model Context Protocol, and Building with the Claude API to the non-technical AI Fluency series. Complete one and you receive a course-completion certificate. These have circulated widely on social media under the headline "free Claude certificates."
 
 Those course-completion certificates are not the same as CCAO-F, CCDV-F, CCAR-F, and CCAR-P.
 
