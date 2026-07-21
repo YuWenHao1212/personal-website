@@ -78,7 +78,7 @@ The Claude Certified Architect credential is the only one with a published offic
 
 Exam format: 60 questions, a mix of multiple-choice and multiple-response items — each item states how many responses to select. Passing score: 720.
 
-The five domains and their weights, per the official Exam Guide:
+The exam's logic has two layers. The **five domains** define *what* is tested — the scoring blueprint, per the official Exam Guide:
 
 | Domain | Weight |
 |---|---|
@@ -88,7 +88,11 @@ The five domains and their weights, per the official Exam Guide:
 | Tool Design & MCP | 18% |
 | Context & Reliability | 15% |
 
-The format has an unusual feature. Anthropic's official guide defines six practical scenarios: Customer Support Agent, Code Generation, Multi-Agent Research, Developer Productivity, CI/CD, and Structured Data Extraction. Each exam draw is four of these six at random. All questions are situated inside scenarios — the test is not whether you know the terminology but whether you can make sound architectural decisions in concrete deployment contexts.
+Under each domain, the guide breaks the material into individual objectives — one-line statements of what you should be able to do — and the post-exam score report breaks your results down against those objectives, so a candidate can see exactly where the gaps are.
+
+The **six scenarios** define *how* it is tested. Questions are not terminology quizzes — they drop you into a production project: Customer Support Agent, Code Generation, Multi-Agent Research, Developer Productivity, CI/CD, and Structured Data Extraction. Each exam draws four of the six at random.
+
+Here is how the layers mesh. Draw the Customer Support Agent scenario, and a question might hand you this setup: a Claude-based support agent with three tools — look up an order, process a refund, escalate to a human. Then it asks whether an action that must never misfire, like a refund, should be enforced with a hard programmatic block or left to prompt instructions. The scenario is the wrapper; the score lands on Tool Design and reliability objectives. The test is not whether you know the terminology but whether you can make sound architectural decisions in concrete deployment contexts.
 
 For anyone preparing for the CCAR-F: the official Exam Guide is publicly available and is a better use of study time than any third-party prep site. It contains the full task statements for each domain.
 
