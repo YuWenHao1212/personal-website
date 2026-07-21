@@ -98,9 +98,13 @@ AI 服務市場的專業分工，開始有了書面形式。
 
 ## 官方 Exam Guide 在哪？目前只有 CCAR-F 有
 
-CCAR-F 的[官方 Exam Guide](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)（2026 年 7 月版）列出了完整規格：60 題選擇題（單選與複選混合，每題會標明要選幾個答案），5 個領域及配比（Agentic Architecture 27%、Claude Code Config 20%、Prompt & Structured Output 20%、Tool Design & MCP 18%、Context & Reliability 15%）。
+CCAR-F 的[官方 Exam Guide](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)（2026 年 7 月版）列出了完整規格：60 題選擇題，單選與複選混合，每題會標明要選幾個答案。
 
-比較特別的是考法。官方定義了 6 個實務情境 — 客服 agent、程式碼生成、多 agent 研究、開發者生產力、CI/CD、結構化資料抽取 — 每場考試從中抽 4 個，題目都放在情境裡考架構判斷。難度在這裡：考的不是名詞解釋，是你在真實場景裡會怎麼設計。
+出題邏輯分兩層。**5 個領域**管「考什麼」— 就是配分表：Agentic Architecture 27%、Claude Code Config 20%、Prompt & Structured Output 20%、Tool Design & MCP 18%、Context & Reliability 15%。每個領域底下還拆出一條條 objectives —「你要會做什麼」的能力描述，guide 裡全文列出；考完的成績單就是按這些條目回報答對率，弱點落在哪一目了然。**6 個情境**管「怎麼考」— 題目不直接問名詞，而是把你丟進一個真實專案裡出題：客服 agent、程式碼生成、多 agent 研究、開發者生產力、CI/CD、結構化資料抽取，每場考試從中隨機抽 4 個。
+
+兩層怎麼咬合？舉個例子：抽到「客服 agent」情境，題目給你的設定是 — 用 Claude 蓋一個客服系統，agent 手上有查訂單、退款、轉真人三個工具。然後問你：退款這種不能出錯的動作，該用程式硬性攔截，還是靠 prompt 提醒就好？這題穿的是客服的外衣，考的是 Tool Design 領域裡「工具權限與攔截」那類 objective。
+
+難度在這裡：考的不是名詞解釋，是你在真實場景裡會怎麼設計。
 
 有心備考的人，這份官方文件比任何第三方攻略都值得優先讀。
 
