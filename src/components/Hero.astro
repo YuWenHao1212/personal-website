@@ -248,16 +248,16 @@ const products = lang === 'en' ? [
       const website = (formData.get('website') as string) || '';
       const thankYouUrl = form.dataset.thankYouUrl || '/zh-TW/thank-you';
 
-      try {
-        await fetch(`${API_BASE}/api/newsletter/subscribe-form?email=${encodeURIComponent(email)}&website=${encodeURIComponent(website)}`, {
-          method: 'POST',
-        });
+      // keepalive lets the request outlive navigation; the 4s race caps how long
+      // an API cold start (Azure scale-to-zero) can hold the user on a dead form —
+      // warm path still confirms delivery before redirecting.
+      const req = fetch(`${API_BASE}/api/newsletter/subscribe-form?email=${encodeURIComponent(email)}&website=${encodeURIComponent(website)}`, {
+        method: 'POST',
+        keepalive: true,
+      }).catch((error) => console.error('Newsletter subscription failed:', error));
 
-        window.location.href = thankYouUrl;
-      } catch (error) {
-        console.error('Newsletter subscription failed:', error);
-        window.location.href = thankYouUrl;
-      }
+      await Promise.race([req, new Promise((r) => setTimeout(r, 4000))]);
+      window.location.href = thankYouUrl;
     });
   </script>
 </section>
