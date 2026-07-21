@@ -35,10 +35,10 @@ Anthropic's program currently has four credentials. Specifications are per the o
 
 | Credential | Abbreviation | Who it is for | Price | Live since | Official Exam Guide |
 |---|---|---|---|---|---|
-| Claude Certified Associate - Foundations | CCAO-F | Non-technical roles: PM, marketing, HR, consultants (no coding required) | $99 | 2026-07-13 | Not published |
-| Claude Certified Developer - Foundations | CCDV-F | Software engineers, API developers | $125 | 2026-07-13 | Not published |
-| Claude Certified Architect - Foundations | CCAR-F | Architects, anyone deploying Claude applications to production | $125 | 2026-03-12 | **[Available](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)** |
-| Claude Certified Architect - Professional | CCAR-P | Enterprise deployment consultants, Tech Leads | $175 | July 2026 | Not published |
+| [Claude Certified Associate - Foundations](https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification) | CCAO-F | Non-technical roles: PM, marketing, HR, consultants (no coding required) | $99 | 2026-07-13 | Not published |
+| [Claude Certified Developer - Foundations](https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification) | CCDV-F | Software engineers, API developers | $125 | 2026-07-13 | Not published |
+| [Claude Certified Architect - Foundations](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) | CCAR-F | Architects, anyone deploying Claude applications to production | $125 | 2026-03-12 | **[Available](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)** |
+| [Claude Certified Architect - Professional](https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification) | CCAR-P | Enterprise deployment consultants, Tech Leads | $175 | July 2026 | Not published |
 
 These are official list prices per Anthropic Partner Academy FAQ. There are no prerequisite locks between credentials — you can sit for any of the four directly. For CCAO-F, CCDV-F, and CCAR-P, exam structure information — and the July opening dates — currently comes from third-party prep sites rather than official guides; those specifications may shift when Anthropic publishes formal exam guides.
 
