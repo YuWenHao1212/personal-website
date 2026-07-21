@@ -53,10 +53,10 @@ Anthropic 認證體系目前共四張。根據官方 [Partner Academy FAQ](https
 
 | 證照 | 縮寫 | 給誰考 | 價格 | 上線時間 | 官方 Exam Guide |
 |---|---|---|---|---|---|
-| Associate - Foundations | CCAO-F | 非技術職：PM、行銷、HR、顧問（不需寫程式） | $99 | 2026-07-13 | 未發布 |
-| Developer - Foundations | CCDV-F | 軟體工程師、API 開發者 | $125 | 2026-07-13 | 未發布 |
-| Architect - Foundations | CCAR-F | 架構師、要把 Claude 應用推上線的人 | $125 | 2026-03-12 | **[有](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)** |
-| Architect - Professional | CCAR-P | 企業部署顧問、Tech Lead | $175 | 2026 年 7 月 | 未發布 |
+| [Associate - Foundations](https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification) | CCAO-F | 非技術職：PM、行銷、HR、顧問（不需寫程式） | $99 | 2026-07-13 | 未發布 |
+| [Developer - Foundations](https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification) | CCDV-F | 軟體工程師、API 開發者 | $125 | 2026-07-13 | 未發布 |
+| [Architect - Foundations](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) | CCAR-F | 架構師、要把 Claude 應用推上線的人 | $125 | 2026-03-12 | **[有](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)** |
+| [Architect - Professional](https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification) | CCAR-P | 企業部署顧問、Tech Lead | $175 | 2026 年 7 月 | 未發布 |
 
 以上為官方表列定價，四張之間沒有先修互卡，可以直接攻任何一張。表中的定位、考試範圍與 7 月的開考日，除 CCAR-F 有官方 Exam Guide 背書外，其餘目前來自第三方備考網站的整理，細節要等各自的官方 guide 發布才算數。
 
