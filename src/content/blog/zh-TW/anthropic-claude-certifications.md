@@ -12,7 +12,7 @@ relatedPosts: ["claude-code-tutorial.md", "enterprise-ai-adoption-bottleneck.md"
 focusKeyphrase: "Claude 證照"
 ---
 
-Claude 證照是 Claude 開發商 Anthropic 推出的官方職業認證：Pearson VUE 第三方監考、Credly 數位徽章、效期 12 個月，2026 年 3 月發出第一張、7 月擴成四張，$99 到 $175。它和社群上瘋傳的「免費 Claude 證書」不是同一回事 — 這篇把四張各是什麼、怎麼考、差在哪，一次講清楚。
+Claude 證照是 Claude 開發商 Anthropic 推出的官方職業認證：Pearson VUE 第三方監考、Credly 數位徽章、效期 12 個月，2026 年 3 月推出第一張、7 月擴成四張，$99 到 $175。它和社群上瘋傳的「免費 Claude 證書」不是同一回事 — 這篇把四張各是什麼、怎麼考、差在哪，一次講清楚。
 
 ## 一張兩萬人搶考的 AI 證照
 
@@ -76,7 +76,7 @@ Anthropic 認證體系目前共四張。根據官方 [Partner Academy FAQ](https
 
 ---
 
-## 為什麼設計四層
+## 為什麼一次出四張
 
 Anthropic 做四張認證，不是為了讓更多人有東西可以考。這是它第一次公開說：AI 服務生態裡，不同的職位需要不同的能力標準。
 
