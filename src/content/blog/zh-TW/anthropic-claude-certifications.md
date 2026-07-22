@@ -53,12 +53,12 @@ Anthropic 認證體系目前共四張。根據官方 [Partner Academy FAQ](https
 
 | 證照 | 縮寫 | 給誰考 | 價格 | 上線時間 | 官方 Exam Guide |
 |---|---|---|---|---|---|
-| [Associate - Foundations](https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification) | CCAO-F | 非技術職：PM、行銷、HR、顧問（不需寫程式） | $99 | 2026-07-13 | 未發布 |
-| [Developer - Foundations](https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification) | CCDV-F | 軟體工程師、API 開發者 | $125 | 2026-07-13 | 未發布 |
-| [Architect - Foundations](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) | CCAR-F | 架構師、要把 Claude 應用推上線的人 | $125 | 2026-03-12 | **[有](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)** |
-| [Architect - Professional](https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification) | CCAR-P | 企業部署顧問、Tech Lead | $175 | 2026 年 7 月 | 未發布 |
+| [Associate - Foundations](https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification) | CCAO-F | 非技術職：PM、行銷、HR、顧問（不需寫程式） | $99 | 2026-07-13 | **[有](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
+| [Developer - Foundations](https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification) | CCDV-F | 軟體工程師、API 開發者 | $125 | 2026-07-13 | **[有](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
+| [Architect - Foundations](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) | CCAR-F | 架構師、要把 Claude 應用推上線的人 | $125 | 2026-03-12 | **[有](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
+| [Architect - Professional](https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification) | CCAR-P | 企業部署顧問、Tech Lead | $175 | 2026 年 7 月 | **[有](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
 
-以上為官方表列定價，四張之間沒有先修互卡，可以直接攻任何一張。表中的定位、考試範圍與 7 月的開考日，除 CCAR-F 有官方 Exam Guide 背書外，其餘目前來自第三方備考網站的整理，細節要等各自的官方 guide 發布才算數。
+以上為官方表列定價，四張之間沒有先修互卡，可以直接攻任何一張。四張的官方 Exam Guide 都已在 [Partner Academy 認證總覽頁](https://anthropic-partners.skilljar.com/page/partner-certifications)上架、可直接下載，定位與考試範圍以各自的 guide 為準；表中 7 月的開考日仍來自第三方備考網站的整理。
 
 ---
 
@@ -96,9 +96,11 @@ AI 服務市場的專業分工，開始有了書面形式。
 
 ---
 
-## 官方 Exam Guide 在哪？目前只有 CCAR-F 有
+## 官方 Exam Guide 在哪？四張都有了
 
-CCAR-F 的[官方 Exam Guide](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)（2026 年 7 月版）列出了完整規格：60 題選擇題，單選與複選混合，每題會標明要選幾個答案。
+四張認證的官方 Exam Guide 都能在 [Partner Academy 認證總覽頁](https://anthropic-partners.skilljar.com/page/partner-certifications)下載，每份都列出領域配分與題型規格。（2026-07-22 更新：本文首發版寫只有 CCAR-F 有官方 guide，其餘三張已於 7 月開考期間陸續上架，本節與上表已同步修正。）
+
+以最早發布的 CCAR-F 為例。它的官方 Exam Guide（2026 年 7 月版）列出了完整規格：60 題選擇題，單選與複選混合，每題會標明要選幾個答案。
 
 出題邏輯分兩層。**5 個領域**管「考什麼」— 就是配分表：Agentic Architecture 27%、Claude Code Config 20%、Prompt & Structured Output 20%、Tool Design & MCP 18%、Context & Reliability 15%。每個領域底下還拆出一條條 objectives —「你要會做什麼」的能力描述，guide 裡全文列出；考完的成績單就是按這些條目回報答對率，弱點落在哪一目了然。**6 個情境**管「怎麼考」— 題目不直接問名詞，而是把你丟進一個真實專案裡出題：客服 agent、程式碼生成、多 agent 研究、開發者生產力、CI/CD、結構化資料抽取，每場考試從中隨機抽 4 個。
 
@@ -106,7 +108,7 @@ CCAR-F 的[官方 Exam Guide](https://anthropic-partners.skilljar.com/claude-cer
 
 難度在這裡：考的不是名詞解釋，是你在真實場景裡會怎麼設計。
 
-有心備考的人，這份官方文件比任何第三方攻略都值得優先讀。
+有心備考的人，這些官方文件比任何第三方攻略都值得優先讀。
 
 ---
 
@@ -134,7 +136,7 @@ CCAR-F 的[官方 Exam Guide](https://anthropic-partners.skilljar.com/claude-cer
 
 - Anthropic — [Claude Partner Network 發布新聞稿（2026-03-12）](https://www.anthropic.com/news/claude-partner-network)
 - Anthropic Partner Academy — [認證 FAQ：價格、效期、重考規則](https://anthropic-partners.skilljar.com/page/faq-certifications)
-- Anthropic Partner Academy — [CCAR-F 認證頁（含官方 Exam Guide 下載）](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)
+- Anthropic Partner Academy — [認證總覽頁（含四張官方 Exam Guide 下載）](https://anthropic-partners.skilljar.com/page/partner-certifications)
 - Pearson VUE — [Claude Certification Program](https://www.pearsonvue.com/us/en/anthropic.html)
 - Anthropic — [官方免費課程目錄（Skilljar）](https://anthropic.skilljar.com/)
 - Big Tech Careers — [Anthropic Expanded the Claude Certification Track（CCAO-F / CCDV-F 開考日）](https://newsletter.bigtechcareers.com/p/anthropic-expanded-the-claude-certification)

@@ -35,12 +35,12 @@ Anthropic's program currently has four credentials. Specifications are per the o
 
 | Credential | Abbreviation | Who it is for | Price | Live since | Official Exam Guide |
 |---|---|---|---|---|---|
-| [Claude Certified Associate - Foundations](https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification) | CCAO-F | Non-technical roles: PM, marketing, HR, consultants (no coding required) | $99 | 2026-07-13 | Not published |
-| [Claude Certified Developer - Foundations](https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification) | CCDV-F | Software engineers, API developers | $125 | 2026-07-13 | Not published |
-| [Claude Certified Architect - Foundations](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) | CCAR-F | Architects, anyone deploying Claude applications to production | $125 | 2026-03-12 | **[Available](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)** |
-| [Claude Certified Architect - Professional](https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification) | CCAR-P | Enterprise deployment consultants, Tech Leads | $175 | July 2026 | Not published |
+| [Claude Certified Associate - Foundations](https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification) | CCAO-F | Non-technical roles: PM, marketing, HR, consultants (no coding required) | $99 | 2026-07-13 | **[Available](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
+| [Claude Certified Developer - Foundations](https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification) | CCDV-F | Software engineers, API developers | $125 | 2026-07-13 | **[Available](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
+| [Claude Certified Architect - Foundations](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) | CCAR-F | Architects, anyone deploying Claude applications to production | $125 | 2026-03-12 | **[Available](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
+| [Claude Certified Architect - Professional](https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification) | CCAR-P | Enterprise deployment consultants, Tech Leads | $175 | July 2026 | **[Available](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
 
-These are official list prices per Anthropic Partner Academy FAQ. There are no prerequisite locks between credentials — you can sit for any of the four directly. For CCAO-F, CCDV-F, and CCAR-P, exam structure information — and the July opening dates — currently comes from third-party prep sites rather than official guides; those specifications may shift when Anthropic publishes formal exam guides.
+These are official list prices per Anthropic Partner Academy FAQ. There are no prerequisite locks between credentials — you can sit for any of the four directly. Official Exam Guides for all four credentials are now downloadable from the [Partner Academy certifications page](https://anthropic-partners.skilljar.com/page/partner-certifications); role positioning and exam scope are authoritative per each guide. The July opening dates still come from third-party reporting.
 
 ## Free Course Certificates vs. Paid Proctored Exams
 
@@ -74,7 +74,7 @@ One practical constraint: **registration requires Partner Network membership**. 
 
 ## Claude Certified Architect - Foundations: The Exam in Detail
 
-The Claude Certified Architect credential is the only one with a published official [Exam Guide](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) (July 2026 edition), making it the most transparent of the four. It is also where searches for "Claude Certified Architect" most often point, so it merits proportionally more space here.
+All four credentials now have official Exam Guides, downloadable from the [Partner Academy certifications page](https://anthropic-partners.skilljar.com/page/partner-certifications). *(Update, July 22, 2026: the original version of this article stated that only CCAR-F had a published guide; the other three went live around the July exam launch, and this section and the table above have been corrected.)* The Architect - Foundations guide was published first, and "Claude Certified Architect" is where searches most often point, so it merits proportionally more space here.
 
 Exam format: 60 questions, a mix of multiple-choice and multiple-response items — each item states how many responses to select. Passing score: 720.
 
@@ -120,7 +120,7 @@ For the cloud vendor tier (Microsoft / Google / AWS), proctored AI credentials h
 
 - Anthropic — [Claude Partner Network launch announcement (March 12, 2026)](https://www.anthropic.com/news/claude-partner-network)
 - Anthropic Partner Academy — [Certification FAQ: pricing, validity, retake policy](https://anthropic-partners.skilljar.com/page/faq-certifications)
-- Anthropic Partner Academy — [CCAR-F certification page with the official Exam Guide](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)
+- Anthropic Partner Academy — [Certifications page with official Exam Guides for all four credentials](https://anthropic-partners.skilljar.com/page/partner-certifications)
 - Pearson VUE — [Claude Certification Program](https://www.pearsonvue.com/us/en/anthropic.html)
 - Anthropic — [Free course catalog (Skilljar)](https://anthropic.skilljar.com/)
 - Big Tech Careers — [Anthropic Expanded the Claude Certification Track (July opening dates)](https://newsletter.bigtechcareers.com/p/anthropic-expanded-the-claude-certification)
