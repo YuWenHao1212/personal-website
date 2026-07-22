@@ -52,7 +52,7 @@ Those course-completion certificates are not the same as CCAO-F, CCDV-F, CCAR-F,
 
 The free certificates have no proctoring, no standardized passing threshold, and no Credly badge. The four paid credentials are standardized exams delivered through Pearson VUE with a global scoring system. When someone mentions an "Anthropic certification" in a professional context, it is worth confirming which one they mean.
 
-## Why Four Tiers
+## Why Four Credentials
 
 Anthropic designing four distinct credentials rather than one general test is worth pausing on. It is the first public statement from the lab that different roles in an AI deployment have meaningfully different knowledge requirements.
 
