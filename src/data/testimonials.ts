@@ -64,6 +64,18 @@ export const testimonials: Testimonial[] = [
       '這套系統提升了我的工作效率，也幫我把 IG 流量做起來，多了好多新客戶 — 太實用了，每天都好快樂！',
   },
   {
+    // 1:1 私塾 student (2026-05-20 高雄), not a workshop cohort — the wall's subtitle must
+    // therefore not claim cohort provenance. Signature「Ariel」confirmed by her 2026-07-25
+    // (she uses Ariel, not 許雅惠, for her own marketing). Excerpt from LINE feedback;
+    // full text + 引用注意 in FLUX Vault social-proof/2026-07-25-ariel-tutoring-feedback.md.
+    variant: 'compact',
+    name: 'Ariel',
+    title: 'MMT 天賦美容師',
+    avatar: '/images/workshop/ariel.jpg',
+    quote:
+      '我完全是電腦白痴，連存檔都有障礙 — 竟然只上了幾個小時的課，就建出屬於自己的網站資料庫。拿出來的時候，身邊的人都不敢相信這些是我自己做的。老師把 AI 打包成一份超簡單的工作流程，完整複製給我們，而且我們真的操作得出來。',
+  },
+  {
     // Composite quote (written testimonial + 2026-07-18 LINE chat 秘書/工讀生 line) —
     // final text pending Yiling's confirmation; her personal site must NEVER be linked.
     variant: 'compact',
