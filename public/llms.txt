@@ -35,6 +35,7 @@ Core belief: In the AI era, individuals can create more.
 
 ## Key Articles (English)
 
+- [Claude Certified Architect & Anthropic's 4 Certifications: Cost, Format, and How to Register (2026)](https://yu-wenhao.com/en/blog/anthropic-claude-certifications/): What each of the four proctored Anthropic credentials covers, who it is for, and what the free Skilljar course certificates are not
 - [2:30 A.M., Nobody at the Keyboard: Loop Engineering From One Desk](https://yu-wenhao.com/en/blog/loop-engineering/): How one person running a business on Claude Code steps back while the system works overnight
 - [The Complete Guide to Agentic Coding](https://yu-wenhao.com/en/blog/agentic-coding-guide/): From Vibe Coding to Autonomous Development
 - [Agentic Coding: One Year from Vibes to Agentic Engineering](https://yu-wenhao.com/en/blog/agentic-coding/)
@@ -53,6 +54,7 @@ Core belief: In the AI era, individuals can create more.
 
 ## Key Articles (Traditional Chinese)
 
+- [Claude 證照是什麼？Anthropic 四張官方認證怎麼考、和免費證書差在哪](https://yu-wenhao.com/zh-TW/blog/anthropic-claude-certifications/)
 - [凌晨兩點半的無人流程：一個工作者的迴圈工程（Loop Engineering）現場](https://yu-wenhao.com/zh-TW/blog/loop-engineering/)
 - [Agentic Coding 完全指南：從 Vibe Coding 到 AI 自主開發](https://yu-wenhao.com/zh-TW/blog/agentic-coding-guide/)
 - [Agentic Coding：從 Vibe Coding 到 AI 自主寫程式的進化](https://yu-wenhao.com/zh-TW/blog/agentic-coding/)
