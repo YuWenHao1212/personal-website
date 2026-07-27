@@ -156,7 +156,7 @@
     <ul>
       <li>一組 Apple 帳號（Apple ID），三台裝置都登入這一組</li>
       <li>iCloud 空間夠用 — 免費 5GB 不夠工作用，建議至少 iCloud+ 50GB（NT$30/月）</li>
-      <li>一組 Claude Pro（或 Max）帳號</li>
+      <li>一組 Claude 付費帳號 — Pro / Max / Team 都可以</li>
       <li>設定期間 Mac mini 接上螢幕、鍵盤、滑鼠</li>
     </ul>
   </div>
@@ -171,7 +171,8 @@
   <ol class="steps">
     <li><b>不讓它睡著</b> — <span class="path">系統設定 → 能源</span>：開啟「當顯示器關閉時，防止自動進入睡眠」和「斷電後自動啟動」。找不到的話，在系統設定左上角的搜尋欄輸入「能源」。
       <div class="why"><b>為什麼：</b>Mac mini 睡著就停止同步。螢幕可以關、機器不要睡 — 整天不關機的耗電比一顆 LED 燈泡還低。</div></li>
-    <li><b>自動登入</b> — <span class="path">系統設定 → 使用者與群組</span>：把「自動登入」設為你的帳號。停電或重開機後，它自己回到工作狀態，不用接鍵盤操作。
+    <li><b>自動登入 + 螢幕鎖</b> — <span class="path">系統設定 → 使用者與群組</span>：把「自動登入」設為你的帳號。停電或重開機後，它自己回到工作狀態，不用接鍵盤操作。接著到 <span class="path">系統設定 → 鎖定畫面</span>：把「啟用螢幕保護程式後要求輸入密碼」設為<b>立即</b>。
+      <div class="why"><b>「這樣不是沒密碼就能進來？」</b>— 兩個一起設就不會：開機後它自動登入、背景服務照跑，但螢幕很快進入鎖定，碰機器的人一樣要輸入密碼。若機器放在人來人往的開放空間仍不放心，就不開自動登入 — 重開機後從 MacBook 用 5-2 連進登入畫面遠端輸入密碼即可。</div>
       <div class="why"><b>選項反灰的話：</b>是「檔案保險箱 FileVault」開著（新機常預設開啟）。到 <span class="path">系統設定 → 隱私權與安全性 → 檔案保險箱</span> 關閉它，再回來設定。固定放在辦公室的常駐機，拿磁碟加密換自動開機回復，是合理的取捨。</div></li>
     <li><b>打開螢幕共享</b> — <span class="path">系統設定 → 一般 → 共享</span>：開啟「螢幕共享」。第 5 章遠端設定會用到，順手先開好。</li>
   </ol>
@@ -253,7 +254,7 @@ source ~/.zshrc</code><button data-copy>複製</button></div></li>
   <p>在任何地方：MacBook 的 Finder 按 <span class="path">Cmd + K</span>，輸入 <span class="path">vnc://mini的機器名稱</span>，登入 mini 的帳號密碼，就能直接操作它的桌面。</p>
 
   <h3>5-3 在手機上用 Claude Code — Remote Control</h3>
-  <p>Claude Code 內建遠端接管：mini 上的 session 持續跑著，手機的 Claude App 接上的是<b>同一個 session</b> — 原生對話介面，看進度、下指令都行。在 mini 上設定一次：</p>
+  <p>Claude Code 內建遠端接管：mini 上的 session 持續跑著，手機的 Claude App 接上的是<b>同一個 session</b> — 原生對話介面，看進度、下指令都行。Pro / Max 帳號直接可用；Team 帳號需要管理員先在 claude.ai 的管理設定（Claude Code → Remote Control）開啟這個功能。在 mini 上設定一次：</p>
   <ol class="steps">
     <li>在 VS Code 終端機貼上這段，在桌面建立啟動檔（vault 取了別的名字，把 workspace 換掉）：
       <div class="cmd"><code>cat &gt; ~/Desktop/啟動遠端.command &lt;&lt;'EOF'
@@ -266,10 +267,10 @@ chmod +x ~/Desktop/啟動遠端.command</code><button data-copy>複製</button><
     <li>點兩下桌面的 <b>啟動遠端.command</b> 先跑第一次，依畫面指示用手機的 <b>Claude App</b> 掃 QR code 完成配對。跑起來後，mini 桌面會一直開著一個終端機視窗，裡面顯示「Connected」— 那就是這個服務本人：<b>縮小沒關係，不要關</b>，關掉視窗手機就連不上了。</li>
     <li>平常人在外面：手機開 Claude App → <b>Code</b> 分頁，就看到 mini 上的 session — 點進去接管，下指令、看它跑到哪。要處理不同的事，直接開新對話 — 每個對話是獨立的 session，內容不會混在一起。電腦瀏覽器開 <a href="https://claude.ai/code">claude.ai/code</a> 也是同一批 session。</li>
   </ol>
-  <div class="why"><b>手機連不上的時候：</b>mini 斷網超過 10 分鐘，這個常駐程式會自己退出、不會自動重啟。回到機器前點兩下桌面的啟動檔就好；人在外面，用 5-4 連進 mini 桌面去點，或重開 mini（開機會自動帶起來）。</div>
+  <div class="why"><b>手機連不上的時候：</b>mini 斷網超過 10 分鐘，這個常駐程式會自己退出、不會自動重啟。回到機器前點兩下桌面的啟動檔就好；人在外面，就用 MacBook 照 5-2 連進 mini 桌面去點，或重開 mini（開機會自動帶起來）。</div>
 
-  <h3>5-4 在手機上看 mini 的完整桌面 — Screens</h3>
-  <p>要看整個桌面、或遠端救援（例如重啟 5-3 的啟動檔）時用：</p>
+  <h3>5-4 選配：在 iPhone 上看 mini 的完整桌面 — Screens</h3>
+  <p>純選配 — 遠端救援用 5-2 的 MacBook 就夠。這是給「手邊只有手機、又想看整個桌面」的情境：</p>
   <ol class="steps">
     <li>iPhone 裝 <b>Screens 5</b>（App Store 的遙控 App，付費，內建 Tailscale 整合 — Tailscale 在 5-1 已裝好）。新增連線選你的 Mac mini，帳號密碼填 mini 的登入帳密。</li>
     <li>連上看到的就是 mini 的桌面，跟坐在機器前一樣。</li>
