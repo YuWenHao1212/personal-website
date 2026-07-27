@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mac mini・MacBook・iPhone 三機同步設定指南 | STUDIO A</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
+<style>
+  :root{
+    --ds-bg:#FFFFFF; --ds-surface:#F5F5F7; --ds-ink:#1D1D1F; --ds-body:#424245;
+    --ds-muted:#86868B; --ds-line:#D2D2D7; --ds-accent:#2D7DD2; --ds-warn:#D93025;
+    --ds-font:'Noto Sans TC',-apple-system,'SF Pro TC','Helvetica Neue',Arial,sans-serif;
+    --ds-radius:10px; --ds-radius-card:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ds-bg);font-family:var(--ds-font);color:var(--ds-body);
+            -webkit-font-smoothing:antialiased;font-size:16px;line-height:1.75;}
+  a{color:var(--ds-accent);}
+  .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px;}
+
+  /* ---- header ---- */
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--ds-accent);}
+  h1{font-size:34px;font-weight:800;color:var(--ds-ink);line-height:1.3;margin-top:10px;}
+  .meta{font-size:14px;color:var(--ds-muted);margin-top:10px;line-height:1.7;}
+  .lede{font-size:17px;color:var(--ds-body);margin-top:22px;}
+
+  /* ---- section ---- */
+  section{margin-top:64px;}
+  .secnum{font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--ds-muted);}
+  h2{font-size:24px;font-weight:700;color:var(--ds-ink);margin-top:4px;margin-bottom:14px;}
+  h3{font-size:17px;font-weight:700;color:var(--ds-ink);margin:26px 0 8px;}
+  p{margin:10px 0;}
+  .device-tag{display:inline-block;background:var(--ds-ink);color:#fff;font-size:12.5px;font-weight:700;
+              border-radius:999px;padding:2px 12px;vertical-align:2px;margin-left:8px;}
+
+  /* ---- 架構圖 ---- */
+  .arch{display:flex;flex-direction:column;align-items:center;gap:14px;margin:26px 0 6px;}
+  .arch-cloud{background:var(--ds-ink);color:#fff;border-radius:var(--ds-radius-card);
+              padding:16px 34px;text-align:center;}
+  .arch-cloud .t{font-size:17px;font-weight:700;}
+  .arch-cloud .s{font-size:12.5px;color:#A1A1A6;margin-top:2px;}
+  .arch-links{color:var(--ds-muted);font-size:13px;letter-spacing:.2em;}
+  .arch-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;}
+  .arch-dev{background:var(--ds-surface);border-radius:var(--ds-radius-card);padding:14px 16px;text-align:center;}
+  .arch-dev .icon{font-size:26px;}
+  .arch-dev .t{font-size:15px;font-weight:700;color:var(--ds-ink);margin-top:4px;}
+  .arch-dev .s{font-size:12.5px;color:var(--ds-muted);line-height:1.55;margin-top:2px;}
+  .arch-note{font-size:13.5px;color:var(--ds-muted);text-align:center;margin-top:4px;}
+
+  /* ---- 前提 box / why box ---- */
+  .box{background:var(--ds-surface);border-radius:var(--ds-radius-card);padding:18px 22px;margin:18px 0;}
+  .box .bt{font-size:14px;font-weight:700;color:var(--ds-ink);margin-bottom:6px;}
+  .box ul{margin:0 0 0 20px;}
+  .box li{margin:4px 0;}
+  .why{border-left:3px solid var(--ds-accent);background:var(--ds-surface);
+       border-radius:0 var(--ds-radius) var(--ds-radius) 0;padding:12px 18px;margin:14px 0;
+       font-size:14.5px;color:var(--ds-body);}
+  .why b{color:var(--ds-ink);}
+
+  /* ---- steps ---- */
+  ol.steps{margin:14px 0 0 0;padding-left:0;list-style:none;counter-reset:step;}
+  ol.steps>li{position:relative;padding:0 0 18px 44px;counter-increment:step;}
+  ol.steps>li::before{content:counter(step);position:absolute;left:0;top:1px;
+    width:28px;height:28px;border-radius:50%;background:var(--ds-surface);color:var(--ds-ink);
+    font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  ol.steps>li:not(:last-child)::after{content:"";position:absolute;left:14px;top:32px;bottom:2px;
+    width:1px;background:var(--ds-line);}
+  .path{background:var(--ds-surface);border-radius:6px;padding:1px 8px;font-size:14.5px;
+        color:var(--ds-ink);white-space:nowrap;}
+
+  /* ---- command block ---- */
+  .cmd{position:relative;background:#1D1D1F;border-radius:var(--ds-radius);
+       padding:14px 100px 14px 18px;margin:10px 0;}
+  .cmd code{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13.5px;color:#F5F5F7;
+            display:block;white-space:pre-wrap;word-break:break-all;line-height:1.6;}
+  .cmd button{position:absolute;top:10px;right:10px;border:0;cursor:pointer;
+    background:#3A3A3C;color:#fff;font-family:var(--ds-font);font-size:12.5px;font-weight:700;
+    border-radius:999px;padding:5px 14px;}
+  .cmd button:hover{background:var(--ds-accent);}
+
+  /* ---- rules ---- */
+  .rule{background:var(--ds-surface);border-radius:var(--ds-radius-card);padding:18px 22px;margin:14px 0;}
+  .rule .rt{font-size:16px;font-weight:700;color:var(--ds-ink);}
+  .rule p{font-size:14.5px;margin:6px 0 0;}
+
+  /* ---- checklist ---- */
+  .check{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--ds-surface);}
+  .check input{width:19px;height:19px;margin-top:4px;accent-color:var(--ds-accent);flex:none;}
+  .check label{cursor:pointer;}
+  .check .who{font-size:12.5px;font-weight:700;color:var(--ds-muted);letter-spacing:.05em;}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:14px 0;}
+  th{font-size:13px;color:var(--ds-muted);font-weight:700;text-align:left;
+     padding:8px 10px;border-bottom:1px solid var(--ds-line);}
+  td{padding:9px 10px;border-bottom:1px solid var(--ds-surface);color:var(--ds-ink);vertical-align:top;}
+
+  /* ---- footer ---- */
+  footer{margin-top:72px;padding-top:22px;border-top:1px solid var(--ds-line);
+         font-size:14px;color:var(--ds-muted);line-height:1.8;}
+
+  @media (max-width:560px){
+    .wrap{padding:40px 18px 64px;}
+    h1{font-size:27px;}
+    .arch-row{grid-template-columns:1fr;}
+    .cmd{padding:44px 18px 14px;}
+    .path{white-space:normal;}
+  }
+  @media print{
+    @page{size:A4;margin:14mm;}
+    body{font-size:11.5pt;}
+    .wrap{max-width:none;padding:0;}
+    section{margin-top:28px;break-inside:auto;}
+    .rule,.box,.arch,.cmd{break-inside:avoid;}
+    .cmd button{display:none;}
+    .cmd{padding-right:18px;background:#fff;border:1px solid var(--ds-line);}
+    .cmd code{color:#1D1D1F;}
+    .arch-cloud{background:#fff;border:1px solid var(--ds-ink);color:var(--ds-ink);}
+    .arch-cloud .s{color:var(--ds-muted);}
+    .device-tag{background:#fff;color:var(--ds-ink);border:1px solid var(--ds-ink);}
+    h2{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">STUDIO A · AI 工作流導入</div>
+  <h1>Mac mini・MacBook・iPhone<br>三機同步設定指南</h1>
+  <div class="meta">不需要 GitHub、不需要架伺服器 — 只用 iCloud。<br>講師：余文皓 · mail@yu-wenhao.com｜2026-07</div>
+
+  <p class="lede">照這份指南做完，三台裝置會共用同一個工作資料夾：在任何一台的改動，另外兩台自動看到；兩台 Mac 都能用 Claude Code 直接在裡面工作。全程約 60 分鐘。</p>
+
+<!-- ============ 0 ============ -->
+<section>
+  <div class="secnum">開始之前</div>
+  <h2>整體架構：檔案只有一份</h2>
+  <p>三台裝置不是互相傳檔案，而是<b>看同一份</b>。工作資料夾住在 iCloud 雲碟上，三台裝置登入同一個 Apple 帳號，同步自動發生，平常不需要做任何事。</p>
+
+  <div class="arch">
+    <div class="arch-cloud">
+      <div class="t">☁️ iCloud 雲碟</div>
+      <div class="s">工作資料夾的家 — 唯一的一份</div>
+    </div>
+    <div class="arch-links">│ 自動同步 │</div>
+    <div class="arch-row">
+      <div class="arch-dev"><div class="icon">🖥️</div><div class="t">Mac mini</div><div class="s">常駐主力機<br>放辦公室、不關機</div></div>
+      <div class="arch-dev"><div class="icon">💻</div><div class="t">MacBook</div><div class="s">行動工作機<br>外出、開會用</div></div>
+      <div class="arch-dev"><div class="icon">📱</div><div class="t">iPhone</div><div class="s">隨手看、隨手記<br>大改回 Mac 做</div></div>
+    </div>
+    <div class="arch-note">兩台 Mac 都裝 Claude Code；iPhone 用 Obsidian App 看同一份資料。</div>
+  </div>
+
+  <div class="box">
+    <div class="bt">開始前準備好這些</div>
+    <ul>
+      <li>一組 Apple 帳號（Apple ID），三台裝置都登入這一組</li>
+      <li>iCloud 空間夠用 — 免費 5GB 不夠工作用，建議至少 iCloud+ 50GB（NT$30/月）</li>
+      <li>一組 Claude Pro（或 Max）帳號</li>
+      <li>設定期間 Mac mini 接上螢幕、鍵盤、滑鼠</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section>
+  <div class="secnum">第 1 章</div>
+  <h2>Mac mini 開箱設定<span class="device-tag">在 Mac mini 做</span></h2>
+  <p>開箱依畫面指示完成初始設定，過程中登入你的 Apple 帳號。完成後做三件事，讓它適合當一台「不關機的常駐機」：</p>
+
+  <ol class="steps">
+    <li><b>不讓它睡著</b> — <span class="path">系統設定 → 能源</span>：開啟「當顯示器關閉時，防止自動進入睡眠」和「斷電後自動啟動」。找不到的話，在系統設定左上角的搜尋欄輸入「能源」。
+      <div class="why"><b>為什麼：</b>Mac mini 睡著就停止同步。螢幕可以關、機器不要睡 — 整天不關機的耗電比一顆 LED 燈泡還低。</div></li>
+    <li><b>自動登入</b> — <span class="path">系統設定 → 使用者與群組</span>：把「自動登入」設為你的帳號。停電或重開機後，它自己回到工作狀態，不用接鍵盤操作。
+      <div class="why"><b>選項反灰的話：</b>是「檔案保險箱 FileVault」開著（新機常預設開啟）。到 <span class="path">系統設定 → 隱私權與安全性 → 檔案保險箱</span> 關閉它，再回來設定。固定放在辦公室的常駐機，拿磁碟加密換自動開機回復，是合理的取捨。</div></li>
+    <li><b>打開螢幕共享</b> — <span class="path">系統設定 → 一般 → 共享</span>：開啟「螢幕共享」。第 8 章遠端操作會用到，順手先開好。</li>
+  </ol>
+</section>
+
+<!-- ============ 2 ============ -->
+<section>
+  <div class="secnum">第 2 章</div>
+  <h2>iCloud 設定<span class="device-tag">兩台 Mac 都做</span></h2>
+  <p>這一章是整份指南最重要的設定，兩台 Mac 都要做：</p>
+  <ol class="steps">
+    <li><span class="path">系統設定 → 最上方你的名字 → iCloud</span>：確認「iCloud 雲碟」是開啟的。</li>
+    <li>同一頁找到<b>「最佳化 Mac 儲存空間」，把它關閉</b>。</li>
+  </ol>
+  <div class="why"><b>為什麼一定要關：</b>開著的話，macOS 會把一陣子沒動的檔案從硬碟移走、只留一個雲端空殼。人用 Finder 點開它會重新下載，感覺不到差別；但 Claude Code 直接讀檔案時，讀到的就是空殼。工作資料夾必須完整留在硬碟上。</div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section>
+  <div class="secnum">第 3 章</div>
+  <h2>建立共用工作資料夾</h2>
+  <p>工作資料夾用 <b>Obsidian</b> 管理 — 它是一款筆記 App，筆記存成一般的純文字檔，Claude Code 可以直接讀寫。Obsidian 把一個工作資料夾叫作 <b>vault</b>。從 iPhone 開始建，是讓三台裝置都看得到最省事的做法：</p>
+
+  <h3>3-1 iPhone：建立 vault<span class="device-tag">在 iPhone 做</span></h3>
+  <ol class="steps">
+    <li>App Store 搜尋 <b>Obsidian</b>，安裝並打開。</li>
+    <li>點 <b>Create new vault</b>，取名（例如 <span class="path">workspace</span>），把 <b>Store in iCloud</b> 打開，建立。</li>
+  </ol>
+
+  <h3>3-2 兩台 Mac：打開同一個 vault<span class="device-tag">兩台 Mac 都做</span></h3>
+  <ol class="steps">
+    <li>到 <a href="https://obsidian.md">obsidian.md</a> 下載 Mac 版 Obsidian，拖進「應用程式」。</li>
+    <li>打開 Finder → 側邊欄 <b>iCloud 雲碟</b> → 會看到 <b>Obsidian</b> 資料夾，裡面就是剛剛建立的 vault（等一兩分鐘同步）。</li>
+    <li>打開 Obsidian → <b>Open folder as vault</b> → 選那個資料夾。</li>
+    <li>在 Finder 對這個 vault 資料夾按<b>右鍵 → 「保留已下載項目」</b>。
+      <div class="why"><b>為什麼：</b>這是對第 2 章的雙保險 — 明確告訴 macOS：這個資料夾永遠完整留在這台機器上，不准搬走。兩台 Mac 都要做。</div></li>
+  </ol>
+</section>
+
+<!-- ============ 4 ============ -->
+<section>
+  <div class="secnum">第 4 章</div>
+  <h2>安裝 Claude Code<span class="device-tag">兩台 Mac 都做</span></h2>
+
+  <h3>4-1 安裝 VS Code</h3>
+  <ol class="steps">
+    <li>到 <a href="https://code.visualstudio.com/Download">code.visualstudio.com/Download</a> 下載 Mac 版，解壓縮後把 <b>Visual Studio Code.app</b> 拖進「應用程式」。</li>
+    <li>打開 VS Code → <span class="path">File → Open Folder</span> → 選第 3 章的 vault 資料夾。</li>
+  </ol>
+
+  <h3>4-2 安裝 Claude Code</h3>
+  <ol class="steps">
+    <li>在 VS Code 按 <span class="path">Ctrl + `</span>（ESC 下方那顆按鍵）打開終端機，貼上這行按 Enter：
+      <div class="cmd"><code>curl -fsSL https://claude.ai/install.sh | bash</code><button data-copy>複製</button></div></li>
+    <li>裝完後執行這兩行，讓終端機認得 <span class="path">claude</span> 這個指令（整段一起貼上）：
+      <div class="cmd"><code>echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc</code><button data-copy>複製</button></div></li>
+    <li>輸入 <span class="path">exit</span> 關閉終端機，再按 <span class="path">Ctrl + `</span> 開一個新的，輸入：
+      <div class="cmd"><code>claude</code><button data-copy>複製</button></div></li>
+    <li>第一次啟動會用英文問幾個設定：一路按 Enter 用預設值。跳出瀏覽器時，登入你的 Claude 帳號 — <b>每台 Mac 各登入一次，登同一個帳號</b>。回到終端機後它會問「Do you trust the files in this folder?」，選 Yes。過程中 macOS 跳出的權限詢問一律按「允許」。</li>
+    <li>登入成功會看到 Claude Code 的對話介面。試著問它：「這個資料夾裡有什麼？」— 它答得出來就完成了。</li>
+  </ol>
+</section>
+
+<!-- ============ 5 ============ -->
+<section>
+  <div class="secnum">第 5 章</div>
+  <h2>iPhone 的日常角色</h2>
+  <p>手機端在第 3 章已經設定完成，平常這樣用：</p>
+  <table>
+    <tr><th>情境</th><th>怎麼做</th></tr>
+    <tr><td>查資料、看筆記</td><td>打開 Obsidian App，內容跟 Mac 上完全同步</td></tr>
+    <tr><td>路上想到什麼</td><td>直接在 Obsidian 記下來，回到 Mac 它已經在了</td></tr>
+    <tr><td>跟 Claude 討論事情</td><td>用 Claude App（App Store 另外下載）— 純聊天，不會動到工作資料夾</td></tr>
+    <tr><td>人在外面，要叫 Claude Code 做事</td><td>手機 Claude App 直接接上 mini 的 session — 設定見 8-3</td></tr>
+    <tr><td>要大改文件、跑工作流</td><td>回到任何一台 Mac 用 Claude Code 做</td></tr>
+  </table>
+</section>
+
+<!-- ============ 6 ============ -->
+<section>
+  <div class="secnum">第 6 章</div>
+  <h2>三機協作規則</h2>
+  <p>iCloud 同步很可靠，但它是「同步」不是「合併」。記住四條規則，就不會踩到任何坑：</p>
+
+  <div class="rule"><div class="rt">1｜同一份檔案，同一時間只在一台機器上改</div>
+    <p>兩台同時改同一份檔案，iCloud 不會幫你合併，會生出一份「檔名 2」的副本。最自然的做法：進行中的工作固定在一台機器上做完 — 例如在辦公室都用 mini、外出用 MacBook 看和記。</p></div>
+
+  <div class="rule"><div class="rt">2｜換機器前，等它同步完</div>
+    <p>剛改完就切到另一台，常會看到舊版。Finder 裡檔案旁邊的雲朵或進度圈消失，就是傳完了 — 通常幾秒到一兩分鐘。</p></div>
+
+  <div class="rule"><div class="rt">3｜MacBook 闔上蓋子 = 停止上傳</div>
+    <p>在 MacBook 改完東西要出門，先讓它開著蓋子等一下，確認同步完成再闔上；不然那些改動會留在 MacBook 裡，mini 上看到的還是舊版。</p></div>
+
+  <div class="rule"><div class="rt">4｜看到「檔名 2」不要直接刪</div>
+    <p>那是規則 1 沒守住時撞出來的副本，兩份內容不一樣。打開比對、把內容併成一份再刪另一份 — 或者直接請 Claude Code：「這兩份檔案幫我比對差異、合併成一份」。</p></div>
+
+  <div class="rule"><div class="rt">5｜檔案刪錯了，救得回來</div>
+    <p>Mac 上刪掉的檔案先進垃圾桶，撈回來就好。連垃圾桶都清了，30 天內到 iCloud.com → 資料回復，還救得回來。</p></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section>
+  <div class="secnum">第 7 章</div>
+  <h2>驗證：三機打通了嗎</h2>
+  <p>照順序做一輪，全部打勾就完成了：</p>
+  <div class="check"><input type="checkbox" id="c1"><label for="c1"><span class="who">MAC MINI</span><br>Obsidian 建一則新筆記，內容寫「同步測試」</label></div>
+  <div class="check"><input type="checkbox" id="c2"><label for="c2"><span class="who">MACBOOK</span><br>一兩分鐘內，Obsidian 看到這則筆記</label></div>
+  <div class="check"><input type="checkbox" id="c3"><label for="c3"><span class="who">IPHONE</span><br>Obsidian App 也看到了</label></div>
+  <div class="check"><input type="checkbox" id="c4"><label for="c4"><span class="who">MACBOOK</span><br>在筆記裡加一行字</label></div>
+  <div class="check"><input type="checkbox" id="c5"><label for="c5"><span class="who">MAC MINI</span><br>看到 MacBook 加的那行字</label></div>
+  <div class="check"><input type="checkbox" id="c6"><label for="c6"><span class="who">兩台 MAC</span><br>打開 VS Code 按 <span class="path">Ctrl + `</span>，輸入 <span class="path">claude</span>，問「這個資料夾裡有哪些檔案？」，都答得出來</label></div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section>
+  <div class="secnum">第 8 章</div>
+  <h2>選配：人不在 Mac mini 旁邊的時候</h2>
+  <p>檔案同步跨地點本來就會通，這一章解決的是：人不在 mini 旁邊，要用它。用不到可以整章跳過。</p>
+
+  <h3>8-1 同一個網路內（都在辦公室）</h3>
+  <p>MacBook 的 Finder → 側邊欄「網路」→ 點你的 Mac mini → <b>共享螢幕</b>，登入 mini 的帳號密碼，就能直接操作它的畫面。</p>
+  <p>連不上的話通常是辦公室網路擋了裝置互連，不是你設定錯 — 直接用 8-2 的方法，內外網都通用。</p>
+
+  <h3>8-2 跨地點（人在家、mini 在辦公室）</h3>
+  <p>裝 <b>Tailscale</b> — 它把你的裝置串成一個私人網路，在任何地方都像坐在 mini 旁邊，不用固定 IP、不用動公司網路設定，個人用途免費：</p>
+  <ol class="steps">
+    <li>兩台 Mac 都到 <a href="https://tailscale.com/download">tailscale.com/download</a> 下載安裝，各自登入<b>同一個 Tailscale 帳號</b>（用 Apple 或 Google 帳號註冊即可）。</li>
+    <li>選單列的 Tailscale 圖示 → 確認兩台機器都在線上，記下 Mac mini 的機器名稱。</li>
+    <li>之後在任何地方：MacBook 的 Finder 按 <span class="path">Cmd + K</span>，輸入 <span class="path">vnc://mini的機器名稱</span>，就能開啟 mini 的螢幕。</li>
+  </ol>
+
+  <h3>8-3 在手機上用 Claude Code — Remote Control</h3>
+  <p>Claude Code 內建遠端接管：mini 上的 session 持續跑著，手機的 Claude App 接上的是<b>同一個 session</b> — 原生對話介面，看進度、下指令都行。在 mini 上設定一次：</p>
+  <ol class="steps">
+    <li>在 VS Code 終端機貼上這段，在桌面建立啟動檔（vault 取了別的名字，把 workspace 換掉）：
+      <div class="cmd"><code>cat &gt; ~/Desktop/啟動遠端.command &lt;&lt;'EOF'
+#!/bin/zsh
+cd "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/workspace"
+claude remote-control --spawn=same-dir
+EOF
+chmod +x ~/Desktop/啟動遠端.command</code><button data-copy>複製</button></div></li>
+    <li><span class="path">系統設定 → 一般 → 登入項目</span>：在「登入時開啟」按 <b>＋</b>，加入桌面的 <b>啟動遠端.command</b>。之後 mini 每次開機自動跑起來。</li>
+    <li>點兩下桌面的 <b>啟動遠端.command</b> 先跑第一次，依畫面指示用手機的 <b>Claude App</b> 掃 QR code 完成配對。跑起來後，mini 桌面會一直開著一個終端機視窗，裡面顯示「Connected」— 那就是這個服務本人：<b>縮小沒關係，不要關</b>，關掉視窗手機就連不上了。</li>
+    <li>平常人在外面：手機開 Claude App → <b>Code</b> 分頁，就看到 mini 上的 session — 點進去接管，下指令、看它跑到哪。要處理不同的事，直接開新對話 — 每個對話是獨立的 session，內容不會混在一起。電腦瀏覽器開 <a href="https://claude.ai/code">claude.ai/code</a> 也是同一批 session。</li>
+  </ol>
+  <div class="why"><b>手機連不上的時候：</b>mini 斷網超過 10 分鐘，這個常駐程式會自己退出、不會自動重啟。回到機器前點兩下桌面的啟動檔就好；人在外面，用 8-4 連進 mini 桌面去點，或重開 mini（開機會自動帶起來）。</div>
+
+  <h3>8-4 在手機上看 mini 的完整桌面 — Screens</h3>
+  <p>要看整個桌面、或遠端救援（例如重啟 8-3 的啟動檔）時用：</p>
+  <ol class="steps">
+    <li>iPhone 裝 <b>Tailscale</b> App（App Store），登入 8-2 的同一個帳號。</li>
+    <li>iPhone 裝 <b>Screens 5</b>（App Store 的遙控 App，付費，內建 Tailscale 整合）。新增連線選你的 Mac mini，帳號密碼填 mini 的登入帳密。</li>
+    <li>連上看到的就是 mini 的桌面，跟坐在機器前一樣。</li>
+  </ol>
+</section>
+
+<footer>
+  卡在任何一步，截圖傳給我，我來協助。<br>
+  余文皓 · mail@yu-wenhao.com<br>
+  STUDIO A AI 工作流導入 · 2026-07
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('[data-copy]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var text=btn.parentElement.querySelector('code').innerText;
+    function done(){btn.textContent='已複製 ✓';setTimeout(function(){btn.textContent='複製';},1600);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){fallback();});
+    }else{fallback();}
+    function fallback(){
+      var ta=document.createElement('textarea');ta.value=text;
+      ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);
+      ta.select();document.execCommand('copy');document.body.removeChild(ta);done();
+    }
+  });
+});
+</script>
+</body>
+</html>
