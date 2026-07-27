@@ -146,9 +146,9 @@
     <div class="arch-row">
       <div class="arch-dev"><div class="icon">🖥️</div><div class="t">Mac mini</div><div class="s">常駐主力機<br>放辦公室、不關機</div></div>
       <div class="arch-dev"><div class="icon">💻</div><div class="t">MacBook</div><div class="s">行動工作機<br>外出、開會用</div></div>
-      <div class="arch-dev"><div class="icon">📱</div><div class="t">iPhone</div><div class="s">隨手看、隨手記<br>大改回 Mac 做</div></div>
+      <div class="arch-dev"><div class="icon">📱</div><div class="t">iPhone</div><div class="s">隨手看、隨手記<br>也能接管 mini 上的 Claude Code</div></div>
     </div>
-    <div class="arch-note">兩台 Mac 都裝 Claude Code；iPhone 用 Obsidian App 看同一份資料。</div>
+    <div class="arch-note">兩台 Mac 都裝 Claude Code；iPhone 用 Obsidian App 看同一份資料，也能透過 Claude App 遠端使用 mini 上的 Claude Code（8-3）。</div>
   </div>
 
   <div class="box">
@@ -240,14 +240,14 @@ source ~/.zshrc</code><button data-copy>複製</button></div></li>
 <section>
   <div class="secnum">第 5 章</div>
   <h2>iPhone 的日常角色</h2>
-  <p>手機端在第 3 章已經設定完成，平常這樣用：</p>
+  <p>手機端在第 3 章已經設定完成。設定好 8-3 之後，iPhone 不只是「看」— 它跟兩台 Mac 一樣，是 Claude Code 的正式入口。平常這樣用：</p>
   <table>
     <tr><th>情境</th><th>怎麼做</th></tr>
     <tr><td>查資料、看筆記</td><td>打開 Obsidian App，內容跟 Mac 上完全同步</td></tr>
     <tr><td>路上想到什麼</td><td>直接在 Obsidian 記下來，回到 Mac 它已經在了</td></tr>
-    <tr><td>跟 Claude 討論事情</td><td>用 Claude App（App Store 另外下載）— 純聊天，不會動到工作資料夾</td></tr>
-    <tr><td>人在外面，要叫 Claude Code 做事</td><td>手機 Claude App 直接接上 mini 的 session — 設定見 8-3</td></tr>
-    <tr><td>要大改文件、跑工作流</td><td>回到任何一台 Mac 用 Claude Code 做</td></tr>
+    <tr><td>跟 Claude 純聊天、討論想法</td><td>用 Claude App（App Store 另外下載）的一般對話 — 不會動到工作資料夾</td></tr>
+    <tr><td>要叫 Claude Code 做事（讀檔、改檔、跑任務）</td><td>Claude App → <b>Code</b> 分頁，接上 mini 的 session — 手機就是完整的 Claude Code 入口，能做的事跟坐在 mini 前一樣（設定見 8-3）</td></tr>
+    <tr><td>大量打字、長時間編輯</td><td>回 Mac 做 — 差別只在打字體驗，不在能力</td></tr>
   </table>
 </section>
 
@@ -284,25 +284,24 @@ source ~/.zshrc</code><button data-copy>複製</button></div></li>
   <div class="check"><input type="checkbox" id="c4"><label for="c4"><span class="who">MACBOOK</span><br>在筆記裡加一行字</label></div>
   <div class="check"><input type="checkbox" id="c5"><label for="c5"><span class="who">MAC MINI</span><br>看到 MacBook 加的那行字</label></div>
   <div class="check"><input type="checkbox" id="c6"><label for="c6"><span class="who">兩台 MAC</span><br>打開 VS Code 按 <span class="path">Ctrl + `</span>，輸入 <span class="path">claude</span>，問「這個資料夾裡有哪些檔案？」，都答得出來</label></div>
+  <div class="check"><input type="checkbox" id="c7"><label for="c7"><span class="who">IPHONE</span><br>（做完 8-3 後）Claude App → Code 分頁接上 mini 的 session，問同一個問題，也答得出來</label></div>
 </section>
 
 <!-- ============ 8 ============ -->
 <section>
   <div class="secnum">第 8 章</div>
-  <h2>選配：人不在 Mac mini 旁邊的時候</h2>
-  <p>檔案同步跨地點本來就會通，這一章解決的是：人不在 mini 旁邊，要用它。用不到可以整章跳過。</p>
+  <h2>遠端使用：人不在 Mac mini 旁邊的時候</h2>
+  <p>檔案同步跨地點本來就會通，這一章解決的是：人不在 mini 旁邊，要用它。做法一律走 Tailscale — 不預設你們在同一個網路，辦公室、家裡、外面都是同一套連法。建議裝機那天就把 8-1、8-3 設好。</p>
 
-  <h3>8-1 同一個網路內（都在辦公室）</h3>
-  <p>MacBook 的 Finder → 側邊欄「網路」→ 點你的 Mac mini → <b>共享螢幕</b>，登入 mini 的帳號密碼，就能直接操作它的畫面。</p>
-  <p>連不上的話通常是辦公室網路擋了裝置互連，不是你設定錯 — 直接用 8-2 的方法，內外網都通用。</p>
-
-  <h3>8-2 跨地點（人在家、mini 在辦公室）</h3>
-  <p>裝 <b>Tailscale</b> — 它把你的裝置串成一個私人網路，在任何地方都像坐在 mini 旁邊，不用固定 IP、不用動公司網路設定，個人用途免費：</p>
+  <h3>8-1 三台都裝 Tailscale</h3>
+  <p><b>Tailscale</b> 把你的裝置串成一個私人網路，在任何地方都像坐在 mini 旁邊 — 不用固定 IP、不用動公司網路設定，個人用途免費：</p>
   <ol class="steps">
-    <li>兩台 Mac 都到 <a href="https://tailscale.com/download">tailscale.com/download</a> 下載安裝，各自登入<b>同一個 Tailscale 帳號</b>（用 Apple 或 Google 帳號註冊即可）。</li>
-    <li>選單列的 Tailscale 圖示 → 確認兩台機器都在線上，記下 Mac mini 的機器名稱。</li>
-    <li>之後在任何地方：MacBook 的 Finder 按 <span class="path">Cmd + K</span>，輸入 <span class="path">vnc://mini的機器名稱</span>，就能開啟 mini 的螢幕。</li>
+    <li>兩台 Mac 到 <a href="https://tailscale.com/download">tailscale.com/download</a> 下載安裝；iPhone 從 App Store 裝 <b>Tailscale</b>。三台登入<b>同一個 Tailscale 帳號</b>（用 Apple 或 Google 帳號註冊即可）。</li>
+    <li>選單列的 Tailscale 圖示 → 確認機器都在線上，記下 Mac mini 的機器名稱。</li>
   </ol>
+
+  <h3>8-2 從 MacBook 操作 mini 的畫面</h3>
+  <p>在任何地方：MacBook 的 Finder 按 <span class="path">Cmd + K</span>，輸入 <span class="path">vnc://mini的機器名稱</span>，登入 mini 的帳號密碼，就能直接操作它的桌面。</p>
 
   <h3>8-3 在手機上用 Claude Code — Remote Control</h3>
   <p>Claude Code 內建遠端接管：mini 上的 session 持續跑著，手機的 Claude App 接上的是<b>同一個 session</b> — 原生對話介面，看進度、下指令都行。在 mini 上設定一次：</p>
@@ -323,8 +322,7 @@ chmod +x ~/Desktop/啟動遠端.command</code><button data-copy>複製</button><
   <h3>8-4 在手機上看 mini 的完整桌面 — Screens</h3>
   <p>要看整個桌面、或遠端救援（例如重啟 8-3 的啟動檔）時用：</p>
   <ol class="steps">
-    <li>iPhone 裝 <b>Tailscale</b> App（App Store），登入 8-2 的同一個帳號。</li>
-    <li>iPhone 裝 <b>Screens 5</b>（App Store 的遙控 App，付費，內建 Tailscale 整合）。新增連線選你的 Mac mini，帳號密碼填 mini 的登入帳密。</li>
+    <li>iPhone 裝 <b>Screens 5</b>（App Store 的遙控 App，付費，內建 Tailscale 整合 — Tailscale 在 8-1 已裝好）。新增連線選你的 Mac mini，帳號密碼填 mini 的登入帳密。</li>
     <li>連上看到的就是 mini 的桌面，跟坐在機器前一樣。</li>
   </ol>
 </section>
