@@ -66,6 +66,18 @@ const person = {
     "knowledge management",
     "Obsidian",
   ],
+  // 企業服務由匯流顧問（法人）交付；用 worksFor + 共用 @id 讓搜尋引擎把
+  // 「余文皓」與「匯流顧問」解析成同一組關係。匯流站的 Organization schema
+  // 會用相同的 @id 並回指 founder，兩邊互指。
+  // 注意：confluence-partners.ai 不放進 sameAs —— sameAs 是「同一實體的其他
+  // URL」，公司網站不是本人的另一個 profile。
+  "worksFor": {
+    "@type": "Organization",
+    "@id": "https://confluence-partners.ai/#organization",
+    "name": "匯流顧問有限公司",
+    "alternateName": "Confluence Partners CO., LTD.",
+    "url": "https://confluence-partners.ai",
+  },
   "sameAs": ["https://www.linkedin.com/in/hence/"],
 };
 ---
