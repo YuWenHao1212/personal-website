@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>週決策報告 · W27 · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ── STUDIO A Design System tokens ── */
+  :root {
+    --ds-bg:           #FFFFFF;
+    --ds-surface:      #F5F5F7;
+    --ds-ink:          #1D1D1F;
+    --ds-body:         #424245;
+    --ds-muted:        #86868B;
+    --ds-line:         #D2D2D7;
+    --ds-accent:       #2D7DD2;
+    --ds-accent-deep:  #1F5FA8;
+    --ds-warn:         #D93025;
+    --ds-warn-bg:      #FFF2F1;
+    --ds-radius-card:  14px;
+    --ds-radius:       10px;
+    --ds-shadow-card:  0 1px 2px rgba(0,0,0,.04);
+    --ds-shadow-soft:  0 1px 3px rgba(0,0,0,.04), 0 6px 20px rgba(0,0,0,.05);
+    --ds-font: 'Noto Sans TC', -apple-system, 'SF Pro TC', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ds-surface);
+    font-family: var(--ds-font);
+    color: var(--ds-body);
+    -webkit-font-smoothing: antialiased;
+    padding: 48px 24px 72px;
+  }
+
+  /* ── PAGE ── */
+  .page {
+    background: var(--ds-bg);
+    max-width: 1080px;
+    margin: 0 auto;
+    border-radius: var(--ds-radius-card);
+    box-shadow: var(--ds-shadow-soft);
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    padding: 40px 60px 32px;
+    border-bottom: 1px solid var(--ds-line);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .wordmark {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    color: var(--ds-ink);
+    line-height: 1;
+  }
+  .wordmark span {
+    color: var(--ds-accent);
+    font-weight: 800;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .report-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ds-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .report-sub {
+    font-size: 13px;
+    color: var(--ds-muted);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── BODY ── */
+  .page-body {
+    padding: 40px 60px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  /* ── CALLOUT (Insight) ── */
+  .callout {
+    background: var(--ds-surface);
+    border-radius: var(--ds-radius);
+    border-left: 3px solid var(--ds-accent);
+    padding: 24px 28px;
+  }
+  .callout-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ds-accent);
+    margin-bottom: 12px;
+  }
+  .callout-body {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--ds-body);
+    line-height: 1.65;
+  }
+  .callout-body strong {
+    color: var(--ds-ink);
+    font-weight: 700;
+  }
+  .callout-body .warn-text {
+    color: var(--ds-warn);
+    font-weight: 700;
+  }
+
+  /* ── SECTION ── */
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ds-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ds-line);
+    margin-bottom: 0;
+  }
+
+  /* ── TABLE ── */
+  .tbl-card {
+    background: var(--ds-bg);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-radius-card);
+    overflow: hidden;
+    box-shadow: var(--ds-shadow-card);
+  }
+  .tbl-head-row {
+    padding: 0 24px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead th {
+    padding: 14px 12px 14px 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ds-muted);
+    text-align: left;
+    border-bottom: 1px solid var(--ds-line);
+  }
+  thead th:first-child { padding-left: 24px; }
+  thead th.r { text-align: right; }
+
+  tbody td {
+    padding: 14px 12px 14px 0;
+    font-size: 15px;
+    color: var(--ds-body);
+    border-bottom: 1px solid var(--ds-line);
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+  tbody td:first-child { padding-left: 24px; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.item { font-weight: 600; color: var(--ds-ink); }
+  td.cat  { color: var(--ds-muted); font-size: 14px; }
+  td.num  { font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; }
+  td.action { font-size: 14px; }
+  td.action.hold { color: var(--ds-muted); }
+
+  /* ── LOW STOCK (warn) ── */
+  tr.warn-row td {
+    background: var(--ds-warn-bg);
+    color: #7A1A12;
+  }
+  tr.warn-row td.item { color: var(--ds-warn); font-weight: 700; }
+  tr.warn-row td.num  { color: var(--ds-warn); }
+  tr.warn-row .badge  { background: var(--ds-warn); color: #fff; }
+  tr.warn-row td.action { color: var(--ds-warn); font-weight: 600; }
+
+  /* ── OVERSTOCK ── */
+  tr.over-row td {
+    background: #FFF7F5;
+    color: #7A3B2A;
+  }
+  tr.over-row td.item { color: #B94E2D; font-weight: 700; }
+  tr.over-row .badge  { background: #B94E2D; color: #fff; }
+  tr.over-row td.action { color: #B94E2D; font-weight: 600; }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--ds-surface);
+    color: var(--ds-muted);
+    white-space: nowrap;
+  }
+  .badge.ok { background: #E6F2E6; color: #1A6B1A; }
+
+  /* ── STAGE CHIP ── */
+  .stage {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--ds-radius);
+    background: var(--ds-surface);
+    color: var(--ds-muted);
+    border: 1px solid var(--ds-line);
+    white-space: nowrap;
+  }
+  .stage.active {
+    background: var(--ds-ink);
+    color: #fff;
+    border-color: var(--ds-ink);
+  }
+  .stage.near {
+    background: #EDF3FB;
+    color: var(--ds-accent);
+    border-color: var(--ds-accent);
+  }
+
+  td.deadline { font-size: 14px; }
+  td.deadline.soon { color: var(--ds-warn); font-weight: 600; }
+  td.pct { text-align: right; font-size: 15px; font-weight: 600; }
+  td.pct.high { color: #1A6B1A; }
+  td.pct.mid  { color: #8A5200; }
+  td.amount { text-align: right; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ds-ink); }
+
+  td.bid-action { font-size: 14px; color: var(--ds-body); }
+  td.bid-action.urgent { font-weight: 700; color: var(--ds-ink); }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    padding: 20px 60px 32px;
+    border-top: 1px solid var(--ds-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-note {
+    font-size: 12px;
+    color: var(--ds-muted);
+    line-height: 1.5;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { border-radius: 0; box-shadow: none; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <header class="page-header">
+    <div class="wordmark">STUDIO<span> A</span></div>
+    <div class="header-right">
+      <div class="report-title">週決策報告</div>
+      <div class="report-sub">EPB 教育事業部 &nbsp;·&nbsp; W27 &nbsp;·&nbsp; 2026-06-30 — 2026-07-06</div>
+    </div>
+  </header>
+
+  <div class="page-body">
+
+    <!-- ── INSIGHT CALLOUT ── -->
+    <div>
+      <div class="section-title" style="margin-bottom:16px;">本週重點判斷</div>
+      <div class="callout">
+        <div class="callout-label">分析摘要</div>
+        <div class="callout-body">
+          <strong>本週最緊迫是補貨：</strong>iPad A 僅剩 1.4 週、iPad B 僅剩 1.7 週，不補最快下週就會斷鏈。
+          標案首選<strong>全校 iPad 教學載具（校 A，168 萬，達成率 85%，交機中）</strong>，搭配 7 月 8 日決標的行政 iPad 擴充（校 K），本週可雙線收割；充電車 E 積壓 17 週，建議搭售到校 A 交機訂單一併清庫。
+          <span class="warn-text">需特別注意：</span>校 A 同時有圖書館平板借閱（29 萬，7/12 評選決標），iPad A 若延誤交機將直接影響評選信用——補貨時程要和交機進度一起跟進，不能分開處理。
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 庫存決策表 ── -->
+    <div>
+      <div class="section-title" style="margin-bottom:16px;">庫存決策表</div>
+      <div class="tbl-card">
+        <table>
+          <thead>
+            <tr>
+              <th>品項</th>
+              <th>類目</th>
+              <th class="r">期末庫存</th>
+              <th class="r">週均出貨</th>
+              <th class="r">WOI（週）</th>
+              <th class="r">毛利率</th>
+              <th>狀態</th>
+              <th>建議行動</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="warn-row">
+              <td class="item">iPad 教育版 A</td>
+              <td class="cat">平板載具</td>
+              <td class="num">210</td>
+              <td class="num">150</td>
+              <td class="num"><strong>1.4</strong></td>
+              <td class="num">8.0%</td>
+              <td><span class="badge">低庫存</span></td>
+              <td class="action">補貨 390 台（→ 4 週）</td>
+            </tr>
+            <tr class="warn-row">
+              <td class="item">iPad 教育版 B</td>
+              <td class="cat">平板載具</td>
+              <td class="num">150</td>
+              <td class="num">88</td>
+              <td class="num"><strong>1.7</strong></td>
+              <td class="num">10.0%</td>
+              <td><span class="badge">低庫存</span></td>
+              <td class="action">補貨 202 台（→ 4 週）</td>
+            </tr>
+            <tr>
+              <td class="item">MacBook 教育版 C</td>
+              <td class="cat">筆電</td>
+              <td class="num">44</td>
+              <td class="num">20</td>
+              <td class="num">2.2</td>
+              <td class="num">6.0%</td>
+              <td><span class="badge ok">正常</span></td>
+              <td class="action hold">維持</td>
+            </tr>
+            <tr>
+              <td class="item">觸控筆 H</td>
+              <td class="cat">週邊配件</td>
+              <td class="num">1,300</td>
+              <td class="num">220</td>
+              <td class="num">5.9</td>
+              <td class="num">38.0%</td>
+              <td><span class="badge ok">正常</span></td>
+              <td class="action hold">維持</td>
+            </tr>
+            <tr>
+              <td class="item">平板保護殼 D</td>
+              <td class="cat">週邊配件</td>
+              <td class="num">1,700</td>
+              <td class="num">300</td>
+              <td class="num">5.7</td>
+              <td class="num">48.0%</td>
+              <td><span class="badge ok">正常</span></td>
+              <td class="action hold">維持</td>
+            </tr>
+            <tr>
+              <td class="item">AP 無線基地台 F</td>
+              <td class="cat">網路裝置</td>
+              <td class="num">240</td>
+              <td class="num">55</td>
+              <td class="num">4.4</td>
+              <td class="num">25.0%</td>
+              <td><span class="badge ok">正常</span></td>
+              <td class="action hold">維持</td>
+            </tr>
+            <tr>
+              <td class="item">螢幕 I</td>
+              <td class="cat">週邊配件</td>
+              <td class="num">260</td>
+              <td class="num">40</td>
+              <td class="num">6.5</td>
+              <td class="num">20.0%</td>
+              <td><span class="badge ok">正常</span></td>
+              <td class="action hold">維持</td>
+            </tr>
+            <tr>
+              <td class="item">轉接器 J</td>
+              <td class="cat">週邊配件</td>
+              <td class="num">900</td>
+              <td class="num">175</td>
+              <td class="num">5.1</td>
+              <td class="num">44.9%</td>
+              <td><span class="badge ok">正常</span></td>
+              <td class="action hold">維持</td>
+            </tr>
+            <tr class="over-row">
+              <td class="item">充電車 E</td>
+              <td class="cat">週邊配件</td>
+              <td class="num">120</td>
+              <td class="num">7</td>
+              <td class="num"><strong>17.1</strong></td>
+              <td class="num">22.0%</td>
+              <td><span class="badge">積壓</span></td>
+              <td class="action">搭售校 A 交機 / 促銷清庫</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── 標案優先排序 ── -->
+    <div>
+      <div class="section-title" style="margin-bottom:16px;">標案優先排序 <span style="font-weight:400;text-transform:none;letter-spacing:0;">— 達成率 ≥ 60%，進行中（已決標不列入）</span></div>
+      <div class="tbl-card">
+        <table>
+          <thead>
+            <tr>
+              <th>標案</th>
+              <th>學校</th>
+              <th class="r">金額（NT$）</th>
+              <th>階段</th>
+              <th>預計決標</th>
+              <th class="r">達成率</th>
+              <th>負責人</th>
+              <th>本週行動</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="item">全校 iPad 教學載具</td>
+              <td class="cat">校 A</td>
+              <td class="amount">1,680,000</td>
+              <td><span class="stage active">交機中</span></td>
+              <td class="deadline soon">07-10</td>
+              <td class="pct high">85%</td>
+              <td class="cat">Edick</td>
+              <td class="bid-action urgent">催交機文件 + 確認 iPad A 補貨時程</td>
+            </tr>
+            <tr>
+              <td class="item">行政 iPad 擴充</td>
+              <td class="cat">校 K</td>
+              <td class="amount">380,000</td>
+              <td><span class="stage near">決標前</span></td>
+              <td class="deadline soon">07-08</td>
+              <td class="pct high">82%</td>
+              <td class="cat">Max</td>
+              <td class="bid-action urgent">本週結案，最優先</td>
+            </tr>
+            <tr>
+              <td class="item">圖書館自助借還</td>
+              <td class="cat">校 P</td>
+              <td class="amount">320,000</td>
+              <td><span class="stage near">決標前</span></td>
+              <td class="deadline">07-15</td>
+              <td class="pct high">78%</td>
+              <td class="cat">Eddy</td>
+              <td class="bid-action">跟進文件，下週截止</td>
+            </tr>
+            <tr>
+              <td class="item">教師 MacBook 汰換</td>
+              <td class="cat">校 C</td>
+              <td class="amount">890,000</td>
+              <td><span class="stage">評選</span></td>
+              <td class="deadline">07-18</td>
+              <td class="pct mid">60%</td>
+              <td class="cat">Rabio</td>
+              <td class="bid-action">本週至少一次接觸</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /.page-body -->
+
+  <!-- ── FOOTER ── -->
+  <footer class="page-footer">
+    <div class="footer-note">資料來源：EPB 進出貨明細 2026-W27 · 排除退貨／作廢／調撥後有效出貨 187 筆</div>
+    <div class="footer-note" style="text-align:right;white-space:nowrap;">Generated by Claude · STUDIO A 教育事業部</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
