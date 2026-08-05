@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全公司月報 · 2026 年 7 月 · STUDIO A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ds-bg:#FFFFFF; --ds-surface:#F5F5F7; --ds-ink:#1D1D1F; --ds-body:#424245;
+    --ds-muted:#86868B; --ds-line:#D2D2D7; --ds-accent:#2D7DD2; --ds-accent-deep:#1F5FA8;
+    --ds-warn:#D93025; --ds-warn-bg:#FFF2F1; --ds-good:#1B7F4C; --ds-amber:#9A6314;
+    --ds-radius-card:14px; --ds-radius:10px;
+    --ds-shadow-soft:0 1px 3px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
+    --ds-font:'Noto Sans TC',-apple-system,'SF Pro TC','Helvetica Neue',Arial,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--ds-surface);font-family:var(--ds-font);color:var(--ds-body);
+       -webkit-font-smoothing:antialiased;padding:48px 24px 72px;}
+  .page{background:var(--ds-bg);max-width:1080px;margin:0 auto;
+        border-radius:var(--ds-radius-card);box-shadow:var(--ds-shadow-soft);overflow:hidden;}
+
+  .hd{padding:38px 56px 22px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;}
+  .wm{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--ds-ink);line-height:1;}
+  .wm span{color:var(--ds-accent);}
+  .hd-r{text-align:right;}
+  .hd-t{font-size:28px;font-weight:700;color:var(--ds-ink);letter-spacing:-.02em;line-height:1.15;}
+  .hd-s{font-size:14px;color:var(--ds-muted);margin-top:6px;}
+  /* 涵蓋範圍註記 —— 不是對帳狀態，是「這張表怎麼讀」 */
+  .scope{margin:0 56px;padding:0 0 18px;border-bottom:1px solid var(--ds-line);
+         font-size:12px;color:var(--ds-muted);line-height:1.6;}
+  .scope b{color:var(--ds-ink);font-weight:700;}
+
+  .ins{margin:26px 56px 0;padding:24px 28px;background:var(--ds-surface);
+       border-left:3px solid var(--ds-accent);border-radius:var(--ds-radius);}
+  .ins-l{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ds-accent-deep);}
+  .ins-b{font-size:16px;line-height:1.75;color:var(--ds-ink);margin-top:10px;}
+  .ins-b b{font-weight:700;}
+  .ins-w{margin-top:12px;padding-top:12px;border-top:1px solid var(--ds-line);
+         font-size:16px;line-height:1.7;color:var(--ds-ink);}
+  .ins-w em{font-style:normal;color:var(--ds-warn);font-weight:700;}
+
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ds-line);
+        margin:28px 56px 0;border:1px solid var(--ds-line);border-radius:var(--ds-radius);overflow:hidden;}
+  .kpi{background:var(--ds-bg);padding:20px 17px 18px;}
+  .kpi-l{font-size:11px;color:var(--ds-muted);letter-spacing:.02em;}
+  .kpi-v{font-size:29px;font-weight:800;color:var(--ds-ink);letter-spacing:-.02em;line-height:1.1;margin-top:8px;}
+  .kpi-v small{font-size:14px;font-weight:700;color:var(--ds-muted);margin-left:2px;}
+  .kpi-d{display:flex;gap:10px;margin-top:9px;flex-wrap:wrap;}
+  .dlt{font-size:12px;font-weight:700;white-space:nowrap;}
+  .dlt span{color:var(--ds-muted);font-weight:400;margin-right:3px;}
+  .up{color:var(--ds-good);} .dn{color:var(--ds-warn);} .fl{color:var(--ds-muted);}
+
+  .sec{margin:34px 56px 0;}
+  .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+         padding-bottom:10px;border-bottom:1px solid var(--ds-line);margin-bottom:18px;}
+  .sec-t{font-size:17px;font-weight:700;color:var(--ds-ink);}
+  .sec-n{font-size:12px;color:var(--ds-muted);}
+  .two{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;}
+  .two-eq{display:grid;grid-template-columns:1fr 1fr;gap:34px;}
+
+  .lg{display:flex;gap:18px;font-size:12px;color:var(--ds-muted);margin-bottom:10px;}
+  .lg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
+  .lg .ly{width:14px;height:2px;border-radius:0;background:var(--ds-muted);vertical-align:4px;}
+
+  .cat{display:flex;flex-direction:column;gap:14px;}
+  .cat-r{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:center;}
+  .cat-n{font-size:13px;color:var(--ds-ink);font-weight:700;line-height:1.3;}
+  .cat-n em{display:block;font-style:normal;font-size:11px;color:var(--ds-muted);font-weight:400;}
+  .bars{display:flex;flex-direction:column;gap:4px;}
+  .bar{display:flex;align-items:center;gap:8px;}
+  .bar-t{font-size:10px;color:var(--ds-muted);width:26px;flex:none;}
+  .bar-f{height:14px;border-radius:3px;}
+  .bar-v{font-size:11px;font-weight:700;color:var(--ds-body);}
+  .b-rev{background:#C7C7CC;} .b-gp{background:var(--ds-accent);}
+
+  /* 呆滯佔比橫條 */
+  .dead{display:flex;flex-direction:column;gap:15px;}
+  .dead-r{display:grid;grid-template-columns:62px 1fr 64px;gap:12px;align-items:center;}
+  .dead-n{font-size:13px;font-weight:700;color:var(--ds-ink);}
+  .dead-b{height:16px;border-radius:3px;background:#C7C7CC;}
+  .dead-b.hot{background:var(--ds-warn);}
+  .dead-b.mid{background:#E8A33D;}
+  .dead-v{font-size:13px;font-weight:800;color:var(--ds-body);text-align:right;}
+  .dead-v.hot{color:var(--ds-warn);}
+  .avgline{font-size:11px;color:var(--ds-muted);margin-top:4px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:right;font-size:11px;font-weight:700;color:var(--ds-muted);letter-spacing:.03em;
+     padding:0 11px 9px;border-bottom:1px solid var(--ds-line);white-space:nowrap;}
+  th:first-child,th.l{text-align:left;}
+  th:first-child{padding-left:0;} th:last-child{padding-right:0;}
+  td{text-align:right;padding:12px 11px;border-bottom:1px solid #EFEFF1;color:var(--ds-body);
+     font-variant-numeric:tabular-nums;white-space:nowrap;}
+  td:first-child,td.l{text-align:left;}
+  td:first-child{font-weight:700;color:var(--ds-ink);padding-left:0;}
+  td:last-child{padding-right:0;}
+  tr:last-child td{border-bottom:none;}
+  .warn-row td{background:var(--ds-warn-bg);}
+  .miss-row td{background:#FAFAFB;color:var(--ds-muted);}
+  .sum-row td{background:var(--ds-surface);font-weight:800;color:var(--ds-ink);
+              border-top:2px solid var(--ds-ink);border-bottom:none;}
+  .neg{color:var(--ds-warn);font-weight:700;} .pos{color:var(--ds-good);font-weight:700;}
+  .amb{color:var(--ds-amber);font-weight:700;}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px;}
+  .d-r{background:var(--ds-warn);} .d-g{background:var(--ds-good);} .d-a{background:#E8A33D;}
+  .d-m{background:#C7C7CC;}
+  .why{font-size:12px;line-height:1.6;color:var(--ds-body);white-space:normal;}
+
+  .ft{margin:34px 56px 0;padding:20px 0 34px;border-top:1px solid var(--ds-line);
+      display:flex;justify-content:space-between;font-size:11px;color:var(--ds-muted);gap:16px;}
+
+  /* ---- 課堂標號（教學用疊層，不是報表的一部分） ---- */
+  .cbadge{display:inline-flex;align-items:center;gap:7px;background:#7B4FB0;color:#fff;
+          font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:4px 12px;
+          border-radius:999px;margin-bottom:9px;line-height:1.25;}
+  .cbadge .n{font-size:14px;line-height:1;}
+  .cbadge-i{display:inline-flex;align-items:center;gap:6px;background:#7B4FB0;color:#fff;
+            font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:3px 11px;
+            border-radius:999px;margin-right:11px;line-height:1.25;vertical-align:middle;}
+  .cbadge-i .n{font-size:13px;line-height:1;}
+  .clegend{border:1px dashed #7B4FB0;color:#7B4FB0;background:#faf7ff;font-size:11.5px;
+           padding:7px 14px;border-radius:6px;margin-bottom:18px;line-height:1.5;}
+  </style>
+</head>
+<body>
+<div class="page">
+
+<div class="clegend"><b>① – ⑨ 是課堂用的標號，不是報表的一部分。</b>每個標號＝一個「零件」，牆上的零件卡對應這些編號 —— 你的報表不用全做，挑你真的要回答的那幾塊。</div>
+  <div class="hd">
+    <div>
+      <div class="wm">STUDIO <span>A</span></div>
+      <div style="font-size:12px;color:var(--ds-muted);margin-top:7px;">財會 · 月結</div>
+    </div>
+    <div class="hd-r">
+      <div class="hd-t">全公司月報 · 2026 年 7 月</div>
+      <div class="hd-s">2026/07/01 – 07/31　·　產出時間 08/04 11:10</div>
+    </div>
+  </div>
+  <div class="cbadge"><span class="n">①</span>這是什麼 · 涵蓋什麼</div>
+  <div class="scope">
+    <b>涵蓋範圍</b>：5 區 23 門市　·　<b>資料基準</b>：系統月結底稿（08/03 匯出，12 個檔）＋ 成本檔 7/21 調價後版本。
+    含 <b>7/12 新開幕的中區斗六店</b>（首月營業 20 天，MoM 已還原為可比基礎）。撈檔的對帳結果見另一份月結差異分析。
+  </div>
+
+  <div class="cbadge"><span class="n">②</span>結論先講</div>
+  <div class="ins">
+    <div class="ins-l">7 月月結 · 判斷</div>
+    <div class="ins-b">
+      7 月 <b>107,053,100</b>，月達成 <b>92%</b>，比 6 月 <b>−2.7%</b>、比去年 7 月 <b>+9.4%</b>。
+      <b>五區全數未達標</b> —— 北一區 94% 最高、南區 86% 最低，落差 8 個百分點。
+      毛利率 <b>18.3%（+0.4pt）</b>：營收在掉、獲利率反而升 —— 是配件與 AppleCare 撐起來的，
+      主機用 55% 的營收只換到 20% 的毛利。
+    </div>
+    <div class="cbadge"><span class="n">③</span>要你今天動的</div>
+    <div class="ins-w">
+      <em>⚠ 三個訊號指向同一區</em>：南區<b>達成率 86%</b>（最低）、<b>毛利率 16.9%</b>（最低）、
+      <b>呆滯庫存佔 19.8%</b>（最高，全公司 11.4%）。三件事是同一件 ——
+      <b>舊品沒清掉，佔著庫存金額又把毛利拉下來</b>。不是單月波動，呆滯比已連三個月上升。
+    </div>
+  </div>
+
+  <div class="cbadge"><span class="n">④</span>定盤的幾個數字</div>
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-l">7 月營收</div>
+      <div class="kpi-v">107,053<small>K</small></div>
+      <div class="kpi-d"><span class="dlt dn"><span>MoM</span>−2.7%</span><span class="dlt up"><span>YoY</span>+9.4%</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">月達成率</div>
+      <div class="kpi-v">92<small>%</small></div>
+      <div class="kpi-d"><span class="dlt fl"><span>目標</span>116,400K</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">毛利額 · 毛利率</div>
+      <div class="kpi-v">18.3<small>%</small></div>
+      <div class="kpi-d"><span class="dlt fl">19,591K</span><span class="dlt up"><span>MoM</span>+0.4pt</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">期末庫存 · 週轉</div>
+      <div class="kpi-v">104,500<small>K</small></div>
+      <div class="kpi-d"><span class="dlt fl">1.19 個月</span><span class="dlt dn"><span>MoM</span>+0.06</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">呆滯庫存（&gt;90 天）</div>
+      <div class="kpi-v">11,936<small>K</small></div>
+      <div class="kpi-d"><span class="dlt dn">佔 11.4%</span><span class="dlt dn"><span>MoM</span>+1.4pt</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t"><span class="cbadge-i"><span class="n">⑤</span>拆給你看 · 按區</span>各區</div>
+      <div class="sec-n">依 7 月營收排序　·　金額單位：元　·　呆滯＝庫齡 &gt; 90 天</div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>區</th><th>7 月營收</th><th>達成率</th><th>MoM</th><th>YoY</th><th>毛利率</th><th>期末庫存</th><th>週轉</th><th>呆滯</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="dot d-g"></span>北一區</td><td>28,412,600</td><td>94%</td><td class="neg">−1.8%</td><td class="pos">+12.4%</td><td>18.8%</td><td>27,600,000</td><td>1.19</td><td class="pos">6.7%</td></tr>
+        <tr><td><span class="dot d-g"></span>北二區</td><td>25,180,400</td><td>93%</td><td class="neg">−2.1%</td><td class="pos">+10.6%</td><td>19.0%</td><td>24,900,000</td><td>1.22</td><td>9.3%</td></tr>
+        <tr><td><span class="dot d-a"></span>中區</td><td>18,640,300</td><td>89%</td><td class="neg">−3.4%</td><td class="pos">+8.2%</td><td>17.6%</td><td>18,400,000</td><td>1.22</td><td class="amb">16.2%</td></tr>
+        <tr class="warn-row"><td><span class="dot d-r"></span>南區</td><td>17,905,200</td><td>86%</td><td class="neg">−4.8%</td><td class="pos">+5.1%</td><td>16.9%</td><td>17,300,000</td><td>1.19</td><td class="neg">19.8%</td></tr>
+        <tr><td><span class="dot d-g"></span>東區</td><td>16,914,600</td><td>91%</td><td class="neg">−2.4%</td><td class="pos">+9.8%</td><td>18.4%</td><td>16,300,000</td><td>1.18</td><td>8.5%</td></tr>
+        <tr class="sum-row"><td>合計（5 區）</td><td>107,053,100</td><td>92%</td><td class="neg">−2.7%</td><td class="pos">+9.4%</td><td>18.3%</td><td>104,500,000</td><td>1.19</td><td>11.4%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <div class="two">
+      <div>
+        <div class="sec-h">
+          <div class="sec-t"><span class="cbadge-i"><span class="n">⑥</span>波動還是趨勢</span>近 13 個月營收</div>
+          <div class="sec-n">單位：千元</div>
+        </div>
+        <div class="lg">
+          <span><i style="background:#C7C7CC;"></i>近 12 個月</span>
+          <span><i style="background:var(--ds-accent);"></i>本月</span>
+          <span><i class="ly"></i>去年同月</span>
+        </div>
+        <svg viewBox="0 0 560 210" width="100%" height="210" role="img" aria-label="近 13 個月營收，今年柱狀、去年同月折線">
+          <g stroke="#EFEFF1" stroke-width="1">
+            <line x1="40" y1="20"  x2="556" y2="20"/>
+            <line x1="40" y1="65"  x2="556" y2="65"/>
+            <line x1="40" y1="110" x2="556" y2="110"/>
+            <line x1="40" y1="155" x2="556" y2="155"/>
+          </g>
+          <g font-size="9" fill="#86868B">
+            <text x="36" y="23"  text-anchor="end">129,000</text>
+            <text x="36" y="68"  text-anchor="end">114,000</text>
+            <text x="36" y="113" text-anchor="end">99,000</text>
+            <text x="36" y="158" text-anchor="end">84,000</text>
+          </g>
+          <g fill="#C7C7CC">
+            <rect x="46"  y="113.4" width="24" height="41.6"  rx="3"/>
+            <rect x="86"  y="103.8" width="24" height="51.2"  rx="3"/>
+            <rect x="126" y="62.1"  width="24" height="92.9"  rx="3"/>
+            <rect x="166" y="92.8"  width="24" height="62.2"  rx="3"/>
+            <rect x="206" y="81.3"  width="24" height="73.7"  rx="3"/>
+            <rect x="246" y="37.9"  width="24" height="117.1" rx="3"/>
+            <rect x="286" y="71.0"  width="24" height="84.0"  rx="3"/>
+            <rect x="326" y="122.7" width="24" height="32.3"  rx="3"/>
+            <rect x="366" y="91.0"  width="24" height="64.0"  rx="3"/>
+            <rect x="406" y="86.0"  width="24" height="69.0"  rx="3"/>
+            <rect x="446" y="74.2"  width="24" height="80.8"  rx="3"/>
+            <rect x="486" y="77.1"  width="24" height="77.9"  rx="3"/>
+          </g>
+          <rect x="526" y="85.8" width="24" height="69.2" rx="3" fill="#2D7DD2"/>
+          <polyline fill="none" stroke="#86868B" stroke-width="1.6" stroke-dasharray="4 3"
+            points="58,135.5 98,125.9 138,88.5 178,116.3 218,106.6 258,65.7 298,96.7 338,145.5 378,115.2 418,110.6 458,100.2 498,103.1 538,113.4"/>
+          <circle cx="538" cy="113.4" r="2.6" fill="#86868B"/>
+          <g font-size="9" fill="#86868B" text-anchor="middle">
+            <text x="58"  y="176">25/07</text><text x="178" y="176">25/10</text>
+            <text x="298" y="176">26/01</text><text x="418" y="176">26/04</text>
+            <text x="538" y="176">26/07</text>
+          </g>
+          <text x="538" y="196" font-size="10" font-weight="700" fill="#2D7DD2" text-anchor="middle">107,053</text>
+        </svg>
+        <div style="font-size:12px;color:var(--ds-muted);line-height:1.6;margin-top:6px;">
+          25/09 與 25/12 兩個高點是新品季與年末檔期；26/02 低點是農曆年。7 月屬淡季，比去年同月仍 +9.4%。
+        </div>
+      </div>
+      <div>
+        <div class="sec-h"><div class="sec-t"><span class="cbadge-i"><span class="n">⑦</span>拆給你看 · 按品類</span>品類：營收佔比 vs 毛利佔比</div></div>
+        <div class="cat">
+          <div class="cat-r">
+            <div class="cat-n">主機<em>iPhone / iPad / Mac</em></div>
+            <div class="bars">
+              <div class="bar"><span class="bar-t">營收</span><span class="bar-f b-rev" style="width:55%"></span><span class="bar-v">55%</span></div>
+              <div class="bar"><span class="bar-t">毛利</span><span class="bar-f b-gp" style="width:20%"></span><span class="bar-v">20%</span></div>
+            </div>
+          </div>
+          <div class="cat-r">
+            <div class="cat-n">配件<em>保護殼 / 充電 / 音訊</em></div>
+            <div class="bars">
+              <div class="bar"><span class="bar-t">營收</span><span class="bar-f b-rev" style="width:23%"></span><span class="bar-v">23%</span></div>
+              <div class="bar"><span class="bar-t">毛利</span><span class="bar-f b-gp" style="width:47%"></span><span class="bar-v">47%</span></div>
+            </div>
+          </div>
+          <div class="cat-r">
+            <div class="cat-n">延保<em>AppleCare+</em></div>
+            <div class="bars">
+              <div class="bar"><span class="bar-t">營收</span><span class="bar-f b-rev" style="width:8%"></span><span class="bar-v">8%</span></div>
+              <div class="bar"><span class="bar-t">毛利</span><span class="bar-f b-gp" style="width:19%"></span><span class="bar-v">19%</span></div>
+            </div>
+          </div>
+          <div class="cat-r">
+            <div class="cat-n">服務<em>維修 / 安裝</em></div>
+            <div class="bars">
+              <div class="bar"><span class="bar-t">營收</span><span class="bar-f b-rev" style="width:6%"></span><span class="bar-v">6%</span></div>
+              <div class="bar"><span class="bar-t">毛利</span><span class="bar-f b-gp" style="width:10%"></span><span class="bar-v">10%</span></div>
+            </div>
+          </div>
+          <div class="cat-r">
+            <div class="cat-n">週邊 3C<em>螢幕 / 鍵鼠 / 儲存</em></div>
+            <div class="bars">
+              <div class="bar"><span class="bar-t">營收</span><span class="bar-f b-rev" style="width:8%"></span><span class="bar-v">8%</span></div>
+              <div class="bar"><span class="bar-t">毛利</span><span class="bar-f b-gp" style="width:4%"></span><span class="bar-v">4%</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:14px 16px;background:var(--ds-surface);
+                    border-radius:var(--ds-radius);font-size:13px;line-height:1.65;color:var(--ds-ink);">
+          全公司跟各區看到的是同一件事：<br>
+          <b>主機扛營收、配件扛獲利。</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 庫存 ── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t"><span class="cbadge-i"><span class="n">⑧</span>深潛一層 · 到庫存</span>庫存：呆滯在哪裡</div>
+      <div class="sec-n">呆滯＝庫齡 &gt; 90 天　·　金額為成本</div>
+    </div>
+    <div class="two-eq">
+      <div>
+        <div style="font-family:var(--ds-font);font-size:13px;font-weight:700;color:var(--ds-ink);margin-bottom:14px;">各區呆滯佔比</div>
+        <div class="dead">
+          <div class="dead-r"><div class="dead-n">北一區</div><div class="dead-b" style="width:33.8%"></div><div class="dead-v">6.7%</div></div>
+          <div class="dead-r"><div class="dead-n">北二區</div><div class="dead-b" style="width:47.0%"></div><div class="dead-v">9.3%</div></div>
+          <div class="dead-r"><div class="dead-n">中區</div><div class="dead-b mid" style="width:81.8%"></div><div class="dead-v amb">16.2%</div></div>
+          <div class="dead-r"><div class="dead-n">南區</div><div class="dead-b hot" style="width:100%"></div><div class="dead-v hot">19.8%</div></div>
+          <div class="dead-r"><div class="dead-n">東區</div><div class="dead-b" style="width:42.9%"></div><div class="dead-v">8.5%</div></div>
+        </div>
+        <div class="avgline">全公司平均 <b style="color:var(--ds-body);">11.4%</b>　·　內部管理上限 10%　·　南區已連三個月超標</div>
+      </div>
+      <div>
+        <div style="font-family:var(--ds-font);font-size:13px;font-weight:700;color:var(--ds-ink);margin-bottom:6px;">呆滯集中在哪些品類</div>
+        <table>
+          <thead>
+            <tr><th>品類</th><th>呆滯金額</th><th>佔該類庫存</th><th class="l">建議</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>週邊 3C</td><td>3,560,000</td><td class="neg">34.2%</td><td class="l why">毛利本來就薄，優先促銷或退廠</td></tr>
+            <tr><td>主機（前代）</td><td>3,310,000</td><td>8.6%</td><td class="l why">搭配件出清，別單機降價</td></tr>
+            <tr><td>配件（舊機型）</td><td>2,540,000</td><td class="amb">21.4%</td><td class="l why">併進門市活動清</td></tr>
+            <tr><td>服務備品</td><td>1,610,000</td><td>18.9%</td><td class="l why">檢視備品水位設定</td></tr>
+            <tr><td>其他</td><td>916,000</td><td>4.1%</td><td class="l why">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── 怎麼算的 · 限制 ── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t"><span class="cbadge-i"><span class="n">⑨</span>怎麼算的 · 哪裡不能信</span>怎麼算的 · 這份表的限制</div>
+      <div class="sec-n">看數字之前，先知道它從哪來</div>
+    </div>
+    <div class="two-eq">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--ds-ink);margin-bottom:10px;">怎麼算的</div>
+        <div style="font-size:12px;line-height:1.85;color:var(--ds-body);">
+          <b>月達成率</b>＝ 7 月營收 ÷ 7 月目標（<code>月目標_2026.xlsx</code>，7/01 版）<br>
+          <b>毛利率</b>＝（營收 − 銷貨成本）÷ 營收；成本用 <b>7/21 調價後</b>版本<br>
+          <b>庫存週轉</b>＝ 期末庫存 ÷ 當月銷貨成本（單位：月）<br>
+          <b>呆滯</b>＝ 庫齡 &gt; 90 天的庫存成本 ÷ 期末庫存<br>
+          <b>MoM / YoY</b> 已排除 7/12 新開的斗六店，還原為可比基礎
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--ds-ink);margin-bottom:10px;">這份表的限制</div>
+        <div style="font-size:12px;line-height:1.85;color:var(--ds-body);">
+          · 12 個檔中 <b>3 處原本對不上、已修正</b>（明細見月結撈檔對帳）；<b>修正後未再回頭跟各區確認</b><br>
+          · 呆滯以庫齡表 <b>7/31 快照</b>計，8 月初已出貨的部分未扣除，<b>實際呆滯會略低於本表</b><br>
+          · 斗六店首月僅營業 20 天，<b>該店的達成率不具代表性</b>，不要單獨拿去比<br>
+          · 各區目標為年初版本，<b>期中若有調整未反映在本表</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft">
+    <div>資料來源：系統月結底稿 12 個檔 · 品項主檔／成本（7/21 版）· 庫齡表 · 月目標表　|　產出：Claude Code（本機）</div>
+    <div>⚠️ 示範資料，非實際數字</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7 月月結 · 撈檔對帳 · STUDIO A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ds-bg:#FFFFFF; --ds-surface:#F5F5F7; --ds-ink:#1D1D1F; --ds-body:#424245;
+    --ds-muted:#86868B; --ds-line:#D2D2D7; --ds-accent:#2D7DD2; --ds-accent-deep:#1F5FA8;
+    --ds-warn:#D93025; --ds-warn-bg:#FFF2F1; --ds-good:#1B7F4C;
+    --ds-radius-card:14px; --ds-radius:10px;
+    --ds-shadow-soft:0 1px 3px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
+    --ds-font:'Noto Sans TC',-apple-system,'SF Pro TC','Helvetica Neue',Arial,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--ds-surface);font-family:var(--ds-font);color:var(--ds-body);
+       -webkit-font-smoothing:antialiased;padding:48px 24px 72px;}
+  .page{background:var(--ds-bg);max-width:1080px;margin:0 auto;
+        border-radius:var(--ds-radius-card);box-shadow:var(--ds-shadow-soft);overflow:hidden;}
+
+  .hd{padding:38px 56px 28px;border-bottom:1px solid var(--ds-line);
+      display:flex;align-items:flex-end;justify-content:space-between;gap:24px;}
+  .wm{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--ds-ink);line-height:1;}
+  .wm span{color:var(--ds-accent);}
+  .hd-r{text-align:right;}
+  .hd-t{font-size:28px;font-weight:700;color:var(--ds-ink);letter-spacing:-.02em;line-height:1.15;}
+  .hd-s{font-size:14px;color:var(--ds-muted);margin-top:6px;}
+
+  .ins{margin:28px 56px 0;padding:24px 28px;background:var(--ds-surface);
+       border-left:3px solid var(--ds-accent);border-radius:var(--ds-radius);}
+  .ins-l{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ds-accent-deep);}
+  .ins-b{font-size:16px;line-height:1.75;color:var(--ds-ink);margin-top:10px;}
+  .ins-b b{font-weight:700;}
+  .ins-w{margin-top:12px;padding-top:12px;border-top:1px solid var(--ds-line);
+         font-size:16px;line-height:1.7;color:var(--ds-ink);}
+  .ins-w em{font-style:normal;color:var(--ds-warn);font-weight:700;}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ds-line);
+        margin:28px 56px 0;border:1px solid var(--ds-line);border-radius:var(--ds-radius);overflow:hidden;}
+  .kpi{background:var(--ds-bg);padding:20px 20px 18px;}
+  .kpi-l{font-size:12px;color:var(--ds-muted);letter-spacing:.04em;}
+  .kpi-v{font-size:32px;font-weight:800;color:var(--ds-ink);letter-spacing:-.02em;line-height:1.1;margin-top:8px;}
+  .kpi-v small{font-size:15px;font-weight:700;color:var(--ds-muted);margin-left:2px;}
+  .kpi-v.bad{color:var(--ds-warn);}
+  .kpi-n{font-size:12px;color:var(--ds-muted);margin-top:9px;}
+
+  .sec{margin:34px 56px 0;}
+  .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+         padding-bottom:10px;border-bottom:1px solid var(--ds-line);margin-bottom:18px;}
+  .sec-t{font-size:17px;font-weight:700;color:var(--ds-ink);}
+  .sec-n{font-size:12px;color:var(--ds-muted);}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:right;font-size:11px;font-weight:700;color:var(--ds-muted);letter-spacing:.03em;
+     padding:0 14px 9px;border-bottom:1px solid var(--ds-line);white-space:nowrap;}
+  th:first-child,th.l{text-align:left;}
+  th:first-child{padding-left:0;} th:last-child{padding-right:0;}
+  td{text-align:right;padding:12px 14px;border-bottom:1px solid #EFEFF1;color:var(--ds-body);
+     font-variant-numeric:tabular-nums;vertical-align:top;}
+  td:first-child,td.l{text-align:left;}
+  td:first-child{font-weight:700;color:var(--ds-ink);white-space:nowrap;padding-left:0;}
+  td:last-child{padding-right:0;}
+  tr:last-child td{border-bottom:none;}
+  .warn-row td{background:var(--ds-warn-bg);}
+  .neg{color:var(--ds-warn);font-weight:700;}
+  .why{font-size:12px;line-height:1.6;color:var(--ds-body);}
+  .why b{color:var(--ds-ink);}
+  .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;
+       padding:3px 8px;border-radius:99px;white-space:nowrap;}
+  .t-int{background:#FFF2F1;color:var(--ds-warn);}      /* 區間 */
+  .t-col{background:#FFF6E8;color:#9A6314;}             /* 欄位 */
+  .t-ver{background:#F0F4FA;color:var(--ds-accent-deep);} /* 版本 */
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px;}
+  .d-r{background:var(--ds-warn);} .d-g{background:var(--ds-good);} .d-a{background:#E8A33D;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:34px;}
+  .box{border:1px solid var(--ds-line);border-radius:var(--ds-radius);padding:20px 22px;}
+  .box-t{font-size:14px;font-weight:700;color:var(--ds-ink);margin-bottom:12px;}
+  .cause{display:flex;flex-direction:column;gap:11px;}
+  .cause-r{display:grid;grid-template-columns:1fr 46px;gap:10px;align-items:center;}
+  .cause-b{height:12px;border-radius:3px;background:var(--ds-accent);}
+  .cause-l{font-size:12px;color:var(--ds-ink);margin-bottom:5px;}
+  .cause-v{font-size:12px;font-weight:700;color:var(--ds-body);text-align:right;}
+
+  .ft{margin:34px 56px 0;padding:20px 0 34px;border-top:1px solid var(--ds-line);
+      display:flex;justify-content:space-between;font-size:11px;color:var(--ds-muted);gap:16px;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hd">
+    <div>
+      <div class="wm">STUDIO <span>A</span></div>
+      <div style="font-size:12px;color:var(--ds-muted);margin-top:7px;">財會 · 月結對帳</div>
+    </div>
+    <div class="hd-r">
+      <div class="hd-t">7 月月結 · 撈檔對帳</div>
+      <div class="hd-s">2026/07/01 – 07/31　·　系統匯出 12 個檔　·　產出時間 08/04 10:35</div>
+    </div>
+  </div>
+
+  <div class="ins">
+    <div class="ins-l">7 月月結 · 撈檔對帳結果</div>
+    <div class="ins-b">
+      這次月結從系統撈了 <b>12 個檔</b>、共 <b>60 個檢核項</b>，<b>3 處對不上</b>，差異合計 <b>NT$183,200</b>。
+      12 個檔都撈齊了，錯的不是少撈，是<b>撈下來的內容</b>。
+    </div>
+    <div class="ins-w">
+      <em>⚠ 三處錯的位置一樣</em>：<b>都不在計算，在撈檔那一步</b> ——
+      一個匯出時區間拉短一天、一個貼進總表時位移一欄、一個成本檔用到舊版。
+      這三種都可以在<b>撈檔的當下</b>就擋掉，不必等月結才發現 ——
+      <b>規則固定、每個月都要跑，正是該做成工具的形狀。</b>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-l">檢核項目</div>
+      <div class="kpi-v">60</div>
+      <div class="kpi-n">12 個檔 · 60 項</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">對不上</div>
+      <div class="kpi-v bad">3</div>
+      <div class="kpi-n">5.0%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">差異金額</div>
+      <div class="kpi-v bad">183<small>K</small></div>
+      <div class="kpi-n">另有 4,118K 屬欄位互換、淨額 0</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">檔案撈齊</div>
+      <div class="kpi-v">12<small>/12</small></div>
+      <div class="kpi-n">應撈 12 個 · 全數到齊</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t">差異明細</div>
+      <div class="sec-n">檔案值 vs 應為值　·　金額單位：元</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="l">檔案</th><th class="l">項目</th><th>檔案值</th><th>應為</th><th>差額</th><th class="l">研判原因</th><th>類型</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="warn-row">
+          <td class="l">中區明細_202607.xlsx</td><td class="l">月營收</td><td>18,516,000</td><td>18,640,300</td><td class="neg">−124,300</td>
+          <td class="l why">匯出時區間拉成 <b>7/01–7/30</b>，少了 <b>7/31</b> 一天。</td>
+          <td><span class="tag t-int">時間區間</span></td>
+        </tr>
+        <tr class="warn-row">
+          <td class="l">品類彙總_202607.xlsx</td><td class="l">配件 ↔ 延保</td><td>4,118,200 ↔ 0</td><td>0 ↔ 4,118,200</td><td class="neg">互換</td>
+          <td class="l why">貼進總表時<b>位移一欄</b>。總額對得起來，<b>品類拆解全錯</b>。</td>
+          <td><span class="tag t-col">欄位位移</span></td>
+        </tr>
+        <tr class="warn-row">
+          <td class="l">品項成本_20260720.xlsx</td><td class="l">毛利額</td><td>4,724,500</td><td>4,783,400</td><td class="neg">−58,900</td>
+          <td class="l why">撈到 <b>7/20 版</b>的成本檔，7/21 調價後的沒帶到。</td>
+          <td><span class="tag t-ver">檔案版本</span></td>
+        </tr>
+        <tr>
+          <td class="l">其餘 9 個檔</td><td class="l">全項</td><td colspan="2" style="text-align:center;color:var(--ds-muted);">—</td><td style="color:var(--ds-good);font-weight:700;">0</td>
+          <td class="l why">57 個檢核項全數相符。</td>
+          <td><span class="tag" style="background:#EDF7F1;color:var(--ds-good);">相符</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <div class="split">
+      <div>
+        <div class="sec-h"><div class="sec-t">這次撈的 12 個檔</div></div>
+        <table>
+          <thead><tr><th class="l">檔案</th><th>區間</th><th class="l">狀態</th></tr></thead>
+          <tbody>
+            <tr><td class="l"><span class="dot d-g"></span>EPB_出貨明細_202607.csv</td><td>07/01–07/31</td><td class="l">相符</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>POS_日結_202607.csv</td><td>07/01–07/31</td><td class="l">相符</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>北一區明細_202607.xlsx</td><td>07/01–07/31</td><td class="l">相符</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>北二區明細_202607.xlsx</td><td>07/01–07/31</td><td class="l">相符</td></tr>
+            <tr class="warn-row"><td class="l"><span class="dot d-r"></span>中區明細_202607.xlsx</td><td class="neg">07/01–07/<b>30</b></td><td class="l">區間短一天</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>南區明細_202607.xlsx</td><td>07/01–07/31</td><td class="l">相符</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>東區明細_202607.xlsx</td><td>07/01–07/31</td><td class="l">相符</td></tr>
+            <tr class="warn-row"><td class="l"><span class="dot d-r"></span>品類彙總_202607.xlsx</td><td>07/01–07/31</td><td class="l">貼入時欄位位移</td></tr>
+            <tr class="warn-row"><td class="l"><span class="dot d-r"></span>品項成本_<b>20260720</b>.xlsx</td><td class="neg">7/20 版</td><td class="l">版本過舊</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>庫齡表_20260731.xlsx</td><td>截至 07/31</td><td class="l">相符</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>月目標_2026.xlsx</td><td>2026 全年</td><td class="l">相符</td></tr>
+            <tr><td class="l"><span class="dot d-g"></span>去年同月_202507.csv</td><td>07/01–07/31</td><td class="l">相符</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="sec-h"><div class="sec-t">錯在哪一段</div><div class="sec-n">近 8 個月累計 26 處</div></div>
+        <div class="box">
+          <div class="cause">
+            <div>
+              <div class="cause-l">時間區間拉錯</div>
+              <div class="cause-r"><div class="cause-b" style="width:100%"></div><div class="cause-v">11 處</div></div>
+            </div>
+            <div>
+              <div class="cause-l">複製貼上欄位位移</div>
+              <div class="cause-r"><div class="cause-b" style="width:82%"></div><div class="cause-v">9 處</div></div>
+            </div>
+            <div>
+              <div class="cause-l">檔案版本用錯</div>
+              <div class="cause-r"><div class="cause-b" style="width:36%"></div><div class="cause-v">4 處</div></div>
+            </div>
+            <div>
+              <div class="cause-l">公式沒帶到</div>
+              <div class="cause-r"><div class="cause-b" style="width:18%"></div><div class="cause-v">2 處</div></div>
+            </div>
+            <div>
+              <div class="cause-l">計算本身算錯</div>
+              <div class="cause-r"><div class="cause-b" style="width:0%;min-width:3px;background:var(--ds-line);"></div><div class="cause-v">0 處</div></div>
+            </div>
+          </div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--ds-line);
+                      font-size:13px;line-height:1.65;color:var(--ds-ink);">
+            <b>26 處全部發生在「撈檔與貼上」那一段。</b><br>
+            算術一次都沒錯過 —— 該防的就是這一段。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft">
+    <div>資料來源：系統月結底稿 12 個檔（清單見左表）　|　產出：Claude Code（本機）</div>
+    <div>⚠️ 示範資料，非實際數字</div>
+  </div>
+
+</div>
+</body>
+</html>

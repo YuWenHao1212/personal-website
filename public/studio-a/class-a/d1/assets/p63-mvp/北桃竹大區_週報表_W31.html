@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>北桃竹大區 · W31 週報表 · STUDIO A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ── STUDIO A Design System tokens ── */
+  :root{
+    --ds-bg:#FFFFFF; --ds-surface:#F5F5F7; --ds-ink:#1D1D1F; --ds-body:#424245;
+    --ds-muted:#86868B; --ds-line:#D2D2D7; --ds-accent:#2D7DD2; --ds-accent-deep:#1F5FA8;
+    --ds-warn:#D93025; --ds-warn-bg:#FFF2F1; --ds-good:#1B7F4C;
+    --ds-radius-card:14px; --ds-radius:10px;
+    --ds-shadow-soft:0 1px 3px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
+    --ds-font:'Noto Sans TC',-apple-system,'SF Pro TC','Helvetica Neue',Arial,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--ds-surface);font-family:var(--ds-font);color:var(--ds-body);
+       -webkit-font-smoothing:antialiased;padding:48px 24px 72px;}
+  .page{background:var(--ds-bg);max-width:1080px;margin:0 auto;
+        border-radius:var(--ds-radius-card);box-shadow:var(--ds-shadow-soft);overflow:hidden;}
+
+  /* ── header ── */
+  .hd{padding:38px 56px 28px;border-bottom:1px solid var(--ds-line);
+      display:flex;align-items:flex-end;justify-content:space-between;gap:24px;}
+  .wm{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--ds-ink);line-height:1;}
+  .wm span{color:var(--ds-accent);}
+  .hd-r{text-align:right;}
+  .hd-t{font-size:28px;font-weight:700;color:var(--ds-ink);letter-spacing:-.02em;line-height:1.15;}
+  .hd-s{font-size:14px;color:var(--ds-muted);margin-top:6px;}
+
+  /* ── insight ── */
+  .ins{margin:0 56px;padding:24px 28px;background:var(--ds-surface);
+       border-left:3px solid var(--ds-accent);border-radius:var(--ds-radius);margin-top:28px;}
+  .ins-l{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ds-accent-deep);}
+  .ins-b{font-size:16px;line-height:1.75;color:var(--ds-ink);margin-top:10px;}
+  .ins-b b{font-weight:700;}
+  .ins-w{margin-top:12px;padding-top:12px;border-top:1px solid var(--ds-line);
+         font-size:16px;line-height:1.7;color:var(--ds-ink);}
+  .ins-w em{font-style:normal;color:var(--ds-warn);font-weight:700;}
+
+  /* ── KPI ── */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--ds-line);
+        margin:28px 56px 0;border:1px solid var(--ds-line);border-radius:var(--ds-radius);overflow:hidden;}
+  .kpi{background:var(--ds-bg);padding:20px 15px 18px;}
+  .kpi-l{font-size:11px;color:var(--ds-muted);letter-spacing:.02em;}
+  .kpi-v{font-size:27px;font-weight:800;color:var(--ds-ink);letter-spacing:-.02em;
+         line-height:1.1;margin-top:8px;}
+  .kpi-v small{font-size:14px;font-weight:700;color:var(--ds-muted);margin-left:2px;}
+  .kpi-d{display:flex;gap:10px;margin-top:9px;flex-wrap:wrap;}
+  .dlt{font-size:12px;font-weight:700;white-space:nowrap;}
+  .dlt span{color:var(--ds-muted);font-weight:400;margin-right:3px;}
+  .up{color:var(--ds-good);} .dn{color:var(--ds-warn);} .fl{color:var(--ds-muted);}
+
+  /* ── section ── */
+  .sec{margin:34px 56px 0;}
+  .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+         padding-bottom:10px;border-bottom:1px solid var(--ds-line);margin-bottom:18px;}
+  .sec-t{font-size:17px;font-weight:700;color:var(--ds-ink);}
+  .sec-n{font-size:12px;color:var(--ds-muted);}
+
+  /* ── table ── */
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:right;font-size:11px;font-weight:700;color:var(--ds-muted);letter-spacing:.03em;
+     padding:0 13px 9px;border-bottom:1px solid var(--ds-line);white-space:nowrap;}
+  th:first-child,th.l{text-align:left;}
+  th:first-child{padding-left:0;} th:last-child{padding-right:0;}
+  td{text-align:right;padding:11px 13px;border-bottom:1px solid #EFEFF1;color:var(--ds-body);
+     font-variant-numeric:tabular-nums;white-space:nowrap;}
+  td:first-child,td.l{text-align:left;}
+  td:first-child{font-weight:700;color:var(--ds-ink);padding-left:0;}
+  td:last-child{padding-right:0;}
+  tr:last-child td{border-bottom:none;}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px;}
+  .d-r{background:var(--ds-warn);} .d-g{background:var(--ds-good);} .d-a{background:#E8A33D;}
+  .d-b1{background:#2D7DD2;} .d-b2{background:#7B4FB0;}
+  .neg{color:var(--ds-warn);font-weight:700;} .pos{color:var(--ds-good);font-weight:700;}
+  .warn-row td{background:var(--ds-warn-bg);}
+  .amb-row td{background:#FFFAF2;}
+  .sum-row td{font-weight:800;color:var(--ds-ink);border-top:2px solid var(--ds-ink);background:var(--ds-surface);}
+  .rtag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.03em;
+        padding:2px 8px;border-radius:99px;white-space:nowrap;margin-left:8px;vertical-align:1px;}
+  .t-b1{background:#EAF2FB;color:var(--ds-accent-deep);}
+  .t-b2{background:#F3EDFB;color:#7B4FB0;}
+  .cue{display:flex;gap:20px;font-size:11px;color:var(--ds-muted);margin-top:12px;flex-wrap:wrap;}
+
+  .ft{margin:34px 56px 0;padding:20px 0 34px;border-top:1px solid var(--ds-line);
+      display:flex;justify-content:space-between;font-size:11px;color:var(--ds-muted);gap:16px;}
+
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <div>
+      <div class="wm">STUDIO <span>A</span></div>
+      <div style="font-size:12px;color:var(--ds-muted);margin-top:7px;">大區週報表</div>
+    </div>
+    <div class="hd-r">
+      <div class="hd-t">北桃竹大區 · W31 週報</div>
+      <div class="hd-s">2026/07/28 – 08/03　·　2 區 11 門市　·　產出時間 08/04 09:24</div>
+    </div>
+  </div>
+  <div class="ins">
+    <div class="ins-l">本週判斷</div>
+    <div class="ins-b">
+      北桃竹大區本週 <b>12,194,480</b>，月達成 <b>91%</b>，比上週 <b>−1.4%</b>、比去年同期 <b>+9.7%</b>。
+      合計看是持平 —— <b>分區看是兩件事</b>：北一 <b>−4.2%</b>（主機縮），北二 <b>+1.9%</b>（板橋、中壢帶動）。
+      毛利率 <b>18.1%（+0.5pt）</b>，兩區都是配件在扛。
+    </div>
+    <div class="ins-w">
+      <em>⚠ 兩件今天就要處理</em><br>
+      <b>①</b> 兩區同時在缺同兩個品項：<b>iPhone 17 Pro 256G</b>（北一 0.8 週、北二 1.1 週）、<b>AirPods Pro 3</b>（0.6／0.9 週）——
+      <b>大區合併下單</b>，別讓兩區各自去搶；<b>MacBook Air M4</b> 北一只剩 1.8 週、北二還壓 4.6 週（竹北 14 台）——
+      <b>先調撥、再談補貨</b>。明細見下方「跨區品項」。<br>
+      <b>②</b> <b>淡水（−9.6%）跟南港（−11.3%）掉法一樣</b>：來客小跌、客單價大跌。
+      不是單店問題，是大區的高單價機種賣不動 —— 要當一件事處理，不是兩件。
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-l">本週營收</div>
+      <div class="kpi-v">12,194<small>K</small></div>
+      <div class="kpi-d"><span class="dlt dn"><span>WoW</span>−1.4%</span><span class="dlt up"><span>YoY</span>+9.7%</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">月達成率（8 月累計）</div>
+      <div class="kpi-v">91<small>%</small></div>
+      <div class="kpi-d"><span class="dlt fl"><span>目標</span>54,000K</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">毛利額 · 毛利率</div>
+      <div class="kpi-v">18.1<small>%</small></div>
+      <div class="kpi-d"><span class="dlt fl">2,202K</span><span class="dlt up"><span>WoW</span>+0.5pt</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">來客數 · 客單價</div>
+      <div class="kpi-v">9,535<small>人</small></div>
+      <div class="kpi-d"><span class="dlt dn"><span>WoW</span>−1.1%</span><span class="dlt fl">客單 6,306</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">人效 · 每人時營收</div>
+      <div class="kpi-v">4,065<small>元</small></div>
+      <div class="kpi-d"><span class="dlt dn"><span>WoW</span>−1.9%</span><span class="dlt fl">3,000 人時</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">大區庫存 · 週轉風險</div>
+      <div class="kpi-v">9,150<small>K</small></div>
+      <div class="kpi-d"><span class="dlt dn">斷貨 5 項</span><span class="dlt fl">積壓 4 項</span></div>
+    </div>
+  </div>
+
+  <!-- ── 各區 roll-up ── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t">各區 roll-up</div>
+      <div class="sec-n">金額單位：元　·　每一列 ＝ 一位區經理那份各區週報表的合計列</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>區</th><th>本週營收</th><th>達成率</th><th>WoW</th><th>YoY</th><th>毛利率</th>
+          <th>來客</th><th>客單價</th><th>人效</th><th>附加率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="dot d-b1"></span>北一區</td><td>6,505,080</td><td>92%</td><td class="neg">−4.2%</td><td class="pos">+11.8%</td><td>18.6%</td><td>5,125</td><td>6,415</td><td>4,181</td><td>34%</td></tr>
+        <tr><td><span class="dot d-b2"></span>北二區</td><td>5,689,400</td><td>89%</td><td class="pos">+1.9%</td><td class="pos">+7.4%</td><td>17.4%</td><td>4,410</td><td>6,180</td><td>3,940</td><td>30%</td></tr>
+        <tr class="sum-row"><td>北桃竹大區 合計</td><td>12,194,480</td><td>91%</td><td class="neg">−1.4%</td><td class="pos">+9.7%</td><td>18.1%</td><td>9,535</td><td>6,306</td><td>4,065</td><td>32%</td></tr>
+      </tbody>
+    </table>
+    <div class="cue">
+      <span>這張表的每一列，就是一位區經理那份<b>週報表</b>最上面那排數字 —— 同一套規格，往上加總一層。</span>
+    </div>
+  </div>
+
+  <!-- ── 跨區門市排名 ── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t">11 門市一起排</div>
+      <div class="sec-n">依本週營收排序　·　金額單位：元　·　人效＝營收 ÷ 排班工時</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>門市</th><th>本週營收</th><th>達成率</th><th>WoW</th><th>毛利率</th>
+          <th>客單價</th><th>人效</th><th>附加率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="dot d-g"></span>信義<span class="rtag t-b1">北一</span></td><td>1,704,331</td><td>103%</td><td class="pos">+6.1%</td><td>19.1%</td><td>6,980</td><td class="pos">4,582</td><td>38%</td></tr>
+        <tr><td><span class="dot d-g"></span>板橋<span class="rtag t-b2">北二</span></td><td>1,498,200</td><td>96%</td><td class="pos">+3.2%</td><td>18.1%</td><td>6,510</td><td class="pos">4,310</td><td>35%</td></tr>
+        <tr><td><span class="dot d-g"></span>中壢<span class="rtag t-b2">北二</span></td><td>1,242,700</td><td>93%</td><td class="pos">+4.1%</td><td>17.6%</td><td>6,290</td><td>4,050</td><td>31%</td></tr>
+        <tr><td><span class="dot d-g"></span>天母<span class="rtag t-b1">北一</span></td><td>1,236,965</td><td>97%</td><td class="pos">+1.2%</td><td>20.4%</td><td>6,540</td><td>4,325</td><td class="pos">41%</td></tr>
+        <tr><td><span class="dot d-a"></span>內湖<span class="rtag t-b1">北一</span></td><td>1,105,864</td><td>95%</td><td class="neg">−2.8%</td><td>18.9%</td><td>6,320</td><td>4,126</td><td>33%</td></tr>
+        <tr><td><span class="dot d-a"></span>竹北<span class="rtag t-b2">北二</span></td><td>1,105,300</td><td>90%</td><td class="neg">−1.8%</td><td>17.2%</td><td>6,110</td><td>3,980</td><td>28%</td></tr>
+        <tr><td><span class="dot d-a"></span>新莊<span class="rtag t-b2">北二</span></td><td>1,021,600</td><td>88%</td><td class="pos">+0.9%</td><td>16.9%</td><td>6,040</td><td>3,890</td><td>27%</td></tr>
+        <tr><td><span class="dot d-a"></span>西門<span class="rtag t-b1">北一</span></td><td>910,711</td><td>91%</td><td class="neg">−5.4%</td><td>17.2%</td><td>6,050</td><td>4,066</td><td>29%</td></tr>
+        <tr class="warn-row"><td><span class="dot d-r"></span>淡水<span class="rtag t-b2">北二</span></td><td>821,600</td><td>82%</td><td class="neg">−9.6%</td><td>16.4%</td><td>5,890</td><td class="neg">3,810</td><td>24%</td></tr>
+        <tr class="warn-row"><td><span class="dot d-r"></span>南港<span class="rtag t-b1">北一</span></td><td>792,620</td><td>84%</td><td class="neg">−11.3%</td><td>16.2%</td><td>6,005</td><td class="neg">3,774</td><td>31%</td></tr>
+        <tr class="amb-row"><td><span class="dot d-a"></span>士林<span class="rtag t-b1">北一</span></td><td>754,589</td><td>88%</td><td class="neg">−7.9%</td><td>17.8%</td><td>6,140</td><td>3,850</td><td class="neg">21%</td></tr>
+      </tbody>
+    </table>
+    <div class="cue">
+      <span>單看北一，南港是「區內最差」；<b>跨區排開，淡水跟它掉法一模一樣</b> —— 這就是大區視圖存在的理由。</span>
+    </div>
+  </div>
+
+  <!-- ── 跨區品項 · 斷貨與調撥 ── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t">跨區品項：合併下單 vs 調撥</div>
+      <div class="sec-n">只列跨區要動的　·　WOI ＝ 庫存還夠賣幾週（庫存 ÷ 近 4 週均出貨）</div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>品項</th><th class="l">類目</th><th>北一 WOI（庫存）</th><th>北二 WOI（庫存）</th><th>大區 WOI</th><th class="l">建議</th></tr>
+      </thead>
+      <tbody>
+        <tr class="warn-row"><td>iPhone 17 Pro 256G</td><td class="l">主機</td><td class="woi woi-r">0.8（38 台）</td><td class="woi woi-r">1.1（52 台）</td><td class="woi woi-r">0.9</td><td class="l"><span class="rec r-buy">合併下單 · 急補</span></td></tr>
+        <tr class="warn-row"><td>AirPods Pro 3</td><td class="l">配件</td><td class="woi woi-r">0.6（41 件）</td><td class="woi woi-r">0.9（48 件）</td><td class="woi woi-r">0.7</td><td class="l"><span class="rec r-buy">合併下單 · 急補</span></td></tr>
+        <tr class="amb-row"><td>MacBook Air M4 13"</td><td class="l">主機</td><td class="woi woi-r">1.8（24 台）</td><td class="woi woi-a">4.6（61 台 · 竹北 14）</td><td class="woi">2.9</td><td class="l"><span class="rec r-clr">調撥：竹北 → 北一</span></td></tr>
+        <tr><td>外接螢幕 27"</td><td class="l">週邊</td><td class="woi woi-r">1.8（14 台）</td><td class="woi">2.4（19 台）</td><td class="woi">2.1</td><td class="l"><span class="rec r-buy">補</span></td></tr>
+      </tbody>
+    </table>
+    <div class="cue">
+      <span><b style="color:var(--ds-warn);">兩區都缺</b>　→ 合併下單 —— 量大好談，不互搶</span>
+      <span><b style="color:#9A6314;">一缺一多</b>　→ 先調撥（1–2 天）再補貨（1–2 週）—— 快一個數量級</span>
+    </div>
+  </div>
+
+  <!-- ── 怎麼算的 · 限制 ── -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-t">怎麼算的 · 這份表的限制</div>
+      <div class="sec-n">跨區彙總的前提：兩區口徑一致</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px;">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--ds-ink);margin-bottom:10px;">怎麼算的</div>
+        <div style="font-size:12px;line-height:1.85;color:var(--ds-body);">
+          <b>大區數字</b>＝ 各區<b>各區週報表的輸出</b>加總 —— 不重算原始檔，<b>單一計算來源</b>：區說多少、大區就是多少<br>
+          比率類（達成率／毛利率／附加率）用加總後重算，<b>不是兩區平均</b><br>
+          <b>達成率</b>＝ 大區 8 月累計營收 ÷ 兩區目標合計（目標表 8/01 版）<br>
+          <b>人效</b>＝ 大區營收 ÷ 兩區排班工時合計（含正職與 PT，不含教育訓練時數）<br>
+          <b>WOI</b>＝ 期末庫存 ÷ 近 4 週均出貨（單位：週），調撥建議依此排序
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--ds-ink);margin-bottom:10px;">這份表的限制</div>
+        <div style="font-size:12px;line-height:1.85;color:var(--ds-body);">
+          · <b>跨區彙總的前提是口徑一致</b> —— 兩區的人效分母、附加率定義若不同，加總出來就是垃圾；本表已用同一套規格產出<br>
+          · 人流為門市手動輸入，兩區低估程度不同，<b>跨區比來客只看趨勢</b><br>
+          · 未含 8/03 之後入帳的退貨，退貨率高的品項會略為高估<br>
+          · 門市店型不同（旗艦 vs 社區），<b>跨區排名看分布與掉法，不是只看名次</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft">
+    <div>資料來源：北一區 · 北二區 週報表輸出（不重算原始檔）＋ 月目標表（兩區）　|　產出：Claude Code（本機）</div>
+    <div>⚠️ 示範資料，非實際數字</div>
+  </div>
+
+</div>
+</body>
+</html>
