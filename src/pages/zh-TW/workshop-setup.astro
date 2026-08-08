@@ -2,438 +2,620 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = '用 AI 建你的個人指揮中心 — 課前環境建置指南';
-const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Claude Code、Obsidian，並下載 FLUX Vault。';
+const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Git、Claude Code、Obsidian，並下載 FLUX Vault。';
 ---
 
 <BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
-  <article class="py-10 md:py-14 lg:py-16">
-    <div class="container-prose">
-      <header class="mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold mb-3">用 AI 建你的個人指揮中心</h1>
-        <p class="text-lg text-ink-600">課前環境建置指南</p>
-        <p class="text-sm text-ink-400 mt-2">講師：余文皓 | mail@yu-wenhao.com</p>
-      </header>
+  <div id="workshop-setup">
+    <!-- ====== Hero ====== -->
+    <section class="bg-gradient-to-b from-cream-200 to-cream-50 border-b border-cream-300">
+      <div class="container-prose py-10 md:py-14">
+        <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-semibold mb-4">
+          用 AI 建你的個人指揮中心 · 課前準備
+        </p>
+        <h1 class="font-serif text-3xl md:text-5xl font-semibold tracking-tight text-ink-900 mb-4">課前環境建置指南</h1>
+        <p class="text-lg text-ink-600 max-w-2xl">
+          請在<strong class="text-ink-800">我們一對一會議前</strong>完成以下安裝。
+          卡在任何步驟都沒關係，截圖傳給我就好。
+        </p>
+        <div class="flex flex-wrap gap-2 mt-6 text-sm">
+          <span class="px-3 py-1.5 rounded-full bg-white border border-cream-300 text-ink-600">⏱ 約 20–30 分鐘</span>
+          <span class="px-3 py-1.5 rounded-full bg-white border border-cream-300 text-ink-600">🧰 4 個工具 + 1 個 vault</span>
+        </div>
+        <p class="text-sm text-ink-400 mt-4">講師：余文皓 ｜ mail@yu-wenhao.com</p>
+      </div>
+    </section>
 
-      <div class="prose prose-lg max-w-none [&_blockquote]:!border-l-slate-400">
-        <blockquote>
-          <p>
-            請在<strong>我們一對一會議前</strong>完成以下安裝。<br />
-            預估時間：20-30 分鐘。<br />
-            如果卡在任何步驟，截圖傳給我，我來協助。
-          </p>
-        </blockquote>
+    <!-- ====== Sticky OS Switcher ====== -->
+    <div class="sticky top-24 z-40 bg-cream-50/90 backdrop-blur border-b border-cream-300 shadow-sm">
+      <div class="container-prose py-2.5 flex items-center gap-3">
+        <span class="text-sm font-medium text-ink-600 flex-none">你的電腦：</span>
+        <div class="inline-flex rounded-full border border-cream-400 bg-cream-100 p-1" role="tablist" aria-label="選擇作業系統">
+          <button data-os-btn="mac" type="button" class="px-4 sm:px-5 py-1.5 rounded-full text-sm font-bold transition-all bg-accent text-white shadow">🍎 Mac</button>
+          <button data-os-btn="windows" type="button" class="px-4 sm:px-5 py-1.5 rounded-full text-sm font-bold transition-all text-ink-500 hover:text-ink-800">⊞ Windows</button>
+        </div>
+        <span id="os-indicator" class="ml-auto hidden sm:inline text-xs text-ink-400"></span>
+      </div>
+    </div>
 
-        <!-- OS Switcher -->
-        <p><strong>請先選擇你的電腦系統：</strong></p>
-        <div class="not-prose flex gap-3 my-6" id="os-switcher">
-          <button data-os-btn="mac" class="flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-accent bg-accent text-white shadow-md">🍎 Mac</button>
-          <button data-os-btn="windows" class="flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-ink-200 text-ink-500 hover:border-ink-300">⊞ Windows</button>
+    <article class="py-10 md:py-14">
+      <div class="container-prose" id="setup-content">
+
+        <!-- Overview -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-10">
+          <p class="text-sm font-semibold uppercase tracking-wider text-ink-400 mb-3">整份要做的事</p>
+          <div class="flex flex-wrap items-center gap-y-2 text-sm md:text-base font-medium text-ink-700">
+            <span class="px-3 py-1.5 rounded-lg bg-cream-100">確認 Claude Pro</span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cream-100">裝 4 個工具</span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cream-100">下載 FLUX Vault</span>
+            <span data-os="windows" class="contents">
+              <span class="mx-2 text-ink-300">→</span>
+              <span class="px-3 py-1.5 rounded-lg bg-cream-100">Claude Code 自動設定</span>
+            </span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cream-100">用 Obsidian 打開</span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700">驗證 ✓</span>
+          </div>
+          <p class="text-sm text-ink-500 mt-3">4 個工具 = VS Code / Git / Claude Code / Obsidian。上方切換 Mac 或 Windows，下面步驟會跟著變。</p>
         </div>
 
-        <p>整份要做的事：<strong>確認 Claude Pro</strong> → <strong>裝 4 個工具</strong>（VS Code / Git / Claude Code / Obsidian）→ <strong>下載 FLUX Vault</strong> → <span data-os="windows"><strong>讓 Claude Code 還原資料夾</strong> → </span>用 Obsidian 打開。</p>
-
-        <hr />
-
-        <!-- ====== Block 1: 課前安裝 ====== -->
-        <div class="not-prose mt-12 mb-8 py-5 px-6 bg-accent text-white rounded-lg">
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="mac">階段 1 / 2</div>
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="windows">階段 1 / 3</div>
-          <div class="text-2xl font-bold" data-os="mac">💻 課前安裝（步驟一 ~ 六）</div>
-          <div class="text-2xl font-bold" data-os="windows">💻 課前安裝（步驟一 ~ 五）</div>
-          <div class="text-sm mt-1 opacity-80">確認 Claude Pro + 裝 4 個工具 + 下載 vault · 約 20 分鐘</div>
+        <!-- ====== Stage 1: 課前安裝 ====== -->
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-2 mb-6">
+          <span class="px-3 py-1 rounded-full bg-accent text-white text-xs font-bold tracking-wide">階段 1<span data-os="mac"> / 2</span><span data-os="windows"> / 3</span></span>
+          <h2 class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink-900">💻 課前安裝</h2>
+          <span class="text-sm text-ink-400"><span data-os="mac">步驟 1–6</span><span data-os="windows">步驟 1–5</span> · 約 20 分鐘</span>
         </div>
 
-        <div class="border-l-4 border-accent pl-6 my-6">
+        <!-- Step 1: Claude Pro -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">1</span>
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">確認 Claude Pro 帳號<span class="text-ink-400 text-base font-normal ml-2">已有帳號可跳過</span></h3>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>工作坊要跑 Claude Code，需要 <strong>Claude Pro</strong> 訂閱（免費帳號跑不起來）。</p>
 
-        <h2>一、確認 Claude Pro 帳號（已有帳號可跳過）</h2>
+            <ol>
+              <li>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 註冊 / 登入</li>
+            </ol>
 
-        <ol>
-          <li>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 登入</li>
-        </ol>
+            <img src="/images/workshop/setup/01-claude-login.png" alt="Claude 註冊 / 登入頁面" />
 
-        <img src="/images/workshop/setup/01-claude-login.png" alt="Claude 登入頁面" />
-        <img src="/images/workshop/setup/02-claude-login-2.png" alt="Claude 登入選擇" />
+            <ol start={2}>
+              <li>過程中問「How are you planning to use Claude?」時、選 <strong>For personal use</strong></li>
+            </ol>
 
-        <ol start={2}>
-          <li>確認左下角顯示 <strong>Pro</strong> 字樣（沒有 Pro 訂閱、後面 Claude Code 跑不起來）</li>
-        </ol>
+            <img src="/images/workshop/setup/02-claude-login-2.png" alt="Claude onboarding — 選 For personal use" />
 
-        <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="claude.ai 左下角顯示 Pro 字樣 — 確認訂閱已生效" />
+            <ol start={3}>
+              <li>訂閱 <strong>Pro</strong> 方案 — 月繳（$20/月）或年繳（$17/月）都 OK、圖中是年繳</li>
+            </ol>
 
-        <blockquote>
-          <p>圖中是年繳方案（$17/月）— 月繳（$20/月）也 OK，只要有 <strong>Pro</strong> 訂閱即可。</p>
-        </blockquote>
+            <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="claude.ai 訂閱方案頁 — 選 Pro 方案" />
 
-        <hr />
-
-        <h2>二、安裝 VS Code（編輯器）</h2>
-
-        <p>VS Code 是看 <code>.md</code> 檔、改設定檔的工具。</p>
-
-        <ol>
-          <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
-          <li>下載你的作業系統對應版本：</li>
-        </ol>
-
-        <img data-os="mac" src="/images/workshop/mac.png" alt="VS Code 下載頁面 — Mac" />
-        <img data-os="windows" src="/images/workshop/window.png" alt="VS Code 下載頁面 — Windows" />
-
-        <div data-os="mac">
-          <ol start={3}>
-            <li>打開下載的 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
-            <li>打開 VS Code，確認可以正常啟動</li>
-          </ol>
+            <ol start={4}>
+              <li>訂閱完成後、確認 claude.ai <strong>左下角</strong>帳號處顯示 <strong>Pro</strong> 字樣</li>
+            </ol>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">左下角看到 <strong>Pro</strong> = OK。</p>
+          </div>
         </div>
 
-        <div data-os="windows">
-          <ol start={3}>
-            <li>執行下載的 <code>.exe</code> 安裝檔，按照安裝精靈步驟完成安裝</li>
-            <li>打開 VS Code，確認可以正常啟動</li>
-          </ol>
+        <!-- Step 2: VS Code -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">2</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 VS Code（編輯器）</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>VS Code 是看 <code>.md</code> 檔、改設定檔的工具。</p>
+
+            <ol>
+              <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
+              <li>下載你的作業系統對應版本：</li>
+            </ol>
+
+            <img data-os="mac" src="/images/workshop/mac.png" alt="VS Code 下載頁面 — Mac" />
+            <img data-os="windows" src="/images/workshop/window.png" alt="VS Code 下載頁面 — Windows" />
+
+            <div data-os="mac">
+              <ol start={3}>
+                <li>打開下載的 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
+                <li>打開 VS Code，確認可以正常啟動</li>
+              </ol>
+            </div>
+
+            <div data-os="windows">
+              <ol start={3}>
+                <li>執行下載的 <code>.exe</code> 安裝檔，按照安裝精靈步驟完成安裝</li>
+                <li>打開 VS Code，確認可以正常啟動</li>
+              </ol>
+            </div>
+
+            <h4>安裝 VS Code 擴充功能</h4>
+
+            <ol>
+              <li>打開 VS Code</li>
+              <li data-os="mac">按 <code>Cmd + Shift + X</code> 打開擴充功能側欄</li>
+              <li data-os="windows">按 <code>Ctrl + Shift + X</code> 打開擴充功能側欄</li>
+              <li>搜尋並安裝以下兩個擴充功能：</li>
+            </ol>
+
+            <p><strong>① Claude Code</strong>（作者 Anthropic）— 讓 VS Code 跟 Claude 整合的擴充功能。<strong>一定要裝</strong>。</p>
+
+            <p>搜「<code>claude code</code>」，選作者是 <strong>Anthropic</strong> 那個：</p>
+
+            <img src="/images/studio-a-install/01-claude-code-extension.webp" alt="VS Code 擴充功能市集 — Claude Code for VS Code（Anthropic 出品）" />
+
+            <p><strong>② Chinese (Traditional) Language Pack</strong>（作者 Microsoft）— VS Code 介面中文化、選用。</p>
+
+            <p>搜「<code>Chinese</code>」，選作者是 <strong>Microsoft</strong>、寫「<strong>中文(繁體)</strong>」那個：</p>
+
+            <img src="/images/studio-a-install/02-chinese-language-pack.webp" alt="VS Code 擴充功能市集 — Chinese (Traditional) Language Pack（Microsoft 出品）" />
+
+            <ol start={4}>
+              <li>兩個都裝完、重新啟動 VS Code</li>
+              <li>裝好 Claude Code extension 後，VS Code 右上角會出現一個 <strong>✱</strong> 符號 — 點它可以開 Claude 對話面板（第一次會要求登入 Anthropic 帳號，留到 vault 開好後一起處理）</li>
+            </ol>
+          </div>
         </div>
 
-        <h3>安裝 VS Code 擴充功能</h3>
+        <!-- Step 3: Git -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">3</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Git</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Git 是版本控制工具、後續 Claude workflow 會用到。</p>
 
-        <ol>
-          <li>打開 VS Code</li>
-          <li data-os="mac">按 <code>Cmd + Shift + X</code> 打開擴充功能側欄</li>
-          <li data-os="windows">按 <code>Ctrl + Shift + X</code> 打開擴充功能側欄</li>
-          <li>搜尋並安裝以下兩個擴充功能：</li>
-        </ol>
+            <div data-os="mac">
+              <p>macOS 沒預裝 Git、需透過終端機觸發 macOS Command Line Tools 安裝（會把 <strong>Python 3</strong> 也一起裝上）：</p>
 
-        <p><strong>① Claude Code</strong>（作者 Anthropic）— 讓 VS Code 跟 Claude 整合的擴充功能。<strong>一定要裝</strong>。</p>
+              <ol>
+                <li>打開剛裝好的 <strong>VS Code</strong>（不用開資料夾、空狀態即可）</li>
+                <li>按 <code>Ctrl + `</code> 打開 VS Code 內建終端機（cwd 在你的家目錄）</li>
+                <li>貼上以下指令、按 Enter：</li>
+              </ol>
 
-        <p>搜「<code>claude code</code>」，選作者是 <strong>Anthropic</strong> 那個：</p>
+              <pre><code>git --version</code></pre>
 
-        <img src="/images/studio-a-install/01-claude-code-extension.webp" alt="VS Code 擴充功能市集 — Claude Code for VS Code（Anthropic 出品）" />
+              <p>第一次跑會跳「安裝命令列工具」對話框（macOS 內建的開發者工具包、約 700MB、含 Git + Python + 其他）— 點<strong>安裝</strong>。下載 + 安裝完成後再跑一次 <code>git --version</code>。</p>
+            </div>
 
-        <p><strong>② Chinese (Traditional) Language Pack</strong>（作者 Microsoft）— VS Code 介面中文化、選用。</p>
+            <div data-os="windows">
+              <p>Windows 需透過 winget 安裝 Git：</p>
 
-        <p>搜「<code>Chinese</code>」，選作者是 <strong>Microsoft</strong>、寫「<strong>中文(繁體)</strong>」那個：</p>
+              <ol>
+                <li>打開 VS Code</li>
+                <li>按 <code>Ctrl + `</code> 打開內建終端機（PowerShell）</li>
+                <li>貼上以下指令、按 Enter：</li>
+              </ol>
 
-        <img src="/images/studio-a-install/02-chinese-language-pack.webp" alt="VS Code 擴充功能市集 — Chinese (Traditional) Language Pack（Microsoft 出品）" />
+              <pre><code>winget install Git.Git</code></pre>
 
-        <ol start={4}>
-          <li>兩個都裝完、重新啟動 VS Code</li>
-          <li>裝好 Claude Code extension 後，VS Code 右上角會出現一個 <strong>✱</strong> 符號 — 點它可以開 Claude 對話面板（第一次會要求登入 Anthropic 帳號，留到步驟六開 vault 後一起處理）</li>
-        </ol>
-
-        <hr />
-
-        <h2>三、安裝 Git</h2>
-
-        <p>Git 是版本控制工具、後續 Claude workflow 會用到。</p>
-
-        <div data-os="mac">
-          <p>macOS 沒預裝 Git、需透過終端機觸發 macOS Command Line Tools 安裝（會把 <strong>Python 3</strong> 也一起裝上）：</p>
-
-          <ol>
-            <li>打開剛裝好的 <strong>VS Code</strong>（不用開資料夾、空狀態即可）</li>
-            <li>按 <code>Ctrl + `</code> 打開 VS Code 內建終端機（cwd 在你的家目錄）</li>
-            <li>貼上以下指令、按 Enter：</li>
-          </ol>
-
-          <pre><code>git --version</code></pre>
-
-          <p>第一次跑會跳「安裝命令列工具」對話框（macOS 內建的開發者工具包、約 700MB、含 Git + Python + 其他）— 點<strong>安裝</strong>。下載 + 安裝完成後再跑一次 <code>git --version</code>。</p>
-
-          <p><strong>✓ 出現任何版本號（例 <code>git version 2.xx.x</code>，實際數字多少都沒關係）= 成功。</strong></p>
+              <ol start={4}>
+                <li>安裝完成後，<strong>關掉 VS Code 再重開</strong></li>
+                <li>打開新的終端機，輸入 <code>git --version</code></li>
+              </ol>
+            </div>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">出現任何版本號（例 <code class="bg-emerald-100 px-1 rounded">git version 2.xx.x</code>，實際數字多少都沒關係）= 成功。</p>
+          </div>
         </div>
 
-        <div data-os="windows">
-          <p>Windows 需透過 winget 安裝 Git：</p>
+        <!-- Step 4: Claude Code CLI -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">4</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Claude Code CLI</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Claude Code 是讓 AI 直接在你電腦裡讀寫檔案、執行指令的工具 — 工作坊全程主要用這個 CLI 版本（步驟二裝的 extension 是 GUI 版本、互補不衝突）。</p>
 
-          <ol>
-            <li>打開 VS Code</li>
-            <li>按 <code>Ctrl + `</code> 打開內建終端機（PowerShell）</li>
-            <li>貼上以下指令、按 Enter：</li>
-          </ol>
+            <ol>
+              <li>繼續用剛才的 VS Code 內建終端機（沒開的話按 <code>Ctrl + `</code> 打開）</li>
+              <li>貼上以下指令、按 Enter 執行：</li>
+            </ol>
 
-          <pre><code>winget install Git.Git</code></pre>
+            <div data-os="mac">
+              <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
 
-          <ol start={4}>
-            <li>安裝完成後，<strong>關掉 VS Code 再重開</strong></li>
-            <li>打開新的終端機，輸入 <code>git --version</code></li>
-          </ol>
+              <img src="/images/workshop/setup/07-terminal-install-claude.png" alt="終端機安裝 Claude Code" />
 
-          <p><strong>✓ 出現任何版本號（例 <code>git version 2.xx.x</code>，實際數字多少都沒關係）= 成功。</strong></p>
-        </div>
+              <ol start={3}>
+                <li>安裝完成後、貼上以下指令設定路徑：</li>
+              </ol>
 
-        <hr />
-
-        <h2>四、安裝 Claude Code CLI</h2>
-
-        <p>Claude Code 是讓 AI 直接在你電腦裡讀寫檔案、執行指令的工具 — 工作坊全程主要用這個 CLI 版本（步驟二裝的 extension 是 GUI 版本、互補不衝突）。</p>
-
-        <ol>
-          <li>繼續用剛才的 VS Code 內建終端機（沒開的話按 <code>Ctrl + `</code> 打開）</li>
-          <li>貼上以下指令、按 Enter 執行：</li>
-        </ol>
-
-        <div data-os="mac">
-          <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
-
-          <img src="/images/workshop/setup/07-terminal-install-claude.png" alt="終端機安裝 Claude Code" />
-
-          <ol start={3}>
-            <li>安裝完成後、貼上以下指令設定路徑：</li>
-          </ol>
-
-          <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+              <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc`}</code></pre>
 
-          <ol start={4}>
-            <li>關閉這個終端機（輸入 <code>exit</code>）、再按 <code>Ctrl + `</code> 打開新的</li>
-            <li>輸入 <code>claude --version</code> 驗證有版本號</li>
-          </ol>
-        </div>
+              <ol start={4}>
+                <li>關閉這個終端機（輸入 <code>exit</code>）、再按 <code>Ctrl + `</code> 打開新的</li>
+                <li>輸入 <code>claude --version</code> 驗證有版本號</li>
+              </ol>
+            </div>
 
-        <div data-os="windows">
-          <p>在終端機（PowerShell）中貼上以下指令、全部一次執行：</p>
+            <div data-os="windows">
+              <p>在終端機（PowerShell）中貼上以下指令、全部一次執行：</p>
 
-          <pre><code>{`irm https://claude.ai/install.ps1 | iex
+              <pre><code>{`irm https://claude.ai/install.ps1 | iex
 $claudePath = "$env:USERPROFILE\\.local\\bin"
 $currentPath = [Environment]::GetEnvironmentVariable('Path', 'User')
 if ($currentPath -notlike "*$claudePath*") {
   [Environment]::SetEnvironmentVariable("Path", "$currentPath;$claudePath", "User")
 }`}</code></pre>
 
-          <ol start={3}>
-            <li>完成後、<strong>關掉 VS Code 再重開</strong>、打開新的終端機</li>
-            <li>輸入 <code>claude --version</code> 驗證有版本號</li>
-          </ol>
+              <ol start={3}>
+                <li>完成後、<strong>關掉 VS Code 再重開</strong>、打開新的終端機</li>
+                <li>輸入 <code>claude --version</code> 驗證有版本號</li>
+              </ol>
+            </div>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base"><code class="bg-emerald-100 px-1 rounded">claude --version</code> 有版本號 = 裝好了。</p>
+          </div>
         </div>
 
-        <p><strong>✓ <code>claude --version</code> 有版本號 = 裝好了。</strong></p>
+        <!-- Step 5: FLUX Vault -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">5</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">下載 FLUX Vault 並用 VS Code 打開</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>FLUX 是我們在工作坊中使用的個人作業系統模板。下載後就是你的個人指揮中心。</p>
 
-        <blockquote>
-          <p>暫時不要跑 <code>claude</code>、登入留到<span data-os="mac">步驟六</span><span data-os="windows">步驟六</span>（開 vault 後）再做 — 那時跑起來會自動讀 vault 設定、體驗最完整。</p>
-        </blockquote>
+            <ol>
+              <li>下載對應你作業系統的版本：</li>
+            </ol>
 
-        <hr />
+            <div data-os="mac">
+              <p>
+                <a href="/downloads/FLUX-standard-mac.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition-colors no-underline shadow-sm">
+                  📥 下載 FLUX-standard-mac.zip
+                </a>
+              </p>
+            </div>
 
-        <h2>五、下載 FLUX Vault 並用 VS Code 打開</h2>
+            <div data-os="windows">
+              <p>
+                <a href="/downloads/FLUX-standard-windows.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition-colors no-underline shadow-sm">
+                  📥 下載 FLUX-standard-windows.zip
+                </a>
+              </p>
+            </div>
 
-        <p>FLUX 是我們在工作坊中使用的個人作業系統模板。下載後就是你的個人指揮中心。</p>
-
-        <ol>
-          <li>下載對應你作業系統的版本：</li>
-        </ol>
-
-        <div data-os="mac">
-          <p>
-            <a href="/downloads/FLUX-standard-mac.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
-              📥 下載 FLUX-standard-mac.zip
-            </a>
-          </p>
+            <ol start={2}>
+              <li>下載後解壓縮 <code>.zip</code> 檔案</li>
+              <li>把解壓縮後的 <code>FLUX Vault</code> 資料夾<strong>放到桌面</strong>（最容易找）</li>
+              <li>打開 <strong>VS Code</strong>、選單 <strong>File → Open Folder…</strong>（檔案 → 開啟資料夾）、選剛才那個 <code>FLUX Vault</code> 資料夾</li>
+              <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是、信任」</strong>（Yes, I trust the authors）</li>
+            </ol>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base" data-os="mac">左側 Explorer 看到 <code class="bg-emerald-100 px-1 rounded">Atlas / Calendar / Cockpit / Efforts / Guides / Inbox / Templates / .claude / .obsidian / CLAUDE.md / Home.md</code> = 開對了。</p>
+            <p class="text-emerald-900 text-sm md:text-base" data-os="windows">左側 Explorer 看到 <code class="bg-emerald-100 px-1 rounded">Atlas / Calendar / Cockpit / Efforts / Guides / Inbox / Templates / _claude / _obsidian / CLAUDE.md / Home.md</code> = 開對了。</p>
+          </div>
         </div>
 
+        <!-- Step 6 (Mac): Obsidian -->
+        <div data-os="mac" class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">6</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Obsidian 並打開 FLUX vault</h3>
+            </div>
+            <span class="flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap">🍎 Mac 步驟</span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
+
+            <ol>
+              <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+              <li>下載 Mac 版</li>
+              <li>打開下載的 <code>.dmg</code> 檔案、將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
+              <li>打開 <strong>Obsidian</strong>、選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
+              <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+              <li>選剛才解壓的 <code>FLUX Vault</code> 資料夾</li>
+              <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
+            </ol>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">看到 FLUX Vault 的首頁（<code class="bg-emerald-100 px-1 rounded">Home.md</code>）= 設定成功。</p>
+          </div>
+        </div>
+
+        <!-- ====== Stage 2 (Windows): Claude Code 還原 ====== -->
         <div data-os="windows">
-          <p>
-            <a href="/downloads/FLUX-standard-windows.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
-              📥 下載 FLUX-standard-windows.zip
-            </a>
-          </p>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-12 mb-6">
+            <span class="px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold tracking-wide">階段 2 / 3 · Windows 限定</span>
+            <h2 class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink-900">🤖 Claude 自己跑</h2>
+            <span class="text-sm text-ink-400">步驟 6 · 約 1 分鐘</span>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-emerald-200 shadow-sm p-6 md:p-8 mb-6">
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div class="flex items-center gap-3">
+                <span class="flex-none w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-lg">6</span>
+                <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">用 Claude Code 完成 vault 設定</h3>
+              </div>
+              <span class="flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 whitespace-nowrap">⊞ Windows 步驟</span>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <ol>
+                <li>繼續用剛才已打開 <code>FLUX Vault</code> 的 VS Code 視窗</li>
+                <li>按 <code>Ctrl + `</code> 打開內建終端機（cwd 自動在 vault 內）</li>
+                <li>輸入 <code>claude</code>、按 Enter 啟動 Claude Code</li>
+                <li>第一次跑會要求登入 — 按畫面指示登入你的 Claude 帳號（同 claude.ai 那個）</li>
+                <li>登入後、貼上以下這句話：</li>
+              </ol>
+
+              <pre><code>請讀取 Inbox/SETUP-CLAUDE.md 並依步驟執行</code></pre>
+
+              <ol start={6}>
+                <li>Claude Code 會自動偵測 + rename + 驗證。過程中可能會請你按「<strong>允許</strong>」執行某些指令（rename 資料夾、檢查結構）— 按允許即可</li>
+              </ol>
+            </div>
+            <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <p class="text-emerald-900 text-sm md:text-base">看到 Claude 回報 <code class="bg-emerald-100 px-1 rounded">VAULT OK</code> = 完成。</p>
+            </div>
+          </div>
         </div>
 
-        <ol start={2}>
-          <li>下載後解壓縮 <code>.zip</code> 檔案</li>
-          <li>把解壓縮後的 <code>FLUX Vault</code> 資料夾<strong>放到桌面</strong>（最容易找）</li>
-          <li>打開 <strong>VS Code</strong>、選單 <strong>File → Open Folder…</strong>（檔案 → 開啟資料夾）、選剛才那個 <code>FLUX Vault</code> 資料夾</li>
-          <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是、信任」</strong>（Yes, I trust the authors）</li>
-        </ol>
-
-        <div data-os="mac">
-          <p><strong>✓ 左側 Explorer 看到 <code>Atlas / Calendar / Cockpit / Efforts / Guides / Inbox / Templates / .claude / .obsidian / CLAUDE.md / Home.md</code> = 開對了。</strong></p>
+        <!-- ====== Stage 3: 驗證 ====== -->
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-12 mb-6">
+          <span class="px-3 py-1 rounded-full bg-accent text-white text-xs font-bold tracking-wide"><span data-os="mac">階段 2 / 2</span><span data-os="windows">階段 3 / 3</span></span>
+          <h2 class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink-900">✅ <span data-os="mac">驗證</span><span data-os="windows">打開 vault + 驗證</span></h2>
+          <span class="text-sm text-ink-400"><span data-os="mac">步驟 7 · 約 3 分鐘</span><span data-os="windows">步驟 7–8 · 約 5 分鐘</span></span>
         </div>
 
-        <div data-os="windows">
-          <p><strong>✓ 左側 Explorer 看到 <code>Atlas / Calendar / Cockpit / Efforts / Guides / Inbox / Templates / _claude / _obsidian / CLAUDE.md / Home.md</code> = 開對了。</strong></p>
+        <!-- Step 7 (Windows): Obsidian -->
+        <div data-os="windows" class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">7</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Obsidian 並打開 FLUX vault</h3>
+            </div>
+            <span class="flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap">⊞ Windows 步驟</span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
+
+            <ol>
+              <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+              <li>下載 Windows 版</li>
+              <li>執行下載的 <code>.exe</code> 安裝檔、按照步驟完成安裝</li>
+              <li>打開 <strong>Obsidian</strong>、選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
+              <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+              <li>選剛才解壓的 <code>FLUX Vault</code> 資料夾</li>
+              <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
+            </ol>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">看到 FLUX Vault 的首頁（<code class="bg-emerald-100 px-1 rounded">Home.md</code>）= 設定成功。</p>
+          </div>
         </div>
 
-        <!-- Mac-only: step 六 Obsidian 在 Block 1 內 -->
-        <div data-os="mac">
+        <!-- Verification checklist -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg"><span data-os="mac">7</span><span data-os="windows">8</span></span>
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">驗證安裝成功</h3>
+          </div>
 
-        <hr />
+          <div class="mb-5">
+            <div class="flex items-center justify-between text-sm text-ink-500 mb-2">
+              <span>下方逐項打勾：</span>
+              <span class="font-semibold text-ink-700"><span id="verify-progress-label">0 / 0</span> 完成</span>
+            </div>
+            <div class="h-2 rounded-full bg-cream-300 overflow-hidden">
+              <div id="verify-progress-bar" class="h-full bg-accent rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
 
-        <h2>六、安裝 Obsidian 並打開 FLUX vault</h2>
+          <div id="verify-list" class="grid gap-2.5">
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Claude Pro 帳號可登入 claude.ai、左下角顯示 Pro</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">VS Code 已安裝、可正常開啟</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">終端機 <code class="bg-cream-200 px-1 rounded text-sm">git --version</code> 有輸出</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">終端機 <code class="bg-cream-200 px-1 rounded text-sm">claude --version</code> 有輸出</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Obsidian 已安裝、可正常開啟</span>
+            </label>
+            <label data-os="windows" class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Claude Code 跑完 <code class="bg-cream-200 px-1 rounded text-sm">SETUP-CLAUDE.md</code>、看到 <code class="bg-cream-200 px-1 rounded text-sm">VAULT OK</code></span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">FLUX Vault 在 Obsidian 中可開啟、看到首頁</span>
+            </label>
+          </div>
 
-        <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
-
-        <ol>
-          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
-          <li>下載 Mac 版</li>
-          <li>打開下載的 <code>.dmg</code> 檔案、將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
-          <li>打開 <strong>Obsidian</strong>、選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
-          <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
-          <li>選剛才解壓的 <code>FLUX Vault</code> 資料夾</li>
-          <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
-        </ol>
-
-        <p><strong>✓ 看到 FLUX Vault 的首頁（<code>Home.md</code>）= 設定成功。</strong></p>
-
+          <p class="text-ink-600 mt-4">都打勾、你就準備好我們的會議了！</p>
         </div>
 
-        </div>
-        <!-- ====== End Block 1 ====== -->
-
-        <!-- ====== Block 2: Windows 限定 Claude Code 還原 ====== -->
-        <div data-os="windows">
-        <hr />
-
-        <div class="not-prose mt-12 mb-8 py-5 px-6 bg-emerald-700 text-white rounded-lg">
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">階段 2 / 3 · Windows 限定</div>
-          <div class="text-2xl font-bold">🤖 Claude 自己跑（步驟六）</div>
-          <div class="text-sm mt-1 opacity-80">跑一段 vault 設定 · 約 1 分鐘</div>
-        </div>
-
-        <div class="border-l-4 border-emerald-500 pl-6 my-6">
-
-        <h2>六、用 Claude Code 完成 vault 設定</h2>
-
-        <ol>
-          <li>繼續用剛才已打開 <code>FLUX Vault</code> 的 VS Code 視窗</li>
-          <li>按 <code>Ctrl + `</code> 打開內建終端機（cwd 自動在 vault 內）</li>
-          <li>輸入 <code>claude</code>、按 Enter 啟動 Claude Code</li>
-          <li>第一次跑會要求登入 — 按畫面指示登入你的 Claude 帳號（同 claude.ai 那個）</li>
-          <li>登入後、貼上以下這句話：</li>
-        </ol>
-
-        <pre><code>請讀取 Inbox/SETUP-CLAUDE.md 並依步驟執行</code></pre>
-
-        <ol start={6}>
-          <li>Claude Code 會自動偵測 + rename + 驗證。過程中可能會請你按「<strong>允許</strong>」執行某些指令（rename 資料夾、檢查結構）— 按允許即可</li>
-        </ol>
-
-        <p><strong>✓ 看到 Claude 回報 <code>VAULT OK</code> = 完成。</strong></p>
-
-        </div>
-        </div>
-        <!-- ====== End Block 2 ====== -->
-
-        <hr />
-
-        <!-- ====== Block 3: 驗證（Mac）/ 打開 vault + 驗證（Windows） ====== -->
-        <div class="not-prose mt-12 mb-8 py-5 px-6 bg-accent text-white rounded-lg">
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="mac">階段 2 / 2</div>
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80" data-os="windows">階段 3 / 3</div>
-          <div class="text-2xl font-bold" data-os="mac">✅ 驗證（步驟七）</div>
-          <div class="text-2xl font-bold" data-os="windows">✅ 打開 vault + 驗證（步驟七 ~ 八）</div>
-          <div class="text-sm mt-1 opacity-80" data-os="mac">確認全部裝好 · 約 3 分鐘</div>
-          <div class="text-sm mt-1 opacity-80" data-os="windows">用 Obsidian 開 vault + 確認全部裝好 · 約 5 分鐘</div>
+        <!-- 求助 -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">🆘</span>
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">卡住的時候</h3>
+          </div>
+          <div class="text-ink-600 leading-relaxed space-y-3">
+            <p>有任何步驟卡住、請把錯誤訊息<strong class="text-ink-800">截圖</strong>，傳給我（LINE 或 email：<a href="mailto:mail@yu-wenhao.com" class="text-link font-medium hover:underline">mail@yu-wenhao.com</a>），我會盡快回覆協助。</p>
+            <p>會議時也可以一起 troubleshoot、不用擔心。</p>
+            <p class="text-sm text-ink-400 pt-2 border-t border-cream-200">余文皓｜<a href="mailto:mail@yu-wenhao.com" class="hover:underline">mail@yu-wenhao.com</a></p>
+          </div>
         </div>
 
-        <div class="border-l-4 border-accent pl-6 my-6">
-
-        <!-- Windows-only step 七: Obsidian -->
-        <div data-os="windows">
-
-        <h2>七、安裝 Obsidian 並打開 FLUX vault</h2>
-
-        <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
-
-        <ol>
-          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
-          <li>下載 Windows 版</li>
-          <li>執行下載的 <code>.exe</code> 安裝檔、按照步驟完成安裝</li>
-          <li>打開 <strong>Obsidian</strong>、選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
-          <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
-          <li>選剛才解壓的 <code>FLUX Vault</code> 資料夾</li>
-          <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
-        </ol>
-
-        <p><strong>✓ 看到 FLUX Vault 的首頁（<code>Home.md</code>）= 設定成功。</strong></p>
-
-        <hr />
-
-        </div>
-
-        <!-- 共用 verification（Mac step 七 / Windows step 八）-->
-        <h2 data-os="mac">七、驗證安裝成功</h2>
-        <h2 data-os="windows">八、驗證安裝成功</h2>
-
-        <p>下方逐項打勾：</p>
-
-        <ul class="list-none pl-0">
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號可登入 claude.ai</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 已安裝、可正常開啟</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>git --version</code> 有輸出</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>claude --version</code> 有輸出</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 已安裝、可正常開啟</li>
-          <li class="flex items-start gap-2" data-os="windows"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Code 跑完 <code>SETUP-CLAUDE.md</code>、看到 <code>VAULT OK</code></li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> FLUX Vault 在 Obsidian 中可開啟、看到首頁</li>
-        </ul>
-
-        <p>都打勾、你就準備好我們的會議了！</p>
-
-        </div>
-        <!-- ====== End Block 3 ====== -->
-
-        <hr />
-
-        <h2>卡住的時候</h2>
-
-        <p>有任何步驟卡住、請：</p>
-
-        <ol>
-          <li>把錯誤訊息截圖</li>
-          <li>傳給我（LINE 或 email <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>）</li>
-        </ol>
-
-        <p>我會盡快回覆協助。會議時也可以一起 troubleshoot、不用擔心。</p>
-
-        <p><em>余文皓 | mail@yu-wenhao.com</em></p>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button id="lightbox-close" class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors" aria-label="Close">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-    <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl" src="" alt="" />
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button id="lightbox-close" class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors" aria-label="Close">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl" src="" alt="" />
+    </div>
   </div>
 
+  <style is:global>
+    #workshop-setup .prose img {
+      border-radius: 0.75rem;
+      border: 1px solid #ebe6dc;
+    }
+    #workshop-setup pre {
+      position: relative;
+      border-radius: 0.75rem;
+      padding-right: 4.75rem;
+    }
+    #workshop-setup .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.75rem;
+      line-height: 1;
+      padding: 0.375rem 0.625rem;
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
+      transition: background 0.15s, color 0.15s;
+    }
+    #workshop-setup .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+    #workshop-setup .os-fade {
+      animation: osFade 0.35s ease-out;
+    }
+    @keyframes osFade {
+      from { opacity: 0.3; transform: translateY(4px); }
+      to { opacity: 1; transform: none; }
+    }
+    #verify-list label:has(input:checked) {
+      border-color: #ca8a04;
+      background: #fef9c3;
+    }
+  </style>
+
   <script>
-    // OS Switcher
-    function setOS(os: string) {
-      // Update buttons
+    // ---------- OS Switcher ----------
+    const BTN_BASE = 'px-4 sm:px-5 py-1.5 rounded-full text-sm font-bold transition-all';
+    const BTN_ACTIVE = `${BTN_BASE} bg-accent text-white shadow`;
+    const BTN_INACTIVE = `${BTN_BASE} text-ink-500 hover:text-ink-800`;
+
+    function detectOS(): string {
+      return /Windows/i.test(navigator.userAgent) ? 'windows' : 'mac';
+    }
+
+    function updateChecklistProgress() {
+      const boxes = Array.from(
+        document.querySelectorAll<HTMLInputElement>('#verify-list input[type="checkbox"]')
+      ).filter((box) => (box.closest('label') as HTMLElement).offsetParent !== null);
+      const done = boxes.filter((box) => box.checked).length;
+      const label = document.getElementById('verify-progress-label');
+      const bar = document.getElementById('verify-progress-bar');
+      if (label) label.textContent = `${done} / ${boxes.length}`;
+      if (bar) bar.style.width = boxes.length ? `${(done / boxes.length) * 100}%` : '0%';
+    }
+
+    function setOS(os: string, animate = true) {
       document.querySelectorAll('[data-os-btn]').forEach((btn) => {
         const el = btn as HTMLButtonElement;
-        if (el.dataset.osBtn === os) {
-          el.className = 'flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-accent bg-accent text-white shadow-md';
-        } else {
-          el.className = 'flex-1 px-6 py-4 rounded-xl font-bold text-lg transition-all border-3 border-ink-200 text-ink-500 hover:border-ink-300';
-        }
+        el.className = el.dataset.osBtn === os ? BTN_ACTIVE : BTN_INACTIVE;
       });
 
-      // Show/hide content
       document.querySelectorAll('[data-os]').forEach((el) => {
         const htmlEl = el as HTMLElement;
-        if (htmlEl.dataset.os === os) {
-          htmlEl.style.display = '';
-        } else {
-          htmlEl.style.display = 'none';
-        }
+        htmlEl.style.display = htmlEl.dataset.os === os ? '' : 'none';
       });
 
+      // Per-card OS chips + sticky bar indicator give immediate visual feedback
+      document.querySelectorAll('.os-chip-dynamic').forEach((chip) => {
+        chip.textContent = os === 'mac' ? '🍎 Mac 步驟' : '⊞ Windows 步驟';
+      });
+      const indicator = document.getElementById('os-indicator');
+      if (indicator) indicator.textContent = os === 'mac' ? '顯示中：Mac 版步驟' : '顯示中：Windows 版步驟';
+
+      if (animate) {
+        const content = document.getElementById('setup-content');
+        if (content) {
+          content.classList.remove('os-fade');
+          void content.offsetWidth;
+          content.classList.add('os-fade');
+        }
+      }
+
+      updateChecklistProgress();
       localStorage.setItem('workshop-os', os);
     }
 
-    // Button click handlers
     document.querySelectorAll('[data-os-btn]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        setOS((btn as HTMLElement).dataset.osBtn!);
-      });
+      btn.addEventListener('click', () => setOS((btn as HTMLElement).dataset.osBtn!));
     });
 
-    // Initialize from localStorage or default to Mac
-    setOS(localStorage.getItem('workshop-os') || 'mac');
+    setOS(localStorage.getItem('workshop-os') || detectOS(), false);
 
-    // Lightbox
+    document.querySelectorAll('#verify-list input[type="checkbox"]').forEach((box) => {
+      box.addEventListener('change', updateChecklistProgress);
+    });
+
+    // ---------- Copy buttons on code blocks ----------
+    document.querySelectorAll('#workshop-setup pre').forEach((pre) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = '複製';
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code');
+        await navigator.clipboard.writeText((code ?? (pre as HTMLElement)).innerText.trim());
+        btn.textContent = '已複製 ✓';
+        setTimeout(() => (btn.textContent = '複製'), 2000);
+      });
+      pre.appendChild(btn);
+    });
+
+    // ---------- Lightbox ----------
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
 
@@ -451,7 +633,7 @@ if ($currentPath -notlike "*$claudePath*") {
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('.prose img').forEach((img) => {
+    document.querySelectorAll('#workshop-setup .prose img').forEach((img) => {
       const el = img as HTMLImageElement;
       el.style.cursor = 'zoom-in';
       el.addEventListener('click', () => openLightbox(el.src, el.alt));
