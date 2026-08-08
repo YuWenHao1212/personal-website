@@ -60,6 +60,10 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Gi
             <span class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700">驗證 ✓</span>
           </div>
           <p class="text-sm text-ink-500 mt-3">4 個工具 = VS Code / Git / Claude Code / Obsidian。上方切換 Mac 或 Windows，下面步驟會跟著變。</p>
+          <div class="mt-4 flex items-start gap-2.5 rounded-xl bg-sky-50 border border-sky-100 px-4 py-3">
+            <span class="flex-none text-sky-500 font-bold">📋</span>
+            <p class="text-ink-700 text-sm md:text-base">本頁所有指令，請用程式碼區塊<strong>右上角的「複製」鈕</strong>貼進終端機 — <strong>不要從 LINE 訊息或截圖轉抄</strong>。轉抄過程常會把 <code class="bg-cream-200 px-1 rounded text-sm">--</code> 變成 <code class="bg-cream-200 px-1 rounded text-sm">—</code>、或多帶入看不見的符號，指令就會失敗。</p>
+          </div>
         </div>
 
         <!-- ====== Stage 1: 課前安裝 ====== -->
@@ -192,6 +196,39 @@ const description = '課前環境建置指南：安裝 Claude Pro、VS Code、Gi
               <pre><code>git --version</code></pre>
 
               <p>第一次跑會跳「安裝命令列工具」對話框（macOS 內建的開發者工具包、約 700MB、含 Git + Python + 其他）— 點<strong>安裝</strong>。下載 + 安裝完成後再跑一次 <code>git --version</code>。</p>
+
+              <p class="text-ink-500">畫面出現一段 <code>xcode-select: note: No developer tools were found...</code> 的訊息是<strong>正常的</strong>，那就是在叫出安裝對話框、不是錯誤。對話框可能被 VS Code 視窗擋住，按 <code>Cmd + Tab</code> 切一圈找找看。</p>
+
+              <details class="setup-details">
+                <summary>對話框沒出現、或不小心關掉了？</summary>
+                <div class="setup-details-body">
+                  <p>先確認是不是其實已經裝好了。在終端機執行：</p>
+
+                  <pre><code>xcode-select -p</code></pre>
+
+                  <ul>
+                    <li>出現一段路徑（像 <code>/Library/Developer/CommandLineTools</code>）→ <strong>已經裝好了</strong>，回上面跑 <code>git --version</code> 就行</li>
+                    <li>出現 <code>error: unable to find utility</code> 或 <code>Unable to get active developer directory</code> → 還沒裝，繼續往下</li>
+                  </ul>
+
+                  <p>不靠對話框、改用終端機直接裝。先列出可安裝的項目：</p>
+
+                  <pre><code>sudo softwareupdate --list</code></pre>
+
+                  <p>會要求輸入 Mac 開機密碼 — <strong>打字時螢幕不會有任何顯示</strong>（連星號都沒有），這是正常的，打完直接按 Enter。</p>
+
+                  <p>清單中找到名稱像 <code>Command Line Tools for Xcode-16.2</code> 的項目（版本號可能不同，挑數字大的那個），把<strong>完整名稱</strong>填進下面指令的引號裡：</p>
+
+                  <pre><code>sudo softwareupdate -i "Command Line Tools for Xcode-16.2" --verbose</code></pre>
+
+                  <p>會跑幾分鐘、畫面顯示下載進度。完成後回上面跑 <code>git --version</code> 驗證。</p>
+
+                  <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-rose-50 border border-rose-200 px-4 py-3">
+                    <span class="flex-none text-rose-600 font-bold">⚠</span>
+                    <p class="text-rose-900 text-sm md:text-base">清單裡還會出現 <strong>macOS Sequoia</strong>、<strong>macOS Tahoe</strong> 這類項目（6–10 GB）—— 那是<strong>作業系統更新、不是我們要的東西</strong>，選到會強制重開機並花上一小時以上。只挑名稱開頭是 <code class="bg-rose-100 px-1 rounded text-sm">Command Line Tools</code> 的。</p>
+                  </div>
+                </div>
+              </details>
             </div>
 
             <div data-os="windows">
@@ -524,6 +561,46 @@ if ($currentPath -notlike "*$claudePath*") {
     #workshop-setup .copy-btn:hover {
       background: rgba(255, 255, 255, 0.25);
       color: #fff;
+    }
+    #workshop-setup details.setup-details {
+      margin-top: 1.25rem;
+      border: 1px solid #ebe6dc;
+      border-radius: 0.75rem;
+      background: #faf8f5;
+      overflow: hidden;
+    }
+    #workshop-setup details.setup-details > summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #383838;
+      transition: background 0.15s;
+    }
+    #workshop-setup details.setup-details > summary::-webkit-details-marker {
+      display: none;
+    }
+    #workshop-setup details.setup-details > summary::before {
+      content: '▶';
+      display: inline-block;
+      margin-right: 0.5rem;
+      font-size: 0.7rem;
+      color: #a4a4a4;
+      transition: transform 0.15s;
+    }
+    #workshop-setup details.setup-details[open] > summary::before {
+      transform: rotate(90deg);
+    }
+    #workshop-setup details.setup-details > summary:hover {
+      background: #f5f1eb;
+    }
+    #workshop-setup .setup-details-body {
+      padding: 0.25rem 1rem 1rem;
+      border-top: 1px solid #ebe6dc;
+    }
+    #workshop-setup .setup-details-body > :first-child {
+      margin-top: 0.75rem;
     }
     #workshop-setup .os-fade {
       animation: osFade 0.35s ease-out;
