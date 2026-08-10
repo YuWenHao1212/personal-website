@@ -191,7 +191,7 @@ Here's the full walkthrough:
 Open PowerShell and install Git first:
 
 ```powershell
-winget install Git.Git
+winget install --id Git.Git -e --source winget
 ```
 
 After it finishes, **close and reopen PowerShell**, then install Claude Code:

@@ -203,7 +203,7 @@ source ~/.zshrc
 打開 PowerShell，先安裝前置工具 Git：
 
 ```powershell
-winget install Git.Git
+winget install --id Git.Git -e --source winget
 ```
 
 裝完後**關掉 PowerShell 再重開**，然後安裝 Claude Code 並設定 PATH：
