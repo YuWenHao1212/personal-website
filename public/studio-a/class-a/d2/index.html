@@ -1,0 +1,1664 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<title>STUDIO A · A 組 · D2 — 部門 Dashboard 上線</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    --bg:#FFFFFF; --cream-2:#F5F5F5; --ink:#111111; --body:#3A3A3A;
+    --muted:#8A8A8A; --hair:#E5E5E5;
+    --accent:#C15F3C; --accent-deep:#A34D2F; --accent-br:#CC785C;
+    --type-cover:128px; --type-display:104px; --type-title:76px; --type-h2:52px;
+    --type-large:44px; --type-body:26px; --type-small:22px; --type-mono:22px; --type-eyebrow:22px;
+    --pad-x:120px; --pad-y:84px;
+    --sans:"Space Grotesk","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  }
+  html,body{margin:0;padding:0;background:#0C0C0C;font-family:var(--sans);color:var(--body);}
+  deck-stage:not(:defined){visibility:hidden;}
+
+  section.slide{box-sizing:border-box;display:flex;flex-direction:column;
+    padding:var(--pad-y) var(--pad-x) 88px;overflow:hidden;position:relative;
+    background:var(--bg);color:var(--body);}
+  section.slide.ink{background:var(--ink);color:#CFCFCF;}
+  section.slide.dim{background:var(--cream-2);}
+
+  .eyebrow{display:flex;align-items:center;gap:18px;font-family:var(--mono);font-size:var(--type-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+  .eyebrow .dot{width:9px;height:9px;background:var(--accent);border-radius:50%;flex:none;}
+  .eyebrow .num{color:var(--accent);}
+  .eyebrow .rule{height:2px;width:56px;background:currentColor;opacity:.35;flex:none;}
+  .slide.ink .eyebrow{color:#8A8A8A;}
+
+  .title{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:var(--type-title);line-height:1.12;letter-spacing:-1px;}
+  .display{font-family:var(--sans);font-weight:900;color:#fff;font-size:var(--type-display);line-height:1.06;letter-spacing:-2px;}
+  .accent{color:var(--accent);}
+  .slide.ink .accent{color:var(--accent-br);}
+  .subtitle{font-size:var(--type-body);color:var(--body);line-height:1.5;}
+  .slide.ink .subtitle{color:#B8B8B8;}
+  .small{font-size:var(--type-small);color:var(--muted);line-height:1.5;}
+
+  .wm{position:absolute;top:78px;right:var(--pad-x);font-weight:700;font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);}
+  .wm .dot{color:var(--accent);}
+  .slide.ink .wm{color:#fff;}
+  .slide-num{position:absolute;right:var(--pad-x);bottom:46px;font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.1em;}
+  .footer-mark{position:absolute;left:var(--pad-x);bottom:46px;font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.1em;}
+  .slide.ink .slide-num,.slide.ink .footer-mark{color:#6E6E6E;}
+
+  .s-cover{justify-content:center;}
+  .s-cover .cover-title{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:var(--type-cover);line-height:1.04;letter-spacing:-3px;}
+  .s-cover .meta{font-family:var(--mono);font-size:var(--type-small);color:var(--muted);line-height:1.8;letter-spacing:.04em;}
+  .s-cover .meta .lecturer{color:var(--ink);}
+  .cover-rule{height:2px;background:var(--ink);width:88px;}
+
+  .s-transition{justify-content:center;}
+  .s-transition .kmono{font-family:var(--mono);font-size:var(--type-small);letter-spacing:.14em;color:#8A8A8A;}
+
+  /* ============ 長肉 components（p1–15）============ */
+  .ph{border:2px dashed #B5B5B5;background:#FAFAFA;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted);}
+  .ph .ph-ico{font-size:40px;line-height:1;}
+  .ph .ph-t{font-family:var(--mono);font-size:22px;letter-spacing:.06em;color:#8A8A8A;}
+  .ph .ph-d{font-size:22px;color:#B0B0B0;line-height:1.5;text-align:center;}
+
+  .punchbar{border-top:2px solid var(--ink);padding-top:22px;margin-top:auto;font-size:32px;line-height:1.45;color:var(--ink);font-weight:700;}
+  .punchbar .ac{color:var(--accent);}
+  .punchbar .src{display:block;font-size:22px;color:var(--muted);font-weight:400;margin-top:10px;letter-spacing:.02em;}
+  .slide.ink .punchbar{border-top-color:#444;color:#fff;}
+  .slide.ink .punchbar .ac{color:var(--accent-br);}
+
+  /* leaders（— 開頭條列，仿 D1 .twostate .l）*/
+  .leaders{display:flex;flex-direction:column;gap:14px;}
+  .leaders .l{font-size:var(--type-body);color:var(--body);display:flex;gap:14px;align-items:baseline;line-height:1.5;}
+  .leaders .l::before{content:"—";color:var(--accent);flex:none;}
+
+  /* p3 縮圖列 */
+  .thumbrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;flex:1;min-height:0;margin-top:28px;}
+  .thumbrow .ph{height:100%;}
+
+  /* p4 目標三詞 */
+  .goal3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:auto;}
+  .goal3 .g{border:2px solid var(--ink);padding:30px 32px;display:flex;flex-direction:column;gap:8px;}
+  .goal3 .g .gm{font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--accent);}
+  .goal3 .g .gh{font-family:var(--sans);font-weight:900;font-size:44px;color:var(--ink);letter-spacing:-1px;}
+  .goal3 .g .gd{font-size:23px;color:var(--muted);line-height:1.45;}
+
+  /* p6 地圖 */
+  .mapfig{flex:1;min-height:0;display:flex;align-items:center;margin-top:16px;}
+  .mapfig svg{width:100%;height:100%;}
+  .mapfig text{font-family:var(--sans);}
+  .mapfig .mono-t{font-family:var(--mono);}
+  .mapfig .halo{stroke:#fff;stroke-width:7px;paint-order:stroke;}
+
+  /* p7/p8 圖 + 說明 */
+  .figrow{display:grid;gap:44px;flex:1;min-height:0;align-items:center;margin-top:12px;}
+  .figrow.c21{grid-template-columns:1.15fr .85fr;}
+  .figrow .figimg{width:100%;height:100%;object-fit:contain;min-height:0;}
+  .ditem{border-left:4px solid var(--accent);padding-left:22px;}
+  .ditem .n{font-family:var(--mono);font-size:22px;color:var(--accent-deep);font-weight:600;letter-spacing:.06em;}
+  .ditem .h{font-family:var(--sans);font-weight:700;font-size:32px;color:var(--ink);margin-top:4px;letter-spacing:-.5px;}
+  .ditem .d{font-size:24px;color:var(--body);line-height:1.5;margin-top:6px;}
+
+  /* p9 三元件卡（仿 D1 .abc）*/
+  .cf3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;flex:1;min-height:0;margin-top:28px;align-content:stretch;}
+  .cf3 .col{border:1px solid var(--hair);border-top:4px solid var(--ink);padding:30px 32px;display:flex;flex-direction:column;gap:10px;background:var(--bg);}
+  .cf3 .col.hot{border-top-color:var(--accent);}
+  .cf3 .tag{font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:var(--muted);}
+  .cf3 .col.hot .tag{color:var(--accent);}
+  .cf3 .nm{font-family:var(--sans);font-weight:900;font-size:40px;color:var(--ink);letter-spacing:-1px;}
+  .cf3 .ds{font-size:24px;color:var(--body);line-height:1.5;}
+
+  /* p10 對比雙欄（仿 D1 .cmp2）*/
+  .vs2{display:grid;grid-template-columns:1fr 120px 1fr;align-items:stretch;flex:1;min-height:0;margin-top:24px;}
+  .vs2 .vp{border:2px solid var(--hair);padding:34px 40px;display:flex;flex-direction:column;gap:16px;}
+  .vs2 .vp.on{border-color:var(--ink);background:var(--ink);}
+  .vs2 .vmark{font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:var(--muted);}
+  .vs2 .vp.on .vmark{color:var(--accent-br);}
+  .vs2 .vname{font-family:var(--sans);font-weight:900;font-size:44px;letter-spacing:-1px;color:var(--ink);}
+  .vs2 .vp.on .vname{color:#fff;}
+  .vs2 .vline{font-size:25px;line-height:1.5;color:var(--body);padding-top:14px;border-top:1px solid var(--hair);}
+  .vs2 .vp.on .vline{color:#E4E4E4;border-top-color:#333;}
+  .vs2 .vmid{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:24px;color:var(--muted);}
+
+  /* p11 SQL 翻譯流 */
+  .sqlflow{display:flex;align-items:stretch;gap:0;flex:1;min-height:0;margin-top:24px;align-items:center;}
+  .sqlflow .st{flex:1;border:2px solid var(--ink);padding:26px 28px;display:flex;flex-direction:column;gap:10px;background:var(--bg);}
+  .sqlflow .st.dim2{border-color:var(--hair);}
+  .sqlflow .sar{flex:0 0 64px;text-align:center;font-family:var(--mono);font-size:30px;color:var(--accent);font-weight:700;}
+  .sqlflow .sm{font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:var(--muted);}
+  .sqlflow .sh{font-size:27px;color:var(--ink);line-height:1.5;font-weight:700;}
+  .sqlflow .sc{font-family:var(--mono);font-size:22px;color:var(--accent-deep);line-height:1.6;word-break:break-all;}
+
+  /* p12 一庫 13 表 */
+  .dbframe{border:2px solid var(--ink);padding:26px 30px;display:flex;flex-direction:column;gap:16px;}
+  .dbframe .dbt{font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--muted);}
+  .chipwall{display:flex;flex-wrap:wrap;gap:10px;}
+  .chipwall .tc{font-family:var(--mono);font-size:22px;color:var(--ink);border:1px solid var(--hair);border-left:3px solid var(--accent);padding:8px 14px;background:var(--bg);}
+  .mismatch{display:flex;align-items:center;gap:18px;font-size:26px;color:var(--body);flex-wrap:wrap;}
+  .mismatch .mh{font-family:var(--mono);font-size:24px;border:2px solid var(--ink);padding:8px 18px;color:var(--ink);}
+  .mismatch .bad{border-color:var(--accent);color:var(--accent-deep);}
+  .mismatch .vx{font-weight:900;font-size:34px;color:var(--accent);}
+
+  /* p13 表頭列 */
+  .headstrip{display:flex;gap:0;border:2px solid var(--ink);}
+  .headstrip .hcell{flex:1;padding:20px 12px;text-align:center;font-family:var(--sans);font-weight:700;font-size:27px;color:var(--ink);border-right:1px solid var(--hair);}
+  .headstrip .hcell:last-child{border-right:none;}
+
+  /* 動手前確認 · 三問 checklist */
+  .ask3{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:30px;border-top:2px solid var(--ink);}
+  .ask3 .q{flex:1;display:grid;grid-template-columns:92px 1fr;gap:20px;align-content:center;padding:20px 0;border-bottom:1px solid var(--hair);}
+  .ask3 .qn{font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.1em;font-weight:600;}
+  .ask3 .qt{font-family:var(--sans);font-weight:700;font-size:36px;color:var(--ink);line-height:1.3;letter-spacing:-.5px;}
+  .ask3 .qd{font-size:24px;color:var(--muted);line-height:1.5;margin-top:10px;}
+  .askfoot{margin-top:26px;font-size:26px;color:var(--body);line-height:1.5;}
+  .askfoot b{color:var(--ink);}
+  .headstrip .hcell small{display:block;font-family:var(--mono);font-weight:400;font-size:18px;color:var(--muted);margin-top:6px;letter-spacing:.04em;}
+
+  /* p14 三規則卡 */
+  .rule3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;flex:1;min-height:0;margin-top:28px;align-content:stretch;}
+  .rule3 .rc{border:1px solid var(--hair);border-top:4px solid var(--accent);padding:30px 32px;display:flex;flex-direction:column;gap:12px;}
+  .rule3 .rn{font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.1em;font-weight:600;}
+  .rule3 .rh{font-family:var(--sans);font-weight:900;font-size:36px;color:var(--ink);letter-spacing:-.5px;line-height:1.25;}
+  .rule3 .rd{font-size:24px;color:var(--body);line-height:1.5;}
+
+  /* p15 今天/之後 */
+  .now2{display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;min-height:0;margin-top:28px;}
+  .now2 .np{border:2px solid var(--hair);padding:34px 38px;display:flex;flex-direction:column;gap:14px;}
+  .now2 .np.on{border-color:var(--ink);}
+  .now2 .nw{font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--muted);}
+  .now2 .np.on .nw{color:var(--accent);}
+  .now2 .nh{font-family:var(--sans);font-weight:700;font-size:34px;color:var(--ink);line-height:1.3;}
+
+  /* p17/p23 四步卡 */
+  .step4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;flex:1;min-height:0;margin-top:28px;align-content:stretch;}
+  .step4 .sp4{border:1px solid var(--hair);border-top:4px solid var(--accent);padding:26px;display:flex;flex-direction:column;gap:10px;}
+  .step4 .pn{font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.1em;font-weight:600;}
+  .step4 .pt{font-family:var(--sans);font-weight:900;font-size:34px;color:var(--ink);letter-spacing:-.5px;line-height:1.2;}
+  .step4 .pd{font-size:23px;color:var(--body);line-height:1.5;}
+  .step4 .ps{margin-top:auto;padding-top:12px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;}
+
+  /* 指令黑盒 */
+  .cmdbox{font-family:var(--mono);font-size:24px;background:var(--ink);color:#EDEDED;padding:20px 26px;line-height:1.6;}
+  .cmdbox .c{color:var(--accent-br);}
+  .cmdbox .dim{color:#8A8A8A;font-size:20px;}
+
+  /* p19 repo 樹 */
+  .treebox{border:2px solid var(--ink);padding:26px 36px;display:flex;flex-direction:column;flex:1;min-height:0;justify-content:space-between;margin-top:28px;}
+  .treebox .tr{display:flex;align-items:baseline;gap:30px;padding:13px 0;border-bottom:1px solid var(--hair);}
+  .treebox .tr:last-child{border-bottom:none;}
+  .treebox .tp{font-family:var(--mono);font-size:24px;color:var(--ink);flex:0 0 520px;}
+  .treebox .tp .dim{color:var(--muted);}
+  .treebox .td{font-size:24px;color:var(--body);line-height:1.45;}
+  .treebox .td b{color:var(--accent-deep);}
+
+  /* p20 兩層規則 */
+  .duo{border:2px solid var(--ink);display:flex;flex-direction:column;margin-top:28px;}
+  .duo .lay{padding:28px 36px;display:flex;flex-direction:column;gap:10px;}
+  .duo .lay+.lay{border-top:2px solid var(--ink);}
+  .duo .lt{font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:var(--accent);}
+  .duo .lb{font-size:30px;color:var(--ink);line-height:1.5;font-weight:700;}
+  .duo .lay.spec{background:var(--ink);}
+  .duo .lay.spec .lt{color:var(--accent-br);}
+  .duo .lay.spec .lb{font-family:var(--mono);font-weight:500;font-size:24px;color:#EDEDED;}
+
+  /* END 五種臉 */
+  .face5{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;flex:1;min-height:0;margin-top:28px;align-content:stretch;}
+  .face5 .fc{border:1px solid var(--hair);border-top:4px solid var(--accent);padding:26px 24px;display:flex;flex-direction:column;gap:10px;}
+  .face5 .fc.dim{border-top-style:dashed;border-top-color:#C9C9C9;}
+  .face5 .fv{font-family:var(--sans);font-weight:900;font-size:64px;line-height:1;color:var(--ink);letter-spacing:-1px;}
+  .face5 .fc.dim .fv{color:#B0B0B0;}
+  .face5 .fn{font-family:var(--sans);font-weight:700;font-size:28px;color:var(--ink);}
+  .face5 .fc.dim .fn{color:#8A8A8A;}
+  .face5 .fd{font-size:22px;color:var(--body);line-height:1.5;}
+  .face5 .fc.dim .fd{color:var(--muted);}
+  .face5 .fg{margin-top:auto;padding-top:12px;border-top:1px dashed var(--hair);font-size:22px;color:var(--body);line-height:1.5;}
+  .face5 .fg b{color:var(--ink);}
+  .face5 .fc.dim .fg{color:var(--muted);}
+  .face5 .fc.dim .fg b{color:#8A8A8A;}
+  .face5 .fe{padding-top:12px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:19px;color:var(--accent-deep);line-height:1.4;letter-spacing:.02em;}
+  .face5 .fc.dim .fe{color:#B0B0B0;}
+
+  /* C3 prompt 盒（data-copy 由 copy-prompt.js 補複製鈕）*/
+  .promptbox{background:#1A1410;border:1px solid #3A2E24;padding:30px 36px;display:flex;flex-direction:column;gap:12px;}
+  .promptbox .pb-lab{font-family:var(--mono);font-size:20px;letter-spacing:.1em;color:#8A8A8A;}
+  .promptbox .pb-t{font-size:29px;color:#F5EDE4;line-height:1.7;font-weight:500;}
+  .promptbox .pb-t .hi{color:var(--accent-br);}
+
+  /* TIMER */
+  .timer-display{display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .timer-display .td-label{font-family:var(--mono);font-size:24px;letter-spacing:.14em;color:var(--muted);}
+  .timer-display .td-time{font-family:var(--mono);font-weight:600;font-size:230px;line-height:1;color:var(--ink);letter-spacing:-4px;}
+  .timer-controls{display:flex;gap:14px;justify-content:center;}
+  .t-btn{font-family:var(--mono);font-size:22px;letter-spacing:.08em;background:var(--ink);color:#fff;border:0;padding:14px 40px;cursor:pointer;transition:background .15s;}
+  .t-btn:hover{background:var(--accent);}
+  .t-btn.primary{background:var(--accent);}
+
+  /* ============ 骨架標記（長肉時整塊移除）============ */
+  .sk{margin-top:auto;border:2px dashed #C9C9C9;padding:24px 28px;display:flex;flex-direction:column;gap:12px;}
+  .slide.ink .sk{border-color:#3A3A3A;}
+  .sk-head{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  /* 骨架 .sk 與待補 .ph 是**寫給講師自己**的內部標記（含時間帳、未決事項、資安備註），
+     學員會線上打開這份 deck → 預設隱藏,只有網址加 ?edit=1 才顯示。
+     長肉完成後整塊移除,這個開關就自動失效。 */
+  html:not(.sk-on) .sk, html:not(.sk-on) .ph{display:none !important;}
+
+  .chip{font-family:var(--mono);font-size:18px;letter-spacing:.06em;padding:4px 14px;border:1px solid #B5B5B5;color:#8A8A8A;white-space:nowrap;}
+  .chip.type{border-color:var(--accent);color:var(--accent);}
+  .chip.warn{border-color:#B08A00;color:#B08A00;}
+  .sk-row{font-size:22px;color:var(--muted);line-height:1.55;display:flex;gap:12px;align-items:baseline;}
+  .sk-row::before{content:"▸";font-family:var(--mono);font-size:16px;flex:none;color:#B5B5B5;}
+</style>
+<script>if(/[?&]edit=1(&|$)/.test(location.search))document.documentElement.classList.add('sk-on');</script>
+</head>
+<body>
+<deck-stage width="1920" height="1080" no-rail style="--deck-rail-w:188px;">
+
+      
+    <section class="slide s-cover" data-label="C0.00 Cover">
+    <div class="wm">STUDIO A<span class="dot">.</span> <span style="color:var(--muted);font-family:var(--mono);font-size:13px;">／ A 組</span></div>
+    <div class="eyebrow"><span class="num">DAY 2 / 3</span><span class="rule"></span><span>業務部 · 門市銷售數據　＋　財會</span></div>
+    <div style="flex:1"></div>
+    <div class="cover-title">把你的報表，<br>變成<span class="accent">我們的系統</span>。</div>
+    <div style="height:40px"></div>
+    <div class="cover-rule"></div>
+    <div style="height:28px"></div>
+    <div class="subtitle" style="max-width:46ch;">STUDIO A　｜　Day 2 / 3　—— 大家共用　·　有門禁　·　自己就改得動的部門 Dashboard。</div>
+    <div style="flex:1.4"></div>
+    <div class="meta">
+      <div class="lecturer">講師　余文皓</div>
+      <div>匯流顧問有限公司</div>
+      <div style="height:10px"></div>
+      <div>2026 / 08 / 12</div>
+    </div>
+    <div class="footer-mark">STUDIO A · AI 工作流導入 · A 組</div>
+  </section>
+
+    <section class="slide ink s-transition" data-label="ACT1 轉場 · 搬進來">
+    <div class="eyebrow"><span class="dot"></span><span class="num">回收 D1</span><span class="rule"></span><span>開場</span></div>
+    <div style="flex:1"></div>
+    <div class="display">上週，你們做出來了。<br>今天 —— <span class="accent">搬進來</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">回收 D1 · 10 MIN</div>
+    <div class="slide-num">2</div>
+  </section>
+
+    <section class="slide" data-label="C0.02 痛點與目標">
+    <div class="eyebrow"><span class="dot"></span><span class="num">回收 D1</span><span class="rule"></span><span>然後呢</span></div>
+    <div style="height:16px"></div>
+    <div class="title">13 份週報、<span class="accent">13 個樣子</span>、<br>13 台電腦。</div>
+    <div style="height:36px"></div>
+    <div class="leaders">
+      <div class="l">傳 LINE 出去的是<b>死檔案</b> —— 數字隔天就舊了，收的人不知道</div>
+      <div class="l">誰改過哪一版，沒人說得清 —— 最新的那份在誰手上？</div>
+      <div class="l">13 份格式各自長 —— 主管想看全部，誰也拼不起來</div>
+    </div>
+    <div class="goal3">
+      <div class="g"><div class="gm">今天 · 01</div><div class="gh">大家共用</div><div class="gd">一份資料一個家，永遠是最新版</div></div>
+      <div class="g"><div class="gm">今天 · 02</div><div class="gh">有門禁</div><div class="gd">名單上的人才進得來，外流不再是風險</div></div>
+      <div class="g"><div class="gm">今天 · 03</div><div class="gh">自己改得動</div><div class="gd">要加什麼自己說了算，不用等 IT</div></div>
+    </div>
+    <div class="punchbar" style="margin-top:30px;">今天不是重做 —— 是給它們<span class="ac">一個家</span>。</div>
+    <div class="slide-num">3</div>
+    <div class="footer-mark">回收 D1 · 今天的目標</div>
+  </section>
+
+    <section class="slide" data-label="C0.03 入口頁預告">
+    <div class="eyebrow"><span class="dot"></span><span class="num">回收 D1</span><span class="rule"></span><span>今天結束前</span></div>
+    <div style="height:16px"></div>
+    <div class="title">今天結束前，這面牆<span class="accent">全亮</span>。</div>
+    <img src="img/entry-wall.png" alt="入口頁：13 張具名灰卡 ＋ 北一區示範亮卡" style="flex:1;min-height:0;width:100%;object-fit:contain;object-position:center;margin-top:28px;border:1px solid var(--hair);">
+
+    <div class="punchbar">建格 · 餵數字 · 頁上線 —— 按下<span class="ac">確認</span>，自己的卡當場亮起來。</div>
+    <div class="slide-num">4</div>
+    <div class="footer-mark">回收 D1 · 預告</div>
+  </section>
+
+    <section class="slide" data-label="MAP.0 三個地方">
+    <div class="eyebrow"><span class="dot"></span><span class="num">系統地圖</span><span class="rule"></span><span>今天會一直回到這張圖</span></div>
+    <div style="height:16px"></div>
+    <div class="title">整套系統，只有<span class="accent">三個地方</span>。</div>
+    <div class="mapfig">
+      <svg viewBox="0 0 1680 560" role="img" aria-label="系統地圖 v0：三個地方">
+                <rect x="40" y="40" width="600" height="210" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <g stroke="#111111" stroke-width="2.5" fill="none">
+          <line x1="86" y1="150" x2="210" y2="150"/>
+          <line x1="96" y1="150" x2="96" y2="196"/>
+          <line x1="200" y1="150" x2="200" y2="196"/>
+          <rect x="112" y="106" width="52" height="36"/>
+          <line x1="106" y1="146" x2="170" y2="146"/>
+        </g>
+        <text x="248" y="128" font-size="34" font-weight="800" fill="#111111">你們的電腦 ×13</text>
+        <text x="248" y="172" font-size="23" fill="#8A8A8A">工作桌 —— 助理 · 副本 · 你的資料</text>
+                <rect x="40" y="320" width="600" height="210" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <g stroke="#111111" stroke-width="2.5" fill="none">
+          <rect x="92" y="386" width="96" height="88"/>
+          <circle cx="140" cy="430" r="22"/>
+          <line x1="140" y1="416" x2="140" y2="444"/>
+          <line x1="126" y1="430" x2="154" y2="430"/>
+        </g>
+        <text x="248" y="408" font-size="34" font-weight="800" fill="#111111">GitHub</text>
+        <text x="248" y="452" font-size="23" fill="#8A8A8A">正本保管庫 —— 全世界只有這一份</text>
+                <rect x="880" y="40" width="760" height="490" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <g stroke="#C15F3C" stroke-width="2.5" fill="none">
+          <rect x="936" y="150" width="150" height="110"/>
+          <path d="M 924 150 L 936 110 L 1098 110 L 1110 150"/>
+          <path d="M 924 150 q 11 26 23 0 q 11 26 23 0 q 11 26 23 0 q 11 26 23 0 q 11 26 23 0 q 11 26 23 0 q 11 26 23 0 q 11 26 23 0"/>
+          <rect x="988" y="196" width="44" height="64"/>
+        </g>
+        <text x="1150" y="180" font-size="34" font-weight="800" fill="#111111">Cloudflare</text>
+        <text x="1150" y="224" font-size="23" fill="#8A8A8A">開門營業的店面</text>
+        <text x="936" y="356" font-size="24" fill="#3A3A3A">網站掛在這裡、資料庫住在這裡、</text>
+        <text x="936" y="396" font-size="24" fill="#3A3A3A">門口站著門禁 —— 待會一項一項看。</text>
+      </svg>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">之後所有操作，都只是東西在這三個地方之間移動 —— <b style="color:var(--ink);">線，今天會一條一條亮起來。</b></div>
+    <div class="slide-num">5</div>
+    <div class="footer-mark">系統地圖 · v0</div>
+  </section>
+
+    <section class="slide" data-label="PLACE.1 你的工作桌">
+    <div class="eyebrow"><span class="dot"></span><span class="num">三個地方 · 1/3</span><span class="rule"></span><span>工作發生的地方</span></div>
+    <div style="height:16px"></div>
+    <div class="title">你的電腦 = 你的<span class="accent">工作桌</span>。</div>
+    <div class="figrow c21">
+      <img class="figimg" src="img/p07-desk.png" alt="工作桌：筆電（對話視窗）、助理機器人、報表疊">
+      <div style="display:flex;flex-direction:column;gap:34px;">
+        <div class="ditem"><div class="n">桌上 · 01</div><div class="h">助理 —— Claude Code</div><div class="d">你用說的，它動手：改網頁、寫資料、跑指令都是它代勞。</div></div>
+        <div class="ditem"><div class="n">桌上 · 02</div><div class="h">網站程式的副本</div><div class="d">一人一份。在自己桌上改，交出去之前<b>不影響任何人</b>。</div></div>
+        <div class="ditem"><div class="n">桌上 · 03</div><div class="h">你自己的資料</div><div class="d">課前下載的那批數字 —— 今天就用它，餵進系統。</div></div>
+      </div>
+    </div>
+    <div class="punchbar">每張桌上都有一份副本 —— 那正本，<span class="ac">在誰那裡？</span></div>
+    <div class="slide-num">6</div>
+    <div class="footer-mark">三個地方 · 工作桌</div>
+  </section>
+
+    <section class="slide" data-label="PLACE.2 GitHub 13桌一正本">
+    <div class="eyebrow"><span class="dot"></span><span class="num">三個地方 · 2/3</span><span class="rule"></span><span>正本的保管庫</span></div>
+    <div style="height:16px"></div>
+    <div class="title">13 張桌子，中間 —— <span class="accent">一個正本</span>。</div>
+    <div class="figrow" style="grid-template-columns:1.35fr .65fr;">
+      <img class="figimg" src="img/p08-desks-hub.png" alt="13 張工作桌圍著中央保管庫，右側店面以虛線連接">
+      <div style="display:flex;flex-direction:column;gap:30px;">
+        <div class="ditem"><div class="n">push · 桌 → 庫</div><div class="h">交回正本</div><div class="d">把你桌上改好的，交回保管庫。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">pull · 庫 → 桌</div><div class="h">拿回最新版</div><div class="d">把保管庫的最新版，拿回你桌上。</div></div>
+        <div class="ditem" style="border-left-color:var(--hair);"><div class="n" style="color:var(--muted);">每一版都記著</div><div class="d" style="margin-top:2px;">誰、何時、改了哪一行 —— 壞了能還原，所以不用鎖權限。</div></div>
+        <div style="font-size:22px;color:var(--muted);line-height:1.5;">右邊那間店面 —— 下一頁。</div>
+      </div>
+    </div>
+    <div class="punchbar">這套「記錄＋同步」的機制叫 <span class="ac">git</span>，保管庫叫 <span class="ac">GitHub</span>。<span class="src">正本全世界只有一份；你桌上那份，是副本。</span></div>
+    <div class="slide-num">7</div>
+    <div class="footer-mark">三個地方 · GITHUB</div>
+  </section>
+
+    <section class="slide" data-label="PLACE.3 Cloudflare">
+    <div class="eyebrow"><span class="dot"></span><span class="num">三個地方 · 3/3</span><span class="rule"></span><span>開門營業的地方</span></div>
+    <div style="height:16px"></div>
+    <div class="title">Cloudflare —— <span class="accent">開門營業</span>的店面。</div>
+    <div class="cf3">
+      <div class="col"><div class="tag">PAGES</div><div class="nm">網站</div><div class="ds">店面本體：入口頁 ＋ 各區自己的頁。<b>GitHub 一收到新版，這裡自動上架</b> —— 不用任何人動手。</div></div>
+      <div class="col"><div class="tag">D1</div><div class="nm">資料庫</div><div class="ds">所有數字住在這裡。網頁上的數字，是當場來這裡撈的。<b>接下來三頁專門講它。</b></div></div>
+      <div class="col hot"><div class="tag">ACCESS</div><div class="nm">門禁</div><div class="ds">站在店門口，名單上的人才放行。它的故事 —— <b>等你第一次被它攔下來再講</b>。</div></div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">三個元件、一個帳號全包 —— 網站、資料庫、門禁，<b style="color:var(--ink);">全部免費起步</b>（費用的事，等一下拆給你們看）。</div>
+    <div class="slide-num">8</div>
+    <div class="footer-mark">三個地方 · CLOUDFLARE</div>
+  </section>
+
+    <section class="slide" data-label="DB.1 資料庫 vs Excel">
+    <div class="eyebrow"><span class="dot"></span><span class="num">資料庫</span><span class="rule"></span><span>你們最熟的場景：65 個 Excel 對帳</span></div>
+    <div style="height:16px"></div>
+    <div class="title">資料庫，跟 Excel <span class="accent">差在哪</span>？</div>
+    <div class="vs2">
+      <div class="vp">
+        <div class="vmark">你們現在</div>
+        <div class="vname">Excel</div>
+        <div class="vline">一人一檔 —— 每個人存自己的</div>
+        <div class="vline">寄來寄去 —— 版本越寄越多</div>
+        <div class="vline">你打開的，不一定是最新的那份</div>
+      </div>
+      <div class="vmid">VS</div>
+      <div class="vp on">
+        <div class="vmark">今天開始</div>
+        <div class="vname">資料庫</div>
+        <div class="vline">一個地方 —— 大家同時寫，不用排隊</div>
+        <div class="vline">永遠只有一份，永遠是最新</div>
+        <div class="vline">網頁自己來撈數字畫圖 —— 不用開檔</div>
+      </div>
+    </div>
+    <div class="punchbar">Excel 是給<b>人</b>開的 —— 資料庫，是給<span class="ac">系統撈</span>的。</div>
+    <div class="slide-num">9</div>
+    <div class="footer-mark">資料庫 · VS EXCEL</div>
+  </section>
+
+    <section class="slide" data-label="DB.2 以前SQL 現在中文">
+    <div class="eyebrow"><span class="dot"></span><span class="num">資料庫</span><span class="rule"></span><span>怎麼跟它說話</span></div>
+    <div style="height:16px"></div>
+    <div class="title">以前要學 SQL —— 現在，<span class="accent">你說中文</span>。</div>
+    <div style="height:20px"></div>
+    <div class="body" style="color:var(--muted);">資料庫只聽一種語言：SQL。這就是為什麼它一直是 IT 的東西 —— 直到現在。</div>
+    <div class="sqlflow">
+      <div class="st"><div class="sm">你 · 說中文</div><div class="sh">「幫我查 7 月<br>的營收」</div></div>
+      <div class="sar">→</div>
+      <div class="st"><div class="sm">CLAUDE CODE · 翻譯</div><div class="sh">翻成資料庫<br>聽得懂的話</div></div>
+      <div class="sar">→</div>
+      <div class="st dim2"><div class="sm">SQL · 它替你講</div><div class="sc">SELECT SUM(revenue)<br>FROM north1_weekly<br>WHERE month = '2026-07';</div></div>
+      <div class="sar">→</div>
+      <div class="st"><div class="sm">資料庫 · 回答</div><div class="sh">數字回來，<br>頁面畫出圖</div></div>
+    </div>
+    <div class="punchbar">你會看到它在跑這些字 —— <span class="ac">看得懂不用會</span>。<span class="src">等下示範時，注意看它替你講資料庫語言的那一幕。</span></div>
+    <div class="slide-num">10</div>
+    <div class="footer-mark">資料庫 · 說中文</div>
+  </section>
+
+    <section class="slide" data-label="DB.3 一人一表">
+    <div class="eyebrow"><span class="dot"></span><span class="num">資料庫</span><span class="rule"></span><span>誰管哪張表</span></div>
+    <div style="height:16px"></div>
+    <div class="title">各管各的表 —— 表頭一致，才<span class="accent">加得起來</span>。</div>
+    <div style="height:28px"></div>
+    <div class="dbframe">
+      <div class="dbt">D1 雲端資料庫 · 全班同一個 · 13 格 —— 自己的格自己餵、自己管，撞不到別人</div>
+      <div class="chipwall">
+        <span class="tc">chester_*</span><span class="tc">lion_*</span><span class="tc">bob_*</span><span class="tc">yuni_*</span><span class="tc">shani_*</span><span class="tc">alston_*</span><span class="tc">myra_*</span><span class="tc">neal_*</span><span class="tc">weber_*</span><span class="tc">abbie_*</span><span class="tc">yiju_*</span><span class="tc">minnie_*</span><span class="tc">felicity_*</span>
+      </div>
+      <div class="small">每一格裡幾張表，由你的報表決定 —— 你的表全部掛你的名字開頭（示範區 north1_ 目前 6 張）。</div>
+    </div>
+    <div style="height:30px"></div>
+    <div class="mismatch">
+      <span>但要合起來看 ——</span>
+      <span class="mh">營業額</span><span>＋</span><span class="mh bad">銷售額</span><span class="vx">✗</span><span>電腦眼裡是兩個東西，加不起來；</span>
+      <span class="mh">營業額</span><span>＋</span><span class="mh">營業額</span><span style="font-weight:900;font-size:34px;color:var(--ink);">✓</span>
+    </div>
+    <div class="punchbar">所以，課前請你們把表頭對齊了 —— 那份東西，<span class="ac">等下要拿出來用</span>。</div>
+    <div class="slide-num">11</div>
+    <div class="footer-mark">資料庫 · 一人一表</div>
+  </section>
+
+      <section class="slide" data-label="C1.01 動手前確認">
+    <div class="eyebrow"><span class="dot"></span><span class="num">規格</span><span class="rule"></span><span>動手前的確認</span></div>
+    <div style="height:16px"></div>
+    <div class="title">等下要用的東西，<span class="accent">都在手上嗎</span>？</div>
+    <div class="ask3">
+      <div class="q">
+        <div class="qn">01</div>
+        <div><div class="qt">你的數據從哪裡來 —— 知道怎麼下載嗎？</div></div>
+      </div>
+      <div class="q">
+        <div class="qn">02</div>
+        <div>
+          <div class="qt">要下載哪些欄位 —— 跟大家對過了嗎？</div>
+          <div class="qd">等下建表時，Claude 會問你「這個數字怎麼算」—— D1 你們自己寫過的那些定義，照著答就好；它也會問你的週（或月）怎麼標，看你檔案裡怎麼寫。</div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="qn">03</div>
+        <div><div class="qt">今天要餵的那批數字 —— 現在在你電腦上嗎？</div></div>
+      </div>
+    </div>
+    <div class="askfoot">有任何一題不確定 —— <b>現在問你旁邊的人</b>，他們知道。</div>
+    <div class="punchbar">這三題都點頭 —— <span class="ac">等下就不會卡</span>。</div>
+    <div class="slide-num">12</div>
+    <div class="footer-mark">規格 · 動手前確認</div>
+  </section>
+
+      <section class="slide" data-label="C1.02 公版規格">
+    <div class="eyebrow"><span class="dot"></span><span class="num">規格</span><span class="rule"></span><span>共同規則</span></div>
+    <div style="height:16px"></div>
+    <div class="title">全班只有兩條共同規則 ——<br>而且 <span class="accent">Claude 自己會照做</span>。</div>
+    <div class="rule3" style="grid-template-columns:1fr 1fr;">
+      <div class="rc"><div class="rn">規則 · 01</div><div class="rh">表名，<br>掛你的名字</div><div class="rd">你的表你管 —— Claude 只動你名字開頭的那幾張，13 個人同時建，撞不到。</div></div>
+      <div class="rc"><div class="rn">規則 · 02</div><div class="rh">刪除，<br>只是蓋章</div><div class="rd">資料不會真的消失，只是標記隱藏 —— 一句話就救回來。</div></div>
+    </div>
+    <div class="punchbar">這兩條寫在系統規則裡 —— Claude 建表時自己照做，<span class="ac">你不用背</span>。</div>
+    <div class="slide-num">13</div>
+    <div class="footer-mark">規格 · 公版規格</div>
+  </section>
+
+    <section class="slide" data-label="C1.03 獎品預告">
+    <div class="eyebrow"><span class="dot"></span><span class="num">規格</span><span class="rule"></span><span>之後</span></div>
+    <div style="height:16px"></div>
+    <div class="title">表頭對齊了 —— <span class="accent">全公司彙總頁</span>不遠了。</div>
+    <div class="now2">
+      <div class="np">
+        <div class="nw">今天</div>
+        <div class="nh">13 張表 · 13 頁 —— 各自跑</div>
+        <div class="leaders">
+          <div class="l">自己的數字自己餵，不用等任何人</div>
+          <div class="l">入口頁：一人一張卡，點進各自的頁</div>
+        </div>
+      </div>
+      <div class="np on">
+        <div class="nw">之後 · D3 起</div>
+        <div class="nh">表頭一致 ＋ 口徑補齊 —— 加總</div>
+        <div class="leaders">
+          <div class="l">入口頁升級：全公司彙總、跨區排名</div>
+          <div class="l">「加得起來」的前提，你們課前已經鋪好</div>
+        </div>
+      </div>
+    </div>
+    <div class="punchbar">你們課前對齊表頭那件事 —— 就是在<span class="ac">鋪這條路</span>。</div>
+    <div class="slide-num">14</div>
+    <div class="footer-mark">規格 · 獎品</div>
+  </section>
+
+    <section class="slide ink s-transition" data-label="C-ENV 轉場 · 拿鑰匙">
+    <div class="eyebrow"><span class="dot"></span><span class="num">環境建置</span><span class="rule"></span><span>拿鑰匙</span></div>
+    <div style="flex:1"></div>
+    <div class="display">進場之前 ——<br>先<span class="accent">拿鑰匙</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">環境建置 · 45 MIN</div>
+    <div class="slide-num">15</div>
+  </section>
+
+    <section class="slide" data-label="Cenv.01 四步總覽">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>接下來全是動手</span></div>
+    <div style="height:16px"></div>
+    <div class="title">四步 —— 開帳號 · 配對 · 抓副本 · <span class="accent">進門</span>。</div>
+        <div style="margin-top:22px;flex:0 0 auto;">
+      <svg viewBox="0 0 1680 230" style="width:100%;height:auto;display:block;" role="img" aria-label="四步在桌／庫／店三個地方的位置">
+        <defs>
+          <marker id="me-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111111"/></marker>
+          <marker id="me-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C15F3C"/></marker>
+        </defs>
+                <rect x="40" y="60" width="340" height="90" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <text x="210" y="116" font-size="32" font-weight="800" fill="#111111" text-anchor="middle">你的桌</text>
+        <rect x="670" y="60" width="340" height="90" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <text x="840" y="116" font-size="32" font-weight="800" fill="#111111" text-anchor="middle">保管庫</text>
+        <rect x="1300" y="60" width="340" height="90" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <text x="1470" y="116" font-size="32" font-weight="800" fill="#111111" text-anchor="middle">店面</text>
+                <rect x="670" y="12" width="196" height="36" fill="#C15F3C"/>
+        <text x="684" y="38" font-size="23" font-weight="700" fill="#FFFFFF">① 開帳號</text>
+                <line x1="392" y1="90" x2="658" y2="90" stroke="#111111" stroke-width="3" marker-start="url(#me-ink)" marker-end="url(#me-ink)"/>
+        <text x="525" y="76" font-size="23" font-weight="700" fill="#111111" text-anchor="middle">② 配對</text>
+                <line x1="658" y1="128" x2="392" y2="128" stroke="#111111" stroke-width="3" marker-end="url(#me-ink)"/>
+        <text x="525" y="154" font-size="23" fill="#3A3A3A" text-anchor="middle">③ 抓副本</text>
+                <path d="M 210 152 L 210 198 L 1470 198 L 1470 156" fill="none" stroke="#111111" stroke-width="3" marker-end="url(#me-acc)"/>
+        <text x="900" y="188" font-size="23" font-weight="700" fill="#111111" text-anchor="middle">④ 開網址 · 過門禁</text>
+      </svg>
+    </div>
+    <div class="step4">
+      <div class="sp4"><div class="pn">STEP 1</div><div class="pt">開帳號</div><div class="pd">用公司信箱，申請你的 GitHub 帳號。</div><div class="ps">庫 · GITHUB</div></div>
+      <div class="sp4"><div class="pn">STEP 2</div><div class="pt">配對</div><div class="pd">讓這台電腦，跟你的帳號認得彼此 —— 一次就好。</div><div class="ps">桌 ↔ 庫</div></div>
+      <div class="sp4"><div class="pn">STEP 3</div><div class="pt">抓副本</div><div class="pd">把正本抓一份回你桌上 —— 鑰匙也在裡面。</div><div class="ps">庫 → 桌</div></div>
+      <div class="sp4"><div class="pn">STEP 4</div><div class="pt">進門</div><div class="pd">過門禁，看到我們已經上線的網站。</div><div class="ps">店 · 門禁</div></div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">概念都講完了 —— 接下來全是動手。<b style="color:var(--ink);">卡住，直接舉手</b>，助教會巡場。</div>
+    <div class="slide-num">16</div>
+    <div class="footer-mark">拿鑰匙 · 四步</div>
+  </section>
+
+    <section class="slide" data-label="Cenv.02 動手 · 申請 GitHub">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>動手 ① · STEP 1</span></div>
+    <div style="height:16px"></div>
+    <div class="title">用公司信箱，開你的 <span class="accent">GitHub 帳號</span>。</div>
+    <div class="figrow c21" style="grid-template-columns:1fr 1fr;">
+      <div style="display:flex;flex-direction:column;gap:26px;">
+        <div class="ditem"><div class="n">1</div><div class="h">開 <a href="https://github.com/signup" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;text-underline-offset:5px;">github.com</a> → Sign up</div><div class="d">⚠️ 最上面那兩顆「Continue with Google／Apple」<b>別按</b> —— 那會綁到私人帳號。<b>從下面的 Email 欄開始填。</b></div></div>
+        <div class="ditem"><div class="n">2</div><div class="h">Email 填你的公司信箱</div><div class="d">就是 @studioa.com.tw 那個 —— 門禁認它、以後交接也認它。密碼要 15 字以上，或 8 字以上含數字。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">3</div><div class="h">收驗證碼</div><div class="d">寄到公司信箱 —— 在你平常收信的地方。</div></div>
+      </div>
+      <img src="img/github-signup.png" alt="GitHub 註冊頁：上方 Continue with Google／Apple，下方 Email／密碼／Username 表單" style="width:100%;height:100%;object-fit:contain;object-position:center;border:1px solid var(--hair);">
+    </div>
+    <div class="punchbar">帳號開好了 —— 下一步，<span class="ac">讓我知道你是誰</span>。</div>
+    <div class="slide-num">17</div>
+    <div class="footer-mark">拿鑰匙 · 申請帳號</div>
+  </section>
+
+      <section class="slide" data-label="Cenv.02b 動手 · 回報 username">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>動手 ① · 回報帳號</span></div>
+    <div style="height:16px"></div>
+    <div class="title">告訴我你的帳號 —— 我才<span class="accent">加得到你</span>。</div>
+    <div class="figrow c21" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr);">
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="border:2px solid var(--ink);padding:20px 26px;">
+          <div style="font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;">開這個網址</div>
+          <a href="https://studioa-join.pages.dev/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:36px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:8px;text-decoration-thickness:2px;letter-spacing:-1px;">studioa-join.pages.dev</a>
+        </div>
+        <div class="ditem"><div class="n">1</div><div class="h">找到你自己的名字</div><div class="d">13 個名字都在上面，照職稱找。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">2</div><div class="h">填 username → 按 Enter</div><div class="d">不是 email、也不是中文名 —— 是註冊時你自己取的那個英文名字。<b>忘了？點 GitHub 右上角頭像，最上面那行就是。</b></div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">3</div><div class="h">點一下你剛填的名字</div><div class="d">會打開 github.com／你的名字 —— <b>看到自己的頁面才算填對</b>。</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;align-self:stretch;min-height:0;">
+        <img src="img/join-page.png" alt="回報頁：13 個名字，各自填 GitHub username，填好的顯示已填" style="width:100%;flex:1 1 0;min-height:0;object-fit:contain;object-position:top;border:1px solid var(--hair);">
+        <div style="border:2px solid var(--ink);padding:12px 16px 14px;flex:none;">
+          <div style="font-family:var(--mono);font-size:22px;letter-spacing:.04em;color:var(--muted);margin-bottom:8px;">username 在哪裡看 · <b style="color:var(--ink);font-weight:600;">右上角頭像</b></div>
+          <img src="img/gh-username.png" alt="GitHub 右上角頭像選單展開，最上面一行就是自己的 username" style="width:100%;display:block;border:1px solid var(--hair);">
+        </div>
+      </div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">大家都填完，我<b style="color:var(--ink);">一次把所有人加進去</b> —— 邀請信會寄到你的公司信箱。</div>
+    <div class="slide-num">18</div>
+    <div class="footer-mark">拿鑰匙 · 回報帳號</div>
+  </section>
+
+      <section class="slide ink s-transition" data-label="BREAK 休息 · 我來開門">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BREAK</span><span class="rule"></span><span>休息</span></div>
+    <div style="flex:1"></div>
+    <div class="display">名字都報上來了 ——<br>下課 <span class="accent">10 分鐘</span>。</div>
+    <div style="height:28px"></div>
+    <div class="subtitle">這 10 分鐘我不休息 —— 把你們一個一個<b style="color:#fff;">加進團隊</b>。<br>回來第一件事：開公司信箱 —— <b style="color:#fff;">有封邀請信在等你</b>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">BREAK · 10 MIN</div>
+    <div class="slide-num">19</div>
+  </section>
+
+      <section class="slide" data-label="Cenv.02c 動手 · 收邀請信">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>動手 ① · 收邀請信</span></div>
+    <div style="height:16px"></div>
+    <div class="title">信到了 —— <span class="accent">按下去</span>，你才真的進得來。</div>
+    <div class="figrow c21" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr);">
+      <div style="display:flex;flex-direction:column;gap:34px;justify-content:center;">
+        <div class="ditem"><div class="n">1</div><div class="h">回公司信箱找這封信</div><div class="d">寄件者是 GitHub、主旨有 studioa-dashboard。<b>收件匣沒有就翻垃圾信。</b></div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">2</div><div class="h">點信裡的 View invitation</div><div class="d">會跳到 GitHub 上的接受頁 —— 網址列會看到 studioa-dashboard。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">3</div><div class="h">按綠色的 Accept invitation</div><div class="d">按完就沒事了。<b>7 天不按會過期。</b></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;align-self:stretch;min-height:0;">
+        <img src="img/gh-invite-mail.png" alt="公司信箱收到 GitHub 邀請信：aidata-studioa invited you to studioa-dashboard，內含 View invitation 按鈕" style="width:100%;flex:1 1 0;min-height:0;object-fit:contain;object-position:top;border:1px solid var(--hair);">
+        <img src="img/gh-invite-accept.png" alt="GitHub 接受邀請頁：網址列 studioa-dashboard/invitations，綠色 Accept invitation 按鈕" style="width:100%;flex:none;display:block;border:1px solid var(--hair);">
+      </div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">沒按這一顆，等一下 <b style="color:var(--ink);">STEP 3 抓副本會抓不到東西</b> —— 卡住就舉手。</div>
+    <div class="slide-num">20</div>
+    <div class="footer-mark">拿鑰匙 · 收邀請信</div>
+  </section>
+
+      <section class="slide" data-label="Cenv.03 repo 導覽">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>先看一圈</span></div>
+    <div style="height:16px"></div>
+    <div class="title">你們的家，已經<span class="accent">佈置好了</span>。</div>
+    <div class="figrow" style="grid-template-columns:1.30fr .70fr;grid-template-rows:minmax(0,1fr);">
+      <div class="treebox" style="margin-top:0;align-self:stretch;padding:20px 24px;">
+        <div class="tr"><div class="tp" style="flex:0 0 280px;">.claude/</div><div class="td">防護 —— 「真的刪掉」就是在這裡被擋下來的</div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 280px;">.github/workflows/</div><div class="td">每晚 4:30 自動跑備份的排程</div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 280px;">exports/</div><div class="td">資料庫的備份檔 —— 明天早上來看今晚那份</div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 280px;">functions/api/</div><div class="td">傳話員 —— 頁面上的數字，是它去資料庫撈的</div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 280px;">public/</div><div class="td" style="display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:baseline;"><span style="font-family:var(--mono);font-size:23px;color:var(--ink);white-space:nowrap;">├─ index.html</span><span><b>入口頁</b> —— 13 張卡的那面牆</span><span style="font-family:var(--mono);font-size:23px;color:var(--ink);white-space:nowrap;">└─ regions/你的名字.html</span><span><b>你的頁</b> —— 今天你只動這個</span></div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 280px;">CLAUDE.md</div><div class="td"><b>資料規則</b> —— 下一頁專門講</div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 280px;"><span style="color:var(--muted);">migrations/ .env</span></div><div class="td" style="color:var(--muted);">設定與紀錄 —— 不用動（螢幕上剩下那幾個也一樣）</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;align-self:stretch;min-height:0;justify-content:center;">
+        <img src="img/gh-repo.png" alt="GitHub 上的 studioa-dashboard repo 頁面：網址列 github.com/aidata-studioa/studioa-dashboard，Private 標記，檔案列表含 .claude／functions/api／public／exports／CLAUDE.md" style="width:100%;min-height:0;object-fit:contain;object-position:center;border:1px solid var(--hair);">
+        <div style="text-align:center;flex:none;"><a href="https://github.com/aidata-studioa/studioa-dashboard" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:22px;color:var(--muted);text-decoration:underline;text-underline-offset:5px;white-space:nowrap;">github.com/aidata-studioa/<b style="color:var(--ink);font-weight:600;">studioa-dashboard</b></a></div>
+      </div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">你要動的只有一個 —— <b style="color:var(--ink);">public/regions/你的名字.html</b>。其他的今天都不用碰。</div>
+    <div class="slide-num">21</div>
+    <div class="footer-mark">拿鑰匙 · REPO 導覽</div>
+  </section>
+
+      <section class="slide" data-label="Cenv.04 CLAUDE.md 合約">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>repo 裡最重要的一份</span></div>
+    <div style="height:16px"></div>
+    <div class="title">一份規則，<span class="accent">人和 AI</span> 都讀得懂。</div>
+    <div style="height:12px"></div>
+    <div class="body" style="color:var(--muted);">CLAUDE.md —— 每一條規則都寫兩層。拿「刪除」這條當例子：</div>
+    <div class="duo">
+      <div class="lay"><div class="lt">上層 · 白話原則 —— 寫給人（和 AI）的「為什麼」</div><div class="lb">「刪掉」不是消失，是蓋章隱藏 —— 這樣誤刪永遠救得回。</div></div>
+      <div class="lay spec"><div class="lt">下層 · 執行規格 —— 寫給 Claude 的「怎麼做」</div><div class="lb">刪除一律 UPDATE … SET deleted_at = datetime('now')，絕不下 DELETE。</div></div>
+    </div>
+    <div class="punchbar">改一份等於改兩份 —— 這份文件同時是 <span class="ac">AI 的規則</span>，和你們的 <span class="ac">SOP</span>。<span class="src">遇到規則沒寫到的新情況，AI 是靠上層那句「為什麼」在判斷。</span></div>
+    <div class="slide-num">22</div>
+    <div class="footer-mark">拿鑰匙 · 共用合約</div>
+  </section>
+
+      <section class="slide" data-label="Cenv.05 動手 · gh auth 配對">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>動手 ② · STEP 2</span></div>
+    <div style="height:16px"></div>
+    <div class="title">幫這台電腦，跟你的帳號<span class="accent">配對</span>。</div>
+    <div class="figrow c21" style="grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr);">
+      <div style="display:flex;flex-direction:column;gap:26px;justify-content:center;">
+                <div class="ditem"><div class="n">1</div><div class="h">終端機：gh auth login</div><div class="d">跟著我一步一步選 —— 選錯沒關係，重跑一次就好。</div></div>
+        <div class="ditem"><div class="n">2</div><div class="h">把那八碼填進瀏覽器</div><div class="d">終端機給你一組像 <span style="font-family:var(--mono);">F6E8-ED7E</span> 的碼，貼進跳出來的頁面 → 按 Continue。</div></div>
+        <div style="border:1px solid var(--hair);border-left:3px solid var(--accent);padding:18px 24px;font-size:23px;line-height:1.55;color:var(--body);">就像手機第一次連車上的藍牙 —— <b>配對一次，之後上車自動連</b>。認的是這台電腦，不是每次問你是誰。<span style="display:block;margin-top:8px;color:var(--muted);font-size:22px;">瀏覽器上 GitHub 照常打帳密 —— 跟這組配對碼無關。</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;align-self:stretch;min-height:0;justify-content:center;">
+        <img src="img/gh-device-terminal.png" alt="終端機跑 gh auth login，四個選項選完後顯示 one-time code F6E8-ED7E，提示按 Enter 開啟 github.com/login/device" style="width:100%;flex:none;display:block;border:1px solid var(--hair);">
+        <img src="img/gh-device-browser.png" alt="瀏覽器 github.com/login/device 頁面：Authorize your device、Signed in as zoe19820124、八格代碼已填入 F6E8-ED7E、綠色 Continue 鈕" style="width:100%;flex:none;display:block;border:1px solid var(--hair);">
+      </div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">配對好，<b style="color:var(--ink);">Claude 才進得去保管庫</b> —— 換電腦，才要再配一次。</div>
+    <div class="slide-num">23</div>
+    <div class="footer-mark">拿鑰匙 · 配對</div>
+  </section>
+
+      <section class="slide" data-label="Cenv.06 動手 · clone">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>動手 ③ · STEP 3</span></div>
+    <div style="height:16px"></div>
+    <div class="title">把副本抓回你桌上 —— 鑰匙<span class="accent">已經在裡面</span>。</div>
+    <div style="height:20px"></div>
+    <div class="cmdbox" data-copy="cd ~/Desktop&#10;git clone https://github.com/aidata-studioa/studioa-dashboard.git" style="font-size:26px;line-height:1.7;">
+      <div style="font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:.06em;color:#8A8A8A;margin-bottom:12px;">照貼 · 終端機</div>
+      cd ~/Desktop<br>git clone <span class="c">https://github.com/aidata-studioa/studioa-dashboard.git</span>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:38px;margin-top:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">
+        <div class="ditem"><div class="n">1</div><div class="h">貼上去</div><div class="d">副本會出現在你桌面 —— 資料夾叫 <span style="font-family:var(--mono);">studioa-dashboard</span>。</div></div>
+        <div class="ditem"><div class="n">2</div><div class="h">用 VS Code 打開它</div><div class="d">會跳一個視窗問你信不信任這個資料夾 —— 按信任。</div></div>
+      </div>
+      <div style="border:1px solid var(--hair);border-left:3px solid var(--accent);padding:20px 26px;font-size:24px;line-height:1.55;color:var(--body);"><b style="color:var(--ink);">什麼都不用設定</b> —— 資料庫的鑰匙，跟著副本一起下來了。</div>
+    </div>
+    <div class="punchbar">桌上到齊：助理 · 副本 · 鑰匙 · 你的資料 —— 只差<span class="ac">進門</span>。</div>
+    <div class="slide-num">24</div>
+    <div class="footer-mark">拿鑰匙 · CLONE</div>
+  </section>
+
+    <section class="slide" data-label="Cenv.07 動手 · 首次 OTP">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>動手 ④ · STEP 4 · 全班一起</span></div>
+    <div style="height:16px"></div>
+    <div class="title">開網址 → 輸 email → 收信 → <span class="accent">點 Log in</span>。</div>
+    <div class="step4" style="flex:0 0 auto;">
+      <div class="sp4"><div class="pn">1</div><div class="pt">開網址</div><div class="pd"><a href="https://studioa-dashboard.pages.dev" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:22px;color:var(--accent);text-decoration:underline;text-underline-offset:5px;">studioa-dashboard<wbr>.pages.dev</a></div></div>
+      <div class="sp4"><div class="pn">2</div><div class="pt">輸入公司 email</div><div class="pd">你的 @studioa.com.tw —— 門禁查名單。</div></div>
+      <div class="sp4"><div class="pn">3</div><div class="pt">收信 → 點 Log in</div><div class="pd">點信裡的橘色按鈕就進來了 —— <b>不用抄驗證碼</b>。</div></div>
+      <div class="sp4"><div class="pn">4</div><div class="pt">進來了</div><div class="pd">兩週內免重驗 —— 下週再開，不會再被問。</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr);gap:24px;flex:1;min-height:0;margin-top:24px;">
+      <img src="img/access-login.png" alt="Cloudflare Access 登入頁：Log in to studioa-dashboard,一個 Email 欄位與藍色 Send login code 按鈕" style="width:100%;height:100%;object-fit:contain;object-position:center;border:1px solid var(--hair);">
+      <img src="img/access-mail.png" alt="公司信箱收到的 Cloudflare 驗證信：主旨 Cloudflare Access login code,信中有橘色 Log in 按鈕" style="width:100%;height:100%;object-fit:contain;object-position:center;border:1px solid var(--hair);">
+    </div>
+    <div class="punchbar">你剛剛被一道門攔下來、又放行 —— 下一頁，<span class="ac">拆給你看</span>。</div>
+    <div class="slide-num">25</div>
+    <div class="footer-mark">拿鑰匙 · 首次登入</div>
+  </section>
+
+    <section class="slide ink" data-label="Cenv.08 Access 警衛">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拿鑰匙</span><span class="rule"></span><span>剛剛那道門</span></div>
+    <div style="height:16px"></div>
+    <div class="title" style="color:#fff;">我們沒寫過任何登入程式 —— 門口站了個<span class="accent">警衛</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1;min-height:0;margin-top:32px;">
+      <div style="border:2px solid #333;padding:32px 36px;display:flex;flex-direction:column;gap:16px;">
+        <div style="font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:#8A8A8A;">沒有警衛的網站</div>
+        <div style="font-size:30px;font-weight:700;color:#fff;line-height:1.4;">知道網址 ＝ 進得來</div>
+        <div style="font-size:24px;color:#B8B8B8;line-height:1.55;">連結被轉發一次，就是全世界進得來 —— 網址本身，擋不住任何人。</div>
+        <div style="margin-top:auto;border-top:1px solid #333;padding-top:16px;font-size:22px;color:#8A8A8A;line-height:1.55;">前陣子公司內才發生過：一條 AI 工具的分享連結，跟 AI 說了一句話，權限就開了 —— 拿到連結的人，都看得到。</div>
+      </div>
+      <div style="border:2px solid var(--accent);padding:32px 36px;display:flex;flex-direction:column;gap:16px;">
+        <div style="font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--accent-br);">我們的網站 · 有警衛</div>
+        <div style="font-size:30px;font-weight:700;color:#fff;line-height:1.4;">知道網址，只是走到門口</div>
+        <div style="font-size:24px;color:#B8B8B8;line-height:1.55;">警衛查證件（email）—— 名單上的 16 個人才放行；不在名單上，<b style="color:#fff;">連驗證信都收不到</b>。</div>
+        <div style="margin-top:auto;border-top:1px solid #7a3c1e;padding-top:16px;font-size:22px;color:#B8B8B8;line-height:1.55;">警衛是現成的門禁服務 —— 所以我們的網站，一行登入程式都沒寫。</div>
+      </div>
+    </div>
+    <div class="punchbar">連結一定會被轉發 —— 擋得住的，是<span class="ac">門口的警衛</span>。</div>
+    <div class="slide-num">26</div>
+    <div class="footer-mark">拿鑰匙 · 門禁</div>
+  </section>
+
+    <section class="slide" data-label="MAP.1 ①⑤亮">
+    <div class="eyebrow"><span class="dot"></span><span class="num">系統地圖</span><span class="rule"></span><span>第 2 次出現</span></div>
+    <div style="height:16px"></div>
+    <div class="title">地圖上，你已經走過<span class="accent">兩條線</span>。</div>
+    <div class="mapfig">
+      <svg viewBox="0 0 1680 600" role="img" aria-label="系統地圖：①⑤ 已走過，②③④ 未點亮">
+        <defs>
+          <marker id="ma-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111111"/></marker>
+          <marker id="ma-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C15F3C"/></marker>
+        </defs>
+
+                <rect x="40" y="40" width="600" height="200" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <g stroke="#111111" stroke-width="2.5" fill="none">
+          <line x1="86" y1="146" x2="210" y2="146"/>
+          <line x1="96" y1="146" x2="96" y2="190"/>
+          <line x1="200" y1="146" x2="200" y2="190"/>
+          <rect x="112" y="102" width="52" height="36"/>
+          <line x1="106" y1="142" x2="170" y2="142"/>
+        </g>
+        <text x="248" y="122" font-size="34" font-weight="800" fill="#111111">你們的電腦 ×13</text>
+        <text x="248" y="166" font-size="23" fill="#8A8A8A">助理 · 副本 · 鑰匙 · 你的資料 —— 剛剛到齊</text>
+
+                <rect x="40" y="360" width="600" height="200" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <g stroke="#111111" stroke-width="2.5" fill="none">
+          <rect x="92" y="418" width="96" height="86"/>
+          <circle cx="140" cy="461" r="21"/>
+          <line x1="140" y1="448" x2="140" y2="474"/>
+          <line x1="127" y1="461" x2="153" y2="461"/>
+        </g>
+        <text x="248" y="442" font-size="34" font-weight="800" fill="#111111">GitHub</text>
+        <text x="248" y="486" font-size="23" fill="#8A8A8A">正本保管庫</text>
+
+                <rect x="880" y="40" width="760" height="520" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <text x="1240" y="104" font-size="34" font-weight="800" fill="#111111">Cloudflare</text>
+        <text x="1240" y="136" font-size="23" fill="#8A8A8A">開門營業的店面</text>
+                <rect x="916" y="180" width="190" height="100" fill="#FFFFFF" stroke="#C15F3C" stroke-width="2.5"/>
+        <text x="948" y="224" font-size="27" font-weight="700" fill="#A34D2F">門禁</text>
+        <text x="948" y="258" font-size="20" fill="#8A8A8A">查 email 名單</text>
+                <rect x="1180" y="180" width="380" height="100" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+        <text x="1212" y="224" font-size="27" font-weight="700" fill="#111111">網站</text>
+        <text x="1212" y="258" font-size="20" fill="#8A8A8A">入口頁 ＋ 各區的頁</text>
+                <rect x="1180" y="400" width="380" height="120" fill="#FFFFFF" stroke="#C9C9C9" stroke-width="2"/>
+        <text x="1212" y="440" font-size="27" font-weight="700" fill="#B0B0B0">資料庫 —— 一個</text>
+        <g stroke="#C9C9C9" stroke-width="1.8" fill="none">
+          <rect x="1212" y="456" width="52" height="30"/><line x1="1212" y1="466" x2="1264" y2="466"/>
+          <rect x="1274" y="456" width="52" height="30"/><line x1="1274" y1="466" x2="1326" y2="466"/>
+          <rect x="1336" y="456" width="52" height="30"/><line x1="1336" y1="466" x2="1388" y2="466"/>
+          <rect x="1398" y="456" width="52" height="30"/><line x1="1398" y1="466" x2="1450" y2="466"/>
+        </g>
+        <text x="1462" y="480" font-size="21" fill="#B0B0B0">… ×13</text>
+        <text x="1212" y="508" font-size="20" fill="#C9C9C9">13 格 —— 每格是一個人的幾張表 · 等下</text>
+
+                <line x1="620" y1="244" x2="1172" y2="440" stroke="#C9C9C9" stroke-width="2.5" stroke-dasharray="10 8"/>
+        <text x="742" y="310" font-size="22" fill="#B0B0B0" class="halo">② 直連資料庫</text>
+                <line x1="644" y1="400" x2="1172" y2="256" stroke="#C9C9C9" stroke-width="2.5" stroke-dasharray="10 8"/>
+        <text x="742" y="404" font-size="22" fill="#B0B0B0" class="halo">③ 自動部署</text>
+                <path d="M 1250 524 L 1250 584 L 420 584 L 420 564" stroke="#C9C9C9" stroke-width="2.5" stroke-dasharray="10 8" fill="none"/>
+        <text x="760" y="576" font-size="22" fill="#B0B0B0" class="halo">④ 每晚備份</text>
+
+                <line x1="250" y1="254" x2="250" y2="348" stroke="#C15F3C" stroke-width="3.5" marker-end="url(#ma-acc)"/>
+        <line x1="330" y1="346" x2="330" y2="252" stroke="#111111" stroke-width="3.5" marker-end="url(#ma-ink)"/>
+        <text x="378" y="294" font-size="25" font-weight="800" fill="#111111" class="halo">① push 交回 ／ pull 拿回</text>
+        <text x="378" y="330" font-size="21" fill="#8A8A8A" class="halo">剛剛的 clone ＝ 你的第一次 pull</text>
+
+                <rect x="656" y="40" width="200" height="74" fill="#FFFFFF" stroke="#C9C9C9" stroke-width="2"/>
+        <text x="676" y="72" font-size="22" font-weight="700" fill="#B0B0B0">看報表的同事</text>
+        <text x="676" y="100" font-size="18" fill="#C4C4C4">用瀏覽器開網址</text>
+        <path d="M 856 77 L 1011 77 L 1011 176" stroke="#C9C9C9" stroke-width="2.5" fill="none" stroke-dasharray="10 8"/>
+                <path d="M 644 130 L 820 130 L 820 230 L 902 230" stroke="#111111" stroke-width="3.5" fill="none" marker-end="url(#ma-ink)"/>
+        <line x1="1110" y1="230" x2="1166" y2="230" stroke="#C15F3C" stroke-width="3" marker-end="url(#ma-acc)"/>
+        <text x="648" y="164" font-size="25" font-weight="800" fill="#111111" class="halo">⑤ 開網址 · 過門禁</text>
+        <text x="1082" y="292" font-size="21" fill="#A34D2F" class="halo">驗過 · 放行</text>
+      </svg>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">兩條亮了、三條還暗著 —— 下半場一條一條點亮。<b style="color:var(--ink);">鑰匙拿齊了，接下來 —— 接管。</b></div>
+    <div class="slide-num">27</div>
+    <div class="footer-mark">系統地圖 · ①⑤</div>
+  </section>
+
+      
+    <section class="slide ink s-transition" data-label="ACT2 轉場 · 接管">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>第二幕</span></div>
+    <div style="flex:1"></div>
+    <div class="display">鑰匙在手 ——<br><span class="accent">接管</span>這套系統。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">講師示範 · 20 MIN</div>
+    <div class="slide-num">28</div>
+  </section>
+
+    <section class="slide" data-label="C2.01 示範預告">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>看我做一遍</span></div>
+    <div style="height:16px"></div>
+    <div class="title">先看我跑完整一圈 —— <span class="accent">等下就是你</span>。</div>
+    <div class="rule3">
+      <div class="rc"><div class="rn">看點 · 01</div><div class="rh">改一個東西，<br>全公司看到</div><div class="rd">改示範頁的一個地方 → 交回去 → 一分鐘後上線。</div></div>
+      <div class="rc"><div class="rn">看點 · 02</div><div class="rh">餵一筆數字，<br>頁面自己更新</div><div class="rd">不碰任何程式 —— 數字進資料庫，頁面當場撈。</div></div>
+      <div class="rc"><div class="rn">看點 · 03</div><div class="rh">刪一筆、救回來 ——<br>再叫它「真的刪」</div><div class="rd">看這個系統怎麼反應。這段最重要。</div></div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">過程裡會冒出幾個新名詞 —— <b style="color:var(--ink);">都只在它出現的當下講</b>。</div>
+    <div class="slide-num">29</div>
+    <div class="footer-mark">示範 · 預告</div>
+  </section>
+
+    <section class="slide" data-label="C2.02 路線A 改網頁">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>路線 A · 改長相</span></div>
+    <div style="height:16px"></div>
+    <div class="title">說需求 → 它改 → push → <span class="accent">一分鐘後全公司看到</span>。</div>
+    <div class="sqlflow">
+      <div class="st"><div class="sm">你 · 說需求</div><div class="sh">「達成率不到 95%<br>的，幫我標紅」</div></div>
+      <div class="sar">→</div>
+      <div class="st"><div class="sm">桌 · 它改副本</div><div class="sh">改的是你桌上那份<br>—— 還沒人看到</div></div>
+      <div class="sar">→</div>
+      <div class="st"><div class="sm">庫 ·「幫我 push」</div><div class="sh">改好的，<br>交回保管庫</div></div>
+      <div class="sar">→</div>
+      <div class="st"><div class="sm">店 · 自動上架</div><div class="sh">約一分鐘 ——<br>全公司看到新版</div></div>
+    </div>
+    <div class="figrow" style="grid-template-columns:1fr 1fr;flex:0 0 auto;margin-top:26px;align-items:stretch;">
+      <div class="ditem"><div class="n">新名詞 · 自動部署</div><div class="d" style="margin-top:8px;">保管庫一收到新版，店面自動換上 —— <b>沒有人按任何按鈕</b>。這就是地圖上的 ③。</div></div>
+      <svg viewBox="0 0 640 150" style="width:100%;height:auto;">
+        <rect x="10" y="42" width="150" height="66" fill="#FFF" stroke="#111" stroke-width="2"/><text x="85" y="82" font-size="24" font-weight="700" fill="#111" text-anchor="middle">你的桌</text>
+        <rect x="245" y="42" width="150" height="66" fill="#FFF" stroke="#111" stroke-width="2"/><text x="320" y="82" font-size="24" font-weight="700" fill="#111" text-anchor="middle">保管庫</text>
+        <rect x="480" y="42" width="150" height="66" fill="#FFF" stroke="#111" stroke-width="2"/><text x="555" y="82" font-size="24" font-weight="700" fill="#111" text-anchor="middle">店面</text>
+        <defs><marker id="mm-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker>
+        <marker id="mm-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C15F3C"/></marker></defs>
+        <line x1="162" y1="75" x2="238" y2="75" stroke="#111" stroke-width="3" marker-end="url(#mm-ink)"/><text x="200" y="58" font-size="20" fill="#8A8A8A" text-anchor="middle">push</text>
+        <line x1="397" y1="75" x2="473" y2="75" stroke="#C15F3C" stroke-width="3.5" marker-end="url(#mm-acc)"/><text x="435" y="56" font-size="20" font-weight="700" fill="#A34D2F" text-anchor="middle">③ 自動上架</text>
+      </svg>
+    </div>
+    <div class="punchbar">這條叫<span class="ac">路線 A · 改網頁</span> —— 改的是長相，走保管庫。</div>
+    <div class="slide-num">30</div>
+    <div class="footer-mark">示範 · 路線 A</div>
+  </section>
+
+    <section class="slide" data-label="C2.03 路線B 改資料">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>路線 B · 改數字</span></div>
+    <div style="height:16px"></div>
+    <div class="title">數字不走 GitHub —— <span class="accent">直接寫進資料庫</span>。</div>
+    <div class="sqlflow">
+      <div class="st"><div class="sm">你 · 給數字</div><div class="sh">貼數字、丟 Excel<br>都行</div></div>
+      <div class="sar">→</div>
+      <div class="st dim2"><div class="sm">它 · 翻成 SQL</div><div class="sh">剛剛預告的那幕<br>—— 它替你講</div></div>
+      <div class="sar">→</div>
+      <div class="st"><div class="sm">格 · 寫進你的格</div><div class="sh">憑鑰匙直達 ——<br>不經過保管庫</div></div>
+      <div class="sar">→</div>
+      <div class="st"><div class="sm">頁 · 重新整理</div><div class="sh">頁面當場去撈<br>—— 數字變了</div></div>
+    </div>
+    <div class="figrow" style="grid-template-columns:1fr 1fr;flex:0 0 auto;margin-top:26px;align-items:stretch;">
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="ditem"><div class="n">新名詞 · 鑰匙（token）</div><div class="d" style="margin-top:6px;">只能開資料庫的那把 —— 別的門開不了。clone 時就在你桌上了。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">新名詞 · wrangler</div><div class="d" style="margin-top:6px;">它操作資料庫用的工具 —— 你會看到它在跑，<b>看得懂不用會</b>。</div></div>
+      </div>
+      <svg viewBox="0 0 640 150" style="width:100%;height:auto;">
+        <rect x="10" y="42" width="150" height="66" fill="#FFF" stroke="#111" stroke-width="2"/><text x="85" y="82" font-size="24" font-weight="700" fill="#111" text-anchor="middle">你的桌</text>
+        <rect x="245" y="66" width="150" height="60" fill="#FFF" stroke="#C9C9C9" stroke-width="2" stroke-dasharray="8 6"/><text x="320" y="103" font-size="22" fill="#B0B0B0" text-anchor="middle">保管庫</text>
+        <rect x="450" y="16" width="186" height="124" fill="#FFF" stroke="#111" stroke-width="2"/><text x="543" y="42" font-size="18" fill="#8A8A8A" text-anchor="middle">Cloudflare · 店面</text>
+        <rect x="466" y="54" width="154" height="72" fill="#FFF" stroke="#111" stroke-width="2"/><text x="543" y="84" font-size="24" font-weight="700" fill="#111" text-anchor="middle">資料庫</text><text x="543" y="110" font-size="18" fill="#8A8A8A" text-anchor="middle">你的格</text>
+        <defs><marker id="mb-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C15F3C"/></marker></defs>
+        <path d="M 162 62 C 250 8, 360 24, 459 76" stroke="#C15F3C" stroke-width="3.5" fill="none" marker-end="url(#mb-acc)"/>
+        <text x="320" y="54" font-size="20" font-weight="700" fill="#A34D2F" text-anchor="middle">② 憑鑰匙直達</text>
+        <text x="320" y="145" font-size="18" fill="#B0B0B0" text-anchor="middle">不經過</text>
+      </svg>
+    </div>
+    <div class="punchbar">這條叫<span class="ac">路線 B · 改資料</span> —— 數字一直在變，程式不用跟著變。<span class="src">頁面多新，取決於資料進來多勤 —— 今天手動餵週；之後可以自動撈、自動餵。改的是頻率，不是系統。</span></div>
+    <div class="slide-num">31</div>
+    <div class="footer-mark">示範 · 路線 B</div>
+  </section>
+
+      <section class="slide ink" data-label="C2.04 DELETE 被擋">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>最重要的一段</span></div>
+    <div style="height:16px"></div>
+    <div class="title" style="color:#fff;">叫它硬刪 —— <span class="accent">它不肯</span>。</div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;margin-top:14px;">
+            <div style="background:#1A1A1A;border:1px solid #333;padding:28px 40px;font-family:var(--mono);font-size:23px;line-height:1.85;">
+        <div><span style="color:var(--accent-br);">&gt; W32 那筆先刪掉</span></div>
+        <div style="color:#9C9C9C;">✓ 已標記刪除（蓋章）—— 頁面退回 W31</div>
+        <div style="height:10px;"></div>
+        <div><span style="color:var(--accent-br);">&gt; 救回來</span></div>
+        <div style="color:#9C9C9C;">✓ 回來了 —— 一個字沒少</div>
+        <div style="height:10px;"></div>
+        <div><span style="color:var(--accent-br);">&gt; 真的刪掉，不要蓋章</span></div>
+        <div style="color:#9C9C9C;">⊘ 我不代辦 —— 硬刪由管理者自己到後台動手</div>
+      </div>
+    </div>
+    <div class="punchbar">刪掉＝蓋章，救得回來 —— <span class="ac">硬刪，它不代辦</span>。<span class="src">怎麼凹都一樣 —— 為什麼要這樣設計，等一下拆給你們看。</span></div>
+    <div class="slide-num">32</div>
+    <div class="footer-mark">示範 · 刪不壞</div>
+  </section>
+
+    <section class="slide" data-label="C2.05 三層安全網">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>為什麼敢讓 13 個人同時動手</span></div>
+    <div style="height:16px"></div>
+    <div class="title">刪不壞 —— 靠<span class="accent">系統</span>，不靠小心。</div>
+    <div class="rule3">
+      <div class="rc"><div class="rn">第一層</div><div class="rh">刪除，<br>只是蓋章</div><div class="rd">誤刪不是災難 —— 一句話救回來。剛剛你們親眼看過。</div></div>
+      <div class="rc"><div class="rn">第二層</div><div class="rh">真刪，<br>擋兩道</div><div class="rd">一道寫在<b>規則</b>裡 —— AI 讀了自己就不做，剛剛你們親眼看過；一道寫在<b>系統</b>裡 —— 就算有人繞過 AI 自己下指令，一樣被擋。</div></div>
+      <div class="rc"><div class="rn">第三層</div><div class="rh">每晚，<br>自動備份</div><div class="rd">就算整個資料庫毀了，最多回到昨天 —— 而且沒有人需要記得做這件事。</div></div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">誠實講清楚：它救的是「<b style="color:var(--ink);">誤刪</b>」—— 數字改錯，系統不會知道，還是要自己看一眼。</div>
+    <div class="slide-num">33</div>
+    <div class="footer-mark">示範 · 安全網</div>
+  </section>
+
+        <section class="slide" data-label="C2.06 那個地方長這樣">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>那個地方長這樣</span></div>
+    <div style="height:16px"></div>
+    <div class="title">真的要刪 —— 有人得<span class="accent">登進來</span>。</div>
+    <div style="display:flex;align-items:center;gap:30px;margin-top:22px;font-size:26px;color:var(--body);">
+      <div><span style="font-family:var(--mono);color:var(--accent);font-weight:700;">①</span> 左側 Storage &amp; databases</div>
+      <div style="color:var(--muted);">→</div>
+      <div><span style="font-family:var(--mono);color:var(--accent);font-weight:700;">②</span> D1 SQLite Database</div>
+      <div style="color:var(--muted);">→</div>
+      <div><span style="font-family:var(--mono);color:var(--accent);font-weight:700;">③</span> Console 打指令</div>
+    </div>
+    <img src="img/d1-console.png" alt="Cloudflare 後台 D1 Console：一句 DELETE 執行成功" style="flex:1;min-height:0;width:100%;object-fit:contain;object-position:center;margin-top:20px;border:1px solid var(--hair);">
+    <div class="punchbar">同一件事 —— 在你電腦上<span class="ac">怎麼求都不成</span>，在這裡<span class="ac">一句就成</span>。<span class="src">差別是「有沒有人拿帳號密碼登進來」—— 而 AI 到不了這裡。</span></div>
+    <div class="slide-num">34</div>
+    <div class="footer-mark">示範 · 後台</div>
+  </section>
+
+
+    <section class="slide" data-label="C2.07 兩條路口訣">
+    <div class="eyebrow"><span class="dot"></span><span class="num">示範</span><span class="rule"></span><span>收束</span></div>
+    <div style="height:16px"></div>
+    <div class="title">改網頁走保管庫、改數字進資料庫 —— 分不清？<span class="accent">不用分</span>。</div>
+    <div class="now2" style="flex:0 0 auto;">
+      <div class="np">
+        <div class="nw">路線 A · 改網頁</div>
+        <div class="nh">長相變了 —— 走保管庫</div>
+        <div class="leaders">
+          <div class="l">版面、圖表、欄位顯示 —— 說需求，它改</div>
+          <div class="l">「幫我 push」→ 約一分鐘，全公司看到</div>
+        </div>
+      </div>
+      <div class="np">
+        <div class="nw" style="color:var(--accent);">路線 B · 改資料</div>
+        <div class="nh">數字變了 —— 憑鑰匙直達</div>
+        <div class="leaders">
+          <div class="l">每週餵數字、修一筆錯的 —— 給它就好</div>
+          <div class="l">重新整理，頁面當場撈到新數字</div>
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--hair);border-left:3px solid var(--accent);padding:22px 28px;margin-top:24px;font-size:25px;line-height:1.55;color:var(--body);">組合題：「我想加毛利率的圖」＝ <b>先 B 再 A</b> —— 先讓資料就位，再讓頁面去畫它。<span style="color:var(--muted);">資料不在，圖就是空的。</span></div>
+    <div class="punchbar">你只管說你要什麼 —— <span class="ac">Claude 自己走對的路</span>。<span class="src">這張圖是幫你看懂發生了什麼 —— 不是要你背。</span></div>
+    <div class="slide-num">35</div>
+    <div class="footer-mark">示範 · 口訣</div>
+  </section>
+
+    <section class="slide ink s-transition" data-label="BREAK 休息">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BREAK</span><span class="rule"></span><span>休息</span></div>
+    <div style="flex:1"></div>
+    <div class="display">下課 <span class="accent">10 分鐘</span>。</div>
+    <div style="height:28px"></div>
+    <div class="subtitle">回來就輪到你 —— 四步，把你的卡點亮。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">BREAK · 10 MIN</div>
+    <div class="slide-num">36</div>
+  </section>
+
+    <section class="slide" data-label="C3.00 四步總覽">
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>今天的主場 · 60 MIN</span></div>
+    <div style="height:16px"></div>
+    <div class="title">四步 —— <span class="accent">先上線</span> · 餵數字 · 接起來 · 確認。</div>
+    <div class="step4">
+      <div class="sp4"><div class="pn">STEP 1</div><div class="pt">先讓它<br>上線</div><div class="pd">你已經做好的那份報表，原封不動放上去 —— <b>一分鐘後全公司看得到</b>。</div><div class="ps">路線 A</div></div>
+      <div class="sp4"><div class="pn">STEP 2</div><div class="pt">建格 ·<br>餵數字</div><div class="pd">課前下載的那批檔丟給它 —— <b>數字進資料庫，不用 push</b>。</div><div class="ps">路線 B</div></div>
+      <div class="sp4"><div class="pn">STEP 3</div><div class="pt">把數字<br>接起來</div><div class="pd">頁面改成從你自己的表撈 —— <b>之後它自己會更新</b>。</div><div class="ps">兩條路交會</div></div>
+      <div class="sp4"><div class="pn">STEP 4</div><div class="pt">確認<br>亮卡</div><div class="pd">開自己的網址看過沒問題 → 按「確認」—— <b>你的卡亮</b>。</div><div class="ps">收尾儀式</div></div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">門市、財會、特別軌 —— <b style="color:var(--ink);">同一條路，只差餵的資料</b>。第一步做完你就已經在牆上了，後面每一步都是加分。</div>
+    <div class="slide-num">37</div>
+    <div class="footer-mark">換你動手 · 總覽</div>
+  </section>
+
+      <section class="slide" data-label="C3.01 開工前">
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>開工前 · 兩分鐘</span></div>
+    <div style="height:16px"></div>
+    <div class="title">開工前 —— 把東西搬到<span class="accent">同一個屋簷下</span>。</div>
+    <div class="figrow" style="grid-template-columns:1fr 1fr;align-items:start;margin-top:26px;">
+      <div style="display:flex;flex-direction:column;gap:26px;">
+        <div class="ditem"><div class="n">① 開對資料夾</div><div class="h">在 studioa-dashboard<br>開 Claude Code</div><div class="d">不是在你自己的 FLUX 資料夾 —— <b>開錯了，後面四步都不會動</b>。已經開著別的專案就關掉，重開這個。</div></div>
+        <div class="ditem"><div class="n">② 把檔案拖進去</div><div class="h">報表 ＋ 課前下載的資料<br>一起丟進 inbox/</div><div class="d">用 Finder 拖就好，不用打指令。一次搬完，<b>後面四步都不用再找檔案</b>。</div></div>
+      </div>
+      <div style="border:1px solid var(--hair);border-left:3px solid var(--ink);padding:24px 28px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.06em;font-weight:600;">③ 開了才看得到</div>
+        <div style="font-family:var(--mono);font-size:26px;color:var(--ink);font-weight:700;margin-top:6px;">public / regions /</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 26px;font-family:var(--mono);font-size:21px;color:var(--body);margin-top:16px;">
+          <div>abbie.html</div><div>neal.html</div>
+          <div>alston.html</div><div style="color:var(--muted);">north1.html</div>
+          <div>bob.html</div><div>shani.html</div>
+          <div>chester.html</div><div>weber.html</div>
+          <div>felicity.html</div><div>yiju.html</div>
+          <div>lion.html</div><div>yuni.html</div>
+          <div>minnie.html</div><div></div>
+          <div>myra.html</div><div></div>
+        </div>
+        <div style="margin-top:18px;padding-top:15px;border-top:1px solid var(--hair);font-size:22px;color:var(--body);line-height:1.5;"><b style="color:var(--ink);">這裡面有一個是你的名字</b> —— 今天你只會動到那一個。<span style="color:var(--muted);">（north1 是剛才那個示範頁）</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;flex:0 0 auto;margin-top:22px;align-items:stretch;">
+      <div style="border:1px solid var(--hair);border-left:3px solid var(--accent);padding:24px 26px;font-size:23px;line-height:1.5;color:var(--body);">為什麼一定要拖進去：<b>Claude Code 只看得到你開它的那個資料夾</b>。留在桌面或下載資料夾，它讀不到 —— 不是不肯，是看不到。</div>
+      <div class="promptbox" data-copy="我是 {你的名字}。幫我建一個 CLAUDE.local.md 記著這件事，之後你就不用再問我了。" style="padding:18px 26px;gap:8px;">
+        <div class="pb-lab">④ 讓它認識你 · 照貼</div>
+        <div class="pb-t" style="font-size:24px;line-height:1.5;">我是 <span class="hi">{你的名字}</span>。幫我建一個 CLAUDE.local.md 記著這件事，之後你就不用再問我了。</div>
+      </div>
+    </div>
+    <div class="punchbar">這幾件做完 —— 後面四步，<span class="ac">每一步照貼一句話</span>。</div>
+    <div class="slide-num">38</div>
+    <div class="footer-mark">換你動手 · 開工前</div>
+  </section>
+
+      <section class="slide" data-label="C3.02 動手① 先上線">
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>STEP 1 · 路線 A</span></div>
+    <div style="height:16px"></div>
+    <div class="title">先讓它上線 —— <span class="accent">一分鐘後全公司看得到</span>。</div>
+    <div class="figrow" style="grid-template-columns:1.15fr .85fr;">
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="promptbox" data-copy="把 inbox/ 裡的 {你的報表檔名}，換成 public/regions/{你的名字}.html。&#10;先照原樣換上去就好，標題和數字等一下再處理。">
+          <div class="pb-lab">照貼 · 第一句　⚠️ { } 都要換掉</div>
+          <div class="pb-t">把 inbox/ 裡的 <span class="hi">{你的報表檔名}</span>，換成 public/regions/<span class="hi">{你的名字}</span>.html。<br>先照原樣換上去就好，標題和數字等一下再處理。</div>
+          <div style="font-size:21px;color:#8A8A8A;line-height:1.5;border-top:1px solid #3A2E24;padding-top:12px;margin-top:2px;">例：把 inbox/ 裡的 <span style="color:#C7C7C7;">我的週報_W31.html</span>，換成 public/regions/<span style="color:#C7C7C7;">bob</span>.html。</div>
+        </div>
+        <div class="promptbox" data-copy="幫我 push" style="padding:20px 30px;">
+          <div class="pb-lab">看過沒問題 · 照貼</div>
+          <div class="pb-t" style="font-size:32px;">幫我 push</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:26px;justify-content:center;">
+        <div class="ditem"><div class="n">推之前先看一眼</div><div class="d" style="margin-top:6px;">在 Finder <b>雙擊</b>它改好的那個檔，瀏覽器直接開。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">數字還是舊的</div><div class="d" style="margin-top:6px;">正常。這一步只搬長相，<b>數字下一步才接</b>。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">推壞了</div><div class="d" style="margin-top:6px;">說一句「<b>幫我還原</b>」就回上一版。</div></div>
+      </div>
+    </div>
+    <div class="punchbar">這一步做完，<span class="ac">你就已經在牆上了</span> —— 後面每一步都是加分。</div>
+    <div class="slide-num">39</div>
+    <div class="footer-mark">換你動手 · 先上線</div>
+  </section>
+
+      <section class="slide" data-label="C3.03 動手② 建格餵數字">
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>STEP 2 · 路線 B</span></div>
+    <div style="height:16px"></div>
+    <div class="title">建你的格，把數字<span class="accent">餵進去</span>。</div>
+    <div class="figrow" style="grid-template-columns:1.15fr .85fr;">
+      <div class="promptbox" data-copy="我的數據也在 inbox/，幫我把數字放進資料庫（D1）。">
+        <div class="pb-lab">照貼 · 一句就好</div>
+        <div class="pb-t">我的數據也在 <span class="hi">inbox/</span>，幫我把數字<span class="hi">放進資料庫（D1）</span>。</div>
+        <div style="font-size:21px;color:#8A8A8A;line-height:1.5;border-top:1px solid #3A2E24;padding-top:12px;margin-top:2px;">D1 是那個資料庫的名字 —— Cloudflare 上的那一個。13 個人的數字都住在裡面，各有各的格。</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px;">
+        <div class="ditem"><div class="n">它會先講一遍才動手</div><div class="d" style="margin-top:6px;">哪個檔進哪張表、各幾筆 —— <b>它列給你看，你說「好」它才寫</b>。不對就當場喊停。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">13 個人同時餵</div><div class="d" style="margin-top:6px;">各寫各的格，不用排隊 —— 資料庫天生就是給多人同時記帳的。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">順手驗一筆</div><div class="d" style="margin-top:6px;">請它查一筆你有印象的數字 —— 對得上，就進下一步。</div></div>
+      </div>
+    </div>
+    <div class="punchbar">數字進了資料庫 —— 憑的是你桌上那把<span class="ac">鑰匙</span>。<span class="src">這一步不用 push，<b>畫面也不會變</b> —— 數字走的是路線 B，直接進資料庫；<b>下一步接上去它才會活過來</b>。</span></div>
+    <div class="slide-num">40</div>
+    <div class="footer-mark">換你動手 · 建格餵數字</div>
+  </section>
+
+      <section class="slide" data-label="C3.04 動手③ 接起來">
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>STEP 3 · 兩條路交會</span></div>
+    <div style="height:16px"></div>
+    <div class="title">把數字接起來 —— 這頁<span class="accent">從此自己會更新</span>。</div>
+    <div class="figrow" style="grid-template-columns:1.15fr .85fr;">
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="promptbox" data-copy="把我那一頁的數字，改成從我自己的表撈。&#10;標題和頁尾也改成我的區，「示範資料」那句拿掉 —— 現在是真的數字了。">
+          <div class="pb-lab">照貼 · 一次講完</div>
+          <div class="pb-t">把我那一頁的數字，改成<span class="hi">從我自己的表撈</span>。<br>標題和頁尾也<span class="hi">改成我的區</span>，「示範資料」那句拿掉 —— 現在是真的數字了。</div>
+        </div>
+        <div class="promptbox" data-copy="幫我 push" style="padding:20px 30px;">
+          <div class="pb-lab">改完 · 直接推</div>
+          <div class="pb-t" style="font-size:32px;">幫我 push</div>
+          <div style="font-size:20px;color:#8A8A8A;line-height:1.5;border-top:1px solid #3A2E24;padding-top:10px;margin-top:2px;">這次<b style="color:#C7C7C7;">沒辦法先看</b> —— 頁面現在要跟資料庫講話，本機打開撈不到數字。推上去等一分鐘，再開自己的網址驗收。</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px;">
+        <div class="ditem"><div class="n">這一秒最關鍵</div><div class="d" style="margin-top:6px;">在這之前數字是死的。接上之後 —— <b>下週餵新數字，這頁自己就變了</b>（永遠顯示最新那一週），不用再改程式。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">想改什麼就說</div><div class="d" style="margin-top:6px;">「達成率不到的標紅」「加一張趨勢圖」「<b>加一個週別選單</b>」—— 說需求就好，跟示範頁走的是同一條路。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">確認鈕不用管</div><div class="d" style="margin-top:6px;">整頁重寫也弄不丟 —— <b>系統會自動幫每一頁補上</b>。</div></div>
+      </div>
+    </div>
+    <div class="punchbar">上線了 —— 開自己的網址看過沒問題，<span class="ac">就可以確認</span>。<span class="src">這一步比前面兩步久 —— 你報表裡<b>每一個數字</b>都要換成從資料庫撈。慢慢來，卡住舉手。</span></div>
+    <div class="slide-num">41</div>
+    <div class="footer-mark">換你動手 · 接起來</div>
+  </section>
+
+      <section class="slide ink" data-label="C3.05 儀式 · 確認亮卡">
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>STEP 4 · 收尾儀式 · 全班一起</span></div>
+    <div style="height:16px"></div>
+    <div class="title" style="color:#fff;">看過沒問題 —— 按下<span class="accent">「確認」</span>。</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:44px;flex:1;min-height:0;">
+      <div style="border:2px solid #333;padding:34px 40px;width:340px;">
+        <div style="font-size:30px;font-weight:700;color:#6E6E6E;">（你的名字）</div>
+        <div style="height:14px"></div>
+        <div style="font-family:var(--mono);font-size:22px;color:#555;">還沒確認</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:40px;color:var(--accent-br);font-weight:700;">→</div>
+      <div style="border:2px solid var(--accent);padding:34px 40px;width:340px;">
+        <div style="font-size:30px;font-weight:700;color:#fff;">（你的名字）</div>
+        <div style="height:14px"></div>
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent-br);">✓ 已確認</div>
+        <div style="font-family:var(--mono);font-size:22px;color:#B8B8B8;margin-top:6px;">點進去 —— 你做的頁</div>
+      </div>
+    </div>
+    <div style="font-size:26px;color:#B8B8B8;line-height:1.6;text-align:center;">確認的意思是：<b style="color:#fff;">我自己看過了，這頁可以給大家看</b>。投影幕上，你的卡當場亮。<span style="display:block;margin-top:8px;font-size:22px;color:#8A8A8A;">確認不是鎖定 —— 之後照樣能改、能 push；晚一點確認也不會怎樣，牆等你。</span></div>
+    <div class="punchbar">你的卡亮的那一刻 —— <span class="ac">全班看得到</span>。</div>
+    <div class="slide-num">42</div>
+    <div class="footer-mark">換你動手 · 確認</div>
+  </section>
+
+    <section class="slide" data-label="C3.06 特別軌">
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>不做週報的，做這個</span></div>
+    <div style="height:16px"></div>
+    <div class="title">同一條路 —— 做的是<span class="accent">你自己的工具</span>。</div>
+    <div class="now2" style="flex:0 0 auto;">
+      <div class="np on">
+        <div class="nw">CHESTER</div>
+        <div class="nh">獎金查詢工具</div>
+        <div class="leaders">
+          <div class="l">現況：兩個 Excel ＋ 巨集，每月手動更新</div>
+          <div class="l">今天：建自己的格 → 餵獎金資料 → 查詢頁</div>
+        </div>
+      </div>
+      <div class="np on">
+        <div class="nw">LION</div>
+        <div class="nh">全省整合儀表板</div>
+        <div class="leaders">
+          <div class="l">現況：輪值的全門市週報，每週手工整合</div>
+          <div class="l">今天：建自己的格 → 餵 ERP 匯出檔 → 整合頁</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:20px"></div>
+    <div class="leaders">
+      <div class="l">四步一模一樣 —— 只是餵的資料不同；兩位坐前排，卡住優先支援</div>
+      <div class="l">財會三位走主線 —— 做的是全公司那份表</div>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">這條路不是週報專用 —— <b style="color:var(--ink);">你的工作是什麼形狀，系統就長成什麼形狀</b>。</div>
+    <div class="slide-num">43</div>
+    <div class="footer-mark">換你動手 · 特別軌</div>
+  </section>
+
+      <section class="slide dim" data-label="TIMER · C3 實作" data-timer>
+    <div class="eyebrow"><span class="dot"></span><span class="num">換你動手</span><span class="rule"></span><span>計時</span></div>
+    <div style="height:16px"></div>
+    <div class="title">動手中 —— 卡住直接<span class="accent">舉手</span>。</div>
+    <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;flex:1;min-height:0;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:22px;">
+        <div class="timer-display"><div class="td-label">實作倒數</div><div class="td-time">40:00</div></div>
+        <div class="timer-controls">
+          <button class="t-btn primary" data-start>Start</button>
+          <button class="t-btn" data-reset>Reset</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="leaders">
+          <div class="l">開工前　開對資料夾 · 檔案拖進 inbox/</div>
+          <div class="l">STEP 1　先上線 —— 現成報表推上去</div>
+          <div class="l">STEP 2　建格 · 餵數字</div>
+          <div class="l">STEP 3　接起來 —— 數字改成從自己的表撈</div>
+          <div class="l">STEP 4　自己驗收 → 確認亮卡</div>
+        </div>
+        <div style="border-top:2px solid var(--ink);padding-top:18px;font-size:24px;color:var(--body);line-height:1.6;">先做完的 —— <b>加一個指標</b>、多餵一週數字，或幫隔壁一把。</div>
+      </div>
+    </div>
+    <div class="slide-num">44</div>
+    <div class="footer-mark">換你動手 · TIMER</div>
+    <script>
+    (function(){var s=document.currentScript.closest('.slide');var DUR=2400,r=DUR,t=null;var d=s.querySelector('.td-time');var b=s.querySelector('[data-start]'),z=s.querySelector('[data-reset]');function f(x){var m=Math.floor(x/60),ss=x%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}function p(){d.textContent=f(r);}function stop(){if(t){clearInterval(t);t=null;}b.textContent='Start';}function run(){stop();b.textContent='Pause';t=setInterval(function(){r--;if(r<=0){r=0;stop();p();return;}p();},1000);}b.addEventListener('click',function(){t?stop():run();});z.addEventListener('click',function(){stop();r=DUR;p();});p();})();
+    </script>
+  </section>
+
+      
+    <section class="slide ink s-transition" data-label="ACT3 轉場 · 這棟大樓">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拆解</span><span class="rule"></span><span>第三幕</span></div>
+    <div style="flex:1"></div>
+    <div class="display">這棟大樓 ——<br>今天起<span class="accent">是你們的</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">拆開看 · 20 MIN</div>
+    <div class="slide-num">45</div>
+  </section>
+
+        <section class="slide" data-label="C4.01 四個零件">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拆解</span><span class="rule"></span><span>先看它是怎麼組起來的</span></div>
+    <div style="height:16px"></div>
+    <div class="title">這套系統，是<span class="accent">四個零件</span>湊出來的。</div>
+    <div class="figrow" style="grid-template-columns:1.22fr .78fr;align-items:stretch;margin-top:24px;">
+      <div class="treebox" style="margin-top:0;">
+        <div class="tr"><div class="tp" style="flex:0 0 430px;">13 個人同時改，沒人蓋掉誰</div><div class="td">要有一個放正本的<b>保管庫</b> —— 那是 <b>GitHub</b></div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 430px;">push 完一分鐘，網址上就有</div><div class="td">要有一個自動開門的<b>店面</b> —— 那是 <b>Pages</b></div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 430px;">數字換了，頁面自己跟著變</div><div class="td">數字要有自己的<b>格</b>，跟頁面分開住 —— 那是 <b>D1</b></div></div>
+        <div class="tr"><div class="tp" style="flex:0 0 430px;">營收不能給外人看見</div><div class="td">門口要站一個<b>警衛</b> —— 那是 <b>Access</b></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;justify-content:center;">
+        <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:16px 22px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:10px;">
+          <div style="font-weight:900;font-size:31px;color:var(--ink);letter-spacing:-.5px;">保管庫</div>
+          <div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;">GITHUB · <b style="color:var(--ink);">免費</b></div>
+        </div>
+        <div style="border:2px dashed #C9C9C9;padding:16px 18px;">
+          <div style="font-family:var(--mono);font-size:19px;letter-spacing:.08em;color:var(--muted);margin-bottom:13px;">CLOUDFLARE · 一個帳號全包 · <b style="color:var(--ink);">基本免費</b></div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:14px 20px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:10px;background:var(--bg);">
+              <div style="font-weight:900;font-size:29px;color:var(--ink);letter-spacing:-.5px;">店面</div>
+              <div style="font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;">PAGES</div>
+            </div>
+            <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:14px 20px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:10px;background:var(--bg);">
+              <div style="font-weight:900;font-size:29px;color:var(--ink);letter-spacing:-.5px;">資料庫</div>
+              <div style="font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;">D1</div>
+            </div>
+            <div style="border:1px solid var(--hair);border-top:4px solid var(--accent);padding:14px 20px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:10px;background:var(--bg);">
+              <div style="font-weight:900;font-size:29px;color:var(--ink);letter-spacing:-.5px;">警衛</div>
+              <div style="font-family:var(--mono);font-size:19px;color:var(--accent);letter-spacing:.06em;">ACCESS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="punchbar">四個零件，你今天<span class="ac">四個都用過了</span> —— 接下來拆的是：它們是誰的、要多少錢。<span class="src">這四個怎麼串起來的，我寫成一份說明書掛在站上了 —— 入口頁最下面「<b>📖 系統說明書</b>」。今天不用讀，<b>回去卡住的時候再開</b>。</span></div>
+    <div class="slide-num">46</div>
+    <div class="footer-mark">拆解 · 四個零件</div>
+  </section>
+
+      <section class="slide" data-label="C4.02 為什麼是它 · 多少錢">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拆解</span><span class="rule"></span><span>為什麼是它、要多少錢</span></div>
+    <div style="height:16px"></div>
+    <div class="title">三件事、一個帳號 —— 而且<span class="accent">不用錢</span>。</div>
+    <div style="font-size:26px;color:var(--body);margin-top:10px;">不用三個供應商、三張帳單、三套權限。</div>
+    <div style="border:2px solid var(--ink);padding:20px 30px;margin-top:20px;">
+      <div style="font-family:var(--mono);font-size:21px;letter-spacing:.06em;color:var(--muted);margin-bottom:14px;">網站 ＋ 資料庫 —— <b style="color:var(--ink);">免費，連卡都不用留</b></div>
+      <div style="display:grid;grid-template-columns:1.05fr .7fr 1.55fr;gap:12px 26px;font-size:24px;color:var(--body);line-height:1.4;align-items:baseline;">
+        <div>資料庫 · 容量</div><div style="font-family:var(--mono);color:var(--ink);font-weight:600;">5 GB</div><div>就算改成每天餵 —— 也是<b>幾十年份</b>的量</div>
+        <div>資料庫 · 每天寫入</div><div style="font-family:var(--mono);color:var(--ink);font-weight:600;">10 萬列</div><div>13 個人<b>每天各餵一次</b> ≈ 幾百列</div>
+        <div>資料庫 · 每天讀取</div><div style="font-family:var(--mono);color:var(--ink);font-weight:600;">500 萬列</div><div>開一次頁撈幾十列</div>
+        <div>網頁請求 · 每天</div><div style="font-family:var(--mono);color:var(--ink);font-weight:600;">10 萬次</div><div>13 個人在看</div>
+      </div>
+    </div>
+    <div style="border:2px solid var(--accent);padding:20px 30px;margin-top:18px;">
+      <div style="font-family:var(--mono);font-size:21px;letter-spacing:.06em;color:var(--accent);margin-bottom:14px;">門禁 —— <b>唯一要留一張卡的地方</b></div>
+      <div style="display:grid;grid-template-columns:1.05fr .7fr 1.55fr;gap:12px 26px;font-size:24px;color:var(--body);line-height:1.4;align-items:baseline;">
+        <div>人數上限</div><div style="font-family:var(--mono);color:var(--ink);font-weight:600;">50 人</div><div>名單 <b>16 人</b></div>
+      </div>
+      <div style="border-top:1px solid var(--hair);margin-top:14px;padding-top:13px;font-size:24px;color:var(--body);line-height:1.5;">它是<b>另一條產品線</b>，開通時一定要留一張卡 —— <b>$0、純登記，不會扣款</b>。目前掛的是<b>我的</b>，交接當天換成你們管理員的。</div>
+    </div>
+    <div class="punchbar">這些額度，是給<span class="ac">整間公司天天用</span>的規格 —— 你們 13 個人，用不完。<span class="src">就算真的超過，也是<b>擋</b>不是扣款 —— 資料庫暫停查詢、第 51 個人進不來。不會有帳單跳出來。</span></div>
+    <div class="slide-num">47</div>
+    <div class="footer-mark">拆解 · 費用</div>
+  </section>
+
+  <section class="slide" data-label="C4.03 帳號身世">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拆解</span><span class="rule"></span><span>這套系統住在誰家</span></div>
+    <div style="height:16px"></div>
+    <div class="title">帳號，從第一天就是<span class="accent">公司的</span>。</div>
+    <div class="figrow" style="grid-template-columns:1fr 1fr;">
+      <div style="display:flex;flex-direction:column;gap:26px;">
+        <div class="ditem"><div class="n">1</div><div class="h">用公司信箱開的專用帳號</div><div class="d">Peggy 協助申請的 studioa 公司信箱 —— email 身分從第一天就是你們的。</div></div>
+        <div class="ditem"><div class="n">2</div><div class="h">整套系統都建在裡面</div><div class="d">網站、資料庫、門禁 —— <b>都在這個帳號底下，不在我的</b>。</div></div>
+        <div class="ditem" style="border-left-color:var(--ink);"><div class="n" style="color:var(--muted);">3</div><div class="h">課後交資訊管理</div><div class="d">人員異動＝加減兩份名單（門禁＋GitHub 成員），一年沒幾次。</div></div>
+      </div>
+      <div style="border:2px solid var(--accent);padding:34px 38px;display:flex;flex-direction:column;gap:14px;justify-content:center;">
+        <div style="font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--accent);">交接那天要做的，只有</div>
+        <div style="font-family:var(--sans);font-weight:900;font-size:52px;color:var(--ink);letter-spacing:-1px;">換密碼。</div>
+        <div style="font-size:24px;color:var(--body);line-height:1.55;">網址不變、資料不搬、備份歷史不歸零 —— 因為家本來就是你們的，走的只是我。</div>
+      </div>
+    </div>
+    <div class="punchbar">交接不是搬家 —— 是<span class="ac">換密碼</span>。</div>
+    <div class="slide-num">48</div>
+    <div class="footer-mark">拆解 · 帳號</div>
+  </section>
+
+    <section class="slide" data-label="C4.04 三道門">
+    <div class="eyebrow"><span class="dot"></span><span class="num">拆解</span><span class="rule"></span><span>今天遇到的三次「登入」</span></div>
+    <div style="height:16px"></div>
+    <div class="title">三道門，查的是<span class="accent">三個身分</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:22px;margin-top:24px;flex:1;justify-content:center;min-height:0;">
+      <div style="display:grid;grid-template-columns:280px 190px 40px 1fr 40px 190px;gap:0 12px;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;justify-content:center;"><div style="font-weight:800;font-size:27px;color:var(--ink);">推 code<span style="color:var(--muted);font-weight:400;">（改網頁）</span></div></div>
+        <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:12px 18px;display:grid;align-content:center;"><div style="font-weight:900;font-size:25px;color:var(--ink);">你的電腦</div></div>
+        <div style="display:flex;align-items:center;justify-content:center;"><div style="font-size:30px;color:var(--muted);">→</div></div>
+        <div style="border:2px solid var(--accent);padding:12px 22px;display:flex;flex-direction:column;justify-content:center;gap:5px;">
+          <div style="font-size:24px;color:var(--body);line-height:1.4;"><b>GitHub 查兩件</b> —— 名單上有你 ＋ 這台電腦配對過，缺一不可</div>
+          <div style="font-size:21px;color:var(--muted);line-height:1.4;">名單＝repo 協作者（授權）· 配對＝今天做過那次（證明是本人）</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;"><div style="font-size:30px;color:var(--muted);">→</div></div>
+        <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:12px 18px;display:grid;align-content:center;gap:2px;"><div style="font-weight:900;font-size:25px;color:var(--ink);">保管庫</div><div style="font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;">GITHUB</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:280px 190px 40px 1fr 40px 190px;gap:0 12px;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;justify-content:center;"><div style="font-weight:800;font-size:27px;color:var(--ink);">看網站<span style="color:var(--muted);font-weight:400;">（瀏覽器）</span></div></div>
+        <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:12px 18px;display:grid;align-content:center;"><div style="font-weight:900;font-size:25px;color:var(--ink);">瀏覽器</div></div>
+        <div style="display:flex;align-items:center;justify-content:center;"><div style="font-size:30px;color:var(--muted);">→</div></div>
+        <div style="border:2px solid var(--accent);padding:12px 22px;display:flex;flex-direction:column;justify-content:center;gap:5px;">
+          <div style="font-size:24px;color:var(--body);line-height:1.4;"><b>警衛查 email</b> —— 在 16 人名單上、收得到驗證信</div>
+          <div style="font-size:21px;color:var(--muted);line-height:1.4;">名單在 Access（Cloudflare 後台）—— 怎麼加減人，待會就教</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;"><div style="font-size:30px;color:var(--muted);">→</div></div>
+        <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:12px 18px;display:grid;align-content:center;gap:2px;"><div style="font-weight:900;font-size:25px;color:var(--ink);">店面</div><div style="font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;">PAGES</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:280px 190px 40px 1fr 40px 190px;gap:0 12px;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;justify-content:center;"><div style="font-weight:800;font-size:27px;color:var(--ink);">改資料<span style="color:var(--muted);font-weight:400;">（餵數字）</span></div></div>
+        <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:12px 18px;display:grid;align-content:center;"><div style="font-weight:900;font-size:25px;color:var(--ink);">你的電腦</div></div>
+        <div style="display:flex;align-items:center;justify-content:center;"><div style="font-size:30px;color:var(--muted);">→</div></div>
+        <div style="border:2px solid var(--accent);padding:12px 22px;display:flex;flex-direction:column;justify-content:center;gap:5px;">
+          <div style="font-size:24px;color:var(--body);line-height:1.4;"><b>只認鑰匙，不認人</b> —— 認「能開什麼」，不認「你是誰」</div>
+          <div style="font-size:21px;color:var(--muted);line-height:1.4;">鑰匙＝repo .env 那把 token —— 只開得了資料庫，開不了別的</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;"><div style="font-size:30px;color:var(--muted);">→</div></div>
+        <div style="border:1px solid var(--hair);border-top:4px solid var(--ink);padding:12px 18px;display:grid;align-content:center;gap:2px;"><div style="font-weight:900;font-size:25px;color:var(--ink);">資料庫</div><div style="font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;">D1</div></div>
+      </div>
+    </div>
+    <div class="slide-num">49</div>
+    <div class="footer-mark">拆解 · 三道門</div>
+  </section>
+
+    <section class="slide" data-label="MAP.2 全亮">
+    <div class="eyebrow"><span class="dot"></span><span class="num">系統地圖</span><span class="rule"></span><span>第 4 次出現 · 收束</span></div>
+    <div style="height:16px"></div>
+    <div class="title">五條線 —— <span class="accent">全亮了</span>。</div>
+    <div class="mapfig">
+      <svg viewBox="0 0 1680 600" role="img" aria-label="系統地圖：五條線全亮">
+        <defs>
+          <marker id="mc-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111111"/></marker>
+          <marker id="mc-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C15F3C"/></marker>
+        </defs>
+
+                <rect x="40" y="40" width="600" height="200" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <g stroke="#111111" stroke-width="2.5" fill="none">
+          <line x1="86" y1="146" x2="210" y2="146"/>
+          <line x1="96" y1="146" x2="96" y2="190"/>
+          <line x1="200" y1="146" x2="200" y2="190"/>
+          <rect x="112" y="102" width="52" height="36"/>
+          <line x1="106" y1="142" x2="170" y2="142"/>
+        </g>
+        <text x="248" y="122" font-size="34" font-weight="800" fill="#111111">你們的電腦 ×13</text>
+        <text x="248" y="166" font-size="23" fill="#8A8A8A">助理 · 副本 · 鑰匙 · 你的資料</text>
+
+                <rect x="40" y="360" width="600" height="200" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <g stroke="#111111" stroke-width="2.5" fill="none">
+          <rect x="92" y="418" width="96" height="86"/>
+          <circle cx="140" cy="461" r="21"/>
+          <line x1="140" y1="448" x2="140" y2="474"/>
+          <line x1="127" y1="461" x2="153" y2="461"/>
+        </g>
+        <text x="248" y="442" font-size="34" font-weight="800" fill="#111111">GitHub</text>
+        <text x="248" y="486" font-size="23" fill="#8A8A8A">正本保管庫 ＋ 每晚的備份檔</text>
+
+                <rect x="880" y="40" width="760" height="520" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/>
+        <text x="1240" y="104" font-size="34" font-weight="800" fill="#111111">Cloudflare</text>
+        <text x="1240" y="136" font-size="23" fill="#8A8A8A">開門營業的店面</text>
+                <rect x="916" y="180" width="190" height="100" fill="#FFFFFF" stroke="#C15F3C" stroke-width="2.5"/>
+        <text x="948" y="224" font-size="27" font-weight="700" fill="#A34D2F">門禁</text>
+        <text x="948" y="258" font-size="20" fill="#8A8A8A">查 email 名單</text>
+                <rect x="1180" y="180" width="380" height="100" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+        <text x="1212" y="224" font-size="27" font-weight="700" fill="#111111">網站</text>
+        <text x="1212" y="258" font-size="20" fill="#8A8A8A">入口頁 ＋ 你們 push 上去的頁</text>
+                <rect x="1180" y="400" width="380" height="120" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+        <text x="1212" y="440" font-size="27" font-weight="700" fill="#111111">資料庫 —— 一個</text>
+        <g stroke="#111111" stroke-width="1.8" fill="none">
+          <rect x="1212" y="456" width="52" height="30"/><line x1="1212" y1="466" x2="1264" y2="466"/>
+          <rect x="1274" y="456" width="52" height="30"/><line x1="1274" y1="466" x2="1326" y2="466"/>
+          <rect x="1336" y="456" width="52" height="30"/><line x1="1336" y1="466" x2="1388" y2="466"/>
+          <rect x="1398" y="456" width="52" height="30"/><line x1="1398" y1="466" x2="1450" y2="466"/>
+        </g>
+        <text x="1462" y="480" font-size="21" fill="#8A8A8A">… ×13</text>
+        <text x="1212" y="508" font-size="20" fill="#8A8A8A">13 格 —— 你的格，開張了</text>
+
+                <line x1="620" y1="244" x2="1172" y2="440" stroke="#C15F3C" stroke-width="3.5" marker-end="url(#mc-acc)"/>
+        <text x="742" y="300" font-size="24" font-weight="800" fill="#A34D2F" class="halo">② 直連資料庫 —— 憑鑰匙</text>
+                <line x1="644" y1="400" x2="1172" y2="256" stroke="#111111" stroke-width="3" stroke-dasharray="12 9" marker-end="url(#mc-ink)"/>
+        <text x="742" y="404" font-size="24" font-weight="800" fill="#111111" class="halo">③ 自動部署 —— push 後 ~1 分鐘</text>
+                <path d="M 1250 524 L 1250 584 L 420 584 L 420 566" stroke="#111111" stroke-width="3" stroke-dasharray="12 9" fill="none" marker-end="url(#mc-ink)"/>
+        <text x="700" y="576" font-size="24" font-weight="800" fill="#111111" class="halo">④ 每晚 4:30 自動備份 —— 沒有人需要記得</text>
+
+                <line x1="250" y1="254" x2="250" y2="348" stroke="#C15F3C" stroke-width="3.5" marker-end="url(#mc-acc)"/>
+        <line x1="330" y1="346" x2="330" y2="252" stroke="#111111" stroke-width="3.5" marker-end="url(#mc-ink)"/>
+        <text x="378" y="300" font-size="24" font-weight="800" fill="#111111" class="halo">① push 交回 ／ pull 拿回</text>
+
+                <rect x="656" y="40" width="200" height="74" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+        <text x="676" y="72" font-size="22" font-weight="700" fill="#111111">看報表的同事</text>
+        <text x="676" y="100" font-size="18" fill="#8A8A8A">用瀏覽器開網址</text>
+        <path d="M 856 77 L 1011 77 L 1011 176" stroke="#111111" stroke-width="3" fill="none" marker-end="url(#mc-ink)"/>
+                <path d="M 644 130 L 820 130 L 820 230 L 902 230" stroke="#111111" stroke-width="3.5" fill="none" marker-end="url(#mc-ink)"/>
+        <line x1="1110" y1="230" x2="1166" y2="230" stroke="#C15F3C" stroke-width="3" marker-end="url(#mc-acc)"/>
+        <text x="648" y="164" font-size="24" font-weight="800" fill="#111111" class="halo">⑤ 開網址 · 過門禁</text>
+      </svg>
+    </div>
+    <div class="punchbar" style="font-weight:400;font-size:26px;color:var(--body);">實線，是<b style="color:var(--ink);">你發動</b>的；虛線，<b style="color:var(--ink);">機器自己跑</b> </div>
+    <div class="slide-num">50</div>
+    <div class="footer-mark">系統地圖 · 全亮</div>
+  </section>
+
+      <section class="slide ink s-transition" data-label="END.00 轉場 · 交接">
+    <div class="eyebrow"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>最後一段</span></div>
+    <div style="flex:1"></div>
+    <div class="display">大樓拆開看完了 ——<br>最後一件事：<span class="accent">交接</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">收尾 · 15 MIN</div>
+    <div class="slide-num">51</div>
+  </section>
+
+        <section class="slide" data-label="END.01 交接">
+    <div class="eyebrow"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>交給你們</span></div>
+    <div style="height:16px"></div>
+    <div class="title">這套系統，<span class="accent">交給你們了</span>。</div>
+    <div class="figrow" style="grid-template-columns:1fr 1.1fr;align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:16px;justify-content:center;">
+        <div style="border:2px solid var(--ink);padding:18px 26px;">
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:10px;margin-bottom:10px;"><div style="font-weight:900;font-size:27px;color:var(--ink);">Cloudflare 帳號</div><div style="font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;">總後台 ①</div></div>
+          <div style="font-size:22px;color:var(--body);line-height:1.55;">裡面住著：<b>門禁名單</b>（看網頁）· <b>D1 鑰匙</b>（寫資料）· 真要硬刪的<b>後台</b></div>
+        </div>
+        <div style="border:2px solid var(--ink);padding:18px 26px;">
+          <div style="display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:10px;margin-bottom:10px;"><div style="font-weight:900;font-size:27px;color:var(--ink);">GitHub 帳號</div><div style="font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;">總後台 ②</div></div>
+          <div style="font-size:22px;color:var(--body);line-height:1.55;">裡面住著：<b>協作者名單</b>（改網頁）· 程式<b>正本</b>與每晚的備份檔</div>
+        </div>
+        <div style="font-size:23px;color:var(--body);line-height:1.5;padding:0 6px;">整套系統的鎖，<b>全部長在這兩個帳號上</b> —— 所以交接不用搬任何東西。</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;justify-content:center;">
+        <div class="ditem"><div class="n">1</div><div class="h">換兩組密碼</div><div class="d">Cloudflare ＋ GitHub —— 換完，名單、鑰匙、後台，<b>全部歸你們</b>。</div></div>
+        <div class="ditem"><div class="n">2</div><div class="h">換門禁那張登記卡</div><div class="d">目前掛我的（$0 純登記，不會扣款）—— 換成你們管理員的。</div></div>
+        <div class="ditem"><div class="n">3</div><div class="h">把「走的人」流程跑第一遍</div><div class="d">對象：<b>我</b>，和課前測試帳號 <b>zoe</b> —— 名單劃掉、鑰匙換掉。怎麼做，<b>下兩頁</b>。</div></div>
+        <div style="border-top:1px solid var(--hair);padding-top:12px;font-size:22px;color:var(--body);line-height:1.5;">手冊三份：入口頁 footer「<b>📖 系統說明書</b>」（白話版）· repo <b>README</b>（怎麼用）· <b>CLAUDE.md</b>（資料規則）</div>
+      </div>
+    </div>
+    <div class="slide-num">52</div>
+    <div class="footer-mark">收尾 · 交接</div>
+  </section>
+
+      <section class="slide" data-label="END.01b 人員異動">
+    <div class="eyebrow"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>人員異動 · 交接後的日常</span></div>
+    <div style="height:16px"></div>
+    <div class="title">一個人 ＝ <span class="accent">三樣東西</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:26px;flex:1;justify-content:center;min-height:0;">
+      <div style="display:grid;grid-template-columns:1.1fr 1.5fr 1fr 1.4fr;gap:0 14px;font-family:var(--mono);font-size:20px;letter-spacing:.08em;color:var(--muted);padding:0 26px;">
+        <div>身上的東西</div><div>掛在哪</div><div>來一個人</div><div>走一個人</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.5fr 1fr 1.4fr;gap:0 14px;align-items:stretch;border:2px solid var(--ink);padding:18px 26px;">
+        <div style="font-weight:800;font-size:26px;color:var(--ink);">email</div>
+        <div style="font-size:23px;color:var(--body);">掛在<b>門禁名單</b>上（看網頁）</div>
+        <div style="font-size:23px;color:var(--body);">加一行</div>
+        <div style="font-size:23px;color:var(--body);">刪一行</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.5fr 1fr 1.4fr;gap:0 14px;align-items:stretch;border:2px solid var(--ink);padding:18px 26px;">
+        <div style="font-weight:800;font-size:26px;color:var(--ink);">GitHub 帳號</div>
+        <div style="font-size:23px;color:var(--body);">掛在<b>協作者名單</b>上（改網頁）</div>
+        <div style="font-size:23px;color:var(--body);">加一行</div>
+        <div style="font-size:23px;color:var(--body);">刪一行</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.5fr 1fr 1.4fr;gap:0 14px;align-items:stretch;border:2px solid var(--accent);padding:18px 26px;">
+        <div style="font-weight:800;font-size:26px;color:var(--ink);">鑰匙副本</div>
+        <div style="font-size:23px;color:var(--body);">躺在<b>他電腦的 clone</b> 裡（寫資料）</div>
+        <div style="font-size:23px;color:var(--body);">clone 下來就有</div>
+        <div style="font-size:23px;color:var(--body);"><b style="color:var(--accent);">收不回來 —— 換鎖</b></div>
+      </div>
+    </div>
+    <div class="punchbar">發三樣、收兩樣、<span class="ac">換一把</span> —— 名單擋新的，換鎖才作廢舊的。<span class="src">實際去哪裡按、鎖怎麼換 —— 下一頁，交接後翻回來查。</span></div>
+    <div class="slide-num">53</div>
+    <div class="footer-mark">收尾 · 人員異動</div>
+  </section>
+
+      <section class="slide" data-label="END.01c 異動操作">
+    <div class="eyebrow"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>動手的地方 · 交接後當手冊查</span></div>
+    <div style="height:16px"></div>
+    <div class="title">要按的地方，就<span class="accent">三個</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;flex:1;min-height:0;margin-top:20px;">
+      <div style="border:2px solid var(--ink);padding:14px 20px;display:flex;flex-direction:column;gap:10px;min-height:0;">
+        <div style="font-family:var(--mono);font-size:20px;letter-spacing:.08em;color:var(--muted);">① 門禁名單（email）</div>
+        <img src="img/access-list.png" alt="Cloudflare Access 政策 Studio_A_Dashboard_Member：Include Emails 名單" style="width:100%;flex:1;min-height:0;object-fit:contain;object-position:top;border:1px solid var(--hair);">
+        <div style="font-size:21px;color:var(--body);line-height:1.5;"><b>Zero Trust</b> → <b>Access controls → Policies</b> → <b>Studio_A_Dashboard_Member</b> → Include · Emails —— 加／刪一行，<b>當場生效</b></div>
+        <div style="font-size:20px;line-height:1.4;"><a href="https://dash.cloudflare.com/2fe73db40c8aedd9e01cd4b8baadb5f1/one/access-controls/policies" target="_blank" rel="noopener" style="font-family:var(--mono);color:var(--accent);text-decoration:underline;text-underline-offset:4px;">dash.cloudflare.com/…/access-controls/policies</a></div>
+      </div>
+      <div style="border:2px solid var(--ink);padding:14px 20px;display:flex;flex-direction:column;gap:10px;min-height:0;">
+        <div style="font-family:var(--mono);font-size:20px;letter-spacing:.08em;color:var(--muted);">② 協作者名單（GitHub 帳號）</div>
+        <img src="img/gh-collaborators.png" alt="GitHub repo Settings → Collaborators：Add people 與移除鈕" style="width:100%;flex:1;min-height:0;object-fit:contain;object-position:top;border:1px solid var(--hair);">
+        <div style="font-size:21px;color:var(--body);line-height:1.5;">repo → <b>Settings</b> → <b>Collaborators</b> —— <b>Add people</b> 加人／垃圾桶移除</div>
+        <div style="font-size:20px;line-height:1.4;"><a href="https://github.com/aidata-studioa/studioa-dashboard/settings/access" target="_blank" rel="noopener" style="font-family:var(--mono);color:var(--accent);text-decoration:underline;text-underline-offset:4px;">github.com/…/settings/access</a></div>
+      </div>
+      <div style="border:2px solid var(--accent);padding:14px 20px;display:flex;flex-direction:column;gap:10px;min-height:0;">
+        <div style="font-family:var(--mono);font-size:20px;letter-spacing:.08em;color:var(--accent);">③ 換鎖（走一個人才做）</div>
+        <img src="img/env-keys.png" alt="repo 的 .env：兩行 —— API token 與 account id（值已模糊）" style="width:100%;object-fit:contain;border:1px solid var(--hair);">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:21px;color:var(--body);line-height:1.45;">
+          <div style="font-family:var(--mono);color:var(--accent);font-weight:700;">1</div><div>Cloudflare 後台<b>重發 D1 token</b></div>
+          <div style="font-family:var(--mono);color:var(--accent);font-weight:700;">2</div><div>更新 repo 的 <b>.env</b>（左圖那兩行）</div>
+          <div style="font-family:var(--mono);color:var(--accent);font-weight:700;">3</div><div><b>push</b> —— 13 台電腦下次 pull 就換好</div>
+        </div>
+        <div style="border-top:1px solid var(--hair);padding-top:8px;font-size:21px;color:var(--body);line-height:1.45;">順序不能反：<b>先移名單、再換鎖</b> —— 不然新鑰匙他照樣拉得到。</div>
+      </div>
+    </div>
+        <div style="display:grid;grid-template-columns:auto 1fr 1fr;gap:0 24px;align-items:center;border:2px solid var(--ink);padding:12px 24px;margin-top:16px;">
+      <div style="font-family:var(--mono);font-size:20px;letter-spacing:.08em;color:var(--muted);">改完 · 自己驗兩招</div>
+      <div style="font-size:21px;color:var(--body);line-height:1.45;"><span style="font-family:var(--mono);color:var(--accent);font-weight:700;">①</span> 無痕視窗開網址 —— <b>被攔下來要 email</b></div>
+      <div style="font-size:21px;color:var(--body);line-height:1.45;"><span style="font-family:var(--mono);color:var(--accent);font-weight:700;">②</span> 不登入打資料網址（/api/…）—— <b>一個數字都不吐</b></div>
+    </div>
+    <div class="punchbar">一年翻不了幾次 —— 交接之後，這頁當<span class="ac">手冊</span>用。</div>
+    <div class="slide-num">54</div>
+    <div class="footer-mark">收尾 · 異動操作</div>
+  </section>
+
+      <section class="slide" data-label="END.04 RECAP 作業">
+    <div class="eyebrow"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>帶走的 · 回去做的</span></div>
+    <div style="height:16px"></div>
+    <div class="title">今天帶走<span class="accent">三件</span> ——<br>回去做<span class="accent">一件</span>。</div>
+    <div class="figrow" style="grid-template-columns:1.1fr .9fr;align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:18px;justify-content:center;">
+        <div class="ditem"><div class="n">1</div><div class="h">上線的系統</div><div class="d">入口牆上，你的卡<b>亮著</b> —— 網址發出去就能看。</div></div>
+        <div class="ditem"><div class="n">2</div><div class="h">自己的頁、自己的表</div><div class="d">打開就是你的數字 —— 改它，只影響你自己。</div></div>
+        <div class="ditem"><div class="n">3</div><div class="h">兩條路口訣</div><div class="d">改網頁走保管庫、改數字進資料庫 —— 分不清？<b>不用分，跟它說就好</b>。</div></div>
+      </div>
+      <div style="border:2px solid var(--accent);padding:26px 32px;display:flex;flex-direction:column;gap:12px;justify-content:center;">
+        <div style="font-family:var(--mono);font-size:20px;letter-spacing:.08em;color:var(--accent);">回去做的 · 就一件</div>
+        <div style="font-weight:800;font-size:29px;color:var(--ink);line-height:1.35;">一起把它養成 ——<br>部門的<span class="accent">數據中心＋儀表板</span>。</div>
+        <div style="font-size:22px;color:var(--body);line-height:1.55;">先對齊：<b>哪些報表要做</b>、<b>外觀與資料格式</b>、<b>更新的頻率</b>。</div>
+        <div style="font-size:22px;color:var(--body);line-height:1.55;">然後照對齊的節奏 —— <b>餵進去、看過、按確認</b>（週報的每週、月報的每月）。</div>
+        <div style="border-top:1px solid var(--hair);padding-top:12px;font-size:22px;color:var(--body);line-height:1.55;">餵得<b>煩</b>的地方記下來 —— D3 就從那裡開始，教它自動跑。</div>
+      </div>
+    </div>
+    <div class="slide-num">55</div>
+    <div class="footer-mark">收尾 · RECAP</div>
+  </section>
+
+    <section class="slide" data-label="END.04b 五種用法">
+    <div class="eyebrow"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>今天做的，只是起點</span></div>
+    <div style="height:16px"></div>
+    <div class="title">同一個資料庫，<span class="accent">五種用法</span>。</div>
+    <div class="face5">
+      <div class="fc"><div class="fv">讀</div><div class="fn">定期報表</div><div class="fd">有敘事、讀完做決策。</div><div class="fg"><b>長大後</b> —— 時間到自動跑，這期報表自己先出一版，你看過再定。</div><div class="fe">今天 · 你們的 D1 週報</div></div>
+      <div class="fc"><div class="fv">掃</div><div class="fn">儀表板</div><div class="fd">30 秒掃完現況。</div><div class="fg"><b>長大後</b> —— 每天早上自動從 ERP 抓數字進資料庫：人還沒到，板上已經是今天的。</div><div class="fe">今天 · 你的區頁</div></div>
+      <div class="fc"><div class="fv">查</div><div class="fn">查詢工具</div><div class="fd">固定輸入，一問一答 —— 選個員工編號，最新明細自己出來。</div><div class="fg"><b>長大後</b> —— 開放同仁自助：自己的明細自己查，不用再來問人。</div><div class="fe">今天 · Chester 的獎金查詢</div></div>
+      <div class="fc dim"><div class="fv">叫</div><div class="fn">警示通知</div><div class="fd">不用天天看 —— 出事它來找你。</div><div class="fg"><b>長出來</b> —— 條件寫好放著：達成率不到 80%，隔天早上信自己到。</div><div class="fe">D3 起</div></div>
+      <div class="fc dim"><div class="fv">收</div><div class="fn">輸入表單</div><div class="fd">反向 —— 把數字收進來的頁。</div><div class="fg"><b>長出來</b> —— 同仁上傳檔案，格式、內容、區間先檢查：不對，退回重送；對了，自動併進主表，儀表板跟著更新。</div><div class="fe">D3 起 · 財會收各區資料</div></div>
+    </div>
+        <div style="display:flex;align-items:center;gap:26px;border:1px solid var(--hair);border-left:4px solid var(--accent);padding:20px 28px;margin-top:18px;">
+      <div style="font-family:var(--mono);font-size:22px;letter-spacing:.12em;color:var(--accent-deep);white-space:nowrap;">還有一條 · 直接問</div>
+      <div style="font-size:26px;color:var(--body);line-height:1.5;">上面五種，都是先做好、放著給同仁用的 —— 維護的人不用這些，直接問：「中區這週毛利多少？」「那哪家店掉最多？」它當場查資料庫、當場答，追問到底；要報表，現場寫一份。<b style="color:var(--ink);">今天一整天，你走的就是這條路。</b></div>
+    </div>
+    <div class="slide-num">56</div>
+    <div class="footer-mark">收尾 · 五種用法</div>
+  </section>
+
+    <section class="slide ink" data-label="END.05 D3 預告">
+    <div class="eyebrow"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>下一步</span></div>
+    <div style="height:16px"></div>
+    <div class="title" style="color:#fff;">今天：做得出來。<br>D3：<span class="accent">做得更省力</span>。</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;">
+      <div style="border:1px solid #333;border-top:4px solid var(--accent);padding:28px 26px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--accent-br);letter-spacing:.14em;margin-bottom:14px;">D3 · 01</div>
+        <div style="font-weight:800;font-size:30px;color:#fff;margin-bottom:12px;">把流程做成 skill</div>
+        <div style="font-size:26px;color:#bbb;line-height:1.55;">今天這套教過一次，之後一句話整套照跑 —— 餵完數字它自己跑、給你網址、問你一句，<b style="color:#fff;">你點頭，它按確認</b>。</div>
+      </div>
+      <div style="border:1px solid #333;border-top:4px solid var(--accent);padding:28px 26px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--accent-br);letter-spacing:.14em;margin-bottom:14px;">D3 · 02</div>
+        <div style="font-weight:800;font-size:30px;color:#fff;margin-bottom:12px;">用 AI 做知識管理</div>
+        <div style="font-size:26px;color:#bbb;line-height:1.55;">部門的文件、規則、經驗 —— 放得進、找得到，<b style="color:#fff;">用問的就出來</b>。</div>
+      </div>
+      <div style="border:1px solid #333;border-top:4px solid var(--accent);padding:28px 26px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--accent-br);letter-spacing:.14em;margin-bottom:14px;">D3 · 03</div>
+        <div style="font-weight:800;font-size:30px;color:#fff;margin-bottom:12px;">用 AI 做投影片</div>
+        <div style="font-size:26px;color:#bbb;line-height:1.55;">報告要用的投影片 —— 數字和結論給它，<b style="color:#fff;">整份直接生出來</b>。</div>
+      </div>
+    </div>
+    <div class="slide-num">57</div>
+    <div class="footer-mark">收尾 · D3 預告</div>
+  </section>
+
+    <section class="slide ink s-transition" data-label="END06 謝幕 · 下課">
+    <div class="eyebrow"><span class="dot"></span><span class="num">END · D2</span><span class="rule"></span><span>下課</span></div>
+    <div style="flex:1"></div>
+    <div class="display">系統上線了 ——<br>下週起，<span class="accent">是你們在跑</span>。</div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:24px;padding-top:24px;border-top:1px solid #333;">
+      <div style="font-family:var(--mono);font-size:20px;color:var(--accent-br);letter-spacing:.14em;white-space:nowrap;">余文皓 · D2 END</div>
+      <div class="subtitle" style="margin:0;">8/19 D3 見 —— <b style="color:#fff;">下週一，記得餵數字</b>。</div>
+    </div>
+    <div class="slide-num">58</div>
+    <div class="footer-mark">收尾 · END · D2 下課</div>
+  </section>
+
+</deck-stage>
+<script src="copy-prompt.js"></script>
+</body></html>
