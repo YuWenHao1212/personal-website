@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>studioa-dashboard — 系統交接步驟清單</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --cream-2:#F7F6F4; --ink:#111111; --body:#3A3A3A;
+  --muted:#8A8A8A; --hair:#E5E5E5;
+  --accent:#C15F3C; --accent-deep:#A34D2F; --accent-br:#CC785C;
+  --ok:#2E7D5B;
+  --sans:"Space Grotesk","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+  --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:920px;margin:0 auto;padding:0 28px 120px;}
+
+/* ---------- header ---------- */
+header{border-bottom:2px solid var(--ink);padding:56px 0 28px;margin-bottom:8px;}
+.eyebrow{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:14px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+.eyebrow .dot{width:8px;height:8px;background:var(--accent);border-radius:50%;flex:none;}
+.eyebrow .rule{height:2px;flex:1;background:currentColor;opacity:.25;}
+h1{font-weight:900;color:var(--ink);font-size:clamp(32px,5vw,48px);line-height:1.15;
+  letter-spacing:-1px;margin:18px 0 14px;}
+h1 .ac{color:var(--accent);}
+.lede{font-size:19px;color:var(--body);line-height:1.6;max-width:66ch;}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:20px;
+  font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;}
+
+/* ---------- progress ---------- */
+.progress-wrap{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);
+  padding:12px 0;margin-bottom:44px;}
+.progress-inner{max-width:920px;margin:0 auto;padding:0 28px;
+  display:flex;align-items:center;gap:18px;}
+.bar{flex:1;height:8px;background:var(--hair);position:relative;overflow:hidden;}
+.bar>i{position:absolute;inset:0 auto 0 0;width:0;background:var(--accent);
+  transition:width .28s ease;}
+.bar.done>i{background:var(--ok);}
+.pcount{font-family:var(--mono);font-size:14px;color:var(--ink);
+  letter-spacing:.06em;white-space:nowrap;font-weight:600;}
+.reset{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted);
+  background:none;border:1px solid var(--hair);padding:5px 12px;cursor:pointer;
+  text-transform:uppercase;}
+.reset:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ---------- callouts ---------- */
+.fact{border:2px solid var(--ink);padding:22px 26px;margin:0 0 40px;background:var(--cream-2);}
+.fact .k{font-family:var(--mono);font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.fact p{margin:0;font-size:19px;color:var(--ink);line-height:1.6;}
+.fact b{color:var(--accent-deep);}
+
+.law{border-left:4px solid var(--accent);background:#FBF4F1;padding:16px 22px;margin:18px 0 0;}
+.law .k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-deep);margin-bottom:6px;font-weight:600;}
+.law p{margin:0;font-size:16px;line-height:1.6;color:var(--body);}
+.law b{color:var(--ink);}
+
+/* ---------- phases ---------- */
+.phase{margin:0 0 52px;scroll-margin-top:80px;}
+.phase-head{display:flex;align-items:baseline;gap:16px;
+  border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:8px;}
+.phase-no{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--accent);
+  letter-spacing:.1em;white-space:nowrap;}
+.phase-title{font-weight:800;font-size:26px;color:var(--ink);line-height:1.3;flex:1;}
+.phase-count{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;}
+.phase-who{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--muted);
+  padding:10px 0 6px;}
+.phase-who b{color:var(--accent-deep);}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none;margin:0;padding:0;}
+li.step{border-bottom:1px solid var(--hair);padding:20px 0;display:grid;
+  grid-template-columns:auto 42px 1fr;gap:0 14px;align-items:start;}
+li.step:last-child{border-bottom:none;}
+.cbox{appearance:none;-webkit-appearance:none;width:26px;height:26px;margin:2px 0 0;
+  border:2px solid var(--ink);background:#fff;cursor:pointer;flex:none;position:relative;
+  transition:background .15s,border-color .15s;}
+.cbox:hover{border-color:var(--accent);}
+.cbox:checked{background:var(--ok);border-color:var(--ok);}
+.cbox:checked::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:13px;
+  border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg);}
+.cbox:focus-visible{outline:3px solid var(--accent-br);outline-offset:2px;}
+.snum{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--muted);
+  padding-top:5px;letter-spacing:.04em;}
+.sbody h3{margin:0 0 6px;font-size:19px;font-weight:700;color:var(--ink);line-height:1.45;}
+.sbody p{margin:0 0 8px;font-size:16px;line-height:1.65;}
+.sbody p:last-child{margin-bottom:0;}
+.sbody b{color:var(--ink);}
+li.step.done .sbody h3{color:var(--muted);text-decoration:line-through;
+  text-decoration-color:var(--hair);text-decoration-thickness:2px;}
+li.step.done .snum{color:var(--hair);}
+
+ul.sub{list-style:none;margin:10px 0 0;padding:0;}
+ul.sub li{position:relative;padding:5px 0 5px 30px;font-size:16px;line-height:1.6;}
+ul.sub li::before{content:attr(data-k);position:absolute;left:0;top:5px;
+  font-family:var(--mono);font-size:14px;color:var(--accent);font-weight:600;}
+
+code{font-family:var(--mono);font-size:.9em;background:var(--cream-2);
+  border:1px solid var(--hair);padding:1px 6px;color:var(--ink);word-break:break-word;}
+.tag{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 9px;border:1px solid var(--hair);
+  color:var(--muted);margin-left:8px;vertical-align:2px;white-space:nowrap;}
+.tag.hot{border-color:var(--accent);color:var(--accent-deep);}
+
+a.link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:14px;
+  color:var(--accent);text-decoration:underline;text-underline-offset:4px;
+  word-break:break-all;margin-top:6px;}
+a.link::before{content:"↗";text-decoration:none;flex:none;}
+
+.warn{border:1px solid var(--accent);background:#FBF4F1;padding:12px 18px;margin-top:12px;
+  font-size:15px;line-height:1.6;color:var(--body);}
+.warn b{color:var(--accent-deep);}
+
+/* ---------- tail ---------- */
+footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
+  font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;
+  display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between;}
+
+/* ---------- print ---------- */
+@media print{
+  .progress-wrap,.reset{display:none;}
+  body{font-size:12pt;}
+  .wrap{max-width:none;padding:0;}
+  .phase{break-inside:avoid;margin-bottom:24px;}
+  li.step{break-inside:avoid;padding:10px 0;}
+  .cbox{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  a.link{color:var(--ink);}
+  a.link::after{content:" (" attr(href) ")";font-size:.85em;color:var(--muted);}
+}
+@media (max-width:600px){
+  li.step{grid-template-columns:auto 32px 1fr;gap:0 10px;}
+  .phase-head{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow"><span class="dot"></span><span>STUDIO A · A 組 · D2</span><span class="rule"></span><span>交接手冊</span></div>
+  <h1>系統交接 —— <span class="ac">照這張表走一遍</span>。</h1>
+  <p class="lede">
+    把 <code>studioa-dashboard</code>（部門儀表板網站＋資料庫＋門禁）從講師手上完整移交給貴公司。
+    全部 <b>20 步</b>，分五段。勾選會存在這台電腦的瀏覽器裡，關掉再打開不會不見。
+  </p>
+  <div class="meta">
+    <span>建立 2026-08-12（D2 完課日）</span>
+    <span>執行時點 · D3（8/19）完課後</span>
+    <span>可列印（⌘P）</span>
+  </div>
+</header>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="pcount"><span id="pdone">0</span> / 20</span>
+    <div class="bar" id="bar"><i></i></div>
+    <button class="reset" id="reset" type="button">清除勾選</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="fact">
+  <div class="k">先懂這件事，後面 20 步才有意義</div>
+  <p>
+    這套系統的<b>五個鎖，全長在兩個「總後台帳號」上</b> ——
+    一個 <b>Cloudflare</b> 帳號（網站、資料庫、門禁都掛在它底下）、
+    一個 <b>GitHub</b> 帳號（程式碼保管庫的擁有者）。
+    所以交接不是搬檔案，是<b>這兩個帳號的主權移交 ＋ 換一把共用鑰匙 ＋ 講師清場</b>。
+  </p>
+  <div class="law">
+    <div class="k">全篇最重要的一條順序</div>
+    <p><b>先移名單、再換鎖。</b> 名單擋新的、換鎖才作廢舊的。順序反了，還在名單上的人只要更新一次程式碼，就拿到新鑰匙。</p>
+  </div>
+</div>
+
+<section class="phase" id="p0">
+  <div class="phase-head">
+    <span class="phase-no">§0</span>
+    <span class="phase-title">交接前決定</span>
+    <span class="phase-count" data-count="p0">0 / 3</span>
+  </div>
+  <div class="phase-who">誰做：<b>貴公司</b>　·　什麼時候：交接日<b>之前</b>先決定好，當天才不會卡住</div>
+
+  <div class="law">
+    <div class="k">現況（2026-08-13 查核）</div>
+    <p><b>兩個總後台帳號目前都沒有開二階段驗證</b> —— 也就是說，<b>密碼是唯一的一道鎖</b>。<br>
+    這不是錯誤設定，是還沒決定。下面第 02 步要決定的是「<b>要不要開</b>」，不是「怎麼重綁」；打開設定頁不會看到既有的驗證裝置要換掉。</p>
+  </div>
+
+  <ol class="steps">
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s1" data-phase="p0" aria-label="步驟 1">
+      <span class="snum">01</span>
+      <div class="sbody">
+        <h3>指定接手管理者一人</h3>
+        <p>就是「拿到兩組密碼的那個人」。建議另外指定<b>一位備援知情人</b> —— 只有一個人知道密碼，那個人休假或離職時系統就沒人進得去。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s2" data-phase="p0" aria-label="步驟 2">
+      <span class="snum">02</span>
+      <div class="sbody">
+        <h3>決定要不要開二階段驗證<span class="tag">兩個帳號目前都沒開</span></h3>
+        <p>常見誤解是「一定要裝一個驗證器 App」——<b>不是</b>。兩個平台能選的方式不一樣：</p>
+        <ul class="sub">
+          <li data-k="GH"><b>GitHub</b>：可選<b>手機內建的 passkey</b>（Face ID／指紋）或<b>簡訊</b>，都不用另外裝 App。</li>
+          <li data-k="CF"><b>Cloudflare</b>：只支援<b>驗證器 App／實體金鑰</b>，<b>沒有簡訊選項</b>。</li>
+        </ul>
+        <p><b>不開也是一個合理選擇</b> —— 救援信箱本來就在公司手上。但那樣密碼就是唯一一道鎖，第 03 步的保管方式要更嚴，而且<b>兩個帳號的密碼不要用同一組</b>。</p>
+        <p>決定了就往下走：<b>開</b> → 第 09、10 步各多一個設定動作；<b>不開</b> → 那兩步就只有改密碼跟撤授權。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s3" data-phase="p0" aria-label="步驟 3">
+      <span class="snum">03</span>
+      <div class="sbody">
+        <h3>決定密碼保管方式</h3>
+        <p>公司的密碼管理工具，或紙本鎖進保險箱。<b>不要用 email 傳密碼</b>。</p>
+        <p>第 02 步若決定<b>不開</b>二階段驗證，這一步就是整套系統的最後一道防線 —— 兩組密碼各自獨立、只有指定的兩個人知道。</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="phase" id="p1">
+  <div class="phase-head">
+    <span class="phase-no">§1</span>
+    <span class="phase-title">清場</span>
+    <span class="phase-count" data-count="p1">0 / 5</span>
+  </div>
+  <div class="phase-who">誰做：<b>講師</b>　·　什麼時候：D3 之前就能做完</div>
+
+  <ol class="steps">
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s4" data-phase="p1" aria-label="步驟 4">
+      <span class="snum">04</span>
+      <div class="sbody">
+        <h3>補齊協作者缺口</h3>
+        <p>有<b>四位學員</b>不在協作者名單上、也沒有待接受的邀請（名單見交接當天點交的紙本）。確認他們報名頁有沒有填 GitHub 帳號，補發邀請 —— D3 當天要動手，名單得先齊。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s5" data-phase="p1" aria-label="步驟 5">
+      <span class="snum">05</span>
+      <div class="sbody">
+        <h3>刪掉 13 張封存表</h3>
+        <p>彩排殘留：<code>zzold_bob_*</code> ×6、<code>zzold2_bob_*</code> ×6、<code>zzold_ztest_weekly</code> ×1。要到 Cloudflare 的 D1 主控台<b>手動刪</b>。</p>
+        <p>指令列刪不掉是<b>刻意設計的</b> —— 這正是課堂教的那條界線：<b>清垃圾由管理者到後台親手做</b>，不交給 AI 代辦。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s6" data-phase="p1" aria-label="步驟 6">
+      <span class="snum">06</span>
+      <div class="sbody">
+        <h3>檢查 <code>submissions</code> 表</h3>
+        <p>過一眼，確認沒有測試殘留的資料。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s7" data-phase="p1" aria-label="步驟 7">
+      <span class="snum">07</span>
+      <div class="sbody">
+        <h3>留一份最新備份</h3>
+        <p><code>exports/</code> 底下存一份最新的，然後上傳（push）。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s8" data-phase="p1" aria-label="步驟 8">
+      <span class="snum">08</span>
+      <div class="sbody">
+        <h3>移除課前測試帳號<span class="tag">已完成 8/12</span></h3>
+        <p>課堂用的學員視角測試帳號已於 D2 完課日移除。D3 主題換成 skill／知識管理／投影片，不再需要它。</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="phase" id="p2">
+  <div class="phase-head">
+    <span class="phase-no">§2</span>
+    <span class="phase-title">帳號主權移交</span>
+    <span class="phase-count" data-count="p2">0 / 3</span>
+  </div>
+  <div class="phase-who">誰做：<b>接手人親自操作</b>，講師在旁邊看　·　什麼時候：交接當天</div>
+
+  <div class="law">
+    <div class="k">每個帳號內的順序不能省</div>
+    <p>改密碼 →（要開的話）設定二階段驗證 → <b>撤銷舊授權</b>。<br>
+    <b>改密碼不會讓已經發出去的指令列授權失效</b> —— 撤銷授權那一步才是真的把講師電腦踢掉。兩個帳號誰先誰後都行，但帳號內的順序要照走。</p>
+  </div>
+
+  <ol class="steps">
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s9" data-phase="p2" aria-label="步驟 9">
+      <span class="snum">09</span>
+      <div class="sbody">
+        <h3>GitHub 總後台帳號</h3>
+        <ul class="sub">
+          <li data-k="a">改密碼 —— <b>接手人自己設，講師不知道新密碼</b>。</li>
+          <li data-k="b">§0 決定要開二階段驗證的話：在接手人的裝置上設定（passkey 或簡訊），<b>下載救援碼（recovery codes）歸檔</b>。決定不開就跳過這步。</li>
+          <li data-k="c">Settings → Sessions：<b>全部登出</b>。</li>
+          <li data-k="d">Settings → Applications → Authorized OAuth Apps：<b>撤銷「GitHub CLI」</b>等講師機器的授權。講師電腦裡的鑰匙<b>到這一步才真的死掉</b>。</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s10" data-phase="p2" aria-label="步驟 10">
+      <span class="snum">10</span>
+      <div class="sbody">
+        <h3>Cloudflare 總後台帳號</h3>
+        <ul class="sub">
+          <li data-k="a">改密碼。§0 決定要開二階段驗證的話一併設定（<b>只能用驗證器 App／實體金鑰</b>，沒有簡訊）。</li>
+          <li data-k="b">Members 頁確認<b>沒有多餘成員</b>。</li>
+          <li data-k="c">Billing 確認：免費方案、<b>沒有掛任何講師的信用卡</b>。</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s11" data-phase="p2" aria-label="步驟 11">
+      <span class="snum">11</span>
+      <div class="sbody">
+        <h3>跟 IT 確認救援信箱的收信權在公司手上</h3>
+        <p>兩個帳號都用公司信箱註冊，那個信箱是<b>唯一的救援路徑</b> —— 密碼忘了要重設，就是從那裡寄連結進來。信箱本來就是公司申請的，這步只是確認一次收信權真的在公司手上。</p>
+        <p>反過來說也成立：<b>誰收得到那個信箱的信，誰就能重設這兩個帳號的密碼</b>。信箱的權限範圍要跟第 01 步指定的兩個人對得上。</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="phase" id="p3">
+  <div class="phase-head">
+    <span class="phase-no">§3</span>
+    <span class="phase-title">換鎖</span>
+    <span class="phase-count" data-count="p3">0 / 4</span>
+  </div>
+  <div class="phase-who">誰做：<b>接手人</b>　·　什麼時候：§2 全部完成之後</div>
+
+  <ol class="steps">
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s12" data-phase="p3" aria-label="步驟 12">
+      <span class="snum">12</span>
+      <div class="sbody">
+        <h3>GitHub 協作者名單過一遍</h3>
+        <p>13 位學員該在的在（§1 補齊之後）。<b>講師的個人帳號若還在名單上，移除</b>。</p>
+        <a class="link" href="https://github.com/aidata-studioa/studioa-dashboard/settings/access" target="_blank" rel="noopener">github.com/…/settings/access</a>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s13" data-phase="p3" aria-label="步驟 13">
+      <span class="snum">13</span>
+      <div class="sbody">
+        <h3>門禁名單過一遍</h3>
+        <p>16 個 email 逐一核對。<b>管理者自己的帳號要留著</b>（不然自己也進不去網站）；其餘依公司決定。加或刪一行，<b>當場生效</b>。</p>
+        <a class="link" href="https://dash.cloudflare.com/2fe73db40c8aedd9e01cd4b8baadb5f1/one/access-controls/policies" target="_blank" rel="noopener">dash.cloudflare.com/…/access-controls/policies</a>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s14" data-phase="p3" aria-label="步驟 14">
+      <span class="snum">14</span>
+      <div class="sbody">
+        <h3>重發資料庫鑰匙<span class="tag hot">核心步驟</span></h3>
+        <p>Cloudflare → API Tokens → 撤銷 <code>studioa-d1-edit</code> → 建一把新的（權限一樣 D1:Edit）→ 更新程式碼保管庫裡的 <code>.env</code> → 上傳（push）。13 台電腦下次更新就換好。</p>
+        <div class="warn">
+          <b>挑非回報日做。</b> 從撤銷舊鑰匙、到學員各自更新拿到新的 <code>.env</code> 之間，餵數字會失敗。多數情況學員開工時會自動更新、自己就好了；群組提醒一句「下次開工先讓它更新一下」更穩。
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s15" data-phase="p3" aria-label="步驟 15">
+      <span class="snum">15</span>
+      <div class="sbody">
+        <h3>講師清場 —— 當場做給接手人看</h3>
+        <ul class="sub">
+          <li data-k="a">刪掉電腦上兩份程式碼副本。</li>
+          <li data-k="b">登出部署工具（<code>wrangler logout</code>）。</li>
+          <li data-k="c">登出 GitHub 指令列的兩個帳號（<code>gh auth logout</code>）。</li>
+        </ul>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="phase" id="p4">
+  <div class="phase-head">
+    <span class="phase-no">§4</span>
+    <span class="phase-title">驗收 —— 五招</span>
+    <span class="phase-count" data-count="p4">0 / 5</span>
+  </div>
+  <div class="phase-who">誰做：<b>接手人自己跑一遍</b>　·　目的：確認鎖真的換好了，不是「聽說換好了」</div>
+
+  <ol class="steps">
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s16" data-phase="p4" aria-label="步驟 16">
+      <span class="snum">16</span>
+      <div class="sbody">
+        <h3>無痕視窗開網站 → <b>被攔下來要 email</b></h3>
+        <p>沒被攔＝門禁沒生效。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s17" data-phase="p4" aria-label="步驟 17">
+      <span class="snum">17</span>
+      <div class="sbody">
+        <h3>不登入直接打資料網址（<code>/api/…</code>）→ <b>一個數字都不吐</b></h3>
+        <p>吐得出數字＝資料是裸的，繞過網頁就拿得到。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s18" data-phase="p4" aria-label="步驟 18">
+      <span class="snum">18</span>
+      <div class="sbody">
+        <h3>接手人的電腦用<b>新鑰匙</b>連資料庫 → 通</h3>
+        <p><code>wrangler d1 execute studioa-db --remote --command "SELECT 1"</code></p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s19" data-phase="p4" aria-label="步驟 19">
+      <span class="snum">19</span>
+      <div class="sbody">
+        <h3>舊鑰匙 → 被拒；講師電腦更新程式碼 → 被拒</h3>
+        <p>這一招是 D2 那句「<b>我退出的時候，帶不走任何東西</b>」的兌現。兩邊都要拒才算數。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s20" data-phase="p4" aria-label="步驟 20">
+      <span class="snum">20</span>
+      <div class="sbody">
+        <h3>手冊三份點交</h3>
+        <p>程式碼保管庫的 <code>README.md</code> ＋ <code>CLAUDE.md</code> ＋ D2 投影片的「異動操作」那一頁（含上面兩條直達網址）。</p>
+        <p>之後人員異動就照那一套：<b>發三樣、收兩樣、換一把</b>。</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<footer>
+  <span>STUDIO A · A 組 · D2 — 系統交接步驟清單</span>
+  <span>勾選狀態存在本機瀏覽器，不會上傳</span>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'studioa-d2-handover-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.cbox'));
+  var bar = document.getElementById('bar');
+  var fill = bar.querySelector('i');
+  var pdone = document.getElementById('pdone');
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function render() {
+    var done = 0;
+    var perPhase = {};
+    boxes.forEach(function (b) {
+      var li = b.closest('.step');
+      li.classList.toggle('done', b.checked);
+      var p = b.dataset.phase;
+      if (!perPhase[p]) perPhase[p] = { d: 0, t: 0 };
+      perPhase[p].t++;
+      if (b.checked) { done++; perPhase[p].d++; }
+    });
+
+    pdone.textContent = done;
+    fill.style.width = (done / boxes.length * 100) + '%';
+    bar.classList.toggle('done', done === boxes.length);
+
+    document.querySelectorAll('[data-count]').forEach(function (el) {
+      var p = perPhase[el.dataset.count];
+      if (p) el.textContent = p.d + ' / ' + p.t;
+    });
+  }
+
+  var state = load();
+  boxes.forEach(function (b) {
+    b.checked = !!state[b.dataset.id];
+    b.addEventListener('change', function () {
+      var s = load();
+      if (b.checked) s[b.dataset.id] = 1; else delete s[b.dataset.id];
+      save(s);
+      render();
+    });
+  });
+  render();
+
+  document.getElementById('reset').addEventListener('click', function () {
+    if (!confirm('清除全部勾選？')) return;
+    save({});
+    boxes.forEach(function (b) { b.checked = false; });
+    render();
+  });
+})();
+</script>
+</body>
+</html>
