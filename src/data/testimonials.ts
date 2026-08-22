@@ -123,6 +123,26 @@ export const testimonials: Testimonial[] = [
       '從人生目標到每天任務管理，透過 FLUX 框架和 Claude Code 協作 — 整條路徑變得清晰、有方向感。',
   },
   {
+    // 2026-08-22 梯 3 課後問卷。具名授權範圍：僅「姓名職稱 + 第 3 題原句」可公開引用，
+    // 引言逐字照登、不得改寫。同意紀錄見 FLUX Vault：
+    // efforts/areas/personal-brand/social-proof/2026-08-22-flux-public-c3-survey-testimonials.md
+    variant: 'compact',
+    name: '曾怡樺',
+    title: '衛生福利部苗栗醫院 護理科主任',
+    pages: ['workshop'],
+    quote:
+      '學會善用 AI 工具後，工作不再是無止盡的消耗。把節省下來的時間與心力還給生活與家人，不僅做事更有效率，日常也變得更加自律而從容。收穫滿滿，真心推薦！',
+  },
+  {
+    // 2026-08-22 梯 3 課後問卷（同上授權範圍）。
+    variant: 'compact',
+    name: '黃伯年',
+    title: '製程經理',
+    pages: ['workshop'],
+    quote:
+      '可以重新拿回人生／工作的主導權。',
+  },
+  {
     // Quote already public on workshop page + blog 開課紀錄 since May.
     variant: 'compact',
     name: '延宗',
