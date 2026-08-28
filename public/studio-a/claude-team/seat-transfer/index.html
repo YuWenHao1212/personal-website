@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>席位換人</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#111111; --body-c:#3A3A3A; --muted:#8A8A8A; --hair:#E5E5E5;
+    --accent:#C15F3C;
+    --sans:"Space Grotesk","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --tc:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--body-c);font-family:var(--tc);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 40px 110px}
+
+  header{padding:52px 0 0}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .wordmark{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:3px;color:var(--ink)}
+  .wordmark span{color:var(--accent)}
+  .meta{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1px}
+  h1{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(34px,5.4vw,52px);line-height:1.14;letter-spacing:-1.2px;margin:40px 0 0;text-wrap:balance}
+
+  .rule{background:var(--accent);color:#FFFFFF;padding:44px 44px;margin-top:40px}
+  .rule .label{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.8);text-transform:uppercase}
+  .rule .big{font-weight:900;color:#FFFFFF;font-size:clamp(22px,3.4vw,30px);line-height:1.5;letter-spacing:-.4px;margin-top:14px;max-width:26em;text-wrap:balance}
+  .rule p{color:rgba(255,255,255,.92);margin-top:14px;font-size:16px;max-width:42em}
+  .rule .q{font-family:var(--mono);font-size:13.5px;color:rgba(255,255,255,.92);border-left:2px solid #FFF;padding-left:16px;margin-top:16px;max-width:42em}
+  .rule strong{color:#FFF;font-weight:900}
+
+  section{margin-top:84px}
+  .sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:28px}
+  .sec-no{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:2px;color:var(--muted)}
+  h2{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(23px,3.2vw,28px);letter-spacing:-.5px}
+  p{max-width:42em}
+  p + p{margin-top:14px}
+  em{font-style:normal;font-weight:700;color:var(--ink)}
+  a{color:var(--ink)}
+
+  figure{margin:30px 0 0}
+  figure svg{max-width:100%;height:auto;display:block;color:var(--ink)}
+  figcaption{font-size:14px;color:var(--muted);margin-top:12px;max-width:46em}
+  .fig-scroll{overflow-x:auto}
+
+  table{border-collapse:collapse;width:100%;margin-top:26px}
+  th,td{text-align:left;padding:12px 18px 12px 0;border-bottom:1px solid var(--hair);vertical-align:top;font-size:15.5px}
+  thead th{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .rowlabel{font-weight:700;color:var(--ink);white-space:nowrap}
+  .verdict{font-weight:900;color:var(--ink)}
+
+  footer{margin-top:100px;border-top:2px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:700px){
+    .wrap{padding:0 22px 80px}
+    .rule{padding:32px 24px;margin-left:-22px;margin-right:-22px}
+    th,td{padding-right:12px}
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<p style="margin:28px 0 -20px;font-family:var(--mono);font-size:13px"><a href="../" style="color:var(--muted);text-decoration:none">← 回會議記錄</a></p>
+
+
+  <header>
+    <div class="brandline">
+      <div class="wordmark">CONFLUENCE<span>.</span></div>
+      <div class="meta">CLAUDE TEAM &middot; 2026-08-28</div>
+    </div>
+    <h1>席位換人</h1>
+  </header>
+
+  <div class="rule">
+    <div class="label">核心事實</div>
+    <div class="big">席位是格子，不是人。公司買的是格子數；誰坐進去，隨時換、免費。</div>
+    <p>官方原文（移除成員後）：</p>
+    <div class="q">"They lose access to the organization immediately. The seat they occupied becomes available to assign to another user."</div>
+    <p>年繳約期內：格子數不能減（等續約日），但<strong>換人不受任何限制</strong>。所以離職不會浪費年繳 — 只要有人補位。</p>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">01</span><h2>換人機制</h2></div>
+    <figure>
+      <div class="fig-scroll">
+      <svg viewBox="0 0 880 240" role="img" aria-label="小明離職後席位釋出，錢照算，指派給小陳坐進同一格，免費即時">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        </defs>
+        <rect x="20" y="60" width="220" height="110" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="44" y="84" width="172" height="34" fill="#6E6E6E"/>
+        <text x="130" y="106" font-size="13" text-anchor="middle" fill="#FFFFFF" font-weight="700">Premium 格 $125</text>
+        <circle cx="130" cy="146" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="130" y="151" font-size="11" text-anchor="middle" fill="currentColor">小明</text>
+        <text x="130" y="196" font-size="12" text-anchor="middle" fill="currentColor">在職</text>
+        <line x1="248" y1="115" x2="316" y2="115" stroke="currentColor" stroke-width="2" marker-end="url(#ar2)"/>
+        <text x="282" y="96" font-size="11.5" text-anchor="middle" fill="currentColor">移除成員</text>
+        <text x="282" y="140" font-size="10.5" text-anchor="middle" fill="currentColor">存取立即中斷</text>
+        <rect x="324" y="60" width="220" height="110" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="348" y="84" width="172" height="34" fill="#6E6E6E"/>
+        <text x="434" y="106" font-size="13" text-anchor="middle" fill="#FFFFFF" font-weight="700">Premium 格 $125</text>
+        <text x="434" y="150" font-size="12" text-anchor="middle" fill="currentColor">（空格，錢照算）</text>
+        <text x="434" y="196" font-size="12" text-anchor="middle" fill="currentColor">席位釋出</text>
+        <line x1="552" y1="115" x2="620" y2="115" stroke="currentColor" stroke-width="2" marker-end="url(#ar2)"/>
+        <text x="586" y="96" font-size="11.5" text-anchor="middle" fill="currentColor">指派</text>
+        <text x="586" y="140" font-size="10.5" text-anchor="middle" fill="currentColor">免費、即時</text>
+        <rect x="628" y="60" width="220" height="110" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="652" y="84" width="172" height="34" fill="#6E6E6E"/>
+        <text x="738" y="106" font-size="13" text-anchor="middle" fill="#FFFFFF" font-weight="700">Premium 格 $125</text>
+        <circle cx="738" cy="146" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="738" y="151" font-size="11" text-anchor="middle" fill="currentColor">小陳</text>
+        <text x="738" y="196" font-size="12" text-anchor="middle" fill="currentColor">接手，同一格</text>
+      </svg>
+      </div>
+      <figcaption>整個過程帳單不動 — 格子一直是那格、錢一直是那筆，變的只有坐的人。同一個人移除後再邀回，官方寫明帳號歷史保留（"account history will be maintained"），輪調暫離也適用。</figcaption>
+    </figure>
+    <p style="margin-top:24px">這個機制也是「Premium 衝刺席」的基礎：Premium 席固定買著，誰接了重案就換誰坐，專案結束換下一位 — 格子永遠有人用，錢就沒有浪費。</p>
+    <p>離職時的完整操作步驟與資料處理，見「<a href="../offboarding/">離職交接</a>」。</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">02</span><h2>共用帳號（IT-001 式）要不要用</h2></div>
+    <p>會中提過用「IT-01、IT-02」這類功能性共用帳號來對付年繳離職風險。查證後的判定：</p>
+    <table>
+      <thead><tr><th style="width:20%">面向</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td class="rowlabel">必要性</td><td>消失 — 它要解的「年繳換人」問題，官方機制原生支援（本頁 01 節）</td></tr>
+        <tr><td class="rowlabel">條款面</td><td>商用條款無明文禁止共用，只寫「Customer 對帳號下所有活動負責」；消費者條款（個人 Pro）則明文禁止。多人異地輪流登入同一帳號，第三方整理普遍指出有觸發異常偵測的風險</td></tr>
+        <tr><td class="rowlabel">資料面</td><td>記憶、專案、對話歷史都掛在帳號上 — 共用等於 A 的資料 B 全看得到、記憶互相污染、出事分不出是誰做的。與導入 Team 最重要的理由（資料保護）方向相反</td></tr>
+        <tr><td class="verdict">結論</td><td class="verdict">不建議。離職風險用「移除 → 指派」處理，一人一帳號。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">03</span><h2>官方依據</h2></div>
+    <p style="font-size:15px;line-height:2.1">
+      <a href="https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans">Manage members on Team and Enterprise plans</a>（移除成員、席位釋出、再邀回歷史保留）<br>
+      <a href="https://support.claude.com/en/articles/12004354-purchase-and-manage-seats-on-team-plans">Purchase and manage seats on Team plans</a>（席位配額與指派）
+    </p>
+  </section>
+
+  <footer>
+    <div class="meta">依據 support.claude.com 官方文件（2026-08-28 查核）</div>
+    <div class="meta">CONFLUENCE PARTNERS 匯流顧問</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

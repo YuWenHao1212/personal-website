@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Claude Team 會議記錄</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#111111; --body-c:#3A3A3A; --muted:#8A8A8A; --hair:#E5E5E5;
+    --accent:#C15F3C;
+    --sans:"Space Grotesk","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --tc:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--body-c);font-family:var(--tc);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 40px 110px}
+
+  header{padding:52px 0 0}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .wordmark{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:3px;color:var(--ink)}
+  .wordmark span{color:var(--accent)}
+  .meta{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1px}
+  h1{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(36px,5.6vw,56px);line-height:1.12;letter-spacing:-1.4px;margin:40px 0 0;text-wrap:balance}
+
+  .hero{background:var(--accent);color:#FFFFFF;padding:46px 46px;margin-top:38px}
+  .hero .label{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.8);text-transform:uppercase}
+  .hero .big{font-weight:900;color:#FFFFFF;font-size:clamp(22px,3.4vw,31px);line-height:1.5;letter-spacing:-.4px;margin-top:14px;max-width:27em;text-wrap:balance}
+  .hero p{color:rgba(255,255,255,.92);margin-top:14px;font-size:16.5px;max-width:42em}
+  .hero strong{color:#FFF;font-weight:900}
+
+  section{margin-top:88px}
+  .sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:28px}
+  .sec-no{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:2px;color:var(--muted)}
+  h2{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(23px,3.2vw,29px);letter-spacing:-.5px}
+  h3{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:18.5px;margin-top:34px}
+  p{max-width:44em}
+  p + p{margin-top:14px}
+  em{font-style:normal;font-weight:700;color:var(--ink)}
+  .note{font-size:14px;color:var(--muted);margin-top:16px;max-width:48em}
+  a{color:var(--ink)}
+  .golink{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--accent);text-decoration:none;border-bottom:2px solid var(--accent);white-space:nowrap}
+  .golink:hover{opacity:.8}
+
+  table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;margin-top:20px}
+  th,td{text-align:left;padding:13px 18px 13px 0;border-bottom:1px solid var(--hair);vertical-align:top;font-size:16px}
+  thead th{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .rowlabel{font-weight:700;color:var(--ink)}
+  .num{font-family:var(--sans);font-weight:700;color:var(--ink);white-space:nowrap}
+
+  .qa{padding:26px 0;border-bottom:1px solid var(--hair)}
+  .qa .q{font-weight:900;color:var(--ink);font-size:19px}
+  .qa .a{margin-top:10px;font-size:16px;max-width:46em}
+
+  ol.steps{list-style:none;margin-top:4px;counter-reset:s}
+  ol.steps li{counter-increment:s;display:grid;grid-template-columns:56px 1fr;gap:0 16px;padding:18px 0;border-bottom:1px solid var(--hair)}
+  ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--sans);font-weight:700;font-size:20px;color:var(--ink)}
+  ol.steps .s-title{font-weight:900;color:var(--ink);font-size:17px}
+  ol.steps .s-owner{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:10px;font-weight:400}
+  ol.steps .s-body{grid-column:2;margin-top:3px;font-size:15px;max-width:46em}
+
+  footer{margin-top:100px;border-top:2px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--muted)}
+
+  @media (max-width:700px){
+    .wrap{padding:0 22px 80px}
+    .hero{padding:32px 24px;margin-left:-22px;margin-right:-22px}
+    th,td{padding-right:12px}
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+
+  <header>
+    <div class="brandline">
+      <div class="wordmark">CONFLUENCE<span>.</span></div>
+      <div class="meta">STUDIO A &middot; 2026-08-28</div>
+    </div>
+    <h1>會議記錄</h1>
+    <p style="margin-top:26px;font-size:18px;max-width:44em">2026-08-28 Claude Team 導入討論的整理：會中兩個未決題的查證結果（依官方文件）、離職交接流程、配置與費用試算，供後續決策參考。</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">01</span><h2>會議兩個未決題 — 查證結果</h2></div>
+
+    <div class="qa">
+      <div class="q">席位升級怎麼計費？</div>
+      <div class="a">官方支援<em>就地升級</em>：把成員的席位 Standard 改 Premium，按剩餘天數補差額、立即生效。&nbsp;<a class="golink" href="seat-billing/">計費圖解 →</a></div>
+    </div>
+
+    <div class="qa">
+      <div class="q">年繳席位能不能換人？共用帳號（IT-001 式）需不需要？</div>
+      <div class="a">可以換人 — 官方明文：移除成員後席位釋出、可指派給新人，換人免費即時。年繳約期內加人隨時（按剩餘期比例收費）、減席等續約日。所以共用帳號<em>不需要</em>：它要解的問題官方原生支援，而共用會讓記憶與資料互見、責任不可追溯，與資料保護目的相反。一人一帳號。&nbsp;<a class="golink" href="seat-transfer/">席位換人圖解 →</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">02</span><h2>離職交接 SOP</h2></div>
+    <ol class="steps">
+      <li>
+        <div class="s-title">電腦清空前備份本機 Claude 設定</div>
+        <div class="s-body">家目錄 .claude 資料夾＋各專案內的設定。唯一有時效的一步。</div>
+      </li>
+      <li>
+        <div class="s-title">離職前請本人交接雲端</div>
+        <div class="s-body">claude.ai 上的重要 Project 改成「組織可見」、重要對話結論整理成文件。沒在用網頁版的人跳過。</div>
+      </li>
+      <li>
+        <div class="s-title">後台移除成員 → 邀新人 → 指派同一席</div>
+        <div class="s-body">存取立即中斷、席位釋出，帳單完全不動。</div>
+      </li>
+      <li>
+        <div class="s-title">保險：組織資料匯出</div>
+        <div class="s-body">忘了交接時，Primary Owner 可打包下載全組織資料，含已移除成員的部分。</div>
+      </li>
+    </ol>
+    <p style="margin-top:18px"><a class="golink" href="offboarding/">完整流程與資料下場表 →</a></p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">03</span><h2>配置與費用 — 同預算兩案</h2></div>
+
+    <table>
+      <thead><tr><th></th><th>案一：月繳 26 人</th><th>案二：年繳 36 席</th></tr></thead>
+      <tbody>
+        <tr><td class="rowlabel">席位組成</td><td>IT 原有 6 席 ＋ 新增 20 人（16 Standard + 4 Premium）</td><td>IT 原有 6 席 ＋ 新增 30 人（26 Standard + 4 Premium）</td></tr>
+        <tr><td class="rowlabel">月額</td><td class="num">$1,050</td><td class="num">$1,040</td></tr>
+        <tr><td class="rowlabel">年支出</td><td class="num">$12,600 ≈ NT$40 萬</td><td class="num">$12,480 ≈ NT$40 萬（一次付清）</td></tr>
+        <tr><td class="rowlabel">拿到什麼</td><td>26 席＋席數隨時增減</td><td><em>多 10 席</em>。如果確定有 36 人以上使用，建議這個方案</td></tr>
+      </tbody>
+    </table>
+    <p class="note">匯率 32 試算。Premium 以 4 席為基準 — 重度使用者名單（目前自付 $100 方案者＋IT 開發）確認若達 6 人，兩案各加 2 席 Premium、金額同幅微調。</p>
+
+    <h3>Premium 衝刺席的用法</h3>
+    <p>Premium 席不綁人。誰接了重案（整天跑 Claude Code 的專案）就<em>切進 Premium 席</em> — 換人免費、即時生效；專案做完<em>切回 Standard 席</em>，Premium 席讓給下一個重案的人。格子永遠有人用，錢不浪費。固定坐 Premium 的只有長期重度使用者（如 IT 開發）。</p>
+
+    <h3>導入步驟</h3>
+    <ol class="steps">
+      <li>
+        <div class="s-title">確認現有組織計費模式</div>
+        <div class="s-body">後台 Billing 頁看 Monthly 或 Annual。若是月繳，先整組轉年繳（官方支援、未用完月費折抵），轉換日 = 年約起點。</div>
+      </li>
+      <li>
+        <div class="s-title">名單內現有個人帳戶：各自到期日加入</div>
+        <div class="s-body">每人在個人方案到期日當天停止個人付費、加入 Team（按年約剩餘期比例收費），不重複付費。前提：個人方案用公司 email 購買。老闆（約 9/10 到期）同此流程。</div>
+      </li>
+      <li>
+        <div class="s-title">E 組（9/4）、C 組（9/11）開課學員的席次 — 可以考慮的選項</div>
+        <div class="s-body">沒有個人帳號的新學員，可以考慮直接用公司 email 開席上課，時點正好接上開課日。要不要納入第一波，可再評估。</div>
+      </li>
+      <li>
+        <div class="s-title">續約日檢視席次</div>
+        <div class="s-body">一年一次：席數要增減、Premium 席數要調整，都在這天做。第二波需求（其他部門）屆時一併納入。</div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">04</span><h2>啟動前待辦</h2></div>
+    <ol class="steps">
+      <li>
+        <div class="s-title">確認 Premium 名單</div>
+        <div class="s-body">目前自付 $100 方案的人有幾位 — 這個名單決定 Premium 席數（基準 4 席，名單更多則同幅調整）。</div>
+      </li>
+      <li>
+        <div class="s-title">確認現有組織計費模式與續約日</div>
+        <div class="s-body">「每月 6 號扣款」指向月繳 — 後台一眼定案。</div>
+      </li>
+      <li>
+        <div class="s-title">20 個部門席名單</div>
+        <div class="s-body">會議共識：部門主管優先；其他需求排第二波。</div>
+      </li>
+      <li>
+        <div class="s-title">登記名單內個人帳戶到期日</div>
+        <div class="s-body">到期日當天轉入，提醒本人停止個人付費。</div>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    <div class="meta">價格與規則依據 claude.com/pricing 與 support.claude.com 官方文件（2026-08-28 查核）</div>
+    <div class="meta">CONFLUENCE PARTNERS 匯流顧問</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
