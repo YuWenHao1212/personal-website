@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Team 席位計費圖解</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#111111; --body-c:#3A3A3A; --muted:#8A8A8A; --hair:#E5E5E5;
+    --accent:#C15F3C; --chart-2:#6E6E6E; --chart-4:#D6D6D6;
+    --sans:"Space Grotesk","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --tc:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--body-c);font-family:var(--tc);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 40px 110px}
+
+  header{padding:52px 0 0}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .wordmark{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:3px;color:var(--ink)}
+  .wordmark span{color:var(--accent)}
+  .meta{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1px}
+  h1{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(34px,5.4vw,52px);line-height:1.14;letter-spacing:-1.2px;margin:40px 0 0;text-wrap:balance}
+
+  /* accent zone — 一區一次：核心規則 */
+  .rule{background:var(--accent);color:#FFFFFF;padding:44px 44px;margin-top:40px}
+  .rule .label{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.8);text-transform:uppercase}
+  .rule .big{font-weight:900;color:#FFFFFF;font-size:clamp(22px,3.4vw,30px);line-height:1.5;letter-spacing:-.4px;margin-top:14px;max-width:26em;text-wrap:balance}
+  .rule p{color:rgba(255,255,255,.92);margin-top:14px;font-size:16px;max-width:40em}
+  .rule strong{color:#FFF;font-weight:900}
+
+  section{margin-top:84px}
+  .sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:28px}
+  .sec-no{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:2px;color:var(--muted)}
+  h2{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(23px,3.2vw,28px);letter-spacing:-.5px}
+  p{max-width:42em}
+  p + p{margin-top:14px}
+  em{font-style:normal;font-weight:700;color:var(--ink)}
+  .note{font-size:14px;color:var(--muted);margin-top:16px;max-width:46em}
+
+  figure{margin:30px 0 0}
+  figure svg{max-width:100%;height:auto;display:block;color:var(--ink)}
+  figcaption{font-size:14px;color:var(--muted);margin-top:12px;max-width:46em}
+  .fig-scroll{overflow-x:auto}
+
+  table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;margin-top:26px}
+  th,td{text-align:left;padding:12px 18px 12px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+  thead th{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .rowlabel{font-weight:700;color:var(--ink);white-space:nowrap}
+  .num{font-family:var(--sans);font-weight:700;color:var(--ink);white-space:nowrap}
+  .bad{color:var(--accent);font-weight:900}
+
+  ol.steps{list-style:none;margin-top:4px}
+  ol.steps li{counter-increment:s;display:grid;grid-template-columns:56px 1fr;gap:0 16px;padding:20px 0;border-bottom:1px solid var(--hair)}
+  ol.steps{counter-reset:s}
+  ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--sans);font-weight:700;font-size:20px;color:var(--ink)}
+  ol.steps .s-title{font-weight:900;color:var(--ink);font-size:17.5px}
+  ol.steps .s-body{grid-column:2;margin-top:3px;font-size:15.5px;max-width:44em}
+
+  footer{margin-top:100px;border-top:2px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:700px){
+    .wrap{padding:0 22px 80px}
+    .rule{padding:32px 24px;margin-left:-22px;margin-right:-22px}
+    th,td{padding-right:12px}
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<p style="margin:28px 0 -20px;font-family:var(--mono);font-size:13px"><a href="../" style="color:var(--muted);text-decoration:none">← 回會議記錄</a></p>
+
+
+  <header>
+    <div class="brandline">
+      <div class="wordmark">CONFLUENCE<span>.</span></div>
+      <div class="meta">CLAUDE TEAM &middot; 2026-08-28</div>
+    </div>
+    <h1>席位升級的錢怎麼算</h1>
+  </header>
+
+  <div class="rule">
+    <div class="label">先記住這一條，其他全是它的結果</div>
+    <div class="big">公司買的是席位，不是綁死某個人的 email — 誰坐這個席位隨時可以換。收費跟著席位走：加席位，立刻按剩餘天數收錢；減席位，不退錢、下一期才變便宜。</div>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">01</span><h2>後台其實是兩層：位子的錢、坐位子的人</h2></div>
+    <p>把它想成公司跟大樓租車位。公司租了 3 格一般車位、1 格大車位 — 這是<em>配額</em>，大樓只按「租了幾格」收錢。哪台車停哪一格，公司自己排 — 這是<em>指派</em>，隨時換、不用錢。</p>
+    <figure>
+      <div class="fig-scroll">
+      <svg viewBox="0 0 860 300" role="img" aria-label="配額層是公司向 Anthropic 買的席位，帳單只看席位數；指派層是員工坐進席位，換人免費">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        </defs>
+        <!-- 配額層 -->
+        <text x="30" y="34" font-size="13" font-weight="700" fill="currentColor" font-family="Space Grotesk,Noto Sans TC,sans-serif" letter-spacing="2">配額層（錢在這層）</text>
+        <rect x="30" y="48" width="560" height="96" fill="none" stroke="currentColor" stroke-width="2"/>
+        <!-- seats -->
+        <rect x="58" y="72" width="86" height="48" fill="#D6D6D6"/><text x="101" y="100" font-size="13" text-anchor="middle" fill="#111111" font-weight="700">S $25</text>
+        <rect x="162" y="72" width="86" height="48" fill="#D6D6D6"/><text x="205" y="100" font-size="13" text-anchor="middle" fill="#111111" font-weight="700">S $25</text>
+        <rect x="266" y="72" width="86" height="48" fill="#D6D6D6"/><text x="309" y="100" font-size="13" text-anchor="middle" fill="#111111" font-weight="700">S $25</text>
+        <rect x="382" y="72" width="110" height="48" fill="#6E6E6E"/><text x="437" y="100" font-size="13" text-anchor="middle" fill="#FFFFFF" font-weight="700">P $125</text>
+        <!-- 帳單 -->
+        <rect x="660" y="56" width="170" height="80" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="745" y="90" font-size="14" text-anchor="middle" fill="currentColor" font-weight="900">Anthropic 帳單</text>
+        <text x="745" y="114" font-size="12" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono,monospace">3×$25＋1×$125</text>
+        <line x1="592" y1="96" x2="656" y2="96" stroke="currentColor" stroke-width="2" marker-end="url(#ar)"/>
+        <text x="624" y="84" font-size="11" text-anchor="middle" fill="currentColor">只數格子</text>
+        <!-- 指派層 -->
+        <text x="30" y="216" font-size="13" font-weight="700" fill="currentColor" font-family="Space Grotesk,Noto Sans TC,sans-serif" letter-spacing="2">指派層（人在這層，換人免費）</text>
+        <circle cx="101" cy="252" r="22" fill="none" stroke="currentColor" stroke-width="2"/><text x="101" y="257" font-size="12" text-anchor="middle" fill="currentColor">小明</text>
+        <circle cx="205" cy="252" r="22" fill="none" stroke="currentColor" stroke-width="2"/><text x="205" y="257" font-size="12" text-anchor="middle" fill="currentColor">小華</text>
+        <circle cx="437" cy="252" r="22" fill="none" stroke="currentColor" stroke-width="2"/><text x="437" y="257" font-size="12" text-anchor="middle" fill="currentColor">小美</text>
+        <line x1="101" y1="228" x2="101" y2="124" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="205" y1="228" x2="205" y2="124" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="437" y1="228" x2="437" y2="124" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+        <text x="640" y="256" font-size="12" fill="currentColor">第 3 格 S 沒人坐，一樣照收 $25</text>
+      </svg>
+      </div>
+      <figcaption>帳單只看上層「租了幾格」。誰坐、有沒有人坐，都不影響當期收費 — 這就是「移除成員不退錢、席次給新人坐」的原理。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">02</span><h2>情境：月中把小明升級成 Premium</h2></div>
+    <p>設定用你們的實際條件：帳單日每月 6 號、月繳、Standard $25、Premium $125。<em>8/21 那天</em>（週期剛好過一半，剩 15/30 天）要把小明升級。同一件事、兩種按法，帳單長得不一樣：</p>
+
+    <figure>
+      <div class="fig-scroll">
+      <svg viewBox="0 0 860 430" role="img" aria-label="路徑 A 用官方升級鍵當期共付 75 元；路徑 B 手動加席再減席當期共付 87.5 元，其中 12.5 元是已付未用且不退的 Standard 殘值">
+        <!-- 時間軸 -->
+        <line x1="140" y1="46" x2="800" y2="46" stroke="currentColor" stroke-width="2"/>
+        <line x1="140" y1="38" x2="140" y2="54" stroke="currentColor" stroke-width="2"/>
+        <line x1="470" y1="38" x2="470" y2="54" stroke="currentColor" stroke-width="2"/>
+        <line x1="800" y1="38" x2="800" y2="54" stroke="currentColor" stroke-width="2"/>
+        <text x="140" y="28" font-size="12" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono,monospace">8/6 帳單日</text>
+        <text x="470" y="28" font-size="12" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono,monospace">8/21 升級</text>
+        <text x="800" y="28" font-size="12" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono,monospace">9/6 下期</text>
+        <line x1="470" y1="54" x2="470" y2="400" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity=".45"/>
+
+        <!-- 路徑 A -->
+        <text x="30" y="102" font-size="14" font-weight="900" fill="currentColor">路徑 A</text>
+        <text x="30" y="120" font-size="12" fill="currentColor">官方升級鍵</text>
+        <rect x="140" y="92" width="660" height="34" fill="#D6D6D6"/>
+        <text x="305" y="114" font-size="12.5" text-anchor="middle" fill="#111111">小明的位子 S $25（8/6 已付整月）</text>
+        <rect x="470" y="140" width="330" height="34" fill="#6E6E6E"/>
+        <text x="635" y="162" font-size="12.5" text-anchor="middle" fill="#FFFFFF">升級補差額 ($125−$25)×15/30 ＝ +$50</text>
+        <text x="140" y="204" font-size="13" fill="currentColor" font-weight="700">當期共 $75，位子從 8/21 起就是 Premium；下期起每月 $125</text>
+
+        <!-- 路徑 B -->
+        <text x="30" y="266" font-size="14" font-weight="900" fill="currentColor">路徑 B</text>
+        <text x="30" y="284" font-size="12" fill="currentColor">手動加席再減席</text>
+        <rect x="140" y="256" width="330" height="34" fill="#D6D6D6"/>
+        <text x="305" y="278" font-size="12.5" text-anchor="middle" fill="#111111">原 S 位 前半月 $12.5</text>
+        <rect x="470" y="256" width="330" height="34" fill="#C15F3C"/>
+        <text x="635" y="278" font-size="12.5" text-anchor="middle" fill="#FFFFFF" font-weight="700">後半月 $12.5 已付、沒人用、不退</text>
+        <rect x="470" y="304" width="330" height="34" fill="#6E6E6E"/>
+        <text x="635" y="326" font-size="12.5" text-anchor="middle" fill="#FFFFFF">新買整格 P $125×15/30 ＝ +$62.5</text>
+        <text x="140" y="368" font-size="13" fill="currentColor" font-weight="700">當期共 $87.5，比路徑 A 多付 $12.5＝橘色那段的殘值</text>
+        <text x="140" y="392" font-size="12.5" fill="currentColor">而且空出來的 S 格若忘記減配額，下期起每月再多 $25</text>
+      </svg>
+      </div>
+      <figcaption>同一天、同一個目的。路徑 A 只補「差額」的後半月；路徑 B 是「整格 Premium 重買後半月」，已付的 Standard 後半月依單行道規則不退 — 「先扣款、帳單先來、沒退錢」就是這條路徑的樣子。</figcaption>
+    </figure>
+
+    <table>
+      <thead><tr><th></th><th>路徑 A：官方升級鍵</th><th>路徑 B：加席再減席</th></tr></thead>
+      <tbody>
+        <tr><td class="rowlabel">操作</td><td>成員列表 → 小明 → 席位類型改 Premium</td><td>加購 1 格 Premium → 搬人 → 減 1 格 Standard</td></tr>
+        <tr><td class="rowlabel">當期多付</td><td><span class="num">$50</span>（只補差額）</td><td><span class="num">$62.5</span> ＋ <span class="bad">$12.5 浪費</span></td></tr>
+        <tr><td class="rowlabel">有沒有退款</td><td>沒有（本來就不是退款制）</td><td>沒有（減配額不退）</td></tr>
+        <tr><td class="rowlabel">忘記善後的風險</td><td>無</td><td>空的 Standard 格每月照收 $25</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">03</span><h2>官方做法與依據</h2></div>
+    <p>官方文件明文支援路徑 A，原文：</p>
+    <p style="margin-top:14px;border-left:2px solid var(--ink);padding-left:18px;font-family:var(--mono);font-size:14.5px;color:var(--ink)">"Seat type upgrades (Standard → Premium) are prorated and charged immediately for the price difference."</p>
+    <p style="margin-top:16px">操作位置：<em>Organization settings → Members → 找到該成員 → 席位類型改 Premium</em>。依據文件：</p>
+    <p style="margin-top:10px;font-size:15px">
+      <a href="https://support.claude.com/en/articles/12004354-purchase-and-manage-seats-on-team-plans" style="color:var(--ink)">Purchase and manage seats on Team plans</a>（席位管理與升級）<br>
+      <a href="https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated" style="color:var(--ink)">How is my Team plan bill calculated</a>（比例計算的算式範例）
+    </p>
+    <p style="margin-top:16px">如果後台實際操作時只出現「加購席位」的流程、找不到直接改席位類型的選項，拿上面第一篇文件對照畫面確認，或直接開 support ticket 問 — 不要照「加席再減席」做，那條路多付錢。</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">04</span><h2>實務上只要記一條</h2></div>
+    <p><em>升級永遠用「改席位類型」，不要手動加減配額。</em>操作位置：Organization settings → Members → 找到該成員 → 席位類型改 Premium。系統自動補差額，何時按都公平，不用等帳單日。</p>
+  </section>
+
+  <footer>
+    <div class="meta">依據 support.claude.com 席次管理與帳單計算官方文件（2026-08-28 查核）</div>
+    <div class="meta">CONFLUENCE PARTNERS 匯流顧問</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

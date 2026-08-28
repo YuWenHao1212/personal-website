@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>離職交接</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#111111; --body-c:#3A3A3A; --muted:#8A8A8A; --hair:#E5E5E5;
+    --accent:#C15F3C;
+    --sans:"Space Grotesk","Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --tc:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--body-c);font-family:var(--tc);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 40px 110px}
+
+  header{padding:52px 0 0}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .wordmark{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:3px;color:var(--ink)}
+  .wordmark span{color:var(--accent)}
+  .meta{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1px}
+  h1{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(34px,5.4vw,52px);line-height:1.14;letter-spacing:-1.2px;margin:40px 0 0;text-wrap:balance}
+
+  .rule{background:var(--accent);color:#FFFFFF;padding:44px 44px;margin-top:40px}
+  .rule .label{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.8);text-transform:uppercase}
+  .rule .big{font-weight:900;color:#FFFFFF;font-size:clamp(22px,3.4vw,30px);line-height:1.5;letter-spacing:-.4px;margin-top:14px;max-width:26em;text-wrap:balance}
+  .rule p{color:rgba(255,255,255,.92);margin-top:14px;font-size:16px;max-width:42em}
+  .rule strong{color:#FFF;font-weight:900}
+
+  section{margin-top:84px}
+  .sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:28px}
+  .sec-no{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:2px;color:var(--muted)}
+  h2{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:clamp(23px,3.2vw,28px);letter-spacing:-.5px}
+  p{max-width:42em}
+  p + p{margin-top:14px}
+  em{font-style:normal;font-weight:700;color:var(--ink)}
+  a{color:var(--ink)}
+
+  table{border-collapse:collapse;width:100%;margin-top:26px}
+  th,td{text-align:left;padding:12px 18px 12px 0;border-bottom:1px solid var(--hair);vertical-align:top;font-size:15.5px}
+  thead th{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .rowlabel{font-weight:700;color:var(--ink)}
+
+  ol.steps{list-style:none;margin-top:4px;counter-reset:s}
+  ol.steps li{counter-increment:s;display:grid;grid-template-columns:56px 1fr;gap:0 16px;padding:20px 0;border-bottom:1px solid var(--hair)}
+  ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--sans);font-weight:700;font-size:20px;color:var(--ink)}
+  ol.steps .s-title{font-weight:900;color:var(--ink);font-size:17.5px}
+  ol.steps .s-when{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:10px;font-weight:400}
+  ol.steps .s-body{grid-column:2;margin-top:3px;font-size:15.5px;max-width:44em}
+  code{font-family:var(--mono);font-size:14px;background:#F2F2F2;padding:1px 6px;color:var(--ink)}
+
+  footer{margin-top:100px;border-top:2px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:700px){
+    .wrap{padding:0 22px 80px}
+    .rule{padding:32px 24px;margin-left:-22px;margin-right:-22px}
+    th,td{padding-right:12px}
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<p style="margin:28px 0 -20px;font-family:var(--mono);font-size:13px"><a href="../" style="color:var(--muted);text-decoration:none">← 回會議記錄</a></p>
+
+
+  <header>
+    <div class="brandline">
+      <div class="wordmark">CONFLUENCE<span>.</span></div>
+      <div class="meta">CLAUDE TEAM &middot; 2026-08-28</div>
+    </div>
+    <h1>離職交接</h1>
+  </header>
+
+  <div class="rule">
+    <div class="label">唯一有時效的一步</div>
+    <div class="big">電腦清空前，先備份本機的 Claude 資料。其他步驟都能補救，這步錯過就沒了。</div>
+    <p>Claude Code 的工作成果（專案檔、記憶、skill）都在員工的電腦裡，<strong>不在雲端</strong>。公司回收電腦會清空重置 — 備份要在那之前完成。</p>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">01</span><h2>交接流程（照時間順序）</h2></div>
+    <ol class="steps">
+      <li>
+        <div class="s-title">備份本機 Claude 設定<span class="s-when">交接期間、電腦清空前</span></div>
+        <div class="s-body">兩個路徑：使用者家目錄的 <code>~/.claude</code> 隱藏資料夾（記憶、skill、使用者級設定）＋ 各專案資料夾內的專案級設定。先移除權限或後移除都不影響這步 — 資料在本機。</div>
+      </li>
+      <li>
+        <div class="s-title">雲端側交接，請本人做<span class="s-when">離職前</span></div>
+        <div class="s-body">他在 claude.ai（雲端）上的對話和 Project，人走後會上鎖：同事開不了、分享連結失效 — 東西沒被刪，但拿不到。所以離職前請本人把重要 Project 改成「組織可見」（Project 設定裡的一個開關）、重要對話的結論整理成文件。沒在用網頁版的人跳過。</div>
+      </li>
+      <li>
+        <div class="s-title">後台移除成員<span class="s-when">離職日</span></div>
+        <div class="s-body">Organization settings → Members → 該成員 → Remove from team。存取立即中斷、席位釋出。不會有退款，這是規則不是錯誤。</div>
+      </li>
+      <li>
+        <div class="s-title">邀請接手人、指派席位<span class="s-when">同日即可</span></div>
+        <div class="s-body">用接手人自己的公司 email 發邀請，把釋出的席位指派給他。把步驟 1 備份的設定複製到他的電腦。</div>
+      </li>
+      <li>
+        <div class="s-title">保險：組織資料匯出<span class="s-when">忘了交接時</span></div>
+        <div class="s-body">Primary Owner（組織最高管理者）可以把全組織的雲端資料打包下載，官方明文：已移除成員的資料也包含在內。當保險用，別當日常交接工具 — 全組織打包不好翻找。</div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">02</span><h2>資料下場</h2></div>
+    <table>
+      <thead><tr><th style="width:32%">資料</th><th style="width:35%">成員被移除後</th><th>保全方式</th></tr></thead>
+      <tbody>
+        <tr><td class="rowlabel">本機：專案檔、記憶、skill</td><td>不受影響（在他電腦上）</td><td>步驟 1 備份，電腦清空前完成</td></tr>
+        <tr><td class="rowlabel">claude.ai（雲端）上的對話與 Project</td><td>上鎖 — 同事看不到，分享連結失效</td><td>離職前本人交接（Project 改組織可見）；事後可用組織匯出撈回</td></tr>
+        <tr><td class="rowlabel">帳號歷史</td><td>原樣保留在帳號裡</td><td>同一公司 email 再邀回，對話與設定都在</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">03</span><h2>官方依據</h2></div>
+    <p style="font-size:15px;line-height:2.1">
+      <a href="https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans">Manage members on Team and Enterprise plans</a>（移除成員、席位釋出）<br>
+      <a href="https://support.claude.com/en/articles/12053672-what-happens-to-a-user-s-data-when-they-are-removed-from-a-team-or-enterprise-organization">What happens to a user's data when they are removed</a>（移除後的資料狀態）<br>
+      <a href="https://support.claude.com/en/articles/13346720-export-your-organization-s-data">Export your organization's data</a>（組織資料匯出）
+    </p>
+  </section>
+
+  <footer>
+    <div class="meta">依據 support.claude.com 官方文件（2026-08-28 查核）</div>
+    <div class="meta">CONFLUENCE PARTNERS 匯流顧問</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
