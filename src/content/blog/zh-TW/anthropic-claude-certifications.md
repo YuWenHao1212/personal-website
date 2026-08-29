@@ -58,7 +58,7 @@ Anthropic 認證體系目前共四張。根據官方 [Partner Academy FAQ](https
 | [Architect - Foundations](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification) | CCAR-F | 架構師、要把 Claude 應用推上線的人 | $125 | 2026-03-12 | **[有](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
 | [Architect - Professional](https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification) | CCAR-P | 企業部署顧問、Tech Lead | $175 | 2026 年 7 月 | **[有](https://anthropic-partners.skilljar.com/page/partner-certifications)** |
 
-以上為官方表列定價，四張之間沒有先修互卡，可以直接攻任何一張。四張的官方 Exam Guide 都已在 [Partner Academy 認證總覽頁](https://anthropic-partners.skilljar.com/page/partner-certifications)上架、可直接下載，定位與考試範圍以各自的 guide 為準；表中 7 月的開考日仍來自第三方備考網站的整理。
+以上為官方表列定價，四張之間沒有先修互卡，可以直接攻任何一張。（2026-08-29 更新：CCAR-F 我自己考過了——882 分。第一手的備考方法、考點地圖與考場實況，寫在[CCAR-F 考試心得](/zh-TW/blog/ccar-f-exam-experience/)。）四張的官方 Exam Guide 都已在 [Partner Academy 認證總覽頁](https://anthropic-partners.skilljar.com/page/partner-certifications)上架、可直接下載，定位與考試範圍以各自的 guide 為準；表中 7 月的開考日仍來自第三方備考網站的整理。
 
 ---
 
