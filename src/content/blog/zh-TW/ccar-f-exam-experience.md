@@ -22,7 +22,7 @@ faq:
   - question: "Anthropic Academy 的免費課程證書跟 CCAR-F 有什麼不同？"
     answer: "免費課程給的是線上課結業證書，不用監考；CCAR-F 是 Pearson VUE 監考的正式認證，兩者是不同層級的東西。四張監考認證的分工和報名細節，見站內的 Claude 證照總整理一文。"
   - question: "CCAR-F 考幾題、考多久、幾分及格？"
-    answer: "60 題單選、120 分鐘，滿分 1,000 分、720 分及格。"
+    answer: "60 題選擇題、120 分鐘，滿分 1,000 分、720 分及格。單複選混合，題目會標明要選幾個答案。"
 ---
 
 11 點 45 分，新竹光復路的帝國大樓三樓。我把印出來、寫滿決策樹的複習頁最後掃了一遍，跟手機、手錶、口袋裡所有東西一起鎖進置物櫃。兩小時後，螢幕跳出成績：882，及格線 720。
@@ -39,7 +39,7 @@ faq:
 
 CCAR-F 全名 Claude Certified Architect – Foundations，中文圈多稱「Claude 認證架構師」，是 Anthropic 官方認證體系裡給架構師角色的一張，考的是能不能判斷一套 AI 系統的架構該怎麼搭，不是考寫程式。
 
-涵蓋範圍是四個核心技術：Claude Code、Claude Agent SDK、Claude API、MCP。官方給的理想考生畫像，是有半年以上實作經驗的 solution architect；考試本身是 60 題單選、120 分鐘，滿分 1000、及格 720，由 Pearson VUE 監考（就是辦 Cisco、微軟這類國際證照考試的那家監考機構）。考過拿到的是 Credly 數位徽章：國際證照通用的徽章平台，掛上 LinkedIn 或履歷，點開就能查驗真偽。名字裡的 Foundations 指的是架構師這條軌的入門級，不代表內容很基礎：題目走情境題路線，後面會給實例。
+涵蓋範圍是四個核心技術：Claude Code、Claude Agent SDK、Claude API、MCP。官方給的理想考生畫像，是有半年以上實作經驗的 solution architect；考試本身是 60 題選擇題（單複選混合，題目會標明要選幾個答案）、120 分鐘，滿分 1000、及格 720，由 Pearson VUE 監考（就是辦 Cisco、微軟這類國際證照考試的那家監考機構）。考過拿到的是 Credly 數位徽章：國際證照通用的徽章平台，掛上 LinkedIn 或履歷，點開就能查驗真偽。名字裡的 Foundations 指的是架構師這條軌的入門級，不代表內容很基礎：題目走情境題路線，後面會給實例。
 
 這張證照 2026 年 3 月首發時還沒有正式縮寫，媒體多稱 CCA-F 或 CCAF，7 月才定案正式考試代碼 CCAR-F；四張證照分別給誰考、怎麼報名、命名沿革怎麼變的，我在[另一篇文章](/zh-TW/blog/anthropic-claude-certifications/)整理過完整版，這裡直接跳過，把篇幅留給這場考試：考什麼、怎麼準備、考場長什麼樣。
 

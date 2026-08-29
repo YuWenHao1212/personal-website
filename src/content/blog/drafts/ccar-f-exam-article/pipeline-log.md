@@ -53,6 +53,8 @@
 | publish-ccar-f-exam-experience.md | src/content/blog/zh-TW/ccar-f-exam-experience.md | 改名去 publish- 前綴 |
 
 | 22:4x | **🚀 zh 版發布上線**（commit 80f57c0 → CF Pages） | live 200／og 200／母文更新上線。ISS-227 done、ISS-082 done（/blog-publish 首次試跑全程走完）。EN 版（ISS-238）writer 進行中 |
+| 23:1x | **🚀 EN 版發布上線**（commit c6a8ac2） | writer 改寫非逐字翻（考場段→PV 官網查詢／證件段→護照拼音通用原則／閱讀速度→非母語視角）；主 Claude QA：紅線雙向掃乾淨、破折號 0、meta description 340→161 字元。EN 母文同 deploy 加 882 更新＋內鏈。live 200。ISS-238 done |
+| 23:2x | **母文導流補強**（commit 71308ba，中英同步） | 使用者拍板 B 案：eligibility 段 → 心得文文末協助管道（不直連表單）；收尾 CTA zh mailto→表單、EN 加表單行；relatedPosts 加心得文（去 ai-harness）。ISS-227 子項全收 |
 
 ## 待走階段（照 creative-team [創作] SOP＋blog-publish-sop）
 
