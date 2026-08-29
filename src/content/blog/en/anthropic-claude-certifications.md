@@ -42,6 +42,8 @@ Anthropic's program currently has four credentials. Specifications are per the o
 
 These are official list prices per Anthropic Partner Academy FAQ. There are no prerequisite locks between credentials — you can sit for any of the four directly. Official Exam Guides for all four credentials are now downloadable from the [Partner Academy certifications page](https://anthropic-partners.skilljar.com/page/partner-certifications); role positioning and exam scope are authoritative per each guide. The July opening dates still come from third-party reporting.
 
+*(Update, Aug 29, 2026: I have since taken CCAR-F myself and passed with 882/1000. The firsthand prep method, domain map, and test-day walkthrough are in [my CCAR-F exam experience](/en/blog/ccar-f-exam-experience/).)*
+
 ## Free Course Certificates vs. Paid Proctored Exams
 
 Before going further, there is a distinction that keeps getting muddled in the press, and it is worth settling.
