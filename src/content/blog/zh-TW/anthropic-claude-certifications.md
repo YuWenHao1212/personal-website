@@ -8,7 +8,7 @@ lang: zh-TW
 featured: false
 heroImage: /images/blog/anthropic-claude-certifications.webp
 translationKey: anthropic-claude-certifications
-relatedPosts: ["claude-code-tutorial.md", "enterprise-ai-adoption-bottleneck.md", "ai-harness.md"]
+relatedPosts: ["ccar-f-exam-experience.md", "claude-code-tutorial.md", "enterprise-ai-adoption-bottleneck.md"]
 focusKeyphrase: "Claude 證照"
 ---
 
@@ -92,7 +92,7 @@ AI 服務市場的專業分工，開始有了書面形式。
 
 全部由 Pearson VUE 監考（線上或考場），通過後發 Credly 數位徽章。過線分數統一 720/1000。效期 12 個月，到期前可在 Partner Academy 上免費續證，不需要重新走 Pearson VUE；逾期就要全額重考。重考有等待期：第一次 14 天，第二次 30 天，第三次 90 天，同一張考試 12 個月內最多考 4 次。
 
-有一個實務細節：**報名資格限於 Partner Network 成員**。用個人 email 會被擋下，必須透過夥伴組織的 Partner Academy 帳號報名、付款、排考。一般個人如果想考，需要透過已在 Partner Network 的組織報名。
+有一個實務細節：**報名資格限於 Partner Network 成員**。用個人 email 會被擋下，必須透過夥伴組織的 Partner Academy 帳號報名、付款、排考。一般個人如果想考，需要透過已在 Partner Network 的組織報名。卡在這一關的話，[CCAR-F 考試心得](/zh-TW/blog/ccar-f-exam-experience/)的文末有我提供的協助管道。
 
 ---
 
@@ -149,7 +149,7 @@ AI 服務市場的專業分工，開始有了書面形式。
 
 ---
 
-*想考這幾張證照、卡在沒有報名管道或不知道從哪開始？→ [寫信給我](mailto:mail@yu-wenhao.com?subject=Anthropic%20%E8%AD%89%E7%85%A7%E8%AB%AE%E8%A9%A2)*
+*想考這幾張證照、卡在沒有報名管道或不知道從哪開始？→ [留下聯絡方式](https://ccarf-contact.pages.dev/)，我會親自回覆。*
 
 *想學好 Claude Code？參考我的公開班教學。→ [公開班資訊](https://yu-wenhao.com/zh-TW/workshop/)*
 

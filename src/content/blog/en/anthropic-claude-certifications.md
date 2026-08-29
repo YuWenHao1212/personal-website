@@ -11,7 +11,7 @@ draft: false
 featured: false
 heroImage: /images/blog/anthropic-claude-certifications-en.webp
 focus_keyphrase: "Claude Certified Architect"
-relatedPosts: ["claude-code-tutorial.md", "ai-harness.md", "enterprise-ai-adoption-bottleneck.md"]
+relatedPosts: ["ccar-f-exam-experience.md", "claude-code-tutorial.md", "enterprise-ai-adoption-bottleneck.md"]
 ---
 
 For years, the AI certification landscape belonged to the cloud vendors. Microsoft launched Azure AI Engineer. Google built out its Cloud AI track. AWS introduced the AI Practitioner. All of them test knowledge of a specific platform — how to configure a service, how to route a request through an API, how to use the vendor's tooling to wrap a model someone else built.
@@ -72,7 +72,7 @@ Credentials are valid for 12 months. (Certifications earned before June 30, 2026
 
 Retake waiting periods: 14 days after a first failed attempt, 30 days after a second, 90 days after a third. The same exam can be taken at most four times in any rolling 12-month period.
 
-One practical constraint: **registration requires Partner Network membership**. A personal email address will be blocked at checkout. To register, pay, and schedule through Pearson, a candidate must use an account connected to a partner organization's Partner Academy. Individuals who want to sit an exam need access through an organization already in the Partner Network.
+One practical constraint: **registration requires Partner Network membership**. A personal email address will be blocked at checkout. To register, pay, and schedule through Pearson, a candidate must use an account connected to a partner organization's Partner Academy. Individuals who want to sit an exam need access through an organization already in the Partner Network. If that is the wall you are hitting, the end of [my CCAR-F exam experience](/en/blog/ccar-f-exam-experience/) explains how I can help.
 
 ## Claude Certified Architect - Foundations: The Exam in Detail
 
@@ -131,5 +131,7 @@ For the cloud vendor tier (Microsoft / Google / AWS), proctored AI credentials h
 - AWS — [Certified AI Practitioner](https://aws.amazon.com/certification/certified-ai-practitioner/)
 
 ---
+
+*Want to sit one of these exams but have no registration path? [Leave your contact here](https://ccarf-contact.pages.dev/en/), and I'll reply personally.*
 
 *Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*
