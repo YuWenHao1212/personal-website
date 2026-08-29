@@ -22,7 +22,7 @@ faq:
   - question: "What's the difference between Anthropic Academy's free course certificates and CCAR-F?"
     answer: "The free courses give you a completion certificate for finishing an online course, with no proctoring. CCAR-F is a formal, Pearson VUE-proctored certification. They sit at different tiers entirely. I break down how all four proctored Claude certifications differ in a companion post."
   - question: "How many questions does CCAR-F have, how long is it, and what's the passing score?"
-    answer: "60 multiple-choice questions in 120 minutes, scored out of 1,000, with a passing score of 720."
+    answer: "60 questions in 120 minutes, a mix of single- and multiple-response items where each question states how many answers to select, scored out of 1,000 with a passing score of 720."
 ---
 
 It's 11:45 a.m., third floor of a building on Guangfu Road in Hsinchu, Taiwan. I take one last look at the printed review sheet covered in decision trees, then lock it in a locker along with my phone, my watch, and everything else in my pockets. Two hours later, the screen shows a score: 882. Passing is 720.
@@ -39,7 +39,7 @@ Only after deciding to sit for it did I find out there's no shortcut here. Anthr
 
 CCAR-F stands for Claude Certified Architect - Foundations. It's the credential Anthropic built for the architect role in its certification program: it tests whether you can make sound calls on how to architect an AI system, not whether you can write code.
 
-It covers four core technologies: Claude Code, the Claude Agent SDK, the Claude API, and MCP. Anthropic's target candidate is a solution architect with six or more months of hands-on experience. The exam itself is 60 multiple-choice questions in 120 minutes, scored out of 1,000 with a passing score of 720, proctored by Pearson VUE (the same proctoring company behind exams like Cisco's and Microsoft's). Pass, and you get a Credly digital badge, the platform international certifications use, so anyone can click through on LinkedIn or a resume and verify it's real. "Foundations" in the name marks the entry tier of the architect track, not that the content is basic. The questions are scenario-based, and I'll show you two real examples further down.
+It covers four core technologies: Claude Code, the Claude Agent SDK, the Claude API, and MCP. Anthropic's target candidate is a solution architect with six or more months of hands-on experience. The exam itself is 60 questions in 120 minutes (single- and multiple-response, each stating how many answers to select), scored out of 1,000 with a passing score of 720, proctored by Pearson VUE (the same proctoring company behind exams like Cisco's and Microsoft's). Pass, and you get a Credly digital badge, the platform international certifications use, so anyone can click through on LinkedIn or a resume and verify it's real. "Foundations" in the name marks the entry tier of the architect track, not that the content is basic. The questions are scenario-based, and I'll show you two real examples further down.
 
 When this credential launched in March 2026, it didn't have an official abbreviation yet. Press and community discussion mostly called it CCA-F or CCAF, and if you searched for a "CCAF exam" page and landed here instead, that's not a mistake, it's the same credential's naming history. The formal exam code CCAR-F wasn't assigned until July, when Anthropic's program expanded to four credentials. Same exam, three names across its history.
 
