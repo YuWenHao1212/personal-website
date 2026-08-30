@@ -1,362 +1,773 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-const title = 'STUDIO A 學員專屬 — 三日工作坊課前安裝指南';
-const description = '8/5 / 8/12 / 8/19 三日工作坊課前環境建置指南：安裝 Claude Pro、VS Code、Claude Code、Obsidian、Claude for Excel + PowerPoint，下載 FLUX Vault Studio a。';
+const title = 'STUDIO A 學員專屬 — 課前環境安裝指南';
+const description =
+  'STUDIO A 與 PQI 課前環境建置指南（Mac / Windows 雙版本）：安裝 Claude Pro、VS Code、Git、Claude Code、Obsidian，下載對應版本的 FLUX Vault，並完成 email + 行事曆助手設定。';
 ---
 
 <BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
-  <article class="py-10 md:py-14 lg:py-16">
-    <div class="container-prose">
-      <header class="mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold mb-3">STUDIO A 學員專屬安裝指南</h1>
-        <p class="text-lg text-ink-600">三日工作坊（8/5、8/12、8/19）課前環境建置</p>
-        <p class="text-sm text-ink-400 mt-2">講師：余文皓 | mail@yu-wenhao.com</p>
-      </header>
-
-      <div class="not-prose mb-10 p-6 rounded-lg border-2 border-accent bg-accent/5 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
-        <div>
-          <div class="text-lg font-bold mb-1">📊 D 組（8/27）課程投影片</div>
-          <div class="text-sm text-ink-600">D 組一日課上課用的投影片 — 課堂會一起走。</div>
-        </div>
-        <a href="/studio-a/class-d/d1/" target="_blank" rel="noopener" class="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
-          ▶ 打開投影片
-        </a>
-      </div>
-
-      <div class="prose prose-lg max-w-none [&_blockquote]:!border-l-slate-400">
-        <p>這份指南專為 STUDIO A 員工的 Mac 電腦設計。整份要做的事分成兩個階段：</p>
-
-        <div class="not-prose my-8 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-3 items-stretch">
-          <div class="flex flex-col p-5 rounded-lg border-2 border-accent/40 bg-accent/5">
-            <div class="text-xs font-semibold text-accent uppercase tracking-wider mb-2">階段 1</div>
-            <div class="text-lg font-bold mb-3">💻 你自己做</div>
-            <ul class="text-sm space-y-1.5 text-ink-700 flex-1 list-none pl-0">
-              <li>• 確認 Claude Pro 帳號</li>
-              <li>• 裝 4 個工具<br /><span class="text-xs text-ink-500 pl-3">VS Code / Claude Code / Obsidian / Git</span></li>
-              <li>• 下載 + 解壓 vault 到桌面</li>
-            </ul>
-            <div class="text-xs text-ink-500 mt-3 pt-3 border-t border-ink-200">⏱ 約 20 分鐘</div>
-          </div>
-
-          <div class="flex items-center justify-center text-2xl text-ink-400 md:rotate-0 rotate-90">→</div>
-
-          <div class="flex flex-col p-5 rounded-lg border-2 border-accent/40 bg-accent/5">
-            <div class="text-xs font-semibold text-accent uppercase tracking-wider mb-2">階段 2</div>
-            <div class="text-lg font-bold mb-3">🤖 Claude 自己跑</div>
-            <ul class="text-sm space-y-1.5 text-ink-700 flex-1 list-none pl-0">
-              <li>• 確認行事曆 / 郵件 app 平常能用</li>
-              <li>• Claude 讀 setup script、自動安裝 email + calendar skill</li>
-              <li>• 驗證安裝成功</li>
-            </ul>
-            <div class="text-xs text-ink-500 mt-3 pt-3 border-t border-ink-200">⏱ 約 10-20 分鐘</div>
-          </div>
-        </div>
-
-        <p>💡 另外有一個 <strong>Bonus 章節 — Claude for Excel + PowerPoint</strong>，<strong>工作坊會用到、請務必裝完</strong>。</p>
-
-        <hr />
-
-        <div class="not-prose mt-16 mb-8 py-6 px-6 bg-accent text-white rounded-lg">
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">階段 1 / 2</div>
-          <div class="text-2xl font-bold">💻 你自己做（步驟一 ~ 六）</div>
-          <div class="text-sm mt-1 opacity-80">確認帳號 + 裝 4 個工具 + 下載 vault · 約 20 分鐘</div>
-        </div>
-
-        <div class="border-l-4 border-accent pl-6 my-6">
-
-        <h2>一、確認 Claude Pro 帳號（已有帳號可跳過）</h2>
-
-        <ol>
-          <li>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 登入</li>
-          <li>確認左下角顯示 <strong>Pro</strong> 字樣（沒有 Pro 訂閱、後面 Claude Code 跑不起來）</li>
-        </ol>
-
-        <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="claude.ai 左下角顯示 Pro 字樣 — 確認訂閱已生效" />
-
-        <blockquote>
-          <p>圖中是年繳方案（$17/月）— 月繳（$20/月）也 OK，只要有 <strong>Pro</strong> 訂閱即可。</p>
-        </blockquote>
-
-        <hr />
-
-        <h2>二、安裝 VS Code（編輯器）</h2>
-
-        <ol>
-          <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
-          <li>下載 Mac 版</li>
-          <li>打開 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
-          <li>打開 VS Code，確認可以正常啟動</li>
-        </ol>
-
-        <h3>安裝 VS Code 擴充功能</h3>
-
-        <ol>
-          <li>打開 VS Code</li>
-          <li>按 <code>Cmd + Shift + X</code> 打開擴充功能側欄</li>
-          <li>搜尋並安裝以下兩個擴充功能：</li>
-        </ol>
-
-        <p><strong>① Chinese (Traditional) Language Pack</strong>（作者 Microsoft）— 介面中文化、建議裝。搜「<code>Chinese</code>」、選作者是 <strong>Microsoft</strong>、寫「<strong>中文(繁體)</strong>」那個：</p>
-
-        <img src="/images/studio-a-install/02-chinese-language-pack.webp" alt="VS Code 擴充功能市集 — Chinese (Traditional) Language Pack（Microsoft 出品）" />
-
-        <p><strong>② Claude Code</strong>（作者 Anthropic）— <strong>一定要裝</strong>。搜「<code>claude code</code>」，選作者是 <strong>Anthropic</strong> 那個（識別碼 <code>anthropic.claude-code</code>）：</p>
-
-        <img src="/images/studio-a-install/01-claude-code-extension.webp" alt="VS Code 擴充功能市集 — Claude Code for VS Code（Anthropic 出品）" />
-
-        <ol start={4}>
-          <li>裝完、重新啟動 VS Code</li>
-        </ol>
-
-        <hr />
-
-        <h2>三、安裝 Git（透過 macOS Command Line Tools）</h2>
-
-        <p>macOS 沒預裝、需透過終端機觸發安裝（會同時裝上 Git + Python 3、後續 email skill 需要 Python）：</p>
-
-        <ol>
-          <li>打開剛裝好的 <strong>VS Code</strong>（不用開資料夾、空狀態即可）</li>
-          <li>按 <code>Cmd + J</code> 打開 VS Code 內建終端機（cwd 在你的家目錄）</li>
-          <li>貼上以下指令、按 Enter：</li>
-        </ol>
-
-        <pre><code>git --version</code></pre>
-
-        <p>第一次跑會跳「安裝命令列工具」對話框（約 700MB）— 點<strong>安裝</strong>。下載完成後再跑一次 <code>git --version</code>、看到版本號 = 成功。</p>
-
-        <hr />
-
-        <h2>四、安裝 Claude Code CLI 並登入</h2>
-
-        <ol>
-          <li>繼續用剛才的 VS Code 內建終端機（沒開的話按 <code>Cmd + J</code> 打開）</li>
-          <li>貼上以下指令、按 Enter 執行：</li>
-        </ol>
-
-        <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
-
-        <ol start={3}>
-          <li>安裝完成後，<strong>分兩次</strong>貼上以下指令設定路徑（每段各自貼一次、按 Enter 執行；若終端機問「貼上 / 合併成一行」、選<strong>「貼上」</strong>）：</li>
-        </ol>
-
-        <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc`}</code></pre>
-
-        <pre><code>source ~/.zshrc</code></pre>
-
-        <ol start={4}>
-          <li>關閉這個終端機（輸入 <code>exit</code>）、再按 <code>Cmd + J</code> 打開新的</li>
-          <li>輸入 <code>claude --version</code> 驗證有版本號 = 裝好了</li>
-        </ol>
-
-        <img src="/images/studio-a-install/07-claude-version-verify.webp" alt="終端機執行 claude --version 顯示版本號 2.1.153 (Claude Code)" />
-
-        <blockquote>
-          <p>暫時不要跑 <code>claude</code>、登入留到 Section 七（讓 Claude 跑 setup）時做 — 那時 vault 已下載、<code>claude</code> 跑起來會自動讀 vault 的 <code>CLAUDE.md</code>、體驗最完整。</p>
-        </blockquote>
-
-        <hr />
-
-        <h2>五、下載 FLUX Vault Studio a 並用 VS Code 打開</h2>
-
-        <p>
-          <a href="/downloads/FLUX-standard-studio-a.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-lg font-bold hover:bg-accent/90 transition-colors no-underline">
-            📥 下載 STUDIO A 版 FLUX vault
-          </a>
+  <div id="studio-a-setup">
+    <!-- ====== Hero ====== -->
+    <section class="bg-gradient-to-b from-cream-200 to-cream-50 border-b border-cream-300">
+      <div class="container-prose py-10 md:py-14">
+        <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-semibold mb-4">
+          STUDIO A 學員專屬 · 課前準備
         </p>
-
-        <ol>
-          <li>下載後雙擊 <code>.zip</code> 解壓縮</li>
-          <li>把解壓縮後的 <code>FLUX Vault Studio a</code> 資料夾<strong>放到桌面</strong>（最容易找）</li>
-        </ol>
-
-        <ol start={3}>
-          <li>打開 <strong>VS Code</strong>、選單 <strong>File → Open Folder…</strong>、選剛才那個 <code>FLUX Vault Studio a</code> 資料夾</li>
-          <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是、信任」</strong>（Yes, I trust the authors）</li>
-          <li>左側 Explorer 看到 <code>Inbox / Atlas / Calendar / Cockpit / Efforts / Guides / Templates / CLAUDE.md / Home.md / sortspec.md</code> = 開對了</li>
-        </ol>
-
-        <hr />
-
-        <h2>六、安裝 Obsidian 並打開 FLUX vault</h2>
-
-        <ol>
-          <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
-          <li>下載 Mac 版</li>
-          <li>打開下載的 <code>.dmg</code> 檔案，將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
-          <li>打開 <strong>Obsidian</strong>，選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
-          <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
-          <li>選剛才解壓的 <code>FLUX Vault Studio a</code> 資料夾</li>
-          <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
-        </ol>
-
+        <h1 class="font-serif text-3xl md:text-5xl font-semibold tracking-tight text-ink-900 mb-4">課前環境安裝指南</h1>
+        <p class="text-lg text-ink-600 max-w-2xl">
+          Mac 與 Windows 雙版本 — 用下方切換鈕<strong class="text-ink-800">選你自己電腦的作業系統</strong>，步驟會跟著變（STUDIO A 學員是 Mac；PQI 同事 Windows 為主、用 Mac 的同事走 Mac 版）。
+          卡在任何步驟都沒關係，截圖傳給我就好。
+        </p>
+        <div class="flex flex-wrap gap-2 mt-6 text-sm">
+          <span class="px-3 py-1.5 rounded-full bg-white border border-cream-300 text-ink-600">⏱ 約 30–40 分鐘</span>
+          <span class="px-3 py-1.5 rounded-full bg-white border border-cream-300 text-ink-600">🧰 4 個工具 + 1 個 vault</span>
         </div>
+        <p class="text-sm text-ink-400 mt-4">講師：余文皓 ｜ mail@yu-wenhao.com</p>
+      </div>
+    </section>
 
-        <hr />
-
-        <div class="not-prose mt-16 mb-8 py-6 px-6 bg-emerald-700 text-white rounded-lg">
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">階段 2 / 2</div>
-          <div class="text-2xl font-bold">🤖 Claude 自己跑（步驟七 ~ 八）</div>
-          <div class="text-sm mt-1 opacity-80">Claude 自動安裝 email + calendar skill + 你驗證 · 約 10-20 分鐘</div>
+    <!-- ====== Sticky OS Switcher ====== -->
+    <div class="sticky top-24 z-40 bg-cream-50/90 backdrop-blur border-b border-cream-300 shadow-sm">
+      <div class="container-prose py-2.5 flex items-center gap-3">
+        <span class="text-sm font-medium text-ink-600 flex-none">你的電腦：</span>
+        <div class="inline-flex rounded-full border border-cream-400 bg-cream-100 p-1" role="tablist" aria-label="選擇作業系統">
+          <button data-os-btn="mac" type="button" class="px-4 sm:px-5 py-1.5 rounded-full text-sm font-bold transition-all bg-accent text-white shadow">🍎 Mac</button>
+          <button data-os-btn="windows" type="button" class="px-4 sm:px-5 py-1.5 rounded-full text-sm font-bold transition-all text-ink-500 hover:text-ink-800">⊞ Windows</button>
         </div>
-
-        <div class="border-l-4 border-emerald-500 pl-6 my-6">
-
-        <h2>七、讓 Claude 跑 setup</h2>
-
-        <blockquote>
-          <p><strong>跑 setup 前確認 Mac 兩個內建 app 平常都能用</strong>：</p>
-          <ul>
-            <li>✅ <strong>行事曆 app</strong> — 打開能看到自己的行程</li>
-            <li>✅ <strong>郵件 app</strong> — 能正常收發 STUDIO A 公司信</li>
-          </ul>
-          <p>沒設好的話 skill 跑不起來、依平常方式找 STUDIO A IT 處理。</p>
-        </blockquote>
-
-        <p>承接上一步、在 VS Code 已開啟 <code>FLUX Vault Studio a</code> 資料夾的視窗、按 <code>Cmd + J</code> 打開 VS Code 內建終端機（cwd 自動在 vault），輸入：</p>
-
-        <pre><code>claude</code></pre>
-
-        <ol>
-          <li>第一次跑會要求登入 — 按畫面指示登入你的 Claude 帳號（同 claude.ai 那個）</li>
-          <li>登入後跟 Claude 說：</li>
-        </ol>
-
-        <pre><code>請讀取 Inbox/SETUP-CLAUDE.md 並依步驟執行</code></pre>
-
-        <p>Claude 驗證 vault 結構完整 + 自動刪除本檔（過程中跳「允許執行」彈窗、按「允許」）。完成後接著說：</p>
-
-        <pre><code>請依 Inbox/setup-claude-skills.md 安裝 Claude skill</code></pre>
-
-        <p>Claude 會依序跑：</p>
-
-        <ul>
-          <li><strong>Part A：Email skill</strong> — 設定 Claude 能讀寫你的公司信件。過程中會跳 macOS <strong>鑰匙圈授權</strong>對話框、按<strong>「永遠允許」</strong>+ 輸入 Mac 登入密碼即可。<strong>測試</strong>：Claude 讀最近幾封信給你看 + 在 Mail 存 2 個測試草稿（純文字 + HTML）→ 你打開 Mail 草稿匣確認兩封都在。</li>
-          <li><strong>Part B：Calendar skill</strong> — 問你工作行事曆名稱（在 Apple Calendar 左側欄看到的那個）。<strong>測試</strong>：Claude 讀未來 7 天行程給你看。</li>
-          <li><strong>Part C：結案</strong> — Claude 印出安裝結果摘要（email 帳號代號 + 日曆名稱）+ 給你 3 句馬上能試的測試指令（讀信摘要 / 看今天會議 / 寄一封信）。</li>
-        </ul>
-
-        <blockquote>
-          <p><strong>⚠️ 過程中 macOS 會跳兩次系統彈窗</strong>：「Terminal 想要控制 Mail」「Terminal 想要控制 Calendar」 — 請按「<strong>好</strong>」/「<strong>允許</strong>」、Claude 才能繼續。</p>
-        </blockquote>
-
-        <blockquote>
-          <p><strong>裝到一半卡住？</strong>Claude 會跟你說「請找講師」就停下來。不要自己 debug 公司 mail server 設定 — 聯繫 STUDIO A 工作坊承辦窗口、或直接寫信給講師 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>，4 小時內會有回覆。</p>
-        </blockquote>
-
-        <hr />
-
-        <h2>八、驗證安裝成功</h2>
-
-        <p>跟 Claude 說：「<strong>跑驗證</strong>」、或自己手動試這兩件事：</p>
-
-        <ol>
-          <li>跟 Claude 說：「<strong>讀我今天最後 5 封信、做摘要</strong>」 — 看到 Claude 列出 5 封信的主旨 + 摘要 = email skill OK</li>
-          <li>跟 Claude 說：「<strong>看我今天的會議</strong>」 — 看到今天行程列表 = calendar skill OK</li>
-        </ol>
-
-        <p>下方逐項打勾：</p>
-
-        <ul class="list-none pl-0">
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude Pro 帳號可登入 claude.ai</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> VS Code 安裝完成、可正常開啟</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>git --version</code> 有輸出</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> 終端機 <code>claude</code> 能進入 Claude Code</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Obsidian 可開啟 FLUX Vault Studio a</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Apple Mail 能收發 STUDIO A 公司信</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Apple Calendar 看得到工作行程</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude 能讀公司 email、做摘要</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Claude 能看公司行事曆</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> Excel Web 能開啟 Claude sidebar、能回答試算表內容（Bonus）</li>
-          <li class="flex items-start gap-2"><input type="checkbox" class="mt-1.5 accent-accent" /> PowerPoint Web 能開啟 Claude sidebar、能回答簡報內容（Bonus）</li>
-        </ul>
-
-        <p>都打勾，你就準備好上 6/2 第一堂了！</p>
-
-        </div>
-
-        <hr />
-
-        <div class="not-prose mt-16 mb-8 py-6 px-6 bg-amber-600 text-white rounded-lg">
-          <div class="text-xs font-semibold uppercase tracking-wider mb-1 opacity-80">BONUS / 加分題</div>
-          <div class="text-2xl font-bold">🎁 Claude for Excel + PowerPoint（必裝）</div>
-          <div class="text-sm mt-1 opacity-80">⏱ 約 15 分鐘</div>
-        </div>
-
-        <div class="border-l-4 border-amber-500 pl-6 my-6">
-
-        <h2>九、安裝 Claude for Excel + PowerPoint（Web 版）</h2>
-
-        <p><strong>前置條件</strong>：</p>
-
-        <ul>
-          <li>✅ Microsoft 365 訂閱（STUDIO A 給你的公司帳號）</li>
-          <li>✅ Claude Pro 訂閱（步驟一已確認）</li>
-        </ul>
-
-        <p>兩個 add-in 流程一樣、差別只在打開哪個 Web app、Marketplace URL（<a href="https://appsource.microsoft.com/en-us/product/office/WA200009404" target="_blank" rel="noopener">Excel</a> / <a href="https://marketplace.microsoft.com/en-us/product/office/wa200010001" target="_blank" rel="noopener">PowerPoint</a>）、和驗證指令。</p>
-
-        <ol>
-          <li>前往 <a href="https://office.com" target="_blank" rel="noopener">office.com</a>、用 STUDIO A 給你的 Microsoft 365 公司帳號登入</li>
-        </ol>
-
-        <div class="not-prose my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="flex flex-col p-5 rounded-lg border-2 border-amber-400/40 bg-amber-50">
-            <div class="text-lg font-bold mb-3">🟢 Claude for Excel</div>
-            <ol class="text-sm space-y-2 text-ink-700 pl-5 list-decimal" start={2}>
-              <li>點左側 Excel icon、開啟 Excel Web 版、開一個空白活頁簿</li>
-              <li>前往 Marketplace：<a href="https://appsource.microsoft.com/en-us/product/office/WA200009404" target="_blank" rel="noopener">Claude by Anthropic for Excel</a></li>
-              <li>點藍色「<strong>Get it now</strong>」/「<strong>立即取得</strong>」按鈕</li>
-            </ol>
-            <img src="/images/studio-a-install/03-claude-excel-appsource.webp" alt="Microsoft Marketplace — Claude by Anthropic for Excel" class="mt-4 rounded" />
-          </div>
-
-          <div class="flex flex-col p-5 rounded-lg border-2 border-amber-400/40 bg-amber-50">
-            <div class="text-lg font-bold mb-3">🟠 Claude for PowerPoint</div>
-            <ol class="text-sm space-y-2 text-ink-700 pl-5 list-decimal" start={2}>
-              <li>點左側 PowerPoint icon、開啟 PowerPoint Web 版、開一個空白簡報</li>
-              <li>前往 Marketplace：<a href="https://marketplace.microsoft.com/en-us/product/office/wa200010001" target="_blank" rel="noopener">Claude by Anthropic for PowerPoint</a></li>
-              <li>點藍色「<strong>Get it now</strong>」/「<strong>立即取得</strong>」按鈕</li>
-            </ol>
-            <img src="/images/studio-a-install/05-claude-powerpoint-appsource.webp" alt="Microsoft Marketplace — Claude by Anthropic for PowerPoint" class="mt-4 rounded" />
-          </div>
-        </div>
-
-        <blockquote>
-          <p>頁面會顯示「<strong>Additional purchase may be required</strong>（可能需要額外購買）」— 這是 Microsoft 的標準提示。<strong>裝 add-in 本身免費</strong>、Microsoft 不會跟你收錢；要使用 Claude 服務需要 Claude Pro 訂閱（你已經有了）。</p>
-        </blockquote>
-
-        <ol start={5}>
-          <li>跟著 Microsoft 提示完成授權、回到對應的 Web app</li>
-          <li>裝好後 <strong>Claude 按鈕會 pin 在 ribbon 上</strong>（Home 區塊右側、橘色 ✱ 圖示）— 點它打開右側 sidebar</li>
-          <li>Sidebar 點「<strong>Sign in</strong>」、用你的 Claude 帳號（同 claude.ai）登入並授權</li>
-          <li><strong>驗證</strong>：兩個 sidebar 都試一次（見下圖）</li>
-        </ol>
-
-        <div class="not-prose my-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <figure>
-            <img src="/images/studio-a-install/04-claude-excel-sidebar.webp" alt="Excel Web 開啟 Claude sidebar 成功" class="rounded" />
-            <figcaption class="text-sm text-ink-600 mt-2"><strong>Excel</strong>：A1 輸入 <code>Hello</code>、sidebar 問「這個試算表有什麼？」</figcaption>
-          </figure>
-          <figure>
-            <img src="/images/studio-a-install/06-claude-powerpoint-sidebar.webp" alt="PowerPoint Web 開啟 Claude sidebar 成功" class="rounded" />
-            <figcaption class="text-sm text-ink-600 mt-2"><strong>PowerPoint</strong>：新增空白投影片、sidebar 問「這個簡報有什麼？」</figcaption>
-          </figure>
-        </div>
-
-        </div>
-
-        <hr />
-
-        <h2>卡住的時候</h2>
-
-        <ol>
-          <li><strong>Mail / Calendar app 不能用</strong>（收不到信、看不到行事曆）→ 依平常方式找 STUDIO A IT</li>
-          <li><strong>其他任何卡住</strong>（環境裝不起來 / Claude 跑 setup 卡住 / 不知道怎麼辦）→ 聯繫 STUDIO A 工作坊承辦窗口、或直接寫信給講師 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>，4 小時內回覆。</li>
-        </ol>
-
-        <p><em>余文皓 | mail@yu-wenhao.com</em></p>
+        <span id="os-indicator" class="ml-auto hidden sm:inline text-xs text-ink-400"></span>
       </div>
     </div>
-  </article>
+
+    <article class="py-10 md:py-14">
+      <div class="container-prose" id="setup-content">
+
+        <!-- D 組投影片（STUDIO A / Mac 限定） -->
+        <div data-os="mac" class="bg-white rounded-2xl border-2 border-accent/40 shadow-sm p-6 md:p-8 mb-10 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+          <div>
+            <div class="text-lg font-bold mb-1 text-ink-900">📊 D 組課程投影片</div>
+            <div class="text-sm text-ink-600">D 組一日課上課用的投影片 — 課堂會一起走、課後可回看。<span class="text-ink-400">STUDIO A D 組學員限定、PQI 同事可略過。</span></div>
+          </div>
+          <a href="/studio-a/class-d/d1/" target="_blank" rel="noopener" class="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition-colors no-underline">
+            ▶ 打開投影片
+          </a>
+        </div>
+
+        <!-- Overview -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-10">
+          <p class="text-sm font-semibold uppercase tracking-wider text-ink-400 mb-3">整份要做的事</p>
+          <div class="flex flex-wrap items-center gap-y-2 text-sm md:text-base font-medium text-ink-700">
+            <span class="px-3 py-1.5 rounded-lg bg-cream-100">確認 Claude Pro</span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cream-100">裝 4 個工具</span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cream-100">下載 FLUX Vault</span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span data-os="mac" class="px-3 py-1.5 rounded-lg bg-cream-100">Claude 自動裝 skill</span>
+            <span data-os="windows" class="px-3 py-1.5 rounded-lg bg-cream-100">Claude 自動設定</span>
+            <span class="mx-2 text-ink-300">→</span>
+            <span class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700">驗證 ✓</span>
+          </div>
+          <p class="text-sm text-ink-500 mt-3">
+            4 個工具 = VS Code / Git / Claude Code / Obsidian。
+            <span data-os="mac">Mac 版最後由 Claude 自動安裝 email + 行事曆 skill（連你的 Apple Mail / Apple Calendar）。</span>
+            <span data-os="windows">Windows 版的 Outlook 信件 + 行事曆助手<strong>已內建在 vault 裡</strong>，不用另外安裝。</span>
+          </p>
+          <div class="mt-4 flex items-start gap-2.5 rounded-xl bg-sky-50 border border-sky-100 px-4 py-3">
+            <span class="flex-none text-sky-500 font-bold">📋</span>
+            <p class="text-ink-700 text-sm md:text-base">本頁所有指令，請用程式碼區塊<strong>右上角的「複製」鈕</strong>貼進終端機 — <strong>不要從 LINE 訊息或截圖轉抄</strong>。轉抄過程常會把 <code class="bg-cream-200 px-1 rounded text-sm">--</code> 變成 <code class="bg-cream-200 px-1 rounded text-sm">—</code>、或多帶入看不見的符號，指令就會失敗。</p>
+          </div>
+          <div data-os="windows" class="mt-3 flex items-start gap-2.5 rounded-xl bg-rose-50 border border-rose-200 px-4 py-3">
+            <span class="flex-none text-rose-600 font-bold">⚠</span>
+            <p class="text-rose-900 text-sm md:text-base">Windows 版需要<strong>傳統桌面版 Outlook</strong>（不是 New Outlook / 網頁版）。Outlook 視窗右上如果有「New Outlook」切換開關 = 你用的是傳統版、OK；已經是 New Outlook 介面 → 先把開關切回傳統版、或先找公司 IT 確認。</p>
+          </div>
+        </div>
+
+        <!-- ====== Stage 1 ====== -->
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-2 mb-6">
+          <span class="px-3 py-1 rounded-full bg-accent text-white text-xs font-bold tracking-wide">階段 1 / 3</span>
+          <h2 class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink-900">💻 你自己做</h2>
+          <span class="text-sm text-ink-400"><span data-os="mac">步驟 1–6</span><span data-os="windows">步驟 1–5</span> · 約 20 分鐘</span>
+        </div>
+
+        <!-- Step 1: Claude Pro -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">1</span>
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">確認 Claude Pro 帳號<span class="text-ink-400 text-base font-normal ml-2">已有帳號可跳過</span></h3>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>工作坊要跑 Claude Code，需要 <strong>Claude Pro</strong> 訂閱（免費帳號跑不起來）。</p>
+
+            <ol>
+              <li>前往 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 註冊 / 登入</li>
+              <li>過程中問「How are you planning to use Claude?」時、選 <strong>For personal use</strong></li>
+              <li>訂閱 <strong>Pro</strong> 方案 — 月繳（$20/月）或年繳（$17/月）都 OK、圖中是年繳</li>
+            </ol>
+
+            <img src="/images/workshop/setup/03-claude-pro-badge.png" alt="claude.ai 訂閱方案頁 — 選 Pro 方案" />
+
+            <ol start={4}>
+              <li>訂閱完成後、確認 claude.ai <strong>左下角</strong>帳號處顯示 <strong>Pro</strong> 字樣</li>
+            </ol>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">左下角看到 <strong>Pro</strong> = OK。</p>
+          </div>
+        </div>
+
+        <!-- Step 2: VS Code -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">2</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 VS Code（編輯器）</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>VS Code 是看 <code>.md</code> 檔、改設定檔的工具。</p>
+
+            <ol>
+              <li>前往 <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">VS Code 下載頁面</a></li>
+              <li>下載你的作業系統對應版本：</li>
+            </ol>
+
+            <img data-os="mac" src="/images/workshop/mac.png" alt="VS Code 下載頁面 — Mac" />
+            <img data-os="windows" src="/images/workshop/window.png" alt="VS Code 下載頁面 — Windows" />
+
+            <div data-os="mac">
+              <ol start={3}>
+                <li>打開下載的 <code>.zip</code> 檔案，將 <strong>Visual Studio Code.app</strong> 拖進<strong>應用程式</strong>資料夾</li>
+                <li>打開 VS Code，確認可以正常啟動</li>
+              </ol>
+            </div>
+
+            <div data-os="windows">
+              <ol start={3}>
+                <li>執行下載的 <code>.exe</code> 安裝檔，<strong>用預設值一路按「下一步」到底</strong>，最後按「安裝」</li>
+                <li>打開 VS Code，確認可以正常啟動</li>
+              </ol>
+            </div>
+
+            <h4>安裝 VS Code 擴充功能</h4>
+
+            <ol>
+              <li>打開 VS Code</li>
+              <li data-os="mac">按 <code>Cmd + Shift + X</code> 打開擴充功能側欄</li>
+              <li data-os="windows">按 <code>Ctrl + Shift + X</code> 打開擴充功能側欄</li>
+              <li>搜尋並安裝以下兩個擴充功能：</li>
+            </ol>
+
+            <p><strong>① Claude Code</strong>（作者 Anthropic）— 讓 VS Code 跟 Claude 整合的擴充功能。<strong>一定要裝</strong>。</p>
+
+            <p>搜「<code>claude code</code>」，選作者是 <strong>Anthropic</strong> 那個（識別碼 <code>anthropic.claude-code</code>）：</p>
+
+            <img src="/images/studio-a-install/01-claude-code-extension.webp" alt="VS Code 擴充功能市集 — Claude Code for VS Code（Anthropic 出品）" />
+
+            <p><strong>② Chinese (Traditional) Language Pack</strong>（作者 Microsoft）— VS Code 介面中文化、選用。</p>
+
+            <p>搜「<code>Chinese</code>」，選作者是 <strong>Microsoft</strong>、寫「<strong>中文(繁體)</strong>」那個：</p>
+
+            <img src="/images/studio-a-install/02-chinese-language-pack.webp" alt="VS Code 擴充功能市集 — Chinese (Traditional) Language Pack（Microsoft 出品）" />
+
+            <ol start={4}>
+              <li>兩個都裝完、重新啟動 VS Code（它會問要不要重啟切換語言、按重啟）</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Step 3: Git -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">3</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Git</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Git 是版本控制工具、vault 的每日存檔（開工 / 收工 commit）會用到。</p>
+
+            <div data-os="mac">
+              <p>macOS 沒預裝 Git、需透過終端機觸發 macOS Command Line Tools 安裝（會把 <strong>Python 3</strong> 也一起裝上、後續 email skill 需要）：</p>
+
+              <ol>
+                <li>打開剛裝好的 <strong>VS Code</strong>（不用開資料夾、空狀態即可）</li>
+                <li>按 <code>Cmd + J</code> 打開 VS Code 內建終端機</li>
+                <li>貼上以下指令、按 Enter：</li>
+              </ol>
+
+              <pre><code>git --version</code></pre>
+
+              <p>第一次跑會跳「安裝命令列工具」對話框（約 700MB）— 點<strong>安裝</strong>。下載 + 安裝完成後再跑一次 <code>git --version</code>。</p>
+
+              <p class="text-ink-500">畫面出現 <code>xcode-select: note: No developer tools were found...</code> 是<strong>正常的</strong>，那是在叫出安裝對話框、不是錯誤。對話框可能被 VS Code 視窗擋住，按 <code>Cmd + Tab</code> 切一圈找找看。</p>
+            </div>
+
+            <div data-os="windows">
+              <ol>
+                <li><a href="https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/Git-2.54.0-64-bit.exe" target="_blank" rel="noopener">點這裡下載 Git for Windows（64-bit）</a>（點了直接下載 <code>.exe</code>，不用挑版本）</li>
+                <li>打開下載的 <code>.exe</code>，<strong>全部用預設值、一直按「Next」到最後</strong>、再按「Install」</li>
+                <li>按「Finish」（不用勾「打開 Git Bash」）</li>
+                <li><strong>完全關閉 VS Code 再重開</strong>、按 <code>Ctrl + `</code> 打開內建終端機、輸入 <code>git --version</code></li>
+              </ol>
+            </div>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">出現任何版本號（例 <code class="bg-emerald-100 px-1 rounded">git version 2.xx.x</code>，實際數字多少都沒關係）= 成功。</p>
+          </div>
+        </div>
+
+        <!-- Step 4: Claude Code CLI -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">4</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Claude Code CLI</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Claude Code 是讓 AI 直接在你電腦裡讀寫檔案、執行指令的工具 — 工作坊全程主要用這個 CLI 版本（步驟二裝的 extension 是 GUI 版本、互補不衝突）。</p>
+
+            <div data-os="mac">
+              <ol>
+                <li>繼續用剛才的 VS Code 內建終端機（沒開的話按 <code>Cmd + J</code> 打開）</li>
+                <li>貼上以下指令、按 Enter 執行：</li>
+              </ol>
+
+              <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+              <ol start={3}>
+                <li>安裝完成後，<strong>分兩次</strong>貼上以下指令設定路徑（每段各自貼一次、按 Enter 執行；若終端機問「貼上 / 合併成一行」、選<strong>「貼上」</strong>）：</li>
+              </ol>
+
+              <pre><code>{`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc`}</code></pre>
+
+              <pre><code>source ~/.zshrc</code></pre>
+
+              <ol start={4}>
+                <li>關閉這個終端機（輸入 <code>exit</code>）、再按 <code>Cmd + J</code> 打開新的</li>
+                <li>輸入 <code>claude --version</code> 驗證有版本號</li>
+              </ol>
+
+              <img src="/images/studio-a-install/07-claude-version-verify.webp" alt="終端機執行 claude --version 顯示版本號" />
+            </div>
+
+            <div data-os="windows">
+              <ol>
+                <li>繼續用剛才的 VS Code 內建終端機（沒開的話按 <code>Ctrl + `</code> 打開）— 預設是 <strong>PowerShell</strong></li>
+                <li>貼上以下整段指令、按 Enter 一次執行（裝 Claude Code + 把它寫進 PATH + 馬上驗證）：</li>
+              </ol>
+
+              <pre><code>{`irm https://claude.ai/install.ps1 | iex
+
+# 永久寫進使用者 PATH（防重複，不會越加越長）
+$claudePath = "$env:USERPROFILE\\.local\\bin"
+$currentPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+if ($currentPath -notlike "*$claudePath*") {
+  [Environment]::SetEnvironmentVariable('Path', "$currentPath;$claudePath", 'User')
+}
+
+# 當下這個 terminal 先臨時生效，馬上驗證
+$env:Path += ";$env:USERPROFILE\\.local\\bin"
+claude --version`}</code></pre>
+
+              <blockquote>
+                <p>若跳出 <code>'irm' 不是內部或外部命令</code>，代表你開到的是 CMD 不是 PowerShell — 終端機右上角的下拉選單選 <strong>PowerShell</strong> 再貼一次。</p>
+              </blockquote>
+            </div>
+
+            <blockquote>
+              <p>暫時<strong>不要</strong>跑 <code>claude</code> 登入 — 留到階段 2、那時 vault 已下載、<code>claude</code> 跑起來會自動讀 vault 的 <code>CLAUDE.md</code>、體驗最完整。</p>
+            </blockquote>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base"><code class="bg-emerald-100 px-1 rounded">claude --version</code> 有版本號 = 裝好了。</p>
+          </div>
+        </div>
+
+        <!-- Step 5: FLUX Vault -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">5</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">下載 FLUX Vault 並用 VS Code 打開</h3>
+            </div>
+            <span class="os-chip-dynamic flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap"></span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>FLUX 是工作坊使用的個人 AI 工作區模板。下載後就是你的個人指揮中心 — Mac 與 Windows 是<strong>不同的客製版本</strong>、別下載錯。</p>
+
+            <ol>
+              <li>下載對應你作業系統的版本：</li>
+            </ol>
+
+            <div data-os="mac">
+              <p>
+                <a href="/downloads/FLUX-standard-studio-a.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition-colors no-underline shadow-sm">
+                  📥 下載 FLUX Vault（Mac 版）
+                </a>
+              </p>
+
+              <blockquote>
+                <p>STUDIO A 學員和 <strong>PQI 用 Mac 的同事</strong>都是下載這個版本。PQI 同事會看到 vault 內部分文案寫「STUDIO A」— 這是正常的（同一套 Mac 版）、「你是誰」欄位填你自己的 PQI 部門職位即可。</p>
+              </blockquote>
+
+              <ol start={2}>
+                <li>下載後雙擊 <code>.zip</code> 解壓縮</li>
+                <li>把解壓縮後的 <code>FLUX Vault Studio a</code> 資料夾<strong>放到桌面</strong>（最容易找）</li>
+                <li>打開 <strong>VS Code</strong>、選單 <strong>File → Open Folder…</strong>（檔案 → 開啟資料夾）、選剛才那個資料夾</li>
+                <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是、信任」</strong>（Yes, I trust the authors）</li>
+              </ol>
+            </div>
+
+            <div data-os="windows">
+              <p>
+                <a href="/downloads/FLUX-standard-pqi-window.zip" download class="inline-block px-6 py-3 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition-colors no-underline shadow-sm">
+                  📥 下載 FLUX Vault（Windows 版）
+                </a>
+              </p>
+
+              <ol start={2}>
+                <li>下載後在檔案上<strong>按右鍵 → 解壓縮全部</strong>（Extract All）</li>
+                <li>把解壓縮後的 <code>FLUX-standard-pqi-window</code> 資料夾<strong>放到桌面</strong>（最容易找）</li>
+                <li>打開 <strong>VS Code</strong>、選單 <strong>檔案 → 開啟資料夾…</strong>（File → Open Folder）、選剛才那個資料夾</li>
+                <li>VS Code 會問是否信任這個資料夾的作者 — 點<strong>「是，我信任作者」</strong>（Yes, I trust the authors）</li>
+              </ol>
+
+              <blockquote>
+                <p>看到資料夾叫 <code>_claude</code>、<code>_obsidian</code>（底線不是點）：<strong>不用管</strong>，階段 2 Claude 會自動修正。</p>
+              </blockquote>
+            </div>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base" data-os="mac">左側 Explorer 看到 <code class="bg-emerald-100 px-1 rounded">Inbox / Atlas / Calendar / Cockpit / Efforts / Guides / Templates / CLAUDE.md / Home.md</code> = 開對了。</p>
+            <p class="text-emerald-900 text-sm md:text-base" data-os="windows">左側 Explorer 看到 <code class="bg-emerald-100 px-1 rounded">Inbox / Atlas / Calendar / Cockpit / Efforts / Guides / Templates / _claude / _obsidian / CLAUDE.md / Home.md</code> = 開對了。</p>
+          </div>
+        </div>
+
+        <!-- Step 6 (Mac): Obsidian -->
+        <div data-os="mac" class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">6</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Obsidian 並打開 FLUX vault</h3>
+            </div>
+            <span class="flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap">🍎 Mac 步驟</span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
+
+            <ol>
+              <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+              <li>下載 Mac 版</li>
+              <li>打開下載的 <code>.dmg</code> 檔案、將 <strong>Obsidian</strong> 拖進<strong>應用程式</strong>資料夾</li>
+              <li>打開 <strong>Obsidian</strong>、選單列點 <strong>File → Open Vault...</strong>（檔案 → 開啟保管庫）</li>
+              <li>跳出 Vault Switcher 視窗、點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+              <li>選剛才解壓的 <code>FLUX Vault Studio a</code> 資料夾</li>
+              <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong></li>
+            </ol>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">看到 FLUX Vault 的首頁（<code class="bg-emerald-100 px-1 rounded">Home.md</code>）= 設定成功。</p>
+          </div>
+        </div>
+
+        <!-- ====== Stage 2 ====== -->
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-12 mb-6">
+          <span class="px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold tracking-wide">階段 2 / 3</span>
+          <h2 class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink-900">🤖 Claude 自己跑</h2>
+          <span class="text-sm text-ink-400"><span data-os="mac">步驟 7 · 約 10–20 分鐘</span><span data-os="windows">步驟 6 · 約 5 分鐘</span></span>
+        </div>
+
+        <!-- Stage 2 (Mac): skills install -->
+        <div data-os="mac" class="bg-white rounded-2xl border border-emerald-200 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-lg">7</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">讓 Claude 跑 setup（email + 行事曆 skill）</h3>
+            </div>
+            <span class="flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 whitespace-nowrap">🍎 Mac 步驟</span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <blockquote>
+              <p><strong>跑 setup 前確認 Mac 兩個內建 app 平常都能用</strong>：</p>
+              <ul>
+                <li>✅ <strong>行事曆 app</strong> — 打開能看到自己的行程</li>
+                <li>✅ <strong>郵件 app</strong> — 能正常收發公司信</li>
+              </ul>
+              <p>沒設好的話 skill 跑不起來、依平常方式找公司 IT 處理。</p>
+            </blockquote>
+
+            <ol>
+              <li>在 VS Code 已開啟 vault 的視窗、按 <code>Cmd + J</code> 打開內建終端機、輸入 <code>claude</code>、按 Enter</li>
+              <li>第一次跑會要求登入 — 按畫面指示登入你的 Claude 帳號（同 claude.ai 那個）</li>
+              <li>登入後跟 Claude 說：</li>
+            </ol>
+
+            <pre><code>請讀取 Inbox/SETUP-CLAUDE.md 並依步驟執行</code></pre>
+
+            <ol start={4}>
+              <li>Claude 驗證 vault 結構完整（過程中跳「允許執行」彈窗、按「允許」）。完成後接著說：</li>
+            </ol>
+
+            <pre><code>請依 Inbox/setup-claude-skills.md 安裝 Claude skill</code></pre>
+
+            <p>Claude 會依序跑：</p>
+
+            <ul>
+              <li><strong>Part A：Email skill</strong> — 設定 Claude 能讀寫你的公司信件。過程中會跳 macOS <strong>鑰匙圈授權</strong>對話框、按<strong>「永遠允許」</strong>+ 輸入 Mac 登入密碼即可。<strong>測試</strong>：Claude 讀最近幾封信給你看 + 在 Mail 存 2 個測試草稿 → 你打開 Mail 草稿匣確認。</li>
+              <li><strong>Part B：Calendar skill</strong> — 問你工作行事曆名稱（Apple Calendar 左側欄那個）。<strong>測試</strong>：Claude 讀未來 7 天行程給你看。</li>
+              <li><strong>Part C：結案</strong> — Claude 印出安裝結果摘要 + 給你 3 句馬上能試的測試指令。</li>
+            </ul>
+
+            <blockquote>
+              <p><strong>⚠️ 過程中 macOS 會跳兩次系統彈窗</strong>：「Terminal 想要控制 Mail」「Terminal 想要控制 Calendar」 — 請按「<strong>好</strong>」/「<strong>允許</strong>」、Claude 才能繼續。</p>
+            </blockquote>
+
+            <blockquote>
+              <p><strong>裝到一半卡住？</strong>Claude 會跟你說「請找講師」就停下來。不要自己 debug 公司 mail server 設定 — 聯繫工作坊承辦窗口、或直接寫信給講師 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>。</p>
+            </blockquote>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">看到 Claude 印出「<strong>Claude skill 安裝完成</strong>」摘要 = 完成。</p>
+          </div>
+        </div>
+
+        <!-- Stage 2 (Windows): SETUP-CLAUDE -->
+        <div data-os="windows" class="bg-white rounded-2xl border border-emerald-200 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-lg">6</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">用 Claude Code 完成 vault 設定</h3>
+            </div>
+            <span class="flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 whitespace-nowrap">⊞ Windows 步驟</span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <ol>
+              <li>繼續用剛才已打開 vault 的 VS Code 視窗</li>
+              <li>按 <code>Ctrl + `</code> 打開內建終端機、輸入 <code>claude</code>、按 Enter</li>
+              <li>第一次跑會要求登入 — 按畫面指示登入你的 Claude 帳號（同 claude.ai 那個）</li>
+              <li>登入後、貼上以下這句話：</li>
+            </ol>
+
+            <pre><code>請讀取 Inbox/SETUP-CLAUDE.md 並依步驟執行</code></pre>
+
+            <ol start={5}>
+              <li>Claude 會自動把 <code>_claude</code> → <code>.claude</code>、<code>_obsidian</code> → <code>.obsidian</code>、驗證檔案齊全。過程中跳「允許執行」彈窗、按「允許」即可</li>
+            </ol>
+
+            <h4>📬 Outlook 信件 + 行事曆助手 — 已內建、不用安裝</h4>
+
+            <p>你的 vault 已內建 Outlook 助手（信件 + 行事曆都是）。條件：公司電腦有<strong>傳統桌面版 Outlook</strong> 且開著。setup 跑完直接跟 Claude 說：</p>
+
+            <pre><code>看一下我最近的信</code></pre>
+
+            <pre><code>看我今天的行程</code></pre>
+
+            <ul>
+              <li>第一次使用如果跳出「<strong>有程式正在嘗試存取 Outlook</strong>」→ 按<strong>允許</strong></li>
+              <li>信件：AI 只會<strong>建立草稿</strong>（存在草稿匣）— 寄出永遠由你自己在 Outlook 按傳送</li>
+              <li>行事曆：AI 建會議只會<strong>打開會議視窗</strong> — 儲存或送出邀請永遠由你自己按</li>
+            </ul>
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">看到 Claude 回報「<strong>Vault 結構就緒</strong>」、且能列出你的信和行程 = 完成。</p>
+          </div>
+        </div>
+
+        <!-- ====== Stage 3 ====== -->
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-12 mb-6">
+          <span class="px-3 py-1 rounded-full bg-accent text-white text-xs font-bold tracking-wide">階段 3 / 3</span>
+          <h2 class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink-900">✅ <span data-os="mac">驗證</span><span data-os="windows">打開 vault + 驗證</span></h2>
+          <span class="text-sm text-ink-400"><span data-os="mac">步驟 8 · 約 3 分鐘</span><span data-os="windows">步驟 7–8 · 約 5 分鐘</span></span>
+        </div>
+
+        <!-- Step 7 (Windows): Obsidian -->
+        <div data-os="windows" class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">7</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">安裝 Obsidian 並打開 FLUX vault</h3>
+            </div>
+            <span class="flex-none text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-200 text-ink-500 whitespace-nowrap">⊞ Windows 步驟</span>
+          </div>
+          <div class="prose prose-lg max-w-none">
+            <p>Obsidian 是你的個人知識庫、所有的目標、筆記、每日規劃都在這裡查看。</p>
+
+            <ol>
+              <li>前往 <a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian 下載頁面</a></li>
+              <li>下載 <strong>Windows</strong> 版（<code>.exe</code>）、執行安裝</li>
+              <li>打開 <strong>Obsidian</strong>、在開啟畫面點 <strong>Open folder as vault</strong>（開啟資料夾作為保管庫）</li>
+              <li>選剛才解壓的 <code>FLUX-standard-pqi-window</code> 資料夾</li>
+              <li>Obsidian 問是否信任此 Vault 的外掛 — 點<strong>信任並啟用</strong>（Trust author and enable plugins）</li>
+            </ol>
+
+            <p>看到像下圖這樣 — 左側一排資料夾、中間是 <strong>Home</strong> 頁 = 開對了：</p>
+
+            <img src="/images/studio-a-install/08-obsidian-opened.webp" alt="Obsidian 開啟 FLUX vault 成功 — 左側資料夾清單、中間 Home 頁" />
+          </div>
+          <div class="not-prose mt-4 flex items-start gap-2.5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+            <span class="text-emerald-600 font-bold">✓</span>
+            <p class="text-emerald-900 text-sm md:text-base">看到 FLUX Vault 的首頁（<code class="bg-emerald-100 px-1 rounded">Home.md</code>）= 設定成功。</p>
+          </div>
+        </div>
+
+        <!-- Verification checklist -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8 mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">8</span>
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">驗證安裝成功</h3>
+          </div>
+
+          <p class="text-ink-600 mb-4">跟 Claude 說「<strong>跑驗證</strong>」、或照下面逐項確認：</p>
+
+          <div class="mb-5">
+            <div class="flex items-center justify-between text-sm text-ink-500 mb-2">
+              <span>下方逐項打勾：</span>
+              <span class="font-semibold text-ink-700"><span id="verify-progress-label">0 / 0</span> 完成</span>
+            </div>
+            <div class="h-2 rounded-full bg-cream-300 overflow-hidden">
+              <div id="verify-progress-bar" class="h-full bg-accent rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div id="verify-list" class="grid gap-2.5">
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Claude Pro 帳號可登入 claude.ai、左下角顯示 Pro</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">VS Code 已安裝、可正常開啟</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">終端機 <code class="bg-cream-200 px-1 rounded text-sm">git --version</code> 有輸出</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">終端機 <code class="bg-cream-200 px-1 rounded text-sm">claude --version</code> 有輸出</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Claude 跑完 <code class="bg-cream-200 px-1 rounded text-sm">SETUP-CLAUDE.md</code>、回報「Vault 結構就緒」</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Obsidian 可開啟 FLUX Vault、看到首頁</span>
+            </label>
+            <label data-os="mac" class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Apple Mail 能收發公司信、Apple Calendar 看得到工作行程</span>
+            </label>
+            <label data-os="mac" class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">跟 Claude 說「讀我最近 5 封信、做摘要」— 有列出信件摘要</span>
+            </label>
+            <label data-os="mac" class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">跟 Claude 說「看我今天的會議」— 有列出今天行程</span>
+            </label>
+            <label data-os="windows" class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">Outlook 是<strong>傳統桌面版</strong>、能收發公司信、看得到行事曆</span>
+            </label>
+            <label data-os="windows" class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">跟 Claude 說「看一下我最近的信」— 有列出 Outlook 信件</span>
+            </label>
+            <label data-os="windows" class="flex items-start gap-3 rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+              <input type="checkbox" class="mt-1 w-4 h-4 accent-accent" />
+              <span class="text-ink-700">跟 Claude 說「看我今天的行程」— 有列出 Outlook 行事曆</span>
+            </label>
+          </div>
+
+          <p class="text-ink-600 mt-4">都打勾、你就準備好上課了！</p>
+        </div>
+
+        <!-- 求助 -->
+        <div class="bg-white rounded-2xl border border-cream-300 shadow-sm p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex-none w-9 h-9 rounded-xl bg-accent/10 text-accent font-bold flex items-center justify-center text-lg">🆘</span>
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink-900">卡住的時候</h3>
+          </div>
+          <div class="text-ink-600 leading-relaxed space-y-3">
+            <p><strong class="text-ink-800">公司帳號 / 郵件 / 行事曆 app 本身不能用</strong>（收不到信、看不到行程、帳號被鎖）→ 依平常方式找公司 IT 處理。</p>
+            <p><strong class="text-ink-800">其他任何卡住</strong>（環境裝不起來 / Claude 跑 setup 卡住 / 不知道怎麼辦）→ 把錯誤訊息<strong class="text-ink-800">截圖</strong>，聯繫工作坊承辦窗口、或直接寫信給講師 <a href="mailto:mail@yu-wenhao.com" class="text-link font-medium hover:underline">mail@yu-wenhao.com</a>，4 小時內會有回覆。</p>
+            <p class="text-sm text-ink-400 pt-2 border-t border-cream-200">余文皓｜<a href="mailto:mail@yu-wenhao.com" class="hover:underline">mail@yu-wenhao.com</a></p>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button id="lightbox-close" class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors" aria-label="Close">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl" src="" alt="" />
+    </div>
+  </div>
+
+  <style is:global>
+    #studio-a-setup .prose img {
+      border-radius: 0.75rem;
+      border: 1px solid #ebe6dc;
+    }
+    #studio-a-setup pre {
+      position: relative;
+      border-radius: 0.75rem;
+      padding-right: 4.75rem;
+    }
+    #studio-a-setup .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.75rem;
+      line-height: 1;
+      padding: 0.375rem 0.625rem;
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
+      transition: background 0.15s, color 0.15s;
+    }
+    #studio-a-setup .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+    #studio-a-setup .os-fade {
+      animation: osFade 0.35s ease-out;
+    }
+    @keyframes osFade {
+      from { opacity: 0.3; transform: translateY(4px); }
+      to { opacity: 1; transform: none; }
+    }
+    #verify-list label:has(input:checked) {
+      border-color: #ca8a04;
+      background: #fef9c3;
+    }
+  </style>
+
+  <script>
+    // ---------- OS Switcher ----------
+    const BTN_BASE = 'px-4 sm:px-5 py-1.5 rounded-full text-sm font-bold transition-all';
+    const BTN_ACTIVE = `${BTN_BASE} bg-accent text-white shadow`;
+    const BTN_INACTIVE = `${BTN_BASE} text-ink-500 hover:text-ink-800`;
+
+    function detectOS(): string {
+      return /Windows/i.test(navigator.userAgent) ? 'windows' : 'mac';
+    }
+
+    function updateChecklistProgress() {
+      const boxes = Array.from(
+        document.querySelectorAll<HTMLInputElement>('#verify-list input[type="checkbox"]')
+      ).filter((box) => (box.closest('label') as HTMLElement).offsetParent !== null);
+      const done = boxes.filter((box) => box.checked).length;
+      const label = document.getElementById('verify-progress-label');
+      const bar = document.getElementById('verify-progress-bar');
+      if (label) label.textContent = `${done} / ${boxes.length}`;
+      if (bar) bar.style.width = boxes.length ? `${(done / boxes.length) * 100}%` : '0%';
+    }
+
+    function setOS(os: string, animate = true) {
+      document.querySelectorAll('[data-os-btn]').forEach((btn) => {
+        const el = btn as HTMLButtonElement;
+        el.className = el.dataset.osBtn === os ? BTN_ACTIVE : BTN_INACTIVE;
+      });
+
+      document.querySelectorAll('[data-os]').forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        htmlEl.style.display = htmlEl.dataset.os === os ? '' : 'none';
+      });
+
+      // Per-card OS chips + sticky bar indicator give immediate visual feedback
+      document.querySelectorAll('.os-chip-dynamic').forEach((chip) => {
+        chip.textContent = os === 'mac' ? '🍎 Mac 步驟' : '⊞ Windows 步驟';
+      });
+      const indicator = document.getElementById('os-indicator');
+      if (indicator) indicator.textContent = os === 'mac' ? '顯示中：Mac 版步驟' : '顯示中：Windows 版步驟';
+
+      if (animate) {
+        const content = document.getElementById('setup-content');
+        if (content) {
+          content.classList.remove('os-fade');
+          void content.offsetWidth;
+          content.classList.add('os-fade');
+        }
+      }
+
+      updateChecklistProgress();
+      localStorage.setItem('studio-a-os', os);
+    }
+
+    document.querySelectorAll('[data-os-btn]').forEach((btn) => {
+      btn.addEventListener('click', () => setOS((btn as HTMLElement).dataset.osBtn!));
+    });
+
+    setOS(localStorage.getItem('studio-a-os') || detectOS(), false);
+
+    document.querySelectorAll('#verify-list input[type="checkbox"]').forEach((box) => {
+      box.addEventListener('change', updateChecklistProgress);
+    });
+
+    // ---------- Copy buttons on code blocks ----------
+    document.querySelectorAll('#studio-a-setup pre').forEach((pre) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = '複製';
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code');
+        await navigator.clipboard.writeText((code ?? (pre as HTMLElement)).innerText.trim());
+        btn.textContent = '已複製 ✓';
+        setTimeout(() => (btn.textContent = '複製'), 2000);
+      });
+      pre.appendChild(btn);
+    });
+
+    // ---------- Lightbox ----------
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+
+    function openLightbox(src: string, alt: string) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox!.classList.remove('hidden');
+      lightbox!.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox!.classList.add('hidden');
+      lightbox!.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('#studio-a-setup .prose img, #studio-a-setup figure img').forEach((img) => {
+      const el = img as HTMLImageElement;
+      el.style.cursor = 'zoom-in';
+      el.addEventListener('click', () => openLightbox(el.src, el.alt));
+    });
+
+    lightbox!.addEventListener('click', (e) => {
+      if (e.target !== lightboxImg) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
 </BaseLayout>
