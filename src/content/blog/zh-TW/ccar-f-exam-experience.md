@@ -205,6 +205,8 @@ CCAR-F 可以選線上監考，也可以到實體考場應試，這是官方公�
 
 兩條之外，還有一個報名的硬門檻：這張考試目前只開放 Claude Partner Network 組織的成員報名，用個人 email 是報不了的；現階段想考，只能透過已經在網絡裡的組織。
 
+還有一件考之前就該知道的事：這張證照會過期。官方的[認證 FAQ](https://anthropic-partners.skilljar.com/page/faq-certifications)寫明效期是取得後 12 個月（2026 年 6 月 30 日前取得的證書原本是 6 個月，已自動延長為 12 個月）。到期前續證免費，做一份不用監考的線上評量，內容是這段期間官方改了什麼；但放到過期，就得重新報名完整的監考考試、付全額費用。我這張是 2026 年 8 月 24 日發，2027 年 8 月 24 日到期。
+
 如果前面兩條你都不缺（實作有底子、英文題也不排斥），只是卡在報名資格，可以找我：我的組織就在網絡裡，怎麼透過組織參加考試，都可以問。[留個聯絡方式](https://ccarf-contact.pages.dev/)，我會親自回信。
 
 ---
@@ -213,7 +215,9 @@ CCAR-F 可以選線上監考，也可以到實體考場應試，這是官方公�
 
 從 3 月看到這張證照發布就想考，8 月底終於考完，badge 掛上了 Credly。
 
-<img src="/images/blog/ccar-f-exam-experience-badge.png" alt="Claude Certified Architect – Foundations 的 Credly 數位徽章" width="220" style="margin: 1.5rem auto;">考完之後，最有感的差別在日常工作裡。每一個架構決定背後，我都更清楚為什麼：什麼時候該把規範寫進 CLAUDE.md、什麼時候得用 hook 強制；什麼事丟給 subagent 隔離著做、什麼事留在主對話；context 髒掉的時候，是繼續凹下去，還是開新對話、帶著摘要重來。
+<a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" style="display: block;"><img src="/images/blog/ccar-f-exam-experience-badge.png" alt="Claude Certified Architect – Foundations 的 Credly 數位徽章" width="220" style="display: block; margin: 1.5rem auto;"></a>
+
+考完之後，最有感的差別在日常工作裡。每一個架構決定背後，我都更清楚為什麼：什麼時候該把規範寫進 CLAUDE.md、什麼時候得用 hook 強制；什麼事丟給 subagent 隔離著做、什麼事留在主對話；context 髒掉的時候，是繼續凹下去，還是開新對話、帶著摘要重來。
 
 這些判斷以前靠手感，現在說得出機制。
 
