@@ -209,8 +209,6 @@ Just two.
 
 Beyond those two, there's one hard registration gate: this exam is currently only open to members of a Claude Partner Network organization. A personal email won't get you through registration. Right now, the only way in is through an organization already in the network.
 
-One more thing worth knowing before you register: this credential expires. Anthropic's [certification FAQ](https://anthropic-partners.skilljar.com/page/faq-certifications) puts the validity at 12 months from the date you earn it (certificates earned before June 30, 2026 were originally valid for 6 months and have been automatically extended to 12). Renewing on time is free — a non-proctored online assessment covering what has changed since you certified. Let it lapse, though, and you retake the full proctored exam at the full fee. Mine was issued on August 24, 2026 and expires on August 24, 2027.
-
 If neither of those two things is holding you back (you've got hands-on experience, and English questions don't scare you off), and eligibility is the only thing standing between you and registering, reach out. My organization is in the network, and I'm happy to answer questions about sitting the exam through an organization. [Leave your contact here](https://ccarf-contact.pages.dev/en/), and I'll reply personally.
 
 ---
@@ -220,6 +218,8 @@ If neither of those two things is holding you back (you've got hands-on experien
 I wanted this credential the moment it launched in March, finally sat for it at the end of August, and the badge is live on Credly now.
 
 <a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" style="display: block;"><img src="/images/blog/ccar-f-exam-experience-badge.png" alt="Credly digital badge for Claude Certified Architect – Foundations" width="220" style="display: block; margin: 1.5rem auto;"></a>
+
+The badge isn't permanent: Anthropic's [certification FAQ](https://anthropic-partners.skilljar.com/page/faq-certifications) puts the validity at 12 months, so mine expires on August 24, 2027. Renewing on time is free — a non-proctored online assessment covering what has changed since you certified. Let it lapse, though, and you retake the full proctored exam at the full fee.
 
 The difference I actually feel is in day-to-day work. For every architecture decision, I understand the reasoning behind it more clearly now: when a rule belongs in CLAUDE.md versus when it needs a hook to enforce it, what gets handed off to an isolated subagent versus what stays in the main conversation, and whether to push through a conversation once context has gone stale or start fresh with a summary.
 
