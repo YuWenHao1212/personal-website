@@ -59,6 +59,22 @@ const person = {
     "@type": "CollegeOrUniversity",
     "name": "Minerva University",
   },
+  // Anthropic 官方認證（Pearson VUE 監考）。全站共用 #person 節點，所以 126 頁都帶。
+  // ⚠️ validFor P1Y — 2027-08-24 到期。未續證就要移除，否則全站散播過期宣稱。
+  // 提醒已設在 workspace 行事曆 2027-06-24（event sqe7g10evr0be33boq2aeign9k）。
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "name": "Claude Certified Architect \u2013 Foundations",
+    "credentialCategory": "certification",
+    "recognizedBy": {
+      "@type": "Organization",
+      "name": "Anthropic",
+      "url": "https://www.anthropic.com",
+    },
+    "url": "https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044",
+    "dateCreated": "2026-08-24",
+    "validFor": "P1Y",
+  },
   "knowsAbout": [
     "AI workflow design",
     "Claude Code",
