@@ -23,6 +23,8 @@ faq:
     answer: "The free courses give you a completion certificate for finishing an online course, with no proctoring. CCAR-F is a formal, Pearson VUE-proctored certification. They sit at different tiers entirely. I break down how all four proctored Claude certifications differ in a companion post."
   - question: "How many questions does CCAR-F have, how long is it, and what's the passing score?"
     answer: "60 questions in 120 minutes, a mix of single- and multiple-response items where each question states how many answers to select, scored out of 1,000 with a passing score of 720."
+  - question: "Does the CCAR-F certification expire?"
+    answer: "Yes. It is valid for 12 months from the date you earn it. Renewing on time is free: a non-proctored online assessment covering what has changed since you certified. Let it lapse, though, and you retake the full proctored exam at the full fee. Certificates earned before June 30, 2026 were originally valid for 6 months and have been automatically extended to 12."
 ---
 
 It's 11:45 a.m., third floor of a building on Guangfu Road in Hsinchu, Taiwan. I take one last look at the printed review sheet covered in decision trees, then lock it in a locker along with my phone, my watch, and everything else in my pockets. Two hours later, the screen shows a score: 882. Passing is 720.
