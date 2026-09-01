@@ -481,6 +481,14 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
                 </div>
               </div>
             </div>
+            <!-- 退費／轉梯說明：刻意低調，有需要的人找得到就好（ISS-164） -->
+            <button
+              type="button"
+              id="refund-link"
+              class="mt-2.5 text-xs text-[#8B7355] underline underline-offset-2 decoration-[#D6CCBE] hover:text-[#B8926A] hover:decoration-[#B8926A] transition-colors"
+            >
+              臨時不能來怎麼辦
+            </button>
           </div>
 
           <!-- 護理 / 社工 / NPO 半價邀請 -->
@@ -616,6 +624,49 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       <!-- /grid -->
     </div>
   </section>
+
+  <!-- 退費／轉梯說明（ISS-164）。原生 <dialog>：Esc 關閉、focus trap 都內建 -->
+  <dialog
+    id="refund-dialog"
+    class="bg-transparent p-0 w-[calc(100%-2rem)] max-w-lg backdrop:bg-[#2C2416]/60"
+  >
+    <div class="bg-white rounded-xl p-6 md:p-8 text-left">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <h3 class="text-lg font-bold text-[#2C2416]">臨時不能來怎麼辦</h3>
+        <button
+          type="button"
+          id="refund-close"
+          aria-label="關閉"
+          class="-mt-1 -mr-1 p-1 text-[#8B7355] hover:text-[#2C2416] transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="space-y-3 text-sm leading-relaxed text-[#5C5144]">
+        <p>不能來就盡早跟我說 —— 越早說，退得越多。最省事的是免費轉到下一梯，不扣任何費用。</p>
+        <p>要退費的話：開課前 8 天以前，退還 90%（扣掉刷卡、餐點與行政成本），課前 1:1 已經上過的話再扣 NT$3,000；開課前 7 天內或當天沒到，餐點和席次都調不動了，退還一半。</p>
+      </div>
+      <button
+        type="button"
+        id="refund-ok"
+        class="mt-6 w-full py-2.5 border border-[#E8E4DD] rounded-full text-sm font-medium text-[#5C5144] hover:bg-[#F5F1EB] transition-colors"
+      >
+        知道了
+      </button>
+    </div>
+  </dialog>
+
+  <script>
+    const refundDialog = document.getElementById('refund-dialog');
+    document.getElementById('refund-link')?.addEventListener('click', () => refundDialog?.showModal());
+    for (const id of ['refund-close', 'refund-ok']) {
+      document.getElementById(id)?.addEventListener('click', () => refundDialog?.close());
+    }
+    // 點背景關閉：dialog 本身佔滿整個 modal 區域，命中它就是命中背景
+    refundDialog?.addEventListener('click', (e) => {
+      if (e.target === refundDialog) refundDialog.close();
+    });
+  </script>
 
   <script define:vars={{ API_BASE, SURVEY_ID, PRICING_DEFAULTS, COHORT_DATE_SHORT: cohort.dateShort }}>
     const form = document.getElementById('signup-form');
