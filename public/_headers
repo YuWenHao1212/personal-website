@@ -29,6 +29,9 @@
 /sonice/*
   X-Robots-Tag: noindex
 
+/pinke/*
+  X-Robots-Tag: noindex
+
 /zh-TW/studio-a/*
   X-Robots-Tag: noindex
 

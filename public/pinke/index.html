@@ -1,0 +1,2506 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<title>Claude Code 一對一實作 · 第 1 堂 — 品客（蔡承恩）2026/09/07</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    /* ---- 匯流 Deck Kit palette ---- */
+    --bg:#FFFFFF;          /* 純白底，大面積留白 */
+    --cream-2:#F5F5F5;     /* 淺灰卡面 */
+    --ink:#111111;         /* 近黑：標題 / 2px 線 / 內文強調 */
+    --body:#3A3A3A;        /* 內文 */
+    --muted:#8A8A8A;       /* 標籤 / 註解 */
+    --hair:#E5E5E5;        /* 1px 淺分隔 */
+    --accent:#C15F3C;      /* terracotta，一區一次 */
+    --accent-deep:#A34D2F;
+    --accent-br:#CC785C;   /* 深底上的亮 accent */
+
+    /* ---- 移植頁用到、但一直沒定義的 token ----
+       2026-08-21 補：未定義 → 瀏覽器丟掉整條屬性 → 43 頁背景整塊消失。
+       值對到本 deck 的赭紅／中性灰色盤，不照抄舊 deck 的酒紅。 */
+    --band:#111111;         /* 收尾 punch 深色帶（＝ ink） */
+    --bridge:#1E1E1E;       /* 轉場區塊底，比 band 淺一階 */
+    --cream-3:#FAFAFA;      /* 最淺卡面 */
+    --paper-deep:#EFEFEF;   /* 次淺卡面 */
+    --faint:#A8A8A8;        /* 比 muted 更輕的註解 */
+    --primary:#C15F3C;      /* ＝ accent */
+    --primary-deep:#A34D2F; /* ＝ accent-deep */
+    --ok:#5C6B45;           /* 過關 · 橄欖綠 */
+    --info:#425C6E;         /* 提示 · 靛藍 */
+    --err:#B23A28;          /* 警告 · 磚紅 */
+    --serif:var(--sans);    /* 本 deck 不載襯線字 —— 對回黑體 */
+
+    /* ---- type scale @1920x1080（內容 floor 22px，SLIDE-COPY-PRINCIPLES 原則 8）---- */
+    --type-cover:128px;
+    --type-display:104px;
+    --type-title:76px;
+    --type-h2:52px;
+    --type-large:44px;
+    --type-body:26px;      /* 內文 / hint / code */
+    --type-small:22px;     /* mono 標籤 floor */
+    --type-mono:22px;
+    --type-eyebrow:22px;
+
+    /* ---- spacing ---- */
+    --pad-x:120px;
+    --pad-y:84px;
+
+    /* ---- fonts（無 serif：Latin=Space Grotesk、CJK=Noto Sans TC）---- */
+    --sans:"Space Grotesk","Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  }
+
+  html,body{margin:0;padding:0;background:#0C0C0C;font-family:var(--sans);color:var(--body);}
+  deck-stage:not(:defined){visibility:hidden;}
+
+  /* ---- slide base（配合 deck-stage.js：不設寬高、由引擎給 1920×1080）---- */
+  section.slide{
+    box-sizing:border-box;
+    display:flex; flex-direction:column;
+    padding:var(--pad-y) var(--pad-x) 88px;
+    overflow:hidden; position:relative;
+    background:var(--bg); color:var(--body);
+  }
+  section.slide.ink{background:var(--ink);color:#CFCFCF;}
+  section.slide.dim{background:var(--cream-2);}
+
+  /* ---- eyebrow ---- */
+  .eyebrow{display:flex;align-items:center;gap:18px;font-family:var(--mono);font-size:var(--type-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+  .eyebrow .dot{width:9px;height:9px;background:var(--accent);border-radius:50%;flex:none;}
+  .eyebrow .num{color:var(--accent);}
+  .eyebrow .rule{height:2px;width:56px;background:currentColor;opacity:.35;flex:none;}
+  .slide.ink .eyebrow{color:#8A8A8A;}
+
+  /* ---- titles ---- */
+  .title{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:var(--type-title);line-height:1.12;letter-spacing:-1px;}
+  .display{font-family:var(--sans);font-weight:900;color:#fff;font-size:var(--type-display);line-height:1.06;letter-spacing:-2px;}
+  .accent{color:var(--accent);}
+  .slide.ink .accent{color:var(--accent-br);}
+  .subtitle{font-size:var(--type-body);color:var(--body);line-height:1.5;}
+  .slide.ink .subtitle{color:#B8B8B8;}
+  .body{font-size:var(--type-body);color:var(--body);line-height:1.55;}
+  .small{font-size:var(--type-small);color:var(--muted);line-height:1.5;}
+
+  /* ---- corner wordmark + chrome ---- */
+  .wm{position:absolute;top:78px;right:var(--pad-x);font-weight:700;font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);}
+  .wm .dot{color:var(--accent);}
+  .slide.ink .wm{color:#fff;}
+  .slide-num{position:absolute;right:var(--pad-x);bottom:46px;font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.1em;}
+  .footer-mark{position:absolute;left:var(--pad-x);bottom:46px;font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.1em;}
+  .slide.ink .slide-num,.slide.ink .footer-mark{color:#6E6E6E;}
+
+  /* ============ COVER ============ */
+  .s-cover{justify-content:center;}
+  .s-cover .cover-title{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:var(--type-cover);line-height:1.04;letter-spacing:-3px;}
+  .s-cover .meta{font-family:var(--mono);font-size:var(--type-small);color:var(--muted);line-height:1.8;letter-spacing:.04em;}
+  .s-cover .meta .lecturer{color:var(--ink);}
+  .cover-rule{height:2px;background:var(--ink);width:88px;}
+
+  /* ============ 轉場 / SECTION ============ */
+  .s-transition{justify-content:center;}
+  .s-transition .kmono{font-family:var(--mono);font-size:var(--type-small);letter-spacing:.14em;color:#8A8A8A;}
+
+  /* ============ QUOTE 診斷 ============ */
+  .s-quote{justify-content:center;}
+  .s-quote .quote-eyebrow{font-family:var(--mono);font-size:var(--type-small);letter-spacing:.2em;color:var(--accent-br);}
+  .s-quote .quote-mark{font-family:var(--sans);font-weight:900;font-size:160px;line-height:.5;color:#2A2A2A;height:70px;}
+  .s-quote .quote{font-family:var(--sans);font-weight:900;font-size:84px;line-height:1.14;letter-spacing:-1.5px;color:#fff;max-width:24ch;margin-top:24px;}
+  .s-quote .quote .punch{color:var(--accent-br);}
+
+  /* ============ HOOK 現況 · twostate ============ */
+  .twostate{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:8px;}
+  .twostate .panel{border:2px solid var(--ink);padding:34px 38px;display:flex;flex-direction:column;gap:14px;background:var(--bg);}
+  .twostate .panel:last-child{border-color:var(--hair);}
+  .twostate .when{font-family:var(--mono);font-size:var(--type-small);letter-spacing:.1em;color:var(--accent);}
+  .twostate .panel:last-child .when{color:var(--muted);}
+  .twostate .h{font-family:var(--sans);font-weight:700;font-size:34px;line-height:1.3;color:var(--ink);}
+  .twostate .leaders{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+  .twostate .l{font-size:var(--type-body);color:var(--body);display:flex;gap:12px;align-items:baseline;}
+  .twostate .l::before{content:"—";color:var(--accent);flex:none;}
+  .quote-src{border-top:2px solid var(--ink);padding-top:20px;font-size:var(--type-body);color:var(--body);}
+  .quote-src .who{color:var(--accent-deep);}
+  /* Hook 兩面孔：兩條工作線等重 */
+  .twostate.faces .panel{border-color:var(--ink);}
+  .twostate.faces .when{color:var(--ink);}
+  .twostate.faces .l::before{color:var(--muted);}
+  .converge{border-top:2px solid var(--ink);padding-top:24px;font-family:var(--sans);font-weight:700;font-size:40px;line-height:1.32;letter-spacing:-.5px;color:var(--ink);}
+  .converge-src{font-size:var(--type-body);color:var(--muted);margin-top:14px;}
+
+  /* ============ 需求原話牆 · masonry ============ */
+  /* A 組是 15 條原話（F 組較少）—— padding/margin/字級收緊才收得進一頁，不刪原話 */
+  .wall{column-count:3;column-gap:20px;}
+  .wall .q{break-inside:avoid;border:1px solid var(--hair);border-left:3px solid var(--ink);padding:17px 22px;margin-bottom:17px;font-size:25px;line-height:1.5;color:var(--ink);background:var(--bg);}
+  .wall .q.hot{border-left-color:var(--accent);}
+  .wall .q .hi{color:var(--accent);font-weight:700;}
+
+  /* ============ 能幫到哪 · A/B/C ============ */
+  .abc{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:8px;flex:1;}
+  .abc .col{border:1px solid var(--hair);border-top:4px solid var(--ink);padding:28px 30px;display:flex;flex-direction:column;gap:8px;background:var(--bg);}
+  .abc .col.b{border-top-color:var(--accent);}
+  .abc .tag{font-family:var(--mono);font-size:var(--type-small);letter-spacing:.06em;color:var(--ink);font-weight:600;}
+  .abc .col.b .tag{color:var(--accent);}
+  .abc .sub{font-size:var(--type-small);color:var(--muted);line-height:1.4;margin-bottom:8px;}
+  .abc .list{display:flex;flex-direction:column;gap:12px;margin-top:auto;}
+  .abc .it{font-size:var(--type-body);color:var(--body);line-height:1.4;display:flex;gap:12px;align-items:baseline;}
+  .abc .it::before{content:"▸";color:var(--muted);flex:none;font-family:var(--mono);font-size:18px;}
+  .abc-foot{margin-top:22px;font-family:var(--mono);font-size:var(--type-small);color:var(--muted);letter-spacing:.04em;}
+  .abc-foot b{color:var(--accent);font-weight:600;}
+
+  /* ============ B1 · host 平台 quad ============ */
+  .host-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:auto;margin-bottom:auto;}
+  .qcard{border:1px solid var(--hair);border-top:3px solid var(--ink);padding:26px 22px;display:flex;flex-direction:column;gap:8px;background:var(--bg);position:relative;}
+  .qcard.star{border-top-color:var(--accent);background:#FBF3EF;}
+  .qcard .qstar{position:absolute;top:-14px;left:18px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:16px;padding:4px 12px;letter-spacing:.02em;}
+  .qcard .qname{font-family:var(--sans);font-weight:900;font-size:28px;color:var(--ink);letter-spacing:-.5px;}
+  .qcard .qenv{font-family:var(--mono);font-size:20px;letter-spacing:.04em;color:var(--muted);}
+  .qcard .qbody{font-size:22px;color:var(--body);line-height:1.45;}
+  .qcard .qdate{font-family:var(--mono);font-size:18px;color:var(--muted);margin-top:auto;padding-top:10px;}
+  .qcard .qdate .pv{color:var(--accent);}
+  .host-note{font-size:var(--type-body);color:var(--body);line-height:1.5;margin-top:26px;border-top:2px solid var(--ink);padding-top:20px;}
+  .host-note b{color:var(--accent);font-weight:700;}
+
+  /* ============ B1 · 為什麼 Claude Code（compare 2col）============ */
+  .cmp2{display:grid;grid-template-columns:1fr 128px 1fr;align-items:stretch;margin-top:auto;margin-bottom:auto;}
+  .cmp2 .cpanel{border:2px solid var(--hair);padding:38px 44px;display:flex;flex-direction:column;gap:16px;}
+  .cmp2 .cpanel.on{border-color:var(--ink);background:var(--ink);color:#fff;}
+  .cmp2 .cmark{font-family:var(--mono);font-size:var(--type-small);letter-spacing:.08em;color:var(--muted);}
+  .cmp2 .cpanel.on .cmark{color:var(--accent-br);}
+  .cmp2 .cname{font-family:var(--sans);font-weight:900;font-size:40px;letter-spacing:-1px;color:var(--ink);}
+  .cmp2 .cpanel.on .cname{color:#fff;}
+  .cmp2 .cline{font-size:25px;line-height:1.4;color:var(--body);padding-top:14px;border-top:1px solid var(--hair);}
+  .cmp2 .cpanel.on .cline{color:#E4E4E4;border-top-color:#333;}
+  .cmp2 .cmid{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:20px;color:var(--muted);text-align:center;line-height:1.4;}
+
+  /* ============ B1 · 形狀論 ============ */
+  .shape-vs{display:grid;grid-template-columns:1fr 80px 1fr;align-items:center;margin-top:18px;flex:1;min-height:0;}
+  .sv-side{display:flex;flex-direction:column;align-items:center;gap:22px;padding:24px;}
+  .sv-mock{width:100%;height:240px;border:2px solid var(--hair);display:flex;align-items:center;justify-content:center;background:#FAFAFA;}
+  .sv-side.on .sv-mock{border-color:var(--accent);}
+  .sv-label{text-align:center;}
+  .sv-label .m{font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--muted);}
+  .sv-side.on .sv-label .m{color:var(--accent);}
+  .sv-label .h{font-family:var(--sans);font-weight:900;font-size:44px;color:var(--ink);letter-spacing:-1px;margin-top:6px;}
+  .sv-label .d{font-size:26px;color:var(--body);line-height:1.4;margin-top:10px;max-width:30ch;margin-left:auto;margin-right:auto;}
+  .sv-where{margin:14px auto 0;padding-top:12px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:22px;letter-spacing:.02em;color:var(--muted);line-height:1.4;white-space:nowrap;}
+  .sv-side.on .sv-where{color:var(--accent);}
+  .sv-mid{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:26px;color:var(--muted);}
+  .shape-callout{text-align:center;font-family:var(--sans);font-weight:700;font-size:38px;margin-top:14px;color:var(--ink);}
+  .shape-callout .ac{color:var(--accent);}
+
+  /* ============ B1 · 裝得進任何形狀 fits ============ */
+  .fits-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 48px;margin-top:8px;flex:1;align-content:space-between;min-height:0;}
+  .fitem{display:flex;align-items:baseline;gap:16px;font-size:24px;padding:11px 0;border-bottom:1px solid var(--hair);}
+  .fitem .fkey{color:var(--ink);flex:1;}
+  .fitem .farrow{font-family:var(--mono);color:var(--muted);}
+  .fitem .fval{font-family:var(--mono);font-size:20px;color:var(--muted);}
+  .fitem.last .fkey,.fitem.last .fval{color:var(--accent);font-weight:700;}
+  .fits-quote{font-family:var(--sans);font-weight:700;font-size:40px;color:var(--ink);margin-top:24px;border-top:2px solid var(--ink);padding-top:22px;}
+  .fits-quote .ac{color:var(--accent);}
+
+  /* ============ B1 · ink big punch ============ */
+  .bigpre{font-family:var(--sans);font-weight:500;font-size:44px;color:rgba(255,255,255,.55);line-height:1.3;}
+  .bigpunch{font-family:var(--sans);font-weight:900;font-size:100px;line-height:1.06;letter-spacing:-2px;color:#fff;}
+  .bigpunch .ac{color:var(--accent-br);}
+
+  /* ============ B1 · 工作環境 workbench ============ */
+  .wb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:auto;margin-bottom:auto;}
+  .wb-card{border:1px solid var(--hair);border-top:3px solid var(--ink);padding:30px 28px;display:flex;flex-direction:column;gap:9px;}
+  .wb-card .wb-n{font-family:var(--mono);font-size:20px;color:var(--muted);}
+  .wb-card .wb-name{font-family:var(--sans);font-weight:900;font-size:34px;color:var(--ink);letter-spacing:-.5px;}
+  .wb-card .wb-role{font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.04em;}
+  .wb-card .wb-d{font-size:23px;color:var(--body);line-height:1.45;margin-top:2px;}
+
+  /* ============ B1 · screenshot ============ */
+  .shot{margin-top:14px;border:2px solid var(--ink);background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:1;}
+  .shot img{width:100%;height:100%;object-fit:contain;display:block;}
+  .shot-cap{font-family:var(--mono);font-size:var(--type-small);color:var(--muted);margin-top:16px;}
+  .shot-cap b{color:var(--accent);}
+
+  /* ============ B1 · VS Code 真截圖 + 1/2/3 標記 ============ */
+  .vs-row{display:grid;grid-template-columns:1.55fr 1fr;gap:40px;align-items:center;flex:1;margin-top:8px;}
+  .shotwrap{position:relative;width:100%;aspect-ratio:16/9;border:2px solid var(--ink);overflow:hidden;background:#111;}
+  .shotwrap img{width:100%;height:100%;object-fit:cover;display:block;}
+  .mk{position:absolute;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--sans);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;transform:translate(-50%,-50%);}
+  .mk.hot{background:var(--accent);}
+  .vs-legend{display:flex;flex-direction:column;gap:15px;justify-content:center;}
+  .vs-card{display:flex;gap:18px;align-items:flex-start;border:1px solid var(--hair);border-left:3px solid var(--ink);padding:19px 24px;}
+  .vs-card.hot{border-left-color:var(--accent);}
+  .vs-card .vs-num{width:40px;height:40px;flex:none;background:var(--ink);color:#fff;font-family:var(--sans);font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center;}
+  .vs-card.hot .vs-num{background:var(--accent);}
+  .vs-h{font-family:var(--sans);font-weight:700;font-size:28px;color:var(--ink);}
+  .vs-h .tag{font-family:var(--mono);font-size:17px;color:var(--accent);letter-spacing:.06em;margin-left:10px;}
+  .vs-d{font-size:22px;color:var(--body);line-height:1.4;margin-top:3px;}
+  .vs-quote{margin-top:6px;font-family:var(--sans);font-weight:700;font-size:26px;color:var(--ink);line-height:1.4;border-top:2px solid var(--ink);padding-top:18px;}
+  .vs-quote .ac{color:var(--accent);}
+
+  /* ============ B1 · PROBLEM / SOLUTION ============ */
+  .ps-wrap{display:grid;grid-template-columns:1fr 92px 1fr;align-items:stretch;flex:1;margin-top:8px;}
+  .ps-col{border:2px solid var(--hair);padding:32px 38px;display:flex;flex-direction:column;}
+  .ps-col.sol{border-color:var(--ink);background:var(--ink);color:#fff;}
+  .ps-head{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
+  .ps-icon{width:46px;height:46px;border:2px solid var(--muted);display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:900;font-size:26px;color:var(--muted);flex:none;}
+  .ps-col.sol .ps-icon{border-color:#fff;color:#fff;}
+  .ps-htag{font-family:var(--mono);font-size:20px;letter-spacing:.1em;color:var(--muted);}
+  .ps-col.sol .ps-htag{color:var(--accent-br);}
+  .ps-mdname{font-family:var(--mono);font-weight:600;font-size:30px;color:#fff;margin-bottom:20px;}
+  .ps-list{display:flex;flex-direction:column;gap:16px;}
+  .ps-item{font-size:26px;line-height:1.4;color:var(--ink);}
+  .ps-col.sol .ps-item{color:#fff;}
+  .ps-item .n{font-family:var(--mono);color:var(--muted);margin-right:12px;}
+  .ps-col.sol .ps-item .n{color:rgba(255,255,255,.5);}
+  .ps-foot{margin-top:auto;padding-top:22px;border-top:1px solid var(--hair);font-size:22px;color:var(--muted);font-style:italic;}
+  .ps-col.sol .ps-foot{border-top-color:#333;color:#CFCFCF;}
+  .ps-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-family:var(--mono);font-size:44px;color:var(--accent);}
+  .ps-mid .t{font-family:var(--sans);font-size:18px;color:var(--muted);writing-mode:vertical-rl;letter-spacing:.2em;}
+
+  /* ============ B1 · 失憶女友 chat ============ */
+  .memo-note{font-size:22px;color:var(--muted);line-height:1.6;max-width:1150px;}
+  .memo-note b{color:var(--ink);}
+  .contrast{display:grid;grid-template-columns:1fr 64px 1fr;align-items:stretch;margin-top:8px;flex:1;}
+  .ct-side{display:flex;flex-direction:column;gap:12px;padding:22px 26px;border:2px solid var(--hair);}
+  .ct-side.on{border-color:var(--ink);}
+  .ct-tag{font-family:var(--mono);font-size:20px;letter-spacing:.06em;color:var(--muted);}
+  .ct-side.on .ct-tag{color:var(--accent);}
+  .ct-bubble{padding:13px 20px;max-width:90%;}
+  .ct-bubble.user{background:#F0F0F0;align-self:flex-end;}
+  .ct-bubble.ai{background:#fff;border:1px solid var(--hair);align-self:flex-start;}
+  .ct-bubble.ai.on{background:var(--ink);border-color:var(--ink);}
+  .ct-from{font-family:var(--mono);font-size:18px;letter-spacing:.06em;color:var(--muted);margin-bottom:4px;}
+  .ct-bubble.ai.on .ct-from{color:var(--accent-br);}
+  .ct-msg{font-size:23px;line-height:1.4;color:var(--ink);}
+  .ct-bubble.ai.on .ct-msg{color:#fff;}
+  .ct-foot{margin-top:auto;padding-top:14px;font-size:22px;color:var(--muted);}
+  .ct-side.on .ct-foot{color:var(--accent);font-weight:700;}
+  .ct-mid{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:30px;color:var(--muted);}
+
+  /* ============ B1 · CLAUDE.md code mock ============ */
+  .cm-wrap{display:grid;grid-template-columns:1.35fr 0.85fr;gap:44px;align-items:stretch;flex:1;}
+  .cm-editor{display:flex;flex-direction:column;border:2px solid var(--ink);overflow:hidden;}
+  .cm-bar{display:flex;align-items:center;gap:9px;background:#1A1A1A;padding:13px 18px;}
+  .cm-bar .d{width:12px;height:12px;border-radius:50%;}
+  .cm-bar .r{background:#ff5f57;}.cm-bar .y{background:#febc2e;}.cm-bar .g{background:#28c840;}
+  .cm-bar .t{font-family:var(--mono);font-size:16px;color:#9A9A9A;margin-left:10px;}
+  .cm-code{flex:1;background:#111;padding:24px 32px;font-family:var(--mono);font-size:20px;line-height:1.8;color:#D4D4D4;}
+  .cm-code .cmt{color:#6A9955;}
+  .cm-code .sec{color:#569CD6;}
+  .cm-code .val{color:#CE9178;}
+  .cm-code .ac{color:var(--accent-br);}
+  .cm-code .dim{color:rgba(212,212,212,.4);}
+  .cm-side{display:flex;flex-direction:column;justify-content:center;gap:20px;}
+  .cm-k{font-family:var(--mono);color:var(--accent);font-size:20px;letter-spacing:.06em;}
+  .cm-v{font-size:26px;color:var(--ink);line-height:1.4;margin-top:4px;}
+  .cm-seed{margin-top:6px;padding:20px 24px;border:2px solid var(--ink);font-size:23px;color:var(--ink);line-height:1.5;}
+  .cm-seed b{color:var(--accent);}
+
+  /* ============ B1 · HANDS-ON prompt ============ */
+  .prompt-box{position:relative;border:2px solid var(--ink);background:var(--bg);padding:34px 40px;}
+  .pb-tag{font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:.06em;margin-bottom:14px;}
+  .pb-text{font-size:30px;line-height:1.5;color:var(--ink);}
+  .hands-note{margin-top:24px;font-size:24px;color:var(--body);line-height:1.5;}
+  .hands-note b{color:var(--ink);}
+
+  /* ============ B1 · FLUX reveal ============ */
+  .flux-word{font-family:var(--sans);font-weight:900;font-size:230px;line-height:1;letter-spacing:-6px;color:var(--accent-br);}
+  .flux-sys{font-family:var(--sans);font-weight:700;font-size:52px;color:#fff;line-height:1.25;}
+  .flux-sys .ac{color:var(--accent-br);}
+  .flux-letters{font-family:var(--mono);font-size:22px;color:rgba(255,255,255,.65);letter-spacing:.24em;}
+
+  /* ============ B1 · FLUX 4 循環 ============ */
+  .flux-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;flex:1;margin-top:36px;margin-bottom:24px;}
+  .fl-col{border:1px solid var(--hair);border-top:3px solid var(--ink);padding:30px 26px;display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  .loop-lead{font-size:30px;color:var(--body);line-height:1.5;max-width:52ch;margin-top:22px;}
+  .fl-col:nth-child(4){border-top-color:var(--accent);}
+  .fl-letter{font-family:var(--sans);font-weight:900;font-size:78px;line-height:1;color:var(--ink);letter-spacing:-2px;}
+  .fl-col:nth-child(4) .fl-letter{color:var(--accent);}
+  .fl-mono{font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.04em;}
+  .fl-h{font-family:var(--sans);font-weight:700;font-size:30px;color:var(--ink);margin-top:4px;}
+  .fl-d{font-size:22px;color:var(--body);line-height:1.4;}
+  .flux-flow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;font-family:var(--mono);font-size:22px;color:var(--ink);border-top:2px solid var(--ink);padding-top:22px;}
+  .flux-flow .arrow{color:var(--muted);}
+  .flux-flow .loop{color:var(--accent);font-size:26px;}
+
+  /* ============ B1 · 三層架構 ============ */
+  .stack3{display:flex;flex-direction:column;gap:10px;margin-top:auto;margin-bottom:auto;}
+  .layer{display:grid;grid-template-columns:230px 1fr;border:2px solid var(--ink);}
+  .layer.foundation{border-color:var(--accent);}
+  .layer-l{padding:22px 28px;border-right:2px solid var(--ink);}
+  .layer.foundation .layer-l{border-right-color:var(--accent);}
+  .layer-num{font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;}
+  .layer.foundation .layer-num{color:var(--accent);}
+  .layer-h{font-family:var(--sans);font-weight:900;font-size:34px;color:var(--ink);letter-spacing:-.5px;margin-top:4px;}
+  .layer-r{padding:22px 30px;display:flex;flex-direction:column;justify-content:center;}
+  .layer-body{font-family:var(--sans);font-weight:700;font-size:28px;color:var(--ink);}
+  .layer-mono{font-family:var(--mono);font-size:20px;color:var(--muted);line-height:1.5;margin-top:6px;}
+  .stack3.tight{gap:8px;}
+  .stack3.tight .layer-l,.stack3.tight .layer-r{padding:13px 28px;}
+  .stack3.tight .layer-h{font-size:31px;}
+  .layer-link{text-align:center;font-family:var(--mono);font-size:18px;color:var(--muted);}
+  .stack-foot{margin-top:18px;border-top:2px solid var(--ink);padding-top:18px;font-size:24px;color:var(--ink);}
+  .stack-foot b{color:var(--accent);font-weight:700;}
+
+  /* ============ B1 · 三套方法論 ============ */
+  .duo-method{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px;flex:1;}
+  .dm-card{border:1px solid var(--hair);border-top:3px solid var(--ink);padding:24px 26px;display:flex;flex-direction:column;gap:12px;}
+  .dm-tag{font-family:var(--mono);font-weight:600;font-size:20px;color:var(--ink);letter-spacing:.04em;}
+  .dm-h{display:flex;gap:14px;align-items:center;font-family:var(--sans);font-weight:700;font-size:24px;color:var(--ink);line-height:1.3;}
+  .dm-h img{width:54px;height:auto;border:1px solid var(--hair);flex-shrink:0;}
+  .dm-sub{display:block;font-family:var(--mono);font-size:17px;color:var(--muted);font-weight:400;margin-top:3px;}
+  .dm-list{display:flex;flex-direction:column;gap:9px;margin-top:2px;}
+  .dm-item{font-size:22px;color:var(--body);line-height:1.35;}
+  .dm-item .dm-k{font-family:var(--mono);color:var(--ink);font-weight:600;margin-right:6px;}
+  .dm-foot{margin-top:auto;padding-top:14px;border-top:1px solid var(--hair);font-size:22px;color:var(--ink);}
+  .dm-foot b{color:var(--ink);font-weight:700;}
+  .dm-foot .sm{display:block;font-family:var(--mono);font-size:17px;color:var(--muted);margin-top:5px;}
+  .method-take{margin-top:18px;font-family:var(--sans);font-weight:700;font-size:32px;color:var(--ink);}
+  .method-take .ac{color:var(--accent);}
+  .method-punch{margin-top:24px;background:var(--ink);padding:28px 40px;font-family:var(--sans);font-size:31px;color:#fff;line-height:1.4;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;}
+  .method-punch .mp-hook{font-weight:900;font-size:36px;letter-spacing:-.5px;flex:none;}
+  .method-punch .mp-rest{color:#D8D8D8;}
+  .method-punch .mp-hot{color:var(--accent-br);font-weight:700;}
+
+  /* ============ B1 · Vault tree ============ */
+  .vtree{background:#111;padding:30px 40px;font-family:var(--mono);font-size:25px;line-height:1.95;color:#D8D8D8;display:flex;flex-direction:column;justify-content:center;}
+  .vtree .root{color:#8A8A8A;font-size:18px;letter-spacing:.14em;margin-bottom:12px;}
+  .vtree .star{background:rgba(193,95,60,.22);margin:0 -14px;padding:0 14px;}
+  .vtree .st{color:var(--accent-br);}
+  .vtree .dimm{color:#7A7A7A;}
+  .vtree-side{display:flex;flex-direction:column;justify-content:center;gap:22px;}
+  .vtree-side .h{font-family:var(--sans);font-weight:700;font-size:34px;color:var(--ink);line-height:1.4;}
+  .vtree-side .d{font-size:24px;color:var(--body);line-height:1.6;}
+  .vtree-key{padding:16px 22px;border:2px solid var(--ink);font-size:23px;color:var(--ink);}
+  .vtree-key .st{color:var(--accent);}
+
+  /* ============ B1 · Vault 7+1 grid ============ */
+  .vault-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:auto;margin-bottom:20px;}
+  .vcard{border:1px solid var(--hair);border-top:3px solid var(--ink);padding:22px 24px;display:flex;flex-direction:column;gap:5px;}
+  .vcard.on{border-top-color:var(--accent);background:#FBF3EF;}
+  .vcard.file{border-style:dashed;}
+  .vname{font-family:var(--mono);font-weight:600;font-size:26px;color:var(--ink);}
+  .vh{font-family:var(--sans);font-weight:700;font-size:24px;color:var(--ink);}
+  .vb{font-size:22px;color:var(--body);line-height:1.35;}
+  .vstar{font-family:var(--mono);font-size:18px;color:var(--accent);margin-top:4px;}
+  .vault-foot{border-top:2px solid var(--ink);padding-top:18px;font-size:24px;color:var(--ink);}
+  .vault-foot b{color:var(--accent);font-weight:700;}
+
+  /* ============ B1 · Markdown 統一格式 ============ */
+  .md-row{display:grid;grid-template-columns:1fr 128px 1fr;align-items:stretch;margin-top:8px;flex:1;}
+  .md-side{display:flex;flex-direction:column;}
+  .md-lab{font-family:var(--mono);font-size:20px;letter-spacing:.06em;color:var(--muted);margin-bottom:12px;}
+  .md-raw{flex:1;background:#111;border:2px solid var(--ink);padding:26px 32px;font-family:var(--mono);font-size:25px;line-height:1.85;color:#D4D4D4;}
+  .md-raw .sym{color:var(--accent-br);}
+  .md-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+  .md-key{font-family:var(--mono);font-size:18px;color:var(--ink);border:1px solid var(--ink);padding:6px 12px;}
+  .md-arrow{font-family:var(--mono);font-size:44px;color:var(--accent);line-height:1;}
+  .md-mid .r{font-size:20px;color:var(--muted);}
+  .md-rendered{flex:1;background:#fff;border:2px solid var(--hair);padding:26px 34px;}
+  .md-h1{font-family:var(--sans);font-weight:900;font-size:40px;color:var(--ink);border-bottom:2px solid var(--hair);padding-bottom:12px;letter-spacing:-.5px;}
+  .md-strong{font-weight:700;color:var(--ink);font-size:26px;margin-top:16px;margin-bottom:8px;}
+  .md-list{color:var(--ink);font-size:25px;line-height:1.8;}
+  .md-foot{border-top:2px solid var(--ink);padding-top:20px;font-size:24px;color:var(--body);margin-top:16px;}
+  .md-foot b{color:var(--accent);font-weight:700;}
+
+  /* ============ B1 · HANDS-ON steplist + terminal + copy ============ */
+  .steplist{display:grid;grid-template-columns:1fr 1.15fr;gap:44px;align-items:stretch;margin-top:6px;flex:1;}
+  .sl-left{display:flex;flex-direction:column;gap:20px;justify-content:center;}
+  .sl-step{display:flex;gap:18px;align-items:flex-start;}
+  .sl-num{width:40px;height:40px;flex:none;background:var(--ink);color:#fff;font-family:var(--sans);font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center;}
+  .sl-h{font-family:var(--sans);font-weight:700;font-size:26px;color:var(--ink);line-height:1.3;}
+  .sl-d{font-size:22px;color:var(--body);line-height:1.5;margin-top:5px;}
+  .sl-d .k{font-family:var(--mono);font-size:19px;background:var(--ink);color:#fff;padding:1px 8px;}
+  .sl-d b{color:var(--ink);}
+  .term{background:#111;border:2px solid var(--ink);padding:22px 28px;font-family:var(--mono);font-size:20px;line-height:1.55;color:#D4D4D4;display:flex;flex-direction:column;}
+  .term .p{color:var(--accent-br);}
+  .term .dim{color:rgba(212,212,212,.55);}
+  .term .dlg{border:1px solid #3A3A3A;padding:12px 15px;margin:8px 0;}
+  .term .dlg .sel{color:var(--accent-br);}
+  .term .dlg .hint{font-family:var(--sans);font-size:15px;color:rgba(212,212,212,.5);margin-left:8px;}
+  .term .ok{color:#4EC9B0;}
+  .copy-box{position:relative;background:#111;border:2px solid var(--ink);padding:20px 30px;font-family:var(--mono);font-size:21px;line-height:1.55;color:#F5F5F5;margin-top:14px;}
+  .copy-box .cb-lab{font-size:16px;color:var(--muted);letter-spacing:.14em;margin-bottom:10px;}
+  .copy-box .v{color:var(--accent-br);}
+  .ho-take{margin-top:14px;border-top:2px solid var(--ink);padding-top:16px;font-size:23px;color:var(--ink);}
+  .ho-take b{color:var(--accent);}
+  .cp-btn{background:var(--accent)!important;color:#fff!important;border:0!important;border-radius:0!important;font-family:var(--mono)!important;font-size:15px!important;letter-spacing:.05em!important;}
+
+  /* ============ B1 · 三方法論 credit-weight + Vault 併頁 list ============ */
+  .dm-sum{font-size:23px;color:var(--body);line-height:1.45;margin-top:2px;}
+  .dm-when{margin-top:auto;padding-top:14px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:21px;color:var(--ink);}
+  .dm-when .w-folder{font-weight:600;}
+  .dm-when .today{color:var(--accent);font-weight:600;}
+  .dm-when .d2{color:var(--muted);}
+  .vlist{display:flex;flex-direction:column;justify-content:center;gap:6px;}
+  .vrow{display:grid;grid-template-columns:168px 1fr auto;gap:16px;align-items:baseline;padding:11px 18px;border-bottom:1px solid var(--hair);}
+  .vrow.on{background:#FBF3EF;}
+  .vrow.file{border-bottom:0;}
+  .vrow .vn{font-family:var(--mono);font-weight:600;font-size:24px;color:var(--ink);}
+  .vrow .vd{font-size:22px;color:var(--body);}
+  .vrow .vt{font-family:var(--mono);font-size:19px;text-align:right;}
+  .vrow .vt.today{color:var(--accent);font-weight:600;}
+  .vrow .vt.d2{color:var(--muted);}
+
+  /* ============ B1 · 打開 vault 截圖標註 ============ */
+  .shot-box{position:absolute;border:2px solid var(--accent);}
+  .shot-call{position:absolute;font-family:var(--mono);font-size:17px;font-weight:600;color:#fff;background:var(--accent);padding:3px 10px;white-space:nowrap;transform:translateY(-100%);}
+
+  /* ============ B1 · Obsidian split（截圖 + 雙欄解說）============ */
+  .obs-row{display:grid;grid-template-columns:1.3fr 1fr;gap:44px;align-items:stretch;flex:1;margin-top:12px;}
+  .obs-shot{border:2px solid var(--ink);overflow:hidden;background:#F2F0EC;display:flex;align-items:center;justify-content:center;}
+  .obs-shot img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;}
+  .obs-text{display:flex;flex-direction:column;justify-content:center;gap:24px;}
+  .ob-h{font-family:var(--sans);font-weight:700;font-size:28px;color:var(--ink);margin-bottom:12px;}
+  .ob-l{font-size:22px;color:var(--body);line-height:1.5;display:flex;gap:10px;align-items:baseline;}
+  .ob-l::before{content:"—";color:var(--muted);flex:none;}
+  .obs-divider{height:2px;background:var(--hair);}
+
+  /* ============ B1 · 兩種叫法 ============ */
+  .invoke-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1;margin-top:10px;}
+  .inv-card{border:1px solid var(--hair);border-top:4px solid var(--ink);padding:30px 36px;display:flex;flex-direction:column;gap:16px;}
+  .inv-tag{font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;}
+  .inv-h{font-family:var(--sans);font-weight:900;font-size:38px;color:var(--ink);letter-spacing:-.5px;}
+  .inv-demo{background:#111;padding:18px 22px;font-family:var(--mono);font-size:20px;color:#D4D4D4;line-height:1.6;}
+  .inv-demo .p{color:var(--accent-br);}
+  .inv-demo .u{background:#37373d;padding:7px 13px;display:inline-block;color:#fff;}
+  .inv-how{font-size:23px;color:var(--body);line-height:1.5;margin-top:auto;}
+  .inv-how .k{font-family:var(--mono);font-size:20px;background:var(--ink);color:#fff;padding:1px 8px;}
+  .inv-how b{color:var(--ink);}
+
+  /* ============ B1 · 叫出 Claude + 活動（合併頁）============ */
+  .invoke-strip{display:flex;align-items:baseline;gap:14px;border:2px solid var(--ink);padding:16px 24px;margin-top:8px;flex-wrap:wrap;font-size:23px;color:var(--ink);}
+  .invoke-strip .is-lab{font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:.04em;}
+  .invoke-strip .k{font-family:var(--mono);font-size:20px;background:var(--ink);color:#fff;padding:1px 8px;}
+  .invoke-strip .is-sep{color:var(--muted);margin:0 2px;}
+  .act-row{display:grid;grid-template-columns:1fr 1.12fr;gap:36px;align-items:stretch;flex:1;margin-top:20px;}
+  .act-left{display:flex;flex-direction:column;justify-content:center;gap:18px;}
+  .act-lab{font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;}
+  .act-note{font-size:21px;color:var(--muted);line-height:1.5;}
+  .act-note b{color:var(--ink);}
+
+  /* ============ B1 · 證明它住在你電腦 ============ */
+  .pv-cmd{font-family:var(--mono);font-size:21px;background:#111;color:#F5F5F5;padding:12px 18px;line-height:1.4;}
+  .pv-cmd .p{color:var(--accent-br);}
+  .pv-res{font-size:22px;color:var(--body);line-height:1.5;}
+  .pv-res .hi{color:var(--ink);font-weight:600;}
+  .pv-verify{margin-top:auto;padding-top:12px;font-family:var(--sans);font-weight:700;font-size:23px;color:var(--accent);line-height:1.4;}
+
+  /* ============ TIMER（DS 地基元件，全 deck 共用）============ */
+  .s-timer{justify-content:flex-start;}
+  .timer-stages{display:flex;align-items:stretch;gap:20px;margin-top:10px;}
+  .timer-stage{flex:1;border:2px solid var(--hair);padding:24px 30px;display:flex;flex-direction:column;gap:6px;}
+  .timer-stage .ts-num{font-family:var(--mono);font-size:var(--type-small);letter-spacing:.08em;color:var(--muted);}
+  .timer-stage .ts-name{font-family:var(--sans);font-weight:700;font-size:32px;color:var(--ink);}
+  .timer-stage .ts-dur{font-family:var(--mono);font-size:var(--type-body);color:var(--body);}
+  .timer-stage.active{border-color:var(--accent);}
+  .timer-stage.active .ts-num{color:var(--accent);}
+  .timer-stage.done{opacity:.4;}
+  .timer-arrow{display:flex;align-items:center;font-family:var(--mono);font-size:28px;color:var(--muted);}
+  .timer-display{margin-top:auto;margin-bottom:auto;text-align:center;}
+  .timer-display .td-label{font-family:var(--mono);font-size:var(--type-body);letter-spacing:.1em;color:var(--muted);}
+  .timer-display .td-time{font-family:var(--sans);font-weight:900;font-size:260px;line-height:.9;letter-spacing:-6px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .timer-controls{display:flex;gap:18px;justify-content:center;margin-bottom:8px;}
+  .t-btn{font-family:var(--mono);font-size:var(--type-body);padding:16px 34px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;letter-spacing:.05em;}
+  .t-btn:hover{background:var(--ink);color:#fff;}
+  .t-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .t-btn.primary:hover{background:var(--accent-deep);border-color:var(--accent-deep);}
+  .s-timer.break-active{background:var(--ink);}
+  .s-timer.break-active .title,.s-timer.break-active .timer-display .td-time{color:#fff;}
+  .s-timer.break-active .timer-display .td-label{color:#8A8A8A;}
+  .s-timer.break-active .timer-stage{border-color:#333;}
+  .s-timer.break-active .t-btn{border-color:#fff;color:#fff;}
+
+  /* ============ B2 · onboarding 七步地圖（P34 全景 ／ 各 Step 頁 .mini 進度牌）============ */
+  .stepmap{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;}
+  .stepmap .sm{border:2px solid var(--hair);border-top:4px solid var(--hair);padding:20px 18px;display:flex;flex-direction:column;gap:5px;}
+  .stepmap .sm-n{font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:var(--muted);}
+  .stepmap .sm-h{font-family:var(--sans);font-weight:900;font-size:30px;color:var(--ink);line-height:1.2;letter-spacing:-.5px;}
+  .stepmap .sm-d{font-size:22px;color:var(--body);line-height:1.4;margin-top:2px;}
+  .stepmap .sm-t{margin-top:auto;padding-top:12px;font-family:var(--mono);font-size:22px;color:var(--muted);}
+  .stepmap .sm.on{border-color:var(--accent);border-top-color:var(--accent);background:#FBF3EF;}
+  .stepmap .sm.on .sm-n,.stepmap .sm.on .sm-t{color:var(--accent);font-weight:700;}
+  .stepmap .sm.done{opacity:.35;}
+  .stepmap .sm-q{font-size:22px;color:var(--muted);line-height:1.35;border-top:1px solid var(--hair);padding-top:11px;margin-top:9px;}
+  .stepmap .sm-q b{color:var(--ink);font-weight:700;}
+  .stepmap .sm.on .sm-q{border-top-color:rgba(193,95,60,.35);}
+  .stepgroup{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:12px;}
+  .stepgroup .sg{padding:8px 18px 12px;border-bottom:2px solid var(--ink);display:flex;align-items:baseline;gap:14px;}
+  .stepgroup .sg-h{font-family:var(--sans);font-weight:900;font-size:28px;color:var(--ink);letter-spacing:-.5px;}
+  .stepgroup .sg-t{font-family:var(--mono);font-size:22px;color:var(--accent);}
+  /* ============ B2 · 四層漏斗（收尾回扣）============ */
+  .funnel{display:flex;flex-direction:column;align-items:center;}
+  .funnel .fr{display:grid;grid-template-columns:250px 1fr 260px;align-items:center;gap:24px;border:2px solid var(--ink);padding:13px 30px;}
+  .funnel .fr.top{border-top-width:4px;}
+  .funnel .fn{font-family:var(--mono);font-weight:600;font-size:27px;color:var(--ink);}
+  .funnel .fq{font-size:25px;color:var(--body);line-height:1.35;}
+  .funnel .fc{font-family:var(--mono);font-size:23px;color:var(--accent);text-align:right;}
+  .funnel .fa{font-family:var(--mono);font-size:22px;color:var(--accent);line-height:1;padding:4px 0;}
+  .wkstrip{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;}
+  .wkstrip .wk{border:2px solid var(--hair);padding:16px 0;text-align:center;font-family:var(--mono);font-size:24px;color:var(--body);}
+  .wkstrip .wk .t{display:block;font-size:19px;color:var(--muted);margin-top:5px;letter-spacing:.06em;}
+  .wkstrip .wk.last{border-color:var(--accent);background:#FBF3EF;color:var(--accent);font-weight:700;}
+  .wkstrip .wk.last .t{color:var(--accent);}
+  .stepmap.mini{gap:8px;}
+  .stepmap.mini .sm-q{display:none;}
+  .stepmap.mini .sm{padding:13px 15px;border-top-width:3px;gap:2px;}
+  .stepmap.mini .sm-h{font-size:24px;}
+
+  /* ============ B1 · Claude Code vs Claude.ai 三列對照 ============ */
+  .wc-tab{display:grid;grid-template-columns:0.6fr 1fr 1fr;flex:1;margin-top:10px;border-top:2px solid var(--ink);}
+  .wc-h{padding:15px 26px;border-bottom:2px solid var(--ink);font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:var(--muted);}
+  .wc-h.on{color:var(--accent);font-weight:600;}
+  .wc-q{padding:22px 26px;border-bottom:1px solid var(--hair);font-family:var(--sans);font-weight:700;font-size:27px;color:var(--ink);display:flex;align-items:center;}
+  .wc-c{padding:22px 26px;border-bottom:1px solid var(--hair);font-size:26px;line-height:1.45;color:var(--body);display:flex;align-items:center;gap:14px;}
+  .wc-c.on{background:#FBF3EF;color:var(--ink);}
+  .wc-c .m{font-family:var(--mono);font-size:26px;color:var(--muted);flex:none;}
+  .wc-c.on .m{color:var(--accent);font-weight:700;}
+
+  /* ============ B1 · HANDS-ON 底部計時條（punch 錨底 ＋ 動手計時，取代整頁 timer）============ */
+  .ho-timer{position:absolute;top:80px;right:var(--pad-x);margin:0;padding:0;background:transparent;display:flex;align-items:center;gap:10px;z-index:6;}
+  .ho-take{margin-top:auto;border-top:2px solid var(--ink);padding-top:18px;font-family:var(--sans);font-size:27px;color:var(--ink);line-height:1.5;}
+  .ho-take b{color:var(--accent);font-weight:700;}
+  .ho-timer .ht-time{font-family:var(--mono);font-weight:600;font-size:26px;line-height:1;letter-spacing:.02em;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .ho-timer .t-btn{border:1px solid var(--hair);color:var(--muted);background:transparent;padding:5px 13px;font-size:17px;border-radius:0;}
+  .ho-timer .t-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .ho-timer .t-btn.primary{background:transparent;border-color:var(--muted);color:var(--ink);}
+  .ho-timer .t-btn.primary:hover{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .s-timer.break-active .t-btn:hover{background:#fff;color:var(--ink);}
+  /* ink 底的計時頁：非 primary 的 Reset 本來是深描邊深字 = 看不見 */
+  .slide.ink .t-btn{border-color:#fff;color:#fff;}
+  .slide.ink .t-btn:hover{background:#fff;color:var(--ink);}
+
+  /* ============ B2 · Area vs Project 比較 ============ */
+  .avp{display:grid;grid-template-columns:1fr auto 1fr;gap:30px;align-items:stretch;flex:1;margin-top:16px;}
+  .avp .col{border-top:3px solid var(--ink);background:var(--cream-2);padding:26px 30px;display:flex;flex-direction:column;}
+  .avp .cap{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2px;}
+  .avp .sym{font-family:var(--sans);font-weight:900;font-size:44px;color:var(--accent);line-height:1;}
+  .avp .nm{font-family:var(--sans);font-weight:900;font-size:38px;color:var(--ink);letter-spacing:-1px;}
+  .avp .csub{font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.03em;margin-bottom:18px;}
+  .avp .items{display:flex;flex-direction:column;gap:10px;}
+  .avp .it{font-size:23px;color:var(--body);display:flex;gap:12px;align-items:baseline;line-height:1.3;}
+  .avp .it .ix{font-family:var(--mono);font-size:16px;color:var(--muted);width:22px;flex:none;}
+  .avp .it b{color:var(--ink);font-weight:600;}
+  .avp .foot{margin-top:auto;padding-top:14px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.02em;}
+  .avp .foot b{color:var(--accent);}
+  .avp .mid{display:flex;align-items:center;justify-content:center;min-width:180px;}
+  .avp .mid .q{font-family:var(--sans);font-weight:900;font-size:40px;color:var(--ink);text-align:center;line-height:1.25;letter-spacing:-1px;}
+  .avp-note{margin-top:16px;background:var(--cream-2);border-left:3px solid var(--accent);padding:15px 26px;font-size:22px;color:var(--ink);line-height:1.4;}
+  .avp-note b{color:var(--accent);}
+
+  /* ============ B2 · cue bar（先想 30 秒 / 放心）============ */
+  .cuebar{margin-top:auto;background:var(--ink);color:#E8E8E8;padding:22px 34px;display:flex;align-items:center;gap:26px;}
+  .cuebar.tight{margin-top:20px;}
+  .cuebar .k{font-family:var(--mono);font-size:18px;color:var(--accent-br);letter-spacing:.12em;white-space:nowrap;}
+  .cuebar .sep{width:1px;height:34px;background:#3A3A3A;flex:none;}
+  .cuebar .t{font-size:23px;line-height:1.5;color:#E4E4E4;}
+  .cuebar .t .hot{color:var(--accent-br);}
+  .cuebar .t b{color:#fff;font-weight:700;}
+
+  /* ============ B2 · Claude 回應 mock（淺底）============ */
+  .cresp{background:var(--cream-2);border:2px solid var(--hair);border-left:4px solid var(--accent);padding:24px 28px;font-family:var(--mono);font-size:20px;line-height:1.65;color:var(--body);}
+  .cresp .lab{font-size:16px;color:var(--accent);letter-spacing:.16em;margin-bottom:12px;}
+  .cresp .hot{color:var(--accent);font-weight:600;}
+  .cresp .em{color:var(--ink);font-weight:600;}
+  .cresp .sub{color:var(--muted);}
+  .cresp .sp{display:block;height:8px;}
+
+  /* ============ B2 · flow strip（Claude 陪你跑）============ */
+  .flowstrip{background:var(--cream-2);border-left:3px solid var(--accent);padding:22px 30px;margin-top:auto;}
+  .flowstrip .lab{font-family:var(--mono);font-size:16px;color:var(--accent);letter-spacing:.16em;margin-bottom:12px;}
+  .flowstrip .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:24px;color:var(--ink);}
+  .flowstrip .arrow{font-family:var(--mono);color:var(--accent);}
+  .flowstrip b{color:var(--ink);font-weight:700;}
+
+  /* ============ B2 · HANDS-ON footer bar ============ */
+  .honbar{background:var(--ink);color:#EAEAEA;padding:24px 36px;margin-top:20px;}
+  .honbar .lab{font-family:var(--mono);font-size:16px;color:#9A9A9A;letter-spacing:.16em;margin-bottom:16px;}
+  .honbar .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;}
+  .honbar .c{font-size:23px;line-height:1.45;color:#E4E4E4;display:flex;gap:12px;align-items:baseline;}
+  .honbar .c .n{font-family:var(--mono);font-size:18px;color:var(--accent-br);flex:none;}
+
+  /* ============ B2 · 開工/收工 mirror ============ */
+  .mirror{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px;flex:1;min-height:0;}
+  .mirror .m{border:2px solid var(--hair);border-top:3px solid var(--ink);padding:28px 32px;display:flex;flex-direction:column;justify-content:center;}
+  .mirror .m .mlab{font-family:var(--mono);font-size:18px;color:var(--accent);letter-spacing:.12em;margin-bottom:14px;}
+  .mirror .m .cmd{background:#111;color:#fff;font-family:var(--mono);font-weight:600;font-size:26px;padding:11px 18px;margin-bottom:16px;display:inline-block;}
+  .mirror .m .cmd .p{color:var(--accent-br);}
+  .mirror .m .ask{font-size:26px;color:var(--ink);line-height:1.5;}
+  .mirror .m .ask b{color:var(--accent);}
+  .mirror .m .to{font-family:var(--mono);font-size:19px;color:var(--muted);margin-top:12px;}
+
+  /* ============ B2 · 週節奏 ============ */
+  .weekrhythm{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px;flex:1;min-height:0;}
+  .weekrhythm .wr{border:2px solid var(--hair);border-left:4px solid var(--accent);padding:26px 30px;display:flex;flex-direction:column;justify-content:center;}
+  .weekrhythm .wr .n{font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.06em;margin-bottom:12px;}
+  .weekrhythm .wr .t{font-size:26px;color:var(--ink);line-height:1.5;}
+  .weekrhythm .wr .t b{color:var(--ink);font-weight:700;}
+  .cmdbar{background:#111;color:#fff;padding:22px 30px;display:flex;align-items:center;gap:26px;margin-top:20px;}
+  .cmdbar .cmd{background:#000;border:1px solid #333;padding:12px 20px;font-family:var(--mono);font-weight:600;font-size:26px;white-space:nowrap;}
+  .cmdbar .cmd .p{color:var(--accent-br);}
+  .cmdbar .t{font-size:24px;line-height:1.5;color:#E4E4E4;}
+
+  /* ============ B2 · WHY context 對比 ============ */
+  .ctx2{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:14px;flex:1;}
+  .ctx2 .p{border:2px solid var(--hair);padding:28px 32px;display:flex;flex-direction:column;gap:12px;background:var(--bg);}
+  .ctx2 .p.on{border-color:var(--ink);background:var(--cream-2);}
+  .ctx2 .lab{font-family:var(--mono);font-size:19px;letter-spacing:.04em;color:var(--muted);}
+  .ctx2 .p.on .lab{color:var(--accent);}
+  .ctx2 .ask{font-family:var(--mono);font-size:23px;color:var(--ink);border-left:3px solid var(--hair);padding-left:14px;line-height:1.4;}
+  .ctx2 .p.on .ask{border-left-color:var(--accent);}
+  .ctx2 .arrow{font-family:var(--mono);color:var(--muted);font-size:22px;}
+  .ctx2 .out{font-size:26px;color:var(--body);line-height:1.5;}
+  .ctx2 .out b{color:var(--ink);font-weight:700;}
+  .ctx2 .p.on .out b{color:var(--accent);}
+  .ctx2 .feed{margin-top:auto;padding-top:12px;border-top:1px solid var(--hair);font-family:var(--mono);font-size:19px;color:var(--muted);}
+  .ctx2 .p.on .feed{color:var(--accent-deep);}
+
+  /* ============ B3 · 連上你的世界（2 卡）============ */
+  .world2{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:16px;}
+  .world2 .w{border:1px solid var(--hair);border-top:3px solid var(--accent);padding:28px 32px;display:flex;flex-direction:column;gap:12px;background:var(--bg);}
+  .world2 .w .tag{font-family:var(--mono);font-size:19px;color:var(--accent);letter-spacing:.04em;}
+  .world2 .w .nm{font-family:var(--sans);font-weight:900;font-size:36px;color:var(--ink);letter-spacing:-.5px;}
+  .world2 .w .d{font-size:24px;color:var(--body);line-height:1.5;}
+  .world2 .w .where{margin-top:auto;font-family:var(--mono);font-size:18px;color:var(--muted);border-top:1px solid var(--hair);padding-top:12px;}
+
+  /* ============ B3 · Connectors 面板 mock ============ */
+  .connbox{border:2px solid var(--ink);background:var(--bg);}
+  .connbox .cb-top{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:2px solid var(--ink);background:var(--cream-2);font-family:var(--mono);font-size:19px;color:var(--ink);letter-spacing:.02em;}
+  .connbox .cb-top .gt{color:var(--muted);}
+  .connrow{display:flex;align-items:center;gap:18px;padding:18px 24px;border-bottom:1px solid var(--hair);}
+  .connrow:last-child{border-bottom:0;}
+  .connrow .ic{width:42px;height:42px;border:2px solid var(--hair);display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:700;font-size:20px;color:var(--muted);flex:none;}
+  .connrow.on .ic{border-color:var(--accent);color:var(--accent);}
+  .connrow .nm{font-family:var(--sans);font-weight:700;font-size:26px;color:var(--ink);}
+  .connrow .nm .sub{display:block;font-family:var(--mono);font-size:17px;color:var(--muted);font-weight:400;margin-top:3px;}
+  .connrow .btn{margin-left:auto;font-family:var(--mono);font-size:19px;padding:9px 24px;border:2px solid var(--muted);color:var(--muted);white-space:nowrap;}
+  .connrow.on .btn{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .connrow.dim{opacity:.5;}
+  .connrow .note{margin-left:auto;font-family:var(--mono);font-size:17px;color:var(--muted);}
+
+  /* ============ B4 · DS spec ============ */
+  .dscard{border:1px solid var(--hair);border-top:3px solid var(--ink);background:var(--bg);padding:28px 32px;display:flex;flex-direction:column;gap:20px;}
+  .dscard .dsh{font-family:var(--mono);font-size:19px;color:var(--muted);letter-spacing:.06em;}
+  .swatches{display:flex;border:1px solid var(--hair);overflow:hidden;}
+  .swatches .sw{flex:1;height:78px;display:flex;align-items:flex-end;padding:7px 9px;font-family:var(--mono);font-size:13px;line-height:1.2;}
+  .dssample{display:flex;align-items:baseline;gap:16px;}
+  .dssample .big{font-family:var(--sans);font-weight:700;font-size:46px;color:#1D1D1F;letter-spacing:-.5px;}
+  .dssample .sm{font-size:20px;color:var(--muted);}
+  .dspill{display:inline-block;background:#2D7DD2;color:#fff;font-family:var(--sans);font-weight:600;font-size:20px;padding:10px 24px;border-radius:999px;}
+  .dslist{display:flex;flex-direction:column;gap:14px;}
+  .dslist .di{display:flex;gap:14px;align-items:baseline;font-size:24px;color:var(--body);line-height:1.4;}
+  .dslist .di .k{font-family:var(--mono);font-size:19px;color:var(--accent);flex:none;width:70px;}
+  .dslist .di b{color:var(--ink);}
+
+  /* ============ B4 · report before/after mock ============ */
+  .repcompare{display:grid;grid-template-columns:1fr 1fr;gap:30px;flex:1;margin-top:18px;min-height:0;}
+  .repcol{display:flex;flex-direction:column;gap:12px;min-height:0;}
+  .repcol .rlab{font-family:var(--mono);font-size:20px;letter-spacing:.04em;}
+  .repcol.a .rlab{color:var(--muted);}
+  .repcol.b .rlab{color:var(--accent);}
+  .repmock{flex:1;padding:24px 26px;background:#fff;display:flex;flex-direction:column;gap:12px;overflow:hidden;}
+  .repmock.plain{border:1px dashed #C8C8C8;font-family:var(--mono);}
+  .repmock.plain .pt{font-size:20px;color:#555;}
+  .repmock.plain .l{height:11px;background:#E9E9E9;border-radius:2px;}
+  .repmock.plain .l.s{width:60%;}
+  .repmock.brand{border:1px solid #D2D2D7;border-radius:14px;}
+  .repmock.brand .top{display:flex;align-items:center;justify-content:space-between;}
+  .repmock.brand .wm{font-family:var(--sans);font-weight:700;font-size:22px;color:#1D1D1F;letter-spacing:.02em;}
+  .repmock.brand .tag{font-family:var(--mono);font-size:14px;color:#86868B;}
+  .repmock.brand .rt{font-family:var(--sans);font-weight:700;font-size:27px;color:#1D1D1F;line-height:1.2;}
+  .repmock.brand .statrow{display:flex;align-items:baseline;gap:14px;}
+  .repmock.brand .stat{font-family:var(--sans);font-weight:800;font-size:56px;color:#1D1D1F;line-height:1;}
+  .repmock.brand .stat em{font-style:normal;color:#2D7DD2;}
+  .repmock.brand .cap{font-size:18px;color:#86868B;}
+  .repmock.brand .bars{display:flex;flex-direction:column;gap:9px;margin-top:2px;}
+  .repmock.brand .bar{height:11px;background:#F5F5F7;border-radius:6px;}
+  .repmock.brand .bar.hot{background:#2D7DD2;width:64%;}
+  .repmock.brand .bar.warn{background:#D93025;width:38%;}
+
+  /* ============ B5 · 痛點 old-flow ============ */
+  .oldflow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px;}
+  .oldflow .st{border:1px solid var(--hair);padding:14px 20px;font-size:24px;color:var(--body);}
+  .oldflow .ar{font-family:var(--mono);color:var(--muted);font-size:22px;}
+  .oldflow .end{border:2px solid var(--ink);padding:14px 22px;font-size:24px;color:var(--ink);font-weight:700;}
+  /* pain flow (53 週報 drudgery) — 撈→清→算→標 band + 清·併 zoom */
+  .pband{display:flex;align-items:stretch;gap:10px;margin-top:28px;}
+  .pband .pn{border:1px solid var(--hair);padding:18px 22px;display:flex;flex-direction:column;gap:7px;justify-content:center;}
+  .pband .pn .k{font-family:var(--mono);font-size:18px;color:var(--muted);}
+  .pband .pn .t{font-size:25px;color:var(--body);line-height:1.3;}
+  .pband .pn.hot{border:2px solid var(--accent);background:#FBF1EC;}
+  .pband .pn.hot .t{color:var(--ink);font-weight:700;}
+  .pband .par{display:flex;align-items:center;font-family:var(--mono);color:var(--muted);font-size:22px;}
+  .pband .pend{border:2px solid var(--ink);padding:18px 26px;font-size:25px;color:var(--ink);font-weight:700;display:flex;align-items:center;text-align:center;line-height:1.3;margin-left:2px;}
+  .zoom{margin-top:28px;border:2px solid var(--accent);background:#FBF1EC;padding:32px 36px 34px;}
+  .zoom .zh{font-family:var(--sans);font-weight:800;font-size:26px;color:var(--ink);margin-bottom:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .zoom .zh .tag{font-family:var(--mono);font-size:17px;background:var(--accent);color:#fff;padding:3px 12px;font-weight:400;letter-spacing:.5px;}
+  .zgrid{display:grid;grid-template-columns:1fr;gap:18px;}
+  .zli{display:flex;gap:14px;align-items:baseline;font-size:25px;color:var(--body);line-height:1.4;}
+  .zli .b{color:var(--accent);font-family:var(--mono);flex:none;font-size:20px;}
+  .zli .tx{flex:1;}
+  .zli .brk{align-self:center;font-family:var(--mono);font-size:15px;color:#fff;background:var(--accent-deep);padding:2px 10px;flex:none;letter-spacing:1px;white-space:nowrap;}
+
+  /* ============ B5 · 三問句 ============ */
+  .q3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:18px;}
+  .q3 .qc{border:1px solid var(--hair);border-top:3px solid var(--ink);padding:28px 30px;display:flex;flex-direction:column;gap:14px;background:var(--bg);}
+  .q3 .qc .qn{font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:.08em;}
+  .q3 .qc .qq{font-family:var(--sans);font-weight:700;font-size:30px;color:var(--ink);line-height:1.25;}
+  .q3 .qc .qw{font-size:23px;color:var(--body);line-height:1.5;padding-top:6px;border-top:1px solid var(--hair);}
+  .q3 .qc .qw b{color:var(--ink);}
+  /* toy dataset 下載 CTA + 任務 (54 案例說明) */
+  .dlbtn{display:inline-flex;align-items:center;gap:12px;align-self:flex-start;background:var(--accent);color:#fff;font-family:var(--sans);font-weight:700;font-size:27px;padding:16px 34px;text-decoration:none;border:2px solid var(--accent);letter-spacing:.02em;}
+  .dlbtn:hover{background:var(--accent-deep);border-color:var(--accent-deep);}
+  .dltask{font-size:23px;color:var(--body);line-height:1.55;border-left:3px solid var(--ink);padding-left:16px;}
+  .dltask b{color:var(--ink);}
+
+  /* ============ B5 · aha rank-flip ============ */
+  .ranks{display:grid;grid-template-columns:1fr auto 1fr;gap:34px;align-items:center;margin-top:14px;}
+  .ranks .col{border-top:3px solid var(--ink);padding-top:14px;}
+  .ranks .col.hot{border-top-color:var(--accent);}
+  .ranks .lab{font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.04em;margin-bottom:10px;}
+  .ranks .col.hot .lab{color:var(--accent);}
+  .ranks .r{display:flex;align-items:baseline;gap:14px;padding:10px 0;border-bottom:1px solid var(--hair);font-size:25px;}
+  .ranks .r .n{font-family:var(--mono);font-size:18px;color:var(--muted);width:20px;flex:none;}
+  .ranks .r .nm{flex:1;color:var(--ink);}
+  .ranks .r .pct{font-family:var(--mono);color:var(--ink);}
+  .ranks .r.up .n,.ranks .r.up .nm,.ranks .r.up .pct{color:var(--accent);font-weight:700;}
+  .ranks .r.down{opacity:.5;}
+  .ranks .mid{font-family:var(--sans);font-weight:900;font-size:30px;color:var(--muted);text-align:center;line-height:1.2;}
+  /* WOI 燈號 band (57 aha 第二個翻盤：賣最快 ≠ 庫存穩) */
+  .woibar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--hair);}
+  .woibar .wl{font-size:23px;color:var(--body);flex:1;min-width:300px;line-height:1.4;}
+  .woibar .wl b{color:var(--ink);}
+  .woibar .wc{font-family:var(--mono);font-size:20px;padding:8px 15px;border:2px solid var(--ink);color:var(--ink);white-space:nowrap;}
+  .woibar .wc.red{border-color:var(--accent-deep);background:var(--accent-deep);color:#fff;}
+
+  /* ============ B3 · 資料包 file cards (55) ============ */
+  .filecards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .fcard{border:1px solid var(--hair);border-left:3px solid var(--ink);padding:16px 20px;}
+  .fcard .fn{font-family:var(--mono);font-size:21px;color:var(--ink);font-weight:700;}
+  .fcard .fn .fmt{color:var(--accent);font-size:16px;margin-left:6px;}
+  .fcard .fmeta{font-family:var(--mono);font-size:15px;color:var(--muted);margin-top:2px;}
+  .fcard .fcols{font-size:19px;color:var(--body);margin-top:8px;line-height:1.4;}
+
+  /* ============ B3 · 決策表 result (56) ============ */
+  .dtable{border:1px solid var(--hair);font-family:var(--mono);font-size:18px;}
+  .dtable .dr{display:grid;grid-template-columns:1.6fr 0.6fr 0.75fr 0.7fr 0.6fr 0.9fr;border-bottom:1px solid var(--hair);}
+  .dtable .dr:last-child{border-bottom:0;}
+  .dtable .dr>div{padding:8px 12px;color:var(--body);}
+  .dtable .dh>div{background:var(--cream-2);color:var(--ink);font-weight:700;}
+  .dtable .hot>div{background:#FBF1EC;}
+  .dtable .hot>div:first-child{color:var(--ink);font-weight:700;}
+  .dtable .fr{color:#fff;background:var(--accent-deep);padding:1px 8px;font-size:16px;}
+  .dtable .fa{color:var(--ink);border:1px solid var(--ink);padding:0 7px;font-size:16px;}
+
+  /* ============ B3 · 真實 csv render (57 WOW1) ============ */
+  .rcsv{border:1px solid var(--hair);font-family:var(--mono);}
+  .rcsv .rr{display:grid;border-bottom:1px solid var(--hair);font-size:15px;line-height:1.25;}
+  .rcsv .rr:last-child{border-bottom:0;}
+  .rcsv .rr>div{padding:4px 12px;color:var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rcsv .rr.rh>div{background:var(--cream-2);color:var(--ink);font-weight:700;}
+  .rcsv .rr.lo>div{background:#FBF1EC;}
+  .rcsv .rr.lo>div:first-child{color:var(--ink);font-weight:700;}
+  .rcsv .rr.wrn>div{background:#FCF3E9;}
+  .rcsv .rr.wrn>div:first-child{color:var(--ink);font-weight:700;}
+  .rcsv.g4 .rr{grid-template-columns:1.9fr 0.75fr 0.7fr 1.05fr;}
+  .rcsv.g3 .rr{grid-template-columns:2.1fr 0.9fr 0.6fr;}
+  .rcsv-sec{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;}
+
+  /* ============ B3 · 有無 DS 對比 (59) ============ */
+  .dscmp{display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1;margin-top:16px;min-height:0;align-items:center;}
+  .dscmp .side{display:flex;flex-direction:column;gap:16px;}
+  .dscmp .slab{font-family:var(--mono);font-size:19px;letter-spacing:.05em;display:flex;align-items:center;gap:12px;}
+  .dscmp .slab.no{color:var(--muted);}
+  .dscmp .slab.yes{color:var(--accent-deep);font-weight:700;}
+  .dscmp .slab .tag{font-size:14px;color:var(--muted);letter-spacing:0;}
+  .dscmp .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .dscmp .mini{height:168px;padding:12px 13px;display:flex;flex-direction:column;gap:7px;overflow:hidden;font-size:11px;}
+  .dscmp .mini .bar{height:9px;border-radius:2px;}
+  .dscmp .mini .mnum{margin-top:auto;font-weight:800;font-size:24px;}
+  /* 沒 DS —— 各做各的、醜 */
+  .dscmp .m-xl{background:#fff;border:1px solid #b9b9b9;font-family:var(--mono);color:#555;}
+  .dscmp .m-xl .xt{font-size:11px;color:#333;border-bottom:1px solid #bbb;padding-bottom:3px;}
+  .dscmp .m-xl .xr{display:grid;grid-template-columns:1.5fr .6fr;border-bottom:1px solid #d5d5d5;padding:1px 0;font-size:10px;}
+  .dscmp .m-xl .xr span:last-child{text-align:right;}
+  .dscmp .m-xl .mnum{font-family:var(--mono);font-size:16px;color:#555;font-weight:400;}
+  .dscmp .m-rd{background:#fff;border:1px solid #E4002B;}
+  .dscmp .m-rd .rdh{background:#E4002B;color:#fff;font-weight:800;text-align:center;padding:6px;font-size:13px;margin:-12px -13px 4px;font-family:Arial,sans-serif;}
+  .dscmp .m-rd .mnum{color:#E4002B;font-family:Arial,sans-serif;}
+  .dscmp .m-bz{background:linear-gradient(160deg,#F1E9FA,#fff 60%);border:1px solid #7B4FB0;}
+  .dscmp .m-bz .bzh{font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#5E3A8C;font-size:15px;font-weight:700;}
+  .dscmp .m-bz .mnum{color:#5E3A8C;font-family:Georgia,serif;font-style:italic;}
+  /* 有 DS（都一樣） */
+  .dscmp .m-sa{background:#fff;border:1px solid #D2D2D7;border-radius:10px;}
+  .dscmp .m-sa .sah{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EEE;padding-bottom:5px;}
+  .dscmp .m-sa .wm2{font-family:var(--sans);font-weight:700;font-size:11px;color:#1D1D1F;letter-spacing:.04em;}
+  .dscmp .m-sa .sc{font-size:9px;color:#86868B;font-family:var(--mono);}
+  .dscmp .m-sa .mnum{color:#1D1D1F;font-family:var(--sans);}
+  .dscmp .m-sa .mnum em{color:#2D7DD2;font-style:normal;}
+
+  /* ============ B3 · DS 5 元件 grid (58，沿用既有版型) ============ */
+  .ds5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:22px;flex:1;min-height:0;}
+  .ds5 .c{border:1px solid var(--hair);border-top:3px solid var(--accent);padding:30px 22px;display:flex;flex-direction:column;justify-content:center;gap:28px;}
+  .ds5 .c .vis{height:120px;display:flex;align-items:center;}
+  .ds5 .c .ct{display:flex;flex-direction:column;gap:9px;}
+  .ds5 .c .lbl{font-family:var(--mono);font-size:22px;color:var(--ink);letter-spacing:.02em;}
+  .ds5 .c .d{font-size:19px;color:var(--muted);line-height:1.4;}
+  .ds5 .logobox{width:76px;height:76px;background:#1D1D1F;color:#fff;font-family:var(--sans);font-weight:800;font-size:30px;display:flex;align-items:center;justify-content:center;border-radius:14px;}
+  .ds5 .sw3{display:flex;gap:10px;}
+  .ds5 .sw3 span{width:50px;height:50px;border-radius:9px;}
+  .ds5 .lines{display:flex;flex-direction:column;gap:10px;width:96px;}
+  .ds5 .lines i{height:10px;border-radius:5px;background:var(--hair);}
+
+  /* ============ B3 · HTML 報表 mock (60) ============ */
+  .htmlrep{border:1px solid #D2D2D7;border-radius:14px;background:#fff;padding:22px 26px;display:flex;flex-direction:column;gap:12px;min-height:0;}
+  .htmlrep .hh{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #D2D2D7;padding-bottom:10px;}
+  .htmlrep .wm{position:static;font-family:var(--sans);font-weight:700;font-size:22px;color:#1D1D1F;letter-spacing:.02em;}
+  .htmlrep .hd{font-family:var(--mono);font-size:15px;color:#86868B;}
+  .htmlrep .htt{font-family:var(--sans);font-weight:700;font-size:23px;color:#1D1D1F;}
+  .htmlrep .htab .hr{display:grid;grid-template-columns:1.5fr 0.7fr 0.7fr 0.7fr;border-bottom:1px solid #EEE;font-family:var(--sans);}
+  .htmlrep .htab .hr>div{padding:5px 8px;color:#424245;font-size:16px;}
+  .htmlrep .htab .hr.hh2>div{color:#86868B;font-size:14px;font-weight:700;}
+  .htmlrep .htab .rd{color:#D93025;font-weight:700;}
+  .htmlrep .htab .bl{color:#2D7DD2;font-weight:700;}
+  .htmlrep .hins{border-left:4px solid #2D7DD2;background:#F2F7FD;padding:13px 18px;font-family:var(--sans);font-size:17px;color:#1D1D1F;line-height:1.5;}
+  .htmlrep .hins b{color:#2D7DD2;}
+
+  /* ============ B3 · 抽人 picker (63) ============ */
+  .picker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;border:2px solid var(--ink);padding:44px 40px;}
+  .picker .pk-label{font-family:var(--mono);font-size:17px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;}
+  .picker .pk-name{font-family:var(--sans);font-weight:800;font-size:112px;line-height:1;color:var(--ink);letter-spacing:-.01em;min-height:1.1em;display:flex;align-items:center;}
+  .picker .pk-name.picked{color:var(--accent);}
+  .picker .pk-btn{font-family:var(--mono);font-size:22px;letter-spacing:.1em;background:var(--ink);color:#fff;border:0;border-radius:0;padding:16px 44px;cursor:pointer;transition:background .15s;}
+  .picker .pk-btn:hover{background:var(--accent);}
+  .pk-item{border-left:4px solid var(--accent);padding-left:20px;}
+  .pk-item .pk-n{font-family:var(--mono);font-size:18px;color:var(--accent-deep);font-weight:700;letter-spacing:.03em;}
+  .pk-item .pk-d{font-size:23px;color:var(--ink);line-height:1.4;margin-top:5px;}
+
+  /* ============ 骨架標記（產內容時整段移除） ============ */
+  .skel-note{font-family:var(--mono);font-size:16px;line-height:1.6;color:var(--muted);border:1px dashed var(--muted);padding:12px 18px;max-width:78ch;margin-top:28px;}
+  .ink .skel-note{color:#8a8a8a;border-color:#555;}
+
+  /* ========== Skill 段 / KM 挑補========== */
+
+  section.slide{box-sizing:border-box;display:flex;flex-direction:column;
+    padding:var(--pad-y) var(--pad-x) 88px;overflow:hidden;position:relative;
+    background:var(--bg);color:var(--body);}
+
+  .eyebrow{display:flex;align-items:center;gap:18px;font-family:var(--mono);font-size:var(--type-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+
+  .title{font-family:var(--sans);font-weight:900;color:var(--ink);font-size:var(--type-title);line-height:1.12;letter-spacing:-1px;}
+
+  .s-transition{justify-content:center;}
+
+  .punchbar{border-top:2px solid var(--ink);padding-top:22px;margin-top:auto;font-size:32px;line-height:1.45;color:var(--ink);font-weight:700;}
+
+  .punchbar .ac{color:var(--accent);}
+
+  .punchbar .src{display:block;font-size:22px;color:var(--muted);font-weight:400;margin-top:10px;letter-spacing:.02em;}
+
+  .slide.ink .punchbar{border-top-color:#444;color:#fff;}
+
+  .slide.ink .punchbar .ac{color:var(--accent-br);}
+
+  .vs2 .vp.on{border-color:var(--ink);background:var(--ink);}
+
+  .vs2 .vp.on .vmark{color:var(--accent-br);}
+
+  .vs2 .vp.on .vname{color:#fff;}
+
+  .vs2 .vp.on .vline{color:#E4E4E4;border-top-color:#333;}
+
+  .now2 .np.on{border-color:var(--ink);}
+
+  .now2 .np.on .nw{color:var(--accent);}
+
+  /* TIMER */
+  .timer-display{display:flex;flex-direction:column;align-items:center;gap:10px;}
+
+  .slide.ink .sk{border-color:#3A3A3A;}
+
+  .ho-timer{position:absolute;top:80px;right:var(--pad-x);margin:0;padding:0;background:transparent;display:flex;align-items:center;gap:10px;z-index:6;}
+
+  /* ============ F組 D2 SKILL 段移植元件（8/17）============ */
+  .s-timer{justify-content:flex-start;}
+
+  .dcard{background:var(--cream-3);border:1px solid var(--hair);border-radius:0;padding:30px 34px;display:flex;flex-direction:column;gap:14px;}
+
+  .dcard.t-ink{border-top:3px solid var(--ink);}
+
+  .dcard.t-wine{border-top:3px solid var(--primary);}
+
+  .dcard.t-terra{border-top:3px solid var(--accent);}
+
+  .dcard .ch{font-family:var(--sans);font-weight:900;font-size:30px;color:var(--ink);line-height:1.3;}
+
+  .dcard .clabel{font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:.06em;}
+
+  .dcard .cbody{font-size:24px;color:var(--body);line-height:1.55;}
+
+  .rulebox{background:var(--paper-deep);border-left:3px solid var(--accent);border-radius:4px;padding:22px 30px;font-size:25px;color:var(--body);line-height:1.7;}
+
+  .rulebox b{color:var(--ink);}
+
+  .busstop{display:flex;align-items:center;flex-wrap:nowrap;margin:14px 0 4px;font-family:var(--mono);font-size:22px;}
+
+  .busstop .stop{display:flex;align-items:center;gap:10px;color:var(--muted);white-space:nowrap;}
+
+  .busstop .stop .dot{box-sizing:border-box;flex:none;width:36px;height:36px;border-radius:50%;background:var(--cream-3);border:2.5px solid var(--faint);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;color:var(--faint);}
+
+  .busstop .seg{flex:none;width:44px;height:3px;background:var(--hair);margin:0 13px;}
+
+  .busstop .stop.done{color:var(--ink);}
+
+  .busstop .stop.done .dot{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+  .busstop .seg.done{background:var(--accent);}
+
+  .busstop .stop.active{color:var(--accent);font-weight:700;}
+
+  .busstop .stop.active .dot{width:44px;height:44px;font-size:23px;background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 5px rgba(194,91,63,.16);}
+
+  /* ========== vibe coding 心法 / Tracking Board========== */
+
+  /* 精簡 timer chip — content 頁右上角浮層，不佔版型 */
+  .timer-compact{position:absolute;top:calc(var(--pad-y) - 18px);right:var(--pad-x);display:flex;align-items:center;gap:12px;background:#FDFBF7;border:1px solid var(--hair);border-radius:14px;padding:8px 10px 8px 22px;box-shadow:0 12px 30px -16px rgba(36,27,24,.4);z-index:6;}
+
+  .timer-compact .td-time{font-family:var(--sans);font-weight:900;font-size:38px;line-height:1;letter-spacing:-1px;color:var(--ink);font-variant-numeric:tabular-nums;min-width:98px;text-align:center;}
+
+  .timer-compact .t-btn{font-size:20px;padding:7px 16px;}
+
+  /* =====================================================================
+     DS v2 元件層 — 覆蓋 D1 舊元件、對齊 website（system/ 元件展示頁）
+     shape 尺度：卡/盒 6–8px · alert 10px · 按鈕 pill · 框 1px hairline
+     色紀律：酒紅 --primary = 家具（大面積按鈕/權威）；功能 4 色 = 訊號（小面積）
+     ===================================================================== */
+  /* ---- 按鈕：pill + 酒紅 primary ---- */
+  .t-btn{border:1px solid var(--ink);border-radius:9999px;padding:14px 34px;font-weight:500;}
+
+  .dlbtn{border-radius:9999px;background:var(--primary);border:1px solid var(--primary);font-weight:600;}
+
+  /* ---- 通用 DS v2 卡（B1+ 用這個，不再 inline）---- */
+  .dcard{background:var(--cream-3);border:1px solid var(--hair);border-radius:0;padding:30px 34px;display:flex;flex-direction:column;gap:14px;}
+
+  .dcard.t-ink{border-top:3px solid var(--ink);}
+
+  .dcard.t-wine{border-top:3px solid var(--primary);}
+
+  .dcard.t-terra{border-top:3px solid var(--accent);}
+
+  .dcard .ch{font-family:var(--sans);font-weight:900;font-size:30px;color:var(--ink);line-height:1.3;}
+
+  .dcard .clabel{font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:.06em;}
+
+  .dcard .cbody{font-size:24px;color:var(--body);line-height:1.55;}
+
+  /* ---- DS v2 rulebox：terra 左框 emphasis（輕量、坐米紙）---- */
+  .rulebox{background:var(--paper-deep);border-left:3px solid var(--accent);border-radius:4px;padding:22px 30px;font-size:25px;color:var(--body);line-height:1.7;}
+
+  .rulebox b{color:var(--ink);}
+
+  /* 標題外、正文區塊（slide-body：預設頂對齊、.fill=散開）*/
+  .slide-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:18px;}
+
+  .slide-body.fill{justify-content:space-between;}
+
+  /* 三欄卡（HOOK / 比例原則）*/
+  .threecol{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;}
+
+  .threecol .card{background:var(--cream-3);border:1px solid var(--hair);border-top:3px solid var(--accent);border-radius:0;padding:28px 30px;display:flex;flex-direction:column;gap:12px;}
+
+  .threecol .card .num{font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.06em;}
+
+  .threecol .card .h{font-family:var(--serif);font-weight:600;font-size:32px;color:var(--ink);line-height:1.3;}
+
+  .threecol .card .b{font-size:24px;color:var(--body);line-height:1.5;}
+
+  /* prompt 方塊（動手頁 · data-copy 由 copy-prompt.js 掛複製鈕）*/
+  .promptbox{position:relative;background:var(--bridge);border:1px solid var(--primary-deep);border-radius:0;padding:20px 30px;font-family:var(--mono);font-size:21px;line-height:1.55;color:#F5F5F5;}
+
+  .promptbox .pb-line{background:var(--accent);color:#fff;padding:1px 8px;border-radius:5px;font-weight:600;}
+
+  .promptlabel{font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.02em;line-height:1.4;}
+
+  .promptlabel strong{color:var(--accent);}
+
+  /* timer 倒數警示（≤30s）*/
+  .timer-display.warn .td-time{color:var(--accent);}
+
+  /* ff-btn（分叉/時光線動畫的下一步/RESET 鈕）— 沿用既有尺度、v2 色 */
+  .ff-btn{font-family:var(--mono);font-size:21px;letter-spacing:.12em;padding:13px 30px;border-radius:9999px;background:var(--primary);color:#F7ECE6;border:1px solid var(--primary);cursor:pointer;transition:all .15s ease;}
+
+  .ff-btn:hover{background:var(--primary-deep);border-color:var(--primary-deep);color:#fff;}
+
+  .ff-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+  .ff-btn.reset{background:var(--cream-3);color:var(--ink);border-color:var(--hair);}
+
+  .ff-btn.reset:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+  /* ========== block-5 補件 ========== */
+  .timer-display.on-dark .td-time{ color:#E47A5C; }
+  .timer-display.on-dark ~ .timer-controls .t-btn{ border-color:rgba(255,255,255,0.4); color:rgba(255,255,255,0.8); }
+  .timer-display.on-dark ~ .timer-controls .t-btn:hover{ border-color:#E47A5C; color:#E47A5C; }
+  .timer-display.on-dark ~ .timer-controls .t-btn.primary{ background:var(--accent); border-color:var(--accent); color:var(--bg); }
+  .ink .s-transition .display{ color:var(--bg); }
+
+  /* ========== 逐頁 scoped 樣式（原檔為 body 內 <style>，已改綁新 label）========== */
+
+  /* --- scoped：對話分叉 esc×2 --- */
+
+      [data-label="B6.26 對話分叉 esc×2"] .pw{ display:grid; grid-template-columns:1fr 250px 1fr; gap:20px; align-items:stretch; max-width:1380px; margin:0 auto; width:100%; }
+      [data-label="B6.26 對話分叉 esc×2"] .world{ display:flex; flex-direction:column; gap:9px; padding:18px 22px; border-radius:14px; border:2px solid var(--hair); background:var(--cream-3); transition:opacity .4s ease, filter .4s ease, border-color .4s ease, background .4s ease, box-shadow .4s ease; }
+      [data-label="B6.26 對話分叉 esc×2"] .world.faded{ opacity:0.28; filter:grayscale(0.5); }
+      [data-label="B6.26 對話分叉 esc×2"] .world.a.lit{ border-color:var(--muted); }
+      [data-label="B6.26 對話分叉 esc×2"] .world.b.lit{ border-color:var(--accent); background:rgba(194,91,63,0.06); box-shadow:0 12px 30px -16px rgba(194,91,63,0.4); }
+      [data-label="B6.26 對話分叉 esc×2"] .world .wh{ font-family:var(--mono); font-size:16px; letter-spacing:0.06em; }
+      [data-label="B6.26 對話分叉 esc×2"] .world.a .wh{ color:var(--muted); }
+      [data-label="B6.26 對話分叉 esc×2"] .world.b .wh{ color:var(--accent); }
+      [data-label="B6.26 對話分叉 esc×2"] .bub{ padding:10px 16px; font-family:var(--serif); font-size:21px; line-height:1.38; }
+      [data-label="B6.26 對話分叉 esc×2"] .bub.you{ align-self:flex-end; max-width:96%; background:var(--cream-2); border-radius:14px 4px 14px 14px; color:var(--ink); }
+      [data-label="B6.26 對話分叉 esc×2"] .bub.cl{ align-self:flex-start; max-width:96%; background:var(--cream-3); border:1px solid var(--hair); border-radius:4px 14px 14px 14px; color:var(--ink); }
+      [data-label="B6.26 對話分叉 esc×2"] .bub .bl{ font-family:var(--mono); font-size:12px; color:var(--accent-deep); margin-bottom:3px; }
+      [data-label="B6.26 對話分叉 esc×2"] .bub.cl .bl{ color:var(--accent); }
+      [data-label="B6.26 對話分叉 esc×2"] .world.b .bub.you.first{ background:var(--accent); color:#FFF6F1; }
+      [data-label="B6.26 對話分叉 esc×2"] .world.b .bub.you.first .bl{ color:#F8D9CD; }
+      [data-label="B6.26 對話分叉 esc×2"] .wend{ font-family:var(--serif); font-size:20px; font-weight:600; line-height:1.35; margin-top:3px; }
+      [data-label="B6.26 對話分叉 esc×2"] .world.a .wend{ color:var(--muted); }
+      [data-label="B6.26 對話分叉 esc×2"] .world.b .wend{ color:var(--accent); }
+      [data-label="B6.26 對話分叉 esc×2"] .mid{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+      [data-label="B6.26 對話分叉 esc×2"] .escb{ background:var(--band); color:#fff; font-family:var(--mono); font-size:17px; padding:10px 16px; border-radius:0; text-align:center; line-height:1.4; }
+      [data-label="B6.26 對話分叉 esc×2"] .dd{ opacity:0; transform:translateY(8px); transition:opacity .4s ease, transform .4s ease; background:#1e1e1e; border:1px solid #4a4a4a; border-radius:9px; padding:10px; width:100%; box-shadow:0 16px 32px -12px rgba(0,0,0,0.55); }
+      [data-label="B6.26 對話分叉 esc×2"] .dd.show{ opacity:1; transform:translateY(0); }
+      [data-label="B6.26 對話分叉 esc×2"] .dd .ddt{ font-family:var(--mono); font-size:12px; color:#8a8a8a; padding:2px 8px 9px; letter-spacing:0.04em; }
+      [data-label="B6.26 對話分叉 esc×2"] .dd .ddi{ font-family:var(--serif); font-size:16px; color:#cfcfcf; padding:9px 11px; border-radius:0; line-height:1.3; display:flex; gap:8px; align-items:baseline; }
+      [data-label="B6.26 對話分叉 esc×2"] .dd .ddi.sel{ background:var(--accent); color:#fff; }
+      [data-label="B6.26 對話分叉 esc×2"] .dd .ddi.sel .num{ color:#F8D9CD; }
+      [data-label="B6.26 對話分叉 esc×2"] .dd .ddh{ font-family:var(--mono); font-size:11px; color:#777; padding:9px 8px 1px; text-align:center; }
+      [data-label="B6.26 對話分叉 esc×2"] .midarrow{ opacity:0; transition:opacity .4s ease; font-family:var(--mono); font-size:15px; color:var(--accent); text-align:center; line-height:1.5; }
+      [data-label="B6.26 對話分叉 esc×2"] .midarrow.show{ opacity:1; }
+    
+  /* --- scoped：檔案時光機 git --- */
+
+      [data-label="B6.28 檔案時光機 git"] .tl{ display:flex; align-items:flex-start; justify-content:center; padding:18px 0 8px; }
+      [data-label="B6.28 檔案時光機 git"] .tl-node{ display:flex; flex-direction:column; align-items:center; gap:9px; width:200px; }
+      [data-label="B6.28 檔案時光機 git"] .tl-dot{ width:30px; height:30px; border-radius:50%; background:var(--muted); border:3px solid var(--hair); transition:all .35s ease; }
+      [data-label="B6.28 檔案時光機 git"] .tl-node.working .tl-dot{ background:#e2c08d; border-color:#e2c08d; }
+      [data-label="B6.28 檔案時光機 git"] .tl-node.saved .tl-dot{ background:#73c991; border-color:#73c991; }
+      [data-label="B6.28 檔案時光機 git"] .tl-node.broke .tl-dot{ background:var(--accent); border-color:var(--accent); }
+      [data-label="B6.28 檔案時光機 git"] .tl-node.hide{ opacity:0; }
+      [data-label="B6.28 檔案時光機 git"] .tl-node.discard{ opacity:0.32; filter:grayscale(0.6); }
+      [data-label="B6.28 檔案時光機 git"] .tl-lab{ font-family:var(--mono); font-size:20px; color:var(--ink); transition:color .35s ease; text-align:center; line-height:1.3; }
+      [data-label="B6.28 檔案時光機 git"] .tl-sub{ font-family:var(--sans); font-size:17px; color:var(--muted); }
+      [data-label="B6.28 檔案時光機 git"] .tl-ph{ font-family:var(--mono); font-size:18px; color:var(--accent); opacity:0; transition:opacity .3s ease; height:24px; font-weight:600; }
+      [data-label="B6.28 檔案時光機 git"] .tl-node.active .tl-ph{ opacity:1; }
+      [data-label="B6.28 檔案時光機 git"] .tl-conn{ width:120px; height:4px; background:#9b8b7b; margin-top:14px; border-radius:2px; transition:opacity .35s ease, background .35s ease; }
+      [data-label="B6.28 檔案時光機 git"] .tl-conn.dashed{ background:repeating-linear-gradient(90deg,#9b8b7b 0 8px,transparent 8px 16px); }
+      [data-label="B6.28 檔案時光機 git"] .tl-conn.hide{ opacity:0; }
+      [data-label="B6.28 檔案時光機 git"] .tl-conn.discard{ opacity:0.3; }
+      [data-label="B6.28 檔案時光機 git"] .state{ display:inline-flex; align-items:center; gap:12px; padding:14px 28px; border-radius:0; font-family:var(--serif); font-size:26px; transition:all .35s ease; }
+      [data-label="B6.28 檔案時光機 git"] .state .si{ font-family:var(--mono); font-size:24px; }
+      [data-label="B6.28 檔案時光機 git"] .state.s-work{ background:rgba(226,192,141,0.22); color:#8a6d2e; }
+      [data-label="B6.28 檔案時光機 git"] .state.s-ok{ background:rgba(115,201,145,0.18); color:#2f6b43; }
+      [data-label="B6.28 檔案時光機 git"] .state.s-bad{ background:rgba(194,91,63,0.14); color:var(--accent-deep); }
+    
+</style>
+</head><body>
+<deck-stage width="1920" height="1080" no-rail style="--deck-rail-w:188px;">
+<section class="slide s-cover" data-label="P0.01 封面">
+    <div class="wm">FLUX<span class="dot">.</span> <span style="color:var(--muted);font-family:var(--mono);font-size:13px;">／ 一對一陪跑 · 第 1 堂</span></div>
+    <div class="eyebrow"><span class="num">2026 / 09 / 07</span><span class="rule"></span><span>線上一對一 · 第 1 堂</span></div>
+    <div style="flex:1"></div>
+    <div class="cover-title">先把你的工作環境<br><span class="accent">建起來</span>。</div>
+    <div style="height:40px"></div>
+    <div class="cover-rule"></div>
+    <div style="height:28px"></div>
+    <div class="subtitle" style="max-width:52ch;">裝好 FLUX　·　讓 Claude 記得你　·　走完一輪「方向 → 這季 → 這週 → 今天」。今天結束，你手上會有一個自己的工作區，而且它已經認得你。</div>
+    <div style="flex:1.4"></div>
+    <div class="meta">
+      <div class="lecturer">講師　余文皓</div>
+      <div>匯流顧問有限公司</div>
+      <div style="height:10px"></div>
+      <div>學員　蔡承恩（品客）　·　盛豐新流量商業社</div>
+    </div>
+    <div class="footer-mark">Claude Code 一對一實作 · 第 1 堂 · 2026/09/07</div>
+  <div class="slide-num">1 / 45</div>
+  </section>
+
+  <section class="slide" data-label="P0.02 先下載 FLUX">
+    <div class="eyebrow"><span class="dot"></span><span class="num">開始之前</span><span class="rule"></span><span>先把檔案抓下來</span></div>
+    <div class="title" style="margin-top:14px;">今天的工作區 ——<br><span class="accent">先下載，再解壓縮</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:44px;">
+      <a href="https://drive.google.com/file/d/1a34ZUIw7FFrhuX9HNjNuP6OTVCyX7oTX/view" target="_blank" rel="noopener" style="text-decoration:none;display:block;background:var(--ink);color:#fff;border-radius:6px;padding:38px 40px;">
+        <div style="font-family:var(--mono);font-size:22px;letter-spacing:.14em;color:var(--accent-br);">FOR MAC</div>
+        <div style="font-size:46px;font-weight:700;margin-top:14px;line-height:1.2;">下載 FLUX-standard</div>
+        <div style="font-family:var(--mono);font-size:22px;color:#9A9A9A;margin-top:16px;">v2.0　·　zip　·　364 KB</div>
+      </a>
+      <a href="https://drive.google.com/file/d/1hnzXIgcVyFS7HERY9D8TtxnS7wq4tk2X/view" target="_blank" rel="noopener" style="text-decoration:none;display:block;background:var(--cream-2);color:var(--ink);border-radius:6px;padding:38px 40px;border:2px solid var(--hair);">
+        <div style="font-family:var(--mono);font-size:22px;letter-spacing:.14em;color:var(--accent);">FOR WINDOWS</div>
+        <div style="font-size:46px;font-weight:700;margin-top:14px;line-height:1.2;">下載 FLUX-standard</div>
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);margin-top:16px;">v2.0　·　zip　·　365 KB</div>
+      </a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:42px;">
+      <div><div style="font-family:var(--mono);font-size:26px;color:var(--accent);">1</div><div style="font-size:28px;color:var(--ink);line-height:1.45;margin-top:8px;">解壓縮出來是一個叫<br><b>「FLUX Vault」</b>的資料夾</div><div style="font-family:var(--mono);font-size:22px;color:var(--muted);margin-top:8px;">名字不用改</div></div>
+      <div><div style="font-family:var(--mono);font-size:26px;color:var(--accent);">2</div><div style="font-size:28px;color:var(--ink);line-height:1.45;margin-top:8px;">整個<b>拖到家目錄</b></div><div style="font-family:var(--mono);font-size:22px;color:var(--muted);margin-top:8px;">~/FLUX Vault　（別放桌面或下載）</div></div>
+      <div><div style="font-family:var(--mono);font-size:26px;color:var(--accent);">3</div><div style="font-size:28px;color:var(--ink);line-height:1.45;margin-top:8px;">先<b>不要打開</b><br>任何檔案</div><div style="font-size:22px;color:var(--muted);margin-top:8px;">等一下用 VS Code 一起開</div></div>
+    </div>
+    <div style="border-left:3px solid var(--accent);background:var(--cream-2);padding:18px 26px;font-size:24px;color:var(--body);line-height:1.55;margin-top:34px;"><b style="color:var(--ink);">這個檔案是你的</b> —— 課後留著繼續用，第 2、3 堂都在同一個資料夾裡做。</div>
+    <div class="slide-num">2 / 45</div>
+    <div class="footer-mark">開始之前 · 下載 FLUX</div>
+  </section>
+
+  <section class="slide ink s-transition" data-label="B1.01 打開你的工作環境">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 1</span><span class="rule"></span><span>環境＋記得你</span></div>
+    <div style="flex:1"></div>
+    <div class="display">先把你的<br><span class="accent">工作環境</span>打開。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">環境＋記得你 · 35 MIN</div>
+    <div class="slide-num">3 / 45</div>
+  </section>
+
+    
+
+    
+  
+  
+  <section class="slide" data-label="B1.02 打開 vault">
+    <div class="eyebrow"><span class="dot"></span><span class="num">SETUP</span><span class="rule"></span><span>一次設定 · 之後不用做</span></div>
+    <div style="height:18px"></div>
+    <div class="title">先打開工作資料夾 —— <span class="accent">Claude 才讀得到你的檔</span>。</div>
+    <div class="steplist" style="grid-template-columns:1fr 1.42fr;">
+      <div class="sl-left" style="justify-content:flex-start;padding-top:6px;">
+        <div class="sl-step"><div class="sl-num">1</div><div><div class="sl-h">點左邊最上面的檔案總管</div><div class="sl-d">像兩張紙疊在一起的那個圖示。</div></div></div>
+        <div class="sl-step"><div class="sl-num">2</div><div><div class="sl-h">按「開啟資料夾」</div></div></div>
+        <div class="sl-step"><div class="sl-num">3</div><div><div class="sl-h">選你的 FLUX Vault</div><div class="sl-d">左側就出現工作資料夾的檔案樹</div></div></div>
+      </div>
+      <div class="shotwrap" style="align-self:start;aspect-ratio:1150/800;">
+        <img src="img/vscode-empty-0822.png" alt="VS Code 空白狀態 — 左邊檔案總管圖示、中間開啟資料夾按鈕">
+      </div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">先開工作資料夾</span><span class="mp-rest">Claude 只讀「你打開的那個資料夾」—— <span class="mp-hot">動手前一定要先開</span>。</span></div>
+    <div class="slide-num">4 / 45</div>
+    <div class="footer-mark">BLOCK 1 · OPEN YOUR VAULT</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B1.03 今天的工作台 · 一個視窗三個區域">
+    <div class="eyebrow"><span class="dot"></span><span class="num">YOUR WORKBENCH</span><span class="rule"></span><span>一個視窗 · 三個區域</span></div>
+    <div style="height:18px"></div>
+    <div class="title">今天的工作台 —— <span class="accent">VS Code</span> 一個就夠。</div>
+    <div class="vs-row" style="align-items:start;margin-top:24px;">
+      <div class="shotwrap" style="aspect-ratio:16/10;">
+        <img src="img/vscode-3zones-0822.png" alt="VS Code 開著工作資料夾 — 左側檔案樹、中間編輯器、右欄 Claude">
+      </div>
+      <div class="vs-legend" style="justify-content:flex-start;">
+        <div class="vs-card"><div class="vs-num">1</div><div><div class="vs-h">檔案總管</div><div class="vs-d">你的工作資料夾攤在左邊 —— 哪個檔在哪，一眼看得到。</div></div></div>
+        <div class="vs-card"><div class="vs-num">2</div><div><div class="vs-h">編輯器</div><div class="vs-d">中間這塊 —— Claude 改的、你自己改的，都在這裡看。</div></div></div>
+        <div class="vs-card hot"><div class="vs-num">3</div><div><div class="vs-h">對話入口</div><div class="vs-d">右邊那一欄 —— 你跟它講話的地方。</div></div></div>
+      </div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">今天所有的動手</span><span class="mp-rest">都在<span class="mp-hot">這一個視窗</span>裡 —— 檔案、編輯、跟它講話，不用切來切去。</span></div>
+    <div class="slide-num">5 / 45</div>
+    <div class="footer-mark">BLOCK 1 · WORKBENCH</div>
+  </section>
+
+    
+  
+  
+  <section class="slide" data-label="B1.04 30 秒版本檢查：CLAUDE.md 第 3 行">
+    <div class="eyebrow"><span class="dot"></span><span class="num">30 秒檢查</span><span class="rule"></span><span>你手上這份是不是最新的</span></div>
+    <div style="height:18px"></div>
+    <div class="title">動手之前 —— 打開 CLAUDE.md，<span class="accent">看第 3 行</span>。</div>
+    <div class="steplist" style="grid-template-columns:1fr 0.58fr 1.02fr;gap:36px;">
+      <div class="sl-left" style="justify-content:flex-start;padding-top:4px;">
+        <div class="sl-step"><div class="sl-num">1</div><div><div class="sl-h">左側點開 CLAUDE.md</div><div class="sl-d">它<b>不在任何資料夾裡面</b> —— 資料夾列完，往下捲就看得到。</div></div></div>
+        <div class="sl-step"><div class="sl-num">2</div><div><div class="sl-h">看第 3 行寫什麼</div><div class="sl-d">應該寫 <b>v2.0（build 2026-08-09.2）</b>。</div></div></div>
+        <div class="sl-step"><div class="sl-num">3</div><div><div class="sl-h">不一樣的話跟我說</div></div></div>
+      </div>
+      <div class="shotwrap" style="align-self:start;aspect-ratio:450/634;">
+        <img src="img/tree-claudemd-0822.png" alt="VS Code 檔案樹 — 資料夾列完之後就是 CLAUDE.md">
+        <div class="shot-box" style="left:6.5%;top:78.5%;width:56%;height:7.5%;"></div>
+        <div class="shot-call" style="left:64%;top:85.5%;">就在這</div>
+      </div>
+      <div class="cm-editor">
+        <div class="cm-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="t">CLAUDE.md — FLUX-standard</span></div>
+        <div class="cm-code">
+          <div><span class="dim">1</span>&nbsp;&nbsp;<span class="cmt"># FLUX Vault — AI 指令</span></div>
+          <div><span class="dim">2</span></div>
+          <div style="background:rgba(204,120,92,.25);margin:0 -32px;padding:0 32px;"><span class="dim">3</span>&nbsp;&nbsp;&gt; FLUX-standard <span class="ac">**v2.0**</span>（build <span class="ac">2026-08-09.2</span>）</div>
+          <div><span class="dim">4</span></div>
+          <div><span class="dim">5</span>&nbsp;&nbsp;<span class="dim">你是使用者的個人助手，協助管理 **FLUX** 系統。</span></div>
+          <div><span class="dim">6</span></div>
+          <div><span class="dim">7</span>&nbsp;&nbsp;<span class="dim">**FLUX = Focus, Learn, Upgrade, eXecute**</span></div>
+          <div><span class="dim">8</span>&nbsp;&nbsp;<span class="dim">⋯⋯</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">6 / 45</div>
+    <div class="footer-mark">BLOCK 1 · VERSION CHECK</div>
+  </section>
+
+      
+  
+  
+  <section class="slide" data-label="B1.05 除魅 · 右邊那一欄">
+    <div class="eyebrow"><span class="dot"></span><span class="num">對話入口</span><span class="rule"></span><span>別被它嚇到</span></div>
+    <div style="height:18px"></div>
+    <div class="title" style="font-size:54px;">右邊那一欄 —— 它就是一個<span class="accent">對話框</span>，跟 ChatGPT、Claude.ai 一樣。</div>
+    <div style="display:grid;grid-template-columns:0.75fr 0.62fr 1fr;gap:36px;align-items:start;flex:1;min-height:0;margin-top:24px;">
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.06em;">你平常用的</div>
+        <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:24px 26px;display:flex;flex-direction:column;gap:14px;">
+          <div style="font-family:var(--sans);font-weight:700;font-size:26px;color:var(--ink);">ChatGPT · Claude.ai</div>
+          <div style="background:var(--cream-2);border-radius:16px 4px 16px 16px;align-self:flex-end;max-width:94%;padding:15px 20px;font-size:25px;color:var(--ink);line-height:1.45;">幫我把這段話改得口語一點。</div>
+          <div style="background:var(--bg);border:1px solid var(--hair);border-radius:4px 16px 16px 16px;align-self:flex-start;max-width:94%;padding:15px 20px;font-size:25px;color:var(--body);line-height:1.45;">好 —— 我改好了，你看看這樣順不順。</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.06em;">VS Code 右邊那一欄</div>
+        <div class="shotwrap" style="aspect-ratio:1326/1794;">
+          <img src="img/claude-panel-0822.png" alt="VS Code 右側 Claude 面板 — 底部就是打字的地方">
+          <div class="shot-box" style="left:1.5%;top:89.3%;width:95%;height:5.6%;"></div>
+          <div class="shot-call" style="left:1.5%;top:88.8%;">打字打這裡</div>
+          <div class="shot-box" style="left:80.5%;top:95.2%;width:11%;height:3.2%;"></div>
+          <div class="shot-call" style="left:53%;top:88.8%;">先切到 Auto ↘</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:15px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.06em;">你今天只會做這兩件事</div>
+        <div class="vs-card"><div class="vs-num">1</div><div><div class="vs-h">用中文和 Claude 對話</div><div class="vs-d">跟你傳訊息給同事一樣 —— 想到什麼就打什麼。</div></div></div>
+        <div class="vs-card hot"><div class="vs-num">2</div><div><div class="vs-h">現在先切到 Auto</div><div class="vs-d">右下角那個 <b>Auto</b> —— 切過來，它做事就不會一路停下來問你。</div></div></div>
+        <div style="background:var(--cream-2);border-left:3px solid var(--accent);padding:18px 24px;font-size:26px;color:var(--body);line-height:1.5;">中間會刷出一堆看不懂的字、有時候還蹦出怪符號 —— <b style="color:var(--ink);">那是它在做事，不是你弄壞了</b>。不用擔心。</div>
+      </div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">打字的地方換了</span><span class="mp-rest">你要打的東西<span class="mp-hot">沒變</span> —— 一樣是講人話，一樣是它回你。</span></div>
+    <div class="slide-num">7 / 45</div>
+    <div class="footer-mark">BLOCK 1 · 對話入口</div>
+  </section>
+
+  
+  
+  
+  <section class="slide ink s-transition" data-label="B1.06 轉場 · 那為什麼不用網頁版">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 1</span><span class="rule"></span><span>為什麼是 Claude Code</span></div>
+    <div style="flex:1"></div>
+    <div class="display">既然和 ChatGPT、Claude.ai 一樣，<br>那今天<span class="accent">為什麼不用它們</span>？</div>
+    <div style="flex:1"></div>
+    <div class="kmono">先動手 · 做完你就知道差在哪</div>
+    <div class="slide-num">8 / 45</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B1.07 它住在你電腦">
+    <div class="eyebrow"><span class="dot"></span><span class="num">HANDS-ON · 它在你電腦裡</span><span class="rule"></span><span>叫它看你的機器</span></div>
+    <div style="height:16px"></div>
+    <div class="title">它住在<span class="accent">你的電腦裡面</span>。</div>
+    <div class="act-row">
+      <div class="act-left" style="justify-content:flex-start;">
+        <div class="act-lab">試試看 · 把這句丟給它</div>
+        <div class="copy-box" data-copy="我覺得電腦有點慢。幫我看看：我的記憶體總共多大、現在被哪些程式吃掉最多、哪些可以安全關掉？順便看硬碟還剩多少、什麼佔最大。">
+          <div><span class="v">&gt;</span> 我覺得電腦有點慢。幫我看看：<span class="v">記憶體總共多大、現在被哪些程式吃最多、哪些可以安全關掉？</span>順便看硬碟還剩多少、什麼佔最大。</div>
+        </div>
+      </div>
+      <div class="term">
+        <div><span class="p">&gt;</span> 我覺得電腦有點慢，幫我看看記憶體…</div>
+        <div class="dim">⏺ 看系統狀態（top · vm_stat · df · du）…</div>
+        <div style="height:8px"></div>
+        <div>⎿ 記憶體：共 <span class="ok">16 GB</span>、已用 13.8 GB（偏高）</div>
+        <div>⎿ 吃最多：Chrome（38 分頁）2.9 GB · Slack 1.1 GB · 預覽 0.8 GB</div>
+        <div>⎿ 可關：Chrome 舊分頁 + 沒在用的 Slack ≈ <span class="ok">放掉 3–4 GB</span></div>
+        <div>⎿ 硬碟：500 GB 剩 <span class="ok">42 GB</span> · Downloads/ 46 GB 最大宗</div>
+        <div style="height:8px"></div>
+        <div class="ok">⏺ 建議：關掉沒用的 Chrome 分頁 + 清 Downloads，會明顯順。</div>
+      </div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">它看到的是你這一台</span><span class="mp-rest">不是你貼上去的東西 —— 是你<span class="mp-hot">現在真實的狀態</span>。瀏覽器裡的 AI 看不到這些。</span></div>
+    <div class="slide-num">9 / 45</div>
+    <div class="footer-mark">BLOCK 1 · IT LIVES HERE</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B1.08 為什麼是 Claude Code（vs Claude.ai）">
+    <div class="eyebrow"><span class="dot"></span><span class="num">WHY CODE</span><span class="rule"></span><span>它在不在你工作的地方</span></div>
+    <div style="height:20px"></div>
+    <div class="title">換成 <span class="accent">ChatGPT、Claude.ai</span> —— 這三件事會變怎樣？</div>
+    <div class="wc-tab" style="grid-template-rows:auto 1fr 1fr 1fr;">
+      <div class="wc-h"></div>
+      <div class="wc-h">CHATGPT / CLAUDE.AI · 在瀏覽器</div>
+      <div class="wc-h on">CLAUDE CODE · 在你電腦上</div>
+
+      <div class="wc-q">它看得到什麼</div>
+      <div class="wc-c"><span class="m">✗</span>只看得到你貼上去、傳上去的東西</div>
+      <div class="wc-c on"><span class="m">✓</span>你這台機器、你整個資料夾</div>
+
+      <div class="wc-q">它能不能動手</div>
+      <div class="wc-c"><span class="m">✗</span>只能告訴你怎麼做 —— 動不了你的檔案</div>
+      <div class="wc-c on"><span class="m">✓</span>自己做 —— 剛剛它真的跑了指令</div>
+
+      <div class="wc-q">做完的東西放哪</div>
+      <div class="wc-c"><span class="m">✗</span>停在分頁裡 —— 要自己複製或下載回來</div>
+      <div class="wc-c on"><span class="m">✓</span>寫回你的資料夾，存檔就在那</div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">差別不是誰比較聰明</span><span class="mp-rest">是它<span class="mp-hot">在不在你工作的地方</span> —— 一個在分頁裡，一個在你的電腦裡。</span></div>
+    <div class="slide-num">10 / 45</div>
+    <div class="footer-mark">BLOCK 1 · WHY CODE</div>
+  </section>
+
+              
+  
+  
+  <section class="slide ink s-transition" data-label="B1.09 轉場 · 那你的東西放哪">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 1</span><span class="rule"></span><span>你的工作區</span></div>
+    <div style="flex:1"></div>
+    <div class="display">它在你的電腦裡 ——<br>那你的東西，<span class="accent">放哪</span>？</div>
+    <div style="flex:1"></div>
+    <div class="kmono">你的工作區 · FLUX</div>
+    <div class="slide-num">11 / 45</div>
+  </section>
+
+  
+  
+  <section class="slide" data-label="B1.10 FLUX 出場">
+    <div class="eyebrow"><span class="dot"></span><span class="num">你的工作區</span><span class="rule"></span><span>它叫 FLUX</span></div>
+    <div style="height:18px"></div>
+    <div class="title">都放這裡 —— 這個工作區，我叫它 <span class="accent">FLUX</span>。</div>
+    <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:52px;align-items:start;flex:1;min-height:0;margin-top:28px;">
+      <div class="vtree" style="justify-content:flex-start;">
+        <div class="root">~/FLUX Vault</div>
+        <div>FLUX Vault/</div>
+        <div class="dimm">├── Cockpit/</div>
+        <div class="dimm">├── Efforts/</div>
+        <div class="dimm">├── Atlas/</div>
+        <div class="dimm">├── Inbox/</div>
+        <div class="dimm">├── Calendar/</div>
+        <div class="dimm">├── Guides/</div>
+        <div class="dimm">├── Templates/</div>
+        <div class="star">└── CLAUDE.md&nbsp;&nbsp;<span class="st">★</span></div>
+      </div>
+      <div class="vtree-side" style="justify-content:flex-start;">
+        <div>
+          <div class="h">FLUX = Focus · Learn · Upgrade · e<span class="accent">X</span>ecute</div>
+          <div class="d">七個資料夾，加一份給 Claude 看的說明書。</div>
+        </div>
+        <div>
+          <div class="h">就在你電腦上</div>
+          <div class="d">沒有雲端、沒有帳號 —— 就是一個資料夾，你隨時搬得走。</div>
+        </div>
+        <div>
+          <div class="h">今天開始往裡面放東西</div>
+          <div class="d">你的規劃、查到的資料、做出來的成品 —— 一格一格放進來，它就會愈來愈理解你的工作。</div>
+        </div>
+        <div class="copy-box" data-copy="幫我看這個 vault 有沒有在記錄改動（git）。沒有的話建起來，存第一個檔，訊息寫「上課前的樣子」。" style="margin-top:4px;padding:16px 22px;font-size:19px;">
+          <div class="cb-lab" style="font-size:15px;">順手做一件事 · 讓它能存檔 —— 複製貼進 Claude</div>
+          <div style="line-height:1.5;"><span class="v">&gt;</span> 幫我看這個 vault <span class="v">有沒有在記錄改動（git）</span>。沒有的話建起來，<span class="v">存第一個檔</span>，訊息寫「上課前的樣子」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">現在不用記每一格</span><span class="mp-rest">用到哪一格，我再帶你進去 —— <span class="mp-hot">今天改壞什麼都回得去</span>。</span></div>
+    <div class="slide-num">12 / 45</div>
+    <div class="footer-mark">BLOCK 1 · THE VAULT</div>
+  </section>
+
+  
+  
+  
+  <section class="slide dim" data-label="P1.11 今天會碰到的三格">
+    <div class="eyebrow"><span class="dot"></span><span class="num">今天的範圍</span><span class="rule"></span><span>七格裡面只用三格</span></div>
+    <div class="title" style="margin-top:14px;">七個資料夾，<br>今天只會打開<span class="accent">三個</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:44px;">
+      <div style="background:var(--ink);color:#fff;border-radius:6px;padding:30px 32px;">
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent-br);">CLAUDE.md</div>
+        <div style="font-size:34px;font-weight:700;margin-top:12px;line-height:1.3;">讓它認得你</div>
+        <div style="font-size:25px;color:#BDBDBD;margin-top:14px;line-height:1.5;">你是誰、在做什麼生意、要它怎麼跟你講話。<b style="color:#fff;">每次開新對話它都先讀這份</b>。</div>
+      </div>
+      <div style="background:var(--ink);color:#fff;border-radius:6px;padding:30px 32px;">
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent-br);">Cockpit/</div>
+        <div style="font-size:34px;font-weight:700;margin-top:12px;line-height:1.3;">方向 · 這季 · 這週 · 今天</div>
+        <div style="font-size:25px;color:#BDBDBD;margin-top:14px;line-height:1.5;">今天七步大部分在這裡面跑。<span style="font-family:var(--mono);font-size:21px;">Goals/</span> 放目標，<span style="font-family:var(--mono);font-size:21px;">Daily/</span> 放每天的開工。</div>
+      </div>
+      <div style="background:var(--ink);color:#fff;border-radius:6px;padding:30px 32px;">
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent-br);">Efforts/</div>
+        <div style="font-size:34px;font-weight:700;margin-top:12px;line-height:1.3;">一個目標一個資料夾</div>
+        <div style="font-size:25px;color:#BDBDBD;margin-top:14px;line-height:1.5;">你手上在跑的事，各自有個家。<b style="color:#fff;">蝦皮那個工具就會住這裡</b>。</div>
+      </div>
+    </div>
+    <div style="margin-top:40px;display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;">
+      <div style="font-size:27px;color:var(--muted);flex:none;">今天不碰：</div>
+      <div style="font-family:var(--mono);font-size:25px;color:var(--faint);">Atlas/　Calendar/　Inbox/　Guides/　Templates/</div>
+    </div>
+    <div style="border-left:3px solid var(--accent);background:#fff;padding:18px 26px;font-size:24px;color:var(--body);line-height:1.55;margin-top:22px;">那五格<b style="color:var(--ink);">不是不重要，是還沒輪到</b> —— 第 2、3 堂會用到一部分，其他等你真的有東西要放進去，自然就會打開。<b style="color:var(--ink);">今天不用記。</b></div>
+    <div class="slide-num">13 / 45</div>
+    <div class="footer-mark">今天的範圍 · 三格</div>
+  </section>
+
+  <section class="slide ink s-transition" data-label="B2.01 轉場 · 它要知道你要去哪">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 2</span><span class="rule"></span><span>它要知道你要去哪</span></div>
+    <div style="flex:1"></div>
+    <div class="display">它幫得了你多少 ——<br>看它知不知道<span class="accent">你要去哪</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">先講清楚為什麼 · 再開始建</div>
+    <div class="slide-num">14 / 45</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.02 先講一本書 · 原子習慣">
+    <div class="eyebrow"><span class="dot"></span><span class="num">它要怎麼知道</span><span class="rule"></span><span>有一本書講過這件事</span></div>
+    <div style="height:14px"></div>
+    <div class="title">這本書你大概聽過 —— 搞不好<span class="accent">家裡就有一本</span>。</div>
+    <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;align-items:stretch;flex:1;margin-top:28px;">
+      <div style="border:2px solid var(--ink);padding:34px 38px;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.12em;">ATOMIC HABITS</div>
+        <div style="display:flex;align-items:flex-start;gap:26px;">
+          <img src="img/p50-atomic-habits.jpg" alt="原子習慣 · James Clear" style="width:150px;height:auto;border:1px solid var(--hair);box-shadow:0 3px 12px rgba(0,0,0,.18);flex-shrink:0;">
+          <div>
+            <div style="font-family:var(--sans);font-weight:900;font-size:44px;color:var(--ink);line-height:1.15;letter-spacing:-1px;">《原子習慣》</div>
+            <div style="font-size:25px;color:var(--body);line-height:1.5;margin-top:12px;">James Clear 寫的 —— 全球賣破千萬本，講「怎麼改變自己」的書裡最有名的一本。</div>
+          </div>
+        </div>
+        <div style="border-top:2px solid var(--ink);padding-top:18px;">
+          <div style="font-size:26px;color:var(--ink);line-height:1.5;">它的核心主張：改變<b>不是從結果開始</b> —— 是從<b>你是誰</b>開始。</div>
+          <div style="display:flex;align-items:stretch;gap:10px;margin-top:16px;">
+            <div style="flex:1;border:2px solid var(--accent);background:#FBF3EF;padding:12px 10px;text-align:center;"><div style="font-family:var(--sans);font-weight:900;font-size:26px;color:var(--accent);">你是誰</div><div style="font-size:22px;color:var(--body);margin-top:4px;">身分認同</div></div>
+            <div style="align-self:center;font-family:var(--mono);font-size:24px;color:var(--muted);">→</div>
+            <div style="flex:1;border:1px solid var(--hair);border-top:2px solid var(--ink);padding:12px 10px;text-align:center;"><div style="font-family:var(--sans);font-weight:900;font-size:26px;color:var(--ink);">你的系統</div><div style="font-size:22px;color:var(--body);margin-top:4px;">怎麼運作</div></div>
+            <div style="align-self:center;font-family:var(--mono);font-size:24px;color:var(--muted);">→</div>
+            <div style="flex:1;border:1px solid var(--hair);border-top:2px solid var(--ink);padding:12px 10px;text-align:center;"><div style="font-family:var(--sans);font-weight:900;font-size:26px;color:var(--ink);">你的習慣</div><div style="font-size:22px;color:var(--body);margin-top:4px;">每天做的</div></div>
+            <div style="align-self:center;font-family:var(--mono);font-size:24px;color:var(--muted);">→</div>
+            <div style="flex:1;border:1px dashed var(--hair);padding:12px 10px;text-align:center;"><div style="font-family:var(--sans);font-weight:700;font-size:26px;color:var(--muted);">結果</div><div style="font-size:22px;color:var(--muted);margin-top:4px;">自然來</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.1em;">而我們最不缺的 · 就是「知道」</div>
+        <div class="vrow" style="grid-template-columns:64px 1fr;"><div class="vn">01</div><div class="vd" style="font-size:26px;line-height:1.45;"><b style="color:var(--ink);">該規律運動</b> —— 知道。</div></div>
+        <div class="vrow" style="grid-template-columns:64px 1fr;"><div class="vn">02</div><div class="vd" style="font-size:26px;line-height:1.45;"><b style="color:var(--ink);">該建立好習慣</b> —— 知道。</div></div>
+        <div class="vrow" style="grid-template-columns:64px 1fr;border-bottom:0;"><div class="vn">03</div><div class="vd" style="font-size:26px;line-height:1.45;"><b style="color:var(--ink);">資料該好好整理</b> —— 知道。</div></div>
+        <div style="background:var(--cream-2);border-left:3px solid var(--accent);padding:17px 26px;font-size:25px;color:var(--body);line-height:1.5;">每年一月也都立過目標 —— <b style="color:var(--ink);">三月歸零</b>，然後結論永遠是「我不夠自律」。</div>
+      </div>
+    </div>
+    <div class="method-punch" style="margin-top:26px;"><span class="mp-hook">這條鏈你也懂</span><span class="mp-rest">但多數人走不到第二層 —— <span class="mp-hot">系統</span>那裡就斷了。先看我以前的一天，你就知道斷在哪。</span></div>
+    <div class="slide-num">15 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 先講一本書</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.03 現實的困境 · 額度被榨乾">
+    <div class="eyebrow"><span class="dot"></span><span class="num">現實的困境</span><span class="rule"></span><span>看一天就懂</span></div>
+    <div style="height:14px"></div>
+    <div class="title">現在的你，跟二十歲的你 —— <span class="accent">差別在哪</span>？</div>
+    <div style="font-size:26px;color:var(--body);line-height:1.5;margin-top:16px;">不是意志力變弱了。拿我自己當例子 —— 還在竹科帶專案的那幾年，一天長這樣。</div>
+    <div class="vlist" style="margin-top:20px;flex:1;">
+      <div class="vrow" style="grid-template-columns:150px 1fr;"><div class="vn">07:00</div><div class="vd" style="font-size:26px;">弄早餐、送小孩出門 —— 自己那份在車上吃</div></div>
+      <div class="vrow" style="grid-template-columns:150px 1fr;"><div class="vn">08:30</div><div class="vd" style="font-size:26px;">進園區 —— 昨晚客戶寄來的信排在最上面，先回它</div></div>
+      <div class="vrow" style="grid-template-columns:150px 1fr;"><div class="vn">10:00</div><div class="vd" style="font-size:26px;">專案會 —— 進度落後，回去整個要重排</div></div>
+      <div class="vrow" style="grid-template-columns:150px 1fr;"><div class="vn">12:00</div><div class="vd" style="font-size:26px;">便當在會議室吃 —— 下午給老闆的簡報還沒改完</div></div>
+      <div class="vrow" style="grid-template-columns:150px 1fr;"><div class="vn">14:00</div><div class="vd" style="font-size:26px;">三場會接著開 —— 每一場都有人等你給答案</div></div>
+      <div class="vrow" style="grid-template-columns:150px 1fr;"><div class="vn">18:00</div><div class="vd" style="font-size:26px;">老闆傳來 —— 明天早上要一版新的報告</div></div>
+      <div class="vrow" style="grid-template-columns:150px 1fr;"><div class="vn">21:00</div><div class="vd" style="font-size:26px;">到家 —— 小孩準備睡了，講不到十分鐘的話</div></div>
+      <div class="vrow" style="grid-template-columns:150px 1fr;border-bottom:0;"><div class="vn">22:30</div><div class="vd" style="font-size:26px;"><b style="color:var(--ink);">打開筆電 —— 把白天沒空做的做完</b></div></div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">這時叫他「撥半小時，為五年後的自己做點事」？</span><span class="mp-rest">不是他不想 —— 是精神跟力氣，<span class="mp-hot">下午三點就用光了</span>。</span></div>
+    <div class="slide-num">16 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 現實的困境</div>
+  </section>
+  
+  
+  
+  <section class="slide" data-label="B2.04 三句話 · 其實是同一句">
+    <div class="eyebrow"><span class="dot"></span><span class="num">說出來也沒關係</span><span class="rule"></span><span>訂目標這種事</span></div>
+    <div style="height:18px"></div>
+    <div class="title">而且不只是沒力氣 —— <span class="accent">你心裡還有幾句話</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:18px;flex:1;min-height:0;margin-top:30px;justify-content:center;">
+      <div style="background:var(--cream-2);border-radius:18px 4px 18px 18px;align-self:flex-end;max-width:78%;padding:20px 30px;font-size:31px;color:var(--ink);line-height:1.45;">我連下個月都說不準 —— 還談以後？</div>
+      <div style="background:var(--cream-2);border-radius:18px 4px 18px 18px;align-self:flex-end;max-width:78%;padding:20px 30px;font-size:31px;color:var(--ink);line-height:1.45;">以前寫的年度目標，沒一個做到。</div>
+      <div style="background:var(--cream-2);border-radius:18px 4px 18px 18px;align-self:flex-end;max-width:78%;padding:20px 30px;font-size:31px;color:var(--ink);line-height:1.45;">計畫永遠趕不上變化 —— 寫了也是白寫。</div>
+      <div style="background:var(--cream-2);border-radius:18px 4px 18px 18px;align-self:flex-end;max-width:78%;padding:20px 30px;font-size:31px;color:var(--ink);line-height:1.45;">我光把交辦的做完就飽了，哪還有「目標」。</div>
+      <div style="background:var(--cream-2);border-radius:18px 4px 18px 18px;align-self:flex-end;max-width:78%;padding:20px 30px;font-size:31px;color:var(--ink);line-height:1.45;">我又不是要創業 —— 我就想用 AI 把手上的事處理快一點。</div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">這幾句話，其實是同一句</span><span class="mp-rest"><span class="mp-hot">我維持不了</span>。</span></div>
+    <div class="slide-num">17 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 我知道你在想什麼</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.05 觀念 · 方向不是終點">
+    <div class="eyebrow"><span class="dot"></span><span class="num">先把觀念換掉</span><span class="rule"></span><span>方向 ≠ 終點</span></div>
+    <div style="height:18px"></div>
+    <div class="title">方向不是終點 —— 是拿來<span class="accent">校正</span>的。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:34px;align-items:start;flex:1;min-height:0;margin-top:34px;">
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:32px 32px;display:flex;flex-direction:column;gap:18px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);">01</div>
+        <div style="font-family:var(--sans);font-weight:900;font-size:38px;color:var(--ink);line-height:1.3;">像航海看北極星</div>
+        <div style="font-size:29px;color:var(--body);line-height:1.6;">靠它定方向 —— 但沒有人把北極星當目的地。你不會到達它，你是每天晚上拿它確認：有沒有走偏。</div>
+        <div style="border-top:1px solid var(--hair);padding-top:18px;margin-top:2px;font-size:27px;color:var(--body);line-height:1.6;"><b style="color:var(--ink);">例：</b>「案子是別人來找我，不是我去找。」</div>
+      </div>
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:32px 32px;display:flex;flex-direction:column;gap:18px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);">02</div>
+        <div style="font-family:var(--sans);font-weight:900;font-size:38px;color:var(--ink);line-height:1.3;">改的是路，不是星</div>
+        <div style="font-size:29px;color:var(--body);line-height:1.6;">每個禮拜坐下來調一次 —— 十二週，調十二次。<b style="color:var(--ink);">不是重寫方向，是換走法。</b></div>
+        <div style="border-top:1px solid var(--hair);padding-top:18px;margin-top:2px;font-size:27px;color:var(--body);line-height:1.6;"><b style="color:var(--ink);">例：</b>這一季本來要衝短影音 —— 第五週發現，看完影片的人不會來談案子。<br>那就<b style="color:var(--ink);">回去改</b>：先把部落格寫起來。</div>
+      </div>
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--accent);background:#FBF3EF;padding:32px 32px;display:flex;flex-direction:column;gap:18px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--accent);">03</div>
+        <div style="font-family:var(--sans);font-weight:900;font-size:38px;color:var(--ink);line-height:1.3;">做得快，不等於往前</div>
+        <div style="font-size:29px;color:var(--body);line-height:1.6;">Claude 會讓你做每件事都更快 —— 但<b style="color:var(--ink);">它不知道你要去哪</b>。</div>
+        <div style="border-top:1px solid var(--hair);padding-top:18px;margin-top:2px;font-size:27px;color:var(--body);line-height:1.6;"><b style="color:var(--ink);">例：</b>沒有那顆星，快只有兩種結果 ——<br><b style="color:var(--ink);">跑錯邊</b>：做完才發現不是你要的。<br><b style="color:var(--ink);">原地打轉</b>：明年還在做一樣的事。</div>
+      </div>
+    </div>
+    <div class="slide-num">18 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 換觀念</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.06 所以需要 AI · 系統不用你維持">
+    <div class="eyebrow"><span class="dot"></span><span class="num">所以呢</span><span class="rule"></span><span>為什麼今天要用 AI 建</span></div>
+    <div style="height:18px"></div>
+    <div class="title">系統不用你維持 —— <span class="accent">交給它</span>。</div>
+    <div style="font-size:26px;color:var(--body);line-height:1.55;margin-top:16px;">《原子習慣》：「你不會提升到目標的水準 —— 你會<b style="color:var(--ink);">下降到系統的水準</b>。」<br>那條鏈的<b style="color:var(--accent);">第二層</b>，今天交給它顧 —— 等一下那四十分鐘，建的就是它。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;flex:1;min-height:0;margin-top:28px;">
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.06em;">以前 · 系統要你自己撐</div>
+        <div style="border:1px solid var(--hair);border-top:3px solid var(--muted);padding:22px 24px;font-size:26px;color:var(--body);line-height:1.5;">每天早上自己想「今天做哪一件」</div>
+        <div style="border:1px solid var(--hair);border-top:3px solid var(--muted);padding:22px 24px;font-size:26px;color:var(--body);line-height:1.5;">每週自己坐下來檢討 —— 多數人第三週就停了</div>
+        <div style="border:1px solid var(--hair);border-top:3px solid var(--muted);padding:22px 24px;font-size:26px;color:var(--body);line-height:1.5;">最難的永遠是「開始」—— 光坐下來就要先說服自己</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.06em;">今天之後 · 交給它</div>
+        <div style="border:1px solid var(--hair);border-top:3px solid var(--accent);background:#FBF3EF;padding:22px 24px;font-size:26px;color:var(--ink);line-height:1.5;">叫它一聲 —— 它照你的目標排好今天</div>
+        <div style="border:1px solid var(--hair);border-top:3px solid var(--accent);background:#FBF3EF;padding:22px 24px;font-size:26px;color:var(--ink);line-height:1.5;">每週它自己開口問你 —— 哪裡卡、下禮拜怎麼調</div>
+        <div style="border:1px solid var(--hair);border-top:3px solid var(--accent);background:#FBF3EF;padding:22px 24px;font-size:26px;color:var(--ink);line-height:1.5;">坐下來打兩個字 —— <b>就開始了</b></div>
+      </div>
+    </div>
+    <div class="method-punch"><span class="mp-hook">你不用變成更自律的人</span><span class="mp-rest">你只要有一個<span class="mp-hot">不會累的助手</span> —— 它的力氣，不會在下午三點用光。</span></div>
+    <div class="slide-num">19 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 所以需要 AI</div>
+  </section>
+
+  
+  
+  <section class="slide ink s-transition" data-label="B2.07 轉場 · 先讓它知道你是誰">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 2</span><span class="rule"></span><span>讓它記得你</span></div>
+    <div style="flex:1"></div>
+    <div class="display">系統的第一件事 ——<br>先讓它知道<span class="accent">你是誰</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">CLAUDE.md · 讓 CLAUDE 記得你是誰</div>
+    <div class="slide-num">20 / 45</div>
+  </section>
+
+  
+  
+  <section class="slide" data-label="B2.08 Claude 沒記憶 — PROBLEM／SOLUTION">
+    <div class="eyebrow"><span class="dot"></span><span class="num">CLAUDE.md</span><span class="rule"></span><span>NO MEMORY · 它不記得你</span></div>
+    <div style="height:24px"></div>
+    <div class="title">Claude Code <span class="accent">沒有記憶</span>。</div>
+    <div style="height:22px"></div>
+    <div class="ps-wrap">
+      <div class="ps-col">
+        <div class="ps-head"><div class="ps-icon">?</div><div class="ps-htag">PROBLEM · 問題</div></div>
+        <div class="ps-list">
+          <div class="ps-item"><span class="n">01</span>每次打 claude ＝ 全新對話</div>
+          <div class="ps-item"><span class="n">02</span>教過的事 · 它不記得</div>
+          <div class="ps-item"><span class="n">03</span>昨天講過的規矩 · 今天要再講一次</div>
+        </div>
+        <div class="ps-foot">是它本來的設計、不是壞掉。</div>
+      </div>
+      <div class="ps-mid"><div class="t">靠什麼解決</div><div>↓</div></div>
+      <div class="ps-col sol">
+        <div class="ps-head"><div class="ps-icon">✓</div><div class="ps-htag">SOLUTION · 解法</div></div>
+        <div class="ps-mdname">CLAUDE.md</div>
+        <div class="ps-list">
+          <div class="ps-item"><span class="n">01</span>每次開機第一件事就讀它</div>
+          <div class="ps-item"><span class="n">02</span>寫一次 · 它每次都記得</div>
+          <div class="ps-item"><span class="n">03</span>你剛打開的資料夾裡 · 已經有一份</div>
+        </div>
+        <div class="ps-foot">Claude 的使用說明書。</div>
+      </div>
+    </div>
+    <div class="slide-num">21 / 45</div>
+    <div class="footer-mark">BLOCK 2 · NO MEMORY</div>
+  </section>
+
+  
+  
+  <section class="slide" data-label="B2.09 CLAUDE.md 裡面長這樣">
+    <div class="eyebrow"><span class="dot"></span><span class="num">CLAUDE.md</span><span class="rule"></span><span>裡面長這樣</span></div>
+    <div style="height:20px"></div>
+    <div class="title">打開 CLAUDE.md —— 就是<span class="accent">一份說明書</span>。</div>
+    <div style="height:24px"></div>
+    <div class="cm-wrap">
+      <div class="cm-editor">
+        <div class="cm-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="t">CLAUDE.md — FLUX-standard</span></div>
+        <div class="cm-code">
+          <div class="cmt"># FLUX Vault — AI 指令</div>
+          <div class="dim">&gt; FLUX-standard v2.0（build 2026-08-09.2）</div>
+          <div>&nbsp;</div>
+          <div class="sec">## 你是誰</div>
+          <div class="dim">&gt; 每次互動前讀這幾欄，了解你是誰。</div>
+          <div>- 稱呼：<span class="val">阿哲</span></div>
+          <div>- 角色：<span class="val">自由工作者</span></div>
+          <div>- 職業 / 領域：<span class="val">數位行銷</span></div>
+          <div>&nbsp;</div>
+          <div class="sec">## 基本行為</div>
+          <div><span class="ac">-</span> 用繁體中文回覆（台灣用語）</div>
+          <div><span class="ac">-</span> 建立新檔案時，先讀 Templates/ 模板</div>
+          <div><span class="ac">-</span> 檔名使用繁體中文</div>
+          <div>&nbsp;</div>
+          <div class="sec">## 溝通風格</div>
+          <div><span class="ac">1.</span> 先給結論，再給理由</div>
+          <div><span class="ac">2.</span> 最多給 2 個選項</div>
+        </div>
+      </div>
+      <div class="cm-side">
+        <div><div class="cm-k">你是誰</div><div class="cm-v">你 1:1 那天填的 —— 它每次開口前先讀這幾欄</div></div>
+        <div><div class="cm-k">基本行為</div><div class="cm-v">講繁中、建檔先讀範本 —— 這些它已經幫你寫好了</div></div>
+        <div><div class="cm-k">溝通風格</div><div class="cm-v">先給結論、最多給你 2 個選項 —— 它跟你講話的方式</div></div>
+        <div class="cm-seed">這份檔會<b>一直長大</b> —— 等一下我們就幫它加一欄。它認得你<b>在做什麼</b>了，但還不認得你<b>是哪種人</b>。</div>
+      </div>
+    </div>
+    <div class="slide-num">22 / 45</div>
+    <div class="footer-mark">BLOCK 2 · CLAUDE.md INSIDE</div>
+  </section>
+  
+  
+  <section class="slide" data-label="B2.10 HANDS-ON · 身分認同">
+    <div class="eyebrow"><span class="dot"></span><span class="num">HANDS-ON</span><span class="rule"></span><span>身分認同 · 你是哪種人</span></div>
+    <div style="height:16px"></div>
+    <div class="title">再給它一欄 —— <span class="accent">你是哪種人</span>。</div>
+    <div style="margin-top:12px;font-size:26px;color:var(--body);line-height:1.5;">《原子習慣》說：改變不是從結果開始 —— 是從<b style="color:var(--ink);">你是誰</b>開始。<b style="color:var(--ink);">你把自己當成哪種人，就會做哪種人會做的事。</b></div>
+    <div class="steplist" style="margin-top:18px;">
+      <div class="sl-left">
+        <div class="sl-step"><div class="sl-num">1</div><div><div class="sl-h">告訴它你是哪種人</div><div class="sl-d">用「<b>我是一個 ⋯⋯</b>」講 —— <b>不是「我想成為」</b>。<br>一個詞就行：<span style="color:var(--ink);">運動員 · 創業者 · 創作者 · 教練 · 老師</span><br><b>加句形容更準</b>：<span style="color:var(--ink);">有成長型心態的創業家 · 把複雜的事講簡單的老師<br>帶人比自己做更有成就感的主管 · 把家人排在工作前面的人</span></div></div></div>
+        <div class="sl-step"><div class="sl-num">2</div><div><div class="sl-h">Claude 會做兩件事</div><div class="sl-d">加一欄「身分認同」，再<b>寫一行規矩給它自己</b></div></div></div>
+        <div style="border-left:3px solid var(--accent);background:var(--cream-2);padding:16px 24px;margin-top:8px;font-size:23px;color:var(--body);line-height:1.55;">
+          <div><b style="color:var(--ink);">角色</b>＝你靠什麼吃飯　·　<b style="color:var(--ink);">身分認同</b>＝你把自己當成誰</div>
+          <div style="margin-top:6px;">換一份工作，角色就換了 —— <b style="color:var(--ink);">創作者不會</b>。</div>
+        </div>
+      </div>
+      <div class="term" style="align-self:center;">
+        <div class="dim"># 貼完之後，檔案變這樣</div>
+        <div style="height:14px"></div>
+        <div class="ok">⏺ Edit(CLAUDE.md) ✓</div>
+        <div style="height:14px"></div>
+        <div style="padding-left:16px;">## 你是誰</div>
+        <div style="padding-left:16px;">- 稱呼：阿哲</div>
+        <div style="padding-left:16px;">- 角色：自由工作者</div>
+        <div style="padding-left:16px;">- 職業 / 領域：數位行銷</div>
+        <div style="padding-left:16px;"><span class="p">- 身分認同：創作者</span></div>
+        <div style="padding-left:16px;"><span class="p">&gt; 給建議、排事情，都照「身分認同」。</span></div>
+        <div style="height:12px"></div>
+        <div class="ok">⏺ 好的、我認識你了 ✓</div>
+      </div>
+    </div>
+    <div class="copy-box" data-copy="我是一個{你的身分認同}。請在 CLAUDE.md 的「你是誰」加一欄「身分認同」填上它，再加一行規矩：之後給建議、排事情都要照它。順便看上面三欄填好了沒，沒填的問我。">
+      <div class="cb-lab">複製這段 · 填你自己的 · 貼進 Claude</div>
+      <div><span class="v">&gt;</span> 我是一個<span class="v">{你的身分認同}</span>。請在 CLAUDE.md 的「你是誰」加一欄「身分認同」填上它，<b>再加一行規矩：之後給建議、排事情都要照它</b>。順便看上面三欄填好了沒，沒填的問我。</div>
+    </div>
+    <div class="ho-take"><b>它現在照這個你來回答</b> —— 不是照你的職稱，是照你說你是哪種人。</div>
+    <div class="ho-timer"><div class="ht-time" data-dur="180">03:00</div>
+      <button class="t-btn primary" data-start>Start</button>
+      <button class="t-btn" data-reset>Reset</button></div>
+    <div class="slide-num">23 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 身分認同</div>
+    <script>
+    (function(){
+      var bar=document.currentScript.closest('.slide').querySelector('.ho-timer');
+      var disp=bar.querySelector('.ht-time');
+      var DUR=parseInt(disp.getAttribute('data-dur'),10)||180, remain=DUR, tick=null;
+      var startBtn=bar.querySelector('[data-start]'), resetBtn=bar.querySelector('[data-reset]');
+      function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+      function paint(){disp.textContent=fmt(remain);}
+      function stop(){if(tick){clearInterval(tick);tick=null;}startBtn.textContent='Start';}
+      function run(){stop();startBtn.textContent='Pause';tick=setInterval(function(){remain--;if(remain<=0){remain=0;stop();paint();return;}paint();},1000);}
+      startBtn.addEventListener('click',function(){tick?stop():run();});
+      resetBtn.addEventListener('click',function(){stop();remain=DUR;paint();});
+      paint();
+    })();
+    </script>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.11 上課之前寫過 · 現在再對一次">
+    <div class="eyebrow"><span class="dot"></span><span class="num">你的工作系統</span><span class="rule"></span><span>回來對一次</span></div>
+    <div style="height:18px"></div>
+    <div class="title">上課之前寫過 —— 現在<span class="accent">再對一次</span>。</div>
+    <div class="act-lab" style="margin-top:30px;">這四層不是寫一次交差 · 右邊＝多久回來看一次</div>
+    <div class="funnel" style="margin-top:16px;">
+      <div class="fr top" style="width:100%;padding:26px 30px;"><div class="fn">VISION</div><div class="fq">你想過什麼樣的日子？</div><div class="fc">一年一次</div></div>
+      <div class="fa">▼</div>
+      <div class="fr" style="width:88%;padding:26px 30px;"><div class="fn">12 週計畫</div><div class="fq">這一季要拿下哪一件？</div><div class="fc">一季一次</div></div>
+      <div class="fa">▼</div>
+      <div class="fr" style="width:76%;padding:26px 30px;"><div class="fn">本週承諾</div><div class="fq">這禮拜願意做哪幾件？</div><div class="fc">每週一次</div></div>
+      <div class="fa">▼</div>
+      <div class="fr" style="width:64%;padding:26px 30px;"><div class="fn">今天的規劃</div><div class="fq">今天先做哪一件？</div><div class="fc">每天一次</div></div>
+    </div>
+    <div class="hands-note" style="margin-top:26px;text-align:center;">上課前跑過的 —— 等一下是<b>回來重看、只改要改的</b>。還沒跑過的 —— Claude 會帶你<b>從頭走一次</b>。</div>
+    <div class="method-punch" style="margin-top:auto;"><span class="mp-hook">上面那一層決定下面那一層</span><span class="mp-rest">少了最上面那格，下面三格<span class="mp-hot">照樣排得滿</span> —— 只是你不知道排的是不是對的。</span></div>
+    <div class="slide-num">24 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 回來對一次</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.12 這四十分鐘 · 七步地圖">
+    <div class="eyebrow"><span class="dot"></span><span class="num">這四十分鐘</span><span class="rule"></span><span>你會走完的七步</span></div>
+    <div style="height:18px"></div>
+    <div class="title">七步 —— 走完，<span class="accent">從 VISION 到今天</span>全部對過一次。</div>
+    <div style="height:26px"></div>
+    <div class="stepgroup">
+      <div class="sg" style="grid-column:span 2;"><div class="sg-h">定方向</div><div class="sg-t">12 min</div></div>
+      <div class="sg" style="grid-column:span 3;"><div class="sg-h">搭好架子</div><div class="sg-t">15 min</div></div>
+      <div class="sg" style="grid-column:span 2;"><div class="sg-h">跑起來</div><div class="sg-t">8 min</div></div>
+    </div>
+    <div class="stepmap">
+      <div class="sm"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div><div class="sm-d">一句話：<b>你想過的日子</b></div><div class="sm-t">4 min</div></div>
+      <div class="sm"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div><div class="sm-d">挑一件：<b>這季最重要的</b></div><div class="sm-t">8 min</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div><div class="sm-d">分兩種：<b>會結束的、一直都在的</b></div><div class="sm-t">7 min</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div><div class="sm-d">挑一天：<b>每週幾回頭看</b></div><div class="sm-t">3 min</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div><div class="sm-d">這禮拜<b>真的會做</b>的幾件</div><div class="sm-t">5 min</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div><div class="sm-d">今天<b>先做哪一件</b></div><div class="sm-t">5 min</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div><div class="sm-d"><b>之後每天怎麼叫它</b></div><div class="sm-t">3 min</div></div>
+    </div>
+    <div style="height:40px"></div>
+    <div class="act-lab">走完之後 · 這五樣都會是最新的</div>
+    <div class="vault-grid" style="grid-template-columns:repeat(5,1fr);margin-top:16px;margin-bottom:0;">
+      <div class="vcard on"><div class="vname">VISION</div><div class="vb">十年的方向</div></div>
+      <div class="vcard on"><div class="vname">12 週計畫</div><div class="vb">這一季要拿下什麼</div></div>
+      <div class="vcard on"><div class="vname">本週承諾</div><div class="vb">這禮拜做哪幾件</div></div>
+      <div class="vcard on"><div class="vname">目標資料夾</div><div class="vb">你的東西放這裡</div></div>
+      <div class="vcard on"><div class="vname">今天的規劃</div><div class="vb">今天先做哪一件</div></div>
+    </div>
+    <div class="hands-note" style="margin-top:30px;text-align:center;">七步加起來 <b>35 分鐘</b> —— 中間我會停下來講幾個觀念，整段大約<b>四十分鐘</b>。<b>跑過的走得快，第一次跑的我會顧著。</b></div>
+    <div class="vault-foot" style="margin-top:auto;">每一步 Claude 都會自己開口問你，<b>螢幕上方會標現在走到哪一步</b>。<b>走完七步，明天早上打「開工」就接得上。</b></div>
+    <div class="slide-num">25 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 七步地圖</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.13 暖機 · 先讓它讀你的檔">
+    <div class="eyebrow"><span class="dot"></span><span class="num">動手開始</span><span class="rule"></span><span>先讓它讀你的檔</span></div>
+    <div style="height:16px"></div>
+    <div class="title">開始了 —— 先讓它<span class="accent">看一眼你手上有什麼</span>。</div>
+    <div class="copy-box" data-copy="先讀 Cockpit/Goals/ 的 VISION.md、12-WEEK-PLAN.md、Weekly-Commitment.md，告訴我哪幾份已經有我寫的內容、12 週週期跑到第幾週。接下來我會一段一段給你指令 —— 有寫過的地方帶我重看、只改要改的，不要用範本蓋掉。" style="margin-top:26px;">
+      <div class="cb-lab">複製這段 · 貼進 Claude · 直接貼進 Claude</div>
+      <div><span class="v">&gt;</span> 先讀 <span class="v">Cockpit/Goals/</span> 的 VISION.md、12-WEEK-PLAN.md、Weekly-Commitment.md，告訴我哪幾份已經有我寫的內容、12 週週期跑到第幾週。接下來我會一段一段給你指令 —— <b>有寫過的地方帶我重看、只改要改的，不要用範本蓋掉</b>。</div>
+    </div>
+    <div class="act-lab" style="margin-top:34px;">貼完你會看到</div>
+    <div class="term" style="margin-top:12px;">
+      <div class="dim">⏺ Read(VISION.md)</div>
+      <div class="dim">⏺ Read(12-WEEK-PLAN.md)</div>
+      <div class="dim">⏺ Read(Weekly-Commitment.md)</div>
+      <div style="height:14px"></div>
+      <div class="ok">⏺ 讀完了 —— 你現在的狀態：</div>
+      <div style="padding-left:16px;">⎿ VISION　　　　<span class="ok">有內容 ✓</span></div>
+      <div style="padding-left:16px;">⎿ 12 週計畫　　<span class="ok">有內容 ✓</span> <span class="p">第 6 週，還剩 6 週</span></div>
+      <div style="padding-left:16px;">⎿ 本週承諾　　<span class="dim">還是範本</span></div>
+      <div style="height:14px"></div>
+      <div class="dim">⏺ 那我們用重看的。等你下一段。</div>
+    </div>
+    <div class="slide-num">26 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 暖機</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.14 STEP 01 · 你要去哪">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 01</span><span class="rule"></span><span>你要去哪</span></div>
+    <div style="height:14px"></div>
+    <div class="title">十年後，你想過<span class="accent">什麼樣的日子</span>？</div>
+    <div style="height:18px"></div>
+    <div class="stepmap mini">
+      <div class="sm on"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div class="act-lab" style="margin-top:30px;">一句話 · 具體到可以拿來判斷</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;margin-top:14px;">
+      <div style="background:#F0F0F0;border-left:3px solid var(--muted);padding:20px 26px;font-size:27px;line-height:1.4;color:var(--ink);display:flex;align-items:center;">不靠上班也有穩定收入 —— 工作變成選擇。</div>
+      <div style="background:#F0F0F0;border-left:3px solid var(--muted);padding:20px 26px;font-size:27px;line-height:1.4;color:var(--ink);display:flex;align-items:center;">案子是別人來找我，不是我去找。</div>
+      <div style="background:#F0F0F0;border-left:3px solid var(--muted);padding:20px 26px;font-size:27px;line-height:1.4;color:var(--ink);display:flex;align-items:center;">六十歲還揹得動背包，走得動一整天。</div>
+      <div style="background:#F0F0F0;border-left:3px solid var(--muted);padding:20px 26px;font-size:27px;line-height:1.4;color:var(--ink);display:flex;align-items:center;">一年有兩個月不在台灣，工作照常運轉。</div>
+      <div style="background:#F0F0F0;border-left:3px solid var(--muted);padding:20px 26px;font-size:27px;line-height:1.4;color:var(--ink);display:flex;align-items:center;">重要的人生病、畢業、過生日 —— 我都在場。</div>
+      <div style="background:#F0F0F0;border-left:3px solid var(--muted);padding:20px 26px;font-size:27px;line-height:1.4;color:var(--ink);display:flex;align-items:center;">自己開一間小工作室，帶兩三個人，接自己挑的案子。</div>
+    </div>
+    <div style="margin-top:24px;border-top:2px solid var(--ink);padding-top:18px;font-size:25px;color:var(--ink);line-height:1.55;">不用寫得漂亮、也不用一次寫到位 —— <b style="color:var(--accent);">先有一句</b>，之後每年回來看一次。</div>
+    <div class="copy-box" data-copy="第一題：十年後我想過什麼樣的日子。先看 VISION.md 的 10 年願景 —— 已經寫過的，唸給我聽，讓我確認還要不要調整。空的或還是範例，就直接問我，我回答之後幫我寫進去。其他段先留白。" style="margin-top:24px;">
+      <div class="cb-lab">複製這段 · 貼進 Claude · 直接貼進 Claude</div>
+      <div><span class="v">&gt;</span> 第一題：十年後我想過什麼樣的日子。先看 <span class="v">VISION.md</span> 的 10 年願景 —— <b>已經寫過的，唸給我聽，讓我確認還要不要調整</b>。空的或還是範例，就直接問我，我回答之後幫我寫進去。其他段先留白。</div>
+    </div>
+    <div class="ho-take" style="margin-top:auto;"><b>這就是你的北極星</b> —— 不是拿來到達的，是拿來確認有沒有走偏。後面每一題，都會回來對它。</div>
+    <div class="ho-timer"><div class="ht-time" data-dur="240">04:00</div>
+      <button class="t-btn primary" data-start>Start</button>
+      <button class="t-btn" data-reset>Reset</button></div>
+        <div class="slide-num">27 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 01</div>
+  <script>
+    (function(){
+      var bar=document.currentScript.closest('.slide').querySelector('.ho-timer');
+      var disp=bar.querySelector('.ht-time');
+      var DUR=parseInt(disp.getAttribute('data-dur'),10)||180, remain=DUR, tick=null;
+      var startBtn=bar.querySelector('[data-start]'), resetBtn=bar.querySelector('[data-reset]');
+      function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+      function paint(){disp.textContent=fmt(remain);}
+      function stop(){if(tick){clearInterval(tick);tick=null;}startBtn.textContent='Start';}
+      function run(){stop();startBtn.textContent='Pause';tick=setInterval(function(){remain--;if(remain<=0){remain=0;stop();paint();return;}paint();},1000);}
+      startBtn.addEventListener('click',function(){tick?stop():run();});
+      resetBtn.addEventListener('click',function(){stop();remain=DUR;paint();});
+      paint();
+    })();
+    </script>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.15 為什麼是 12 週">
+    <div class="eyebrow"><span class="dot"></span><span class="num">為什麼是 12 週</span><span class="rule"></span><span>年太遠 · 月太短</span></div>
+    <div style="height:20px"></div>
+    <div class="title">為什麼不是一年 —— 也不是<span class="accent">一個月</span>？</div>
+    <div style="height:18px"></div>
+    <div class="stepmap mini">
+      <div class="sm done"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm on"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div style="height:36px"></div>
+    <div class="vault-grid" style="grid-template-columns:repeat(3,1fr);gap:26px;margin-top:0;margin-bottom:0;">
+      <div class="vcard" style="padding:32px 34px;gap:8px;">
+        <div class="vname">一年</div><div class="vh">太遠</div>
+        <div class="vb">前面九個月都覺得還早，最後三個月才開始慌。<br><span style="color:var(--muted);">「今年要把身體練好」—— 三月講、九月還是同一句。</span></div>
+      </div>
+      <div class="vcard" style="padding:32px 34px;gap:8px;">
+        <div class="vname">一個月</div><div class="vh">太短</div>
+        <div class="vb">還沒進入狀況就到期，做不完一件像樣的事。<br><span style="color:var(--muted);">一個月只夠開兩次會、收一輪資料。</span></div>
+      </div>
+      <div class="vcard on" style="padding:32px 34px;gap:8px;">
+        <div class="vname">12 週</div><div class="vh">剛剛好</div>
+        <div class="vb">夠長，做得完一件像樣的事；夠短，你還記得自己設了什麼。<br><span style="color:var(--accent);">而且每週回頭看一次，偏了馬上知道。</span></div>
+      </div>
+    </div>
+    <div style="height:34px"></div>
+    <div class="act-lab">這 12 週長這樣 · 每週結算一次</div>
+    <div class="wkstrip" style="margin-top:14px;">
+      <div class="wk">W1</div>
+      <div class="wk">W2</div>
+      <div class="wk">W3</div>
+      <div class="wk">W4</div>
+      <div class="wk">W5</div>
+      <div class="wk">W6</div>
+      <div class="wk">W7</div>
+      <div class="wk">W8</div>
+      <div class="wk">W9</div>
+      <div class="wk">W10</div>
+      <div class="wk">W11</div>
+      <div class="wk last">W12<span class="t">回顧</span></div>
+    </div>
+    <div class="slide-num">28 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 為什麼是 12 週</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.16 STEP 02 · 這季目標">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 02</span><span class="rule"></span><span>這季目標</span></div>
+    <div style="height:14px"></div>
+    <div class="title">做完哪一件事 —— 你會覺得<span class="accent">這一季沒白過</span>？</div>
+    <div style="height:18px"></div>
+    <div class="stepmap mini">
+      <div class="sm"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm on"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div class="act-lab" style="margin-top:30px;">這一題其實是三題 · 等一下一起答</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:14px;">
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:26px 30px;"><div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;">01</div><div style="font-family:var(--sans);font-weight:900;font-size:32px;color:var(--ink);margin-top:6px;line-height:1.2;">那一件事</div><div style="font-size:25px;color:var(--body);line-height:1.5;margin-top:12px;">這一季要拿下的<b style="color:var(--ink);">哪一塊</b> —— 從你的十年方向往回推。第一次寫先設一個；<b style="color:var(--ink);">已經有的，一個一個過</b>。</div></div>
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:26px 30px;"><div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;">02</div><div style="font-family:var(--sans);font-weight:900;font-size:32px;color:var(--ink);margin-top:6px;line-height:1.2;">你想要的結果</div><div style="font-size:25px;color:var(--body);line-height:1.5;margin-top:12px;">到<b style="color:var(--ink);">你的第 12 週那天</b>，要看到什麼，你才敢說完成了。</div></div>
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--accent);padding:26px 30px;background:#FBF3EF;"><div style="font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:.06em;">03</div><div style="font-family:var(--sans);font-weight:900;font-size:32px;color:var(--ink);margin-top:6px;line-height:1.2;">你控制得了的行動</div><div style="font-size:25px;color:var(--body);line-height:1.5;margin-top:12px;">為了那件事，你會做的那<b style="color:var(--ink);">兩三件</b> —— <b style="color:var(--ink);">做了就是做了</b>，不用等結果。</div></div>
+    </div>
+    <div class="act-lab" style="margin-top:30px;">一個填好的樣子 · 從十年那一句往回推</div>
+    <div style="display:flex;align-items:baseline;gap:16px;margin-top:12px;font-size:26px;color:var(--body);"><span style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;flex:none;">十年</span><span><b style="color:var(--ink);">案子是別人來找我，不是我去找。</b></span><span style="font-family:var(--mono);color:var(--accent);flex:none;">▼ 往回推</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:12px;">
+      <div style="border-left:3px solid var(--accent);background:#FBF3EF;padding:20px 26px;font-size:25px;line-height:1.5;color:var(--ink);">這一季把<b>個人品牌</b>做起來。</div>
+      <div style="border-left:3px solid var(--accent);background:#FBF3EF;padding:20px 26px;font-size:25px;line-height:1.5;color:var(--ink);">臉書追蹤者從 <b>1,000 → 3,000</b>。</div>
+      <div style="border-left:3px solid var(--accent);background:#FBF3EF;padding:20px 26px;font-size:25px;line-height:1.5;color:var(--ink);">每週 PO 文 <b>3 篇</b> · 讀理財經典書 <b>2 章</b>。</div>
+    </div>
+    <div class="ho-take" style="margin-top:32px;">② <b>你想要的結果</b> 和 ③ <b>你控制得了的行動</b> 最容易寫反 —— <b>接下來兩頁專門講這兩題。</b></div>
+    <div class="slide-num">29 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 02</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.17 LAG / LEAD · 哪一句追得動">
+    <div class="eyebrow"><span class="dot"></span><span class="num">LAG / LEAD</span><span class="rule"></span><span>一句話就分得出來</span></div>
+    <div style="height:14px"></div>
+    <div class="title">同樣要做個人品牌 —— 哪一句<span class="accent">追得動</span>？</div>
+    <div style="height:16px"></div>
+    <div class="stepmap mini">
+      <div class="sm"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm on"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:22px;">
+      <div class="act-lab">A · 你想要的結果</div>
+      <div class="act-lab" style="color:var(--accent);">B · 你控制得了的行動</div>
+      <div style="border:2px solid var(--ink);padding:20px 26px;"><div style="font-family:var(--sans);font-weight:900;font-size:32px;color:var(--ink);line-height:1.2;">臉書追蹤者破 3,000</div><div style="font-size:24px;color:var(--body);line-height:1.5;margin-top:9px;">今天發了什麼，明天看不出來 —— <b style="color:var(--ink);">你控制不了它什麼時候發生</b>。</div></div>
+      <div style="border:2px solid var(--accent);background:#FBF3EF;padding:20px 26px;"><div style="font-family:var(--sans);font-weight:900;font-size:32px;color:var(--ink);line-height:1.2;">每週 PO 文 3 篇</div><div style="font-size:24px;color:var(--body);line-height:1.5;margin-top:9px;">今天發了就是發了、沒發就是沒發 —— <b style="color:var(--accent);">100% 你說了算</b>。</div></div>
+      <div style="border-bottom:1px solid var(--hair);padding:12px 4px;font-size:25px;color:var(--body);line-height:1.4;">有人主動來談案子</div>
+      <div style="border-bottom:1px solid var(--hair);padding:12px 4px;font-size:25px;color:var(--ink);line-height:1.4;"><b>每週寫一篇案例</b></div>
+      <div style="border-bottom:1px solid var(--hair);padding:12px 4px;font-size:25px;color:var(--body);line-height:1.4;">電子報訂閱破 1,000</div>
+      <div style="border-bottom:1px solid var(--hair);padding:12px 4px;font-size:25px;color:var(--ink);line-height:1.4;"><b>每兩週發一封</b></div>
+    </div>
+    <div class="hands-note" style="margin-top:18px;">這兩欄有正式名字 —— 你想要的結果叫 <b>LAG</b>、你控制得了的行動叫 <b>LEAD</b>。LEAD 只有一個條件：<b>你 100% 控制得了</b> —— 做了就是做了。頻率不限，每週、每兩週、每次上完課都算。</div>
+    <div class="method-punch" style="margin-top:auto;"><span class="mp-hook">我做這個行動，它一定會發生嗎？</span><span class="mp-rest">會 —— 那是 <span class="mp-hot">LEAD</span>，這一季就追它。<br>不一定 —— 那是 LAG，寫下來當參考，<b>別拿它算成績</b>。</span></div>
+    <div class="slide-num">30 / 45</div>
+    <div class="footer-mark">BLOCK 2 · LAG / LEAD</div>
+  </section>
+
+  
+  
+  <section class="slide ink s-transition" data-label="B2.18 控制 Lead · 結果是副產品">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 2</span><span class="rule"></span><span>LAG / LEAD</span></div>
+    <div style="flex:1"></div>
+    <div class="display">你只能控制 <span class="accent">Lead</span> ——<br>Lag 是它的<span class="accent">副產品</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">這一季追 LEAD · LAG 放旁邊看</div>
+    <div class="slide-num">31 / 45</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.19 STEP 02 · 動手">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 02</span><span class="rule"></span><span>動手 · 換你談這一季</span></div>
+    <div style="height:14px"></div>
+    <div class="title">換你了 —— <span class="accent">這一季要拿下哪一件</span>？</div>
+    <div style="height:18px"></div>
+    <div class="stepmap mini">
+      <div class="sm"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm on"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div class="copy-box" data-copy="第二題：這一季要拿下哪一件事。先看 Cockpit/Goals/12-WEEK-PLAN.md —— 已經有目標的，一個一個唸給我聽，讓我確認還要不要調整；開頭寫著「這是範例」或還是空的，就直接問我。每個目標都問三件：這一件是什麼、我想要的結果是什麼、我控制得了的行動有哪兩三件。談完幫我更新回檔案，並標上每個目標對齊 VISION 的哪一句。" style="margin-top:26px;">
+      <div class="cb-lab">複製這段 · 貼進 Claude · 直接貼進 Claude</div>
+      <div><span class="v">&gt;</span> 第二題：這一季要拿下哪一件事。先看 <span class="v">Cockpit/Goals/12-WEEK-PLAN.md</span> —— <b>已經有目標的，一個一個唸給我聽，讓我確認還要不要調整</b>；開頭寫著「這是範例」或還是空的，就直接問我。每個目標都問三件：<span class="v">這一件是什麼 · 我想要的結果 · 我控制得了的行動</span>（兩三件）。<b>談完幫我更新回檔案，並標上每個目標對齊 VISION 的哪一句</b>。</div>
+    </div>
+    <div class="act-lab" style="margin-top:30px;">談完之後 · 12-WEEK-PLAN.md 會變這樣</div>
+    <div class="term" style="margin-top:12px;">
+      <div class="dim">⏺ Edit(Cockpit/Goals/12-WEEK-PLAN.md) ✓</div>
+      <div style="height:12px"></div>
+      <div style="padding-left:16px;"><span class="p">## 目標 1：這一季把個人品牌做起來</span></div>
+      <div class="dim" style="padding-left:16px;">&gt; 對齊 VISION：「案子是別人來找我，不是我去找。」</div>
+      <div style="height:8px"></div>
+      <div style="padding-left:16px;">Lag Indicator（你想要的結果）：</div>
+      <div style="padding-left:32px;">- 臉書追蹤者從 1,000 → 3,000</div>
+      <div style="height:8px"></div>
+      <div style="padding-left:16px;">Lead Indicators（你控制得了的行動）：</div>
+      <div style="padding-left:32px;">- 每週 PO 文 3 篇</div>
+      <div style="padding-left:32px;">- 每週讀理財經典書 2 章</div>
+    </div>
+    <div class="ho-timer"><div class="ht-time" data-dur="480">08:00</div>
+      <button class="t-btn primary" data-start>Start</button>
+      <button class="t-btn" data-reset>Reset</button>
+    </div>
+    <div class="slide-num">32 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 02 動手</div>
+    <script>
+    (function(){
+      var bar=document.currentScript.closest('.slide').querySelector('.ho-timer');
+      var disp=bar.querySelector('.ht-time');
+      var DUR=parseInt(disp.getAttribute('data-dur'),10)||180, remain=DUR, tick=null;
+      var startBtn=bar.querySelector('[data-start]'), resetBtn=bar.querySelector('[data-reset]');
+      function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+      function paint(){disp.textContent=fmt(remain);}
+      function stop(){if(tick){clearInterval(tick);tick=null;}startBtn.textContent='Start';}
+      function run(){stop();startBtn.textContent='Pause';tick=setInterval(function(){remain--;if(remain<=0){remain=0;stop();paint();return;}paint();},1000);}
+      startBtn.addEventListener('click',function(){tick?stop():run();});
+      resetBtn.addEventListener('click',function(){stop();remain=DUR;paint();});
+      paint();
+    })();
+    </script>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.20 STEP 03 · 建資料夾">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 03</span><span class="rule"></span><span>建資料夾</span></div>
+    <div style="height:14px"></div>
+    <div class="title">目標有了 —— 現在幫它<span class="accent">開一個資料夾</span>。</div>
+    <div style="height:16px"></div>
+    <div class="stepmap mini">
+      <div class="sm"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm on"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div style="margin-top:20px;font-size:28px;color:var(--ink);line-height:1.4;">它只問你一句 ——「<b style="color:var(--accent);">這件事有完成那一天嗎？</b>」</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:18px;">
+      <div class="act-lab">A · PROJECT　專案</div>
+      <div class="act-lab" style="color:var(--accent);">B · AREA　領域</div>
+      <div style="border:2px solid var(--ink);padding:18px 24px;"><div style="font-family:var(--sans);font-weight:900;font-size:30px;color:var(--ink);line-height:1.2;">有完成那一天</div><div style="font-family:var(--mono);font-size:21px;color:var(--accent);margin-top:8px;letter-spacing:.04em;">開始 → 做 → 交出去 → 封存</div><div style="font-size:23px;color:var(--body);line-height:1.5;margin-top:6px;">做完它就<b style="color:var(--ink);">不再占位子</b> —— 開工不會再掃到。</div></div>
+      <div style="border:2px solid var(--accent);background:#FBF3EF;padding:18px 24px;"><div style="font-family:var(--sans);font-weight:900;font-size:30px;color:var(--ink);line-height:1.2;">沒有完成那一天</div><div style="font-family:var(--mono);font-size:21px;color:var(--accent);margin-top:8px;letter-spacing:.04em;">一直在 · 只有做得好不好</div><div style="font-size:23px;color:var(--body);line-height:1.5;margin-top:6px;">只要你還在做這件事，它就<b style="color:var(--accent);">一直都在</b>。</div></div>
+      <div style="border-bottom:1px solid var(--hair);padding:10px 4px;font-size:25px;color:var(--body);line-height:1.4;">十月那場活動</div>
+      <div style="border-bottom:1px solid var(--hair);padding:10px 4px;font-size:25px;color:var(--ink);line-height:1.4;"><b>個人品牌</b></div>
+      <div style="border-bottom:1px solid var(--hair);padding:10px 4px;font-size:25px;color:var(--body);line-height:1.4;">年底要考的那張證照</div>
+      <div style="border-bottom:1px solid var(--hair);padding:10px 4px;font-size:25px;color:var(--ink);line-height:1.4;"><b>帶團隊 —— 每個人的狀況</b></div>
+    </div>
+    <div class="copy-box" data-copy="第三題：幫我的目標開資料夾。先看 Efforts/ 裡已經有的，有的就不要重建。這一季的目標先開；我手上還在跑的事我會講給你聽，你一件一件問我「這件事有完成那一天嗎」—— 有就開成 Project、沒有就開成 Area，照 vault 原本的結構放好。" style="margin-top:18px;">
+      <div class="cb-lab">複製這段 · 貼進 Claude · 直接貼進 Claude</div>
+      <div><span class="v">&gt;</span> 第三題：幫我的目標開資料夾。<b>先看 <span class="v">Efforts/</span> 裡已經有的，有的就不要重建</b>。這一季的目標先開；我手上還在跑的事我會講給你聽，你一件一件問我「這件事有完成那一天嗎」—— <span class="v">有就開成 Project、沒有就開成 Area</span>，照 vault 原本的結構放好。</div>
+    </div>
+    <div class="ho-take" style="margin-top:14px;"><b>建好就有地方放</b> —— 檔案、進度、紀錄全收進去。<b>例行的今天先不用管。</b></div>
+    <div class="ho-timer"><div class="ht-time" data-dur="420">07:00</div>
+      <button class="t-btn primary" data-start>Start</button>
+      <button class="t-btn" data-reset>Reset</button>
+    </div>
+    <div class="slide-num">33 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 03</div>
+    <script>
+    (function(){
+      var bar=document.currentScript.closest('.slide').querySelector('.ho-timer');
+      var disp=bar.querySelector('.ht-time');
+      var DUR=parseInt(disp.getAttribute('data-dur'),10)||180, remain=DUR, tick=null;
+      var startBtn=bar.querySelector('[data-start]'), resetBtn=bar.querySelector('[data-reset]');
+      function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+      function paint(){disp.textContent=fmt(remain);}
+      function stop(){if(tick){clearInterval(tick);tick=null;}startBtn.textContent='Start';}
+      function run(){stop();startBtn.textContent='Pause';tick=setInterval(function(){remain--;if(remain<=0){remain=0;stop();paint();return;}paint();},1000);}
+      startBtn.addEventListener('click',function(){tick?stop():run();});
+      resetBtn.addEventListener('click',function(){stop();remain=DUR;paint();});
+      paint();
+    })();
+    </script>
+  </section>
+  
+  
+  
+  <section class="slide" data-label="B2.21 STEP 04 · 訂結算日">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 04</span><span class="rule"></span><span>訂結算日</span></div>
+    <div style="height:14px"></div>
+    <div class="title">每個禮拜要有一天 —— <span class="accent">回頭看一次</span>。</div>
+    <div style="height:18px"></div>
+    <div class="stepmap mini">
+      <div class="sm done"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm done"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm done"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm on"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div class="act-lab" style="margin-top:26px;">結算日那天 · 15 分鐘</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:12px;">
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:22px 26px;"><div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;">①</div><div style="font-family:var(--sans);font-weight:900;font-size:29px;color:var(--ink);margin-top:6px;line-height:1.2;">看這禮拜哪些做到了</div><div style="font-size:24px;color:var(--body);line-height:1.5;margin-top:9px;">跟它一起，<b style="color:var(--ink);">一件一件對</b>。</div></div>
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:22px 26px;"><div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.06em;">②</div><div style="font-family:var(--sans);font-weight:900;font-size:29px;color:var(--ink);margin-top:6px;line-height:1.2;">沒做到的，一起找原因</div><div style="font-size:24px;color:var(--body);line-height:1.5;margin-top:9px;">是<b style="color:var(--ink);">沒時間</b>，還是<b style="color:var(--ink);">做了沒效果</b>。</div></div>
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--accent);padding:22px 26px;background:#FBF3EF;"><div style="font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:.06em;">③</div><div style="font-family:var(--sans);font-weight:900;font-size:29px;color:var(--ink);margin-top:6px;line-height:1.2;">它幫你排下禮拜</div><div style="font-size:24px;color:var(--body);line-height:1.5;margin-top:9px;">調過的量、換過的做法，<b style="color:var(--ink);">直接排進去</b>。</div></div>
+    </div>
+    <div style="margin-top:14px;font-size:23px;color:var(--muted);">做到七成就很好 —— 全做到，代表你排太少。</div>
+    <div class="copy-box" data-copy="第四題：訂結算日。先看 Cockpit/Goals/12-WEEK-PLAN.md 的週期資訊 —— 已經有週期在跑的，不要重設起訖、不要重算週期表，告訴我現在第幾週、還剩幾週，帶我看這幾週做到什麼。還沒有的，問我想每週哪一天結算，然後從今天起算 W1，把 W1 到 W12 的起訖和結算日全部算好寫進去。" style="margin-top:20px;">
+      <div class="cb-lab">複製這段 · 貼進 Claude · 直接貼進 Claude</div>
+      <div><span class="v">&gt;</span> 第四題：訂結算日。先看 <span class="v">Cockpit/Goals/12-WEEK-PLAN.md</span> 的週期資訊 —— <b>已經有週期在跑的，不要重設起訖、不要重算週期表</b>，告訴我現在第幾週、還剩幾週，帶我看這幾週做到什麼。還沒有的，問我想每週哪一天結算，然後<span class="v">從今天起算 W1，把 W1 到 W12 的起訖和結算日全部算好寫進去</span>。</div>
+    </div>
+    <div class="ho-take" style="margin-top:14px;"><b>沒有結算日，計畫就只是願望。</b></div>
+    <div class="ho-timer"><div class="ht-time" data-dur="180">03:00</div>
+      <button class="t-btn primary" data-start>Start</button>
+      <button class="t-btn" data-reset>Reset</button></div>
+    <div class="slide-num">34 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 04</div>
+    <script>
+    (function(){
+      var bar=document.currentScript.closest('.slide').querySelector('.ho-timer');
+      var disp=bar.querySelector('.ht-time');
+      var DUR=parseInt(disp.getAttribute('data-dur'),10)||180, remain=DUR, tick=null;
+      var startBtn=bar.querySelector('[data-start]'), resetBtn=bar.querySelector('[data-reset]');
+      function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+      function paint(){disp.textContent=fmt(remain);}
+      function stop(){if(tick){clearInterval(tick);tick=null;}startBtn.textContent='Start';}
+      function run(){stop();startBtn.textContent='Pause';tick=setInterval(function(){remain--;if(remain<=0){remain=0;stop();paint();return;}paint();},1000);}
+      startBtn.addEventListener('click',function(){tick?stop():run();});
+      resetBtn.addEventListener('click',function(){stop();remain=DUR;paint();});
+      paint();
+    })();
+    </script>
+  </section>
+
+  
+  
+  <section class="slide ink s-transition" data-label="B2.22 轉場 · 難的是那天坐下來">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 2</span><span class="rule"></span><span>結算日</span></div>
+    <div style="flex:1"></div>
+    <div class="display">訂好日子只是開始 ——<br>難的是那天<span class="accent">真的坐下來</span>。</div>
+    <div style="flex:1"></div>
+    <div class="kmono">那天它會幫你看出兩件事</div>
+    <div class="slide-num">35 / 45</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.23 結算日 · 跟它一起調下禮拜">
+    <div class="eyebrow"><span class="dot"></span><span class="num">每週一次</span><span class="rule"></span><span>逐週檢討 · 逐週調</span></div>
+    <div style="height:14px"></div>
+    <div class="title">每個禮拜跟它一起<span class="accent">調一次</span> —— 十二週，調十二次。</div>
+    <div style="height:16px"></div>
+    <div class="stepmap mini">
+      <div class="sm done"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm done"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm done"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm on"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div class="act-lab" style="margin-top:30px;">它最常幫你看出來的兩件事</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:14px;">
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:28px 32px;"><div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.08em;">A</div><div style="font-family:var(--sans);font-weight:900;font-size:34px;color:var(--ink);margin-top:6px;line-height:1.2;">做到了 —— 但沒往前</div><div style="font-size:25px;color:var(--ink);line-height:1.5;margin-top:16px;">每週 PO 文 3 篇，這禮拜<b>全發了</b> —— <b style="color:#2F7A55;">Lead 100%</b>，但追蹤者一個都沒多。</div><div style="font-size:24px;color:var(--muted);line-height:1.5;margin-top:8px;">發的都是自己的心得 —— 有發，但沒有人想轉。</div><div style="font-size:25px;color:var(--body);line-height:1.5;margin-top:14px;border-top:1px solid var(--hair);padding-top:14px;"><b style="color:var(--accent);">→ 改策略</b>：篇數一樣，換題目 —— 寫別人會想存下來的。</div></div>
+      <div style="border:1px solid var(--hair);border-top:3px solid var(--ink);padding:28px 32px;"><div style="font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.08em;">B</div><div style="font-family:var(--sans);font-weight:900;font-size:34px;color:var(--ink);margin-top:6px;line-height:1.2;">根本做不到</div><div style="font-size:25px;color:var(--ink);line-height:1.5;margin-top:16px;">想每週 PO 文 3 篇，這禮拜<b>只發了 1 篇</b> —— <b style="color:#C0392B;">Lead 33%</b>。</div><div style="font-size:24px;color:var(--muted);line-height:1.5;margin-top:8px;">訂太多了 —— 一個禮拜就是擠不出三篇。</div><div style="font-size:25px;color:var(--body);line-height:1.5;margin-top:14px;border-top:1px solid var(--hair);padding-top:14px;"><b style="color:var(--accent);">→ 調期望值</b>：三篇改成兩篇。<br><b style="color:var(--accent);">→ 挪時間</b>：砍掉其他的，騰出時間寫三篇。</div></div>
+    </div>
+    <div class="method-punch" style="margin-top:auto;"><span class="mp-hook">重點不是做到幾成</span><span class="mp-rest">是你有沒有<span class="mp-hot">回來調</span> —— 一週調一次，十二週調十二次。</span></div>
+    <div class="slide-num">36 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 結算日那天</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.24 STEP 05 · 這週做什麼">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 05</span><span class="rule"></span><span>這週做什麼</span></div>
+    <div style="height:14px"></div>
+    <div class="title">為了<span class="accent">這一季的目標</span> —— 這禮拜你願意做哪幾件？</div>
+    <div style="height:16px"></div>
+    <div class="stepmap mini">
+      <div class="sm"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm on"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div class="copy-box" data-copy="第五題：排這禮拜。先看 Cockpit/Goals/Weekly-Commitment.md —— 已經有本週清單的，唸給我聽，讓我確認這禮拜還做不做得到、要不要調；空的或還是範例，就從 12-WEEK-PLAN.md 拿出我控制得了的行動，跟我討論這禮拜排得下哪幾件、各排幾次。談完才寫 —— 更新回檔案，本週起訖和結算日期一起填好。" style="margin-top:20px;">
+      <div class="cb-lab">複製這段 · 貼進 Claude · 直接貼進 Claude</div>
+      <div><span class="v">&gt;</span> 第五題：排這禮拜。先看 <span class="v">Cockpit/Goals/Weekly-Commitment.md</span> —— <b>已經有本週清單的，唸給我聽，讓我確認這禮拜還做不做得到、要不要調</b>；空的或還是範例，就從 12-WEEK-PLAN.md 拿出我控制得了的行動，<b>跟我討論這禮拜排得下哪幾件、各排幾次</b>。<b>談完才寫</b> —— 更新回檔案，本週起訖和結算日期一起填好。</div>
+    </div>
+    <div class="act-lab" style="margin-top:22px;">談完之後 · Weekly-Commitment.md 會變這樣</div>
+    <div class="term" style="margin-top:10px;">
+      <div class="dim">## 本週</div>
+      <div style="padding-left:16px;">- Week：W1　　- 本週起訖：8/22 ~ 8/28　　- 結算日：8/28</div>
+      <div style="height:10px"></div>
+      <div class="dim">### Lead Indicators</div>
+      <div style="padding-left:16px;">對應目標 1（這一季把個人品牌做起來）：</div>
+      <div style="padding-left:32px;"><span class="p">- [ ] 每週 PO 文 3 篇</span></div>
+      <div style="padding-left:32px;"><span class="p">- [ ] 讀理財經典書 2 章</span></div>
+    </div>
+    <div class="ho-take" style="margin-top:16px;">這一組<b>每週都會回來</b> —— 結算日打勾的就是它。</div>
+    <div class="ho-timer"><div class="ht-time" data-dur="300">05:00</div>
+      <button class="t-btn primary" data-start>Start</button>
+      <button class="t-btn" data-reset>Reset</button>
+    </div>
+    <div class="slide-num">37 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 05</div>
+    <script>
+    (function(){
+      var bar=document.currentScript.closest('.slide').querySelector('.ho-timer');
+      var disp=bar.querySelector('.ht-time');
+      var DUR=parseInt(disp.getAttribute('data-dur'),10)||180, remain=DUR, tick=null;
+      var startBtn=bar.querySelector('[data-start]'), resetBtn=bar.querySelector('[data-reset]');
+      function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+      function paint(){disp.textContent=fmt(remain);}
+      function stop(){if(tick){clearInterval(tick);tick=null;}startBtn.textContent='Start';}
+      function run(){stop();startBtn.textContent='Pause';tick=setInterval(function(){remain--;if(remain<=0){remain=0;stop();paint();return;}paint();},1000);}
+      startBtn.addEventListener('click',function(){tick?stop():run();});
+      resetBtn.addEventListener('click',function(){stop();remain=DUR;paint();});
+      paint();
+    })();
+    </script>
+  </section>
+
+  
+  
+  <section class="slide" data-label="B2.25 STEP 06 · 今天開工">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 06</span><span class="rule"></span><span>今天開工</span></div>
+    <div style="height:14px"></div>
+    <div class="title">打「開工」兩個字 —— 它<span class="accent">幫你寫今天</span>。</div>
+    <div style="height:16px"></div>
+    <div class="stepmap mini">
+      <div class="sm"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm on"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div style="margin-top:22px;font-size:27px;color:var(--ink);line-height:1.45;">它讀你的本週清單、看你手上的案子，寫出<b>今天的規劃</b> —— <b>你不用打開任何檔案</b>。</div>
+    <div class="copy-box" data-copy="開工" style="margin-top:20px;">
+      <div class="cb-lab">就這兩個字 · 貼進 Claude</div>
+      <div><span class="v">&gt;</span> <span class="v">開工</span></div>
+    </div>
+    <div class="act-lab" style="margin-top:22px;">貼完你會看到</div>
+    <div class="term" style="margin-top:10px;">
+      <div class="dim">⏺ 早安。今天是 W1 第 1 天，還有 6 天到結算日。</div>
+      <div style="height:8px"></div>
+      <div>⎿ 這禮拜你要做的 3 件：</div>
+      <div style="padding-left:16px;">・每週 PO 文 3 篇</div>
+      <div style="padding-left:16px;">・讀理財經典書 2 章</div>
+      <div style="padding-left:16px;">・主動聯絡兩個潛在客戶</div>
+      <div style="height:8px"></div>
+      <div class="dim">⏺ 今天要先做哪一件？其他的我幫你排後面。</div>
+      <div style="height:8px"></div>
+      <div class="ok">⏺ 寫好了 ✓ Cockpit/Daily/2026-08-22.md</div>
+    </div>
+    <div class="ho-take" style="margin-top:16px;">「開工」這兩個字，<b>明天早上就用得到</b>。</div>
+    <div class="ho-timer"><div class="ht-time" data-dur="300">05:00</div>
+      <button class="t-btn primary" data-start>Start</button>
+      <button class="t-btn" data-reset>Reset</button>
+    </div>
+    <div class="slide-num">38 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 06</div>
+    <script>
+    (function(){
+      var bar=document.currentScript.closest('.slide').querySelector('.ho-timer');
+      var disp=bar.querySelector('.ht-time');
+      var DUR=parseInt(disp.getAttribute('data-dur'),10)||180, remain=DUR, tick=null;
+      var startBtn=bar.querySelector('[data-start]'), resetBtn=bar.querySelector('[data-reset]');
+      function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+      function paint(){disp.textContent=fmt(remain);}
+      function stop(){if(tick){clearInterval(tick);tick=null;}startBtn.textContent='Start';}
+      function run(){stop();startBtn.textContent='Pause';tick=setInterval(function(){remain--;if(remain<=0){remain=0;stop();paint();return;}paint();},1000);}
+      startBtn.addEventListener('click',function(){tick?stop():run();});
+      resetBtn.addEventListener('click',function(){stop();remain=DUR;paint();});
+      paint();
+    })();
+    </script>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.26 STEP 07 · 你的系統上路了">
+    <div class="eyebrow"><span class="dot"></span><span class="num">STEP 07</span><span class="rule"></span><span>收尾</span></div>
+    <div style="height:14px"></div>
+    <div class="title">四層對完了 —— <span class="accent">從十年到今天，接成一條</span>。</div>
+    <div style="height:18px"></div>
+    <div class="stepmap mini">
+      <div class="sm done"><div class="sm-n">STEP 01</div><div class="sm-h">你要去哪</div></div>
+      <div class="sm done"><div class="sm-n">STEP 02</div><div class="sm-h">這季目標</div></div>
+      <div class="sm done"><div class="sm-n">STEP 03</div><div class="sm-h">建資料夾</div></div>
+      <div class="sm done"><div class="sm-n">STEP 04</div><div class="sm-h">訂結算日</div></div>
+      <div class="sm done"><div class="sm-n">STEP 05</div><div class="sm-h">這週做什麼</div></div>
+      <div class="sm done"><div class="sm-n">STEP 06</div><div class="sm-h">今天開工</div></div>
+      <div class="sm on"><div class="sm-n">STEP 07</div><div class="sm-h">收尾</div></div>
+    </div>
+    <div class="act-lab" style="margin-top:18px;">一層推一層 · 拿個人品牌那個例子看一次</div>
+    <div class="funnel" style="margin-top:10px;">
+      <div class="fr top" style="width:100%;"><div class="fn">VISION</div><div class="fq">你想過什麼樣的日子？</div><div class="fc">✓ 案子是別人來找我</div></div>
+      <div class="fa">▼</div>
+      <div class="fr" style="width:88%;"><div class="fn">12 週計畫</div><div class="fq">這一季要拿下哪一件？</div><div class="fc">✓ 把個人品牌做起來</div></div>
+      <div class="fa">▼</div>
+      <div class="fr" style="width:76%;"><div class="fn">本週承諾</div><div class="fq">這禮拜願意做哪幾件？</div><div class="fc">✓ PO 文 3 篇 · 讀書 2 章</div></div>
+      <div class="fa">▼</div>
+      <div class="fr" style="width:64%;"><div class="fn">今天的規劃</div><div class="fq">今天先做哪一件？</div><div class="fc">✓ 今天先寫第一篇</div></div>
+    </div>
+    <div class="hands-note" style="margin-top:14px;text-align:center;">＋ <b>目標資料夾</b> —— 這件事的檔案、進度、紀錄，全部收在那裡。</div>
+    <div style="height:20px"></div>
+    <div class="act-lab">今天跑的是骨架 · 還沒補的回家補完</div>
+    <div class="hands-note" style="margin-top:12px;">① <b>VISION 完整版</b>（Anti-Vision、3 年、核心價值觀）　② <b>第 2、3 個 12 週目標</b>　③ <b>其他案子的資料夾</b></div>
+    <div class="method-punch" style="margin-top:auto;"><span class="mp-hook">明天早上打「開工」</span><span class="mp-rest">系統會自己接上 —— 七步到這裡<span class="mp-hot">全部走完</span>。</span></div>
+    <div class="slide-num">39 / 45</div>
+    <div class="footer-mark">BLOCK 2 · STEP 07</div>
+  </section>
+
+  
+  
+  
+  <section class="slide ink s-transition" data-label="B2.27 BRIDGE · 一年後它會給你什麼">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 2</span><span class="rule"></span><span>休息之前</span></div>
+    <div style="flex:1"></div>
+    <div class="display">四十分鐘建了一套系統 ——<br>一年後，它<span class="accent">會給你什麼</span>？</div>
+    <div style="flex:1"></div>
+    <div class="kmono">先講一個觀念 · 再說我自己的事</div>
+    <div class="slide-num">40 / 45</div>
+  </section>
+
+      
+  
+  
+  <section class="slide" data-label="B2.28 一年後的差別 · 兩種忙">
+    <div class="eyebrow"><span class="dot"></span><span class="num">一年後的差別</span><span class="rule"></span><span>資產配置</span></div>
+    <div style="height:14px"></div>
+    <div class="title">同樣忙一年 —— 為什麼<span class="accent">有人往前、有人原地</span>？</div>
+    <div style="font-size:26px;color:var(--body);line-height:1.5;margin-top:16px;">差別不在你多忙 —— 在你的忙<b style="color:var(--ink);">有沒有留下東西</b>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:22px;flex:1;">
+      <div style="border:1px solid var(--hair);border-top:5px solid var(--ink);padding:26px 30px;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-family:var(--mono);font-size:21px;color:var(--muted);letter-spacing:.1em;">做完就歸零的</div>
+        <div style="font-size:26px;color:var(--body);line-height:1.7;">回不完的信、臨時的交辦<br>開完就散的會<br>上個月查過的資料，這個月再查一次</div>
+        <div style="margin-top:auto;border-top:1px solid var(--hair);padding-top:12px;font-size:24px;color:var(--muted);line-height:1.5;">明年這個時候 —— <b>還在做一樣的事</b>。</div>
+      </div>
+      <div style="border:1px solid var(--hair);border-top:5px solid var(--accent);padding:26px 30px;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-family:var(--mono);font-size:21px;color:var(--accent);letter-spacing:.1em;">會累積下來的</div>
+        <div style="font-size:26px;color:var(--body);line-height:1.7;">查過的東西存下來，下次不用重查<br>每週結算一次，這週的教訓下週用上<br>目標寫清楚，每天做的事往同一邊疊</div>
+        <div style="margin-top:auto;border-top:1px solid rgba(193,95,60,.35);padding-top:12px;font-size:24px;color:var(--ink);line-height:1.5;">明年這個時候 —— <b>站在今年的上面</b>。</div>
+      </div>
+    </div>
+    <div style="background:var(--cream-2);border-left:3px solid var(--accent);padding:20px 28px;margin-top:22px;font-size:27px;color:var(--ink);line-height:1.55;">「資產配置」的意思：每天的時間是本金 —— <b>固定撥一點，投在會累積的那一邊</b>。你們今天建的系統，就是那一邊。</div>
+    <div class="method-punch"><span class="mp-hook">一年後的差別，不在誰比較忙</span><span class="mp-rest">在誰的忙 —— <span class="mp-hot">有累積下來</span>。</span></div>
+    <div class="slide-num">41 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 資產配置</div>
+  </section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.29 我的二十年 · 票投給了誰">
+    <div class="eyebrow"><span class="dot"></span><span class="num">我自己的例子</span><span class="rule"></span><span>說一段實話</span></div>
+    <div style="height:14px"></div>
+    <div class="title">我把二十年的票 —— <span class="accent">投給了誰</span>？</div>
+    <div style="margin-top:14px;font-size:26px;color:var(--body);line-height:1.5;">《原子習慣》說：<b style="color:var(--ink);">每個行動，都是投給「你想成為哪種人」的一票</b>。我二十年的票，<b style="color:var(--ink);">都投在做完就歸零的那一邊</b>。</div>
+    <div style="display:flex;flex-direction:column;gap:14px;flex:1;margin-top:28px;">
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;border-bottom:1px solid var(--hair);padding-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:21px;color:var(--muted);letter-spacing:.1em;">我每天做的</div>
+        <div></div>
+        <div style="font-family:var(--mono);font-size:21px;color:var(--accent);letter-spacing:.1em;">投出去的票</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;flex:1;">
+        <div style="font-size:27px;color:var(--body);line-height:1.45;">每天加班到十點</div>
+        <div style="font-family:var(--mono);font-size:30px;color:var(--accent);text-align:center;">→</div>
+        <div style="font-size:27px;color:var(--ink);line-height:1.45;">投給「<b>負責任的主管</b>」</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;flex:1;border-top:1px solid var(--hair);padding-top:14px;">
+        <div style="font-size:27px;color:var(--body);line-height:1.45;">行事曆填到全滿</div>
+        <div style="font-family:var(--mono);font-size:30px;color:var(--accent);text-align:center;">→</div>
+        <div style="font-size:27px;color:var(--ink);line-height:1.45;">投給「<b>不可或缺的人</b>」</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;flex:1;border-top:1px solid var(--hair);padding-top:14px;">
+        <div style="font-size:27px;color:var(--body);line-height:1.45;">假日照回訊息</div>
+        <div style="font-family:var(--mono);font-size:30px;color:var(--accent);text-align:center;">→</div>
+        <div style="font-size:27px;color:var(--ink);line-height:1.45;">投給「<b>隨時找得到的人</b>」</div>
+      </div>
+    </div>
+    <div class="hands-note" style="margin-top:16px;">二十年，幾萬張票 —— 很勤奮、很自律，把自己雕刻成一個<b>角色</b>。</div>
+    <div class="method-punch" style="margin-top:18px;"><span class="mp-hook">但那個角色，掛在別人的組織圖上</span><span class="mp-rest">組織一調整，隨時可以被擦掉。更重要的是 —— 那個角色過的生活，<span class="mp-hot">不是我想要的</span>。</span></div>
+    <div class="slide-num">42 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 我自己的例子</div>
+  </section>
+
+  
+  
+  <section class="slide" data-label="B2.30 重新投票 · 我現在投給誰">
+    <div class="eyebrow"><span class="dot"></span><span class="num">重新投票</span><span class="rule"></span><span>我現在做的</span></div>
+    <div style="height:14px"></div>
+    <div class="title">那我現在 —— <span class="accent">把票投給誰</span>？</div>
+    <div style="margin-top:14px;font-size:26px;color:var(--body);line-height:1.5;">同樣是勤奮、同樣每天在做事 —— 換的是<b style="color:var(--ink);">投給哪一種人</b>。</div>
+    <div style="display:flex;flex-direction:column;gap:14px;flex:1;margin-top:24px;">
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;border-bottom:1px solid var(--hair);padding-bottom:14px;"><div style="font-family:var(--mono);font-size:21px;color:var(--muted);letter-spacing:.1em;">我現在做的</div><div></div><div style="font-family:var(--mono);font-size:21px;color:var(--accent);letter-spacing:.1em;">投出去的票</div></div>
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;flex:1;"><div style="font-size:27px;color:var(--body);line-height:1.45;">經營自己的部落格</div><div style="font-family:var(--mono);font-size:30px;color:var(--accent);text-align:center;">→</div><div style="font-size:27px;color:var(--ink);line-height:1.45;">投給「<b>靠自己招牌吃飯的人</b>」</div></div>
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;flex:1;border-top:1px solid var(--hair);padding-top:14px;"><div style="font-size:27px;color:var(--body);line-height:1.45;">融入 Anthropic（Claude）的生態系</div><div style="font-family:var(--mono);font-size:30px;color:var(--accent);text-align:center;">→</div><div style="font-size:27px;color:var(--ink);line-height:1.45;">投給「<b>越做越值錢的人</b>」</div></div>
+      <div style="display:grid;grid-template-columns:1fr 44px 1.15fr;gap:20px;align-items:center;flex:1;border-top:1px solid var(--hair);padding-top:14px;"><div style="font-size:27px;color:var(--body);line-height:1.45;">每天留兩小時 —— 陪小孩、運動</div><div style="font-family:var(--mono);font-size:30px;color:var(--accent);text-align:center;">→</div><div style="font-size:27px;color:var(--ink);line-height:1.45;">投給「<b>和孩子有親密關係的爸爸</b>」</div></div>
+    </div>
+    <div class="method-punch" style="margin-top:auto;"><span class="mp-hook">一樣勤奮</span><span class="mp-rest">只是這次投的每一票，都在讓自己<span class="mp-hot">未來有更多選擇</span>。</span></div>
+    <div class="slide-num">43 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 我現在投給誰</div>
+</section>
+
+  
+  
+  
+  <section class="slide" data-label="B2.31 我自己跑了幾輪">
+    <div class="eyebrow"><span class="dot"></span><span class="num">重新投票之後</span><span class="rule"></span><span>315 天</span></div>
+    <div style="height:16px"></div>
+    <div class="title">我原本給自己兩年 —— 走到的是<span class="accent">第九個月</span>。</div>
+    <div class="stack3 tight" style="margin-top:18px;">
+      <div class="layer" style="grid-template-columns:250px 1fr;">
+        <div class="layer-l"><div class="layer-num">2025</div><div class="layer-h">04 月</div></div>
+        <div class="layer-r"><div class="layer-body">離開待了二十年的科技業 —— <b>沒有下一份工作</b>。</div><div class="layer-mono">先備好兩年的家庭生活費，然後開始找新的方向。</div></div>
+      </div>
+      <div class="layer foundation" style="grid-template-columns:250px 1fr;">
+        <div class="layer-l"><div class="layer-num">2025</div><div class="layer-h">10 月</div></div>
+        <div class="layer-r"><div class="layer-body">開始搭這套系統。</div><div class="layer-mono">每個禮拜坐下來一次，問自己同樣兩題：這禮拜哪裡卡、下禮拜改什麼。</div></div>
+      </div>
+      <div class="layer" style="grid-template-columns:250px 1fr;">
+        <div class="layer-l"><div class="layer-num">2026</div><div class="layer-h">04 月</div></div>
+        <div class="layer-r"><div class="layer-body">第一筆收入進來。</div><div class="layer-mono">從十月算起，半年。</div></div>
+      </div>
+      <div class="layer" style="grid-template-columns:250px 1fr;">
+        <div class="layer-l"><div class="layer-num">2026</div><div class="layer-h">07 月</div></div>
+        <div class="layer-r"><div class="layer-body">生活回到自己手上。</div><div class="layer-mono">做自己有興趣的題目、顧得到家裡跟小孩，收入也回到離職前以上。<br>從十月算起，九個月 —— 原本抓的是兩年。</div></div>
+      </div>
+    </div>
+    <div class="hands-note" style="margin-top:16px;">從那個十月到今天，<b>315 天</b> —— 每天早上排一次今天，就是<b>投了 315 張票</b>。你們剛剛投出的，是<b>第 1 張</b>。</div>
+    <div class="method-punch" style="margin-top:20px;"><span class="mp-hook">今天做到的那幾件，就是投出去的一票</span><span class="mp-rest">一天一張，一張一張投 —— 上面這條時間軸，<span class="mp-hot">就是這樣投出來的</span>。</span></div>
+    <div class="slide-num">44 / 45</div>
+    <div class="footer-mark">BLOCK 2 · 我自己的例子</div>
+  </section>
+
+  
+  
+  
+  <section class="slide ink s-transition" data-label="B2.32 BRIDGE · 帶一題回家">
+    <div class="eyebrow"><span class="dot"></span><span class="num">BLOCK 2</span><span class="rule"></span><span>帶一題回家</span></div>
+    <div style="flex:1"></div>
+    <div class="display">今晚睡前，想一題 ——<br><span class="accent">你想過的日子，長什麼樣子？</span></div>
+    <div style="height:38px"></div>
+    <div class="subtitle" style="font-size:32px;max-width:46ch;">回去把 VISION 寫得更完整 —— 照它設 2–3 個 12 週目標，訂出下禮拜的承諾。<br>明天早上打「開工」—— <b style="color:#fff;">它排的，就是你的承諾</b>。</div>
+    <div style="flex:1.2"></div>
+    <div class="kmono">堂間作業：把 VISION 寫完整、設 2–3 個 12 週目標、排出下禮拜的承諾。第 2 堂開場我們先看你做出來的東西。</div>
+    <div class="slide-num">45 / 45</div>
+  </section>
+
+  
+  
+  
+</deck-stage>
+<script src="copy-prompt.js"></script>
+</body></html>
