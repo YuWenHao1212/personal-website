@@ -287,22 +287,6 @@ details.shot > summary:hover{color:var(--terra);}
 .tline.done label{color:var(--faint);text-decoration:line-through;}
 .tcount{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:14px;}
 
-/* ---------- 交接之後 ---------- */
-.after{border-top:var(--rule) solid var(--ink);padding-top:26px;margin:0 0 40px;}
-.after > .k{font-family:var(--mono);font-size:13px;letter-spacing:var(--tracking-seclabel);
-  text-transform:uppercase;color:var(--accent-deep);font-weight:var(--w-bold);margin-bottom:6px;}
-.after > h2{font-family:var(--serif);font-weight:var(--w-serif-sub);font-synthesis:none;
-  font-size:26px;color:var(--ink);margin:0 0 8px;line-height:1.3;}
-.after > .note{font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 24px;max-width:var(--measure);}
-.aitem{border-top:var(--hairline-w) solid var(--hairline);padding:18px 0;
-  display:grid;grid-template-columns:210px 1fr;gap:0 24px;}
-.aitem:first-of-type{border-top:none;}
-.aitem .at{font-weight:var(--w-medium);color:var(--ink);font-size:17px;line-height:1.45;}
-.aitem .ad{font-size:16px;line-height:1.65;color:var(--text);}
-.aitem .ad p{margin:0 0 8px;}
-.aitem .ad p:last-child{margin-bottom:0;}
-.aitem .ad b{color:var(--ink);}
-
 /* ---------- print ---------- */
 @media print{
   .progress-wrap,.reset,.copybtn{display:none;}
@@ -321,7 +305,7 @@ details.shot > summary:hover{color:var(--terra);}
   li.step{grid-template-columns:auto 32px 1fr;gap:0 10px;}
   .phase-head{flex-wrap:wrap;}
   .map-grid{grid-template-columns:1fr;}
-  .aitem{grid-template-columns:1fr;gap:6px;}
+
 }
 </style>
 </head>
@@ -445,7 +429,6 @@ details.shot > summary:hover{color:var(--terra);}
       名單上出現<b>不在這張表裡的帳號</b>，那就是要移除的對象。（2026-09-09 實查：名單乾淨，講師的個人帳號與課堂測試帳號都不在上面。）</p>
     </div>
   </details>
-
 
 <!-- ============ §0 ============ -->
 <section class="phase" id="p0">
