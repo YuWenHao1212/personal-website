@@ -342,9 +342,18 @@ details.shot > summary:hover{color:var(--terra);}
 .demo-body{padding:20px 26px 24px;}
 .demo-body p{margin:0 0 12px;font-size:16px;line-height:1.65;}
 .demo-body p:last-child{margin-bottom:0;}
-.sqlbox{font-family:var(--mono);font-size:15px;background:var(--paper-deep);
-  border-left:var(--rule) solid var(--ink);padding:12px 18px;margin:14px 0;color:var(--ink);
+.sqlbox{position:relative;font-family:var(--mono);font-size:15px;background:var(--paper-deep);
+  border-left:var(--rule) solid var(--ink);padding:12px 92px 12px 18px;margin:14px 0;color:var(--ink);
   overflow-x:auto;white-space:pre;}
+.copybtn{position:absolute;top:8px;right:10px;z-index:2;
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+  background:var(--white);color:var(--accent-deep);
+  border:var(--hairline-w) solid var(--accent);border-radius:var(--radius-sm);
+  padding:5px 12px;cursor:pointer;white-space:nowrap;
+  transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease);}
+.copybtn:hover{background:var(--accent);color:var(--white);}
+.copybtn.done{background:var(--ok);border-color:var(--ok);color:var(--white);}
+.copybtn:focus-visible{outline:var(--focus-ring-w) solid var(--focus-ring);outline-offset:var(--focus-offset);}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0 26px;margin:14px 0 0;}
 .tgrid .grp{grid-column:1 / -1;font-family:var(--mono);font-size:12px;
   letter-spacing:var(--tracking-seclabel);text-transform:uppercase;color:var(--muted);
@@ -379,7 +388,8 @@ details.shot > summary:hover{color:var(--terra);}
 
 /* ---------- print ---------- */
 @media print{
-  .progress-wrap,.reset{display:none;}
+  .progress-wrap,.reset,.copybtn{display:none;}
+  .sqlbox{padding-right:18px;}
   body{font-size:12pt;}
   .wrap{max-width:none;padding:0;}
   .phase{break-inside:avoid;margin-bottom:24px;}
@@ -406,7 +416,7 @@ details.shot > summary:hover{color:var(--terra);}
   <h1>系統交接 —— <span class="ac">照這張表走一遍</span>。</h1>
   <p class="lede">
     把 <code>studioa-dashboard</code>（部門儀表板網站＋資料庫＋門禁）從講師手上完整移交給貴公司。
-    全部 <b>15 步</b>，分五段。勾選會存在這台電腦的瀏覽器裡，關掉再打開不會不見。
+    全部 <b>10 步</b>，分五段。勾選會存在這台電腦的瀏覽器裡，關掉再打開不會不見。
   </p>
   <div class="meta">
     <span>建立 2026-08-12（D2 完課日）</span>
@@ -418,7 +428,7 @@ details.shot > summary:hover{color:var(--terra);}
 
 <div class="progress-wrap">
   <div class="progress-inner">
-    <span class="pcount"><span id="pdone">0</span> / 15</span>
+    <span class="pcount"><span id="pdone">0</span> / 10</span>
     <div class="bar" id="bar"><i></i></div>
     <button class="reset" id="reset" type="button">清除勾選</button>
   </div>
@@ -432,7 +442,7 @@ details.shot > summary:hover{color:var(--terra);}
     這套系統的<b>五個鎖，全長在兩個「總後台帳號」上</b> ——
     一個 <b>Cloudflare</b> 帳號（網站、資料庫、門禁都掛在它底下）、
     一個 <b>GitHub</b> 帳號（程式碼保管庫的擁有者）。
-    所以交接不是搬檔案，是<b>這兩個帳號的主權移交 ＋ 換一把共用鑰匙 ＋ 講師清場</b>。
+    所以交接不是搬檔案，是<b>這兩個帳號的主權移交 ＋ 換一把共用鑰匙</b>。
   </p>
   <div class="law">
     <div class="k">全篇最重要的一條順序</div>
@@ -551,7 +561,7 @@ details.shot > summary:hover{color:var(--terra);}
       <tr>
         <th>aidata@ 信箱</th>
         <td><code>http://studioa.com.tw:8080</code>
-          <span class="why">兩個帳號忘記密碼時，重設信都寄到這裡 —— 所以它是<b>最上游的一把鎖</b>，第 03 步要第一個換掉密碼。也是所有系統警報的收件處，見「今天之後」第 ① 件</span></td>
+          <span class="why">兩個帳號忘記密碼時，重設信都寄到這裡 —— 所以它是<b>最上游的一把鎖</b>，第 03 步要第一個換掉密碼。系統的警報信（備份失敗、用量超標）也都寄到這裡</span></td>
       </tr>
     </tbody>
   </table>
@@ -603,7 +613,7 @@ details.shot > summary:hover{color:var(--terra);}
   <div class="law">
     <div class="k">這份清單管什麼、不管什麼</div>
     <p>今天要走完的是<b>把系統交到你手上</b>：帳號主權、換鎖、驗收。</p>
-    <p>至於帳號要加多少層防護、密碼怎麼保管，那是<b>公司自己的政策</b>，不在今天的流程裡，也不需要今天決定 —— 相關的事整理在最後一段「今天之後」。</p>
+    <p>至於帳號要加多少層防護、密碼怎麼保管，那是<b>公司自己的政策</b>，不在今天的流程裡，也不需要今天決定。</p>
   </div>
 
   <ol class="steps">
@@ -635,9 +645,9 @@ details.shot > summary:hover{color:var(--terra);}
       <input class="cbox" type="checkbox" data-id="s5" data-phase="p1" aria-label="步驟 2">
       <span class="snum">02</span>
       <div class="sbody">
-        <h3>刪掉 13 張封存表</h3>
-        <p>彩排殘留：<code>zzold_bob_*</code> ×6、<code>zzold2_bob_*</code> ×6、<code>zzold_ztest_weekly</code> ×1。要到 Cloudflare 的 D1 主控台<b>手動刪</b>。</p>
-        <p>指令列刪不掉是<b>刻意設計的</b> —— 這正是課堂教的那條界線：<b>清垃圾由管理者到後台親手做</b>，不交給 AI 代辦。</p>
+        <h3>清掉 6 張封存表</h3>
+        <p>課堂彩排留下的練習表，要到 Cloudflare 的 D1 主控台<b>親手刪</b> —— 指令列刪不掉是<b>刻意設計的</b>。</p>
+        <p><b>做法、完整表名清單、為什麼這 6 張確定可以刪</b>，都在下面「<b>動手做一次</b>」那一區。做完回來勾這一格。</p>
       </div>
     </li>
 
@@ -722,12 +732,12 @@ details.shot > summary:hover{color:var(--terra);}
         <p>網址：<a class="link" href="https://dash.cloudflare.com" target="_blank" rel="noopener">dash.cloudflare.com</a>　·　用 <code>aidata@studioa.com.tw</code> 登入（密碼講師當場給）</p>
         <p>前三步都在同一個地方：<b>右上角頭像 → My Profile → 左側 Access Management</b>。</p>
         <ul class="sub">
-          <li data-k="1"><b>改密碼</b>：Access Management → <b>Authentication</b> → 上方分頁 <b>Password</b> → <b>Change Password</b>。<br>
+          <li data-k="1"><b>改密碼</b>：<a class="link" href="https://dash.cloudflare.com/profile/access-management/authentication/password" target="_blank" rel="noopener">dash.cloudflare.com/profile/access-management/authentication/password</a><br>按 <b>Change Password</b>。<br>
             舊密碼填講師給的那組；<b>新密碼你自己設</b>，設完記進記事本。</li>
-          <li data-k="2"><b>登出其他裝置</b>：Access Management → <b>Active sessions</b>。<br>
+          <li data-k="2"><b>登出其他裝置</b>：<a class="link" href="https://dash.cloudflare.com/profile/access-management/sessions" target="_blank" rel="noopener">dash.cloudflare.com/profile/access-management/sessions</a><br>
             把<b>不是你這台</b>的全部登出（你自己那筆會標「Current Session」，留著）。</li>
-          <li data-k="3"><b>撤銷指令列工具的授權</b>：Access Management → <b>Connected Applications</b> → 找到 <b>Wrangler</b> → 右邊 <b>Revoke</b>。</li>
-          <li data-k="4"><b>換掉付款方式</b>：回帳號首頁 → 左側最下面 <b>Manage account</b> → <b>Billing</b>。<b>這一步要帶一張你自己的信用卡</b>，細節見下方紅框。</li>
+          <li data-k="3"><b>撤銷指令列工具的授權</b>：<a class="link" href="https://dash.cloudflare.com/profile/access-management/authorization" target="_blank" rel="noopener">dash.cloudflare.com/profile/access-management/authorization</a><br>找到 <b>Wrangler</b> → 右邊 <b>Revoke</b>。</li>
+          <li data-k="4"><b>換掉付款方式</b>：<a class="link" href="https://dash.cloudflare.com/2fe73db40c8aedd9e01cd4b8baadb5f1/billing/subscriptions" target="_blank" rel="noopener">dash.cloudflare.com/…/billing/subscriptions</a>。<b>這一步要帶一張你自己的信用卡</b>，細節見下方紅框。</li>
         </ul>
         <div class="warn">
           <b>第 3 小步是這一格的重點，跟前一格的道理一樣。</b>
@@ -760,7 +770,7 @@ details.shot > summary:hover{color:var(--terra);}
   <div class="phase-head">
     <span class="phase-no">§3</span>
     <span class="phase-title">換鎖</span>
-    <span class="phase-count" data-count="p3">0 / 5</span>
+    <span class="phase-count" data-count="p3">0 / 4</span>
   </div>
   <div class="phase-who">誰做：<b>接手人</b>　·　什麼時候：§2 全部完成之後</div>
 
@@ -783,58 +793,8 @@ details.shot > summary:hover{color:var(--terra);}
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s14" data-phase="p3" aria-label="步驟 7">
+      <input class="cbox" type="checkbox" data-id="s17" data-phase="p3" aria-label="步驟 7">
       <span class="snum">07</span>
-      <div class="sbody">
-        <h3>換一把新的資料庫鑰匙<span class="tag hot">核心步驟</span></h3>
-        <p><b>先建新的、確認能用，最後才作廢舊的</b> —— 這樣中間不會斷線，也不會發生「新的建錯、舊的已經沒了」。</p>
-        <ul class="sub">
-          <li data-k="1"><b>建新鑰匙</b>：Cloudflare 右上角頭像 → My Profile → API Tokens → Create Token，權限選 <b>D1:Edit</b>（跟舊的一樣）。<b>產生出來的那串只會顯示一次</b>，先貼進記事本。</li>
-          <li data-k="2"><b>更新程式碼裡的那把</b> —— <b>打開你自己的 Claude Code 做</b>，跟它說（照貼就好，記得把新鑰匙貼進去）：
-            <div class="sqlbox" style="white-space:pre-wrap;margin:10px 0 8px;">我是這套系統的管理者，現在在換資料庫的鑰匙。
-
-把 .env 裡 CLOUDFLARE_API_TOKEN= 後面換成這一串：
-（貼上剛才那串新的）
-
-換好之後 commit 並 push。</div>
-            <b>第一句不能省。</b> 系統的規則書裡寫著「不要修改 .env 裡的鑰匙」——
-            那是防止學員手滑改壞全班環境的，<b>管理者換鑰匙是例外</b>，講清楚身分它才會動手。
-            <br>push 完，13 台電腦下次更新程式碼時就換好了。</li>
-          <li data-k="3"><b>更新備份機器人那把</b>：repo → Settings → Secrets and variables → Actions → <code>CLOUDFLARE_API_TOKEN</code> → 鉛筆圖示 → 貼新的 → Update secret。</li>
-          <li data-k="4"><b>驗一下新的能用</b>：repo → Actions → Daily D1 export → Run workflow 手動跑一次，綠燈才算數。</li>
-          <li data-k="5"><b>作廢舊的</b>：回 Cloudflare API Tokens，把 <code>studioa-d1-edit</code> 撤銷。<b>做到這一步，舊鑰匙才真的死掉。</b></li>
-        </ul>
-        <div class="warn">
-          <b>第 3 小步最容易漏。</b> 那是每晚自動備份用的鑰匙，跟程式碼裡那把是<b>兩個地方、要各換一次</b>。
-          只換程式碼、忘了這裡，隔天起備份天天失敗 —— 而且警報寄到那個沒人在讀的信箱，<b>不會有人發現</b>。
-          2026 年 8 月底備份斷了 8 天，就是這個劇本。
-        </div>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s16" data-phase="p3" aria-label="步驟 8">
-      <span class="snum">08</span>
-      <div class="sbody">
-        <h3>發一則訊息給大家</h3>
-        <p>鑰匙換掉之後，13 個人電腦裡的舊鑰匙就失效了。他們要<b>更新一次程式碼</b>才會拿到新的 —— 但正常開工流程本來就會做這件事，所以多數人不會察覺。</p>
-        <p>發一則訊息讓大家心裡有底就好（可以直接複製）：</p>
-        <div class="sqlbox" style="white-space:pre-wrap;">dashboard 的資料庫鑰匙今天換過了。
-
-下次開工的時候，先跟 Claude 說一句「先更新一下程式碼」再開始，
-就會自動拿到新的鑰匙，不用做別的事。
-
-如果餵數字的時候跳出認證錯誤（401），就是這個原因，
-更新完就好了。</div>
-        <div class="warn">
-          <b>挑非回報日做。</b> 從舊鑰匙作廢、到每個人更新拿到新的之間，餵數字會失敗。
-        </div>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s17" data-phase="p3" aria-label="步驟 9">
-      <span class="snum">09</span>
       <div class="sbody">
         <h3>讓你的 Claude 知道你多了一個身份</h3>
         <p>課堂上你的 Claude 記著「你是 Chester、只動 <code>chester_*</code> 的表和自己的頁」——
@@ -853,18 +813,60 @@ details.shot > summary:hover{color:var(--terra);}
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s15" data-phase="p3" aria-label="步驟 10">
-      <span class="snum">10</span>
+      <input class="cbox" type="checkbox" data-id="s14" data-phase="p3" aria-label="步驟 8">
+      <span class="snum">08</span>
       <div class="sbody">
-        <h3>講師清場 —— 當場做給接手人看</h3>
+        <h3>換一把新的資料庫鑰匙<span class="tag hot">核心步驟</span></h3>
+        <p><b>先建新的、確認能用，最後才作廢舊的</b> —— 這樣中間不會斷線，也不會發生「新的建錯、舊的已經沒了」。</p>
         <ul class="sub">
-          <li data-k="a">刪掉電腦上兩份程式碼副本。</li>
-          <li data-k="b">登出部署工具（<code>wrangler logout</code>）。</li>
-          <li data-k="c">登出 GitHub 指令列的兩個帳號（<code>gh auth logout</code>）。</li>
+          <li data-k="1"><b>建新鑰匙</b> —— <b>在 Cloudflare</b>：<a class="link" href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">dash.cloudflare.com/profile/api-tokens</a><br>按 <b>Create Token</b>，權限選 <b>D1:Edit</b>（跟舊的一樣）。<b>產生出來的那串只會顯示一次</b>，先貼進記事本。</li>
+          <li data-k="2"><b>更新程式碼裡的那把</b> —— <b>打開你自己的 Claude Code 做</b>，跟它說（照貼就好，記得把新鑰匙貼進去）：
+            <div class="sqlbox" style="white-space:pre-wrap;margin:10px 0 8px;">以管理者身分：我在換資料庫的鑰匙。
+
+把 .env 裡 CLOUDFLARE_API_TOKEN= 後面換成這一串：
+（貼上剛才那串新的）
+
+換好之後 commit 並 push。</div>
+            <b>開頭那句「以管理者身分」不能省</b> —— 規則書裡寫著「不要修改 .env 裡的鑰匙」，
+            那是防止學員手滑改壞全班環境的。上一步設定過之後，它就知道<b>這是規則允許的例外</b>，不會再勸阻你。
+            <br>push 完，13 台電腦下次更新程式碼時就換好了。</li>
+          <li data-k="3"><b>更新備份機器人那把</b> —— <b>這一步換到 GitHub</b>（前一步在你自己電腦、上一步在 Cloudflare）。<br>
+            直接開這個網址：<a class="link" href="https://github.com/aidata-studioa/studioa-dashboard/settings/secrets/actions" target="_blank" rel="noopener">github.com/aidata-studioa/studioa-dashboard/settings/secrets/actions</a><br>
+            會看到兩筆，點 <code>CLOUDFLARE_API_TOKEN</code> 那列<b>右邊的鉛筆圖示</b>（旁邊的垃圾桶是刪除，不要按錯）→ 貼新的 → <b>Update secret</b>。<br>
+            看不到舊的值是正常的，GitHub 只讓覆蓋、不讓讀。另一筆 <code>CLOUDFLARE_ACCOUNT_ID</code> <b>不用動</b>（那是帳號編號、不是鑰匙）。</li>
+          <li data-k="4"><b>驗一下新的能用</b> —— <b>還是在 GitHub</b>：<a class="link" href="https://github.com/aidata-studioa/studioa-dashboard/actions" target="_blank" rel="noopener">github.com/aidata-studioa/studioa-dashboard/actions</a><br>
+            左側選 <b>Daily D1 export</b> → 右邊 <b>Run workflow</b> 手動跑一次。<b>跑出綠勾才算數</b>，紅叉表示新鑰匙有問題，先別做下一步。</li>
+          <li data-k="5"><b>作廢舊的</b> —— <b>回到 Cloudflare</b>（同第 1 步那個網址），把 <code>studioa-d1-edit</code> 那列右邊的「⋯」→ <b>Delete</b>。<br>
+            <b>做到這一步，舊鑰匙才真的死掉。</b></li>
         </ul>
-        <p>這三件做完，講師這台電腦就跟這套系統沒有關係了 —— 但真正讓它進不來的是上面第 08 步（舊鑰匙作廢）和 §2 的撤銷授權，不是刪檔案。<b>刪檔案是眼見為憑，作廢鑰匙才是實質。</b></p>
+        <div class="warn">
+          <b>第 3 小步最容易漏。</b> 那是每晚自動備份用的鑰匙，跟程式碼裡那把是<b>兩個地方、要各換一次</b>。
+          只換程式碼、忘了這裡，隔天起備份天天失敗 —— 而且警報寄到那個沒人在讀的信箱，<b>不會有人發現</b>。
+          2026 年 8 月底備份斷了 8 天，就是這個劇本。
+        </div>
       </div>
     </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s16" data-phase="p3" aria-label="步驟 9">
+      <span class="snum">09</span>
+      <div class="sbody">
+        <h3>發一則訊息給大家</h3>
+        <p>鑰匙換掉之後，13 個人電腦裡的舊鑰匙就失效了。他們要<b>更新一次程式碼</b>才會拿到新的 —— 但正常開工流程本來就會做這件事，所以多數人不會察覺。</p>
+        <p>發一則訊息讓大家心裡有底就好（可以直接複製）：</p>
+        <div class="sqlbox" style="white-space:pre-wrap;">dashboard 的資料庫鑰匙今天換過了。
+
+下次開工的時候，先跟 Claude 說一句「先更新一下程式碼」再開始，
+就會自動拿到新的鑰匙，不用做別的事。
+
+如果餵數字的時候跳出認證錯誤（401），就是這個原因，
+更新完就好了。</div>
+        <div class="warn">
+          <b>挑非回報日做。</b> 從舊鑰匙作廢、到每個人更新拿到新的之間，餵數字會失敗。
+        </div>
+      </div>
+    </li>
+
   </ol>
 </section>
 
@@ -881,12 +883,20 @@ details.shot > summary:hover{color:var(--terra);}
        程式擋著、Claude 也不代辦（指令列打 <code>DROP TABLE</code> 會被系統攔下來，這是刻意的）。
        這不是麻煩 —— <b>能把資料真的抹掉的權力，只留給坐在這個位子上的人</b>。今天起那個人是你。</p>
 
-    <p>路徑：Cloudflare 後台 → 左側 <b>Storage &amp; databases</b> → <b>D1 SQLite Database</b> → <code>studioa-db</code> → <b>Console</b> 分頁。<br>
-       先跑這句看看現在還有幾張：</p>
+    <p><b>直接開這個網址</b>（會直接落在 <code>studioa-db</code> 的 Console 分頁）：<br>
+       <a class="link" href="https://dash.cloudflare.com/2fe73db40c8aedd9e01cd4b8baadb5f1/workers/d1/databases/e2acbbc5-eaa9-4069-b2d9-ee9b41a8e6d7/console" target="_blank" rel="noopener">dash.cloudflare.com/…/d1/databases/…/console</a></p>
+    <p>從後台自己找的話：左側 <b>Storage &amp; databases</b> → <b>D1 SQLite Database</b> → <code>studioa-db</code> → <b>Console</b> 分頁。</p>
+    <p>先跑這句看看現在還有幾張：</p>
     <div class="sqlbox">SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'zzold%' ORDER BY name;</div>
-    <p>應該回 6 列。然後一張一張刪，指令長這樣：</p>
-    <div class="sqlbox">DROP TABLE zzold2_bob_actions;</div>
-    <p>跑完換下一張表名。刪一張，就在下面勾一格。</p>
+    <p>應該回 <b>6 列</b>。確認數字對得上，就把下面這段整個貼進去執行（Console 吃得下多句）：</p>
+    <div class="sqlbox">DROP TABLE zzold2_bob_actions;
+DROP TABLE zzold2_bob_categories;
+DROP TABLE zzold2_bob_items;
+DROP TABLE zzold2_bob_stores;
+DROP TABLE zzold2_bob_trend;
+DROP TABLE zzold2_bob_weekly;</div>
+    <p>跑完<b>再執行一次上面那句 <code>SELECT</code></b> —— 這次應該一列都不回，代表清乾淨了。
+       然後把下面的清單勾起來。</p>
 
     <div class="warn">
       <b>為什麼這 6 張確定可以刪：</b>它們是 2026-08-11（D2 開課前一天下午）講師彩排時建的練習表，
@@ -923,12 +933,6 @@ details.shot > summary:hover{color:var(--terra);}
       </div>
     </div>
     <div class="tcount"><span id="tdone">0</span> / 6 張已清</div>
-
-    <div class="law">
-      <div class="k">交接當天之前已經清掉的</div>
-      <p>原本有 16 張。2026-09-09 上午講師先清掉 10 張（更早一代的彩排表 6 張＋財會改欄位時留下的舊版表 4 張），
-      留這 6 張下來當場示範。所以你看到的數字跟舊版手冊上的「13 張」對不起來是正常的。</p>
-    </div>
   </div>
 </div>
 
@@ -936,130 +940,26 @@ details.shot > summary:hover{color:var(--terra);}
 <section class="phase" id="p4">
   <div class="phase-head">
     <span class="phase-no">§4</span>
-    <span class="phase-title">驗收 —— 五招</span>
-    <span class="phase-count" data-count="p4">0 / 5</span>
+    <span class="phase-title">驗收</span>
+    <span class="phase-count" data-count="p4">0 / 1</span>
   </div>
   <div class="phase-who">誰做：<b>接手人自己跑一遍</b>　·　目的：確認鎖真的換好了，不是「聽說換好了」</div>
 
   <ol class="steps">
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s16" data-phase="p4" aria-label="步驟 11">
-      <span class="snum">11</span>
+      <input class="cbox" type="checkbox" data-id="s16" data-phase="p4" aria-label="步驟 10">
+      <span class="snum">10</span>
       <div class="sbody">
         <h3>無痕視窗開網站 → <b>被攔下來要 email</b></h3>
-        <p>沒被攔＝門禁沒生效。</p>
+        <p>開一個<b>無痕視窗</b>（Chrome：⌘⇧N），貼上這個網址：<br>
+        <a class="link" href="https://studioa-dashboard.pages.dev" target="_blank" rel="noopener">https://studioa-dashboard.pages.dev</a></p>
+        <p>正常的話會被導到一個要你輸入 email 的登入頁（網址會變成 <code>studioa-aidata.cloudflareaccess.com</code>）。<br>
+        <b>沒被攔、直接看到報表＝門禁沒生效。</b></p>
       </div>
     </li>
 
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s17" data-phase="p4" aria-label="步驟 12">
-      <span class="snum">12</span>
-      <div class="sbody">
-        <h3>不登入直接打資料網址（<code>/api/…</code>）→ <b>一個數字都不吐</b></h3>
-        <p>吐得出數字＝資料是裸的，繞過網頁就拿得到。</p>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s18" data-phase="p4" aria-label="步驟 13">
-      <span class="snum">13</span>
-      <div class="sbody">
-        <h3>接手人的電腦用<b>新鑰匙</b>連資料庫 → 通</h3>
-        <p><code>wrangler d1 execute studioa-db --remote --command "SELECT 1"</code></p>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s19" data-phase="p4" aria-label="步驟 14">
-      <span class="snum">14</span>
-      <div class="sbody">
-        <h3>舊鑰匙 → 被拒；講師電腦更新程式碼 → 被拒</h3>
-        <p>這一招是 D2 那句「<b>我退出的時候，帶不走任何東西</b>」的兌現。兩邊都要拒才算數。</p>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s20" data-phase="p4" aria-label="步驟 15">
-      <span class="snum">15</span>
-      <div class="sbody">
-        <h3>手冊三份點交</h3>
-        <p>程式碼保管庫的 <code>README.md</code> ＋ <code>CLAUDE.md</code> ＋ D2 投影片的「異動操作」那一頁（含上面兩條直達網址）。</p>
-        <p>之後人員異動就照那一套：<b>發三樣、收兩樣、換一把</b>。</p>
-      </div>
-    </li>
   </ol>
 </section>
-
-<div class="after">
-  <div class="k">第三段 · 今天之後</div>
-  <h2>接下來這七件事是你的了</h2>
-  <p class="note">上面是一次性的動作，做完就過去了。這一段是常設的 —— 系統平常怎麼顧、什麼時候該找人。</p>
-
-  <div class="aitem">
-    <div class="at">① 警報要有人固定讀</div>
-    <div class="ad">
-      <p>備份失敗、部署失敗、用量超標，所有警報都寄到 <b>aidata@ 那個信箱</b>。</p>
-      <p>2026 年 8 月底，每晚備份連續斷了 <b>8 天</b>沒人知道 —— 不是系統沒發警報，是<b>警報沒有收件人</b>。
-         指定一個人每週看一次就夠，這是整份手冊裡最便宜、也最容易被跳過的一件事。</p>
-    </div>
-  </div>
-
-  <div class="aitem">
-    <div class="at">② 每天早上的備份要是綠燈</div>
-    <div class="ad">
-      <p>GitHub → repo → <b>Actions</b> 分頁 → 「Daily D1 export」。正常是一整排綠勾，每天一個備份檔進 <code>exports/</code>。</p>
-      <p>出現紅叉且連兩天沒好，就是要處理的訊號。</p>
-    </div>
-  </div>
-
-  <div class="aitem">
-    <div class="at">③ 誰的表變大，就要加索引</div>
-    <div class="ad">
-      <p>某個人的資料表長到<b>上萬列</b>之後，整站會開始變慢 —— 不只他自己的頁，連首頁卡片牆都會被拖住。</p>
-      <p>處理方式寫在 repo 的 <code>CLAUDE.md</code> 第 9 節：加一個「時間欄索引」再跑一次 <code>ANALYZE</code>。
-         <b>兩件都要做</b> —— 只加索引不跑 ANALYZE，系統會繼續用舊的走法，等於沒加。</p>
-    </div>
-  </div>
-
-  <div class="aitem">
-    <div class="at">④ 價量頁那行小字</div>
-    <div class="ad">
-      <p>財會的價量頁，累計區塊旁邊有一行「<b>累計資料建於 ⋯</b>」。</p>
-      <p>它的意思是：<b>時間沒動 ＝ 累計還沒跟上最新的數字</b>。正常匯資料會自己更新；如果是手改了某一筆，就可能對不上。看到時間停在很久以前，跟資料負責人說一聲重算就好。</p>
-    </div>
-  </div>
-
-  <div class="aitem">
-    <div class="at">⑤ 每月 5 美元，建議升級</div>
-    <div class="ad">
-      <p>資料庫目前用免費方案，每天的讀取量有上限。2026 年 9 月已經逼近上限兩次，
-         第二次全公司當天讀不到報表。</p>
-      <p>系統這邊已經做過優化（讀取量降到十分之一左右），但<b>資料只會越來越多</b>。
-         升級到 Workers Paid（<b>約 US$5／月</b>）等於把這個上限拿掉，在 Cloudflare 後台 Billing 頁掛公司卡就好。
-         這是治本，上面的優化只是把時間買回來。</p>
-    </div>
-  </div>
-
-  <div class="aitem">
-    <div class="at">⑥ 什麼時候該回頭找講師</div>
-    <div class="ad">
-      <p><b>報表頁明顯變慢</b>，而且不是單一個人的問題 —— 通常代表有人的資料量級跳了一階（例如從月報改成日報、從分類明細改成單品明細）。</p>
-      <p><b>想要現在做不到的東西</b>：例如累計目前一律是「當年 1 月到這個月」，
-         不支援「往回推 12 個月」那種滾動式的算法。要改是可以，但那是重做一段，不是改個設定。</p>
-      <p>一年後還有一件小事：備份每天都進保管庫，一年大約長 1 GB。2027 年第一季前不用理它。</p>
-    </div>
-  </div>
-
-  <div class="aitem">
-    <div class="at">⑦ 兩個帳號要不要再加一道鎖</div>
-    <div class="ad">
-      <p>目前兩個總後台帳號都只有<b>密碼這一道鎖</b>。這不是設定錯誤，是還沒決定要不要加 —— 加不加是公司的政策，今天的流程用不到。</p>
-      <p>如果之後決定要加第二道（登入時多驗一次身分）：<b>GitHub</b> 可以用手機內建的 Face ID／指紋，或簡訊，都不必另外裝 App；<b>Cloudflare</b> 只支援驗證器 App 或實體金鑰，<b>沒有簡訊這個選項</b>。兩邊都是進各自的帳號設定頁自己開，五分鐘的事。</p>
-      <p>另外，交接當天記在記事本上的那三組密碼，記得<b>搬進公司的密碼管理工具或鎖進保險箱，然後把記事本刪掉</b>。三條不要破：不要用 email 或通訊軟體傳、每個帳號不要用同一組、備援知情人要拿得到。</p>
-      <p>公司信箱那組值得再看一眼：那套 webmail 只要求<b>六個字元、也不檢查強度</b>，但它是另外兩個帳號的救援路徑 —— 系統沒擋，不代表可以設短的。有空的話回頭把它換長一點。</p>
-    </div>
-  </div>
-</div>
 
 <footer>
   <span>STUDIO A · A 組 · D2 — 系統交接步驟清單</span>
@@ -1147,6 +1047,48 @@ details.shot > summary:hover{color:var(--terra);}
     });
   });
   trender();
+
+  // ---- 複製按鈕：每個指令／訊息框右上角 ----
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    // 本機用 file:// 開啟時 clipboard API 會被擋，退回舊做法
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); resolve(); }
+      catch (e) { reject(e); }
+      finally { document.body.removeChild(ta); }
+    });
+  }
+
+  Array.prototype.slice.call(document.querySelectorAll('.sqlbox')).forEach(function (box) {
+    var text = box.textContent;               // 先存下純內容，按鈕文字不會被一起複製
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copybtn';
+    btn.textContent = '複製';
+    btn.setAttribute('aria-label', '複製這段文字');
+    btn.addEventListener('click', function () {
+      copyText(text).then(function () {
+        btn.textContent = '已複製';
+        btn.classList.add('done');
+      }).catch(function () {
+        btn.textContent = '複製失敗';
+      }).then(function () {
+        setTimeout(function () {
+          btn.textContent = '複製';
+          btn.classList.remove('done');
+        }, 1800);
+      });
+    });
+    box.appendChild(btn);
+  });
 
   document.getElementById('reset').addEventListener('click', function () {
     if (!confirm('清除全部勾選？')) return;
