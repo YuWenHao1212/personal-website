@@ -7,37 +7,152 @@
 <title>studioa-dashboard — 系統交接步驟清單</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ===== 匯流顧問 Design System token（SoT: design-system/tokens.css → dist/artifact-root.css） ===== */
 :root{
-  --bg:#FFFFFF; --cream-2:#F7F6F4; --ink:#111111; --body:#3A3A3A;
-  --muted:#8A8A8A; --hair:#E5E5E5;
-  --accent:#C15F3C; --accent-deep:#A34D2F; --accent-br:#CC785C;
-  --ok:#2E7D5B;
-  --sans:"Space Grotesk","Noto Sans TC","PingFang TC",system-ui,sans-serif;
-  --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  --paper:#F6F1E8;
+  --paper-deep:#EFE7DA;
+  --paper-lift:rgba(255,255,255,.4);
+  --ink:#241B18;
+  --text:#2B211C;
+  --muted:#71655C;
+  --faint:#A99A8D;
+  --hairline:#E2D8C9;
+  --white:#FFFFFF;
+  --black:#111111;
+  --terra:#C25B3F;
+  --terra-deep:#A3492B;
+  --kraft:#D4A27F;
+  --primary:#5E2B29;
+  --primary-deep:#4A211F;
+  --on-primary:#F7ECE6;
+  --seal:#B84A31;
+  --on-seal:#FFF4EC;
+  --deep:#301619;
+  --bridge:#301619;
+  --band:#301619;
+  --band-bright:#F6EBE4;
+  --band-mid:#D3B7AC;
+  --band-mut:#A98E85;
+  --band-faint:#7E675F;
+  --band-link:#DE9070;
+  --on-black:#FFFFFF;
+  --on-black-mid:#CFCFCF;
+  --on-black-sub:#B8B8B8;
+  --on-black-mut:#8A8A8A;
+  --ok:#5C6B45;
+  --ok-bg:#E8E9D6;
+  --ok-line:#C3C9A8;
+  --warn:#B27A22;
+  --warn-bg:#F5E7C7;
+  --warn-line:#E0C489;
+  --err:#B23A28;
+  --err-bg:#F3DBD2;
+  --err-line:#E0B0A2;
+  --info:#4A606A;
+  --info-bg:#E0E3E1;
+  --info-line:#BFC6C1;
+  --chart-ink:#241B18;
+  --chart-1:#2B211C;
+  --chart-2:#71655C;
+  --chart-3:#A99A8D;
+  --chart-4:#D8CCBC;
+  --chart-hot:#C25B3F;
+  --cat-1:#C25B3F;
+  --cat-2:#4A606A;
+  --cat-3:#B27A22;
+  --cat-4:#5C6B45;
+  --cat-5:#71655C;
+  --serif:'LXGW Bright TC','Noto Serif TC',serif;
+  --sans:'Noto Sans TC',-apple-system,'PingFang TC',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',Menlo,monospace;
+  --brand:'Space Grotesk','Noto Sans TC',sans-serif;
+  --w-serif:300;
+  --w-serif-sub:400;
+  --w-body:400;
+  --w-medium:500;
+  --w-bold:700;
+  --w-display:900;
+  --space-2xs:8px;
+  --space-xs:14px;
+  --space-sm:22px;
+  --space-md:38px;
+  --space-lg:60px;
+  --space-xl:92px;
+  --space-2xl:120px;
+  --radius-none:0;
+  --radius-xs:3px;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:10px;
+  --radius-pill:9999px;
+  --rule:2px;
+  --hairline-w:1px;
+  --shadow:none;
+  --shadow-badge:0 1px 4px rgba(36,27,24,.18);
+  --focus-ring:#C25B3F;
+  --focus-ring-w:2px;
+  --focus-offset:3px;
+  --disabled-opacity:.45;
+  --wrap:1200px;
+  --pad-x:40px;
+  --measure:34em;
+  --dur-fast:.15s;
+  --dur:.22s;
+  --dur-slow:.5s;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --tracking-eyebrow:.42em;
+  --tracking-seclabel:.34em;
+  --tracking-vlabel:.55em;
+  --tracking-body:.04em;
+  --btn-primary-bg:#5E2B29;
+  --btn-primary-bg-hover:#4A211F;
+  --btn-primary-fg:#F7ECE6;
+  --btn-outline-line:#241B18;
+  --btn-radius:9999px;
+  --link:#C25B3F;
+  --link-on-deep:#DE9070;
+  --alert-radius:10px;
+  --seal-bg:#B84A31;
+  --seal-fg:#FFF4EC;
+  --seal-size:46px;
+  --seal-radius:3px;
+
+  /* --- 本頁相容別名：既有元件沿用舊名，值一律指向 DS token --- */
+  --bg:var(--paper);
+  --cream-2:var(--paper-deep);
+  --body:var(--text);
+  --hair:var(--hairline);
+  --accent:var(--terra);
+  --accent-deep:var(--terra-deep);
+  --accent-br:var(--kraft);
+  /* 本頁衍生色：只用 var() 與 color-mix()，不寫色碼 */
+  --wash:color-mix(in srgb, var(--terra) 7%, var(--paper));
+  --sticky-bg:color-mix(in srgb, var(--paper) 94%, transparent);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);
-  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  font-size:17px;line-height:1.65;letter-spacing:var(--tracking-body);-webkit-font-smoothing:antialiased;}
 .wrap{max-width:920px;margin:0 auto;padding:0 28px 120px;}
 
 /* ---------- header ---------- */
 header{border-bottom:2px solid var(--ink);padding:56px 0 28px;margin-bottom:8px;}
-.eyebrow{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:14px;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+.eyebrow{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:13px;
+  letter-spacing:var(--tracking-seclabel);text-transform:uppercase;color:var(--muted);font-weight:var(--w-medium);}
 .eyebrow .dot{width:8px;height:8px;background:var(--accent);border-radius:50%;flex:none;}
 .eyebrow .rule{height:2px;flex:1;background:currentColor;opacity:.25;}
-h1{font-weight:900;color:var(--ink);font-size:clamp(32px,5vw,48px);line-height:1.15;
-  letter-spacing:-1px;margin:18px 0 14px;}
+h1{font-family:var(--serif);font-weight:var(--w-serif);font-synthesis:none;
+  color:var(--ink);font-size:clamp(32px,5vw,48px);line-height:1.2;
+  letter-spacing:0;margin:18px 0 14px;}
 h1 .ac{color:var(--accent);}
 .lede{font-size:19px;color:var(--body);line-height:1.6;max-width:66ch;}
 .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:20px;
   font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;}
 
 /* ---------- progress ---------- */
-.progress-wrap{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);
+.progress-wrap{position:sticky;top:0;z-index:20;background:var(--sticky-bg);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);
   padding:12px 0;margin-bottom:44px;}
 .progress-inner{max-width:920px;margin:0 auto;padding:0 28px;
@@ -60,11 +175,29 @@ h1 .ac{color:var(--accent);}
 .fact p{margin:0;font-size:19px;color:var(--ink);line-height:1.6;}
 .fact b{color:var(--accent-deep);}
 
-.law{border-left:4px solid var(--accent);background:#FBF4F1;padding:16px 22px;margin:18px 0 0;}
+.law{border-left:var(--rule) solid var(--accent);background:var(--wash);padding:16px 22px;margin:18px 0 0;}
 .law .k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--accent-deep);margin-bottom:6px;font-weight:600;}
-.law p{margin:0;font-size:16px;line-height:1.6;color:var(--body);}
+.law p{margin:0 0 10px;font-size:16px;line-height:1.6;color:var(--body);}
+.law p:last-child{margin-bottom:0;}
 .law b{color:var(--ink);}
+
+/* ---------- 系統座標表 ---------- */
+.coords{border:2px solid var(--ink);margin:0 0 40px;background:var(--bg);}
+.coords > .k{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-deep);font-weight:700;padding:16px 26px 0;}
+.coords > .note{font-size:15px;color:var(--muted);line-height:1.55;padding:6px 26px 16px;margin:0;}
+.coords .scroll{overflow-x:auto;}
+.coords table{width:100%;border-collapse:collapse;font-size:16px;}
+.coords th,.coords td{text-align:left;padding:11px 26px;border-top:1px solid var(--hair);vertical-align:top;}
+.coords th{width:34%;font-weight:600;color:var(--ink);white-space:nowrap;}
+.coords td{color:var(--body);}
+.coords tr.grp th{background:var(--cream-2);font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;border-top:2px solid var(--ink);}
+.coords code{white-space:nowrap;}
+.coords .why{display:block;font-size:14px;color:var(--muted);margin-top:3px;white-space:normal;}
+.coords tr.secret td{background:var(--wash);color:var(--accent-deep);font-weight:var(--w-medium);}
+.coords tr.secret th{background:var(--wash);}
 
 /* ---------- phases ---------- */
 .phase{margin:0 0 52px;scroll-margin-top:80px;}
@@ -72,7 +205,8 @@ h1 .ac{color:var(--accent);}
   border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:8px;}
 .phase-no{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--accent);
   letter-spacing:.1em;white-space:nowrap;}
-.phase-title{font-weight:800;font-size:26px;color:var(--ink);line-height:1.3;flex:1;}
+.phase-title{font-family:var(--serif);font-weight:var(--w-serif-sub);font-synthesis:none;
+  font-size:26px;color:var(--ink);line-height:1.3;flex:1;}
 .phase-count{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;}
 .phase-who{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--muted);
   padding:10px 0 6px;}
@@ -84,12 +218,12 @@ li.step{border-bottom:1px solid var(--hair);padding:20px 0;display:grid;
   grid-template-columns:auto 42px 1fr;gap:0 14px;align-items:start;}
 li.step:last-child{border-bottom:none;}
 .cbox{appearance:none;-webkit-appearance:none;width:26px;height:26px;margin:2px 0 0;
-  border:2px solid var(--ink);background:#fff;cursor:pointer;flex:none;position:relative;
+  border:var(--rule) solid var(--ink);background:var(--white);cursor:pointer;flex:none;position:relative;
   transition:background .15s,border-color .15s;}
 .cbox:hover{border-color:var(--accent);}
 .cbox:checked{background:var(--ok);border-color:var(--ok);}
 .cbox:checked::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:13px;
-  border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg);}
+  border:solid var(--white);border-width:0 3px 3px 0;transform:rotate(45deg);}
 .cbox:focus-visible{outline:3px solid var(--accent-br);outline-offset:2px;}
 .snum{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--muted);
   padding-top:5px;letter-spacing:.04em;}
@@ -112,13 +246,17 @@ code{font-family:var(--mono);font-size:.9em;background:var(--cream-2);
   text-transform:uppercase;padding:3px 9px;border:1px solid var(--hair);
   color:var(--muted);margin-left:8px;vertical-align:2px;white-space:nowrap;}
 .tag.hot{border-color:var(--accent);color:var(--accent-deep);}
+.tag.ok{border-color:var(--ok);color:var(--ok);background:var(--ok-bg);}
+.settled{border-left:var(--rule) solid var(--ok);background:var(--ok-bg);
+  padding:10px 16px;margin:0 0 10px;font-size:15px;line-height:1.6;color:var(--ink);}
+.settled b{color:var(--ok);}
 
 a.link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:14px;
   color:var(--accent);text-decoration:underline;text-underline-offset:4px;
   word-break:break-all;margin-top:6px;}
 a.link::before{content:"↗";text-decoration:none;flex:none;}
 
-.warn{border:1px solid var(--accent);background:#FBF4F1;padding:12px 18px;margin-top:12px;
+.warn{border:var(--hairline-w) solid var(--accent);background:var(--wash);padding:12px 18px;margin-top:12px;
   font-size:15px;line-height:1.6;color:var(--body);}
 .warn b{color:var(--accent-deep);}
 
@@ -127,6 +265,118 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
   font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;
   display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between;}
 
+/* ---------- 可折疊名單 ---------- */
+details.roster{border-top:var(--rule) solid var(--ink);margin:0;}
+details.roster > summary{list-style:none;cursor:pointer;padding:14px 26px;
+  font-family:var(--mono);font-size:13px;letter-spacing:var(--tracking-seclabel);
+  text-transform:uppercase;color:var(--accent-deep);font-weight:var(--w-bold);
+  display:flex;align-items:center;gap:10px;background:var(--paper-deep);}
+details.roster > summary::-webkit-details-marker{display:none;}
+details.roster > summary::before{content:"▸";font-size:14px;transition:transform var(--dur) var(--ease);flex:none;}
+details.roster[open] > summary::before{transform:rotate(90deg);}
+details.roster > summary:hover{color:var(--terra);}
+.roster-body{padding:0;}
+.roster-note{font-size:14px;color:var(--muted);line-height:1.6;padding:14px 26px 0;margin:0;}
+.roster table{width:100%;border-collapse:collapse;font-size:15px;margin-top:10px;}
+.roster th,.roster td{text-align:left;padding:9px 26px;border-top:var(--hairline-w) solid var(--hairline);}
+.roster thead th{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:var(--w-bold);border-top:var(--rule) solid var(--ink);
+  background:var(--paper-deep);}
+.roster td.gh{font-family:var(--mono);font-size:14px;color:var(--ink);word-break:break-all;}
+.roster td.nm{font-weight:var(--w-medium);color:var(--ink);white-space:nowrap;}
+.roster td.rg{color:var(--muted);white-space:nowrap;}
+.roster tr.owner td{background:var(--wash);}
+.roster tr.owner td.nm,.roster tr.owner td.gh{color:var(--accent-deep);font-weight:var(--w-medium);}
+.roster tr.none td.gh{color:var(--faint);font-family:var(--sans);}
+.roster tfoot td{border-top:var(--rule) solid var(--ink);font-family:var(--mono);font-size:13px;
+  color:var(--muted);background:var(--paper-deep);}
+
+/* ---------- 折疊截圖 ---------- */
+details.shot{border:var(--hairline-w) solid var(--hairline);background:var(--paper-deep);margin:12px 0;}
+details.shot > summary{list-style:none;cursor:pointer;padding:10px 16px;
+  font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--accent-deep);
+  font-weight:var(--w-medium);display:flex;align-items:center;gap:9px;}
+details.shot > summary::-webkit-details-marker{display:none;}
+details.shot > summary::before{content:"▸";transition:transform var(--dur) var(--ease);flex:none;}
+details.shot[open] > summary::before{transform:rotate(90deg);}
+details.shot > summary:hover{color:var(--terra);}
+.shot-body{padding:0 16px 16px;}
+.shot-body img{display:block;width:100%;height:auto;border:var(--hairline-w) solid var(--hairline);background:var(--white);}
+.shot-cap{font-size:14px;color:var(--muted);line-height:1.6;margin:10px 0 0;}
+.shot-cap b{color:var(--ink);}
+
+/* ---------- 權力地圖 ---------- */
+.map{border:var(--rule) solid var(--ink);background:var(--paper-deep);padding:22px 26px 26px;margin:0 0 40px;}
+.map > .k{font-family:var(--mono);font-size:13px;letter-spacing:var(--tracking-seclabel);
+  text-transform:uppercase;color:var(--accent-deep);font-weight:var(--w-bold);margin-bottom:4px;}
+.map > .note{font-size:15px;color:var(--muted);line-height:1.55;margin:0 0 20px;}
+.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.acct{border:var(--rule) solid var(--ink);background:var(--white);padding:0 0 4px;}
+.acct-head{background:var(--ink);color:var(--paper);padding:10px 16px;}
+.acct-head .who{font-family:var(--mono);font-size:11px;letter-spacing:var(--tracking-seclabel);
+  text-transform:uppercase;opacity:.7;}
+.acct-head .nm{font-family:var(--mono);font-size:15px;font-weight:var(--w-medium);margin-top:2px;
+  word-break:break-all;}
+.locks{list-style:none;margin:0;padding:8px 16px 10px;}
+.locks li{padding:9px 0;border-bottom:var(--hairline-w) solid var(--hairline);font-size:15px;line-height:1.5;}
+.locks li:last-child{border-bottom:none;}
+.locks .ln{font-weight:var(--w-medium);color:var(--ink);}
+.locks .lw{display:block;font-size:13px;color:var(--muted);margin-top:2px;}
+.shared{grid-column:1 / -1;border:var(--rule) dashed var(--accent);background:var(--wash);
+  padding:14px 18px;text-align:center;}
+.shared .ln{font-family:var(--mono);font-size:15px;font-weight:var(--w-medium);color:var(--accent-deep);}
+.shared .lw{display:block;font-size:14px;color:var(--text);margin-top:4px;line-height:1.55;}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);}
+.legend span{display:flex;align-items:center;gap:7px;}
+.legend i{width:14px;height:14px;flex:none;border:var(--rule) solid var(--ink);}
+.legend i.sw{border-style:dashed;border-color:var(--accent);background:var(--wash);}
+
+/* ---------- 動手做一次（刪表） ---------- */
+.demo{border:var(--rule) solid var(--ink);margin:0 0 52px;background:var(--white);}
+.demo-head{background:var(--accent);color:var(--white);padding:14px 26px;}
+.demo-head .k{font-family:var(--mono);font-size:12px;letter-spacing:var(--tracking-seclabel);
+  text-transform:uppercase;opacity:.85;}
+.demo-head .t{font-family:var(--serif);font-weight:var(--w-serif-sub);font-synthesis:none;
+  font-size:23px;line-height:1.3;margin-top:3px;}
+.demo-body{padding:20px 26px 24px;}
+.demo-body p{margin:0 0 12px;font-size:16px;line-height:1.65;}
+.demo-body p:last-child{margin-bottom:0;}
+.sqlbox{font-family:var(--mono);font-size:15px;background:var(--paper-deep);
+  border-left:var(--rule) solid var(--ink);padding:12px 18px;margin:14px 0;color:var(--ink);
+  overflow-x:auto;white-space:pre;}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0 26px;margin:14px 0 0;}
+.tgrid .grp{grid-column:1 / -1;font-family:var(--mono);font-size:12px;
+  letter-spacing:var(--tracking-seclabel);text-transform:uppercase;color:var(--muted);
+  border-bottom:var(--rule) solid var(--ink);padding:14px 0 6px;margin-bottom:4px;}
+.tline{display:flex;align-items:center;gap:12px;padding:7px 0;
+  border-bottom:var(--hairline-w) solid var(--hairline);}
+.tbox{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:none;
+  border:var(--rule) solid var(--ink);background:var(--white);cursor:pointer;position:relative;}
+.tbox:checked{background:var(--ok);border-color:var(--ok);}
+.tbox:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+  border:solid var(--white);border-width:0 2px 2px 0;transform:rotate(45deg);}
+.tbox:focus-visible{outline:var(--focus-ring-w) solid var(--focus-ring);outline-offset:var(--focus-offset);}
+.tline label{font-family:var(--mono);font-size:14px;color:var(--ink);cursor:pointer;word-break:break-all;}
+.tline.done label{color:var(--faint);text-decoration:line-through;}
+.tcount{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:14px;}
+
+/* ---------- 交接之後 ---------- */
+.after{border-top:var(--rule) solid var(--ink);padding-top:26px;margin:0 0 40px;}
+.after > .k{font-family:var(--mono);font-size:13px;letter-spacing:var(--tracking-seclabel);
+  text-transform:uppercase;color:var(--accent-deep);font-weight:var(--w-bold);margin-bottom:6px;}
+.after > h2{font-family:var(--serif);font-weight:var(--w-serif-sub);font-synthesis:none;
+  font-size:26px;color:var(--ink);margin:0 0 8px;line-height:1.3;}
+.after > .note{font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 24px;max-width:var(--measure);}
+.aitem{border-top:var(--hairline-w) solid var(--hairline);padding:18px 0;
+  display:grid;grid-template-columns:210px 1fr;gap:0 24px;}
+.aitem:first-of-type{border-top:none;}
+.aitem .at{font-weight:var(--w-medium);color:var(--ink);font-size:17px;line-height:1.45;}
+.aitem .ad{font-size:16px;line-height:1.65;color:var(--text);}
+.aitem .ad p{margin:0 0 8px;}
+.aitem .ad p:last-child{margin-bottom:0;}
+.aitem .ad b{color:var(--ink);}
+
 /* ---------- print ---------- */
 @media print{
   .progress-wrap,.reset{display:none;}
@@ -134,13 +384,17 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
   .wrap{max-width:none;padding:0;}
   .phase{break-inside:avoid;margin-bottom:24px;}
   li.step{break-inside:avoid;padding:10px 0;}
-  .cbox{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .cbox,.tbox{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .map,.demo,.coords,.after{break-inside:avoid;}
+  .demo-head{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   a.link{color:var(--ink);}
   a.link::after{content:" (" attr(href) ")";font-size:.85em;color:var(--muted);}
 }
 @media (max-width:600px){
   li.step{grid-template-columns:auto 32px 1fr;gap:0 10px;}
   .phase-head{flex-wrap:wrap;}
+  .map-grid{grid-template-columns:1fr;}
+  .aitem{grid-template-columns:1fr;gap:6px;}
 }
 </style>
 </head>
@@ -152,7 +406,7 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
   <h1>系統交接 —— <span class="ac">照這張表走一遍</span>。</h1>
   <p class="lede">
     把 <code>studioa-dashboard</code>（部門儀表板網站＋資料庫＋門禁）從講師手上完整移交給貴公司。
-    全部 <b>20 步</b>，分五段。勾選會存在這台電腦的瀏覽器裡，關掉再打開不會不見。
+    全部 <b>15 步</b>，分五段。勾選會存在這台電腦的瀏覽器裡，關掉再打開不會不見。
   </p>
   <div class="meta">
     <span>建立 2026-08-12（D2 完課日）</span>
@@ -164,7 +418,7 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
 
 <div class="progress-wrap">
   <div class="progress-inner">
-    <span class="pcount"><span id="pdone">0</span> / 20</span>
+    <span class="pcount"><span id="pdone">0</span> / 15</span>
     <div class="bar" id="bar"><i></i></div>
     <button class="reset" id="reset" type="button">清除勾選</button>
   </div>
@@ -182,22 +436,174 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
   </p>
   <div class="law">
     <div class="k">全篇最重要的一條順序</div>
-    <p><b>先移名單、再換鎖。</b> 名單擋新的、換鎖才作廢舊的。順序反了，還在名單上的人只要更新一次程式碼，就拿到新鑰匙。</p>
+    <p><b>先移名單、再換鎖。</b></p>
+    <p>這套系統的鑰匙 ——「讓程式讀寫資料庫」的那把 —— <b>就寫在程式碼裡</b>。當初是刻意這樣設計的：13 個人各自把程式碼複製一份到自己電腦，就能直接開工，不必一個一個發鑰匙。</p>
+    <p>代價是：<b>只要還在協作者名單上，就抓得到最新的程式碼，連同裡面最新的那把鑰匙。</b></p>
+    <p>所以順序反了會這樣 —— 你先撤銷了舊鑰匙、發了新的、寫進程式碼上傳，但名單還沒清。名單上的人在自己電腦按一次更新，新鑰匙就到手了。<b>等於白換。</b></p>
+    <p>先把該移的人移出名單，他就抓不到新的程式碼了；這時候再換鑰匙，舊的那把才真的作廢。</p>
   </div>
 </div>
 
+<div class="map">
+  <div class="k">權力地圖</div>
+  <p class="note">同一件事的圖版：<b>哪一根拔掉，會斷什麼</b>。§2 移交的是上面兩個帳號，§3 換掉的是下面那把鑰匙與三份名單。</p>
+
+  <div class="map-grid">
+    <div class="acct">
+      <div class="acct-head">
+        <div class="who">Cloudflare 帳號</div>
+        <div class="nm">aidata@studioa.com.tw</div>
+      </div>
+      <ul class="locks">
+        <li><span class="ln">網站（Pages）</span><span class="lw">studioa-dashboard — 大家每天開的那個網址</span></li>
+        <li><span class="ln">資料庫（D1）</span><span class="lw">studioa-db — 全公司的數字都在這裡</span></li>
+        <li><span class="ln">門禁（Zero Trust）</span><span class="lw">16 人 Access 名單 — 決定誰打得開網站</span></li>
+      </ul>
+    </div>
+
+    <div class="acct">
+      <div class="acct-head">
+        <div class="who">GitHub 帳號</div>
+        <div class="nm">aidata-studioa</div>
+      </div>
+      <ul class="locks">
+        <li><span class="ln">程式碼保管庫</span><span class="lw">studioa-dashboard — 這個帳號是擁有者</span></li>
+        <li><span class="ln">13 位協作者</span><span class="lw">決定誰改得動程式碼</span></li>
+        <li><span class="ln">Actions secret</span><span class="lw">每晚自動備份用的那份設定</span></li>
+      </ul>
+    </div>
+
+    <div class="shared">
+      <span class="ln">API token · studioa-d1-edit</span>
+      <span class="lw">兩邊唯一的交會點：Cloudflare 發的鑰匙，存在 GitHub 這一側，讓程式讀寫資料庫。<br>
+      §3 作廢重發的就是它 —— <b>重發之後，GitHub 那份 Actions secret 要跟著換</b>，不換，隔天起每晚備份全斷。</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><i></i>今天<b>移交</b>：兩個帳號本身（改密碼、設驗證、登出所有裝置）</span>
+    <span><i class="sw"></i>今天<b>換掉</b>：API token ＋ 三份名單（協作者／Access／授權的應用程式）</span>
+  </div>
+</div>
+
+<div class="coords">
+  <div class="k">系統座標 —— 交接當天會用到的每一個名字</div>
+  <p class="note">底下沒有一項是密碼。<b>密碼由講師在交接會當場交付</b>，不寫在任何頁面、訊息或郵件裡。</p>
+  <div class="scroll">
+  <table>
+    <tbody>
+      <tr class="grp"><th colspan="2">登入</th></tr>
+      <tr>
+        <th>登入帳號</th>
+        <td><code>aidata@studioa.com.tw</code>
+          <span class="why">GitHub、Cloudflare、公司信箱三處同一組帳密</span></td>
+      </tr>
+      <tr class="secret">
+        <th>密碼</th>
+        <td>由講師於交接會當場交付
+          <span class="why">§2 第一個動作就是改掉它，所以現行密碼只需要活到你登入那一次</span></td>
+      </tr>
+
+      <tr class="grp"><th colspan="2">GitHub</th></tr>
+      <tr>
+        <th>GitHub 帳號</th>
+        <td><code>aidata-studioa</code>
+          <span class="why">登入時打的是上面那個 email，但帳號名稱是這個。§2 移交的就是這個帳號的主權</span></td>
+      </tr>
+      <tr>
+        <th>程式碼保管庫（repo）</th>
+        <td><code>aidata-studioa/studioa-dashboard</code>
+          <span class="why">上面那個帳號是它的擁有者</span></td>
+      </tr>
+      <tr>
+        <th>Actions secret</th>
+        <td><code>CLOUDFLARE_API_TOKEN</code>
+          <span class="why">§3 換 token 之後，這裡要同步換成新的。不換，隔天起每日備份會全斷</span></td>
+      </tr>
+
+      <tr class="grp"><th colspan="2">Cloudflare</th></tr>
+      <tr>
+        <th>Cloudflare 帳號</th>
+        <td>同 <code>aidata@studioa.com.tw</code>
+          <span class="why">後台顯示的帳號名稱：Aidata@studioa.com.tw's Account</span></td>
+      </tr>
+      <tr>
+        <th>網站（Pages 專案）</th>
+        <td><code>studioa-dashboard</code>
+          <span class="why">網址 studioa-dashboard.pages.dev</span></td>
+      </tr>
+      <tr>
+        <th>資料庫（D1）</th>
+        <td><code>studioa-db</code></td>
+      </tr>
+      <tr>
+        <th>門禁（Zero Trust）</th>
+        <td><code>studioa-aidata.cloudflareaccess.com</code>
+          <span class="why">沒登入開網站時，被導到的那個登入頁就是它</span></td>
+      </tr>
+      <tr>
+        <th>API token</th>
+        <td><code>studioa-d1-edit</code>
+          <span class="why">§3 要作廢重發的就是這一把——它是程式讀寫資料庫用的鑰匙</span></td>
+      </tr>
+
+      <tr class="grp"><th colspan="2">救援路徑</th></tr>
+      <tr>
+        <th>aidata@ 信箱</th>
+        <td><code>http://studioa.com.tw:8080</code>
+          <span class="why">兩個帳號忘記密碼時，重設信都寄到這裡 —— 所以它是<b>最上游的一把鎖</b>，第 03 步要第一個換掉密碼。也是所有系統警報的收件處，見「今天之後」第 ① 件</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <details class="roster">
+    <summary>誰是誰 —— 13 個帳號的對照表</summary>
+    <div class="roster-body">
+      <p class="roster-note">日後有人離職、或在後台看到不認得的帳號時，打開這張表對。<b>總後台帳號自己也算一個</b>，所以 GitHub 頁面上顯示「12 collaborators」、加上它就是 13。</p>
+      <table>
+        <thead>
+          <tr><th>儀表板上的名字</th><th>區域</th><th>GitHub 帳號</th></tr>
+        </thead>
+        <tbody>
+        <tr class="owner"><td class="nm">（總後台帳號）</td><td class="rg">擁有者</td><td class="gh">aidata-studioa</td></tr>
+        <tr><td class="nm">Chester</td><td class="rg">北桃竹</td><td class="gh">Chester-SA376</td></tr>
+        <tr><td class="nm">Lion</td><td class="rg">中南</td><td class="gh">LionXiao416</td></tr>
+        <tr><td class="nm">Bob</td><td class="rg">北一副區</td><td class="gh">bobbyuu</td></tr>
+        <tr><td class="nm">Yuni</td><td class="rg">北二區</td><td class="gh">Yuni-Wang</td></tr>
+        <tr><td class="nm">Shani</td><td class="rg">桃竹區</td><td class="gh">shiuan86-ai</td></tr>
+        <tr><td class="nm">Alston</td><td class="rg">桃竹副區</td><td class="gh">alston0913</td></tr>
+        <tr><td class="nm">Myra</td><td class="rg">中區</td><td class="gh">SA986Myra</td></tr>
+        <tr><td class="nm">Neal</td><td class="rg">中區副區</td><td class="gh">NealSA990</td></tr>
+        <tr><td class="nm">Weber</td><td class="rg">南區</td><td class="gh">Weber-Chiu</td></tr>
+        <tr><td class="nm">Abbie</td><td class="rg">校園督導</td><td class="gh">AbbieShih</td></tr>
+        <tr><td class="nm">Yiju</td><td class="rg">財會</td><td class="gh">YIJUTSAI</td></tr>
+        <tr><td class="nm">Minnie</td><td class="rg">財會</td><td class="gh">minnie671</td></tr>
+        <tr class="none"><td class="nm">Felicity</td><td class="rg">副總</td><td class="gh">沒有帳號 —— 後來沒有來上課，不需要加入</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="3">1 位擁有者 ＋ 12 位協作者 ＝ 13。儀表板上有 13 張學員卡（含 Felicity），所以卡片數與帳號數不會相等。</td></tr>
+        </tfoot>
+      </table>
+      <p class="roster-note" style="padding-bottom:16px;">GitHub 帳號都沒有設定顯示名稱，所以在後台只看得到帳號字串 —— 這張表就是唯一的對照。
+      名單上出現<b>不在這張表裡的帳號</b>，那就是要移除的對象。（2026-09-09 實查：名單乾淨，講師的個人帳號與課堂測試帳號都不在上面。）</p>
+    </div>
+  </details>
+</div>
+
+<!-- ============ §0 ============ -->
 <section class="phase" id="p0">
   <div class="phase-head">
     <span class="phase-no">§0</span>
     <span class="phase-title">交接前決定</span>
-    <span class="phase-count" data-count="p0">0 / 3</span>
+    <span class="phase-count" data-count="p0">0 / 1</span>
   </div>
   <div class="phase-who">誰做：<b>貴公司</b>　·　什麼時候：交接日<b>之前</b>先決定好，當天才不會卡住</div>
 
   <div class="law">
-    <div class="k">現況（2026-08-13 查核）</div>
-    <p><b>兩個總後台帳號目前都沒有開二階段驗證</b> —— 也就是說，<b>密碼是唯一的一道鎖</b>。<br>
-    這不是錯誤設定，是還沒決定。下面第 02 步要決定的是「<b>要不要開</b>」，不是「怎麼重綁」；打開設定頁不會看到既有的驗證裝置要換掉。</p>
+    <div class="k">這份清單管什麼、不管什麼</div>
+    <p>今天要走完的是<b>把系統交到你手上</b>：帳號主權、換鎖、驗收。</p>
+    <p>至於帳號要加多少層防護、密碼怎麼保管，那是<b>公司自己的政策</b>，不在今天的流程裡，也不需要今天決定 —— 相關的事整理在最後一段「今天之後」。</p>
   </div>
 
   <ol class="steps">
@@ -205,59 +611,29 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
       <input class="cbox" type="checkbox" data-id="s1" data-phase="p0" aria-label="步驟 1">
       <span class="snum">01</span>
       <div class="sbody">
-        <h3>指定接手管理者一人</h3>
-        <p>就是「拿到兩組密碼的那個人」。建議另外指定<b>一位備援知情人</b> —— 只有一個人知道密碼，那個人休假或離職時系統就沒人進得去。</p>
+        <h3>指定接手管理者一人<span class="tag ok">前半已定案</span></h3>
+        <div class="settled"><b>✓ 接手管理者：Chester</b>（2026-09-01 決定）—— 就是「拿到兩組密碼的那個人」，今天全程由他操作。</div>
+        <p>這一格要勾的是<b>還沒定的後半</b>：<b>指定一位備援知情人</b>。</p>
+        <p>只有一個人知道密碼，那個人休假或離職時，系統就沒人進得去 —— 而重設密碼的信箱也在同一套帳號體系裡，卡住會很麻煩。備援知情人不必參與今天的操作，只要<b>知道密碼放在哪、拿得到</b>。</p>
       </div>
     </li>
 
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s2" data-phase="p0" aria-label="步驟 2">
-      <span class="snum">02</span>
-      <div class="sbody">
-        <h3>決定要不要開二階段驗證<span class="tag">兩個帳號目前都沒開</span></h3>
-        <p>常見誤解是「一定要裝一個驗證器 App」——<b>不是</b>。兩個平台能選的方式不一樣：</p>
-        <ul class="sub">
-          <li data-k="GH"><b>GitHub</b>：可選<b>手機內建的 passkey</b>（Face ID／指紋）或<b>簡訊</b>，都不用另外裝 App。</li>
-          <li data-k="CF"><b>Cloudflare</b>：只支援<b>驗證器 App／實體金鑰</b>，<b>沒有簡訊選項</b>。</li>
-        </ul>
-        <p><b>不開也是一個合理選擇</b> —— 救援信箱本來就在公司手上。但那樣密碼就是唯一一道鎖，第 03 步的保管方式要更嚴，而且<b>兩個帳號的密碼不要用同一組</b>。</p>
-        <p>決定了就往下走：<b>開</b> → 第 09、10 步各多一個設定動作；<b>不開</b> → 那兩步就只有改密碼跟撤授權。</p>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s3" data-phase="p0" aria-label="步驟 3">
-      <span class="snum">03</span>
-      <div class="sbody">
-        <h3>決定密碼保管方式</h3>
-        <p>公司的密碼管理工具，或紙本鎖進保險箱。<b>不要用 email 傳密碼</b>。</p>
-        <p>第 02 步若決定<b>不開</b>二階段驗證，這一步就是整套系統的最後一道防線 —— 兩組密碼各自獨立、只有指定的兩個人知道。</p>
-      </div>
-    </li>
   </ol>
 </section>
 
+<!-- ============ §1 ============ -->
 <section class="phase" id="p1">
   <div class="phase-head">
     <span class="phase-no">§1</span>
     <span class="phase-title">清場</span>
-    <span class="phase-count" data-count="p1">0 / 5</span>
+    <span class="phase-count" data-count="p1">0 / 1</span>
   </div>
   <div class="phase-who">誰做：<b>講師</b>　·　什麼時候：D3 之前就能做完</div>
 
   <ol class="steps">
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s4" data-phase="p1" aria-label="步驟 4">
-      <span class="snum">04</span>
-      <div class="sbody">
-        <h3>補齊協作者缺口</h3>
-        <p>有<b>四位學員</b>不在協作者名單上、也沒有待接受的邀請（名單見交接當天點交的紙本）。確認他們報名頁有沒有填 GitHub 帳號，補發邀請 —— D3 當天要動手，名單得先齊。</p>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s5" data-phase="p1" aria-label="步驟 5">
-      <span class="snum">05</span>
+      <input class="cbox" type="checkbox" data-id="s5" data-phase="p1" aria-label="步驟 2">
+      <span class="snum">02</span>
       <div class="sbody">
         <h3>刪掉 13 張封存表</h3>
         <p>彩排殘留：<code>zzold_bob_*</code> ×6、<code>zzold2_bob_*</code> ×6、<code>zzold_ztest_weekly</code> ×1。要到 Cloudflare 的 D1 主控台<b>手動刪</b>。</p>
@@ -265,35 +641,10 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
       </div>
     </li>
 
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s6" data-phase="p1" aria-label="步驟 6">
-      <span class="snum">06</span>
-      <div class="sbody">
-        <h3>檢查 <code>submissions</code> 表</h3>
-        <p>過一眼，確認沒有測試殘留的資料。</p>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s7" data-phase="p1" aria-label="步驟 7">
-      <span class="snum">07</span>
-      <div class="sbody">
-        <h3>留一份最新備份</h3>
-        <p><code>exports/</code> 底下存一份最新的，然後上傳（push）。</p>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s8" data-phase="p1" aria-label="步驟 8">
-      <span class="snum">08</span>
-      <div class="sbody">
-        <h3>移除課前測試帳號<span class="tag">已完成 8/12</span></h3>
-        <p>課堂用的學員視角測試帳號已於 D2 完課日移除。D3 主題換成 skill／知識管理／投影片，不再需要它。</p>
-      </div>
-    </li>
   </ol>
 </section>
 
+<!-- ============ §2 ============ -->
 <section class="phase" id="p2">
   <div class="phase-head">
     <span class="phase-no">§2</span>
@@ -303,73 +654,127 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
   <div class="phase-who">誰做：<b>接手人親自操作</b>，講師在旁邊看　·　什麼時候：交接當天</div>
 
   <div class="law">
-    <div class="k">每個帳號內的順序不能省</div>
-    <p>改密碼 →（要開的話）設定二階段驗證 → <b>撤銷舊授權</b>。<br>
-    <b>改密碼不會讓已經發出去的指令列授權失效</b> —— 撤銷授權那一步才是真的把講師電腦踢掉。兩個帳號誰先誰後都行，但帳號內的順序要照走。</p>
+    <div class="k">這一段的順序不能換</div>
+    <p><b>先換信箱，再換那兩個帳號。</b></p>
+    <p><code>aidata@</code> 這個信箱是<b>最上游的一把鎖</b> —— GitHub 和 Cloudflare 都用它註冊，密碼忘了就從那裡寄重設連結進來。
+    <b>誰收得到那個信箱的信，誰就能把那兩個帳號的密碼重設掉。</b></p>
+    <p>所以只改那兩個帳號、不換信箱密碼的話，講師照樣能從信箱把它們設回來 —— <b>等於沒交接</b>。信箱先換，後面兩個才算數。</p>
+    <p>另外，每個帳號內部也有順序：<b>先改密碼，再撤銷舊授權</b>。改密碼<b>不會</b>讓已經發出去的指令列授權失效，撤銷授權那一步才是真的把講師電腦踢掉。</p>
+  </div>
+
+  <div class="warn">
+    <b>動手前先開一個記事本。</b> 這一段會當場改掉<b>三組密碼</b>（信箱、GitHub、Cloudflare），<b>新密碼只有你自己知道、講師不會知道</b> —— 沒記下來，離開這個會議就找不回來了。
+    記事本是今天的權宜；之後怎麼保管（密碼工具、紙本鎖起來）是公司自己的事，但<b>不要用 email 或通訊軟體傳</b>。
   </div>
 
   <ol class="steps">
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s9" data-phase="p2" aria-label="步驟 9">
-      <span class="snum">09</span>
+      <input class="cbox" type="checkbox" data-id="s11" data-phase="p2" aria-label="步驟 3">
+      <span class="snum">03</span>
+      <div class="sbody">
+        <h3>先換公司信箱的密碼<span class="tag hot">這一步要第一個做</span></h3>
+        <p>信箱：<code>aidata@studioa.com.tw</code>　·　webmail：<a class="link" href="http://studioa.com.tw:8080">http://studioa.com.tw:8080</a><br>
+        登入後：<b>設定 → 變更密碼</b>（左側選單）。</p>
+
+        <details class="shot">
+          <summary>看一下畫面長什麼樣</summary>
+          <div class="shot-body">
+            <img src="webmail-change-password.png" alt="webmail 變更密碼頁面：右上角進「設定」，左側選單第六項是「變更密碼」，右邊表單依序是舊密碼、新密碼、確認新密碼">
+            <p class="shot-cap"><b>①</b> 左側選單的「變更密碼」　·　<b>②</b> 帳號欄會顯示 aidata@studioa.com.tw，確認是這個再往下填。<br>
+            三個欄位由上到下：<b>舊密碼</b>（講師當場給）、<b>新密碼</b>、<b>確認新密碼</b>，然後按左下角「儲存」。</p>
+          </div>
+        </details>
+
+        <ul class="sub">
+          <li data-k="a">「舊密碼」欄要填目前的密碼 —— <b>講師當場提供</b>。</li>
+          <li data-k="b">新密碼<b>你自己設</b>，講師不會知道。設完記進記事本。</li>
+          <li data-k="c">存檔後，<b>講師手上那組就失效了</b> —— 他再也沒有辦法從這個信箱重設任何東西。</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s9" data-phase="p2" aria-label="步驟 4">
+      <span class="snum">04</span>
       <div class="sbody">
         <h3>GitHub 總後台帳號</h3>
+        <p>網址：<a class="link" href="https://github.com">github.com</a>　·　帳號 <code>aidata-studioa</code>（用 <code>aidata@studioa.com.tw</code> 登入，密碼講師當場給）</p>
         <ul class="sub">
-          <li data-k="a">改密碼 —— <b>接手人自己設，講師不知道新密碼</b>。</li>
-          <li data-k="b">§0 決定要開二階段驗證的話：在接手人的裝置上設定（passkey 或簡訊），<b>下載救援碼（recovery codes）歸檔</b>。決定不開就跳過這步。</li>
-          <li data-k="c">Settings → Sessions：<b>全部登出</b>。</li>
-          <li data-k="d">Settings → Applications → Authorized OAuth Apps：<b>撤銷「GitHub CLI」</b>等講師機器的授權。講師電腦裡的鑰匙<b>到這一步才真的死掉</b>。</li>
+          <li data-k="1">登入後，點<b>右上角頭像</b> → 下拉選單選 <b>Settings</b>。</li>
+          <li data-k="2">左側選單 <b>Password and authentication</b> → 最上面那區 <b>Change password</b>。<br>
+            舊密碼填講師給的那組；<b>新密碼你自己設</b>，設完記進記事本。按 <b>Update password</b>。</li>
+          <li data-k="3">改完可能會問要不要<b>登出其他裝置</b> —— <b>選要</b>。沒問的話，去左側選單 <b>Sessions</b>，把不是你這台的<b>全部 Revoke</b>。</li>
+          <li data-k="4">左側選單 <b>Applications</b> → 上方分頁 <b>Authorized OAuth Apps</b> → 找到 <b>GitHub CLI</b> → 右邊按 <b>Revoke</b>。</li>
         </ul>
+        <div class="warn">
+          <b>第 4 小步是這一格真正的重點。</b> 改密碼<b>不會</b>讓已經發出去的授權失效 ——
+          講師電腦上的指令列工具是靠那筆授權在動的，<b>撤銷它，那台電腦才真的進不來</b>。
+        </div>
+        <p class="shot-cap" style="margin-top:12px;">GitHub 密碼要求至少 15 個字元，或 8 個字元含數字與小寫。</p>
       </div>
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s10" data-phase="p2" aria-label="步驟 10">
-      <span class="snum">10</span>
+      <input class="cbox" type="checkbox" data-id="s10" data-phase="p2" aria-label="步驟 5">
+      <span class="snum">05</span>
       <div class="sbody">
         <h3>Cloudflare 總後台帳號</h3>
+        <p>網址：<a class="link" href="https://dash.cloudflare.com" target="_blank" rel="noopener">dash.cloudflare.com</a>　·　用 <code>aidata@studioa.com.tw</code> 登入（密碼講師當場給）</p>
+        <p>前三步都在同一個地方：<b>右上角頭像 → My Profile → 左側 Access Management</b>。</p>
         <ul class="sub">
-          <li data-k="a">改密碼。§0 決定要開二階段驗證的話一併設定（<b>只能用驗證器 App／實體金鑰</b>，沒有簡訊）。</li>
-          <li data-k="b">Members 頁確認<b>沒有多餘成員</b>。</li>
-          <li data-k="c">Billing 確認：免費方案、<b>沒有掛任何講師的信用卡</b>。</li>
+          <li data-k="1"><b>改密碼</b>：Access Management → <b>Authentication</b> → 上方分頁 <b>Password</b> → <b>Change Password</b>。<br>
+            舊密碼填講師給的那組；<b>新密碼你自己設</b>，設完記進記事本。</li>
+          <li data-k="2"><b>登出其他裝置</b>：Access Management → <b>Active sessions</b>。<br>
+            把<b>不是你這台</b>的全部登出（你自己那筆會標「Current Session」，留著）。</li>
+          <li data-k="3"><b>撤銷指令列工具的授權</b>：Access Management → <b>Connected Applications</b> → 找到 <b>Wrangler</b> → 右邊 <b>Revoke</b>。</li>
+          <li data-k="4"><b>換掉付款方式</b>：回帳號首頁 → 左側最下面 <b>Manage account</b> → <b>Billing</b>。<b>這一步要帶一張你自己的信用卡</b>，細節見下方紅框。</li>
         </ul>
-      </div>
-    </li>
+        <div class="warn">
+          <b>第 3 小步是這一格的重點，跟前一格的道理一樣。</b>
+          那筆 <code>Wrangler</code> 授權是 2026-08-07 建站當天留下的，<b>有 28 個權限</b>（涵蓋網站、資料庫、儲存空間），
+          而且<b>改密碼不會讓它失效</b> —— 撤銷它，講師的指令列工具才真的碰不到這個帳號。
+          <br><br>
+          同一頁還有一筆 <code>Cloudflare Access</code>（1 個權限）—— <b>那是門禁系統自己的，留著不要動</b>。
+          右上角的 <b>Revoke all 也不要按</b>，會把它一起撤掉。
+        </div>
 
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s11" data-phase="p2" aria-label="步驟 11">
-      <span class="snum">11</span>
-      <div class="sbody">
-        <h3>跟 IT 確認救援信箱的收信權在公司手上</h3>
-        <p>兩個帳號都用公司信箱註冊，那個信箱是<b>唯一的救援路徑</b> —— 密碼忘了要重設，就是從那裡寄連結進來。信箱本來就是公司申請的，這步只是確認一次收信權真的在公司手上。</p>
-        <p>反過來說也成立：<b>誰收得到那個信箱的信，誰就能重設這兩個帳號的密碼</b>。信箱的權限範圍要跟第 01 步指定的兩個人對得上。</p>
+        <div class="warn">
+          <b>付款方式（第 4 小步）：目前掛的是講師個人的信用卡，連帳單地址也是他家。</b><br>
+          當初建站時，Cloudflare 的門禁服務（Zero Trust）即使用免費方案也要求綁一張卡，所以先用了講師的。
+          <b>今天要換成你自己的卡</b>（不必是公司卡，Cloudflare 只是要求有一張有效的卡在檔）。
+          <br><br>
+          <b>順序不能反 —— 先加後刪：</b>
+          <br>① Payment method 區塊按 <b>+ Add</b>，加入你的卡，設為 <b>Primary</b>
+          <br>② 確認新卡是 Primary 之後，才把講師那張按 <b>Delete</b>
+          <br>③ <b>Billing address 也要改</b>（現在填的是講師的住家地址，改成你的或公司地址）
+          <br><br>
+          先刪後加的話，門禁訂閱會有一段沒有付款方式在檔的空窗，續約可能失敗 —— <b>門禁掛掉＝全公司打不開網站</b>。
+        </div>
       </div>
     </li>
   </ol>
 </section>
 
+<!-- ============ §3 ============ -->
 <section class="phase" id="p3">
   <div class="phase-head">
     <span class="phase-no">§3</span>
     <span class="phase-title">換鎖</span>
-    <span class="phase-count" data-count="p3">0 / 4</span>
+    <span class="phase-count" data-count="p3">0 / 5</span>
   </div>
   <div class="phase-who">誰做：<b>接手人</b>　·　什麼時候：§2 全部完成之後</div>
 
+  <div class="law">
+    <div class="k">這一段不是為了把講師鎖在外面</div>
+    <p>這套系統<b>刻意</b>把資料庫的鑰匙放進程式碼裡 —— 這樣 13 個人把程式碼複製到自己電腦，就能直接開工，不用一個一個發鑰匙。</p>
+    <p>代價是：<b>鑰匙一旦發出去就收不回來</b>。凡是複製過這份程式碼的人，他電腦裡的歷史紀錄就永久存著那把鑰匙。刪掉他的副本沒有用（隨時能再複製一份），把他移出名單也沒有用（名單只擋未來、擋不了已經拿到的）。<b>唯一的辦法是換一把新的、讓舊的作廢。</b></p>
+    <p>所以底下這一段是<b>常規維運</b>，不是一次性的動作 —— 日後有人離職、或懷疑鑰匙外流，跑的都是同一套流程。今天走一遍，是把這套流程交給你。</p>
+  </div>
+
   <ol class="steps">
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s12" data-phase="p3" aria-label="步驟 12">
-      <span class="snum">12</span>
-      <div class="sbody">
-        <h3>GitHub 協作者名單過一遍</h3>
-        <p>13 位學員該在的在（§1 補齊之後）。<b>講師的個人帳號若還在名單上，移除</b>。</p>
-        <a class="link" href="https://github.com/aidata-studioa/studioa-dashboard/settings/access" target="_blank" rel="noopener">github.com/…/settings/access</a>
-      </div>
-    </li>
-
-    <li class="step">
-      <input class="cbox" type="checkbox" data-id="s13" data-phase="p3" aria-label="步驟 13">
-      <span class="snum">13</span>
+      <input class="cbox" type="checkbox" data-id="s13" data-phase="p3" aria-label="步驟 6">
+      <span class="snum">06</span>
       <div class="sbody">
         <h3>門禁名單過一遍</h3>
         <p>16 個 email 逐一核對。<b>管理者自己的帳號要留著</b>（不然自己也進不去網站）；其餘依公司決定。加或刪一行，<b>當場生效</b>。</p>
@@ -378,20 +783,78 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s14" data-phase="p3" aria-label="步驟 14">
-      <span class="snum">14</span>
+      <input class="cbox" type="checkbox" data-id="s14" data-phase="p3" aria-label="步驟 7">
+      <span class="snum">07</span>
       <div class="sbody">
-        <h3>重發資料庫鑰匙<span class="tag hot">核心步驟</span></h3>
-        <p>Cloudflare → API Tokens → 撤銷 <code>studioa-d1-edit</code> → 建一把新的（權限一樣 D1:Edit）→ 更新程式碼保管庫裡的 <code>.env</code> → 上傳（push）。13 台電腦下次更新就換好。</p>
+        <h3>換一把新的資料庫鑰匙<span class="tag hot">核心步驟</span></h3>
+        <p><b>先建新的、確認能用，最後才作廢舊的</b> —— 這樣中間不會斷線，也不會發生「新的建錯、舊的已經沒了」。</p>
+        <ul class="sub">
+          <li data-k="1"><b>建新鑰匙</b>：Cloudflare 右上角頭像 → My Profile → API Tokens → Create Token，權限選 <b>D1:Edit</b>（跟舊的一樣）。<b>產生出來的那串只會顯示一次</b>，先貼進記事本。</li>
+          <li data-k="2"><b>更新程式碼裡的那把</b> —— <b>打開你自己的 Claude Code 做</b>，跟它說（照貼就好，記得把新鑰匙貼進去）：
+            <div class="sqlbox" style="white-space:pre-wrap;margin:10px 0 8px;">我是這套系統的管理者，現在在換資料庫的鑰匙。
+
+把 .env 裡 CLOUDFLARE_API_TOKEN= 後面換成這一串：
+（貼上剛才那串新的）
+
+換好之後 commit 並 push。</div>
+            <b>第一句不能省。</b> 系統的規則書裡寫著「不要修改 .env 裡的鑰匙」——
+            那是防止學員手滑改壞全班環境的，<b>管理者換鑰匙是例外</b>，講清楚身分它才會動手。
+            <br>push 完，13 台電腦下次更新程式碼時就換好了。</li>
+          <li data-k="3"><b>更新備份機器人那把</b>：repo → Settings → Secrets and variables → Actions → <code>CLOUDFLARE_API_TOKEN</code> → 鉛筆圖示 → 貼新的 → Update secret。</li>
+          <li data-k="4"><b>驗一下新的能用</b>：repo → Actions → Daily D1 export → Run workflow 手動跑一次，綠燈才算數。</li>
+          <li data-k="5"><b>作廢舊的</b>：回 Cloudflare API Tokens，把 <code>studioa-d1-edit</code> 撤銷。<b>做到這一步，舊鑰匙才真的死掉。</b></li>
+        </ul>
         <div class="warn">
-          <b>挑非回報日做。</b> 從撤銷舊鑰匙、到學員各自更新拿到新的 <code>.env</code> 之間，餵數字會失敗。多數情況學員開工時會自動更新、自己就好了；群組提醒一句「下次開工先讓它更新一下」更穩。
+          <b>第 3 小步最容易漏。</b> 那是每晚自動備份用的鑰匙，跟程式碼裡那把是<b>兩個地方、要各換一次</b>。
+          只換程式碼、忘了這裡，隔天起備份天天失敗 —— 而且警報寄到那個沒人在讀的信箱，<b>不會有人發現</b>。
+          2026 年 8 月底備份斷了 8 天，就是這個劇本。
         </div>
       </div>
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s15" data-phase="p3" aria-label="步驟 15">
-      <span class="snum">15</span>
+      <input class="cbox" type="checkbox" data-id="s16" data-phase="p3" aria-label="步驟 8">
+      <span class="snum">08</span>
+      <div class="sbody">
+        <h3>發一則訊息給大家</h3>
+        <p>鑰匙換掉之後，13 個人電腦裡的舊鑰匙就失效了。他們要<b>更新一次程式碼</b>才會拿到新的 —— 但正常開工流程本來就會做這件事，所以多數人不會察覺。</p>
+        <p>發一則訊息讓大家心裡有底就好（可以直接複製）：</p>
+        <div class="sqlbox" style="white-space:pre-wrap;">dashboard 的資料庫鑰匙今天換過了。
+
+下次開工的時候，先跟 Claude 說一句「先更新一下程式碼」再開始，
+就會自動拿到新的鑰匙，不用做別的事。
+
+如果餵數字的時候跳出認證錯誤（401），就是這個原因，
+更新完就好了。</div>
+        <div class="warn">
+          <b>挑非回報日做。</b> 從舊鑰匙作廢、到每個人更新拿到新的之間，餵數字會失敗。
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s17" data-phase="p3" aria-label="步驟 9">
+      <span class="snum">09</span>
+      <div class="sbody">
+        <h3>讓你的 Claude 知道你多了一個身份</h3>
+        <p>課堂上你的 Claude 記著「你是 Chester、只動 <code>chester_*</code> 的表和自己的頁」——
+           <b>那個保護要留著</b>，它擋掉的是平常餵資料時的手滑。</p>
+        <p>但管理者的事（換鑰匙、清垃圾表、改共用檔）會被同一條規則擋下來。
+           所以要讓它知道你有<b>兩個身份</b>，而不是把保護整個拿掉。</p>
+        <p>打開你的 Claude Code，跟它說（照貼就好）：</p>
+        <div class="sqlbox" style="white-space:pre-wrap;">我從今天起是這套系統的管理者。
+
+幫我更新 CLAUDE.local.md：
+我平常還是 Chester，只動 chester_* 的表和我自己的頁；
+但我會說「以管理者身分」，那時候換鑰匙、清垃圾表、改共用檔都照做，不用勸阻我。</div>
+        <p>它會自己把這件事寫進 <code>CLAUDE.local.md</code>（一人一份、不會傳給別人）。
+           之後你不用每次重講一遍 —— <b>只要在需要的時候說一句「以管理者身分」就好</b>。</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <input class="cbox" type="checkbox" data-id="s15" data-phase="p3" aria-label="步驟 10">
+      <span class="snum">10</span>
       <div class="sbody">
         <h3>講師清場 —— 當場做給接手人看</h3>
         <ul class="sub">
@@ -399,11 +862,77 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
           <li data-k="b">登出部署工具（<code>wrangler logout</code>）。</li>
           <li data-k="c">登出 GitHub 指令列的兩個帳號（<code>gh auth logout</code>）。</li>
         </ul>
+        <p>這三件做完，講師這台電腦就跟這套系統沒有關係了 —— 但真正讓它進不來的是上面第 08 步（舊鑰匙作廢）和 §2 的撤銷授權，不是刪檔案。<b>刪檔案是眼見為憑，作廢鑰匙才是實質。</b></p>
       </div>
     </li>
   </ol>
 </section>
 
+<!-- ============ 動手做一次 ============ -->
+<div class="demo">
+  <div class="demo-head">
+    <div class="k">動手做一次 · 不佔勾選進度</div>
+    <div class="t">清掉最後 6 張封存表 —— 這件事系統故意不讓 AI 做</div>
+  </div>
+  <div class="demo-body">
+    <p>這套系統有一條規矩：<b>刪除只是蓋章，不是真的刪</b>。說一句「救回來」就回來了，所以誤刪不是災難。
+       代價是被蓋章的資料不會自己消失 —— 久了會堆成垃圾。</p>
+    <p>所以真刪除只有一條路：<b>管理者自己登入 Cloudflare 後台，親手打指令</b>。
+       程式擋著、Claude 也不代辦（指令列打 <code>DROP TABLE</code> 會被系統攔下來，這是刻意的）。
+       這不是麻煩 —— <b>能把資料真的抹掉的權力，只留給坐在這個位子上的人</b>。今天起那個人是你。</p>
+
+    <p>路徑：Cloudflare 後台 → 左側 <b>Storage &amp; databases</b> → <b>D1 SQLite Database</b> → <code>studioa-db</code> → <b>Console</b> 分頁。<br>
+       先跑這句看看現在還有幾張：</p>
+    <div class="sqlbox">SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'zzold%' ORDER BY name;</div>
+    <p>應該回 6 列。然後一張一張刪，指令長這樣：</p>
+    <div class="sqlbox">DROP TABLE zzold2_bob_actions;</div>
+    <p>跑完換下一張表名。刪一張，就在下面勾一格。</p>
+
+    <div class="warn">
+      <b>為什麼這 6 張確定可以刪：</b>它們是 2026-08-11（D2 開課前一天下午）講師彩排時建的練習表，
+      裡面是示範用的假資料（信義、天母、內湖那六家店），跟北一區示範頁的數字幾乎一樣。<br>
+      <b>⚠️ 表名裡的 <code>bob</code> 不是指同事的資料。</b> Bob 本人真正在用的表叫 <code>bob_stores_weekly</code>（504 列真實門市資料），
+      不在這份清單裡、也不會被動到。名字前面有 <code>zzold</code> 的才是封存版。
+    </div>
+
+    <div class="tgrid">
+      <div class="grp">彩排練習表 · 6 張</div>
+      <div class="tline">
+        <input class="tbox" type="checkbox" id="t-zzold2_bob_actions" data-t="zzold2_bob_actions">
+        <label for="t-zzold2_bob_actions">zzold2_bob_actions</label>
+      </div>
+      <div class="tline">
+        <input class="tbox" type="checkbox" id="t-zzold2_bob_categories" data-t="zzold2_bob_categories">
+        <label for="t-zzold2_bob_categories">zzold2_bob_categories</label>
+      </div>
+      <div class="tline">
+        <input class="tbox" type="checkbox" id="t-zzold2_bob_items" data-t="zzold2_bob_items">
+        <label for="t-zzold2_bob_items">zzold2_bob_items</label>
+      </div>
+      <div class="tline">
+        <input class="tbox" type="checkbox" id="t-zzold2_bob_stores" data-t="zzold2_bob_stores">
+        <label for="t-zzold2_bob_stores">zzold2_bob_stores</label>
+      </div>
+      <div class="tline">
+        <input class="tbox" type="checkbox" id="t-zzold2_bob_trend" data-t="zzold2_bob_trend">
+        <label for="t-zzold2_bob_trend">zzold2_bob_trend</label>
+      </div>
+      <div class="tline">
+        <input class="tbox" type="checkbox" id="t-zzold2_bob_weekly" data-t="zzold2_bob_weekly">
+        <label for="t-zzold2_bob_weekly">zzold2_bob_weekly</label>
+      </div>
+    </div>
+    <div class="tcount"><span id="tdone">0</span> / 6 張已清</div>
+
+    <div class="law">
+      <div class="k">交接當天之前已經清掉的</div>
+      <p>原本有 16 張。2026-09-09 上午講師先清掉 10 張（更早一代的彩排表 6 張＋財會改欄位時留下的舊版表 4 張），
+      留這 6 張下來當場示範。所以你看到的數字跟舊版手冊上的「13 張」對不起來是正常的。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ §4 ============ -->
 <section class="phase" id="p4">
   <div class="phase-head">
     <span class="phase-no">§4</span>
@@ -414,8 +943,8 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
 
   <ol class="steps">
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s16" data-phase="p4" aria-label="步驟 16">
-      <span class="snum">16</span>
+      <input class="cbox" type="checkbox" data-id="s16" data-phase="p4" aria-label="步驟 11">
+      <span class="snum">11</span>
       <div class="sbody">
         <h3>無痕視窗開網站 → <b>被攔下來要 email</b></h3>
         <p>沒被攔＝門禁沒生效。</p>
@@ -423,8 +952,8 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s17" data-phase="p4" aria-label="步驟 17">
-      <span class="snum">17</span>
+      <input class="cbox" type="checkbox" data-id="s17" data-phase="p4" aria-label="步驟 12">
+      <span class="snum">12</span>
       <div class="sbody">
         <h3>不登入直接打資料網址（<code>/api/…</code>）→ <b>一個數字都不吐</b></h3>
         <p>吐得出數字＝資料是裸的，繞過網頁就拿得到。</p>
@@ -432,8 +961,8 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s18" data-phase="p4" aria-label="步驟 18">
-      <span class="snum">18</span>
+      <input class="cbox" type="checkbox" data-id="s18" data-phase="p4" aria-label="步驟 13">
+      <span class="snum">13</span>
       <div class="sbody">
         <h3>接手人的電腦用<b>新鑰匙</b>連資料庫 → 通</h3>
         <p><code>wrangler d1 execute studioa-db --remote --command "SELECT 1"</code></p>
@@ -441,8 +970,8 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s19" data-phase="p4" aria-label="步驟 19">
-      <span class="snum">19</span>
+      <input class="cbox" type="checkbox" data-id="s19" data-phase="p4" aria-label="步驟 14">
+      <span class="snum">14</span>
       <div class="sbody">
         <h3>舊鑰匙 → 被拒；講師電腦更新程式碼 → 被拒</h3>
         <p>這一招是 D2 那句「<b>我退出的時候，帶不走任何東西</b>」的兌現。兩邊都要拒才算數。</p>
@@ -450,8 +979,8 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
     </li>
 
     <li class="step">
-      <input class="cbox" type="checkbox" data-id="s20" data-phase="p4" aria-label="步驟 20">
-      <span class="snum">20</span>
+      <input class="cbox" type="checkbox" data-id="s20" data-phase="p4" aria-label="步驟 15">
+      <span class="snum">15</span>
       <div class="sbody">
         <h3>手冊三份點交</h3>
         <p>程式碼保管庫的 <code>README.md</code> ＋ <code>CLAUDE.md</code> ＋ D2 投影片的「異動操作」那一頁（含上面兩條直達網址）。</p>
@@ -460,6 +989,77 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
     </li>
   </ol>
 </section>
+
+<div class="after">
+  <div class="k">第三段 · 今天之後</div>
+  <h2>接下來這七件事是你的了</h2>
+  <p class="note">上面是一次性的動作，做完就過去了。這一段是常設的 —— 系統平常怎麼顧、什麼時候該找人。</p>
+
+  <div class="aitem">
+    <div class="at">① 警報要有人固定讀</div>
+    <div class="ad">
+      <p>備份失敗、部署失敗、用量超標，所有警報都寄到 <b>aidata@ 那個信箱</b>。</p>
+      <p>2026 年 8 月底，每晚備份連續斷了 <b>8 天</b>沒人知道 —— 不是系統沒發警報，是<b>警報沒有收件人</b>。
+         指定一個人每週看一次就夠，這是整份手冊裡最便宜、也最容易被跳過的一件事。</p>
+    </div>
+  </div>
+
+  <div class="aitem">
+    <div class="at">② 每天早上的備份要是綠燈</div>
+    <div class="ad">
+      <p>GitHub → repo → <b>Actions</b> 分頁 → 「Daily D1 export」。正常是一整排綠勾，每天一個備份檔進 <code>exports/</code>。</p>
+      <p>出現紅叉且連兩天沒好，就是要處理的訊號。</p>
+    </div>
+  </div>
+
+  <div class="aitem">
+    <div class="at">③ 誰的表變大，就要加索引</div>
+    <div class="ad">
+      <p>某個人的資料表長到<b>上萬列</b>之後，整站會開始變慢 —— 不只他自己的頁，連首頁卡片牆都會被拖住。</p>
+      <p>處理方式寫在 repo 的 <code>CLAUDE.md</code> 第 9 節：加一個「時間欄索引」再跑一次 <code>ANALYZE</code>。
+         <b>兩件都要做</b> —— 只加索引不跑 ANALYZE，系統會繼續用舊的走法，等於沒加。</p>
+    </div>
+  </div>
+
+  <div class="aitem">
+    <div class="at">④ 價量頁那行小字</div>
+    <div class="ad">
+      <p>財會的價量頁，累計區塊旁邊有一行「<b>累計資料建於 ⋯</b>」。</p>
+      <p>它的意思是：<b>時間沒動 ＝ 累計還沒跟上最新的數字</b>。正常匯資料會自己更新；如果是手改了某一筆，就可能對不上。看到時間停在很久以前，跟資料負責人說一聲重算就好。</p>
+    </div>
+  </div>
+
+  <div class="aitem">
+    <div class="at">⑤ 每月 5 美元，建議升級</div>
+    <div class="ad">
+      <p>資料庫目前用免費方案，每天的讀取量有上限。2026 年 9 月已經逼近上限兩次，
+         第二次全公司當天讀不到報表。</p>
+      <p>系統這邊已經做過優化（讀取量降到十分之一左右），但<b>資料只會越來越多</b>。
+         升級到 Workers Paid（<b>約 US$5／月</b>）等於把這個上限拿掉，在 Cloudflare 後台 Billing 頁掛公司卡就好。
+         這是治本，上面的優化只是把時間買回來。</p>
+    </div>
+  </div>
+
+  <div class="aitem">
+    <div class="at">⑥ 什麼時候該回頭找講師</div>
+    <div class="ad">
+      <p><b>報表頁明顯變慢</b>，而且不是單一個人的問題 —— 通常代表有人的資料量級跳了一階（例如從月報改成日報、從分類明細改成單品明細）。</p>
+      <p><b>想要現在做不到的東西</b>：例如累計目前一律是「當年 1 月到這個月」，
+         不支援「往回推 12 個月」那種滾動式的算法。要改是可以，但那是重做一段，不是改個設定。</p>
+      <p>一年後還有一件小事：備份每天都進保管庫，一年大約長 1 GB。2027 年第一季前不用理它。</p>
+    </div>
+  </div>
+
+  <div class="aitem">
+    <div class="at">⑦ 兩個帳號要不要再加一道鎖</div>
+    <div class="ad">
+      <p>目前兩個總後台帳號都只有<b>密碼這一道鎖</b>。這不是設定錯誤，是還沒決定要不要加 —— 加不加是公司的政策，今天的流程用不到。</p>
+      <p>如果之後決定要加第二道（登入時多驗一次身分）：<b>GitHub</b> 可以用手機內建的 Face ID／指紋，或簡訊，都不必另外裝 App；<b>Cloudflare</b> 只支援驗證器 App 或實體金鑰，<b>沒有簡訊這個選項</b>。兩邊都是進各自的帳號設定頁自己開，五分鐘的事。</p>
+      <p>另外，交接當天記在記事本上的那三組密碼，記得<b>搬進公司的密碼管理工具或鎖進保險箱，然後把記事本刪掉</b>。三條不要破：不要用 email 或通訊軟體傳、每個帳號不要用同一組、備援知情人要拿得到。</p>
+      <p>公司信箱那組值得再看一眼：那套 webmail 只要求<b>六個字元、也不檢查強度</b>，但它是另外兩個帳號的救援路徑 —— 系統沒擋，不代表可以設短的。有空的話回頭把它換長一點。</p>
+    </div>
+  </div>
+</div>
 
 <footer>
   <span>STUDIO A · A 組 · D2 — 系統交接步驟清單</span>
@@ -518,11 +1118,44 @@ footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:22px;
   });
   render();
 
+  // ---- 封存表清單：獨立計數，不併進 20 步進度 ----
+  var TKEY = 'studioa-d2-handover-tables-v1';
+  var tboxes = Array.prototype.slice.call(document.querySelectorAll('.tbox'));
+  var tdone = document.getElementById('tdone');
+  function tload() {
+    try { return JSON.parse(localStorage.getItem(TKEY)) || {}; } catch (e) { return {}; }
+  }
+  function tsave(st) {
+    try { localStorage.setItem(TKEY, JSON.stringify(st)); } catch (e) {}
+  }
+  function trender() {
+    var n = 0;
+    tboxes.forEach(function (b) {
+      b.closest('.tline').classList.toggle('done', b.checked);
+      if (b.checked) n++;
+    });
+    if (tdone) tdone.textContent = n;
+  }
+  var tstate = tload();
+  tboxes.forEach(function (b) {
+    b.checked = !!tstate[b.dataset.t];
+    b.addEventListener('change', function () {
+      var st = tload();
+      if (b.checked) st[b.dataset.t] = 1; else delete st[b.dataset.t];
+      tsave(st);
+      trender();
+    });
+  });
+  trender();
+
   document.getElementById('reset').addEventListener('click', function () {
     if (!confirm('清除全部勾選？')) return;
     save({});
     boxes.forEach(function (b) { b.checked = false; });
     render();
+    tsave({});
+    tboxes.forEach(function (b) { b.checked = false; });
+    trender();
   });
 })();
 </script>
