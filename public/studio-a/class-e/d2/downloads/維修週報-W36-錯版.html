@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>維修週報 W36</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ds-bg:#FFFFFF;--ds-surface:#F5F5F7;--ds-ink:#1D1D1F;--ds-body:#424245;--ds-muted:#86868B;--ds-line:#D2D2D7;--ds-accent:#2D7DD2;--ds-warn:#D93025;
+--ds-font:'Noto Sans TC',-apple-system,'SF Pro TC','Helvetica Neue',Arial,sans-serif;--r:14px;}
+*{box-sizing:border-box}body{margin:0;background:var(--ds-bg);color:var(--ds-body);font-family:var(--ds-font);font-size:16px;line-height:1.5}
+.page{max-width:1260px;margin:0 auto;padding:24px 20px 60px}
+.dash{padding:28px 32px 26px;background:#fff}
+header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:16px;margin-bottom:22px;border-bottom:1px solid var(--ds-line)}
+.wm{font-weight:700;font-size:15px;letter-spacing:.06em;color:var(--ds-ink)}.wm i{font-style:normal;color:var(--ds-accent)}
+.wm span{font-weight:500;color:var(--ds-muted);margin-left:10px}
+.meta{font-size:13px;color:var(--ds-muted)}
+h1{font-size:26px;line-height:1.25;letter-spacing:-.02em;color:var(--ds-ink);margin:0 0 18px;font-weight:700}
+h2{font-size:18px;color:var(--ds-ink);margin:36px 0 12px;font-weight:700;display:flex;align-items:baseline;gap:10px}
+h2 .no{font-size:12px;color:var(--ds-muted);letter-spacing:.06em;font-weight:500}
+.lab{font-size:12px;color:var(--ds-muted);letter-spacing:.06em;font-weight:500;margin-bottom:12px;display:flex;justify-content:space-between;align-items:baseline}
+.lab b{font-size:15px;color:var(--ds-ink);letter-spacing:0}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.stat{background:var(--ds-surface);border-radius:var(--r);padding:16px 18px}
+.stat .k{font-size:12px;color:var(--ds-muted)}.stat .v{font-size:28px;font-weight:700;color:var(--ds-ink);letter-spacing:-.02em;line-height:1.1;margin-top:6px}
+.stat .s{font-size:12px;color:var(--ds-muted);margin-top:6px}
+.stat.hot .v{color:var(--ds-warn)}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-top:14px}
+.card{background:var(--ds-surface);border-radius:var(--r);padding:18px 20px}
+.brow{display:grid;grid-template-columns:118px 1fr 150px 64px;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--ds-line)}
+.brow:first-of-type{border-top:0}
+.brow .nm{font-size:14px;color:var(--ds-ink);font-weight:600}.brow .nm small{display:block;font-size:11px;color:var(--ds-muted);font-weight:400}
+.bar{display:flex;height:16px;border-radius:4px;overflow:hidden;background:#E8E8ED}
+.bar i{display:block;height:100%}.bar .in{background:var(--ds-ink)}.bar .out{background:var(--ds-accent)}
+.brow .amt{font-size:12px;color:var(--ds-body);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.brow .amt b{color:var(--ds-ink)}
+.brow .rt{font-size:15px;font-weight:700;color:var(--ds-ink);text-align:right;font-variant-numeric:tabular-nums}
+.brow .rt.low{color:var(--ds-warn)}
+.legend{display:flex;gap:16px;font-size:11px;color:var(--ds-muted)}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.drow{display:grid;grid-template-columns:78px 1fr auto;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid var(--ds-line);font-size:13px}
+.drow:first-of-type{border-top:0}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#fff;border:1px solid var(--ds-line);color:var(--ds-body);white-space:nowrap}
+.drow .w{color:var(--ds-ink)}.drow .w small{display:block;color:var(--ds-muted);font-size:12px}
+.drow .d{color:var(--ds-warn);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.drow .d.q{color:var(--ds-muted);font-weight:500}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11px;color:var(--ds-muted);font-weight:500;text-align:left;padding:7px 12px;border-bottom:1px solid var(--ds-line)}
+td{padding:8px 12px;border-bottom:1px solid var(--ds-line);color:var(--ds-ink);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.st td:first-child{padding-left:30px;color:var(--ds-body)}
+tr.rg td{font-weight:700;background:var(--ds-surface)}
+tr.co td{font-weight:700;font-size:14px;background:#E8E8ED}
+ol.obs{margin:0;padding-left:20px;font-size:14px;color:var(--ds-ink);line-height:1.5}ol.obs li{margin:7px 0}
+.src{font-size:11px;color:var(--ds-muted);line-height:1.6;margin-top:10px;border-top:1px solid var(--ds-line);padding-top:8px}
+.ok{color:var(--ds-muted)}
+</style></head>
+<body><div class="page">
+<div class="dash" data-shot="dashboard">
+<header><div class="wm">STUDIO A<i>.</i><span>維修部 · 週報</span></div><div class="meta">W36 · 2026-08-31 – 09-06</div></header>
+<h1>W36：要處理的 —— 台北信義保外合計跟財務表對不上，找財務對單；板橋到店率最低，問門市。其他都對得上。</h1>
+<div class="stats">
+  <div class="stat"><div class="k">案件數</div><div class="v">60</div><div class="s">四家門市 · 不含展示機 0 筆</div></div>
+  <div class="stat"><div class="k">保內合計</div><div class="v">139,700</div><div class="s">向 Apple 請款 · 未含 18 筆待補</div></div>
+  <div class="stat"><div class="k">保外合計</div><div class="v">193,100</div><div class="s">向客戶收款 · 未含 18 筆待補</div></div>
+  <div class="stat"><div class="k">到店率</div><div class="v">79%</div><div class="s">30 到店 ／ 38 預約</div></div>
+  <div class="stat hot"><div class="k">表跟表對不上</div><div class="v">2 處</div><div class="s">明細在右邊</div></div>
+</div>
+<div class="grid2">
+  <div class="card">
+    <div class="lab"><b>門市 breakdown</b><span class="legend"><span><i style="background:var(--ds-ink)"></i>保內</span><span><i style="background:var(--ds-accent)"></i>保外</span><span>右：到店率</span></span></div>
+    <div class="brow"><div class="nm">台北信義<small>北區 · 15 件</small></div><div class="bar"><i class="in" style="width:23.5%"></i><i class="out" style="width:40.1%"></i></div><div class="amt"><b>32,700</b> ／ 55,700</div><div class="rt low">69%</div></div><div class="brow"><div class="nm">板橋<small>北區 · 12 件</small></div><div class="bar"><i class="in" style="width:33.3%"></i><i class="out" style="width:30.2%"></i></div><div class="amt"><b>46,300</b> ／ 42,000</div><div class="rt low">67%</div></div><div class="brow"><div class="nm">台中一中街<small>中區 · 17 件</small></div><div class="bar"><i class="in" style="width:39.8%"></i><i class="out" style="width:60.2%"></i></div><div class="amt"><b>55,300</b> ／ 83,600</div><div class="rt">91%</div></div><div class="brow"><div class="nm">逢甲<small>中區 · 16 件</small></div><div class="bar"><i class="in" style="width:3.9%"></i><i class="out" style="width:8.5%"></i></div><div class="amt"><b>5,400</b> ／ 11,800</div><div class="rt">100%</div></div>
+  </div>
+  <div class="card">
+    <div class="lab"><b>差異明細</b><span>2 處 · 規則編號 · 差多少</span></div>
+    <div class="drow"><span class="badge">規則 1 保固</span><div class="w">逢甲 · RMA-0191<small>RMA 標保外；GSX In Warranty、到期 2027-06-24、收件 2026-09-05 → 應為保內</small></div><div class="d">保外→保內</div></div><div class="drow"><span class="badge">規則 3 金額</span><div class="w">台北信義 · 保外合計<small>RMA 加總 55,700，財務表 54,200</small></div><div class="d">+1,500</div></div>
+  </div>
+</div>
+<div class="card" id="pending" style="margin-top:14px;padding:14px 18px 6px">
+    <div class="lab"><b>待補資料</b><span>18 筆 · 零件費空白 · 先不算，補齊後重算（規則 6）</span></div>
+    <table><thead><tr><th>門市</th><th class="n">筆數</th><th>案件號</th><th>缺哪一欄</th></tr></thead><tbody><tr><td>台北信義</td><td class='n'>3</td><td style='color:var(--ds-body)'>RMA-0193、RMA-0208、RMA-0229</td><td>零件費</td></tr><tr><td>逢甲</td><td class='n'>15</td><td style='color:var(--ds-body)'>RMA-0184、RMA-0191、RMA-0199、RMA-0204、RMA-0205、RMA-0207、RMA-0210、RMA-0217、RMA-0220、RMA-0227、RMA-0231、RMA-0234、RMA-0235、RMA-0239、RMA-0240</td><td>零件費</td></tr></tbody></table>
+  </div>
+<div class="grid2" style="grid-template-columns:1.25fr 1fr">
+  <div class="card" style="padding:14px 18px 6px">
+    <div class="lab"><b>三層合計</b><span>全公司 → 區 → 門市</span></div>
+    <table><thead><tr><th>層</th><th class="n">案件</th><th class="n">保內合計</th><th class="n">保外合計</th><th class="n">預約</th><th class="n">到店</th><th class="n">到店率</th></tr></thead><tbody><tr class='co'><td>全公司</td><td class='n'>60</td><td class='n'>139,700</td><td class='n'>193,100</td><td class='n'>38</td><td class='n'>30</td><td class='n'>79%</td></tr><tr class='rg'><td>北區</td><td class='n'>27</td><td class='n'>79,000</td><td class='n'>97,700</td><td class='n'>22</td><td class='n'>15</td><td class='n'>68%</td></tr><tr class='st'><td>台北信義</td><td class='n'>15</td><td class='n'>32,700</td><td class='n'>55,700</td><td class='n'>13</td><td class='n'>9</td><td class='n'>69%</td></tr><tr class='st'><td>板橋</td><td class='n'>12</td><td class='n'>46,300</td><td class='n'>42,000</td><td class='n'>9</td><td class='n'>6</td><td class='n'>67%</td></tr><tr class='rg'><td>中區</td><td class='n'>33</td><td class='n'>60,700</td><td class='n'>95,400</td><td class='n'>16</td><td class='n'>15</td><td class='n'>94%</td></tr><tr class='st'><td>台中一中街</td><td class='n'>17</td><td class='n'>55,300</td><td class='n'>83,600</td><td class='n'>11</td><td class='n'>10</td><td class='n'>91%</td></tr><tr class='st'><td>逢甲</td><td class='n'>16</td><td class='n'>5,400</td><td class='n'>11,800</td><td class='n'>5</td><td class='n'>5</td><td class='n'>100%</td></tr></tbody></table>
+  </div>
+  <div class="card">
+    <div class="lab"><b>三句觀察</b><span>不確定的標 ⚠</span></div>
+    <ol class="obs"><li>要改回去的：保固判定跟 GSX 不一致的 RMA-0191，RMA 表要改回。</li><li>資料：零件費空白 18 筆先不算，全部列在待補資料表（逢甲 15 筆最多），補齊後重算。</li><li>下週盯：板橋沒到店的原因，⚠ 表裡沒有；零件費空白的補上再重算；財務對單的結果。</li></ol>
+    <div class="src">資料：練習-RMA案件表-W36、練習-GSX維修單-W36、練習-SA預約表-W36、練習-財務保內外費用表-W36（Inbox）<br>照規則清單算：保內＝GSX In Warranty 且收件日在到期日前 · DEMO 不計（0 筆）· 保內／保外照 RMA 表保固判定欄分、案件不分狀態 · 到店率＝到店÷預約，同序號同週只算一次 · 零件費空白標 ⚠ 不計（18 筆）。</div>
+  </div>
+</div>
+</div>
+</div></body></html>
