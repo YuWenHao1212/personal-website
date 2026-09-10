@@ -1,0 +1,1395 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<title>STUDIO A · E 組 · 9/11 · D2</title>
+<!--
+  STUDIO A 階段 3 E 組 D2（9/11 五 09:30–12:30）deck — vibe coding：板子＋時光機＋問卷
+  基底：class-d/slides/d1（B0–B4、Email、Claude Design、收工 reuse）＋ class-f B3 週報賽跑式樣（五站牌）＋ 東海 D2 B3 式樣（auditor）
+  頁表與裁決見 slide-plan.md｜逐頁：data-label 為準｜新頁帶 class="bone"（骨架待填），reuse 頁首行 <!- src: -> 註來源
+  視覺＝匯流顧問 DS：assets/tokens.css（SoT 同步，勿手改；含 --deck-*）＋ assets/deck.css（本 deck 版面，字型自帶 assets/fonts/ 8 面）
+  2026-09-10 對齊 deck-kit v3：eyebrow / 標題 / 尺標走 SoT token；inline style 收成 utilities（deck.css 檔尾）；教材 mock 加 data-allow-small
+  學員產出走 STUDIO A DS —— deck 裡的 DS 示範／錯版 mockup 保留原色碼，那是教材內容
+-->
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/deck.css">
+<script src="deck-stage.js"></script>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080" no-rail style="--deck-rail-w:188px;">
+
+  <!-- 新做 2026-09-09 -->
+  <section class="slide s-cover" data-label="D2.00 Cover">
+    <div class="wm">STUDIO A<span class="dot">.</span> <span style="color:var(--muted);font-family:var(--mono);font-size:22px;">／ E 組 · D2</span></div>
+    <div class="eyebrow long"><span class="num">2026 / 09 / 11</span><span class="rule"></span><span>維修部 ＋ 教育事業部 ＋ 事業發展部 ＋ pqi · 11 人 · 上午半天</span></div>
+    <div class="grow"></div>
+    <div class="cover-title">把成果<span class="ac">交出去</span>，<br>把任務<span class="ac">放上板</span>。</div>
+    <div class="sp-40"></div>
+    <div class="cover-rule"></div>
+    <div class="sp-28"></div>
+    <div class="subtitle" style="max-width:56ch;">上午兩件事：一份給主管的簡報　·　一塊自己做的任務板 —— 做完，你的任務就都在板上看。</div>
+    <div class="grow-14"></div>
+    <div class="meta">
+      <div class="lecturer">講師　余文皓</div>
+      <div>匯流顧問有限公司</div>
+      <div class="sp-10"></div>
+      <div>2026 / 09 / 11</div>
+    </div>
+    <div class="footer-mark">STUDIO A · E 組 · 2026/09/11</div>
+  </section>
+
+  <!-- 新做 2026-09-09 -->
+  <section class="slide" data-label="D2.01 D1 → D2 · 今天做什麼">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">開場</span><span class="rule"></span><span>今天三小時</span></div>
+    <div class="sp-14"></div>
+    <div class="title">上週你做了<span class="ac">會跑的東西</span>；<br>今天做<span class="ac">看得見的東西</span>。</div>
+    <div class="sp-26"></div>
+    <div style="display:flex;gap:36px;flex:1;">
+      <div style="flex:1;background:var(--paper-deep);border-top:3px solid var(--hairline);padding:36px 38px;display:flex;flex-direction:column;gap:16px;">
+        <div class="kmono mut">上週 · 9/4 你已經有的</div>
+        <div style="font-size:var(--deck-t-h3);font-weight:700;color:var(--ink);line-height:1.35;">跑一次，出一份報表</div>
+        <div style="font-size:var(--deck-t-body);color:var(--text);line-height:1.75;">四張表對三件事的維修週報 skill　·　照規則清單對帳的 auditor　·　一座卡片盒　·　接上的信箱與行事曆。</div>
+        <div class="grow"></div>
+        <div class="kmono mut">它們要你「去叫它」才會動</div>
+      </div>
+      <div style="flex:1;background:var(--paper-deep);border-top:3px solid var(--terra);padding:36px 38px;display:flex;flex-direction:column;gap:16px;">
+        <div class="kmono ac">今天 · 9/11 要加的兩樣</div>
+        <div style="font-size:var(--deck-t-h3);font-weight:700;color:var(--ink);line-height:1.35;">給主管的簡報　·　一塊任務板</div>
+        <div style="font-size:var(--deck-t-body);color:var(--text);line-height:1.75;">上半場：把你的報表變成主管看的簡報。<br>下半場：做一塊板，把任務全搬上去 —— 之後開工、收工、週結算，Claude 都從板開始。</div>
+        <div class="grow"></div>
+        <div class="kmono ac">它們隨時打開就在那裡</div>
+      </div>
+    </div>
+    <div class="sp-22"></div>
+    <div class="punch">兩樣都不用寫程式 —— 一樣是你講、Claude 做、你驗收。</div>
+    <div class="footer-mark">STUDIO A · E 組 · 2026/09/11</div>
+  </section>
+
+  <!-- 新做 2026-09-09 -->
+  <section class="slide" data-label="D2.02 SHARE · 作業回收">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">回收作業</span><span class="rule"></span><span>10 MIN</span></div>
+    <div class="sp-14"></div>
+    <div class="title">上週那個 skill ——<br><span class="ac">你拿真資料跑了嗎</span>？</div>
+    <div class="sp-26"></div>
+    <div style="display:flex;gap:30px;flex:1;">
+      <div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:center;max-width:1300px;">
+        <div class="body-loose">9/4 收工時的作業：<b>把 B7 課堂起頭的那個 skill 做完</b> —— 跑出第一版的人包成 skill，沒跑完的補完。</div>
+        <div style="background:var(--paper-deep);padding:36px 44px;display:flex;flex-direction:column;gap:16px;">
+          <div class="kmono ac">抽 3–4 位 · 每人 2 分鐘</div>
+          <div style="font-size:34px;color:var(--text);line-height:2.0;">① 你的 skill 做什麼？<br>② 拿真資料跑，第一次哪裡不對？<br>③ 你改了什麼它才對？</div>
+        </div>
+      </div>
+    </div>
+    <div class="sp-20"></div>
+    <div class="punch">做不完不是問題，<b>沒開始跑</b>才是 —— 今天結束前你會有第二個成品。</div>
+    <div class="footer-mark">STUDIO A · E 組 · 2026/09/11</div>
+  </section>
+
+  <!-- src: D102 · B5.01 轉場 · 講出去 -->
+  <section class="slide ink s-transition" data-label="B8.01 轉場 · 講出去">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報</span><span class="rule"></span><span>上半場 · 第一件事</span></div>
+    <div class="grow"></div>
+    <div class="display">查到的、做到的 ——<br>還要<span class="ac ac">講出去</span>。</div>
+    <div class="sp-30"></div>
+    <div class="subtitle" style="color:#D8D8D8;font-size:34px;max-width:62ch;">查回來的進了 Atlas、教會它的變成了 skill —— 但月會上、主管面前，這些得變成<b class="wh">一份講得出去的簡報</b>。這一段，多開一張工作台。</div>
+    <div class="grow-12"></div>
+    <div class="kmono ac">生簡報 · 35 MIN</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D103 · B5.02 痛點 · 簡報一晚 -->
+  <section class="slide" data-label="B8.02 痛點 · 簡報一晚">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 痛點</span><span class="rule"></span><span>還剩一段手工</span></div>
+    <div class="sp-16"></div>
+    <div class="title">查有人幫了、skill 也會包了 —— 簡報，還是<span class="ac">自己一頁一頁做</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch;flex:1;margin-top:24px;min-height:0;">
+      <div class="dcard t-terra" style="justify-content:center;gap:14px;">
+        <div class="clabel">① 想講什麼</div>
+        <div style="font-size:27px;color:var(--ink);line-height:1.6;">給誰看、講哪幾件、順序怎麼排 —— 全在你腦子裡，<b>還沒成形</b>。</div>
+      </div>
+      <div class="dcard t-ink" style="justify-content:center;gap:14px;">
+        <div class="clabel mut">② 做出來</div>
+        <div style="font-size:27px;color:var(--ink);line-height:1.6;">每頁的標題、內容、配圖，再排成版面 —— <b>一頁一頁手工</b>。</div>
+      </div>
+    </div>
+    <div class="punch">這一段 —— 把這兩步手工<em>交出去</em>：你出判斷，它出苦工。</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D104 · B5.03 交給 Claude Design -->
+  <section class="slide" data-label="B8.03 交給 Claude Design">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 這一段的路</span><span class="rule"></span><span>VS Code 之外</span></div>
+    <div class="sp-12"></div>
+    <div class="title">交給 <span class="ac">Claude Design</span> —— 它照稿排版。</div>
+    <div style="display:flex;flex-direction:column;gap:16px;flex:1;margin-top:14px;min-height:0;">
+      <div class="note">不是新軟體 —— <b>同一個 Claude</b>，這次<b>在瀏覽器上</b>，打開就有。它<b>照稿排版</b> —— 不幫你決定要講什麼。</div>
+      <div style="display:grid;grid-template-columns:1.5fr 0.5fr;gap:26px;flex:1;min-height:0;align-items:center;">
+        <div style="display:flex;align-items:center;justify-content:center;min-height:0;height:100%;">
+          <div style="width:100%;max-width:900px;border:1px solid var(--hairline);overflow:hidden;box-shadow:0 14px 40px -18px rgba(17,17,17,.45);">
+            <div style="display:flex;align-items:center;gap:14px;padding:9px 18px;background:var(--paper-deep);border-bottom:1px solid var(--hairline);">
+              <div style="display:flex;gap:7px;"><span style="width:11px;height:11px;border-radius:50%;background:#E0685E;"></span><span style="width:11px;height:11px;border-radius:50%;background:#E0AE4A;"></span><span style="width:11px;height:11px;border-radius:50%;background:#5E9E58;"></span></div>
+              <div style="flex:1;background:#fff;border:1px solid var(--hairline);border-radius:14px;padding:6px 18px;font-family:var(--mono);font-size:22px;"><a href="https://claude.ai/design" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--ink);text-decoration:none;position:relative;z-index:5;">claude.ai/design</a></div>
+            </div>
+            <img src="img/claude-design-workspace.png" alt="Claude Design 首頁：What should we create? 輸入框＋模板列" style="display:block;width:100%;">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;justify-content:center;">
+          <div class="dcard t-terra" style="justify-content:center;gap:10px;"><div class="clabel">你給它兩樣 · 做好一樣勾一樣</div><div class="p24">☐ <b>公司規格</b> —— 長什麼樣</div><div class="p24">☐ <b>內容稿</b> —— 想講什麼</div></div>
+          <div class="dcard t-terra" style="justify-content:center;gap:8px;"><div class="clabel">它還你</div><div style="font-family:var(--sans);font-weight:700;font-size:26px;color:var(--ink);">整份投影片</div><div style="font-size:22px;color:var(--muted);">一生出來就是公司的樣子</div></div>
+        </div>
+      </div>
+      <div class="punch">順序這樣走 —— <em>先把公司規格建進去（只建這一次）</em>，再回頭寫稿，最後一次生成到位。</div>
+    </div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D105 · B5.04 公司的樣子 · 一套規格 -->
+  <section class="slide" data-label="B8.04 公司的樣子 · 一套規格">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 第 0 步</span><span class="rule"></span><span>公司的樣子</span></div>
+    <div class="sp-16"></div>
+    <div class="title">「公司的樣子」—— 存成<span class="ac">一套規格</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:18px;flex:1;margin-top:20px;min-height:0;justify-content:center;">
+      <div class="note">logo、配色、字型、版型 —— 存成一套規格。Design 讀了它，生出來的每一份<b>自動就是公司的樣子</b>。建一次、全公司用。</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:15px;">
+        <div class="lift-card">
+          <div class="row66"><div style="width:58px;height:58px;border-radius:10px;background:#1D1D1F;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:800;font-size:22px;color:#fff;">SA</div></div>
+          <div class="mono-ink">logo</div>
+          <div class="cap-mut">商標、放哪、留邊</div>
+        </div>
+        <div class="lift-card">
+          <div class="row66"><div style="display:flex;gap:8px;"><div style="width:40px;height:40px;border-radius:8px;background:#FFFFFF;border:1.5px solid var(--hairline);"></div><div style="width:40px;height:40px;border-radius:8px;background:#1D1D1F;"></div><div style="width:40px;height:40px;border-radius:8px;background:#2D7DD2;"></div></div></div>
+          <div class="mono-ink">配色</div>
+          <div class="cap-mut">白 · 近黑 · 一點 A 藍</div>
+        </div>
+        <div class="lift-card">
+          <div style="height:66px;display:flex;align-items:baseline;gap:9px;"><span style="font-family:var(--sans);font-weight:900;font-size:50px;color:var(--ink);line-height:1;">Aa</span><span style="font-family:var(--sans);font-weight:400;font-size:30px;color:var(--muted);line-height:1;">Aa</span></div>
+          <div class="mono-ink">字型</div>
+          <div class="cap-mut">公司指定的那套黑體</div>
+        </div>
+        <div class="lift-card">
+          <div class="row66"><div style="display:flex;flex-direction:column;gap:8px;width:72px;"><div style="height:8px;border-radius:4px;background:var(--muted);width:100%;"></div><div style="height:8px;border-radius:4px;background:var(--hairline);width:58%;"></div><div style="height:8px;border-radius:4px;background:var(--hairline);width:82%;"></div></div></div>
+          <div class="mono-ink">間距 · 版型</div>
+          <div class="cap-mut">大留白 · 一頁一重點</div>
+        </div>
+        <div class="lift-card">
+          <div class="row66"><span style="font-family:var(--sans);font-weight:900;font-size:52px;color:var(--ink);line-height:1;">150</span></div>
+          <div class="mono-ink">元件樣式</div>
+          <div class="cap-mut">封面 / 大數字 / 卡片</div>
+        </div>
+      </div>
+      <div class="note">Design 在網頁上 —— <b>看不到你電腦裡的檔案</b>。規格檔我們做好了，<em>下一頁直接匯進去</em>。</div>
+    </div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D106 · B5.05 動手①a · 下載＋建立 -->
+  <section class="slide" data-label="B8.05 動手①a · 下載＋建立">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 動手①</span><span class="rule"></span><span>下載 · 建立</span></div>
+    <div class="sp-12"></div>
+    <div class="title">跟著做 —— 先把 STUDIO A 的規格<span class="ac">建起來</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:40px;flex:1;margin-top:16px;min-height:0;justify-content:center;">
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="stepk">先下載這套</div>
+        <a class="dl-row" href="downloads/STUDIO_A_design-system.zip" download="STUDIO_A_design-system.zip" data-download="STUDIO_A_design-system.zip" target="_blank" rel="noopener"><span class="ic">↓</span><span class="f">STUDIO_A_design-system.zip</span><span class="lab">公司規格</span><span class="m">72 KB · 內含 70 個檔</span><span class="go">DOWNLOAD →</span></a>
+        <div class="stepk">再開 <a href="https://claude.ai/design" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:inherit;text-decoration:underline;text-underline-offset:4px;position:relative;z-index:5;">claude.ai/design</a></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start;min-height:0;">
+        <div style="display:flex;flex-direction:column;gap:12px;min-height:0;">
+          <div class="rowb"><span class="numdot">1</span><div style="font-size:24px;color:var(--ink);line-height:1.3;"><b>Design systems</b> → <b>Create design system</b></div></div>
+          <img src="img/ds-import/01-create.png" alt="Design systems → Create design system" style="width:100%;max-height:420px;object-fit:contain;border:1px solid var(--hairline);">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;min-height:0;">
+          <div class="rowb"><span class="numdot">2</span><div style="font-size:24px;color:var(--ink);line-height:1.3;">選 <b>Create here</b></div></div>
+          <img src="img/ds-import/02-create-here.png" alt="Create here" style="width:100%;max-height:420px;object-fit:contain;border:1px solid var(--hairline);">
+        </div>
+      </div>
+    </div>
+    <div class="punch">下載＋兩步點完就好 —— 檔案<em>下一頁拖</em>。</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D107 · B5.06 動手①b · 拖檔＋發佈 -->
+  <section class="slide" data-label="B8.06 動手①b · 拖檔＋發佈">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 動手①</span><span class="rule"></span><span>拖檔 · 發佈 · 5 MIN</span></div>
+    <div class="sp-12"></div>
+    <div class="title">整包拖進去 —— <span class="ac">它自己生</span>。</div>
+    <div style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:26px;flex:1;margin-top:16px;min-height:0;align-items:start;align-content:center;">
+      <div style="display:flex;flex-direction:column;gap:12px;min-height:0;">
+        <div class="rowb"><span class="numdot">3</span><div style="font-size:24px;color:var(--ink);line-height:1.35;">下載的 zip 直接拖進 <b>Add fonts, logos and assets</b> → <b>Continue</b></div></div>
+        <img src="img/ds-import/03-add-assets.png" alt="Add fonts, logos and assets" style="width:100%;max-height:470px;object-fit:contain;border:1px solid var(--hairline);">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;min-height:0;justify-content:center;">
+        <div class="rowb"><span class="numdot">4</span><div style="font-size:24px;color:var(--ink);line-height:1.45;">按 Continue 後它<b>自己生成 5–8 分鐘</b> —— 這段等待我們拿來寫稿，先往下。</div></div>
+        <img src="img/ds-import/05-publish.png" alt="生成後勾選 Published" style="width:100%;border:1px solid var(--hairline);">
+        <div class="note" style="font-size:24px;">好了回來<b>勾 Published</b> —— 等下生投影片時，才選得到這套規格。</div>
+      </div>
+    </div>
+    <div class="punch">按出 Continue 就算完成 —— <em>生成讓它自己跑</em>，第一樣 <b style="color:var(--ok);">公司規格 ✓</b>。卡住 —— 我在桌邊。</div>
+    <div class="timer tm-top" data-seconds="300" data-size="corner"><span class="tm-time">05:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D108 · B5.07 第①步 · 跟 Claude Code 討論 -->
+  <section class="slide" data-label="B8.07 第①步 · 跟 Claude Code 討論">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 第①步</span><span class="rule"></span><span>想講什麼</span></div>
+    <div style="position:absolute;top:80px;right:var(--deck-pad-x);display:flex;gap:24px;font-family:var(--mono);font-size:22px;"><span style="color:var(--ok);">✓ 公司規格</span><span class="mut">☐ 內容稿 —— 這一步</span></div>
+    <div class="sp-12"></div>
+    <div class="title">想講什麼 —— <span class="ac">跟 Claude Code 討論出來</span>。</div>
+    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:32px;align-items:stretch;flex:1;margin-top:14px;min-height:0;">
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:10px;min-width:0;">
+        <div class="ct-bubble user"><div class="ct-from">你</div><div class="ct-msg">Mac mini 新品下週就到貨 —— 做一份給<b>門市跟電商同事</b>的新品說明，9/22 到貨前，大家把資訊搞清楚。</div></div>
+        <div class="ct-bubble ai"><div class="ct-from">Claude</div><div class="ct-msg">那先講結論。我排一版故事線 —— 5 頁：一句話總結、規格對照、售價與時程、要注意的、資料來源。</div></div>
+        <div class="ct-bubble user"><div class="ct-from">你</div><div class="ct-msg">規格對照 —— <b>跟上一代並排成表格</b>，一頁一張講清楚。</div></div>
+        <div class="ct-bubble ai on"><div class="ct-from">Claude</div><div class="ct-msg">排好了。每頁配好標題跟重點 —— 你看順序對不對。</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:12px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--terra);letter-spacing:.1em;">這段討論裡 · 誰出什麼</div>
+        <div class="note"><b>你出判斷</b> —— 給誰看、要他做什麼、哪些能講 —— 只有你知道</div>
+        <div class="note"><b>它出草稿</b> —— 故事線、幾頁、每頁的標題跟重點 —— 你點頭才算數</div>
+      </div>
+    </div>
+    <div class="punch">討論定案，存成一份 —— <em>內容稿</em>。</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D109 · B5.08 動手② · 查＋寫稿一次跑 -->
+  <section class="slide" data-label="B8.08 動手② · 查＋寫稿一次跑">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 動手②</span><span class="rule"></span><span>查＋寫稿一次跑 · 10 MIN</span></div>
+    <div class="sp-16"></div>
+    <div class="title">換你 —— 這波 <span class="ac">Mac mini 發佈</span>，叫它查清楚、寫成內容稿。</div>
+    <div style="display:flex;flex-direction:column;gap:18px;flex:1;justify-content:center;margin-top:20px;min-height:0;">
+      <div class="copybox lg" data-copy="[研究] 這一波 Mac mini 新品發佈：改了什麼、售價、預購與到貨時間。查完不用歸檔，直接整理成 5 頁簡報的內容稿：一句話總結、規格對照（這一代跟上一代並排成表格）、售價與時程（幾次調價講清楚）、要注意的事（只寫查得到的，不確定就標 ⚠️）、資料來源，每頁寫清楚標題跟重點。這份是給門市跟電商同事的新品說明，資訊整理清楚就好。寫好存到 Inbox。"><div class="head"><span>複製這段 · 貼進 Claude Code · Enter</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body"><em>[研究]</em> 這一波 <em>Mac mini 新品發佈</em>：改了什麼、售價、預購與到貨時間。<br>查完不用歸檔，直接整理成 <em>5 頁簡報的內容稿</em>：一句話總結、<em>規格對照（這一代跟上一代並排成表格）</em>、售價與時程（幾次調價講清楚）、<em>要注意的事（只寫查得到的，不確定就標 ⚠️）</em>、資料來源，每頁寫清楚標題跟重點。<br>這份是<em>給門市跟電商同事的新品說明</em>，資訊整理清楚就好。寫好<em>存到 Inbox</em>。</div></div>
+      <div class="note">對象、段落想換？<b class="ink">直接改字再送</b> —— 改成你真的要報的場合就好。</div>
+    </div>
+    <div class="punch">按出去就算完成 —— <em>它查它的，我們往下講</em>；跑完 Inbox 多一份內容稿。</div>
+    <div class="timer tm-top" data-seconds="600" data-size="corner"><span class="tm-time">10:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D110 · B5.09 內容稿範例 -->
+  <section class="slide" data-label="B8.09 內容稿範例">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 範例</span><span class="rule"></span><span>它查的時候 · 先看我跑好的</span></div>
+    <div class="sp-16"></div>
+    <div class="title">內容稿長這樣 —— <span class="ac">一頁一段，全是中文</span>。</div>
+    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:36px;align-items:stretch;flex:1;margin-top:20px;min-height:0;">
+      <pre><b># Mac mini 新品發佈簡報內容稿（門市電商版）· 5 頁</b>
+給誰看：<b>門市＋電商同事</b> —— 9/22 到貨前，把資訊搞清楚
+<span class="dim">——— 逐頁 · 每頁標題＋重點 ———</span>
+P1 一句話總結 —— 晶片全面升級、外觀不變；起價比兩年前貴 50%
+P2 規格對照 —— M6 vs M4、M5 Pro vs M4 Pro <b>並排成表</b>；話術：這代沒有「M6 Pro」
+P3 售價與時程 —— 兩年調價三次（表）；台灣已開放預購、9/22 到貨
+P4 要注意的事 —— 供貨吃緊是最大變數；到貨時間先別給死承諾
+P5 資料來源 —— 官方新聞稿、規格頁、台美媒體逐條列
+<span class="hot">⚠️ 4 處標了「還不確定」—— 介紹時不講成確定事實</span></pre>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:12px;">
+        <div style="font-family:var(--mono);font-size:22px;color:var(--terra);letter-spacing:.1em;">這份稿的四個特徵</div>
+        <div class="note"><b>一頁一段</b> —— 每段就是一頁，標題＋重點都排好</div>
+        <div class="note"><b>全是中文</b> —— 沒有半行排版指令</div>
+        <div class="note">順序照<b>你要講的</b>講 —— 版面交給 Design</div>
+        <div class="note">不確定的<b>標 ⚠️ 出來</b> —— 不硬掰，跟上午的報告同一個規矩</div>
+      </div>
+    </div>
+    <div class="punch">你的那份正在生 —— 跑完打開，<em>對這四個特徵</em>。對不上，用說的改。</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D111 · B5.10 餵進 Design · 連規格一起 -->
+  <section class="slide" data-label="B8.10 餵進 Design · 連規格一起">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 第②步</span><span class="rule"></span><span>換工作台</span></div>
+    <div style="position:absolute;top:80px;right:var(--deck-pad-x);display:flex;gap:24px;font-family:var(--mono);font-size:22px;color:var(--ok);"><span>✓ 公司規格</span><span>✓ 內容稿 —— 兩樣都齊</span></div>
+    <div class="sp-16"></div>
+    <div class="title">把稿子帶到 <span class="ac">Design</span> —— 這次連規格一起掛。</div>
+    <div style="display:flex;flex-direction:column;gap:16px;flex:1;margin-top:14px;min-height:0;">
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;min-height:0;">
+        <div style="width:980px;max-width:100%;border:1px solid var(--hairline);overflow:hidden;box-shadow:0 14px 40px -18px rgba(17,17,17,.45);">
+          <div style="display:flex;align-items:center;gap:14px;padding:9px 18px;background:var(--paper-deep);border-bottom:1px solid var(--hairline);">
+            <div style="display:flex;gap:7px;"><span style="width:11px;height:11px;border-radius:50%;background:#E0685E;"></span><span style="width:11px;height:11px;border-radius:50%;background:#E0AE4A;"></span><span style="width:11px;height:11px;border-radius:50%;background:#5E9E58;"></span></div>
+            <div style="flex:1;background:#fff;border:1px solid var(--hairline);border-radius:14px;padding:6px 18px;font-family:var(--mono);font-size:22px;"><a href="https://claude.ai/design" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--ink);text-decoration:none;position:relative;z-index:5;">claude.ai/design</a></div>
+          </div>
+          <img src="img/claude-design-home.png" alt="Claude Design 生成介面：①選 Slides ②夾內容稿 ③掛規格 ④選 Model ⑤送出" style="display:block;width:100%;">
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;">
+        <div class="dcard t-terra dc-tight"><div class="clabel">① 選 Slides</div><div class="cap-ink">模板列點 Slides</div></div>
+        <div class="dcard t-terra dc-tight"><div class="clabel">② 夾內容稿</div><div class="cap-ink">按 ＋，夾上 Inbox 那份內容稿</div></div>
+        <div class="dcard t-terra dc-tight"><div class="clabel">③ 掛規格</div><div class="cap-ink">Design system → <b>STUDIO A</b>（剛匯的）</div></div>
+        <div class="dcard t-terra dc-tight"><div class="clabel">④ 選 Model</div><div class="cap-ink">選 <b>Sonnet 5</b> —— 快，課堂剛好</div></div>
+        <div class="dcard t-terra dc-tight"><div class="clabel">⑤ 送出</div><div class="cap-ink">按 ↑ —— 一頁頁長出來，<b>按出去就算完成</b></div></div>
+      </div>    </div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- src: D112 · B5.11 成品 · 就是這一題 -->
+  <section class="slide" data-label="B8.11 成品 · 就是這一題">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 成品先看</span><span class="rule"></span><span>就是剛才那份稿</span></div>
+    <div class="sp-16"></div>
+    <div class="title">生出來的 —— <span class="ac">長這樣</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:14px;flex:1;margin-top:14px;min-height:0;">
+      <div style="flex:1;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:14px 16px;min-height:0;">
+        <img class="thumb30" src="img/cd-deck-mini/p01.png" alt="P1 一句話總結（封面）">
+        <img class="thumb30" src="img/cd-deck-mini/p02.png" alt="P2 規格對照 · 並排表">
+        <img class="thumb30" src="img/cd-deck-mini/p03.png" alt="P3 售價與時程">
+        <img class="thumb30" src="img/cd-deck-mini/p04.png" alt="P4 要注意的事">
+        <img class="thumb30" src="img/cd-deck-mini/p05.png" alt="P5 資料來源">
+      </div>
+      <div style="font-size:24px;color:var(--muted);text-align:center;">就是剛才那份內容稿 —— 5 段、5 頁：<span class="ink">規格對照表、調價時間軸、查證提醒</span>，全是它排的。掛了公司規格 —— <span class="ink">一眼是 STUDIO A</span>。</div>
+      <div class="punch">生成讓它跑 —— 好了就開來看。看完想再調？<em>最快的改法在下一頁</em>。</div>
+    </div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- 2026-09-10 新做：先教「在 Design 裡改」（最快、出口最多），再談抓回本機 -->
+  <section class="slide" data-label="B8.11b 想再改 · 在 Design 裡改">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 想再改</span><span class="rule"></span><span>最快的改法</span></div>
+    <div class="sp-12"></div>
+    <div class="title">要再改 —— <span class="ac">回這裡講一句話</span>。</div>
+    <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:28px;flex:1;margin-top:16px;min-height:0;align-items:start;align-content:center;">
+      <img src="img/design-edit/edit-mode.png" alt="Claude Design 編輯畫面：左邊聊天框下指令、右上 Edit 按鈕" style="width:100%;border:1px solid var(--hairline);" data-allow-small>
+      <div style="display:flex;flex-direction:column;gap:16px;min-height:0;">
+        <div class="rowb" style="align-items:flex-start;"><span class="numdot">1</span><div style="font-size:24px;line-height:1.45;color:var(--ink);"><b>左邊直接跟它講</b><br><span style="color:var(--muted);">「第一頁加一張 Mac mini 產品圖當 hero」「第 3 頁講白話一點」—— 跟你今天用 Claude Code 一樣</span></div></div>
+        <div class="rowb" style="align-items:flex-start;"><span class="numdot">2</span><div style="font-size:24px;line-height:1.45;color:var(--ink);"><b>右上 <code>Edit</code> 自己動手</b><br><span style="color:var(--muted);">進編輯模式，點著文字直接改。小地方自己來比較快</span></div></div>
+        <div class="note"><span class="k">改完直接交出去</span><b class="ink">Share → Export</b>：<b class="ink">PowerPoint</b>（主管能自己改字）、<b class="ink">PDF</b>（版面固定）、<b class="ink">Google Slides</b>。不用再做別的事。</div>
+      </div>
+    </div>
+    <div class="punch">在這裡改 —— <em>三個出口都還在</em>。這是最短的一條路。</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+
+  <!-- src: D113 · B5.12 轉場 · 抓回你電腦 -->
+  <section class="slide ink s-transition" data-label="B8.12 轉場 · 抓回你電腦">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 最後一手</span><span class="rule"></span><span>抓回 Claude Code</span></div>
+    <div class="grow"></div>
+    <div class="display">生好的簡報住在雲端 ——<br>把它<span class="ac ac">抓回 Claude Code</span>。</div>
+    <div class="sp-30"></div>
+    <div class="subtitle" style="color:#D8D8D8;font-size:34px;max-width:64ch;">抓回來，整份 deck 就是<b class="wh">一疊可編輯的檔案</b>，存在你自己的工作資料夾裡。要改字、換圖、調版面 —— <b class="wh">跟 Claude Code 講就好</b>，跟今天改其他檔案一樣。</div>
+    <div class="grow-12"></div>
+    <div class="kmono ac">授權一次 · 以後直接抓</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- 2026-09-10 改寫：原「設定一次 · 寫 CLAUDE.md 規則」退場，改教 Send to Claude Code（reuse class-f/d2 p25，翻成 E 組 DS 語法） -->
+  <section class="slide" data-label="B8.13 動手③ · 抓回 Claude Code">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 動手③</span><span class="rule"></span><span>抓回來改</span></div>
+    <div class="sp-12"></div>
+    <div class="title">想再細調 —— <span class="ac">抓回 Claude Code 改</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:16px;flex:1;margin-top:16px;min-height:0;">
+      <div class="note">Claude Design 負責「生」；想精修就<b class="ink">抓回 Claude Code</b> —— 整份 deck 變可編輯檔案，像改檔案一樣叫 Claude 微調。</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;align-items:start;flex:1;min-height:0;">
+        <div style="display:flex;flex-direction:column;gap:12px;min-height:0;">
+          <div class="rowb" style="min-height:66px;"><span class="numdot">1</span><div style="font-size:24px;line-height:1.35;color:var(--ink);">右上 <b>Share</b> → 捲到 <b>More formats and apps</b></div></div>
+          <img src="img/send-flow/01-share.png" alt="Share → Export → More formats and apps" style="width:100%;border:1px solid var(--hairline);">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;min-height:0;">
+          <div class="rowb" style="min-height:66px;"><span class="numdot">2</span><div style="font-size:24px;line-height:1.35;color:var(--ink);"><b>Your destinations</b> 找 <b>Claude Code</b> → 按 <b>Send</b></div></div>
+          <img src="img/send-flow/02-destinations.png" alt="Your destinations → Claude Code → Send" style="width:100%;border:1px solid var(--hairline);">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;min-height:0;">
+          <div class="rowb" style="min-height:66px;"><span class="numdot">3</span><div style="font-size:24px;line-height:1.35;color:var(--ink);"><b>Send to local coding agent</b> → 指令貼進 Claude Code、<b>enter</b></div></div>
+          <img src="img/send-flow/03-send-dialog.png" alt="Send to local coding agent 對話框 · Copy prompt · Download zip instead" style="width:100%;border:1px solid var(--hairline);">
+        </div>
+      </div>
+      <div class="note">Claude Code 第一次會要你跑一次 <b class="ink">/design-login</b>（把 Claude Design 掛到你的登入）→ 之後就直接抓，不用再授權。</div>
+    </div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- 2026-09-10 新做：Design 匯出版要連網＋要 server，轉成靜態離線版（實測 recipe 見 HANDOFF） -->
+  <section class="slide" data-label="B8.14 動手④ · 轉成離線版">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 動手④</span><span class="rule"></span><span>轉一次 · 以後雙擊就開</span></div>
+    <div class="sp-12"></div>
+    <div class="title">再轉一次 —— <span class="ac">變成雙擊就開的檔案</span>。</div>
+    <div style="display:flex;flex-direction:column;gap:16px;flex:1;margin-top:16px;min-height:0;">
+      <div class="note"><span class="k">為什麼還要一步</span>剛抓回來的版本，畫面是<b class="ink">連上網、即時算出來的</b> —— 直接雙擊只會看到一長條，網路一斷整片空白。轉一次，它就變成純 HTML。</div>
+      <a class="dl-row sm" href="downloads/STUDIO_A_deck-kit.zip" download="STUDIO_A_deck-kit.zip" data-download="STUDIO_A_deck-kit.zip" target="_blank" rel="noopener"><span class="ic">↓</span><span class="f">STUDIO_A_deck-kit.zip</span><span class="lab">離線套件</span><span class="m">翻頁引擎 · 中文字型</span><span class="go">DOWNLOAD →</span></a>
+      <div class="copybox sm" data-copy="把這份簡報轉成離線版 —— 之後雙擊 index.html 就能開、不用連網。&#10;① 先渲染（這步要連網，先別動任何檔案）：用 Chrome 的 --headless --allow-file-access-from-files --dump-dom 把現在的 index.html 存成一份渲染後的 HTML。&#10;② 再換件：把下載資料夾裡的 STUDIO_A_deck-kit.zip 解壓，把裡面的 deck-stage.js 和 fonts/ 複製進這個簡報資料夾（deck-stage.js 直接覆蓋掉原本那支），再刪掉 support.js 和 _ds_bundle.js。&#10;③ 重建 index.html：用渲染後那份裡的 section，保留 _ds 的 CSS，引擎改成 &lt;script src=&quot;deck-stage.js&quot;&gt;，外層包 &lt;deck-stage width=&quot;1920&quot; height=&quot;1080&quot;&gt;；_ds 的 tokens/fonts.css 從 Google Fonts 改成指向本機 fonts/ 的 @font-face。&#10;④ 轉完打開確認：頁數對、方向鍵能翻、沒有任何外部請求。"><div class="head"><span>下載完 → 複製這段 · 貼進 CLAUDE CODE</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">把這份簡報轉成離線版 —— 之後<em>雙擊 index.html 就能開、不用連網</em>。<br>① <em>先渲染</em>（這步要連網，先別動任何檔案）：用 Chrome 的 <code>--headless --allow-file-access-from-files --dump-dom</code> 把現在的 index.html 存成一份渲染後的 HTML。<br>② <em>再換件</em>：把下載資料夾裡的 <code>STUDIO_A_deck-kit.zip</code> 解壓，把裡面的 <code>deck-stage.js</code> 和 <code>fonts/</code> 複製進這個簡報資料夾（<code>deck-stage.js</code> 直接覆蓋掉原本那支），再刪掉 <code>support.js</code> 和 <code>_ds_bundle.js</code>。<br>③ <em>重建 index.html</em>：用渲染後那份裡的 section，保留 _ds 的 CSS，引擎改成 &lt;script src="deck-stage.js"&gt;，外層包 &lt;deck-stage width="1920" height="1080"&gt;；_ds 的 <code>tokens/fonts.css</code> 從 Google Fonts 改成指向本機 <code>fonts/</code> 的 @font-face。<br>④ <em>轉完打開確認</em>：頁數對、方向鍵能翻、沒有任何外部請求。</div></div>
+      <div class="note ok">轉完再打開 —— <b class="ink">左邊縮圖、下面頁碼、方向鍵翻頁</b>都在，就成功了。跟你現在看的這份投影片同一個做法。</div>
+    </div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+  <!-- 2026-09-10 新做：轉成離線版之後，抓一位 AirPlay 現場示範「在 Claude Code 裡改投影片」 -->
+  <section class="slide" data-label="B8.15 一起改 · AirPlay 示範">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">生簡報 · 一起改</span><span class="rule"></span><span>找一位 · AirPlay</span></div>
+    <div class="sp-12"></div>
+    <div class="title">找一位 —— 投到螢幕上，<span class="ac">一起改一頁</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1.25fr;gap:30px;flex:1;margin-top:16px;min-height:0;align-content:center;">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="pick"><span class="lab">抽一位 · AIRPLAY</span><span class="name" data-pk-name>？</span><button class="btn" type="button" data-pk-btn>🎲 抽一位</button></div>
+        <div class="note"><span class="k">現在它就是一份檔案</span>不用回網站、不用等生成 —— <b class="ink">跟 Claude Code 講一句就改</b>，跟今天改 CLAUDE.md、改 skill 一模一樣。</div>
+        <div class="note ok">改完<b class="ink">重新整理瀏覽器</b>就看到。改壞了說「回到上一個存檔」。</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;min-height:0;">
+        <div class="kmono ac">挑一個現場做 · 講給大家聽</div>
+        <div class="instr"><div class="k">1</div><div><h3>改一頁的字</h3><p>「第 3 頁講白話一點，少兩行」</p></div></div>
+        <div class="instr"><div class="k">2</div><div><h3>加一頁</h3><p>「第 4 頁後面加一頁，講門市怎麼回客人的問題」</p></div></div>
+        <div class="instr"><div class="k">3</div><div><h3>交出去</h3><p>「把這份轉成 PDF」<span class="sub">要 PowerPoint 的話回 Claude Design 匯出</span></p></div></div>
+      </div>
+    </div>
+    <script>
+    (function(){var s=document.currentScript.closest('.slide');var N=["Becky","Villain","Mike","Uriko","Kay","Keisha","Smile","紫莉","玉雯","玉如","子祐"];var el=s.querySelector('[data-pk-name]'),b=s.querySelector('[data-pk-btn]');var busy=false;function r(){return N[Math.floor(Math.random()*N.length)];}b.addEventListener('click',function(e){e.stopPropagation();if(busy)return;busy=true;el.classList.remove('picked');var t=0,iv=setInterval(function(){el.textContent=r();t+=60;if(t>=1500){clearInterval(iv);el.textContent=r();el.classList.add('picked');busy=false;}},60);});})();
+    </script>
+    <div class="punch">這就是「<em>檔案是你的</em>」的意思 —— 你講，它改，你當場驗收。</div>
+    <div class="footer-mark">生簡報</div>
+  </section>
+
+
+
+  <!-- 新做 2026-09-09 -->
+  <section class="slide ink s-transition" data-label="BREAK · 休息 8 MIN">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">休息一下</span><span class="rule"></span><span>8 分鐘 · 回來接著做</span></div>
+    <div class="grow"></div>
+    <div class="timer" data-seconds="480" data-size="hero"><span class="tm-label">休息</span><span class="tm-time">08:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="sp-34"></div>
+    <div class="subtitle" style="text-align:center;">站起來走一走、喝個水。<br>回來是<b class="wh">今天的主菜</b> —— 做一塊<b class="wh">自己的任務板</b>，兩小時。<br><b class="wh">一樣不用寫程式，全部交給 Claude Code。</b></div>
+    <div class="grow-12"></div>
+    <div class="kmono">電腦別關 · VS Code 跟 Claude 開著</div>
+    <div class="footer-mark">休息</div>
+  </section>
+
+  <!-- src: F29 · C2-01 BRIDGE · 任務板 Tracking Board -->
+  <section class="slide ink s-transition" data-label="B9.01 BRIDGE · 需要一個地方">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板</span><span class="rule"></span><span>下半場 · 第二件事</span></div>
+    <div class="grow"></div>
+    <div class="display" style="font-size:70px;">每天的工作那麼多 ——<br>需要一個地方，<span class="ac">一眼看懂、跟 AI 一起跑</span>。</div>
+    <div class="sp-26"></div>
+    <div class="subtitle" style="color:#D8C7BE;font-size:32px;">下半場：做一塊你自己的 Todo Tracking Board —— 上雲、手機能開，你的 Claude 讀得懂、寫得進去。</div>
+    <div class="grow-12"></div>
+    <div class="kmono ac">下半場 · FLUX Tracking Board</div>
+  </section>
+
+  <!-- src: F30 · C2-02 任務板 · 三個需求 -->
+  <section class="slide" data-label="B9.02 三個需求">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 情境</span><span class="rule"></span><span>為什麼自己做</span></div>
+    <div class="sp-14"></div>
+    <div class="title">管好每天的工作 —— 我們要的是 <span class="ac">三件事</span>。</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px;align-items:stretch;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="dcard t-terra cc">
+        <div class="clabel">① 一眼了解</div>
+        <div class="p26">什麼在跑、什麼卡住、這週做完幾件 —— <b class="ac">打開就看到</b>，不用翻檔案、翻聊天記錄。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">② 和 AI 更有效率地協作</div>
+        <div class="p26">不只你看得懂 —— <b class="ac">Claude 也讀得懂、寫得進去</b>：幫你開卡、挑今天的事、算這週的分數。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">③ 不再遷就套裝工具</div>
+        <div class="p26">Notion、Jira、Trello —— 是<b class="ac">我們去配合它</b>的欄位跟流程。想加個小功能？等原廠。</div>
+      </div>
+    </div>
+    <div class="punch">今天這三件事一次解 —— <em>自己做一塊自己的板</em>。這套做法，講師自己每天都在用。</div>
+    <div class="footer-mark">任務板 · 為什麼自己做</div>
+  </section>
+
+  <!-- src: F31 · C2-03 任務板 · 成品長這樣 -->
+  <section class="slide" data-label="B9.03 成品長這樣">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 成品</span><span class="rule"></span><span>做完之後長這樣</span></div>
+    <div class="sp-14"></div>
+    <div class="title">它長這樣 —— <span class="ac">FLUX Tracking Board</span>。</div>
+    <div style="display:grid;grid-template-columns:1.75fr 1fr;gap:34px;align-items:center;flex:1;margin-top:16px;min-height:0;">
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:0;justify-content:center;">
+        <div class="clabel">電腦 —— 五區一眼掃完 · 上方是本週 Score</div>
+        <img src="img/board-v2-desktop.png" alt="FLUX Tracking Board 桌機版：Backlog／Todo／In Progress／Done／Blocked 五區" style="width:100%;border:1px solid var(--hairline);display:block;">
+        <div style="font-size:23px;color:var(--muted);line-height:1.5;">Backlog · Todo · In Progress · Done · Blocked —— 卡片先放<b class="ink">練習資料</b>，今天下課前換成<b class="ink">你本週真正的事</b>。</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;min-height:0;">
+        <div class="clabel">手機 —— 一欄直排 · 點卡片換狀態</div>
+        <img src="img/board-v2-mobile.png" alt="FLUX Tracking Board 手機版：一欄直排" style="max-height:540px;width:auto;border:1px solid var(--hairline);display:block;">
+      </div>
+    </div>
+    <div class="punch">同一個網址 —— <em>電腦、手機、你的 Claude，看的都是同一塊板</em>。</div>
+    <div class="footer-mark">任務板 · 成品長這樣</div>
+  </section>
+
+  <!-- src: F32 · C2-04 任務板 · 四步路線 -->
+  <section class="slide" data-label="B9.04 四步路線">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 路線</span><span class="rule"></span><span>四步 · 做完就帶走</span></div>
+    <div class="sp-14"></div>
+    <div class="title">四步 —— <span class="ac">每一步你都多一樣東西</span>。</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:center;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="dcard t-terra cc">
+        <div class="clabel">1 開門</div>
+        <div class="p24 bd">辦雲端帳號</div>
+        <div class="cap-mut">你多一把鑰匙</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">2 部署</div>
+        <div class="p24 bd">板上線</div>
+        <div class="cap-mut">你多一個網址</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">3 接管</div>
+        <div class="p24 bd">你的任務上板</div>
+        <div class="cap-mut">開工收工都認它</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">4 加功能</div>
+        <div class="p24 bd">要什麼自己加</div>
+        <div class="cap-mut">30 分鐘自由建造</div>
+      </div>
+    </div>
+    <div class="note" style="font-size:27px;margin-top:18px;">四步走完 —— 你帶回去的不是練習作品，是一個<b class="ac">明天早上就會用的系統</b>。</div>
+    <div class="footer-mark">任務板 · 四步路線</div>
+  </section>
+
+  <!-- src: F33 · C2-05 上線環境 · 為什麼上雲 -->
+  <section class="slide" data-label="B9.05 上線環境 · 為什麼上雲">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 上線環境</span><span class="rule"></span><span>為什麼要上雲</span></div>
+    <div class="sp-14"></div>
+    <div class="title">為什麼要 <span class="ac">上雲</span>？</div>
+    <div class="p26t">上週那個維修週報 skill，放自己電腦就好 —— 這塊板不行。差別在哪？</div>
+    <div class="grid2">
+      <div class="dcard t-ink cc">
+        <div class="clabel">放自己電腦 —— 像你的維修週報 skill</div>
+        <div class="col13">
+          <div class="p26">— 自己用，要跑的時候才叫它</div>
+          <div class="p26">— 檔案在你電腦裡，跟著你走</div>
+          <div class="p26">— 同事要用 —— 給他也裝一份就好</div>
+        </div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">掛上雲 —— 這塊板</div>
+        <div class="col13">
+          <div class="p26">— 人在門市、在路上 —— <b class="ac">手機打開就是它</b></div>
+          <div class="p26">— 你的 Claude 用網址<b class="ac">直接讀寫</b>，不用你當中間人</div>
+          <div class="p26">— 換電腦、重灌 —— <b>資料都在雲上</b></div>
+          <div class="p26">— 你的電腦會闔蓋、會關機 —— 板掛在雲上，<b class="ac">24 小時都開著</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="punch">判斷只有一句：這份東西，要不要<em>隨時、每個裝置、連 AI 都碰得到同一份</em>？要 —— 就上雲。</div>
+    <div class="footer-mark">上線環境 · 為什麼上雲</div>
+  </section>
+
+  <!-- src: T69 · B6.06 上線環境 · Cloudflare + DO -->
+  <section class="slide" data-label="B9.06 上線環境 · Cloudflare + DO">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 上線環境</span><span class="rule"></span><span>兩個名字是什麼</span></div>
+    <div class="sp-14"></div>
+    <div class="title">上雲的地方 —— <span class="ac">Cloudflare ＋ Durable Object</span>。</div>
+    <div class="p26t">兩個名字，等下會一直出現 —— 白話一次講清楚。</div>
+    <div class="grid2">
+      <div class="dcard t-terra cc">
+        <div class="clabel">Cloudflare —— 掛網頁的地方</div>
+        <div class="col13">
+          <div class="p26">— 把你的網頁掛上網，<b class="ac">給你一個網址</b></div>
+          <div class="p26">— 不用租主機、不用懂機房</div>
+          <div class="p26">— Claude <b>一個指令</b>就上線</div>
+          <div class="p26">— 免費方案就夠，<b>不用綁信用卡</b></div>
+        </div>
+      </div>
+      <div class="dcard t-ink cc">
+        <div class="clabel">Durable Object —— 存卡片的抽屜</div>
+        <div class="col13">
+          <div class="p26">— 雲端的小資料庫，<b>你這塊板專屬的一格</b></div>
+          <div class="p26">— 改一張卡，<b class="ac">就只寫那一張</b>；卡再多也不會愈存愈慢</div>
+          <div class="p26">— 誰開網址，看到的都是<b>同一份</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="punch">這兩樣<b>你都不用先建</b> —— 部署那一下自己長出來。你只要記住：<em>網頁掛 Cloudflare、卡片存 Durable Object</em>。</div>
+    <div class="footer-mark">上線環境 · Cloudflare + Durable Object</div>
+  
+</section>
+
+  <!-- src: F35 · C2-07 上線環境 · 免費額度 -->
+  <!-- src: T70 · B6.07 上線環境 · 免費額度（DO 版免費額度，取代 F 組 KV 版數字）-->
+  <section class="slide" data-label="B9.07 上線環境 · 免費額度">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 上線環境</span><span class="rule"></span><span>要花錢嗎</span></div>
+    <div class="sp-14"></div>
+    <div class="title">要花錢嗎 —— <span class="ac">免費額度怎麼用都用不完</span>。</div>
+    <div class="grid2">
+      <div class="dcard t-terra cc">
+        <div class="clabel">免費額度給你多少</div>
+        <div class="col13">
+          <div class="p26">— 開板、看板（網頁本身）：<b class="ac">不計次</b></div>
+          <div class="p26">— 你的 Claude 讀寫卡片：<b>10 萬次／天</b></div>
+          <div class="p26">— 改卡片（寫進資料庫）：<b>10 萬筆／天</b></div>
+          <div class="p26">— 存放空間：<b>5 GB</b> · 更新程式<b>不限次</b></div>
+          <div class="p26">— 免費方案 · <b>不用綁信用卡</b></div>
+        </div>
+      </div>
+      <div class="dcard t-ink cc">
+        <div class="clabel">我們其實用多少</div>
+        <div class="col13">
+          <div class="p26">— 一天開板幾十次 → 網頁不計次，<b>連算都不算</b></div>
+          <div class="p26">— 一天改幾十張卡 → 用掉<b>十萬分之幾十</b></div>
+          <div class="p26">— 卡片是文字，五百張也不到 <b>1 MB</b></div>
+          <div class="p26">— 改功能重新上線 → <b>免費方案沒有次數限制</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="punch">順便記一個觀念：<b>資料跟程式分家</b> —— 改卡片動的是資料庫、改功能才動程式。<em>等下自由建造「砍掉重練、卡不會丟」，靠的就是這個</em>。</div>
+    <div class="footer-mark">上線環境 · 免費額度 · 資料程式分家</div>
+  
+</section>
+
+  <!-- src: F36 · C2-08 開門 · 辦帳號 -->
+  <section class="slide" data-label="B9.08 開門 · 辦帳號" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 開門</span><span class="rule"></span><span>第一步 · 辦帳號</span></div>
+    <div class="sp-14"></div>
+    <div class="title">先開門 —— 辦帳號，<span class="ac">把門牌立起來</span>。</div>
+    <div class="p26t">等下把板上線，需要兩樣東西：<b class="ink">① Cloudflare 帳號（這頁辦）</b>　＋　<b class="ink">② wrangler 上線工具（下一頁裝）</b></div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:36px;align-items:center;">
+        <div class="col14">
+          <div><div class="instr"><span class="k">①</span><div><h3>用 email 註冊</h3><p><b>免費、免信用卡</b> —— 開 <a href="https://dash.cloudflare.com/sign-up" target="_blank">dash.cloudflare.com/sign-up</a>；問你用途就按 <b>Skip</b>；驗證信沒收到，看垃圾信匣</p></div></div>
+            <div class="instr"><span class="k">②</span><div><h3>登入後，左側欄<b>點一下「Workers &amp; Pages」</b></h3><p>你的網址門牌這時自動建立<span class="sub">這一下不點，等下部署會拿不到網址</span></p></div></div></div>
+          <div class="note ok"><span class="k">驗收</span>進得了 <b>Cloudflare dashboard</b> ＝ 帳號好了。</div>
+          <div class="note"><span class="k">老師巡場</span>收不到驗證信、頁面長不一樣，直接喊。</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0;">
+          <div class="clabel">點完長這樣（新帳號實際畫面）</div>
+          <div style="position:relative;">
+            <img src="img/cf-workers-pages-new-account.png" alt="新帳號 Workers &amp; Pages 頁面：左側欄 Compute → Workers &amp; Pages，右下 Account Details 的 Subdomain 已自動配發" style="width:100%;border:1px solid var(--hairline);display:block;">
+            <div style="position:absolute;left:67.5%;top:58.6%;width:21.6%;height:15.6%;border:3px solid var(--terra);pointer-events:none;"></div>
+          </div>
+          <div style="font-size:23px;color:var(--ink);line-height:1.5;">右下 <b>Account Details</b> —— <b class="ac">Subdomain 出現值</b>（例 zoe-33c.workers.dev）＝ 門牌好了，這段名字等下會出現在你的網址裡。</div>
+        </div>
+      </div>
+    </div>
+    <div class="timer tm-dock" data-seconds="360" data-size="corner"><span class="tm-time">06:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">任務板 · 開門 · 辦帳號</div>
+  </section>
+
+  <!-- src: F37 · C2-08b 開門 · 裝 wrangler -->
+  <section class="slide" data-label="B9.09 開門 · 裝 wrangler" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 開門</span><span class="rule"></span><span>第二樣 · 裝 wrangler</span></div>
+    <div class="sp-14"></div>
+    <div class="title">再裝 <span class="ac">wrangler</span> —— 跟 Claude 說一句就好。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="dcard t-terra cc">
+            <div class="clabel">wrangler 是什麼</div>
+            <div class="p26">把你的資料夾<b class="ac">一鍵變成網址</b>的上線工具。不用開終端機、不用懂 Node —— 右邊那句貼給 Claude，<b>它連 Node 一起幫你裝好</b>。</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:14px;padding:20px 24px;background:var(--paper-deep);border:1px solid var(--hairline);">
+            <span style="font-family:var(--mono);font-size:23px;color:var(--ink);">Tracking Board 資料夾</span>
+            <span style="font-family:var(--mono);font-size:22px;color:var(--terra);">── deploy ──▶</span>
+            <span style="font-family:var(--mono);font-size:23px;color:var(--terra);">你的網址</span>
+          </div>
+        </div>
+        <div class="col14">
+          <div class="copybox" data-copy="幫我準備 Cloudflare 的上線工具 wrangler，一步一步來，每步告訴我結果：&#10;1. 缺什麼就幫我裝好；裝不了就先停下來告訴我。&#10;2. 確認 wrangler 可以動，把版本號印出來給我看。"><div class="head"><span>貼給 Claude Code（它幫你全裝好）</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">幫我準備 Cloudflare 的上線工具 <code>wrangler</code>，一步一步來，每步告訴我結果：<br>1. <em>缺什麼就幫我裝好</em>；裝不了就先停下來告訴我。<br>2. 確認 <code>wrangler</code> 可以動，<em>把版本號印出來給我看</em>。</div></div>
+          <div class="note ok"><span class="k">驗收</span>Claude 印出 <b>wrangler 的版本號</b> ＝ 裝好了。報錯就整段貼回去給 Claude。</div>
+        </div>
+      </div>
+    </div>
+    <div class="timer tm-dock" data-seconds="360" data-size="corner"><span class="tm-time">06:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">任務板 · 開門 · 裝 wrangler</div>
+  </section>
+
+  <!-- src: F38 · C2-09 開門 · login -->
+  <section class="slide" data-label="B9.10 開門 · login" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 開門</span><span class="rule"></span><span>login · 接上帳號 · 3 MIN</span></div>
+    <div class="sp-8"></div>
+    <div class="title t50">最後一步 —— <span class="ac">login</span>，把工具接上你的帳號。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:38px;align-items:center;">
+        <div class="col14">
+          <div class="note">
+            <div class="serif-ink"><b class="ac">1</b>　照貼下面那句 → Claude 幫你跑 —— <b>瀏覽器會自動跳出授權頁</b></div>
+            <div class="serif-ink"><b class="ac">2</b>　在瀏覽器按「<b>Allow / 允許</b>」—— 用<b>剛剛註冊的那個帳號</b>授權一次</div>
+            <div class="serif-ink"><b class="ac">3</b>　回到 Claude —— 它印出你的 email ＝ 接上了，等下部署直接用</div>
+          </div>
+          <div class="copybox" data-copy="幫我跑 wrangler login，登入我剛剛註冊的 Cloudflare 帳號。瀏覽器會跳出授權頁，我自己按允許；完成後確認一下，把登入的帳號 email 印出來給我看。"><div class="head"><span>貼給 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">幫我跑 <code>wrangler login</code>，登入我剛剛註冊的 Cloudflare 帳號。瀏覽器會跳出授權頁，<em>我自己按允許</em>；完成後確認一下，<em>把登入的帳號 email 印出來給我看</em>。</div></div>
+          <div class="note">瀏覽器沒跳出來、按錯帳號 → 跟 Claude 說「<b class="ink">再跑一次 wrangler login</b>」。</div>
+        </div>
+        <div class="col20c">
+          <div class="timer" data-seconds="180" data-size="side"><span class="tm-label">動手</span><span class="tm-time">03:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">驗收：它印出<b>你剛註冊的 email</b> —— 門開了。<br>卡住就喊 —— <b class="ac">這一步不通，後面動不了</b>，當場解。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">任務板 · 開門 · login</div>
+  </section>
+
+  <!-- src: F39 · C2-10 動手A · 拿材料開專案 -->
+  <section class="slide" data-label="B9.11 動手A · 拿材料開專案" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 動手 A</span><span class="rule"></span><span>拿材料 · 開專案</span></div>
+    <div class="sp-14"></div>
+    <div class="title">先 <span class="ac">拿材料</span> —— 下載、收進專案。</div>
+    <div class="slide-body" style="justify-content:center;gap:22px;">
+      <div style="display:grid;grid-template-columns:0.95fr 1.05fr;gap:40px;align-items:center;">
+        <div><div class="instr"><span class="k">①</span><div><h3>下載你的材料</h3><a class="dl-row sm" href="downloads/tracking-board.zip" download="tracking-board.zip"><span class="ic">↓</span><span class="f">tracking-board.zip</span><span class="lab">講師給的材料</span><span class="go">DOWNLOAD →</span></a><p style="margin-top:14px">包裡有：看板網頁＋程式、設定檔，還有四份給 Claude 讀的說明：<code>DEPLOY</code>（上線）、<code>TAKEOVER</code>（接管）、<code>BOARD-MODE</code>（接管後的流程差異）、<code>CUSTOMIZE</code>（改造）</p></div></div></div>
+        <div>
+          <div class="copybox" data-copy="我剛下載了 tracking-board.zip 到下載資料夾 — 這是講師給的「FLUX Tracking Board」材料（一個 Cloudflare Worker 專案）。&#10;幫我在 Efforts/Projects/Active 裡開一個新專案資料夾，叫 Tracking Board，把 zip 搬過來、解壓到裡面（解壓完 zip 檔可以刪）。之後我們就在這個專案裡面做事。&#10;弄好之後幫我存個檔（commit）。"><div class="head"><span>② 照貼 → 請 Claude 開專案、把材料收進去</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我剛下載了 <code>tracking-board.zip</code> 到下載資料夾 — 這是講師給的「FLUX <code>Tracking Board</code>」材料（一個 Cloudflare Worker 專案）。<br>幫我在 <code>Efforts/Projects/Active</code> 裡開一個新專案資料夾，叫 Tracking Board，把 zip 搬過來、<em>解壓到裡面</em>（解壓完 zip 檔可以刪）。之後我們就在這個專案裡面做事。<br>弄好之後<em>幫我存個檔（commit）</em>。</div></div>
+        </div>
+      </div>
+      <div class="note">材料就位 → 接下來的每一步，都在 <span style="font-family:var(--mono);color:var(--terra);">Tracking Board</span> 這個專案裡做。</div>
+    </div>
+    <div class="timer tm-dock" data-seconds="300" data-size="corner"><span class="tm-time">05:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">任務板 · 動手 A · 拿材料開專案</div>
+  </section>
+
+  <!-- src: T75 · B6.12 動手A · 部署上雲 -->
+  <section class="slide" data-label="B9.12 動手A · 部署上雲" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 動手 A</span><span class="rule"></span><span>部署上雲 · 10 MIN</span></div>
+    <div class="sp-8"></div>
+    <div class="title">動手 —— <span class="ac">把板部署到你的帳號</span>。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.5fr 0.92fr;gap:38px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="copybox" data-copy="讀 Efforts/Projects/Active/Tracking Board/DEPLOY.md，照它的「部署」把看板部署到我的 Cloudflare 帳號，worker 名字用 tracking-board-加我的英文名。&#10;部署好之後，照 DEPLOY.md「練習卡」那段塞四張卡，然後直接用瀏覽器幫我打開看板網址，再告訴我怎麼驗收。&#10;中間卡住（例如問要不要註冊 workers.dev、拿不到網址）就停下來告訴我，我去瀏覽器點。"><div class="head"><span>照貼 → Claude 照 DEPLOY.md 部署、塞練習卡</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">讀 <code>Efforts/Projects/Active/Tracking Board/DEPLOY.md</code>，照它的「部署」把看板部署到我的 Cloudflare 帳號，worker 名字用 <em>tracking-board-加我的英文名</em>。<br>部署好之後，照 DEPLOY.md「練習卡」那段<em>塞四張卡</em>，然後<em>直接用瀏覽器幫我打開看板網址</em>，再告訴我怎麼驗收。<br>中間卡住（例如問要不要註冊 workers.dev、拿不到網址）就<em>停下來告訴我</em>，我去瀏覽器點。</div></div>
+          <div class="note">做法都寫在 <b>DEPLOY.md</b> 裡 —— 上週你們把規則放進檔案給 skill 讀，今天一樣：<b class="ac">做法放檔案，你只講一句</b>。</div>
+        </div>
+        <div class="col20c">
+          <div class="timer" data-seconds="600" data-size="side"><span class="tm-label">動手</span><span class="tm-time">10:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">剛部署完的前幾分鐘偶爾回 <b>404 / error 1042</b>（雲端佈點中）—— 連續失敗兩三次也正常，<b class="ac">等 30 秒重試</b>，不是你做錯。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">任務板 · 動手 A · 部署上雲</div>
+  
+</section>
+
+  <!-- src: F41 · C2-12 動手A · 驗收 -->
+  <section class="slide" data-label="B9.13 動手A · 驗收">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 動手 A</span><span class="rule"></span><span>驗收 · 板上線了</span></div>
+    <div class="sp-14"></div>
+    <div class="title">驗收 —— <span class="ac">你的板上線了</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="dcard t-terra cc">
+        <div class="clabel">1 · 開網址</div>
+        <div class="p26">五區都有東西：Backlog 有一張 <b class="ac">🌱 虛線卡</b>、Blocked 亮框一張、上方 Score 0%。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">2 · 拖一張卡</div>
+        <div class="p26">把「In Progress」那張<b class="ac">拖到「Done」→ Score 當場跳 50%</b> —— 分數是活的。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">3 · 點開一張卡</div>
+        <div class="p26">抽屜能改欄位、能複製。板上<b>沒有新增按鈕</b> —— 建卡是 Claude 的事，<b class="ac">這是設計不是缺件</b>。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">4 · 手機開</div>
+        <div class="p26">網址丟自己的 Line → 手機點開 → <b class="ac">同一份</b>。網址＝鑰匙 —— 這是你自己的板，別把網址亂貼出去。</div>
+      </div>
+    </div>
+    <div class="punch">手機沒看到剛改的？<b>等 30–60 秒再重整</b> —— 雲端快取，不是壞掉。</div>
+    <div class="footer-mark">任務板 · 動手 A · 驗收</div>
+  </section>
+
+  <!-- src: F42 · C2-14b 第一版上線 · 存檔 -->
+  <section class="slide" data-label="B9.14 第一版上線 · 存檔">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 第一版上線</span><span class="rule"></span><span>先存個檔</span></div>
+    <div class="sp-14"></div>
+    <div class="title">第一版上線 —— <span class="ac">先存個檔</span>。</div>
+    <div class="p26t">板能開了、專案材料都在 vault 裡 —— 接下來要開始大改它。改之前，照上午教的：<b class="ink">先存檔</b>。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:38px;align-items:center;">
+        <div class="col14">
+          <div class="copybox" data-copy="我的 Tracking Board 第一版上線了。幫我存個檔（commit），訊息寫「Tracking Board 第一版上線」。之後我要開始改造它 —— 改壞了要能跳回這一版。"><div class="head"><span>照貼 → 全班一起存這一版</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我的 Tracking Board <em>第一版上線了</em>。幫我<em>存個檔（commit）</em>，訊息寫「Tracking Board 第一版上線」。之後我要開始改造它 —— <em>改壞了要能跳回這一版</em>。</div></div>
+          <div class="note">這就是上午的<b class="ink">檔案時光機</b> —— 存了這一版，等下怎麼改都回得來。</div>
+        </div>
+        <div class="col14">
+          <div class="clabel">接下來大改 —— 你有三層安全網</div>
+          <div class="dcard t-terra cc dc-mid">
+            <div class="p24"><b class="ac">① 對話走歪</b> —— esc×2 倒帶、換句重講（esc 救對話、不救檔案）</div>
+          </div>
+          <div class="dcard t-terra cc dc-mid">
+            <div class="p24"><b class="ac">② 程式改壞</b> —— git 跳回剛存的這版 —— 真正「回到改壞之前」的是它</div>
+          </div>
+          <div class="dcard t-terra cc dc-mid">
+            <div class="p24"><b class="ac">③ 卡片</b> —— 存在雲端的卡片抽屜（Durable Object）、不在程式裡：程式砍掉重練，卡一張都不少</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">任務板 · 第一版上線 · 存檔</div>
+  </section>
+
+  <!-- src: F43 · C2-16 接管 · 兩本帳 -->
+  <section class="slide" data-label="B9.15 接管 · 兩本帳">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 接管</span><span class="rule"></span><span>板好了 · 但任務還在檔案裡</span></div>
+    <div class="sp-14"></div>
+    <div class="title">板做好了 —— 但你的任務，<span class="ac">還在檔案裡</span>。</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="dcard t-ink cc">
+        <div class="clabel">現在的你 —— 兩本帳</div>
+        <div class="col13">
+          <div class="p26">— 板上：練習卡</div>
+          <div class="p26">— 檔案裡：BACKLOG 的待辦、Weekly Commitment 的本週任務</div>
+          <div class="p26">— 同一件事，<b>兩個地方記</b></div>
+        </div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">兩本帳，遲早對不上</div>
+        <div class="p26">改了這邊、忘了那邊，不知道哪邊比較新 —— 對不上的那天，<b class="ac">你哪本都不信</b>。<br><br>Claude 更麻煩：它讀到舊的那本，就<b class="ac">拿舊資料跟你排今天</b>。</div>
+      </div>
+    </div>
+    <div class="punch">解法只有一個：<b>只留一本</b> —— 接下來<em>讓板接管</em>：你的任務全部上板，舊清單退役。</div>
+    <div class="footer-mark">任務板 · 接管 · 兩本帳</div>
+  </section>
+
+  <!-- src: F44 · C2-17 接管 · 會動什麼 -->
+  <section class="slide" data-label="B9.16 接管 · 會動什麼">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 接管</span><span class="rule"></span><span>先講清楚 · 它會動什麼</span></div>
+    <div class="sp-14"></div>
+    <div class="title">接管會動你的 <span class="ac">三個地方</span> —— 先講清楚。</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="dcard t-terra cc">
+        <div class="clabel">① 搬資料</div>
+        <div class="p24">BACKLOG.md 每項待辦<b class="ac">開成卡、進 Backlog</b>；「未來再說」→ 🌱；Weekly 沒做完的上板 —— <b class="ac">正在做的進 In Progress、還沒動的進 Todo</b>。每張卡掛上<b>你自己的專案</b>。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">② 改流程</div>
+        <div class="p24">你的 <b class="ac">daily／eod／wam skill</b> —— 流程照舊、daily note 照寫，<b class="ac">任務來源和分數改讀你的板</b>。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">③ 退役</div>
+        <div class="p24">BACKLOG.md 清空、只留<b class="ac">一行搬家公告</b>；Weekly Commitment <b class="ac">瘦身成分數簿</b>（只記每週分數與歷史）—— 之後想找任務，只有板一個地方。</div>
+      </div>
+    </div>
+    <div class="note" style="font-size:26px;margin-top:18px;">每一步它都會<b>列出來、問過你才動</b>；每個新流程都留了退路 —— <b class="ac">看板連不上就照舊流程做</b>，隨時回得去。</div>
+    <div class="footer-mark">任務板 · 接管 · 會動你的什麼</div>
+  </section>
+
+  <!-- src: F45 · C2-18 接管 · 動手 -->
+  <section class="slide" data-label="B9.17 接管 · 動手①搬資料" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 接管</span><span class="rule"></span><span>接管 · 10 MIN</span></div>
+    <div class="sp-8"></div>
+    <div class="title t50">動手 —— <span class="ac">你的任務，搬上你的板</span>。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.5fr 0.92fr;gap:38px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="copybox" data-copy="我要把任務管理換成以我的 Tracking Board 看板為主。&#10;讀 Efforts/Projects/Active/Tracking Board/TAKEOVER.md，照「第一段：搬資料」做。要問我的地方就停下來問。&#10;搬完把板上的卡列給我對，我說 OK 你再存個檔（commit）。"><div class="head"><span>照貼第一段 → 清場、搬家上板</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我要把任務管理換成以我的 Tracking Board 看板為主。<br>讀 <code>Efforts/Projects/Active/Tracking Board/TAKEOVER.md</code>，照「<em>第一段：搬資料</em>」做。要問我的地方就停下來問。<br><em>搬完把板上的卡列給我對</em>，我說 OK 你再<em>存個檔（commit）</em>。</div></div>
+          <div class="note">它會做的事：練習卡封存 → BACKLOG 跟本週任務開成卡 → 掛上你的專案 → 列表給你對。細節在 <b>TAKEOVER.md</b> 第一段，想看就打開。</div>
+        </div>
+        <div class="col20c">
+          <div class="timer" data-seconds="600" data-size="side"><span class="tm-label">動手</span><span class="tm-time">10:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">它會停下來<b>問你幾次</b>（哪些是練習卡、哪幾件正在做、要不要合併、effort 掛哪）—— <b class="ac">問就答，答不出來就說「先留空」</b>，之後在板上都改得了。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">任務板 · 接管 · 動手</div>
+  </section>
+
+  <!-- src: F46 · C2-18b 接管 · 動手 ②改流程 -->
+  <section class="slide" data-label="B9.18 接管 · 動手②改流程" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 接管</span><span class="rule"></span><span>接管 · 第二段 · 10 MIN</span></div>
+    <div class="sp-8"></div>
+    <div class="title t50">第二段 —— <span class="ac">流程改認你的板</span>。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.5fr 0.92fr;gap:38px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="copybox" data-copy="接著照 Efforts/Projects/Active/Tracking Board/TAKEOVER.md 的「第二段：改流程」做。&#10;改完把你動了哪些檔案、各改了什麼列成表格給我看，我說 OK 你再存個檔（commit）。"><div class="head"><span>第一段存檔完 → 接著照貼第二段</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">接著照 <code>Efforts/Projects/Active/Tracking Board/TAKEOVER.md</code> 的「<em>第二段：改流程</em>」做。<br>改完把你動了哪些檔案、各改了什麼<em>列成表格給我看</em>，我說 OK 你再<em>存個檔（commit）</em>。</div></div>
+          <div class="note">它會動三個地方：<b>CLAUDE.md</b> 的開工／收工／週結算改成先讀你的板、<b>BACKLOG.md</b> 清空只留一行搬家公告、其他還提到 BACKLOG 的檔案列出來問你。你的 daily／eod／wam skill 本文不動，只在開頭插一段「板子模式」指標；不同的地方講師已經寫好在 <b>BOARD-MODE.md</b>，Claude 照抄、不是自己發明。</div>
+        </div>
+        <div class="col20c">
+          <div class="timer" data-seconds="600" data-size="side"><span class="tm-label">動手</span><span class="tm-time">10:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">它列的表格<b>看重點就好</b> —— 每個新流程都留了退路：<b class="ac">看板連不上，就照原本檔案流程做</b>。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">任務板 · 接管 · 動手 ②改流程</div>
+  </section>
+
+  <!-- src: F47 · C2-19 接管 · 開第一張卡 -->
+  <section class="slide" data-label="B9.19 接管 · 開第一張卡" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 接管</span><span class="rule"></span><span>驗收 · 開第一張卡</span></div>
+    <div class="sp-14"></div>
+    <div class="title">現在 —— 跟它談一件事，<span class="ac">開你的第一張卡</span>。</div>
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="col14">
+        <div class="copybox" data-copy="我接下來要做一件事：（用你自己的話講）。幫我開一張卡放上板 —— 掛哪個 effort、排這週還是先進 Backlog，跟我確認。"><div class="head"><span>照貼 → 空格用你自己的話</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我接下來要做一件事：<em>（用你自己的話講）</em>。<br>幫我開一張卡放上板 —— <em>掛哪個 effort、排這週還是先進 Backlog</em>，跟我確認。</div></div>
+        <div style="font-family:var(--serif);font-size:23px;color:var(--muted);line-height:1.55;">例：「8 月門市陳列的改版提案，下週三要給 Eric。」</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="dcard t-terra cc">
+          <div class="clabel">看兩個地方</div>
+          <div class="p26">— 重新整理 → <b class="ac">卡在板上</b>、effort 自動歸進你的專案<br>— 打開 BACKLOG.md —— 只剩<b class="ac">一行搬家公告</b></div>
+        </div>
+        <div class="dcard t-terra cc">
+          <div class="clabel">為什麼沒有新增按鈕</div>
+          <div class="p26">建卡是 Claude 的事 —— 你<b class="ac">用講的</b>，欄位它來填。這是設計，不是缺件。</div>
+        </div>
+      </div>
+    </div>
+    <div class="punch">想到什麼 → 跟它講 → 板上多一張卡 —— <em>從這一刻起，這就是你記事情的方式</em>。</div>
+    <div class="timer tm-dock" data-seconds="300" data-size="corner"><span class="tm-time">05:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">任務板 · 接管 · 開第一張卡</div>
+  </section>
+
+  <!-- src: T83 · B6.20 加功能 · 完成的慶祝 -->
+  <section class="slide" data-label="B9.20 加功能① · 完成的慶祝" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 加功能</span><span class="rule"></span><span>全班第一個 · 完成的慶祝</span></div>
+    <div class="sp-14"></div>
+    <div class="title">第一個功能 —— <span class="ac">完成一張卡，來點慶祝</span> 🎉</div>
+    <div style="display:grid;grid-template-columns:1.5fr 0.92fr;gap:38px;align-items:center;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="col14">
+        <div class="copybox" data-copy="我要幫我的 Tracking Board 加一個功能 — 完成的慶祝：卡片被拖進 Done 的時候，來一段慶祝效果。&#10;我想要的感覺：（用你的話講 — 彩帶？煙火？跳出一句話？想不出來就寫「你幫我設計」）&#10;效果愈浮誇愈好。&#10;改完 deploy，然後叫我驗收。"><div class="head"><span>照貼 → 慶祝長怎樣，你決定</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我要幫我的 Tracking Board 加一個功能 — <em>完成的慶祝</em>：卡片被拖進 Done 的時候，來一段慶祝效果。<br>我想要的感覺：<em>（用你的話講 — 彩帶？煙火？跳出一句話？想不出來就寫「你幫我設計」）</em><br><em>效果愈浮誇愈好</em>。<br>改完 <code>deploy</code>，然後叫我驗收。</div></div>
+        <div class="serif-mut">每個人的慶祝都會長得不一樣 —— 等下互看就知道。</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="dcard t-terra cc">
+          <div class="clabel">驗收</div>
+          <div class="p26">拖一張卡進 Done → <b class="ac">你的慶祝上場</b> 🎉<br>看完拖回原欄 —— 卡和分數<b class="ac">都會跟著回來</b>。</div>
+        </div>
+        <div class="note">部署完等幾秒再重新整理。驗收 OK → 說「<b>存檔</b>」。<br>改壞了：叫 Claude <b class="ac">回到上一次存檔</b>、重新 deploy —— 卡不會丟。</div>
+      </div>
+    </div>
+    <div class="timer tm-dock" data-seconds="360" data-size="corner"><span class="tm-time">06:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">任務板 · 加功能 · 完成的慶祝</div>
+  </section>
+
+  <!-- 2026-09-10 新增：加功能② 挑卡複製（週報流程的前半） -->
+  <section class="slide" data-label="B9.20b 加功能② · 挑卡複製" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 加功能</span><span class="rule"></span><span>第二個 · 挑卡複製 · 8 MIN</span></div>
+    <div class="sp-14"></div>
+    <div class="title t50">第二個功能 —— <span class="ac">挑幾張卡，複製給 Claude</span>。</div>
+    <div style="display:grid;grid-template-columns:1.5fr 0.92fr;gap:38px;align-items:center;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="col14">
+        <div class="copybox sm" data-copy="我要幫我的 Tracking Board 加一個功能 — 挑卡複製：&#10;1. 板頭加一顆「選卡」按鈕。按下去進入選卡模式：點卡片是打勾／取消（選中要有明顯樣式），這時候拖卡跟開抽屜先關掉。&#10;2. 選卡模式下多一顆「複製已選（N 張）」按鈕，按了把選中的卡複製到剪貼簿，一張一行、格式「卡號 標題」，例如：&#10;ISS-008 完成 1 月月活動表&#10;3. 複製完跳一句提示、自動退出選卡模式。&#10;只動 public/index.html；改完 deploy，然後叫我驗收。"><div class="head"><span>照貼 → 這題規格講師定，等下週報要靠它</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我要幫我的 Tracking Board 加一個功能 — <em>挑卡複製</em>：<br>1. 板頭加一顆「<em>選卡</em>」按鈕。按下去進入選卡模式：點卡片是打勾／取消（選中要有明顯樣式），這時候拖卡跟開抽屜先關掉。<br>2. 選卡模式下多一顆「<em>複製已選（N 張）</em>」按鈕，按了把選中的卡複製到剪貼簿，一張一行、格式「卡號 標題」，例如：<br><span class="q">ISS-008 完成 1 月月活動表</span><br>3. 複製完跳一句提示、自動退出選卡模式。<br>只動 <code>public/index.html</code>；改完 <code>deploy</code>，然後叫我驗收。</div></div>
+        <div class="serif-mut">板到 Claude 的介面就是<b class="ink">文字</b> —— 卡號＋標題一行一張，貼過去它就知道去讀哪幾張。</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="dcard t-terra cc">
+          <div class="clabel">驗收</div>
+          <div class="p26">按「選卡」→ 點三張 → 按「複製已選」→ <b class="ac">貼到任何地方，看到三行</b>。<br>貼完先別關 —— 下一頁要用。</div>
+        </div>
+        <div class="note">部署完等幾秒再重新整理。驗收 OK → 說「<b>存檔</b>」。<br>改壞了：叫 Claude <b class="ac">回到上一次存檔</b>、重新 deploy —— 卡不會丟。</div>
+      </div>
+    </div>
+    <div class="timer tm-dock" data-seconds="480" data-size="corner"><span class="tm-time">08:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">任務板 · 加功能 · 挑卡複製</div>
+  </section>
+
+  <!-- 2026-09-10 新增：加功能③ 週報（板 → Claude → 上午的 deck） -->
+  <section class="slide" data-label="B9.20c 加功能③ · 週報" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 加功能</span><span class="rule"></span><span>第三個 · 板變週報 · 12 MIN</span></div>
+    <div class="sp-8"></div>
+    <div class="title t50">貼給 Claude —— <span class="ac">板上的卡，變成給主管的週報</span>。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.5fr 0.92fr;gap:38px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="copybox sm" data-copy="我要做一份給主管看的週報，材料是我 Tracking Board 上的卡。&#10;外觀沿用我上午轉成離線版的那份簡報，做成新的一份。&#10;先別動手 —— 我等一下會貼幾張卡給你。你讀完卡，先跟我討論這份週報要怎麼講：主管最想看什麼、幾頁、每頁講什麼。&#10;談定我說「OK 照這樣做」你再做，做完直接幫我打開。"><div class="head"><span>① 先講要做什麼</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我要做一份<em>給主管看的週報</em>，材料是我 Tracking Board 上的卡。<br>外觀<em>沿用我上午轉成離線版的那份簡報</em>，做成新的一份。<br><em>先別動手</em> —— 我等一下會貼幾張卡給你。你讀完卡，<em>先跟我討論這份週報要怎麼講</em>：主管最想看什麼、幾頁、每頁講什麼。<br>談定我說「OK 照這樣做」你再做，做完直接幫我打開。</div></div>
+          <div class="copybox sm" data-copy="這幾張：&#10;（把剛複製的貼在這裡）&#10;先跟看板把這幾張卡的 status、week、body、留言讀回來，不要憑標題猜進度。卡上沒寫的就留空、不要編。&#10;讀完先跟我聊怎麼講。"><div class="head"><span>② 貼卡</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">這幾張：<br><em>（把剛複製的貼在這裡）</em><br>先跟看板把這幾張卡的 status、week、body、留言<em>讀回來</em>，不要憑標題猜進度。卡上沒寫的就留空、<em>不要編</em>。<br>讀完先跟我聊怎麼講。</div></div>
+          <div class="copybox sm" data-copy="OK 照這樣做。&#10;外觀跟我上午轉成離線版的那份簡報一樣，存成新的一份、不要動到原本那份。&#10;做完直接幫我打開，我看完再說要不要改。"><div class="head"><span>③ 談定 → 拍板</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body"><em>OK 照這樣做</em>。<br>外觀跟我上午轉成離線版的那份簡報一樣，<em>存成新的一份、不要動到原本那份</em>。<br>做完直接幫我打開，我看完再說要不要改。</div></div>
+          <div class="serif-mut">上午的 deck 是<b class="ink">呈現</b>、下午的板是<b class="ink">執行</b> —— 週報就是兩邊接起來的地方。</div>
+        </div>
+        <div class="col20c">
+          <div class="timer" data-seconds="720" data-size="side"><span class="tm-label">動手</span><span class="tm-time">12:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">今天的週報會<b>很薄</b> —— 卡剛搬上去，還沒有留言。<b class="ac">下週開始做完就留言</b>，週報就會自己長出內容。</div>
+          <div class="note">先談再做 —— <b class="ac">跟上午 Design 那段同一個習慣</b>。討論 3 分鐘內收斂：主管要看的通常就是<b>做完什麼、卡在哪、下週做什麼</b>。</div>
+          <div class="note">③ 的「OK」可以帶條件 —— 例：「OK 照這樣做，但第二頁只列卡住的」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">任務板 · 加功能 · 板變週報</div>
+  </section>
+
+  <!-- src: F50 · C2-21 加功能 · 自由建造 -->
+  <section class="slide" data-label="B9.21 加功能④ · 自由建造" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 加功能</span><span class="rule"></span><span>自由建造 · 15 MIN</span></div>
+    <div class="sp-8"></div>
+    <div class="title t50">想要什麼功能，<span class="ac">你說了算</span> —— 加上去。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch;">
+        <div class="dcard t-terra cc0 mh112"><div class="p24">「In Progress」超過 3 張<b class="ac">就提醒我</b> —— 別貪多</div></div>
+        <div class="dcard t-terra cc0 mh112"><div class="p24">統計頁：這個月<b class="ac">完成幾張</b>、哪個專案最多</div></div>
+        <div class="dcard t-terra cc0 mh112"><div class="p24">卡片加<b class="ac">「等誰／等什麼」欄</b> —— Blocked 一眼看出卡在外部</div></div>
+        <div class="dcard t-terra cc0 mh112"><div class="p24">Backlog 裡<b class="ac">躺最久的排最上面</b> —— 逼自己面對</div></div>
+      </div>
+      <div style="font-family:var(--serif);font-size:23px;color:var(--muted);line-height:1.5;text-align:center;margin:14px 0 10px;">Notion、Jira 的功能<b class="ink">原廠決定</b> —— 你的板，<span class="ac">你決定</span>。想不出來？就從上面挑一張。</div>
+      <div style="display:grid;grid-template-columns:1.5fr 0.92fr;gap:38px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="copybox" data-copy="我要幫我的 Tracking Board 加一個功能：（用自己的話說 —— 它現在怎樣、我想要變怎樣）&#10;先跟我聊清楚要做成什麼樣、跟我確認之後才動手。&#10;改之前先講你要動哪個檔案的哪裡；改完 deploy，然後叫我重新整理網頁驗收。&#10;一個功能驗收完，我才會說下一個。"><div class="head"><span>照貼開頭 → 一次一個功能、驗收完再下一個</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我要幫我的 Tracking Board <em>加一個功能</em>：（<em>用自己的話說</em> —— 它現在怎樣、我想要變怎樣）<br><em>先跟我聊清楚</em>要做成什麼樣、跟我確認之後才動手。<br>改之前先講你要動哪個檔案的哪裡；改完 <code>deploy</code>，然後叫我重新整理網頁驗收。<br><em>一個功能驗收完，我才會說下一個</em>。</div></div>
+          <div class="serif-mut">這一拍沒有標準答案 —— 上午學的整套（講清楚 → 讓它做 → 驗收 → 不對就倒帶）就是為了現在。</div>
+        </div>
+        <div class="col20c">
+          <div class="timer" data-seconds="900" data-size="side"><span class="tm-label">動手</span><span class="tm-time">15:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">做幾樣算幾樣 —— <b>每一樣當場驗收、驗收完存檔</b>。<br>改壞了：叫 Claude <b class="ac">回到上一次存檔</b>、重新 deploy —— 卡不會丟。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">任務板 · 加功能 · 自由建造</div>
+  </section>
+
+  <!-- src: F51 · C2-22 加功能 · 互看 -->
+  <section class="slide" data-label="B9.22 互看">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 加功能</span><span class="rule"></span><span>看看隔壁的板</span></div>
+    <div class="sp-14"></div>
+    <div class="title">看看隔壁 —— <span class="ac">每塊板都不一樣了</span>。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:stretch;flex:1;align-content:center;">
+        <div class="dcard t-terra cc" style="min-height:360px;padding:36px 40px;">
+          <div class="clabel">① 交換手機 · 30 秒</div>
+          <div style="font-size:32px;color:var(--ink);line-height:1.6;">跟隔壁交換手機 —— 看對方的板長什麼樣、<b class="ac">加了什麼你沒想到的</b>。</div>
+        </div>
+        <div class="dcard t-ink cc" style="min-height:360px;padding:36px 40px;">
+          <div class="clabel">② 抽幾位分享</div>
+          <div style="font-size:32px;color:var(--ink);line-height:1.6;">你加了什麼功能？<br><b class="ac">哪裡順、哪裡卡</b>？</div>
+        </div>
+      </div>
+      <div class="punch">同一份材料出發 —— 一小時後，<em>每個人的板已經是自己的了</em>。</div>
+    </div>
+    <div class="footer-mark">任務板 · 加功能 · 互看</div>
+  </section>
+
+  <!-- src: F52 · C2-23 任務板 · 對帳 -->
+  <section class="slide" data-label="B9.23 對帳 · 回到三件事">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">任務板 · 收束</span><span class="rule"></span><span>回到開場那三件事</span></div>
+    <div class="sp-14"></div>
+    <div class="title">回到開場那三件事 —— <span class="ac">對一次帳</span>。</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px;align-items:center;align-content:center;flex:1;margin-top:18px;min-height:0;">
+      <div class="dcard t-terra cc">
+        <div class="clabel">① 一眼了解 ✅</div>
+        <div class="p26">五區看板＋本週 Score —— <b class="ac">在你手機裡</b>，隨時打開。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">② 和 AI 協作 ✅</div>
+        <div class="p26">開工、收工、週結算 —— <b class="ac">Claude 都從你的板開始</b>。</div>
+      </div>
+      <div class="dcard t-terra cc">
+        <div class="clabel">③ 不遷就工具 ✅</div>
+        <div class="p26">剛剛那 30 分鐘就是證明 —— <b class="ac">要什麼功能，說出來就有</b>。</div>
+      </div>
+    </div>
+    <div class="punch">從明天早上開始 —— 跟 Claude 說「開工」，<em>它先讀你的板</em>。</div>
+    <div class="footer-mark">任務板 · 對帳 · 三件事都做到</div>
+  </section>
+
+  <!-- src: T87 · B6.24 BRIDGE · 板做完了 · 接下來一個人改 -->
+  <section class="slide ink s-transition" data-label="B9.24 BRIDGE · 板做完了">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">板做完了</span><span class="rule"></span><span>接下來</span></div>
+    <div class="grow"></div>
+    <div class="display" style="font-size:76px;">板做完了 —— <span class="ac">你自己做出來的</span>。<br><br>只是今天有人在旁邊。<br>明天開始，<span class="ac">你要一個人調整它</span>。</div>
+    <div class="grow-12"></div>
+    <div class="kmono ac">那就先給你兩台時光機</div>
+  </section>
+
+  <!-- src: T88 · B6.25 兩台時光機 -->
+  <section class="slide" data-label="B9.25 兩台時光機">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">安全網 · 改壞回得去</span><span class="rule"></span><span>兩台時光機</span></div>
+    <div class="sp-8"></div>
+    <div class="title">一個人改也不用怕 —— 你有 <span class="ac">兩台時光機</span>。</div>
+    <div style="font-family:var(--serif);font-size:24px;color:var(--muted);margin-top:6px;"><b class="ink">左邊管檔案、右邊管對話</b>。</div>
+    <div class="slide-body" style="justify-content:center;padding-top:14px;">
+      <div data-allow-small style="max-width:1320px;width:100%;margin:0 auto;background:#1e1e1e;border:2px solid var(--hairline);border-radius:0;overflow:hidden;box-shadow:0 18px 44px -20px rgba(0,0,0,0.5);">
+        <div style="background:#323233;padding:10px 16px;display:flex;align-items:center;gap:7px;"><i style="width:13px;height:13px;border-radius:50%;background:#ff5f57;display:inline-block;"></i><i style="width:13px;height:13px;border-radius:50%;background:#febc2e;display:inline-block;"></i><i style="width:13px;height:13px;border-radius:50%;background:#28c840;display:inline-block;"></i><span style="margin-left:14px;color:#aaa;font-family:var(--mono);font-size:16px;">VS Code — 你的 vault</span></div>
+        <div style="display:grid;grid-template-columns:0.82fr 1.18fr;min-height:452px;">
+          <div style="background:#1b1b20;padding:20px 22px;display:flex;flex-direction:column;gap:11px;border-right:1px solid #111;">
+            <div style="font-family:var(--mono);font-size:15px;color:#888;letter-spacing:0.06em;margin-bottom:2px;">📁 EXPLORER</div>
+            <div style="font-family:var(--mono);font-size:17px;color:#c5c5c5;">inbox/</div>
+            <div style="font-family:var(--mono);font-size:17px;color:#9aa0a6;padding-left:18px;">plan.md</div>
+            <div style="font-family:var(--mono);font-size:17px;color:#c5c5c5;">Tracking-Board/</div>
+            <div style="font-family:var(--mono);font-size:17px;color:#e2c08d;padding-left:18px;display:flex;align-items:center;">index.html<span style="margin-left:auto;">M</span></div>
+            <div style="font-family:var(--mono);font-size:14px;color:#f48771;padding-left:18px;margin-top:-4px;">↑ 剛剛改壞了</div>
+            <div style="font-family:var(--mono);font-size:17px;color:#d4d4d4;padding-left:18px;">維修週報.md</div>
+            <div style="font-family:var(--mono);font-size:17px;color:#d4d4d4;">CLAUDE.md</div>
+            <div style="margin-top:auto;padding-top:16px;border-top:1px solid #333;display:flex;flex-direction:column;gap:9px;">
+              <div style="font-family:var(--mono);font-size:21px;color:#73c991;">🗄 檔案時光機 · git</div>
+              <div style="font-size:19px;color:#c8c8c8;line-height:1.6;">說「<b class="wh">幫我存檔</b>」＝ 存檔點<br>改壞 →「<b class="wh">回到上一個存檔</b>」＝ 還原</div>
+            </div>
+          </div>
+          <div style="background:#252526;padding:20px 24px;display:flex;flex-direction:column;gap:9px;">
+            <div style="font-family:var(--mono);font-size:15px;color:var(--band-link);letter-spacing:0.06em;margin-bottom:2px;">✦ Claude Code</div>
+            <div style="align-self:flex-end;max-width:80%;background:#2d2d30;border-radius:14px 4px 14px 14px;padding:9px 16px;font-family:var(--serif);font-size:18px;color:#d4d4d4;">算每個產品的毛利（單價 − 進貨成本）</div>
+            <div style="align-self:flex-start;max-width:80%;background:#1e1e1e;border:1px solid #3a3a3a;border-radius:4px 14px 14px 14px;padding:9px 16px;font-family:var(--serif);font-size:18px;color:#cfcfcf;">算好了 ✓</div>
+            <div style="align-self:flex-end;max-width:80%;background:#2d2d30;border-radius:14px 4px 14px 14px;padding:9px 16px;font-family:var(--serif);font-size:18px;color:#d4d4d4;">（做了 2 步才發現）毛利忘了扣行銷費…</div>
+            <div style="align-self:flex-start;max-width:80%;background:#1e1e1e;border:1px solid #3a3a3a;border-radius:4px 14px 14px 14px;padding:9px 16px;font-family:var(--serif);font-size:18px;color:#cfcfcf;">好，我在後面補</div>
+            <div style="align-self:flex-end;max-width:80%;background:#2d2d30;border-radius:14px 4px 14px 14px;padding:9px 16px;font-family:var(--serif);font-size:18px;color:#9aa0a6;">（前面全要重來、愈補愈亂…）</div>
+            <div style="align-self:center;font-family:var(--mono);font-size:16px;color:#e2c08d;margin-top:3px;">⟲ Esc × 2 → 回到出錯那句、把公式改掉</div>
+            <div style="margin-top:auto;padding-top:16px;border-top:1px solid #333;display:flex;flex-direction:column;gap:9px;">
+              <div style="font-family:var(--mono);font-size:21px;color:#9cdcfe;">💬 對話時光機 · Esc × 2</div>
+              <div style="font-size:19px;color:#c8c8c8;line-height:1.6;">按兩下 <b class="wh">Esc</b> → 退回剛剛某一句、換句重講（你自己按）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="punch" style="max-width:1320px;width:100%;margin:18px auto 0">兩半、各一台時光機 —— <em>弄不壞它，放膽改</em>。</div>
+    </div>
+    <div class="footer-mark">安全網 · 改壞回得去 · 兩台時光機</div>
+  </section>
+
+  <!-- src: T89 · B6.26 對話分叉 esc×2 -->
+  <section class="slide" data-label="B9.26 對話分叉 esc×2" data-allow-small>
+    <style>
+    </style>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">安全網 · 改壞回得去</span><span class="rule"></span><span>看圖：esc×2 跳出選單、選出錯那句、換公式</span></div>
+    <div class="sp-8"></div>
+    <div class="title"><span class="ac">esc × 2</span> —— 跳出選單、回到<span class="ac">出錯那句</span>、走另一個世界。</div>
+    <div class="slide-body" style="justify-content:center;padding-top:8px;">
+      <div class="pw">
+        <div class="world a lit" data-world="a">
+          <div class="whd">世界 A · 你在的時間線</div>
+          <div class="bub you"><div class="bl">你〔第 ① 句〕</div>三個產品的單價／進貨成本〔資料〕</div>
+          <div class="bub you first"><div class="bl">你〔第 ② 句〕</div>算毛利（毛利 = 單價 − 進貨成本）</div>
+          <div class="bub cl"><div class="bl">CLAUDE</div>毛利排名好了 ✓</div>
+          <div class="bub you"><div class="bl">你</div>再幫我標出要砍的（毛利太低）</div>
+          <div class="bub cl"><div class="bl">CLAUDE</div>標好了 ✓</div>
+          <div class="wend">❌ 第 ② 句漏了 15% 行銷費 —— 後面這些全錯</div>
+        </div>
+        <div class="mid">
+          <div class="escb">⟲ Esc × 2</div>
+          <div class="dd" data-dd>
+            <div class="ddt">回到哪一句？</div>
+            <div class="ddi">再幫我標出要砍的（毛利太低）</div>
+            <div class="ddi sel">算毛利（毛利 = 單價 − 進貨成本）　← 出錯那句</div>
+            <div class="ddi">三個產品的單價／進貨成本〔資料〕</div>
+            <div class="ddh">↑↓ 選 · Enter 回到那裡</div>
+          </div>
+          <div class="midarrow" data-arrow>選第 ② 句、改公式<br>→ 走世界 B</div>
+        </div>
+        <div class="world b faded" data-world="b">
+          <div class="whd">世界 B · 回到第 ② 句、換掉公式</div>
+          <div class="bub you"><div class="bl">你〔第 ① 句 · 沒動〕</div>三個產品的單價／進貨成本〔資料〕</div>
+          <div class="bub you first"><div class="bl">你〔第 ② 句 · 已換〕</div>算毛利（毛利 = 單價 − 進貨成本 − <strong>單價×15% 行銷費</strong>）</div>
+          <div class="bub cl"><div class="bl">CLAUDE</div>毛利排名好了 —— <strong>跟剛剛不一樣</strong></div>
+          <div class="bub you"><div class="bl">你</div>再幫我標出要砍的（毛利太低）</div>
+          <div class="bub cl"><div class="bl">CLAUDE</div>標好了 —— <strong>要砍的也不一樣</strong></div>
+          <div class="wend">✓ 只改第 ② 句、資料沒動 —— 扣了行銷費才是真毛利</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;margin-top:22px;max-width:1380px;margin-left:auto;margin-right:auto;width:100%;">
+        <div style="display:flex;gap:14px;flex:0 0 auto;">
+          <button class="ff-btn" data-ff-next>▶ 下一步</button>
+          <button class="ff-btn reset" data-ff-reset>RESET</button>
+        </div>
+        <div class="note" style="flex:1" data-ff-cap>世界 A · 你照舊公式算、又做了 2 步 —— 第 ② 句漏了行銷費，下游全錯。按「下一步」。</div>
+      </div>
+    </div>
+    <div class="footer-mark">安全網 · 對話分叉 · esc × 2</div>
+    <script>
+      (function(){
+        const slide = document.currentScript.closest('section');
+        const A = slide.querySelector('[data-world="a"]');
+        const B = slide.querySelector('[data-world="b"]');
+        const dd = slide.querySelector('[data-dd]');
+        const arrow = slide.querySelector('[data-arrow]');
+        const cap = slide.querySelector('[data-ff-cap]');
+        const nextBtn = slide.querySelector('[data-ff-next]');
+        const resetBtn = slide.querySelector('[data-ff-reset]');
+        const CAPS = [
+          '世界 A · 你照舊公式算、又做了 2 步 —— 第 ② 句漏了行銷費，下游全錯。按「下一步」。',
+          'esc × 2 —— 跳出「過去訊息」選單，挑回到哪一句 → 選「出錯那句」，不是最前面那句。',
+          '回到第 ② 句、把公式換掉 → 世界 B：資料沒動，排名、要砍的全部跟著對。✓'
+        ];
+        let step = 0; const MAX = 2;
+        function render(){
+          cap.textContent = CAPS[step];
+          dd.classList.toggle('show', step >= 1);
+          arrow.classList.toggle('show', step >= 2);
+          B.classList.toggle('faded', step < 2);
+          B.classList.toggle('lit', step >= 2);
+          nextBtn.disabled = step >= MAX;
+          nextBtn.textContent = step >= MAX ? '✓ 完' : '▶ 下一步';
+        }
+        nextBtn.addEventListener('click', () => { if (step < MAX){ step++; render(); } });
+        resetBtn.addEventListener('click', () => { step = 0; render(); });
+        render();
+      })();
+    </script>
+  </section>
+
+  <!-- src: T90 · B6.27 動手 · esc×2 倒帶 -->
+  <section class="slide" data-label="B9.27 動手 · esc×2 倒帶 3MIN" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">安全網 · 動手</span><span class="rule"></span><span>換你試一次 · 3 MIN</span></div>
+    <div class="sp-6"></div>
+    <div class="title">換你試 —— <span class="ac">esc × 2</span> 回到出錯那句、改公式。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.55fr 0.85fr;gap:36px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="copybox sm" data-copy="我有三個產品的單價和進貨成本：&#10;A 單價 100、進貨 60&#10;B 單價 400、進貨 330&#10;C 單價 80、進貨 52&#10;先記著，等一下我會問你怎麼算。"><div class="head"><span>① 照貼 → 先把資料給它（<span style="color:var(--ok);">這句是乾淨的、等下不用動</span>）</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我有三個產品的單價和進貨成本：<br><span class="q">A 單價 100、進貨 60<br>B 單價 400、進貨 330<br>C 單價 80、進貨 52</span><br>先記著，等一下我會問你怎麼算。</div></div>
+          <div class="copybox sm" data-copy="幫我算每個的毛利（毛利 = 單價 − 進貨成本），把毛利最低的標出來。"><div class="head"><span>② 照貼 → 叫它算毛利　<span class="ac">← 這句漏了行銷費，等下要改的就是它</span></span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">幫我算每個的毛利（<em>毛利 = 單價 − 進貨成本</em>），把毛利最低的標出來。</div></div>
+          <div class="copybox sm" data-copy="毛利最低的那個，建議我調漲多少售價？"><div class="head"><span>③ 再往前走一步 —— 針對「最低的那個」要建議</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">毛利最低的那個，建議我調漲多少售價？</div></div>
+          <div class="copybox sm" data-copy="幫我算每個的毛利（毛利 = 單價 − 進貨成本 − 單價 × 15% 行銷費），把毛利最低的標出來。"><div class="head"><span>④ 按 <strong>esc × 2</strong> → 選回<strong>第 ② 句</strong>（不是最前面那句）→ 換成這句</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">幫我算每個的毛利（<em>毛利 = 單價 − 進貨成本</em> <em>− 單價 × 15% 行銷費</em>），把毛利最低的標出來。</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;align-items:center;">
+          <div class="timer" data-seconds="180" data-size="side"><span class="tm-label">動手</span><span class="tm-time">03:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">看 —— 與其在後面一個一個補破網，不如 <em>回到出錯那句改一次</em>，新的一輪整串自己對。</div>
+          <div class="note">只倒到第 <b>②</b> 句 —— 第 <b>①</b> 句的<b>資料原封不動、不用重貼</b>。倒帶要倒到<b>出錯那句</b>，不是倒到最前面。</div>
+          <div class="note">盯著看 —— 最該砍的從 <strong>C 翻成 B</strong>：高單價被行銷費吃光。剛剛 ③ 替 C 想的調價，其實白忙。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">安全網 · 動手 · 換你試 esc × 2</div>
+  </section>
+
+  <!-- src: T91 · B6.28 檔案時光機 git -->
+  <section class="slide" data-label="B9.28 檔案時光機 git">
+    <style>
+    </style>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">安全網 · 改壞回得去</span><span class="rule"></span><span>檔案時光機 · git</span></div>
+    <div class="sp-8"></div>
+    <div class="title">第二台 · 檔案時光機 = <span class="ac">git</span> —— 存個點、隨時跳回。</div>
+    <div style="font-family:var(--serif);font-size:23px;color:var(--muted);margin-top:7px;">說「幫我存檔」= git 在時間線記一個<b class="ink">存檔點</b>（commit）·「回到上一個存檔」= <b class="ink">跳回</b>那個點。</div>
+    <div class="slide-body" style="justify-content:center;padding-top:6px;">
+      <div class="tl">
+        <div class="tl-node" data-n="a"><div class="tl-dot"></div><div class="tl-lab">開始</div><div class="tl-ph">▲ 你在這</div></div>
+        <div class="tl-conn" data-c="ab"></div>
+        <div class="tl-node working active" data-n="b"><div class="tl-dot"></div><div class="tl-lab" data-lb-b>現在<div class="tl-sub">改動中</div></div><div class="tl-ph">▲ 你在這</div></div>
+        <div class="tl-conn dashed hide" data-c="bc"></div>
+        <div class="tl-node broke hide" data-n="c"><div class="tl-dot"></div><div class="tl-lab">現在<div class="tl-sub">壞了</div></div><div class="tl-ph">▲ 你在這</div></div>
+      </div>
+      <div style="text-align:center;margin-top:8px;">
+        <span class="state s-work" data-state><span class="si">M</span><span data-state-t>工具改了、還沒存</span></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;margin-top:18px;">
+        <div style="display:flex;gap:14px;flex:0 0 auto;">
+          <button class="ff-btn" data-ff-next>▶ 下一步</button>
+          <button class="ff-btn reset" data-ff-reset>RESET</button>
+        </div>
+        <div class="note" style="flex:1" data-ff-cap>你改好一版、還沒存 —— 改過的檔都亮著記號（M）。按「下一步」看存檔 → 改壞 → 跳回。</div>
+      </div>
+      <div class="note">好消息：<b class="ac">上半場結束時你就存過一次、部署前又存過一次</b> —— 保險櫃早就建好了、不用做任何設定。你全程<b>不打 git 指令</b>、只說「幫我存檔 ／ 回到上一個存檔」。</div>
+    </div>
+    <div class="footer-mark">安全網 · 改壞回得去 · 檔案時光機 · git</div>
+    <script>
+      (function(){
+        const slide = document.currentScript.closest('section');
+        const nB = slide.querySelector('[data-n="b"]');
+        const nC = slide.querySelector('[data-n="c"]');
+        const cBC = slide.querySelector('[data-c="bc"]');
+        const lbB = slide.querySelector('[data-lb-b]');
+        const stateEl = slide.querySelector('[data-state]');
+        const stateT = slide.querySelector('[data-state-t]');
+        const cap = slide.querySelector('[data-ff-cap]');
+        const nextBtn = slide.querySelector('[data-ff-next]');
+        const resetBtn = slide.querySelector('[data-ff-reset]');
+        const CAPS = [
+          '你改好一版、還沒存 —— 改過的檔都亮著記號（M）。按「下一步」看存檔 → 改壞 → 跳回。',
+          '說「幫我存檔」→ git commit → 時間線記一個「存檔點 #1」，現在這版凍住了。',
+          '你繼續改、改壞了 —— 時間線往前走到「現在」，亂了（esc×2 救不了檔案）。',
+          '說「回到上一個存檔」→ git 把你跳回「存檔點 #1」，壞的那段丟掉，乾淨回來。'
+        ];
+        const LB_B = ['現在<div class="tl-sub">改動中</div>','存檔點 #1<div class="tl-sub">已存</div>','存檔點 #1','存檔點 #1<div class="tl-sub">◀ 跳回這</div>'];
+        const STATES = [
+          { cls:'s-work', si:'M', t:'工具改了、還沒存' },
+          { cls:'s-ok',   si:'✓', t:'已存進存檔點 #1 · 乾淨' },
+          { cls:'s-bad',  si:'✗', t:'又改壞了 · 亂了' },
+          { cls:'s-ok',   si:'✓', t:'跳回存檔點 #1 · 乾淨，壞的丟了' }
+        ];
+        let step = 0; const MAX = 3;
+        function render(){
+          cap.textContent = CAPS[step];
+          nB.classList.toggle('working', step===0);
+          nB.classList.toggle('saved', step>=1);
+          lbB.innerHTML = LB_B[step];
+          nC.classList.toggle('hide', step<2);
+          nC.classList.toggle('discard', step===3);
+          cBC.classList.toggle('hide', step<2);
+          cBC.classList.toggle('discard', step===3);
+          nB.classList.toggle('active', step!==2);
+          nC.classList.toggle('active', step===2);
+          const st = STATES[step];
+          stateEl.className = 'state ' + st.cls;
+          stateEl.querySelector('.si').textContent = st.si;
+          stateT.textContent = st.t;
+          nextBtn.disabled = step>=MAX;
+          nextBtn.textContent = step>=MAX ? '✓ 完成' : '▶ 下一步';
+        }
+        nextBtn.addEventListener('click', function(){ if (step<MAX){ step++; render(); } });
+        resetBtn.addEventListener('click', function(){ step=0; render(); });
+        render();
+      })();
+    </script>
+  </section>
+
+  <!-- src: T92 · B6.29 動手 · 存檔跳回 -->
+  <section class="slide" data-label="B9.29 動手 · 存檔跳回 5MIN" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">安全網 · 動手</span><span class="rule"></span><span>換你試一次 · 5 MIN</span></div>
+    <div class="sp-6"></div>
+    <div class="title">換你試 —— <span class="ac">存個點</span>、改壞、回得去。</div>
+    <div class="slide-body cc0">
+      <div style="display:grid;grid-template-columns:1.55fr 0.85fr;gap:36px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:11px;">
+          <div class="copybox sm" data-copy="在 inbox 資料夾裡幫我做一個檔案 my-note.md，裡面寫這三行：&#10;改壞了不要慌。&#10;我有兩台時光機。&#10;esc × 2 救對話、git 救檔案。&#10;做好之後幫我存個檔（commit）。"><div class="head"><span>① 照貼 → 在 inbox 做一個檔案，然後存檔</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">在 inbox 資料夾裡幫我做一個檔案 <code>my-note.md</code>，裡面寫這三行：<br><span class="q">改壞了不要慌。<br>我有兩台時光機。<br>esc × 2 救對話、git 救檔案。</span><br>做好之後<em>幫我存個檔（commit）</em>。</div></div>
+          <div class="copybox sm" data-copy="把 inbox/my-note.md 整個改寫，全部換成英文，再加一堆雜七雜八的內容。"><div class="head"><span>② 故意改壞一版</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">把 <code>inbox/my-note.md</code> 整個改寫，全部換成英文，再加一堆雜七雜八的內容。</div></div>
+          <div class="copybox sm" data-copy="我不喜歡這版，把 inbox/my-note.md 回到上一個存檔。"><div class="head"><span>③ 說「回到上一個存檔」</span><button class="copybtn" type="button">⧉ 複製</button></div><div class="body">我不喜歡這版，把 <code>inbox/my-note.md</code> 回到上一個存檔。</div></div>
+            <div style="font-size:22px;color:var(--muted);font-family:var(--sans);">盯著看：內容自己跳回那三行</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+          <div class="timer" data-seconds="300" data-size="side"><span class="tm-label">動手</span><span class="tm-time">05:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+          <div class="note">你沒手動 undo、沒重打 —— <em>git 把整個檔案跳回乾淨的存檔點</em>，壞的那段丟掉。</div>
+          <div class="note"><strong>esc × 2 救對話</strong>、<strong>git 救檔案</strong>。檔案改壞 → 回到上一個存檔。</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-mark">安全網 · 動手 · 換你試 存檔／跳回</div>
+  </section>
+
+  <!-- src: T93 · B6.30 BRIDGE · 兩台時光機 收束 -->
+  <section class="slide ink s-transition" data-label="B9.30 BRIDGE · 兩台時光機 收束">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">兩台時光機</span><span class="rule"></span><span>收束</span></div>
+    <div class="grow"></div>
+    <div class="display">兩台都試過了 ——<br>對話走歪、檔案改壞，<br><span class="ac">你都回得去</span>。</div>
+    <div class="grow-12"></div>
+    <div class="kmono ac">一個人也弄不壞它</div>
+  </section>
+
+
+  <!-- 新做 2026-09-09 -->
+  <section class="slide" data-label="D2.91 對帳 · 兩天做出來的東西">
+    <div class="eyebrow long"><span class="dot"></span><span class="num">收尾</span><span class="rule"></span><span>9 小時學到的知識和能力</span></div>
+    <div class="sp-14"></div>
+    <div class="title">兩天 —— <span class="ac">這九樣，都在了</span>。</div>
+    <div class="sp-28"></div>
+    <div style="display:flex;gap:30px;flex:1;">
+      <div style="flex:1.25;background:var(--paper-deep);padding:36px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+        <div class="kmono mut">9 / 04 · D1 · 6 小時</div>
+        <div style="font-size:var(--deck-t-body);color:var(--text);line-height:2.5;">① <b>AI 工作環境</b><span style="color:var(--muted);">　Claude Code 住在你電腦</span><br>② <b>「開工」「收工」</b><span style="color:var(--muted);">　排今天 · 收成果</span><br>③ <b>知識管理</b><span style="color:var(--muted);">　東西放哪 · 找得回來</span><br>④ <b>信箱、行事曆</b><span style="color:var(--muted);">　接上了</span><br>⑤ <b>自己的 skill</b><span style="color:var(--muted);">　維修週報 · auditor 對帳</span><br>⑥ <b>Loop Engineering</b><span style="color:var(--muted);">　打一句，它自己跑完才交件</span></div>
+      </div>
+      <div style="flex:1;background:var(--paper-lift);border-top:3px solid var(--terra);padding:36px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;">
+        <div class="kmono ac">9 / 11 · D2 · 3 小時</div>
+        <div style="font-size:var(--deck-t-body);color:var(--text);line-height:2.5;">⑦ <b>公司規格的簡報</b><span style="color:var(--muted);">　自己生的</span><br>⑧ <b>一塊自己做的任務板</b><span style="color:var(--muted);">　上雲 · 任務全上板 · 功能自己加</span><br>⑨ <b>兩台時光機</b><span style="color:var(--muted);">　改壞了回得去</span></div>
+        <div class="sp-8"></div>
+        <div style="font-size:var(--deck-t-caption);color:var(--muted);line-height:1.9;">板不只是第八樣 —— 它把前面<b>接起來</b>：任務在板上、開工從板開始、做完的卡就是你的週報素材。</div>
+      </div>
+    </div>
+    <div class="sp-22"></div>
+    <div class="punch">九樣裡沒有一樣是我幫你做的 —— 全部是你講、它做、你驗收。</div>
+    <div class="footer-mark">STUDIO A · E 組 · 2026/09/11</div>
+  </section>
+
+  <!-- 新做 2026-09-09 -->
+  <!-- 2026-09-11 新做：reuse D1 B9.03「找一個伙伴 · 聊兩題」，右欄改列七樣 -->
+  <section class="slide" data-label="D2.91b 討論 · 換你們說" data-timer-single>
+    <div class="eyebrow long"><span class="dot"></span><span class="num">討論 · 10 分鐘</span><span class="rule"></span><span>換你們說</span></div>
+    <div class="sp-14"></div>
+    <div class="title t50">9 小時 —— <span class="ac">學到了這些</span>。找一個伙伴聊兩題。</div>
+    <div class="sp-14"></div>
+    <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:30px;flex:1;min-height:0;align-items:stretch;">
+      <div style="display:flex;flex-direction:column;gap:20px;min-height:0;">
+        <div style="flex:1;background:var(--paper-lift);border:1px solid var(--hairline);border-top:4px solid var(--terra);padding:30px 36px;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div class="kmono ac">題 ①</div><div style="font-family:var(--sans);font-weight:900;font-size:40px;color:var(--ink);line-height:1.3;letter-spacing:-.5px;">這些裡面，哪一個<b class="ac">最有感覺</b>？</div></div>
+        <div style="flex:1;background:var(--paper-lift);border:1px solid var(--hairline);border-top:4px solid var(--terra);padding:30px 36px;display:flex;flex-direction:column;justify-content:center;gap:12px;"><div class="kmono ac">題 ②</div><div style="font-family:var(--sans);font-weight:900;font-size:40px;color:var(--ink);line-height:1.3;letter-spacing:-.5px;">哪些可以<b class="ac">應用到你的工作上</b>？</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;min-height:0;">
+        <div style="flex:1;background:var(--paper-deep);padding:28px 32px;display:flex;flex-direction:column;justify-content:center;gap:8px;">
+          <div class="kmono mut">9 小時學到的知識和能力</div><div style="font-size:var(--deck-t-caption);color:var(--text);line-height:2.0;"><div class="kmono mut" style="margin-bottom:4px;">9 / 04 · D1 · 6 小時</div>① <b>AI 工作環境</b><span style="color:var(--muted);">　Claude Code 住在你電腦</span><br>② <b>「開工」「收工」</b><span style="color:var(--muted);">　排今天 · 收成果</span><br>③ <b>知識管理</b><span style="color:var(--muted);">　東西放哪 · 找得回來</span><br>④ <b>信箱、行事曆</b><span style="color:var(--muted);">　接上了</span><br>⑤ <b>自己的 skill</b><span style="color:var(--muted);">　維修週報 · auditor 對帳</span><br>⑥ <b>Loop Engineering</b><span style="color:var(--muted);">　打一句，它自己跑完才交件</span><div class="kmono ac" style="margin:12px 0 4px;">9 / 11 · D2 · 3 小時</div>⑦ <b>公司規格的簡報</b><span style="color:var(--muted);">　自己生的</span><br>⑧ <b>一塊自己做的任務板</b><span style="color:var(--muted);">　上雲 · 任務全上板 · 功能自己加</span><br>⑨ <b>兩台時光機</b><span style="color:var(--muted);">　改壞了回得去</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="timer tm-dock" data-seconds="600" data-size="corner"><span class="tm-time">10:00</span><span class="tm-bar"><i></i></span><span class="tm-ctl"><button class="tm-btn primary" data-start>START</button><button class="tm-btn" data-reset>RESET</button></span></div>
+    <div class="footer-mark">收尾 · 討論 · 換你們說</div>
+  </section>
+
+  <section class="slide ink s-transition" data-label="D2.92 謝幕 · 9/11">
+    <div class="grow"></div>
+    <div class="display wh">明天早上，<br>跟它說一句<span class="ac">開工</span>。</div>
+    <div class="sp-36"></div>
+    <div class="subtitle" style="color:var(--band-mid);max-width:52ch;">今天做的板不會自己長大 —— 但你每天多開一次，它就多幫你記一件事。</div>
+    <div class="grow-13"></div>
+    <div class="meta" style="color:var(--band-mut);">
+      <div class="lecturer wh">講師　余文皓</div>
+      <div>匯流顧問有限公司</div>
+      <div class="sp-10"></div>
+      <div>STUDIO A · E 組 · 2026 / 09 / 11</div>
+    </div>
+    <div style="position:absolute;right:120px;bottom:120px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+      <a href="https://flux-course-survey.pages.dev/" target="_blank" rel="noopener" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()" style="display:flex;flex-direction:column;align-items:center;gap:14px;text-decoration:none;color:inherit;cursor:pointer;">
+        <img src="img/qr-survey.png" alt="課後問卷 QR" style="width:300px;height:300px;display:block;background:var(--paper);padding:14px;">
+        <div class="kmono" style="color:var(--band-mid);font-size:24px;">課後問卷 · 2 分鐘 · 現在填</div>
+        <div class="kmono" style="color:var(--band-mut);font-size:22px;text-decoration:underline;text-underline-offset:6px;">flux-course-survey.pages.dev ↗</div>
+      </a>
+    </div>
+    <div class="footer-mark" style="color:var(--band-mut);">謝謝</div>
+  </section>
+
+</deck-stage>
+<script src="timer.js"></script>
+<script src="copy-prompt.js"></script>
+<script src="download-demo.js"></script>
+</body>
+</html>
