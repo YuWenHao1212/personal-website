@@ -184,16 +184,19 @@ function formatDate(date: Date): string {
 
     // Umami: track blog CTA clicks with slug (fire-and-forget, never block navigation)
     const slug = window.location.pathname.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '');
+    const lang = window.location.pathname.split('/')[1] || '';
     document.querySelectorAll('.prose a').forEach((a) => {
       const href = a.getAttribute('href') || '';
       const eventName = href.includes('/services/')
         ? 'blog_click_services'
         : href.startsWith('mailto:')
           ? 'blog_click_email'
-          : null;
+          : href.includes('ccarf-contact.pages.dev')
+            ? 'blog_click_ccarf_form'
+            : null;
       if (eventName) {
         a.addEventListener('click', () => {
-          (window as any).umami?.track(eventName, { slug });
+          (window as any).umami?.track(eventName, { slug, lang });
         });
       }
     });
