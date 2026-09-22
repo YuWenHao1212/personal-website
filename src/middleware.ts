@@ -4,11 +4,12 @@ import { defaultLang, languages } from './i18n/ui';
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
-  // Skip for static assets, API routes, and admin pages
+  // Skip for static assets, API routes, admin and partner pages
   if (
     pathname.startsWith('/_') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/admin') ||
+    pathname.startsWith('/partner') ||
     pathname.match(/\.(css|js|svg|png|jpg|jpeg|webp|gif|ico|woff|woff2|ttf|eot)$/)
   ) {
     return next();
