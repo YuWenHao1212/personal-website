@@ -1,0 +1,74 @@
+---
+// Referral partner report — unlisted, read-only. Access = ?r=<ref>&k=<key> (key in 1Password).
+// Shows only the bookings this partner referred, with their commission per cohort.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { COHORTS } from '../../data/cohorts';
+
+const API_BASE = import.meta.env.DEV ? 'http://localhost:8000' : 'https://api.yu-wenhao.com';
+const SESSION_LABELS = Object.fromEntries(
+  COHORTS.filter((c) => c.sessionId).map((c) => [c.sessionId, `${c.dateShort} ${c.city} · ${c.name}`])
+);
+---
+
+<BaseLayout title="推薦報名紀錄" description="推薦報名與佣金紀錄" hideLanguageSwitcher={true} noindex={true}>
+  <section class="container-prose py-10 md:py-14">
+    <h1 class="text-2xl md:text-3xl font-bold text-ink-900 mb-2">推薦報名紀錄</h1>
+    <p class="text-sm text-ink-500 mb-8">
+      只列出透過你的推薦連結報名、已付款的學員。佣金＝實收金額（扣折扣、扣退款）× 比例，每梯上完課隔天結算匯款。
+    </p>
+    <div id="state" class="text-ink-500">載入中…</div>
+    <div id="report" class="space-y-6"></div>
+  </section>
+
+  <script define:vars={{ API_BASE, SESSION_LABELS }}>
+    const stateEl = document.getElementById('state');
+    const reportEl = document.getElementById('report');
+    const params = new URLSearchParams(window.location.search);
+    const fmt = (n) => 'NT$' + (n || 0).toLocaleString('en-US');
+    const fmtDate = (s) => s ? new Date(s).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei', month: 'numeric', day: 'numeric' }) : '—';
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    fetch(`${API_BASE}/api/workshop/referral?r=${encodeURIComponent(params.get('r') || '')}&k=${encodeURIComponent(params.get('k') || '')}`)
+      .then((res) => res.status === 401 ? Promise.reject('unauthorized') : res.json())
+      .then((json) => {
+        const { rate, sessions } = json.data;
+        if (!sessions.length) {
+          stateEl.textContent = '目前還沒有透過你的連結完成付款的報名。';
+          return;
+        }
+        stateEl.textContent = `佣金比例 ${Math.round(rate * 100)}%`;
+        reportEl.innerHTML = sessions.map((s) => {
+          const rows = s.bookings.map((b) => `
+            <tr class="border-t border-cream-300">
+              <td class="py-2 pr-3">${fmtDate(b.paid_at)}</td>
+              <td class="py-2 pr-3">${esc(b.name)}${b.party_size > 1 ? `（${b.party_size} 人）` : ''}</td>
+              <td class="py-2 pr-3 text-right">${fmt(b.paid_twd)}${b.refunded ? `<div class="text-xs text-rose-700">退款 ${fmt(b.refund_twd)}</div>` : ''}</td>
+              <td class="py-2 text-right font-medium">${fmt(b.commission_twd)}</td>
+            </tr>`).join('');
+          const payout = s.payout
+            ? `<span class="text-green-700">已匯款 ${fmt(s.payout.amount_twd)}（${fmtDate(s.payout.paid_at)}）</span>`
+            : `<span class="text-amber-700">未結算（上完課隔天匯款）</span>`;
+          return `
+            <div class="bg-white rounded-xl border border-cream-300 p-4 md:p-6">
+              <h2 class="text-lg font-semibold text-ink-900 mb-3">${esc(SESSION_LABELS[s.workshop_session_id] || s.workshop_session_id)}</h2>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead><tr class="text-left text-ink-500">
+                    <th class="py-2 pr-3 font-medium">付款日</th><th class="py-2 pr-3 font-medium">學員</th>
+                    <th class="py-2 pr-3 font-medium text-right">結帳金額</th><th class="py-2 font-medium text-right">佣金</th>
+                  </tr></thead>
+                  <tbody>${rows}</tbody>
+                </table>
+              </div>
+              <div class="mt-4 pt-3 border-t border-cream-300 flex flex-wrap justify-between gap-2 text-sm">
+                <span>本梯佣金合計 <strong>${fmt(s.commission_twd)}</strong></span>
+                ${payout}
+              </div>
+            </div>`;
+        }).join('');
+      })
+      .catch((err) => {
+        stateEl.textContent = err === 'unauthorized' ? '連結無效，請確認網址是否完整。' : '暫時讀不到資料，請稍後再試。';
+      });
+  </script>
+</BaseLayout>
