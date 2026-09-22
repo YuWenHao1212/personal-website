@@ -817,6 +817,24 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
       updatePricePreview();
     });
 
+    // Referral code: ?ref=xxx is remembered for 14 days so a referred visitor who
+    // comes back later still counts. Backend whitelists codes; storage may be blocked.
+    const REF_KEY = 'workshop_ref';
+    const REF_TTL_MS = 14 * 24 * 60 * 60 * 1000;
+    try {
+      const urlRef = new URLSearchParams(window.location.search).get('ref');
+      if (urlRef) localStorage.setItem(REF_KEY, JSON.stringify({ ref: urlRef, at: Date.now() }));
+    } catch (_) {}
+    function getRef() {
+      try {
+        const urlRef = new URLSearchParams(window.location.search).get('ref');
+        if (urlRef) return urlRef;
+        const saved = JSON.parse(localStorage.getItem(REF_KEY) || 'null');
+        if (saved && Date.now() - saved.at < REF_TTL_MS) return saved.ref;
+      } catch (_) {}
+      return '';
+    }
+
     // Initial render（預設早鳥值）→ 立即套 UI，再用後端台北時間覆蓋
     applyPricingToUI();
     loadPricing();
@@ -865,6 +883,7 @@ const SURVEY_ID = 'workshop-signup-2026-q2';
             companions_info: formData.get('companions_info') || '',
             dietary: formData.get('dietary') || '',
             message: formData.get('message') || '',
+            ref: getRef(),
           }),
         });
 
