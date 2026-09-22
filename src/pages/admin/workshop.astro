@@ -53,6 +53,7 @@ const WORKSHOP_SESSIONS = adminSessions();
     <div id="empty-state" class="hidden text-center py-12 text-ink-400">尚無報名資料。</div>
 
     <!-- Bookings list -->
+    <div id="referral-summary" class="hidden mb-4 bg-white rounded-xl border border-cream-300 p-4"></div>
     <div id="bookings-list" class="space-y-4"></div>
 
   </div>
@@ -134,6 +135,17 @@ const WORKSHOP_SESSIONS = adminSessions();
       document.getElementById('stat-expired').textContent = expiredCount;
       document.getElementById('stat-remaining').textContent = `${data.remaining ?? 0} / ${data.capacity ?? 12}`;
 
+      // Referral commission for this cohort (settled the day after class)
+      const refEl = document.getElementById('referral-summary');
+      const refs = data.referrals || [];
+      if (refs.length) {
+        refEl.innerHTML = `<p class="text-xs font-semibold text-ink-500 uppercase tracking-wide mb-2">推薦分潤（本梯，課後隔天結算）</p>` +
+          refs.map(r => `<div class="text-sm text-ink-700">${escapeHtml(r.ref)}：已付款 ${r.paid_count} 筆，實收扣退款 ${formatTWD(r.net_paid_twd)} × ${Math.round(r.rate * 100)}% = <strong>${formatTWD(r.commission_twd)}</strong></div>`).join('');
+        refEl.classList.remove('hidden');
+      } else {
+        refEl.classList.add('hidden');
+      }
+
       if (bookings.length === 0) {
         emptyEl.classList.remove('hidden');
         return;
@@ -144,14 +156,20 @@ const WORKSHOP_SESSIONS = adminSessions();
           ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent/10 text-accent text-xs font-medium rounded">${b.party_size} 人</span>`
           : '';
 
-        const priceBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded">${formatTWD(b.price_total_twd)}</span>`;
+        // Show what was actually received; strike the quoted price when a promo code lowered it
+        const paid = b.amount_paid_twd ?? b.price_total_twd;
+        const discounted = paid !== b.price_total_twd;
+        const priceBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded">${formatTWD(paid)}${discounted ? ` <s class="text-amber-600/70">${formatTWD(b.price_total_twd)}</s>` : ''}</span>`;
+        const refBadge = b.ref
+          ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-sky-100 text-sky-800 text-xs font-medium rounded">推薦：${escapeHtml(b.ref)}</span>`
+          : '';
 
         const paidAtRow = b.paid_at
           ? `<div class="text-xs text-green-700 mt-1">付款時間：${formatDate(b.paid_at)}</div>`
           : '';
 
         const refundedRow = b.refunded_at
-          ? `<div class="text-xs text-rose-700 mt-1">退款時間：${formatDate(b.refunded_at)}　退款金額：${formatTWD(b.refund_amount_twd || b.price_total_twd)}</div>`
+          ? `<div class="text-xs text-rose-700 mt-1">退款時間：${formatDate(b.refunded_at)}　退款金額：${formatTWD(b.refund_amount_twd || paid)}</div>`
           : '';
 
         const receiptLink = b.stripe_receipt_url
@@ -197,6 +215,7 @@ const WORKSHOP_SESSIONS = adminSessions();
                   ${statusBadge(b)}
                   ${partySizeBadge}
                   ${priceBadge}
+                  ${refBadge}
                 </div>
                 <p class="text-sm text-ink-500">${escapeHtml(b.role)}</p>
                 ${paidAtRow}
