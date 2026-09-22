@@ -79,6 +79,7 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/workshop') &&
         !page.includes('/admin') &&
+        !page.includes('/partner') &&
         !page.includes('/sonice/') &&
         !page.includes('/studio-a/') &&
         !page.includes('/taichung/'),
