@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Claude Code 一對一實作 · 第 2 堂</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/deck.css">
+<link rel="stylesheet" href="assets/deck-local.css">
+</head>
+<body>
+<div id="viewport"><div id="stage" data-pn>
+
+<!-- ══ p01 · 封面 ══ -->
+<section class="slide cover" data-t="封面">
+  <p class="kick">匯流顧問 × 蔡承恩（品客）　·　Claude Code 一對一實作 · 第 2 堂</p>
+  <h1>把你的網站<br><span class="ac">放上網</span>。</h1>
+  <p class="dek">先讓網站有一個誰都打得開的網址，再來談：網站做訂閱制，會員工具用哪種比較好。</p>
+  <div class="meta">
+    <span><b>2026.09.29</b> 週二 10:30–12:00</span>
+    <span><b>余文皓</b></span>
+  </div>
+  <div class="payoff"><hr class="rule2"><span>WHERE AI MEETS ENTERPRISE　·　2026</span></div>
+</section>
+
+<!-- ══ p02 · 今天兩件事 ══ -->
+<section class="slide big-rows" data-t="今天兩件事">
+  <p class="eyebrow">今天　·　兩件事</p>
+  <h2>今天做兩件事</h2>
+  <div class="fill">
+    <div class="d-rows">
+      <div class="d-row"><span class="no">壹</span><span class="t">把網站放上網<small>辦 Cloudflare 帳號 → 接上上線工具 → 部署 → 用手機打開驗收 → 接網域 → Google 登入</small></span><span class="meta">約 75 分</span></div>
+      <div class="d-row"><span class="no">貳</span><span class="t">網站做訂閱制，會員工具用哪種比較好<small>會員工具有三種、各適合誰、你的網站用哪種</small></span><span class="meta">約 15 分</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p03 · 轉場 01 ══ -->
+<section class="slide sec" data-t="轉場 · 上線">
+  <p class="sn">01</p>
+  <h1>把網站放上網</h1>
+  <p>你的電腦會關機，網站不能跟著關。</p>
+</section>
+
+<!-- ══ p04 · 為什麼要上雲 ══ -->
+<section class="slide" data-t="為什麼上雲">
+  <p class="eyebrow">上線　·　為什麼</p>
+  <h2>網站放在你電腦裡，<span class="ac">別人打不開</span></h2>
+  <div class="fill">
+    <div class="body-cols">
+      <div class="note"><span class="k">放在你電腦裡</span>
+        <ul class="plain loose">
+          <li>只有你自己看得到</li>
+          <li>電腦闔上，網站就停了</li>
+          <li>手機、客人都連不進來</li>
+        </ul>
+      </div>
+      <div class="note ok"><span class="k">放上 Cloudflare</span>
+        <ul class="plain loose">
+          <li>給你一個網址，<strong>誰都打得開</strong></li>
+          <li>24 小時開著，不靠你的電腦</li>
+          <li>免費方案就夠用，<strong>不用綁信用卡</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="punch">Cloudflare ＝ 幫你把網站<em>掛上網、給你網址</em>的地方。</p>
+</section>
+
+<!-- ══ p04b · 要花錢嗎 ══ -->
+<section class="slide" data-t="要花錢嗎">
+  <p class="eyebrow">上線　·　要花錢嗎</p>
+  <h2>要花錢嗎？<span class="ac">免費額度就夠用</span></h2>
+  <div class="fill">
+    <div class="body-cols">
+      <div class="note"><span class="k">Cloudflare 免費給你多少</span>
+        <ul class="plain loose">
+          <li>網頁本身（客人打開、瀏覽）：<strong>不計次</strong></li>
+          <li>有程式在跑的部分（例如登入）：<strong>每天 10 萬次</strong></li>
+          <li>改完重新上線：<strong>不限次數</strong></li>
+          <li>免費方案，<strong>不用綁信用卡</strong></li>
+        </ul>
+      </div>
+      <div class="note ok"><span class="k">你的網站其實用多少</span>
+        <ul class="plain loose">
+          <li>客人每天來看幾百次 → 網頁<strong>不計次</strong></li>
+          <li>每天幾百人登入 → 10 萬次的<strong>零頭</strong></li>
+          <li>一天改好幾版、重新上線 → <strong>沒有次數限制</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="punch">網站剛上線、客人還不多的時候，<em>免費方案就夠用</em>。</p>
+</section>
+
+<!-- ══ p05 · 辦帳號 ══ -->
+<section class="slide" data-t="辦帳號">
+  <p class="eyebrow">上線　·　第一步</p>
+  <h2>先辦一個 Cloudflare 帳號</h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="instr"><span class="k">A</span><div><h3>用 email 註冊</h3><p><a href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener"><code>dash.cloudflare.com/sign-up</code></a><br>免費、免信用卡。問你用途就按 Skip；驗證信沒收到，看垃圾信匣。</p></div></div>
+        <div class="instr"><span class="k">B</span><div><h3>登入後，左側欄點「Workers &amp; Pages」</h3><p>點這一下，Cloudflare 會幫你配好網址的名字。不點的話，等下部署會拿不到網址。</p></div></div>
+        <div class="note ok"><span class="k">驗收</span>右下 Account Details 的 <strong>Subdomain 出現值</strong>（像 <code>你的名字.workers.dev</code>）＝ 好了。</div>
+      </div>
+      <div class="shot-wrap">
+        <img class="shot" src="img/cf-workers-pages-new-account.png" alt="新帳號的 Workers &amp; Pages 頁面，右下 Account Details 已配好 Subdomain">
+        <span class="mark" style="left:67.5%;top:58.6%;width:21.6%;height:15.6%"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p06 · 上線工具 ══ -->
+<section class="slide" data-t="上線工具">
+  <p class="eyebrow">上線　·　第二步</p>
+  <h2>確認上線工具跑得動</h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="instr"><span class="k">?</span><div><h3>wrangler 是什麼</h3><p>把你的網站資料夾<em>一鍵變成網址</em>的工具。不用先裝，用到時自己會下載。真正要先有的是 <strong>Node 22 以上</strong>。</p></div></div>
+        <pre>你的網站資料夾  ── 部署 ──▶  <b>你的網址</b></pre>
+      </div>
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">幫我準備 Cloudflare 的上線工具，一步一步來，每步告訴我結果：<br>1. 先看我的 Node 版本夠不夠（要 22 以上），不夠或沒裝就幫我裝好；裝不了就停下來告訴我。<br>2. 確認 <em>npx wrangler</em> 跑得動，把 Node 版本和 wrangler 版本都印出來給我看。</div></div>
+        <div class="note ok"><span class="k">驗收</span>Claude 印出 <strong>Node 22 以上 ＋ wrangler 版本號</strong>。報錯就整段貼回去給 Claude。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p07 · login ══ -->
+<section class="slide" data-t="wrangler login">
+  <p class="eyebrow">上線　·　第三步</p>
+  <h2>把上線工具接上你的帳號</h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="instr"><span class="k">1</span><div><h3>貼右邊那段</h3><p>Claude 會幫你跑，瀏覽器會自己跳出授權頁。</p></div></div>
+        <div class="instr"><span class="k">2</span><div><h3>在瀏覽器按「Allow」</h3><p>用<strong>剛剛註冊的那個帳號</strong>授權一次。</p></div></div>
+        <div class="instr"><span class="k">3</span><div><h3>回到 Claude</h3><p>它印出你的 email ＝ 接上了。</p></div></div>
+      </div>
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">幫我跑 <em>wrangler login</em>，登入我剛剛註冊的 Cloudflare 帳號。<br>瀏覽器會跳出授權頁，我自己按允許。<br>完成後，把登入的帳號 email 印出來給我看。</div></div>
+        <div class="note">瀏覽器沒跳出來、或按錯帳號 → 跟 Claude 說「<strong>再跑一次 wrangler login</strong>」。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p08 · 先讓 Claude 找到網站 ══ -->
+<section class="slide" data-t="部署 · 找到網站">
+  <p class="eyebrow">部署　·　找到網站</p>
+  <h2>部署之前，先讓 Claude <span class="ac">找到你的網站</span></h2>
+  <p class="lede">告訴 Claude 網站的程式放在哪裡。它確認找對了，再動手。</p>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">我要部署的網站，程式在我電腦裡的這個資料夾：（填資料夾名稱）<br>先打開看一下，<em>用一句話告訴我這是什麼網站、首頁上有哪些東西</em>。<br>我確認是對的，再開始部署。</div></div>
+      </div>
+      <div>
+        <div class="reply"><span class="who">Claude 會回你</span><div class="bubble">找到了，這是你的 ___ 網站，首頁有 ___ 和 ___。要開始部署嗎？</div></div>
+        <div class="note">講的不是你的網站 → 跟它說「<strong>不是這個</strong>」，再說一次資料夾名稱。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p09 · 部署 ══ -->
+<section class="slide" data-t="部署 · 動手">
+  <p class="eyebrow">部署　·　動手</p>
+  <h2>把網站部署到你的帳號</h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">把這個網站部署到我的 Cloudflare 帳號，先用 Cloudflare 給的測試網址就好，我自己的網域之後再接：<br>1. 專案名稱先問我要叫什麼（名字會變成測試網址的一部分）<br>2. 部署完，<em>把測試網址給我</em><br>3. 卡在要註冊 workers.dev subdomain、或拿不到網址，就停下來告訴我</div></div>
+      </div>
+      <div>
+        <div class="note"><span class="k">剛部署完</span>前幾分鐘打開出現 <strong>404</strong> 或 <strong>error 1042</strong> 是正常的，雲端還在準備。等 30 秒再重試，不是你做錯。</div>
+        <div class="note ok"><span class="k">驗收</span>Claude 給你一個 <code>___.workers.dev</code> 的測試網址，打開看得到你的網站。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p10 · 驗收 ══ -->
+<section class="slide big-cards" data-t="上線驗收">
+  <p class="eyebrow">部署　·　驗收</p>
+  <h2>驗收：<span class="ac">你的網站上線了</span></h2>
+  <div class="fill">
+    <div class="body-cols three">
+      <div class="note ok"><span class="k">1 · 電腦打開</span><p>網址打得開，長得跟你本機看到的一樣。</p></div>
+      <div class="note ok"><span class="k">2 · 手機打開</span><p>網址丟到自己的 LINE，用手機點開，看到<strong>同一個網站</strong>。</p></div>
+      <div class="note ok"><span class="k">3 · 改一個字再上線</span><p>叫 Claude 改首頁一個字、重新部署。重整看到新字 ＝ 你會更新網站了。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p10b · 接上網域 · 先想清楚 ══ -->
+<section class="slide big-cards" data-t="網域 · 先想清楚">
+  <p class="eyebrow">網域　·　先想清楚</p>
+  <h2>網址換成<span class="ac">你自己的網域</span></h2>
+  <p class="lede"><code>___.workers.dev</code> 能用，但客人記不住。接上你自己的網域，客人看到的就是你的品牌。</p>
+  <div class="fill">
+    <div class="body-cols three">
+      <div class="note"><span class="k">1 · 舊網站會被換掉</span><p>網域現在掛著舊網站的話，接上之後，<strong>客人打開看到的就是新網站</strong>。先用 workers.dev 的網址把新網站從頭看一遍，沒問題再換。</p></div>
+      <div class="note"><span class="k">2 · 你的 email</span><p>你的 email 是 <code>@你的網域</code> 結尾的嗎？是的話，網域搬到 Cloudflare 時，<strong>要確認 email 那一筆有跟著搬</strong>，不然會收不到信。用 Gmail 就不用管。</p></div>
+      <div class="note"><span class="k">3 · 要等一下</span><p>改完到生效，可能幾分鐘，也可能幾小時。<strong>沒馬上生效是正常的</strong>，今天先用 workers.dev 的網址驗收。</p></div>
+    </div>
+  </div>
+  <p class="foot">要用到你買網域那個網站的帳號密碼，先確認登得進去。</p>
+</section>
+
+<!-- ══ p10c · 接上網域 · 動手 ══ -->
+<section class="slide" data-t="網域 · 動手">
+  <p class="eyebrow">網域　·　動手</p>
+  <h2>把網站接到你的網域</h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">我要把剛部署的網站，接到我自己的網域：（填你的網域）<br>網域是在（填你買網域的網站）買的。<br>改之前，<em>先查一下我有沒有用這個網域收 email</em>。有的話，改完幫我確認 email 照常。<br>然後一步一步告訴我要去哪裡、改什麼，<em>我自己點</em>。<br>設定好後，幫我確認網址打得開。</div></div>
+      </div>
+      <div>
+        <div class="reply"><span class="who">Claude 會先查</span><div class="bubble">查過了：你有用這個網域收信。搬到 Cloudflare 之後，我會幫你確認 email 那一筆還在。</div></div>
+        <div class="note">用 Gmail 收信的話，Claude 會說沒有，<strong>這一步就跳過</strong>。</div>
+        <div class="note ok"><span class="k">驗收</span>用你的網域打開，看到的是新網站。有用網域收信的話，寄一封給自己，收得到。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ G0 · 先決定登入要怎樣 ══ -->
+<section class="slide big-cards" data-t="Google 登入 · 先決定">
+  <p class="eyebrow">Google 登入　·　先決定</p>
+  <h2>先決定：<span class="ac">登入之後要怎樣</span></h2>
+  <p class="lede">去 Google 申請之前，先想好網站上的登入長什麼樣。這三題你來決定，等一下交給 Claude 做。</p>
+  <div class="fill">
+    <div class="body-cols three">
+      <div class="note"><span class="k">1 · 按鈕放哪</span><p>「用 Google 登入」的按鈕放在哪裡？<br>例如：<strong>每一頁的右上角</strong>。</p></div>
+      <div class="note"><span class="k">2 · 哪些頁要登入</span><p>哪些頁面要登入才能看？<br>例如：<strong>工具頁要登入</strong>，首頁、介紹頁不用。</p></div>
+      <div class="note"><span class="k">3 · 登入後看到什麼</span><p>登入之後，畫面上多了什麼？<br>例如：右上角顯示<strong>名字和頭像</strong>，旁邊有<strong>登出</strong>按鈕。</p></div>
+    </div>
+  </div>
+  <p class="foot">記下誰登入過（會員名單）先不做，等做訂閱制時再加。</p>
+</section>
+
+<!-- ══ G1 · Google 登入 · 先申請 ══ -->
+<section class="slide" data-t="Google 登入 · 總覽">
+  <p class="eyebrow">Google 登入　·　先申請</p>
+  <h2>Google 登入，<span class="ac">先跟 Google 申請</span></h2>
+  <p class="lede">客人用 Google 帳號登入你的網站，其實是請 Google 幫你確認「這個人是誰」。Google 要先認識你的網站，才肯幫忙。</p>
+  <div class="fill">
+    <table>
+      <thead><tr><th></th><th>做什麼</th><th>為什麼要做</th></tr></thead>
+      <tbody>
+        <tr><th>〇</th><td>先決定登入要怎樣</td><td>按鈕放哪、哪些頁要登入、登入後看到什麼。上一頁你已經決定好了</td></tr>
+        <tr><th>壹</th><td>建一個 project</td><td>在 Google 那邊替你的網站開一個資料夾，後面的設定都放在裡面</td></tr>
+        <tr><th>貳</th><td>品牌、目標對象</td><td>品牌：客人按登入時，看到的網站名稱。目標對象：誰可以登入，要開放給所有人</td></tr>
+        <tr class="hl"><th>參</th><td>建用戶端 ID</td><td><em>用戶端 ID ＝ Google 發給你網站的一串編號</em>。網站每次請 Google 幫忙登入，都要報上這串編號，Google 才知道是你</td></tr>
+        <tr><th>　</th><td>登記網址</td><td>只有登記過的網址能用這串編號。別人拿去用在他的網站，Google 不會理</td></tr>
+        <tr><th>肆</th><td>編號交給 Claude</td><td>Claude 把編號接進網站程式，網站才會報上它</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="foot">壹到參都在瀏覽器，用你本人的 Google 帳號，你自己點。</p>
+</section>
+
+<!-- ══ G2 · 壹 建 project ══ -->
+<section class="slide" data-t="Google 登入 · 建 project">
+  <p class="eyebrow">Google 登入　·　壹　建 project</p>
+  <h2>讓 Claude <span class="ac">一步一步帶你點</span></h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">我的網站要加 Google 登入，要先在 Google Cloud Console 設定。<br>我沒用過，請一步一步帶我，<em>一次只講一步</em>，我說「好了」你再講下一步：<br>1. 建一個新的 project，名字跟我的網站一樣<br>2. 設定「品牌」和「目標對象」<br>3. 建一個 OAuth 用戶端 ID，類型是網頁應用程式</div></div>
+      </div>
+      <div>
+        <img class="shot shot-md" src="img/gcp-1-project-create.png" alt="Google Cloud 新增專案頁：專案名稱、組織、父項資源欄位與建立按鈕">
+        <div class="note">第一步長這樣：填專案名稱，按「<strong>建立</strong>」。用個人 Gmail 的話，<strong>不會有「組織」這一欄</strong>，是正常的。</div>
+      </div>
+    </div>
+  </div>
+  <p class="foot">畫面跟 Claude 講的不一樣？截圖貼給 Claude，它看了再告訴你點哪裡。</p>
+</section>
+
+<!-- ══ G2b · 貳 品牌和目標對象 ══ -->
+<section class="slide" data-t="Google 登入 · 品牌和目標對象">
+  <p class="eyebrow">Google 登入　·　貳　品牌和目標對象</p>
+  <h2>設定<span class="ac">品牌</span>和<span class="ac">目標對象</span></h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="instr"><span class="k">1</span><div><h3>品牌</h3><p>填網站名稱、聯絡 email。客人按登入時，看到的就是這些。</p></div></div>
+        <div class="instr"><span class="k">2</span><div><h3>目標對象</h3><p>使用者類型選「外部」。「發布」<strong>先不按</strong>，登記完網址再回來按。</p></div></div>
+        <div class="note">右邊是發布後的樣子：「<strong>實際運作中</strong>」＋「<strong>外部</strong>」。現在先選好「外部」就好。</div>
+      </div>
+      <div>
+        <img class="shot" src="img/gcp-2-audience.png" alt="Google Auth Platform 的「目標對象」頁：發布狀態為實際運作中、使用者類型為外部">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ G3 · 登記網址 ══ -->
+<section class="slide" data-t="Google 登入 · 網址">
+  <p class="eyebrow">Google 登入　·　參　建用戶端 ID</p>
+  <h2>建用戶端 ID：<span class="ac">每一格都問 Claude</span></h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">我要建一個 OAuth 用戶端 ID。<br>「應用程式類型」「名稱」「已授權的 JavaScript 來源」「已授權的重新導向 URI」，<em>這四格要填什麼</em>？<br>我的網站有三個網址：本機、___.workers.dev、我的網域（填上）。</div></div>
+        <div class="note"><span class="k">最容易漏</span>登記完，<strong>回到「目標對象」按「發布」</strong>。停在測試模式，客人會被擋在門外。</div>
+      </div>
+      <div class="shot-col">
+        <img class="shot" src="img/gcp-3-client-create.png" alt="建立 OAuth 用戶端 ID 表單：應用程式類型選網頁應用程式，下方有已授權的 JavaScript 來源與已授權的重新導向 URI 兩格">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ G4 · 接進網站 ══ -->
+<section class="slide" data-t="Google 登入 · 接進網站">
+  <p class="eyebrow">Google 登入　·　肆　接進網站</p>
+  <h2>把用戶端 ID <span class="ac">交給 Claude</span></h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">這是我的 Google 用戶端 ID：（貼上）<br>幫我在網站加上 Google 登入：<br>1. 登入按鈕放在：（填上，例如每一頁右上角）<br>2. 要登入才能看的頁面：（填上，例如工具頁）<br>3. 登入後顯示名字和頭像，旁邊有登出按鈕<br>4. 需要用戶端密碼的話，教我存成 Cloudflare 的祕密設定，<em>不要貼在對話裡</em>、不要推上 GitHub<br>5. 先在本機測試，成功再部署</div></div>
+      </div>
+      <div>
+        <div class="note"><span class="k">建完當下</span>按「建立」後跳出的視窗，<strong>先按「下載 JSON」存好</strong>。裡面有用戶端 ID 和用戶端密碼，密碼要保密。</div>
+        <div class="note ok"><span class="k">驗收 1</span>沒登入打開工具頁，會被請去登入。按「用 Google 登入」選自己的帳號，右上角出現你的名字。</div>
+        <div class="note ok"><span class="k">驗收 2</span>換一個 Google 帳號，例如家人的，<strong>也登得進去</strong> ＝ 目標對象真的發布了。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p12 · 存檔 ══ -->
+<section class="slide" data-t="存檔">
+  <p class="eyebrow">部署　·　存檔</p>
+  <h2>上線了，<span class="ac">先存個檔</span></h2>
+  <div class="fill">
+    <div class="cols">
+      <div>
+        <div class="copybox"><div class="head"><span>複製這段 · 貼進 Claude Code</span><button class="copybtn" type="button">⧉ 複製</button></div>
+        <div class="body">我的網站第一版上線了。<br>幫我存個檔（commit），訊息寫「網站第一版上線」，存完推上 GitHub。<br>之後改壞了，<em>我要能跳回這一版</em>。</div></div>
+      </div>
+      <div>
+        <div class="note">第 1 堂學的 commit，用在這裡：存了這一版，之後怎麼改都回得來。</div>
+        <div class="note ok"><span class="k">驗收</span>GitHub 上看得到「網站第一版上線」這一筆。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ p13 · 轉場 02 ══ -->
+<section class="slide sec" data-t="轉場 · 訂閱制">
+  <p class="sn">02</p>
+  <h1>網站做訂閱制，<br>會員工具用哪種比較好？</h1>
+  <p>先看會員工具有哪幾種，再挑適合你網站的那一種。</p>
+</section>
+
+<!-- ══ p14 · 會員工具三種 ══ -->
+<section class="slide" data-t="會員工具三種">
+  <p class="eyebrow">訂閱制　·　會員工具</p>
+  <h2>會員工具，<span class="ac">大致分三種</span></h2>
+  <div class="fill">
+    <div class="body-cols three">
+      <div class="note"><span class="k">① 平台型</span><strong>內容整個放到別人的平台上</strong>。課程、文章平台都屬於這種，會員、收款、發票都幫你包好。</div>
+      <div class="note"><span class="k">② 外掛型</span><strong>掛在你現有的網站上</strong>。例如 Memberstack、Outseta，加幾段程式碼，登入、會員、收款一次包辦。</div>
+      <div class="note"><span class="k">③ 自己組</span><strong>每一塊自己挑、自己接</strong>。Google 登入＋資料庫＋金流，用 Claude 在 Cloudflare 上做起來。</div>
+    </div>
+  </div>
+  <p class="punch">差別在：你的東西<em>放在誰家</em>、收款<em>走誰的</em>。</p>
+</section>
+
+<!-- ══ p15 · 三種怎麼比 ══ -->
+<section class="slide big-table" data-t="三種怎麼比">
+  <p class="eyebrow">訂閱制　·　比一比</p>
+  <h2>三種放在一起比</h2>
+  <div class="fill">
+    <table>
+      <thead><tr><th></th><th>① 平台型</th><th>② 外掛型</th><th>③ 自己組</th></tr></thead>
+      <tbody>
+        <tr><th>多快上線</th><td>最快，註冊就能開賣</td><td>快，網站加幾段程式碼</td><td>要自己做，Claude 陪你做</td></tr>
+        <tr><th>能改多細</th><td>平台給什麼就用什麼</td><td>會員頁、登入畫面照它的樣子</td><td><em>全部照你的意思</em></td></tr>
+        <tr><th>放得進你的工具嗎</th><td>放內容可以，放工具不行</td><td>可以</td><td>可以</td></tr>
+        <tr class="hl"><th>收款</th><td>平台代收，被抽成</td><td>大多只接 Stripe，<strong>台灣公司開不了帳號</strong></td><td>接台灣金流：綠界、藍新</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ p16 · 你的網站選哪種 ══ -->
+<section class="slide" data-t="選自己組">
+  <p class="eyebrow">訂閱制　·　你的網站</p>
+  <h2>你的網站，<span class="ac">選 ③ 自己組</span></h2>
+  <p class="lede">你賣的是自己做的蝦皮 AI 工具，會員付了錢，是要進你的網站用工具。</p>
+  <div class="fill">
+    <div class="body-cols three">
+      <div class="note"><span class="k">① 平台型</span>放得了課程和文章，<strong>放不進你自己做的工具</strong>。</div>
+      <div class="note"><span class="k">② 外掛型</span>收款大多卡在 Stripe。你的客人是蝦皮賣家，大多要<strong>統編發票</strong>報帳。</div>
+      <div class="note ok"><span class="k">③ 自己組</span>工具本來就在你的網站上，<strong>只要再加一道「有沒有付錢」的檢查</strong>。</div>
+    </div>
+  </div>
+  <p class="punch">會員工具要回答的，其實只有一題：<em>這個人付錢了嗎？</em></p>
+</section>
+
+<!-- ══ p17 · 自己組三塊 ══ -->
+<section class="slide" data-t="自己組三塊">
+  <p class="eyebrow">訂閱制　·　自己組</p>
+  <h2>自己組，<span class="ac">只要三塊</span></h2>
+  <div class="fill">
+    <table class="loose">
+      <thead><tr><th></th><th>回答的問題</th><th>用什麼</th></tr></thead>
+      <tbody>
+        <tr><th>登入</th><td>這個人是誰</td><td>Google 登入</td></tr>
+        <tr class="hl"><th>會員資料</th><td><em>他付錢了嗎、用到哪一天</em></td><td>一個資料庫，放在 Cloudflare</td></tr>
+        <tr><th>收款</th><td>每個月自動扣款</td><td>綠界或藍新的信用卡定期定額</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="punch">客人每次打開工具，網站先查一下：<em>付了、還沒到期</em>，才讓他用。</p>
+</section>
+
+<!-- ══ p18 · 自動扣款怎麼跑 ══ -->
+<section class="slide" data-t="定期定額流程">
+  <p class="eyebrow">訂閱制　·　自動扣款</p>
+  <h2>每月自動扣款，<span class="ac">是這樣跑的</span></h2>
+  <p class="lede">綠界、藍新都有，功能差不多。挑你已經有帳號、或客人比較熟的那一家。</p>
+  <div class="fill">
+    <div class="d-rows">
+      <div class="d-row"><span class="no">壹</span><span class="t">客人在你的網站按「訂閱」<small>跳到綠界或藍新的付款頁，刷卡</small></span><span class="meta">客人</span></div>
+      <div class="d-row"><span class="no">貳</span><span class="t">金流照你設定的週期自動扣款<small>例如每個月扣一次，扣幾期由你設定</small></span><span class="meta">金流</span></div>
+      <div class="d-row"><span class="no">參</span><span class="t">每扣完一期，金流把結果送到<em>你今天部署上去的網站</em><small>網站收到後，更新這位會員「用到哪一天」</small></span><span class="meta">你的網站</span></div>
+    </div>
+  </div>
+  <p class="foot">真的要串的時候，技術細節交給 Claude。金流都有測試環境，上線前不用刷真卡就能先跑一遍。</p>
+</section>
+
+<!-- ══ p20 · 今天帶走 ══ -->
+<section class="slide" data-t="今天帶走">
+  <p class="eyebrow">收尾　·　今天帶走</p>
+  <h2>今天做到的，和下一步</h2>
+  <div class="fill">
+    <div class="body-cols">
+      <div class="note ok"><span class="k">今天做到了</span>
+        <ul class="plain loose">
+          <li>網站有了自己的網址，手機打得開</li>
+          <li>會改內容、會重新上線</li>
+          <li>第一版存檔，推上 GitHub</li>
+        </ul>
+      </div>
+      <div class="note"><span class="k">下一步（你來做）</span>
+        <ul class="plain loose">
+          <li>挑綠界或藍新，問清楚定期定額的申請條件</li>
+          <li>確認盛豐新流量現在有沒有開統一發票</li>
+          <li>約第 3 堂的時間（11/2 前）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="punch">之後每一次改網站，都是同一套：<em>改 → 部署 → 存檔</em>。</p>
+</section>
+
+<!-- ══ p21 · 結尾 ══ -->
+<section class="slide closing" data-t="結尾">
+  <div class="big">CONFLUENCE<i>.</i></div>
+  <div class="tagline">匯流顧問　·　把 AI 導進組織，不只是導進電腦。</div>
+  <div class="accrule"></div>
+  <div class="contact">CONFLUENCE-PARTNERS.AI<br>MAIL@CONFLUENCE-PARTNERS.AI</div>
+</section>
+
+</div></div>
+
+<div id="hud">
+  <button id="prev" aria-label="上一頁">◀</button>
+  <button id="next" aria-label="下一頁">▶</button>
+  <span id="counter">1 / 1</span>
+  <span id="title"></span>
+  <span id="steps"></span>
+  <span class="dot" id="dot" title="這頁有註解"></span>
+  <span id="tally"></span>
+  <button id="toggle">註解 C</button>
+  <button id="copy" class="pri">複製註解</button>
+</div>
+<aside id="drawer">
+  <h3>本頁註解</h3>
+  <p class="ctx" id="dctx"></p>
+  <textarea id="note" placeholder="邊翻邊記。翻完按「複製註解」，貼進 Claude Code 一次處理。"></textarea>
+  <div class="row"><button id="clear">清空本頁</button><button id="close" class="pri">關閉</button></div>
+  <p class="hint">存在這台瀏覽器的 localStorage，不會同步。</p>
+</aside>
+<script src="assets/deck.js"></script>
+</body>
+</html>
