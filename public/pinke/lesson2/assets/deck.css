@@ -1,0 +1,338 @@
+/* ============================================================
+   匯流顧問 Confluence Partners — Deck base  v3.0.0  (1920×1080)  2026-09-10
+   共用版型層：每份 deck 複製整包，本檔不改；deck 自己的版型寫在 deck-local.css。
+   token 來源：同資料夾 tokens.css（brand/design-system/sync-tokens.sh 自 SoT 產生，禁止手抄）。
+   色彩／字體／間距一律 var()，不寫裸色碼；字級走 --deck-t-*，色彩走 --deck-*。
+   血統：holtek-deck（2026-09-08）版型 + deck-kit v2 的 stat / agenda / chart / quote / closing / copybox + studio-a d2 的 timer。
+   紀律（DESIGN.md §5 / SLIDE-COPY-PRINCIPLES 8–9）：標題釘頂正文相連 · 主內容 safe center · 收尾 .punch / .foot 錨底 ·
+   最小字 22px（--deck-min-font，tools/check-layout 會擋）· 無圓角陰影漸層 · 深底只有 .sec 轉場頁。
+   ============================================================ */
+
+/* ── 字型（自帶 8 面，不依賴 CDN；deck 是凍結交付物） ── */
+@font-face{font-family:'LXGW Bright TC';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/LXGWBrightTC-Light.woff2') format('woff2')}
+@font-face{font-family:'LXGW Bright TC';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/LXGWBrightTC-Regular.woff2') format('woff2')}
+@font-face{font-family:'Noto Sans TC';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/NotoSansTC-Regular.woff2') format('woff2')}
+@font-face{font-family:'Noto Sans TC';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/NotoSansTC-Medium.woff2') format('woff2')}
+@font-face{font-family:'Noto Sans TC';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/NotoSansTC-Bold.woff2') format('woff2')}
+@font-face{font-family:'Noto Sans TC';font-style:normal;font-weight:900;font-display:swap;src:url('fonts/NotoSansTC-Black.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/SpaceGrotesk-Bold.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/JetBrainsMono-Regular.woff2') format('woff2')}
+
+/* ── 舞台 ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--black);color:var(--text);font-family:var(--sans);font-weight:var(--w-body);
+  letter-spacing:var(--tracking-body);font-synthesis:none;-webkit-font-smoothing:antialiased;overflow:hidden}
+#viewport{position:fixed;inset:0;display:grid;place-items:center}
+#stage{width:var(--deck-w);height:var(--deck-h);position:relative;transform-origin:center center}
+
+/* ── 投影片 ── */
+.slide{position:absolute;inset:0;background:var(--deck-bg);color:var(--deck-fg);
+  padding:var(--deck-pad-y) var(--deck-pad-x);display:none;font-size:var(--deck-t-body);line-height:1.6}
+.slide.is-active{display:block}
+/* .sheet 由 deck.js 自動包上，防溢出縮放作用在它身上 */
+.sheet{display:flex;flex-direction:column;width:100%;height:100%;transform-origin:top left}
+.slide.sec .sheet,.slide.cover .sheet,.slide.stat .sheet,.slide.quote .sheet,.slide.closing .sheet{justify-content:center}
+
+/* ── 安全區外：wordmark 右上、頁碼右下（頁碼由 deck.js 在 #stage[data-pn] 時自動產生） ── */
+.wm{position:absolute;top:78px;right:var(--deck-pad-x);font-family:var(--brand);font-weight:var(--w-bold);font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--deck-heading)}
+.wm i{color:var(--deck-accent);font-style:normal}
+.wm span{color:var(--muted);font-family:var(--mono);font-size:18px;letter-spacing:2px;text-transform:none}
+.slide.sec .wm{color:var(--deck-section-fg)}
+.pn{position:absolute;bottom:40px;right:var(--deck-pad-x);font-family:var(--mono);font-size:18px;color:var(--faint);letter-spacing:2px}
+.slide.sec .pn{color:var(--deck-section-mut)}
+.slide.closing .pn{display:none}
+
+/* ── 轉場頁：唯一純黑版型 ── */
+.slide.sec{background:var(--deck-section-bg);color:var(--deck-section-fg)}
+.slide.sec .sn{font-family:var(--deck-section-font);font-weight:var(--w-bold);font-size:34px;letter-spacing:.4em;color:var(--deck-section-accent);margin-bottom:34px}
+.slide.sec h1{font-family:var(--deck-section-title-font);font-weight:var(--w-display);font-size:var(--deck-t-section);line-height:1.15;color:var(--deck-section-fg);letter-spacing:.01em}
+.slide.sec p{font-size:32px;color:var(--deck-section-sub);margin-top:36px;max-width:30em;line-height:1.6}
+.slide.sec strong,.slide.sec b,.slide.sec em{color:var(--deck-section-fg)}   /* 黑底不能繼承 --ink */
+.slide.sec .eyebrow{color:var(--deck-section-accent)}
+
+/* ── 封面 ── */
+.cover .kick{font-family:var(--deck-eyebrow-font);font-weight:var(--w-bold);font-size:var(--deck-t-eyebrow);letter-spacing:var(--tracking-eyebrow);color:var(--deck-eyebrow-color);text-transform:uppercase;margin-bottom:40px}
+.cover h1{font-family:var(--deck-heading-font);font-weight:var(--deck-w-cover);font-size:var(--deck-t-display);line-height:1.14;color:var(--deck-heading)}
+.cover h1 .ac{color:var(--deck-accent)}
+.cover .dek{font-family:var(--deck-heading-font);font-weight:var(--w-serif-sub);font-size:40px;color:var(--muted);margin-top:34px;max-width:24em;line-height:1.5}
+.cover .meta{display:flex;gap:56px;margin-top:76px;font-size:24px;color:var(--muted);flex-wrap:wrap}
+.cover .meta b{color:var(--text);font-weight:var(--w-medium)}
+.cover .payoff{margin-top:auto;display:flex;flex-direction:column;gap:22px;font-family:var(--mono);font-size:var(--deck-t-caption);letter-spacing:4px;color:var(--muted)}
+
+/* ── 內頁：eyebrow → 標題 → 導言 → .fill 內容 → .punch / .foot 錨底 ── */
+.eyebrow{font-family:var(--deck-eyebrow-font);font-weight:var(--w-bold);font-size:var(--deck-t-eyebrow);letter-spacing:var(--deck-eyebrow-tracking);color:var(--deck-eyebrow-color);text-transform:uppercase;margin-bottom:22px}
+.eyebrow.long{letter-spacing:var(--deck-eyebrow-tracking-long)}   /* > 20 字的眉標，.34em 會撞版心右緣 */
+h2{font-family:var(--deck-heading-font);font-weight:var(--deck-w-heading);font-size:var(--deck-t-h1-sm);line-height:1.24;color:var(--deck-heading);margin-bottom:34px;text-wrap:balance}
+h2.lg{font-size:var(--deck-t-h1)}
+h2.sm{font-size:var(--deck-t-h2)}
+h2 .ac,.ac{color:var(--deck-accent)}
+h3{font-family:var(--sans);font-weight:var(--w-bold);font-size:var(--deck-t-h3);line-height:1.3;color:var(--deck-heading)}
+.lede{font-size:30px;color:var(--muted);margin-top:-14px;margin-bottom:34px;max-width:44em;line-height:1.55}
+.fill{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:safe center}
+.fill.center{align-items:center}   /* 超高只往下溢，不壓標題 */
+.body-cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;flex:1;min-height:0}
+.body-cols>div{min-height:0}
+/* 三欄：卡片列用。flex:0 0 auto = 依內容取高（列高仍取最高那張，所以並排等高），
+   不像兩欄那樣撐滿剩餘高度、害卡片內部上下都空。 */
+.body-cols.three{grid-template-columns:repeat(3,1fr);gap:40px;flex:0 0 auto}
+.body-cols.three h3{font-size:36px;margin:0 0 2px}   /* h3 預設 44px 在 1/3 欄太擠 */
+p{margin:0 0 1em}
+strong{font-weight:var(--w-medium);color:var(--ink)}
+em{font-style:normal;color:var(--terra);font-weight:var(--w-medium)}
+code{font-family:var(--mono);font-size:max(.9em,var(--deck-min-font));background:var(--paper-deep);padding:2px 8px;border-radius:var(--radius-sm)}
+.rule2{height:var(--rule);background:var(--deck-heading);border:0;width:100%;margin:0;flex:none}
+.accrule{height:var(--rule);width:120px;background:var(--deck-accent);flex:none}
+
+/* 截圖與程式碼：保留真的痕跡，不重打成美術字 */
+.shot{display:block;width:100%;height:auto;border:1px solid var(--hairline);border-radius:var(--radius-md)}
+pre{font-family:var(--mono);font-size:var(--deck-t-caption);line-height:1.62;background:var(--paper-deep);border:1px solid var(--hairline);border-radius:var(--deck-radius);padding:24px 28px;color:var(--text);white-space:pre;tab-size:2}
+pre b{color:var(--ink);font-weight:var(--w-bold)}
+pre .hot{color:var(--terra);font-weight:var(--w-medium)}
+pre .dim{color:var(--faint)}
+pre .ok{color:var(--ok)}
+
+/* 收尾句與頁尾 */
+.punch{font-family:var(--deck-heading-font);font-weight:var(--w-serif-sub);font-size:66px;line-height:1.4;color:var(--deck-heading);max-width:20em;text-wrap:balance}
+.punch em{color:var(--terra);font-weight:var(--w-serif-sub)}
+.punch+.punch{margin-top:52px}
+.foot{margin-top:auto;padding-top:28px;border-top:var(--rule) solid var(--ink);font-size:var(--deck-t-caption);color:var(--muted);line-height:1.55}
+.foot b{color:var(--text);font-weight:var(--w-medium)}
+
+/* 大數字 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px;border-top:3px solid var(--ink);border-bottom:1px solid var(--hairline);padding:36px 0;margin-bottom:40px}
+.stat .n{font-family:var(--brand);font-weight:var(--w-bold);font-size:78px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat .n small{font-size:32px;color:var(--muted);margin-left:4px}
+.stat .l{font-size:var(--deck-t-caption);color:var(--muted);margin-top:10px;line-height:1.4}
+.slide.stat .bignum{font-family:var(--deck-heading-font);font-weight:var(--deck-w-cover);font-size:var(--deck-t-stat);line-height:1;color:var(--deck-heading)}   /* 一頁一數字 */
+.slide.stat .bignum em{font-style:normal;font-size:.28em;color:var(--deck-accent);margin:0 .15em;font-weight:inherit}
+.slide.stat h2{max-width:26ch;margin-top:34px}
+
+/* 表格 */
+table{border-collapse:collapse;width:100%;font-size:26px;line-height:1.45}
+thead th{font-size:var(--deck-t-caption);font-weight:var(--w-bold);letter-spacing:var(--tracking-seclabel);text-transform:uppercase;color:var(--muted);text-align:left;padding:0 22px 14px 0;border-bottom:3px solid var(--ink);white-space:nowrap}
+td,tbody th{padding:16px 22px 16px 0;border-bottom:1px solid var(--hairline);vertical-align:top;text-align:left;font-weight:var(--w-body)}
+tbody th{font-weight:var(--w-medium);color:var(--ink)}
+td:last-child,th:last-child{padding-right:0}
+table.loose{font-size:34px;line-height:1.62}   /* 稀疏表（2–3 列）；6 列以上不要套 */
+table.loose thead th{font-size:24px;padding-bottom:26px}
+table.loose td,table.loose tbody th{padding:40px 34px 40px 0}
+.sub{color:var(--muted);font-size:max(.8em,var(--deck-min-font));font-weight:var(--w-body)}
+.num{font-family:var(--brand);font-weight:var(--w-bold);font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+.num.hot{color:var(--terra)}
+.num.dim{color:var(--faint)}
+tr.hl td,tr.hl th{background:linear-gradient(to right,var(--terra-bg),var(--deck-bg))}   /* 整列打光：唯一允許的漸層（terra 淡底淡出） */
+.grp{font-size:var(--deck-t-caption);font-weight:var(--w-medium);letter-spacing:.2em;color:var(--muted);margin:0 0 14px}
+
+/* Agenda：ruled rows，壹貳參節號 */
+.d-rows{margin-top:44px;border-top:var(--rule) solid var(--deck-heading)}
+.d-row{display:grid;grid-template-columns:120px 1fr 160px;align-items:baseline;padding:34px 0;border-bottom:var(--hairline-w) solid var(--hairline)}
+.d-row .no{font-family:var(--serif);font-weight:var(--w-serif);font-size:56px;line-height:1;color:var(--deck-accent)}
+.d-row .t{font-family:var(--serif);font-weight:var(--w-serif-sub);font-size:var(--deck-t-h3);line-height:1.3;color:var(--deck-heading)}
+.d-row .t small{display:block;font-family:var(--sans);font-weight:var(--w-body);font-size:26px;line-height:1.5;color:var(--muted);margin-top:10px;max-width:40ch}
+.d-row .meta{font-family:var(--mono);font-size:26px;color:var(--muted);text-align:right}
+
+/* 量表條 */
+.scale{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:14px 22px;align-items:center;font-size:24px}
+.scale-head{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:22px;font-size:var(--deck-t-caption);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.scale .lab{white-space:nowrap;color:var(--text)}
+.scale .bar{position:relative;height:16px;background:var(--paper-deep);border-radius:var(--radius-pill);overflow:hidden}
+.scale .bar i{position:absolute;inset:0 auto 0 0;background:var(--faint);border-radius:var(--radius-pill)}
+.scale .bar i.hot{background:var(--terra)}
+.scale .v{font-family:var(--brand);font-weight:var(--w-bold);font-variant-numeric:tabular-nums;color:var(--ink);text-align:right;min-width:2.6em}
+.scale .v.hot{color:var(--terra)}
+.scale .d{font-size:var(--deck-t-caption);color:var(--muted);font-variant-numeric:tabular-nums;text-align:right;min-width:4.4em}
+.scale .d.lo{color:var(--terra-deep)}
+
+/* 長條圖：一頁一圖一焦點（灰階序列 + 一根 terra） */
+.d-chart{display:flex;gap:28px;align-items:flex-end;height:460px;margin-top:60px;padding-bottom:2px;border-bottom:var(--rule) solid var(--deck-heading)}
+.d-cb{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.d-cb .bar{background:var(--chart-ink);position:relative}
+.d-cb .bar.c1{background:var(--chart-1)}.d-cb .bar.c2{background:var(--chart-2)}.d-cb .bar.c3{background:var(--chart-3)}.d-cb .bar.c4{background:var(--chart-4)}
+.d-cb.hot .bar{background:var(--chart-hot)}
+.d-cb .bar .v{position:absolute;top:-42px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:var(--deck-t-caption);color:var(--deck-heading);white-space:nowrap}
+.d-xl{display:flex;gap:28px;font-family:var(--mono);font-size:var(--deck-t-caption);color:var(--muted);margin-top:16px;letter-spacing:2px}
+.d-xl span{flex:1}
+.d-xl .hot{color:var(--chart-hot)}
+
+/* 圖與影片 */
+figure{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+figure svg{width:100%;height:auto;max-height:100%}
+figcaption{font-size:var(--deck-t-caption);color:var(--muted);line-height:1.55;margin-top:26px;max-width:60em}
+figcaption b{color:var(--text);font-weight:var(--w-medium)}
+.vid{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:20px}   /* 進頁自動播、R 重播；用 <video muted playsinline> */
+.vid video{width:100%;height:auto;max-height:100%;border:1px solid var(--hairline);border-radius:var(--radius-sm);background:var(--paper-deep)}
+.vid figcaption{margin-top:0}
+
+/* 條列 */
+ul.plain{list-style:none}
+ul.plain li{position:relative;padding-left:34px;margin-bottom:22px;font-size:var(--deck-t-body);line-height:1.55}
+ul.plain li::before{content:"";position:absolute;left:0;top:.75em;width:18px;height:2px;background:var(--terra)}
+ul.plain.loose li{font-size:33px;line-height:1.85;margin-bottom:30px}   /* 稀疏條列（3–4 項） */
+
+/* 引言（暖紙） */
+.slide.quote .q{font-family:var(--deck-heading-font);font-weight:var(--deck-w-heading);font-size:72px;line-height:1.45;max-width:20ch;color:var(--deck-heading);margin:0}
+.slide.quote .qby{font-family:var(--mono);font-size:24px;letter-spacing:3px;color:var(--muted);margin-top:44px}
+
+/* note：叮嚀 / 驗收 / 巡場，一種殼（2026-09-10 取代 alert 四色：DS 規定 deck 不用 alert 殼，語意靠 kicker）
+   .k = mono kicker 可省；.ok = 驗收（左線換 ink，跟提醒分兩色）；一頁 ≤ 3 個 */
+.note{border:var(--hairline-w) solid var(--hairline);border-left:var(--rule) solid var(--deck-accent);padding:20px 30px;font-size:26px;line-height:1.6;color:var(--deck-fg)}
+.note b,.note strong{color:var(--deck-heading);font-weight:var(--w-bold)}
+.note em{font-style:normal;color:var(--deck-accent)}
+.note code{color:var(--deck-heading)}
+.note .k{display:block;font-family:var(--mono);font-size:var(--deck-t-caption);letter-spacing:3px;color:var(--deck-accent);margin-bottom:6px;text-transform:uppercase}
+.note+.note{margin-top:14px}
+/* 上面那條是給直向堆疊用的。.note 並排在 grid 裡時（.body-cols / .cols）會把第二張之後往下推、變不等高 —— 歸零。
+   2026-09-12 holtek 9/16 deck 三欄卡片實測發現。 */
+.body-cols>.note+.note,.cols>.note+.note{margin-top:0}
+.note.ok{border-left-color:var(--deck-heading)}
+.note.ok .k{color:var(--deck-heading)}
+
+/* copy box：左步驟右 prompt；框內顯示字 = 複製全文（太長拆頁） */
+.cols{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start;margin-top:44px}
+.instr{display:grid;grid-template-columns:64px 1fr;gap:18px;margin-bottom:52px}
+.instr .k{font-family:var(--serif);font-weight:var(--w-serif);font-size:var(--deck-t-h3);line-height:1;color:var(--deck-accent);padding-top:4px}
+.instr h3{font-size:34px;line-height:1.25;margin:4px 0 12px}
+.instr p{font-size:26px;line-height:1.7;color:var(--muted);margin:0;max-width:32ch}
+.copybox{--copy-pad:36px;border:var(--hairline-w) solid var(--hairline);border-top:var(--rule) solid var(--deck-heading);position:relative}
+.copybox .head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px var(--copy-pad);border-bottom:var(--hairline-w) solid var(--hairline);font-family:var(--mono);font-size:var(--deck-t-caption);letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.copybox .copybtn{font-family:var(--sans);font-size:var(--deck-t-caption);font-weight:var(--w-medium);letter-spacing:2px;line-height:1.25;background:var(--primary);color:var(--on-primary);padding:8px 20px;border:1px solid transparent;border-radius:var(--deck-radius);cursor:pointer;flex:none}
+.copybox .copybtn:hover{background:var(--primary-deep)}
+.copybox .copybtn.done{background:var(--ok);color:var(--white)}   /* 已複製 = functional ok 綠（苔橄欖），deck.js 加 .done 1.6 秒 */
+.copybox .body{padding:38px var(--copy-pad) 42px;font-family:var(--mono);font-size:var(--deck-t-body);line-height:1.85;color:var(--deck-fg)}
+.copybox .body em{font-style:normal;color:var(--deck-accent);font-weight:inherit}
+.copybox .body code{font-size:inherit;color:var(--deck-heading);border-radius:var(--deck-radius)}   /* 兩層強調：code = 學員要對照的名字（檔名 / 路徑），em = 這一步的動作 */
+.copybox .body .q{display:inline-block;margin:4px 0;padding-left:14px;border-left:2px solid var(--hairline);color:var(--deck-heading);line-height:1.6}   /* prompt 裡引用的內容（要 Claude 照抄的幾行）：ink 字 + hairline 左線，不用淡字 */
+.reply{margin-top:40px;background:var(--paper-deep);border-left:var(--rule) solid var(--deck-accent);padding:28px 36px 32px}
+.reply .who{display:block;font-family:var(--mono);font-size:var(--deck-t-caption);letter-spacing:3px;color:var(--muted);margin-bottom:14px}
+.reply .bubble{font-size:26px;line-height:1.7;color:var(--deck-fg)}
+
+/* 下載列（2026-09-10 拍板 E 案）：不做鈕、做一列 —— ruled row 語法（2px ink 頂線 + hairline 底線），整列可點。
+   左 ↓ terra（本區唯一 terra）、檔名 sans 500 32、kicker / meta mono 22 muted、右「DOWNLOAD →」mono terra；hover 底 paper-deep；已下載右側字轉 --ok。
+   一頁一列；.sm 給步驟欄內的窄版。 */
+.dl-row{display:flex;align-items:center;gap:28px;width:100%;border-top:2px solid var(--deck-heading);border-bottom:1px solid var(--hairline);padding:22px 8px 22px 4px;text-decoration:none;color:var(--deck-heading);transition:background .12s;box-sizing:border-box}
+.dl-row:hover{background:var(--paper-deep)}
+.dl-row .ic{font-family:var(--mono);font-size:40px;line-height:1;color:var(--deck-accent);flex:none}
+.dl-row .f{font-family:var(--sans);font-weight:500;font-size:32px;letter-spacing:.01em;line-height:1.2;color:var(--deck-heading)}
+.dl-row .lab{font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.12em;margin-right:auto;padding-left:6px;white-space:nowrap}
+.dl-row .m{font-family:var(--mono);font-size:22px;color:var(--muted);letter-spacing:.06em;white-space:nowrap}
+.dl-row .go{font-family:var(--mono);font-size:22px;letter-spacing:.14em;color:var(--deck-accent);white-space:nowrap}
+.dl-row.done .go{color:var(--ok)}
+.dl-row.sm{padding:16px 4px;gap:20px}
+.dl-row.sm .ic{font-size:34px}
+.dl-row.sm .f{font-size:28px}
+
+/* 階梯（2026-09-13 拍板 A 案，holtek 9/16 p40 實戰；比較存證 DS _lab/stairs-variants.html）：
+   等寬欄、底對齊、逐階升高，結論句 .stair-punch 放左上空白處。每階 paper-deep 填底 + 6px terra 頂線。
+   ⚠️ terra 例外：頂線是階梯本體不是強調，所以每階都 terra（DS「terra 一區一次」的登記例外，見 DESIGN.md）。
+   階數：.stairs 設 --steps（預設 3，支援 2–4），每階 style="--i:N"；第一階 330px、最高階 690px，中間平均分配。
+   分步：每階加 .step[data-step]，結論句最後出現。 */
+.stairs{--steps:3;position:relative;display:grid;grid-template-columns:repeat(var(--steps),1fr);align-items:end;height:700px}
+.stair{--i:1;height:calc(330px + 360px * (var(--i) - 1) / (var(--steps) - 1));background:var(--paper-deep);border-top:6px solid var(--deck-accent);padding:26px 30px;display:flex;flex-direction:column;gap:12px;box-sizing:border-box}
+.stair p{margin:0;font-size:29px;line-height:1.45;color:var(--deck-heading)}
+.stair .sn{font-size:42px;font-weight:var(--w-bold)}
+.stair:last-child .sn{color:var(--deck-accent)}
+.stair .tag{font-size:24px;color:var(--deck-accent)}
+.stair .who{display:block;font-size:23px;color:var(--muted);margin-top:6px}
+.stair-punch{position:absolute;left:0;top:0;font-size:60px;max-width:none;margin:0}
+
+/* ══════════ Timer（匯流 deck 計時器 · I「細明體」版，2026-09-10 拍板進 kit base）══════════
+   一種 markup、三個尺寸（data-size corner / side / hero）、位置修飾 .tm-top（右上角絕對定位）/ .tm-dock（右下貼底）。
+   語彙：置中堆疊 —— 數字 LXGW 300（大數字 = serif 300）· 標籤預設隱藏 ·
+   2px 進度線與數字同寬，--ink，最後 --warn 秒轉 terra · 按鈕 1px --ink 描邊，主按鈕 --ink 底 · 時間到標籤換字轉 terra，不閃。
+   （直排標籤試過：放在置中版面會把重心拉偏，2026-09-10 退回堆疊。） */
+.timer{display:grid;grid-template-columns:auto;grid-template-rows:auto auto auto auto;justify-items:center;row-gap:14px;width:max-content;color:var(--ink);}
+/* 標籤（動手／休息）預設不顯示：字會分散注意（2026-09-10 拍板）；markup 保留給 JS 與日後要用的 deck，.timer.show-label 打開 */
+.timer .tm-label{display:none;grid-row:1;font-family:var(--serif);font-weight:var(--w-serif-sub);font-size:24px;letter-spacing:var(--tracking-vlabel);padding-left:var(--tracking-vlabel);color:var(--terra);transition:color var(--dur) var(--ease);}
+.timer .tm-time{grid-row:2;font-family:var(--serif);font-weight:var(--w-serif);font-size:104px;line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--ink);transition:color var(--dur) var(--ease);}
+.timer .tm-bar{grid-row:3;display:block;width:100%;height:2px;background:var(--hairline);position:relative;overflow:hidden;}
+.timer .tm-bar i{display:block;height:100%;width:100%;background:var(--ink);transition:width .25s linear,background var(--dur) var(--ease);}
+.timer .tm-ctl{grid-row:4;display:flex;gap:12px;margin-top:4px;}
+.tm-btn{font-family:var(--mono);font-size:22px;letter-spacing:.2em;text-transform:uppercase;line-height:1;padding:12px 24px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:0;transition:background var(--dur-fast),color var(--dur-fast),border-color var(--dur-fast);}
+.tm-btn:hover{background:var(--ink);color:var(--white);}
+.tm-btn.primary{background:var(--ink);border-color:var(--ink);color:var(--white);}
+.tm-btn.primary:hover{background:var(--terra);border-color:var(--terra);}
+.tm-btn:disabled{opacity:var(--disabled-opacity);cursor:default;}
+.tm-btn.primary:disabled{background:var(--muted);border-color:var(--muted);}
+/* 狀態 */
+.timer.warn .tm-time,.timer.done .tm-time{color:var(--terra);}
+.timer.warn .tm-bar i,.timer.done .tm-bar i{background:var(--terra);}
+.timer.done .tm-label{color:var(--terra);}
+/* 尺寸 */
+.timer.show-label .tm-label{display:block;}
+.timer[data-size="side"]{justify-self:center;}
+.timer[data-size="hero"]{row-gap:20px;align-self:center;margin-left:auto;margin-right:auto;}
+.timer[data-size="hero"] .tm-label{font-size:28px;}
+.timer[data-size="hero"] .tm-time{font-size:var(--deck-t-stat);}
+.timer[data-size="corner"]{grid-template-columns:auto auto auto;grid-template-rows:auto auto;column-gap:14px;row-gap:8px;align-items:center;justify-items:start;}
+.timer[data-size="corner"] .tm-label{display:none;}
+.timer[data-size="corner"] .tm-time{grid-column:1;grid-row:1;font-size:34px;font-weight:var(--w-serif-sub);}
+.timer[data-size="corner"] .tm-ctl{display:contents;}
+.timer[data-size="corner"] .tm-ctl .tm-btn{grid-row:1;padding:8px 16px;letter-spacing:.14em;}
+.timer[data-size="corner"] .tm-bar{grid-column:1/-1;grid-row:2;}
+/* 位置 */
+.timer.tm-top{position:absolute;top:80px;right:var(--deck-pad-x);z-index:6;}
+.timer.tm-dock{margin-top:auto;justify-self:end;align-self:flex-end;}
+/* 黑底頁 */
+.slide.sec .timer{color:var(--on-black);}
+.slide.sec .timer .tm-time{color:var(--on-black);}
+.slide.sec .timer .tm-label{color:var(--band-link);}
+.slide.sec .timer .tm-bar{background:var(--band-faint);}
+.slide.sec .timer .tm-bar i{background:var(--on-black);}
+.slide.sec .tm-btn{border-color:var(--on-black);color:var(--on-black);}
+.slide.sec .tm-btn:hover{background:var(--white);color:var(--ink);}
+.slide.sec .tm-btn.primary{background:var(--on-black);border-color:var(--on-black);color:var(--ink);}
+.slide.sec .tm-btn.primary:hover{background:var(--band-link);border-color:var(--band-link);}
+.slide.sec .timer.warn .tm-time,.slide.sec .timer.done .tm-time,.slide.sec .timer.done .tm-label{color:var(--band-link);}
+.slide.sec .timer.warn .tm-bar i,.slide.sec .timer.done .tm-bar i{background:var(--band-link);}
+
+/* 結尾：簽名，不是道別 */
+.slide.closing .big{font-family:var(--brand);font-weight:var(--w-bold);font-size:88px;letter-spacing:6px;text-transform:uppercase;line-height:1;color:var(--deck-heading)}
+.slide.closing .big i{color:var(--deck-accent);font-style:normal}
+.slide.closing .tagline{font-family:var(--serif);font-weight:var(--w-serif-sub);font-size:var(--deck-t-h3);color:var(--deck-heading);margin-top:34px}
+.slide.closing .accrule{margin:48px 0 40px}
+.slide.closing .contact{font-family:var(--mono);font-size:26px;letter-spacing:3px;color:var(--muted);line-height:2}
+
+/* 分步顯示：opacity 不用 display，版面高度不變，排版檢查量得到最終狀態 */
+.step{opacity:0;transition:opacity var(--dur-slow) var(--ease)}
+.step.on{opacity:1}
+
+/* 待寫的坑：正式版不該有，check-layout 會列出 */
+.todo{border:3px dashed var(--terra);border-radius:var(--radius-lg);padding:34px;background:var(--terra-bg);font-size:26px;line-height:1.6;color:var(--terra-deep)}
+.todo .h{display:block;font-family:var(--brand);font-weight:var(--w-bold);font-size:var(--deck-t-caption);letter-spacing:var(--tracking-seclabel);text-transform:uppercase;color:var(--terra);margin-bottom:12px}
+.todo ul{list-style:none;margin-top:14px}
+.todo li{position:relative;padding-left:28px;margin-bottom:10px}
+.todo li::before{content:"□";position:absolute;left:0;color:var(--terra)}
+
+/* ── HUD（舞台外，不投影；字級不受 22px 鐵律） ── */
+#hud{position:fixed;left:0;right:0;bottom:0;height:52px;display:flex;align-items:center;gap:18px;padding:0 20px;
+  background:rgba(17,17,17,.92);color:var(--on-black-mid);font-family:var(--brand);font-size:13px;letter-spacing:.1em;z-index:20}
+#hud button{font:inherit;letter-spacing:.1em;background:transparent;color:var(--on-black-mid);border:1px solid var(--on-black-mut);border-radius:var(--radius-pill);padding:6px 16px;cursor:pointer}
+#hud button:hover{border-color:var(--terra);color:var(--on-black)}
+#hud button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+#hud button.pri{background:var(--terra);border-color:var(--terra);color:var(--on-primary)}
+#hud button.pri:hover{background:var(--terra-deep);border-color:var(--terra-deep);color:var(--on-black)}
+#counter{font-variant-numeric:tabular-nums;min-width:78px}
+#title{color:var(--on-black-mut);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#steps,#tally{font-size:11px;letter-spacing:.12em;white-space:nowrap}
+#steps{color:var(--on-black-mut);font-variant-numeric:tabular-nums}
+#tally{color:var(--terra)}
+#steps:empty,#tally:empty,#owner:empty{display:none}
+#owner{padding:4px 12px;border-radius:var(--radius-pill);font-size:11px;letter-spacing:.14em;background:var(--on-black-mut);color:var(--black)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--terra);display:none}
+.dot.on{display:block}
+
+/* 註解抽屜（本機草稿；正式意見走 PR / issue） */
+#drawer{position:fixed;top:0;right:0;bottom:52px;width:440px;background:var(--black);border-left:1px solid var(--on-black-mut);color:var(--on-black-mid);padding:26px;display:none;flex-direction:column;gap:14px;z-index:21}
+#drawer.open{display:flex}
+#drawer h3{font-family:var(--brand);font-size:13px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--terra)}
+#drawer .ctx{font-size:14px;color:var(--on-black-mut);line-height:1.5}
+#drawer textarea{flex:1;background:var(--black);border:1px solid var(--on-black-mut);border-radius:var(--radius-lg);color:var(--on-black-mid);font-family:var(--sans);font-size:15px;line-height:1.6;padding:14px;resize:none}
+#drawer textarea:focus{outline:none;border-color:var(--terra)}
+#drawer .row{display:flex;gap:10px}
+#drawer button{flex:1;font-family:var(--brand);font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:1px solid var(--on-black-mut);color:var(--on-black-mid);border-radius:var(--radius-pill);padding:10px;cursor:pointer}
+#drawer button.pri{background:var(--terra);border-color:var(--terra);color:var(--on-black)}
+#drawer button:hover{border-color:var(--terra)}
+#drawer .hint{font-size:12px;color:var(--on-black-mut);line-height:1.5}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
