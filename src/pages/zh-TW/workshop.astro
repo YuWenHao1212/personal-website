@@ -162,8 +162,6 @@ const endX = 0.965;
               Nothing shows otherwise. (The live page shows the same three facts as a tag, a struck price and a note.) */}
           <p class="k">費用<span data-eb hidden> · 早鳥到 <span data-eb-end></span></span></p>
           <p class="v"><span data-price="single">{price}</span><i>元</i><s data-eb hidden><span data-price="regular">{price}</span></s></p>
-          {/* 10/9: seats left, from the pricing API. Empty unless five or fewer are left, or the class is full. */}
-          <p class="n seats"><span data-seats-pill>&nbsp;</span></p>
         </div>
         <a class="go" href="#signup">
           <span data-go>報名{cohort.name}</span>
@@ -492,9 +490,6 @@ const endX = 0.965;
           <div><dt>需要帶</dt><dd>筆電 + Claude 帳號</dd></div>
           <div><dt>課前 1:1</dt><dd>線上 45 分鐘，開課前一到兩週<small>把環境裝好、實際用起來，也聊聊你想做什麼</small></dd></div>
         </dl>
-        {/* 10/10, the author: the seats notice was plain small text and easy to miss; the old page used a pill. A pill again,
-            in three places: the opening, here beside the fee (where #signup lands), and above the submit button. */}
-        <p class="su-seats" hidden><span class="seats-pill" data-seats-pill></span></p>
         <div class="su-fee">
           <div><p class="k">單人<span data-eb hidden> · 早鳥到 <span data-eb-end></span></span></p><p class="v"><span data-price="single">{price}</span><i>元</i><s data-eb hidden><span data-price="regular">{price}</span></s></p></div>
           <div><p class="k">兩人以上，每人</p><p class="v"><span data-price="duo">{duo}</span><i>元</i></p></div>
@@ -509,7 +504,12 @@ const endX = 0.965;
           Not carried over: the early-bird strike-through and tag (this page has no place for them; the single price still follows the API),
           the hero's availability badge, and the unused success panel (payment success is Stripe's own page). */}
       <form class="su-f" id="signup-form">
-        <h2>填寫報名表</h2>
+        {/* 10/10, the author: one pill only in this section, on the right of the form title. The form is where the decision
+            is made; the pills in the opening, beside the fee and above the submit button were removed. */}
+        <div class="su-f-head">
+          <h2>填寫報名表</h2>
+          <p class="su-seats" hidden><span class="seats-pill" data-seats-pill></span></p>
+        </div>
         <p class="su-f-sub">送出後即可線上刷卡完成報名</p>
         <label>這次幫幾個人報名？<em>*</em>
           <select id="party_size" name="party_size" required>
@@ -545,7 +545,6 @@ const endX = 0.965;
         </div>
 
         <p class="su-avail" id="availability-inline" hidden></p>
-        <p class="su-avail su-avail-pill" hidden><span class="seats-pill" data-seats-pill></span></p>
         <button type="submit" class="su-go" id="submit-btn"><span data-label>送出報名</span><b aria-hidden="true">→</b></button>
         <p class="su-after">送出後我會透過 LINE 或 email 主動與你聯繫</p>
         <p class="su-err" id="error-msg" role="alert" hidden></p>
@@ -730,7 +729,7 @@ const endX = 0.965;
       const label = full ? '本梯已額滿' : remaining === 1 ? '僅剩最後 1 個名額' : `僅剩 ${remaining} 個名額`;
 
       const bar = document.querySelector('[data-seats-bar]');
-      // the pills: opening, beside the fee, above the submit button. Last seat and full get their own look.
+      // the pill beside the form title. Last seat and full get their own look.
       document.querySelectorAll('[data-seats-pill]').forEach((el) => {
         const show = full || few;
         el.textContent = show ? label : '\u00a0';
@@ -739,7 +738,6 @@ const endX = 0.965;
         el.classList.toggle('full', full);
         const row = el.parentElement;
         if (row.matches('.su-seats')) row.hidden = !show;
-        if (row.matches('.su-avail-pill')) row.hidden = !few; // when full, the line with the waiting-list link stands there instead
       });
       if (bar) { bar.textContent = full || few ? label : ''; bar.hidden = !(full || few); }
       if (full) document.querySelectorAll('[data-go]').forEach((el) => { el.textContent = '加入候補'; });
@@ -1131,7 +1129,6 @@ const endX = 0.965;
     color: var(--dawn);
   }
   .su-fee .k [data-eb] { color: var(--terra); }
-  .op-bar .n.seats.on,
   .sb .sb-seats {
     color: var(--dawn);
   }
@@ -2470,18 +2467,21 @@ const endX = 0.965;
     50% { opacity: 0.35; }
   }
   /* on the night opening: dawn instead of terra */
-  .op-bar .seats .seats-pill {
-    margin-top: 0.7rem;
-    color: var(--dawn);
-    background: rgba(222, 144, 112, 0.12);
+  .su-f-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
   }
-  .op-bar .seats .seats-pill.last {
-    color: #14100e;
-    background: var(--dawn);
-    border-color: var(--dawn);
+  .su-f-head h2 {
+    margin: 0;
   }
   .su-seats {
-    margin: 0 0 1.4rem;
+    margin: 0;
+  }
+  .su-f-head + .su-f-sub {
+    margin-top: 0.9rem;
   }
   .su-avail {
     margin-top: 2rem;
