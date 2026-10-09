@@ -3,6 +3,7 @@ title: "Free Azure Credits for Startups: How to Get $5,000 from Microsoft"
 description: "Get $5,000 in free Azure credits through Microsoft for Startups. Step-by-step guide for indie developers: application process, business verification, and maximizing your startup credits."
 pubDate: 2026-01-09
 category: building-products
+topics: ["ai-practice"]
 tags: ["Microsoft", "Azure", "Startup", "Indie Developer", "Free Resources", "OpenAI"]
 lang: en
 featured: false

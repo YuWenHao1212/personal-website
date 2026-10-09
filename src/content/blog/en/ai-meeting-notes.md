@@ -3,6 +3,7 @@ title: "I Built an AI Meeting Notes Tool in 4 Hours for $0.32/hr"
 description: "Built an AI meeting notes tool in 4 hours: speech-to-text with Qwen3-ASR, auto-generated transcripts and summaries, plus a real-time tactical advisor. Total cost: $0.32 per hour of meeting."
 pubDate: 2026-03-09
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "meeting", "agentic coding", "Claude Code", "building-in-public"]
 lang: en
 translationKey: ai-meeting-notes

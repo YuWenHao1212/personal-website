@@ -4,6 +4,7 @@ seoTitle: "My AI Workflow: 3 Tool Fixes That Saved Me Hours Every Week"
 description: "Most people work around broken tools instead of fixing them. The cost is 30+ minutes a day doing things you shouldn't have to. I built an AI workflow with Claude Code, MCP, and Obsidian — here's what I learned from three tool-fixing decisions."
 pubDate: 2026-02-23
 category: productivity
+topics: ["growth", "ai-practice"]
 tags: ["Claude Code", "AI workflow", "Obsidian", "productivity", "knowledge management"]
 lang: en
 featured: false

@@ -45,7 +45,14 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
               and the site-wide Person data says 企業 AI 工作流導入顧問 only — so a search for an AI 講師 had nothing to match.
               Two sentences: what he does / what backs it. 「AI 講師」 is kept as one unbroken term. Wording is Claude's draft, his pick.
               TODO at launch: the same goes into this page's title, description and the Person jobTitle in components/SEO.astro. */}
+          {/* 10/9 (afternoon). The author wanted the certificate's badge in the opening, for credibility at first sight, on both
+              language pages. Two placements were built and he found both "不協調". The cause was not position: everything in this
+              screen is thin and light (star trails, a hairline name, small type) and the badge is the one solid, saturated shape —
+              a sticker on a photograph, heavier than the line it accompanies. Settled with him: the opening says it in one quiet line
+              that names Anthropic and can be checked; the badge itself sits on paper, first in the facts column below.
+              ⚠️ The certificate runs out 2027-08-24: this line and the badge go with the rest if it is not renewed (components/SEO.astro). */}
           <p class="idl">企業 AI 導入顧問、AI 講師。<br />Claude 認證架構師，匯流顧問創辦人。</p>
+          <a class="op-ver" href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="hero">Anthropic 官方認證<i aria-hidden="true">·</i>在 Credly 驗證 ↗</a>
           <p class="lead">我寫怎麼和 AI 一起工作，也帶<span class="nb">個人</span>和企業把它用進每天的工作。</p>
           {/* 10/9: one sentence saying what he does (writes; works with individuals and companies). The two-line version repeated the story's own
               phrases (「把過程寫下來」「進企業」「帶團隊」). Live page: 我用 AI 改變自己的工作方式，把過程寫下來。／現在也以企業 AI 導入顧問的身份，幫團隊把 AI 真正用起來。 */}
@@ -160,6 +167,19 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
       <aside class="st-side" aria-label="經歷與資格">
         <p class="kick"><i></i>經歷與資格</p>
         <ul>
+          {/* 10/9: the certificate moved from third to first, with its badge (see the note in the opening). On paper the solid badge
+              reads as a seal on a document. The badge is itself the link to the Credly page. */}
+          <li class="cert">
+            <a class="bdg" href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="badge" aria-label="Claude 認證架構師：在 Credly 驗證">
+              <img src="/images/credentials/claude-certified-architect-foundations.png" alt="Claude Certified Architect – Foundations 徽章" width="604" height="604" loading="lazy" />
+            </a>
+            <div>
+              <span class="k">認證</span>
+              <b>Claude 認證架構師</b>
+              <span class="n">Anthropic 的官方認證</span>
+              <a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly">在 Credly 驗證 ↗</a>
+            </div>
+          </li>
           <li>
             <span class="k">產業</span>
             <b>科技業二十年</b>
@@ -169,12 +189,6 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
             <span class="k">學位</span>
             <b>決策分析碩士</b>
             <span class="n">Minerva University，2023 — 2025</span>
-          </li>
-          <li>
-            <span class="k">認證</span>
-            <b>Claude 認證架構師</b>
-            <span class="n">Anthropic 的官方認證</span>
-            <a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly">在 Credly 驗證 ↗</a>
           </li>
           <li>
             <span class="k">公司</span>
@@ -344,6 +358,26 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     letter-spacing: 0.3em;
     color: rgba(246, 241, 232, 0.6);
   }
+  .ab a.op-ver {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.6);
+    border-bottom: 1px solid rgba(246, 241, 232, 0.25);
+    padding-bottom: 0.2rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .ab a.op-ver i {
+    margin: 0 0.7em;
+    font-style: normal;
+    color: var(--terra);
+  }
+  .ab a.op-ver:hover {
+    color: var(--dawn);
+    border-bottom-color: var(--dawn);
+  }
   .ab .op .idl {
     margin-top: 2.6rem;
     font-size: 0.9375rem;
@@ -469,6 +503,27 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   .ab .st-side a:hover {
     border-color: var(--terra);
   }
+  .st-side li.cert {
+    display: grid;
+    grid-template-columns: 5.25rem minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.4rem 0 1.5rem;
+  }
+  .ab .st-side a.bdg {
+    display: block;
+    margin: 0;
+    border: 0;
+    transition: transform 0.3s ease;
+  }
+  .ab .st-side a.bdg:hover {
+    transform: scale(1.04);
+  }
+  .st-side .bdg img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
   /* One column: the facts go between the story's heading and its text, not after it — after it they sat between the story's last
      line (「現在有答案了」) and the ending, which the page order was arranged to join (10/9, the author's word). */
   @media (max-width: 900px) {
@@ -481,6 +536,8 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     /* five facts in two columns, so the story's first line is not a whole screen below its heading */
     .st-side ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; }
     .st-side b { font-size: 1rem; }
+    /* the certificate takes the full width; the other four make two rows of two */
+    .st-side li.cert { grid-column: 1 / -1; grid-template-columns: 4.5rem minmax(0, 1fr); }
   }
   /* ============ 3 what he believes ============ */
   .bl {

@@ -4,6 +4,7 @@ description: "If you live in a country Stripe doesn't support, opening a US LLC 
 pubDate: 2026-04-25
 author: "Yu Wen-Hao"
 category: building-products
+topics: ["ai-practice"]
 tags: ["vibe-coding", "us-llc", "wyoming", "stripe", "claude-code", "solo-operator"]
 lang: en
 translationKey: vibe-coder-wyoming-llc-guide

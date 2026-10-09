@@ -3,6 +3,7 @@ title: "Why I Left Roam Research After 5 Years (And Switched to Obsidian)"
 description: "I paid $500 for Roam Research and even invested in the company. 5 years later, AI made me switch to Obsidian. Here's why note format matters more than the tool."
 pubDate: 2026-01-27
 category: productivity
+topics: ["growth"]
 tags: ["Roam Research", "Obsidian", "note-taking", "personal knowledge management", "AI"]
 lang: en
 featured: false

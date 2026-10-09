@@ -1,230 +1,863 @@
 ---
+// 10/9, with the author: the English About page takes the look of the Chinese one (pages/zh-TW/about.astro, whose styles this
+// file copies) and is written for the English reader he named: someone who arrived from search, or a possible partner
+// (a client, or Anthropic). That reader's questions: who is this, on what grounds, can we work together.
+// Before: "I'm WenHao" + five tags, My Story, What I Bring (three tags), The Path (timeline), What I've Built, Tech & Tools, Let's Connect.
+// His decisions (10/9): five sections — opening / what he believes / story with a facts column / what he has built / ending.
+//   Gone with his agreement: the tech list, the traffic figure ("60K+ monthly visitors" — Umami showed 12,901 visitors in the
+//   last 30 days), the three "What I Bring" tags, the separate timeline (its facts are in the column).
+//   Identity sentence, word for word his. Certificate: one quiet line in the opening, the badge first in the facts column —
+//   same as the Chinese page (see the note there on why the badge is not in the opening).
+//   "AI trainer" is said in plain words (facts column, description): he wants an AI asked for an AI trainer to find him.
+// WORDING: sections 1 and 2 were read by the author as text. Sections 3–5 are Claude's drafts — he asked to see them built.
+//   Facts are from ABOUT-ME.md and the approved Chinese page; nothing here is new information about him.
+// OPENING: full-screen night sky, as on the Chinese page. A low band (photo and name only, identity and badge on paper under it)
+//   was tried twice on 10/9 at Claude's suggestion and dropped: the author found it "太複雜" both times and prefers the full sky.
+//   Do not propose it again. (The trial is in the session scratch folder as en-about.low-band-trial.astro.)
+// PARTNER STATUS — do not add after "Confluence Partners" until Certified is approved (see the Chinese page).
+// ⚠️ The certificate runs out 2027-08-24 (components/SEO.astro).
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'About';
-const description = "I'm WenHao. PM turned solo builder. I use AI to ship products, design systems, and document the entire process.";
+const credly = 'https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044';
+const confluence = 'https://confluence-partners.ai/en/?utm_source=yu-wenhao.com&utm_medium=about';
 
-const timeline = [
-  { year: '2023', text: "Minerva University — Master's in Decision Analysis (MDA)" },
-  { year: '2025.05', text: 'Claude Code Day 1 — started building products solo with AI' },
-  { year: '2025.08', text: 'Graduated from Minerva MDA' },
-  { year: '2025.12', text: 'AI Resume Advisor launched (full SaaS)' },
-  { year: '2026.01', text: 'Chrome / Edge Extension launched, started writing on FB and personal site' },
-  { year: '2026.02', text: 'NeatToolkit launched — 4,000 users on day one, multiple articles ranking Google Top 3' },
-  { year: '2026.08', text: "Passed Anthropic's Claude Certified Architect – Foundations (CCAR-F)" },
-];
-
+// Descriptions are the ones the products page already uses.
 const products = [
-  {
-    name: 'AI Resume Advisor',
-    description: 'SaaS + Chrome/Edge Extension for AI-powered resume analysis',
-    url: 'https://airesumeadvisor.com/',
-  },
-  {
-    name: 'NeatToolkit',
-    description: 'Free AI tool site — 4,000 users on launch day',
-    url: 'https://www.neatoolkit.com/en',
-  },
-  {
-    name: 'yu-wenhao.com',
-    description: 'Personal site + blog — 60K+ monthly visitors, built in 2 days',
-    url: 'https://yu-wenhao.com/en/',
-  },
+  { name: 'AI Resume Advisor', text: "Not just proofreading, but diagnosis. Know what you're missing before you apply.", href: '/en/products/ai-resume-advisor/', image: '/images/products/ai-resume-advisor.webp' },
+  { name: 'LinkedIn Resume Checker', text: 'Chrome Extension that analyzes your match with LinkedIn job postings in one click.', href: '/en/products/linkedin-resume-checker/', image: '/images/products/linkedin-resume-checker.webp' },
+  { name: 'NeatToolkit', text: 'Free online tools. Background removal, video compression, YouTube subtitle download. No signup required.', href: '/en/products/neatoolkit/', image: '/images/blog/neatoolkit-launch.webp' },
 ];
 
-const techStack = [
-  'Claude Code / Agentic Coding',
-  'Astro + Tailwind CSS',
-  'Next.js + React',
-  'FastAPI + Python',
-  'Azure (Container Apps, Static Web Apps)',
-  'Chrome/Edge Extension Development',
-  'SEO & Content Strategy',
+const ways = [
+  { k: 'Read a few articles first', t: 'Blog', href: '/en/blog/', ev: 'about_click_articles' },
+  { k: 'Talk about working together', t: 'LinkedIn', href: 'https://www.linkedin.com/in/hence/', ev: 'about_click_linkedin', out: true },
+  { k: 'Bringing AI into your company', t: 'Confluence Partners', href: confluence, ev: 'about_click_confluence', out: true },
 ];
+
+const title = 'About WenHao Yu | Claude Certified Architect';
+const description = 'WenHao Yu is a Claude Certified Architect, an AI adoption consultant and trainer, and the founder of Confluence Partners. Twenty years in tech at Nokia, Novatek and AUO.';
 ---
 
 <BaseLayout title={title} description={description} profilePage={true}>
-  <!-- Hero -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-        <img
-          src="/images/hero.webp"
-          alt="WenHao Yu"
-          width="240"
-          height="240"
-          class="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-lg flex-shrink-0"
-        />
-        <div>
-          <h1 class="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-            I'm WenHao
-          </h1>
-          <p class="text-xl md:text-2xl leading-relaxed text-[#5C5144] mb-6">
-            20+ years in tech — engineer, product manager, data analyst. Now I ship full-stack products solo with AI, from idea to launch.
-          </p>
-          <div class="flex flex-wrap gap-3 text-sm text-[#8B7355]">
-            <a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#B8926A]/10 rounded-full hover:bg-[#B8926A]/20 transition-colors" data-umami-event="about_click_credly">Claude Certified Architect</a>
-            <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">Claude Code Day 1 User</span>
-            <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">Minerva University M.S.</span>
-            <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">Full-Stack Builder</span>
-            <a href="https://github.com/YuWenHao1212" target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#B8926A]/10 rounded-full hover:bg-[#B8926A]/20 transition-colors">GitHub</a>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <div class="ab" data-lang="en">
+    <!-- ============ 1. Opening ============ -->
+    <section class="op">
+      <div class="op-sky">
+        <picture>
+          <source media="(max-width: 1400px)" srcset="/images/sky/startrails-1920.webp" />
+          <img src="/images/sky/startrails-2912.webp" alt="" aria-hidden="true" width="2912" height="1632" fetchpriority="high" />
+        </picture>
+        <div class="op-scrim"></div>
+        <div class="op-txt">
+          <p class="kick"><i></i>About</p>
+          <div class="op-who">
+            <img src="/images/hero.webp" alt="WenHao Yu" width="400" height="400" />
+            <h1>WenHao Yu<span>余文皓 · Based in Taiwan</span></h1>
           </div>
+          <p class="idl">Claude Certified Architect.<br />Founder of Confluence Partners, helping companies adopt AI through consulting and training.</p>
+          <a class="op-ver" href={credly} target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="hero">Certified by Anthropic<i aria-hidden="true">·</i>Verify on Credly ↗</a>
+          <p class="lead">Twenty years in tech as an engineer and product manager. Now I help teams make Claude part of how they work, and I write down what I learn.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Story + Belief -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-8 md:mb-10">
-          My Story
-        </h2>
-        <div class="space-y-5 text-base md:text-lg lg:text-xl leading-relaxed text-[#5C5144]">
-          <p>Two decades in engineering, product management, and data — I knew how to build, ship, and measure. But most of my energy went into alignment, not execution.</p>
-          <p>In 2023, I enrolled in Minerva University's master's program to reset.</p>
-          <p class="text-lg md:text-xl lg:text-2xl font-semibold text-[#2C2416] py-2">
-            Then AI hit a tipping point.
-          </p>
-          <p>In May 2025, Claude Code launched and I was one of the first to use it. Four months — a full SaaS (<a href="https://airesumeadvisor.com/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">AI Resume Advisor</a>). Two weeks — <a href="https://chromewebstore.google.com/detail/ai-resume-advisor-%E2%80%94-linke/iafpieelbhhlmhgjekflneciffoonkgf" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">Chrome</a> and <a href="https://microsoftedge.microsoft.com/addons/detail/ai-resume-advisor-%E2%80%94-linke/ekhlndlifglmicdphldpciifohloeaek" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">Edge</a> Extensions. Three days — <a href="https://www.neatoolkit.com/en" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">NeatToolkit</a>, 4,000 users on day one. This site, two days.</p>
-          <p class="text-lg md:text-xl lg:text-2xl font-semibold text-[#2C2416] py-2">
-            All solo.
-          </p>
-          <p>The real shift: I can now take a product from idea to launch — design, frontend, backend, deployment, SEO — without waiting for a team.</p>
-        </div>
-
-        <!-- Belief as closing blockquote -->
-        <div class="mt-10 md:mt-14 pl-6 md:pl-8 py-4 md:py-6 border-l-4 border-[#B8926A]">
-          <p class="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] font-bold text-[#2C2416] leading-[1.2] tracking-[-0.02em] mb-4">
-            Direction over speed. Systems over goals.
-          </p>
-          <p class="text-lg md:text-xl leading-relaxed text-[#5C5144]">
-            Most people chase AI tools without knowing what to build. I do it the other way around — find the direction first, build a compounding workflow, and use AI as the lever. Repeat the simple things. Let time do the rest.
-          </p>
+    <!-- ============ 2. What he believes ============ -->
+    {/* Heading: the old English page's own line. Paragraph: follows the Chinese page's approved one (his own years of chasing tools),
+        not the old English "Most people chase AI tools… I do it the other way around". No link: that article has no English version. */}
+    <section class="bl">
+      <p class="kick"><i></i>What I believe</p>
+      <div class="bl-in">
+        <h2>Direction over speed.<br />Systems over goals.</h2>
+        <div class="bl-tx">
+          <p>I have a weakness for productivity tools. I moved everything into Notion, then Obsidian, then ChatGPT, and none of them stuck. Each time I expected the new tool to take me somewhere. It took me a while to see that I had never decided where I wanted to go. So I reversed the order: set the direction first, build a system I use every day, and only then let AI be the lever.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- What I Bring -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
-          What I Bring
-        </h2>
-        <div class="flex flex-wrap gap-3">
-          <span class="px-4 py-2 bg-white border border-[#E8E4DD] rounded-full text-base md:text-lg text-[#2C2416]">Product Development (0 → 1)</span>
-          <span class="px-4 py-2 bg-white border border-[#E8E4DD] rounded-full text-base md:text-lg text-[#2C2416]">AI Integration & Workflow Automation</span>
-          <span class="px-4 py-2 bg-white border border-[#E8E4DD] rounded-full text-base md:text-lg text-[#2C2416]">Growth & Content Strategy</span>
+    <!-- ============ 3. The story, with the facts beside it ============ -->
+    {/* DRAFT (Claude). Shorter than the Chinese story on purpose: a possible partner reads for "on what grounds", so the weight is on
+        the twenty years and how they are used now. The first build left out the 2019 move of the phone division, the diary and the closing
+        lines about the life he wanted (Claude's call: written for readers in Taiwan). The author asked where they had gone — they are
+        back, translated from the Chinese page's approved wording. Every fact is on the Chinese page or in ABOUT-ME.md. */}
+    <section class="st">
+      <div class="st-main">
+        <p class="kick"><i></i>My story</p>
+        <h2>How I got here</h2>
+        <div class="st-tx">
+          <p>I spent twenty years in tech, at Nokia, Novatek and AUO: seven as an engineer, ten as a product manager, and three in data analysis as staff to a business unit head. As a product manager I ran phone projects on tight schedules and automotive electronics on long, strict ones. Product planning, business decisions, getting departments to agree: I have done each of them.</p>
+          <p>The longer I did it, the more I felt I was standing still. My skills kept growing, but most of each day went into getting other people to agree to let me do the work.</p>
+          <p>In 2019 the company moved its whole phone division to China. I chose not to go, and ten years of contacts and standing went almost to zero. The next year I started keeping a diary. The question I wrote on the first day was: “I know the life I have now is not the one I want. How do I find the courage to leave my comfort zone?”</p>
+          <p class="pull">In 2023 I went back to school.</p>
+          <p>I studied decision analysis at Minerva University. In 2025 I left my company, the year Claude Code came out. I was among its first users and started building products with it: <a href="/en/products/ai-resume-advisor/">AI Resume Advisor</a> in four months, <a href="/en/products/neatoolkit/">NeatToolkit</a> in three days.</p>
+          <p>At first I only used it to build products. Then my goals, my daily work, what I learn, my clients and my life at home moved onto it, one piece at a time.</p>
+          <p>The way I work with AI comes from those twenty years.</p>
+          <p class="ex">A project used to start with a Project Charter, a document that says why we are doing this and where it ends. I still write that first, for a product or for a quarter's goals.</p>
+          <p class="ex">Defining the problem, breaking down the requirements and accepting the result is what a product manager does every day. It used to be with engineers. Now it is with AI.</p>
+          <p class="ex">As staff to a business unit head, my job was to find what the data was saying and turn it into a strategy recommendation. I run my own business the same way.</p>
+          <p class="ex">Inside companies I led the rollout of Jira and Polarion and set the processes for project management, problem solving and change control, so I know where the plan and the daily reality come apart. I use the same experience when I help a team bring AI into its process.</p>
+          <p class="pull">I wrote all of it down.</p>
+          <p>Readers asked less about the products and more about how I work with AI: what my setup looks like and how I arrange the work. So I kept writing about that.</p>
+          <p>Then people wanted to learn it and companies wanted to adopt it. I started teaching, went into companies to work with their teams, and founded <a href={confluence} target="_blank" rel="noopener" data-umami-event="about_click_confluence">Confluence Partners</a> with a few partners. In August 2026 I passed Anthropic's Claude Certified Architect exam. All of this became my income, without my planning it that way.</p>
+          <p>Doing work I like, with my time my own, and being useful to other people: this is the life I wanted. The question on the first page of my 2020 diary has its answer now.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Timeline -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
-          The Path
-        </h2>
-        <div class="space-y-0">
-          {timeline.map((item, index) => (
-            <div class="flex gap-6 md:gap-8">
-              <div class="flex flex-col items-center">
-                <div class="w-3 h-3 rounded-full bg-[#B8926A] flex-shrink-0 mt-2"></div>
-                {index < timeline.length - 1 && (
-                  <div class="w-px flex-1 bg-[#D9D4CB] my-1"></div>
-                )}
-              </div>
-              <div class="pb-8 md:pb-10">
-                <p class="text-sm md:text-base font-semibold text-[#B8926A] mb-1">{item.year}</p>
-                <p class="text-base md:text-lg text-[#2C2416]">{item.text}</p>
-              </div>
+      <aside class="st-side" aria-label="Background and credentials">
+        <p class="kick"><i></i>Background</p>
+        <ul>
+          <li class="cert">
+            <a class="bdg" href={credly} target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="badge" aria-label="Claude Certified Architect: verify on Credly">
+              <img src="/images/credentials/claude-certified-architect-foundations.png" alt="Claude Certified Architect – Foundations badge" width="604" height="604" loading="lazy" />
+            </a>
+            <div>
+              <span class="k">Certification</span>
+              <b>Claude Certified Architect</b>
+              <span class="n">Foundations. Issued by Anthropic</span>
+              <a href={credly} target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly">Verify on Credly ↗</a>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+          </li>
+          <li>
+            <span class="k">Company</span>
+            <b>Founder, Confluence Partners</b>
+            <span class="n">Enterprise AI adoption and in-house training</span>
+            <a href={confluence} target="_blank" rel="noopener" data-umami-event="about_click_confluence">confluence-partners.ai ↗</a>
+          </li>
+          <li>
+            <span class="k">Teaching</span>
+            <b>AI trainer</b>
+            <span class="n">In-house training for companies, and one-day public workshops in Taiwan</span>
+          </li>
+          <li>
+            <span class="k">Industry</span>
+            <b>Twenty years in tech</b>
+            <span class="n">Nokia, Novatek, AUO</span>
+          </li>
+          <li>
+            <span class="k">Degree</span>
+            <b>Master of Decision Analysis</b>
+            <span class="n">Minerva University, 2023–2025</span>
+          </li>
+        </ul>
+      </aside>
+    </section>
 
-  <!-- Products -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
-        What I've Built
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-        {products.map((product) => (
-          <a
-            href={product.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300"
-          >
-            <h3 class="text-xl md:text-2xl font-semibold text-[#2C2416] mb-3 group-hover:text-[#B8926A] transition-colors">{product.name}</h3>
-            <p class="text-base md:text-lg leading-relaxed text-[#5C5144]">{product.description}</p>
-          </a>
+    <!-- ============ 4. What he has built ============ -->
+    {/* DRAFT (Claude). The author's decision: the product pages keep their place and are reached from here, not from the nav. */}
+    <section class="pr">
+      <p class="kick"><i></i>What I've built</p>
+      <h2>Products I built with Claude Code</h2>
+      <ol class="pr-ls">
+        {products.map((p) => (
+          <li>
+            <a href={p.href} data-umami-event="about_click_product" data-umami-event-product={p.name}>
+              <span class="pic"><img src={p.image} alt="" loading="lazy" decoding="async" /></span>
+              <span class="t">{p.name}</span>
+              <span class="x">{p.text}</span>
+            </a>
+          </li>
         ))}
-      </div>
-    </div>
-  </section>
+      </ol>
+    </section>
 
-  <!-- Tech Stack -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl">
-        <h2 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
-          Tech & Tools
-        </h2>
-        <div class="flex flex-wrap gap-3">
-          {techStack.map((tech) => (
-            <span class="px-4 py-2 bg-white border border-[#E8E4DD] rounded-full text-base md:text-lg text-[#2C2416]">
-              {tech}
-            </span>
+    <!-- ============ 5. Ending ============ -->
+    <section class="co">
+      <img class="co-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      <div class="co-in">
+        <p class="kick"><i></i>Next</p>
+        <h2>Where to go<br />from here.</h2>
+        <ol class="co-rd">
+          {ways.map((w) => (
+            <li>
+              <a href={w.href} data-umami-event={w.ev} target={w.out ? '_blank' : undefined} rel={w.out ? 'noopener' : undefined}>
+                <span class="k">{w.k}</span>
+                <span class="t">{w.t}</span>
+                <b aria-hidden="true">{w.out ? '↗' : '→'}</b>
+              </a>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-20 md:py-28 lg:py-32">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl mx-auto bg-[#F5F1EB] rounded-2xl p-10 md:p-14 lg:p-16 text-center">
-        <h2 class="text-[1.75rem] md:text-[2.25rem] lg:text-[2.75rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-          Let's Connect
-        </h2>
-        <p class="text-lg md:text-xl text-[#5C5144] mb-8 md:mb-10 leading-relaxed">
-          Collaboration, AI, or just saying hi — I'd love to hear from you.
-        </p>
-        <div class="flex flex-wrap gap-4 justify-center">
-          <a
-            href="https://www.linkedin.com/in/hence/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200"
-          >
-            Connect on LinkedIn
-          </a>
-          <a
-            href="mailto:mail@yu-wenhao.com"
-            class="inline-flex items-center justify-center px-8 py-4 border-2 border-[#B8926A] text-[#B8926A] text-base md:text-lg font-medium rounded-full hover:bg-[#B8926A] hover:text-white hover:shadow-md hover:scale-105 transition-all duration-200"
-          >
-            Email Me
-          </a>
-          <a
-            href="https://github.com/YuWenHao1212"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center px-8 py-4 border-2 border-[#B8926A] text-[#B8926A] text-base md:text-lg font-medium rounded-full hover:bg-[#B8926A] hover:text-white hover:shadow-md hover:scale-105 transition-all duration-200"
-          >
-            GitHub
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+      <p class="co-foot">
+        <span>© {new Date().getFullYear()} WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://github.com/YuWenHao1212" target="_blank" rel="noopener me">GitHub</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  /* Tokens are the home page's (index.astro .hp), so the pages read as one site. */
+  .ab {
+    --paper: #fbf9f5;
+    --paper-2: #f4efe7;
+    --ink: #241b18;
+    --text: #2b211c;
+    --muted: #71655c;
+    --faint: #a99a8d;
+    --hair: #e2d8c9;
+    --terra: #c25b3f;
+    --night: #0d0b09;
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+    background: var(--paper);
+    color: var(--text);
+  }
+  .ab section {
+    padding-inline: var(--gx);
+  }
+  .ab a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ab :is(h1, h2, h3, p, figure) {
+    margin: 0;
+  }
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .kick i {
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+
+  /* ============ 1 opening ============ */
+  .ab .op {
+    min-height: 88svh;
+    display: grid;
+    margin-top: -6rem; /* slide under the header, as the home cover does */
+    padding: 0;
+    background: var(--night);
+    color: var(--cream);
+  }
+  .op-sky {
+    position: relative;
+    display: grid;
+    align-content: end;
+    padding: 10rem var(--gx) 5.5rem;
+    overflow: hidden;
+  }
+  .op-sky picture img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 86% 34%; /* the right of the picture: the pole star and the tight rings around it */
+  }
+  .op-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(13, 11, 9, 0.72) 0%, rgba(13, 11, 9, 0.36) 48%, rgba(13, 11, 9, 0) 76%),
+      linear-gradient(180deg, rgba(13, 11, 9, 0.55) 0%, rgba(13, 11, 9, 0) 26%),
+      linear-gradient(0deg, rgba(13, 11, 9, 0.6) 0%, rgba(13, 11, 9, 0) 34%);
+  }
+  .op-txt {
+    position: relative;
+    max-width: 60rem;
+  }
+  .ab .op .kick {
+    color: rgba(246, 241, 232, 0.66);
+  }
+  .op-who {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2.2rem;
+  }
+  .op-who img {
+    flex: none;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(246, 241, 232, 0.35);
+  }
+  .op h1 {
+    font-family: var(--serif);
+    font-size: clamp(3.4rem, 7.6vw, 7.2rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+  }
+  .op h1 span {
+    display: block;
+    margin-top: 0.9rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .ab a.op-ver {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.6);
+    border-bottom: 1px solid rgba(246, 241, 232, 0.25);
+    padding-bottom: 0.2rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .ab a.op-ver i {
+    margin: 0 0.7em;
+    font-style: normal;
+    color: var(--terra);
+  }
+  .ab a.op-ver:hover {
+    color: var(--dawn);
+    border-bottom-color: var(--dawn);
+  }
+  .ab .op .idl {
+    margin-top: 2.6rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    color: rgba(246, 241, 232, 0.72);
+  }
+  .ab .op .lead {
+    margin-top: 1.1rem;
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 1.75vw, 1.6rem);
+    text-wrap: balance;
+    font-weight: 300;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+  }
+  /* ============ 2 the story + the facts beside it ============ */
+  .st {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: 7vw;
+    align-items: start;
+    padding-block: 6.5rem 7rem;
+  }
+  .st-main {
+    max-width: 44rem;
+  }
+  .st h2 {
+    margin-top: 1.6rem;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.6vw, 4.4rem);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .st-tx {
+    margin-top: 3rem;
+  }
+  .ab .st-tx p {
+    margin-top: 1.5rem;
+    font-size: 1.0625rem;
+    line-height: 2.15;
+    letter-spacing: 0.03em;
+    color: var(--text);
+  }
+  /* the three before / now pairs: one group, each with a hairline to its left */
+  .ab .st-tx p.ex {
+    margin-top: 1.1rem;
+    padding-left: 1.2rem;
+    border-left: 1px solid var(--hair);
+  }
+  .ab .st-tx p.ex + p:not(.ex):not(.pull) {
+    margin-top: 2rem;
+  }
+  .ab .st-tx p.pull {
+    margin-top: 3.4rem;
+    margin-bottom: 2.2rem;
+    padding-left: 1.4rem;
+    border-left: 2px solid var(--terra);
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .ab .st-tx a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--terra);
+    transition: color 0.2s;
+  }
+  .ab .st-tx a:hover {
+    color: var(--terra);
+  }
+  .st-side {
+    position: sticky;
+    top: 3rem;
+    padding-top: 0.2rem;
+  }
+  .st-side ul {
+    list-style: none;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .st-side li {
+    padding: 1.15rem 0 1.25rem;
+    border-bottom: 1px solid var(--hair);
+  }
+  .st-side .k {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    color: var(--terra);
+  }
+  .st-side b {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+  .st-side .n {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .ab .st-side a {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    color: var(--terra);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .ab .st-side a:hover {
+    border-color: var(--terra);
+  }
+  .st-side li.cert {
+    display: grid;
+    grid-template-columns: 5.25rem minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.4rem 0 1.5rem;
+  }
+  .ab .st-side a.bdg {
+    display: block;
+    margin: 0;
+    border: 0;
+    transition: transform 0.3s ease;
+  }
+  .ab .st-side a.bdg:hover {
+    transform: scale(1.04);
+  }
+  .st-side .bdg img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* One column: the facts go between the story's heading and its text, not after it — after it they sat between the story's last
+     line (「現在有答案了」) and the ending, which the page order was arranged to join (10/9, the author's word). */
+  @media (max-width: 900px) {
+    .st { grid-template-columns: 1fr; gap: 0; }
+    .st-main { display: contents; }
+    .st-main > .kick { order: 1; }
+    .st-main > h2 { order: 2; }
+    .st-side { order: 3; position: static; margin-top: 2.8rem; }
+    .st-main > .st-tx { order: 4; }
+    /* five facts in two columns, so the story's first line is not a whole screen below its heading */
+    .st-side ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; }
+    .st-side b { font-size: 1rem; }
+    /* the certificate takes the full width; the other four make two rows of two */
+    .st-side li.cert { grid-column: 1 / -1; grid-template-columns: 4.5rem minmax(0, 1fr); }
+  }
+  /* ============ 3 what he believes ============ */
+  .bl {
+    padding-block: 7rem 7.5rem;
+    background: var(--paper-2);
+  }
+  .bl-in {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 6vw;
+    align-items: end;
+    margin-top: 2rem;
+  }
+  .bl h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 5.6vw, 5.4rem);
+    font-weight: 300;
+    line-height: 1.32;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .bl-tx {
+    padding-top: 1.4rem;
+    padding-bottom: 0.8rem;
+    border-top: 1px solid var(--ink);
+  }
+  .bl-tx p {
+    font-size: 1rem;
+    line-height: 2.05;
+    letter-spacing: 0.03em;
+    color: var(--text);
+  }
+  .ab .bl-tx a {
+    display: inline-block;
+    margin-top: 1.4rem;
+    padding-bottom: 0.2rem;
+    font-size: 0.9375rem;
+    color: var(--terra);
+    border-bottom: 1px solid var(--terra);
+  }
+  @media (max-width: 900px) {
+    .bl-in { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  /* ============ 4 ending, by night (same build as the home page's ending) ============ */
+  .co {
+    --line: rgba(246, 241, 232, 0.22);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    min-height: 92svh;
+    padding-block: 7rem 9rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .co-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 40%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 40%, #000 100%);
+    pointer-events: none;
+  }
+  .co-in {
+    position: relative;
+    max-width: 50rem;
+  }
+  .ab .co .kick {
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .co h2 {
+    margin-top: 2.2rem;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.8vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+  }
+  .co-rd {
+    list-style: none;
+    margin: 2.8rem 0 0;
+    padding: 0;
+    border-top: 1px solid rgba(246, 241, 232, 0.55);
+  }
+  .co-rd li {
+    border-bottom: 1px solid var(--line);
+  }
+  .ab .co-rd a {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.25rem 0 1.3rem;
+    color: var(--cream);
+    transition: color 0.2s;
+  }
+  .co-rd .k {
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .co-rd .t {
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: 0.04em;
+  }
+  .co-rd b {
+    font-weight: 300;
+    transition: transform 0.3s;
+  }
+  .ab .co-rd a:hover {
+    color: var(--dawn);
+  }
+  .co-rd a:hover b {
+    transform: translateX(6px);
+  }
+  .co-way {
+    list-style: none;
+    margin: 4.5rem 0 0;
+    padding: 0;
+    width: min(34rem, 100%);
+    border-top: 1px solid var(--line);
+  }
+  .co-way li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+  }
+  .co-way span {
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .ab .co-way a {
+    color: rgba(246, 241, 232, 0.9);
+    transition: color 0.2s;
+  }
+  .ab .co-way a:hover {
+    color: var(--dawn);
+  }
+  .co-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .co-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .ab .co-foot a:hover {
+    color: var(--dawn);
+  }
+  @media (max-width: 640px) {
+    .ab .co-rd a { grid-template-columns: 1fr auto; }
+    .co-rd .k { grid-column: 1 / -1; }
+  }
+  /* keeps a word, or a link's last words and its arrow, on one line (phone: 「個／人」 was split, the arrow sat alone on a line) */
+  .ab .nb { white-space: nowrap; }
+  @media (max-width: 640px) {
+    /* phone: the two paper sections' paddings added up to half a screen of nothing between them */
+    .bl { padding-block: 4.5rem; }
+    .st { padding-block: 4.5rem 5rem; }
+    .op-who { gap: 1.2rem; }
+    .op-who img { width: 76px; height: 76px; }
+    .ab .op .lead br { display: none; }
+  }
+
+  /* ============ English: this page's own additions. Everything above is the Chinese page's styling, unchanged. ============ */
+  /* Tighter type: the Chinese settings are open (tall lines, wide tracking) because Chinese needs air; Latin text set that way falls apart. */
+  .ab[data-lang='en'] .kick,
+  .ab[data-lang='en'] .st-side .k {
+    text-transform: uppercase;
+  }
+  .ab[data-lang='en'] .op h1 {
+    font-size: clamp(3.2rem, 7vw, 6.6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .ab[data-lang='en'] .op h1 span {
+    margin-top: 1.1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .ab[data-lang='en'] .op .idl {
+    max-width: 34rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  .ab[data-lang='en'] a.op-ver {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  .ab[data-lang='en'] .op .lead {
+    max-width: 44rem;
+    margin-top: 1.4rem;
+    line-height: 1.42;
+    letter-spacing: 0;
+  }
+  .ab[data-lang='en'] .bl h2 {
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  .ab[data-lang='en'] .bl-tx p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    letter-spacing: 0;
+  }
+  .ab[data-lang='en'] .st h2,
+  .ab[data-lang='en'] .pr h2 {
+    line-height: 1.1;
+    letter-spacing: -0.012em;
+  }
+  .ab[data-lang='en'] .st-tx p {
+    font-size: 1.125rem;
+    line-height: 1.72;
+    letter-spacing: 0;
+  }
+  .ab[data-lang='en'] .st-tx p.pull {
+    font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.008em;
+  }
+  .ab[data-lang='en'] .st-side b {
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+  .ab[data-lang='en'] .st-side .n {
+    line-height: 1.5;
+  }
+  .ab[data-lang='en'] .co h2 {
+    line-height: 1.12;
+    letter-spacing: -0.012em;
+  }
+  .ab[data-lang='en'] .co-rd .k {
+    letter-spacing: 0.01em;
+  }
+  .ab[data-lang='en'] .co-rd .t {
+    letter-spacing: 0;
+  }
+  .ab[data-lang='en'] .co-rd a {
+    grid-template-columns: 16rem minmax(0, 1fr) auto;
+  }
+
+  /* What he has built: three products, picture above the name. Paper-2 ground, between the story and the night ending. */
+  .pr {
+    padding-block: 6.5rem 7rem;
+    background: var(--paper-2);
+  }
+  .pr h2 {
+    margin-top: 1.6rem;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.6vw, 3.4rem);
+    font-weight: 300;
+    color: var(--ink);
+  }
+  .pr-ls {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin: 3.2rem 0 0;
+    padding: 0;
+  }
+  .pr-ls a {
+    display: block;
+  }
+  .pr-ls .pic {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .pr-ls .pic img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .pr-ls a:hover .pic img {
+    transform: scale(1.04);
+  }
+  .pr-ls .t {
+    display: block;
+    margin-top: 1.3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--ink);
+    font-family: var(--serif);
+    font-size: 1.375rem;
+    line-height: 1.25;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .pr-ls a:hover .t {
+    color: var(--terra);
+  }
+  .pr-ls .x {
+    display: block;
+    margin-top: 0.55rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  @media (max-width: 900px) {
+    .pr-ls { grid-template-columns: 1fr; gap: 2.6rem; }
+    .pr { padding-block: 4.5rem 5rem; }
+  }
+  @media (max-width: 640px) {
+    .ab[data-lang='en'] .co-rd a { grid-template-columns: 1fr auto; }
+    .ab[data-lang='en'] .op h1 { font-size: 2.6rem; }
+    .ab[data-lang='en'] .op h1 span { letter-spacing: 0.12em; font-size: 0.6875rem; }
+    /* one line on a phone: at the desktop tracking the arrow dropped to a second line */
+    .ab[data-lang='en'] a.op-ver { letter-spacing: 0.06em; font-size: 0.625rem; white-space: nowrap; }
+    .ab[data-lang='en'] a.op-ver i { margin: 0 0.45em; }
+  }
+</style>
+
+<style is:global>
+  /* the page ends at night; the shared footer is replaced by one line inside .co. */
+  body:has(.ab .op-sky) footer.bg-cream-200 {
+    display: none;
+  }
+  /* let the shared header sit on the night cover (same trick as the home page). */
+  body:has(.ab .op-sky) > header,
+  body:has(.ab .op-sky) header.sticky {
+    background: transparent !important;
+  }
+  /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
+     Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
+  body:has(.ab .op-sky) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
+  body:has(.ab .op-sky) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.ab .op-sky) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.ab .op-sky) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.ab .op-sky) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.ab .op-sky) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  body:has(.ab .op-sky) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.ab .op-sky) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>

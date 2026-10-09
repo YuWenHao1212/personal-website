@@ -4,6 +4,7 @@ description: "Updated March 2026. Complete OpenClaw hosting cost breakdown: VM o
 pubDate: 2026-02-01
 updatedDate: 2026-03-17
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "indie hacker", "developer tools", "OpenClaw", "self-hosted AI"]
 lang: en
 translationKey: openclaw-deploy-cost-guide

@@ -3,6 +3,7 @@ title: "14 Years Away From Code. Then AI Changed Everything."
 description: "After 14 years away from engineering, I spent 6 months learning Bubble—only to discover No-Code's fatal flaw: every tool is a walled garden. Then Claude Code appeared. Within 6 months, I shipped a complete SaaS: backend API, web app, Chrome extension. The difference? No-Code teaches you tools. AI coding teaches you communication. That skill doesn't reset."
 pubDate: 2026-01-06
 category: building-products
+topics: ["ai-practice"]
 lang: en
 featured: false
 heroImage: /images/blog/nocode-to-ai-coding.webp

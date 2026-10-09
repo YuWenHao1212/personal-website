@@ -3,6 +3,7 @@ title: "How Minerva MDA Changed My Life"
 description: "A 21-month journey of transformation. From feeling stuck in my comfort zone to building the ability to create new possibilities."
 pubDate: 2025-05-16
 category: life-learning
+topics: ["growth"]
 tags: ["Minerva", "MDA", "Learning", "Growth"]
 lang: en
 featured: false

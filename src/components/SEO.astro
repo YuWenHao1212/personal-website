@@ -54,7 +54,12 @@ const person = {
   "name": "WenHao Yu",
   "alternateName": "余文皓",
   "url": "https://yu-wenhao.com",
-  "jobTitle": lang === 'zh-TW' ? '企業 AI 導入顧問、AI 講師' : 'AI Workflow Consultant',
+  // en, 10/9: was 'AI Workflow Consultant'. The English identity agreed with the author is "Claude Certified Architect.
+  // Founder of Confluence Partners, helping companies adopt AI through consulting and training." — the certificate sits in
+  // hasCredential and the company in worksFor below, so the job title carries the rest.
+  // First set without "AI Trainer" (Claude's call: English readers do not look for a lecturer in Taiwan). The author corrected it:
+  // an AI asked who teaches companies to use Claude has to find the word on the page, in English as in Chinese (「AI 講師」).
+  "jobTitle": lang === 'zh-TW' ? '企業 AI 導入顧問、AI 講師' : 'Enterprise AI Adoption Consultant and AI Trainer',
   "alumniOf": {
     "@type": "CollegeOrUniversity",
     "name": "Minerva University",
@@ -76,6 +81,8 @@ const person = {
     "validFor": "P1Y",
   },
   "knowsAbout": [
+    "enterprise AI adoption",
+    "corporate AI training",
     "AI workflow design",
     "Claude Code",
     "agentic coding",

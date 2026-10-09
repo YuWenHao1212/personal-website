@@ -3,6 +3,7 @@ title: "Obsidian PKM Guide: How I Use AI to Build a LYT Note-Taking System"
 description: "LYT (Linking Your Thinking) is the most popular PKM framework for Obsidian. After years with PARA and Zettelkasten, here's why I switched to LYT — and why it's the best note-taking method for the AI era."
 pubDate: 2026-03-03
 category: productivity
+topics: ["growth"]
 tags: ["Obsidian", "LYT", "PKM", "personal knowledge management", "note taking methods", "knowledge management"]
 lang: en
 focusKeyphrase: "PKM"

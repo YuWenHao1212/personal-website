@@ -3,6 +3,7 @@ title: "How I Passed the Claude Certified Architect Exam (CCAR-F): 882/1000, No 
 description: "Firsthand Claude Certified Architect exam (CCAR-F) experience: 882/1000. What it tests, how to prepare with no question bank, test day, and the eligibility gate."
 pubDate: 2026-08-29
 category: life-learning
+topics: ["ai-practice", "growth"]
 tags: ["CCAR-F", "Claude Certified Architect", "Anthropic certification", "Claude certification", "Claude Code"]
 lang: en
 featured: true
