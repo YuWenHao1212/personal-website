@@ -79,6 +79,7 @@ export default defineConfig({
       filter: (page) =>
         // 10/9: the public workshop page (/zh-TW/workshop/) is listed now; /workshop/thanks, /workshop-setup* and /admin/workshop stay out.
         (!page.includes('/workshop') || /\/zh-TW\/workshop\/$/.test(page)) &&
+        !page.includes('/thank-you') && // 10/9: nothing for a search engine on a thank-you page (the page is noindex too)
         !page.includes('/admin') &&
         !page.includes('/partner') &&
         !page.includes('/sonice/') &&

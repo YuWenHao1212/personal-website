@@ -421,7 +421,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
             id="newsletter-form" is what every 「訂閱電子報」 link on the site already points at (/zh-TW/#newsletter-form) —
             until now no element had that id, so those links only reached the top of the home page.
             The Umami event keeps the live form's name so the reports do not break, although the form is no longer in the hero. */}
-        <form class="nl-f" id="newsletter-form" data-thank-you-url="/zh-TW/thank-you">
+        <form class="nl-f" id="newsletter-form" data-thank-you-url="/zh-TW/thank-you/">
           <input type="email" name="email_address" required autocomplete="email" placeholder="輸入你的 Email" aria-label="Email" />
           <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="nl-trap" />
           <button type="submit">訂閱 <b aria-hidden="true">→</b></button>
@@ -533,15 +533,33 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
       const website = data.get('website') || '';
       const btn = nl.querySelector('button');
       btn.disabled = true;
-      // keepalive lets the request outlive the navigation; the 4s race caps how long a cold API can hold the reader on the form
+      // 10/9: a failure no longer lands on the thank-you page. The API answers 200 even when Kit refused the address
+      // ({ success: false }), so the body is read, not just the status. Before: every submit went to the thank-you page after 4s.
+      // If the API is slow (cold start) and has not answered in 4s, the reader is still sent on — keepalive lets the request finish.
+      const say = (msg) => {
+        let p = nl.parentElement.querySelector('.nl-err');
+        if (!p) { p = document.createElement('p'); p.className = 'nl-err'; p.setAttribute('role', 'alert'); nl.insertAdjacentElement('afterend', p); }
+        p.textContent = msg;
+      };
+      const fail = (reason) => {
+        tk('newsletter_error', { from, reason });
+        try { sessionStorage.removeItem('nl_done'); } catch {}
+        btn.disabled = false;
+        say('沒有送出成功。請再試一次，或直接寫信到 mail@yu-wenhao.com。');
+      };
       const req = fetch(`${NL_API}/api/newsletter/subscribe-form?email=${encodeURIComponent(email)}&website=${encodeURIComponent(website)}`, {
         method: 'POST',
         keepalive: true,
       })
-        .then((res) => { if (res && !res.ok) { tk('newsletter_error', { from, reason: 'http_' + res.status }); try { sessionStorage.removeItem('nl_done'); } catch {} } })
-        .catch((error) => { console.error('Newsletter subscription failed:', error); tk('newsletter_error', { from, reason: 'network' }); try { sessionStorage.removeItem('nl_done'); } catch {} });
-      await Promise.race([req, new Promise((r) => setTimeout(r, 4000))]);
-      window.location.href = nl.dataset.thankYouUrl || '/zh-TW/thank-you';
+        .then(async (res) => {
+          if (!res.ok) return 'http_' + res.status;
+          const body = await res.json().catch(() => null);
+          return body && body.success === false ? 'refused' : null;
+        })
+        .catch((error) => { console.error('Newsletter subscription failed:', error); return 'network'; });
+      const problem = await Promise.race([req, new Promise((r) => setTimeout(() => r(null), 4000))]);
+      if (problem) return fail(problem);
+      window.location.href = nl.dataset.thankYouUrl || '/zh-TW/thank-you/';
     });
     // Arriving from a 「訂閱電子報」 link: go to the form and put the cursor in the field. Done by hand once the page has loaded,
     // because this page changes height while it loads (the cover's scroll track, lazy images) and the browser's own jump lands short.
@@ -1689,6 +1707,13 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     line-height: 1.95;
     letter-spacing: 0.06em;
     color: rgba(246, 241, 232, 0.72);
+  }
+  .nl-err {
+    position: relative;
+    margin: 0.9rem 0 0;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    color: #de9070;
   }
   .nl-f {
     position: relative;
