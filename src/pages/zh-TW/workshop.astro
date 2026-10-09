@@ -765,7 +765,7 @@ const endX = 0.965;
 
     // 10/9 events: each step from the signup buttons to the payment page, so the page can be judged step by step.
     // (Payment completed = views of /zh-TW/workshop/thanks/; the real count is Stripe's.)
-    const tk = (n, d) => { let k = 0; (function go() { if (window.umami?.track) window.umami.track(n, d); else if (k++ < 20) setTimeout(go, 250); })(); };
+    const tk = (n, d) => { let k = 0; const data = { lang: document.documentElement.lang || '', ...d }; (function go() { if (window.umami?.track) window.umami.track(n, data); else if (k++ < 20) setTimeout(go, 250); })(); };
     document.querySelectorAll('a[href="#signup"]').forEach((a) => {
       a.addEventListener('click', () => tk('workshop_click_signup', {
         position: a.hasAttribute('data-sb') ? 'sticky' : 'hero',

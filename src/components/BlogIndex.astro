@@ -72,11 +72,11 @@ const description = en
     <!-- ============ 1. Filter + list ============ -->
     <section class="wl-main">
       <div class="wl-filter" id="wl-filter" role="group" aria-label={en ? 'Filter by topic' : '依主題篩選'}>
-        <button type="button" data-topic="all" aria-pressed="true" data-umami-event="category_click" data-umami-event-category="all">
+        <button type="button" data-topic="all" aria-pressed="true" data-umami-event="category_click" data-umami-event-lang={lang} data-umami-event-category="all">
           {en ? 'All' : '全部'}<span>{posts.length}</span>
         </button>
         {topics.map((t) => (
-          <button type="button" data-topic={t} aria-pressed="false" data-umami-event="category_click" data-umami-event-category={t}>
+          <button type="button" data-topic={t} aria-pressed="false" data-umami-event="category_click" data-umami-event-lang={lang} data-umami-event-category={t}>
             {topicNames[t]}<span>{counts[t]}</span>
           </button>
         ))}

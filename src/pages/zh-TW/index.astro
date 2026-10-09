@@ -521,7 +521,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     // 10/9 events (scripts/track.ts has the naming rule). Before: the form carried data-umami-event="newsletter_signup_hero",
     // which counted clicks on the form, not subscriptions. Now: submit and failure are recorded with the entrance the reader
     // came through (nav / home / about / blog_list / article …); success is recorded on the thank-you page.
-    const tk = (n, d) => { let k = 0; (function go() { if (window.umami?.track) window.umami.track(n, d); else if (k++ < 20) setTimeout(go, 250); })(); };
+    const tk = (n, d) => { let k = 0; const data = { lang: document.documentElement.lang || '', ...d }; (function go() { if (window.umami?.track) window.umami.track(n, data); else if (k++ < 20) setTimeout(go, 250); })(); };
     const nl = document.getElementById('newsletter-form');
     nl?.addEventListener('submit', async (e) => {
       e.preventDefault();
