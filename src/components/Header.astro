@@ -243,6 +243,29 @@ const currentPath = Astro.url.pathname;
     width: min(82rem, 100% - 2 * max(6vw, 1.5rem));
     padding-inline: 0;
   }
+  /* 10/9, the author: the bar that comes back on the way up was as tall as at the top of the page (96px) and covered a lot.
+     Past the first stretch it is 64px, with a smaller logo. The 32px taken off are given back as margin, so the page under it
+     does not jump at the moment it shrinks. At the very top of a page nothing changes. */
+  header[data-nav] > nav > div:first-child,
+  header[data-nav] img[src*='logo.webp'],
+  header[data-nav] .nav-gold {
+    transition: height 0.25s ease;
+  }
+  header[data-nav][data-scrolled] {
+    margin-bottom: 2rem;
+  }
+  header[data-nav][data-scrolled] > nav > div:first-child {
+    height: 4rem;
+  }
+  header[data-nav][data-scrolled] img[src*='logo.webp'] {
+    height: 2.75rem;
+  }
+  body:is(:has(.cv), :has(.wl .wl-sky), :has(.ab .op-sky), :has(.wp .op-sky), :has(.ct .co-sky)) header[data-nav][data-scrolled] .nav-gold {
+    height: 2.4rem;
+  }
+  header[data-nav][data-scrolled] #mobile-menu {
+    top: 4rem;
+  }
   header[data-nav] {
     transition: transform 0.32s ease, background-color 0.25s ease;
   }

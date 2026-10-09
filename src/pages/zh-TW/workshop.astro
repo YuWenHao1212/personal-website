@@ -477,7 +477,7 @@ const endX = 0.965;
           <div><p class="k">單人<span data-eb hidden> · 早鳥到 <span data-eb-end></span></span></p><p class="v"><span data-price="single">{price}</span><i>元</i><s data-eb hidden><span data-price="regular">{price}</span></s></p></div>
           <div><p class="k">兩人以上，每人</p><p class="v"><span data-price="duo">{duo}</span><i>元</i></p></div>
         </div>
-        <p class="su-note">費用含課前線上一對一。兩人以上每人省 NT$<span data-price="save">{save}</span><span data-eb hidden>，早鳥結束後仍適用</span>。<button type="button" class="su-rf" data-open-rf>臨時不能來怎麼辦</button></p>
+        <p class="su-note">費用含課前線上一對一。兩人以上<span class="nb">每人省 NT$<span data-price="save">{save}</span></span><span data-eb hidden>，早鳥結束後仍適用</span>。<button type="button" class="su-rf" data-open-rf>臨時不能來怎麼辦</button></p>
         <p class="su-half"><b>護理師／社工／NPO 夥伴，半價邀請。</b>照顧別人的人，也值得一套讓自己輕鬆一點的系統。寫信到 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a> 附在職證明或識別證，我會回你一組半價折扣碼。</p>
       </div>
 
@@ -846,6 +846,8 @@ const endX = 0.965;
 </BaseLayout>
 
 <style>
+  /* keeps a phrase whole (phone: the amount in the fee note was split from its 「NT$」) */
+  .wp .nb { white-space: nowrap; }
   /* Tokens are the home page's (index.astro .hp), so the two pages read as one site. */
   .wp {
     --paper: #fbf9f5;

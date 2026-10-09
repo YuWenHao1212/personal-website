@@ -91,11 +91,11 @@ const titleParts = cut >= minPart && title.length - cutEnd >= minPart ? [title.s
 // Only the article's real chapters are counted: openers and closers (前言、結語、常見問題…) are left bare, and an article
 // whose own headings already carry numbers (「1. …」「第一個…」「Step 1」) gets none, so nothing is numbered twice.
 const h2s = headings.filter((h) => h.depth === 2);
-// The English list of words is longer (Part 1, Tip 3 …). It is kept apart on purpose: two Chinese articles have headings that begin
-// 「Part 1：」 and are numbered 01, 02 on top of that today — the author has seen those pages, so Chinese behaviour is left as it was.
+// The English list of words is longer (Tip 3, Rule 2 …). 10/9, later: the author asked for the Chinese double numbering to be fixed —
+// two articles had headings beginning 「Part 1：」 and one 「Layer 1：」, and got 01, 02 on top. Part / Layer / Phase / Stage now count as own numbers.
 const ownNumber = en
   ? /^(\d+[\.:\)\s]|(Step|Part|Phase|Stage|Level|Tip|Rule|Lesson|Mistake|Reason)\s*\d)/i
-  : /^(\d+[\.、:：\s]|第[一二三四五六七八九十\d]|Step\s*\d|步驟|[一二三四五六七八九十]+[、．.])/i;
+  : /^(\d+[\.、:：\s]|第[一二三四五六七八九十\d]|(Step|Part|Layer|Phase|Stage)\s*\d|步驟|[一二三四五六七八九十]+[、．.])/i;
 const selfNumbered = h2s.filter((h) => ownNumber.test(h.text.trim())).length >= 2; // two or more, so one heading like 「第一個任務」 does not switch numbering off
 const unnumbered = en
   ? /^(Introduction|Intro\b|Conclusion|Closing|Final (Thoughts|Words)|Wrapping Up|Wrap[- ]Up|Summary|Key Takeaways|Takeaways|FAQ|Frequently Asked|Further Reading|Related Reading|References|Sources|Resources|TL;?DR|Next Steps?|What'?s Next|Where to Go)/i
