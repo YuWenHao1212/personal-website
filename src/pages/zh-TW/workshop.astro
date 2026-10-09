@@ -163,7 +163,7 @@ const endX = 0.965;
           <p class="k">費用<span data-eb hidden> · 早鳥到 <span data-eb-end></span></span></p>
           <p class="v"><span data-price="single">{price}</span><i>元</i><s data-eb hidden><span data-price="regular">{price}</span></s></p>
           {/* 10/9: seats left, from the pricing API. Empty unless five or fewer are left, or the class is full. */}
-          <p class="n seats" data-seats>&nbsp;</p>
+          <p class="n seats"><span data-seats-pill>&nbsp;</span></p>
         </div>
         <a class="go" href="#signup">
           <span data-go>報名{cohort.name}</span>
@@ -492,12 +492,17 @@ const endX = 0.965;
           <div><dt>需要帶</dt><dd>筆電 + Claude 帳號</dd></div>
           <div><dt>課前 1:1</dt><dd>線上 45 分鐘，開課前一到兩週<small>把環境裝好、實際用起來，也聊聊你想做什麼</small></dd></div>
         </dl>
+        {/* 10/10, the author: the seats notice was plain small text and easy to miss; the old page used a pill. A pill again,
+            in three places: the opening, here beside the fee (where #signup lands), and above the submit button. */}
+        <p class="su-seats" hidden><span class="seats-pill" data-seats-pill></span></p>
         <div class="su-fee">
           <div><p class="k">單人<span data-eb hidden> · 早鳥到 <span data-eb-end></span></span></p><p class="v"><span data-price="single">{price}</span><i>元</i><s data-eb hidden><span data-price="regular">{price}</span></s></p></div>
           <div><p class="k">兩人以上，每人</p><p class="v"><span data-price="duo">{duo}</span><i>元</i></p></div>
         </div>
-        <p class="su-note">費用含課前線上一對一。兩人以上<span class="nb">每人省 NT$<span data-price="save">{save}</span></span><span data-eb hidden>，早鳥結束後仍適用</span>。<button type="button" class="su-rf" data-open-rf>臨時不能來怎麼辦</button></p>
+        <p class="su-note">費用含課前線上一對一。兩人以上<span class="nb">每人省 NT$<span data-price="save">{save}</span></span><span data-eb hidden>，早鳥結束後仍適用</span>。</p>
         <p class="su-half"><b>護理師／社工／NPO 夥伴，半價邀請。</b>照顧別人的人，也值得一套讓自己輕鬆一點的系統。寫信到 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a> 附在職證明或識別證，我會回你一組半價折扣碼。</p>
+        {/* 10/10, the author: moved here from the end of the fee note, under the half-price paragraph, and kept quiet. */}
+        <p class="su-rf-row"><button type="button" class="su-rf" data-open-rf>臨時不能來怎麼辦</button></p>
       </div>
 
       {/* 10/9: wired as on the live page (workshop.astro) — same field names, same endpoints, same checks. Only the look is this page's.
@@ -540,6 +545,7 @@ const endX = 0.965;
         </div>
 
         <p class="su-avail" id="availability-inline" hidden></p>
+        <p class="su-avail su-avail-pill" hidden><span class="seats-pill" data-seats-pill></span></p>
         <button type="submit" class="su-go" id="submit-btn"><span data-label>送出報名</span><b aria-hidden="true">→</b></button>
         <p class="su-after">送出後我會透過 LINE 或 email 主動與你聯繫</p>
         <p class="su-err" id="error-msg" role="alert" hidden></p>
@@ -723,9 +729,18 @@ const endX = 0.965;
       const few = !full && remaining <= 5;
       const label = full ? '本梯已額滿' : remaining === 1 ? '僅剩最後 1 個名額' : `僅剩 ${remaining} 個名額`;
 
-      const top = document.querySelector('[data-seats]');
       const bar = document.querySelector('[data-seats-bar]');
-      if (top) { top.textContent = full || few ? label : '\u00a0'; top.classList.toggle('on', full || few); }
+      // the pills: opening, beside the fee, above the submit button. Last seat and full get their own look.
+      document.querySelectorAll('[data-seats-pill]').forEach((el) => {
+        const show = full || few;
+        el.textContent = show ? label : '\u00a0';
+        el.classList.toggle('seats-pill', show);
+        el.classList.toggle('last', show && remaining === 1);
+        el.classList.toggle('full', full);
+        const row = el.parentElement;
+        if (row.matches('.su-seats')) row.hidden = !show;
+        if (row.matches('.su-avail-pill')) row.hidden = !few; // when full, the line with the waiting-list link stands there instead
+      });
       if (bar) { bar.textContent = full || few ? label : ''; bar.hidden = !(full || few); }
       if (full) document.querySelectorAll('[data-go]').forEach((el) => { el.textContent = '加入候補'; });
 
@@ -736,8 +751,7 @@ const endX = 0.965;
         inline.innerHTML = `本梯名額已滿，<a href="mailto:mail@yu-wenhao.com?subject=${subject}">寫信加入候補 →</a>`;
         inline.hidden = false;
       } else if (few) {
-        inline.textContent = label;
-        inline.hidden = false;
+        inline.hidden = true; // the pill above the button says it
       } else {
         inline.hidden = true;
       }
@@ -1174,7 +1188,7 @@ const endX = 0.965;
     .op-bar .n .ln { display: block; }
     .wp .su-sum { flex-wrap: wrap; gap: 0.3rem 1rem; }
     .wp .su-sum b { font-size: 1.125rem; }
-    .wp .su-rf { display: block; width: fit-content; margin: 0.7rem 0 0; }
+    .wp .su-rf { display: block; width: fit-content; margin: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     .sb, .sb.on { transition: none; }
@@ -2275,8 +2289,12 @@ const endX = 0.965;
     font-size: 0.875rem;
     color: var(--muted);
   }
+  .su-rf-row {
+    margin-top: 1.1rem;
+    font-size: 0.8125rem;
+  }
   .su-rf {
-    margin-left: 1.2em;
+    margin-left: 0;
     padding: 0 0 0.15rem;
     border: 0;
     border-bottom: 1px solid var(--hair);
@@ -2410,6 +2428,60 @@ const endX = 0.965;
     margin-left: 0.4em;
     font-weight: 400;
     color: var(--muted);
+  }
+  /* seats left, as a pill (10/10). The dot is a pseudo-element: the label is set by script. */
+  .seats-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.45em 1.05em 0.45em 0.9em;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-family: var(--sans, inherit);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    color: var(--terra);
+    background: rgba(194, 91, 63, 0.07);
+    white-space: nowrap;
+  }
+  .seats-pill::before {
+    content: '';
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .seats-pill.last {
+    color: #fff;
+    background: var(--terra);
+    border-color: var(--terra);
+  }
+  .seats-pill.full {
+    color: var(--cream, #f6f1e8);
+    background: var(--ink, #241b18);
+    border-color: var(--ink, #241b18);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .seats-pill.last::before { animation: seats-pulse 1.6s ease-in-out infinite; }
+  }
+  @keyframes seats-pulse {
+    50% { opacity: 0.35; }
+  }
+  /* on the night opening: dawn instead of terra */
+  .op-bar .seats .seats-pill {
+    margin-top: 0.7rem;
+    color: var(--dawn);
+    background: rgba(222, 144, 112, 0.12);
+  }
+  .op-bar .seats .seats-pill.last {
+    color: #14100e;
+    background: var(--dawn);
+    border-color: var(--dawn);
+  }
+  .su-seats {
+    margin: 0 0 1.4rem;
   }
   .su-avail {
     margin-top: 2rem;
