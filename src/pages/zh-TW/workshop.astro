@@ -162,6 +162,9 @@ const endX = 0.965;
               Nothing shows otherwise. (The live page shows the same three facts as a tag, a struck price and a note.) */}
           <p class="k">費用<span data-eb hidden> · 早鳥到 <span data-eb-end></span></span></p>
           <p class="v"><span data-price="single">{price}</span><i>元</i><s data-eb hidden><span data-price="regular">{price}</span></s></p>
+          {/* 10/10, the author: seats left as a quiet line here, same size as the third line of the two cells beside it.
+              A pill made this cell heavier than the others. Empty unless five or fewer are left, or the class is full. */}
+          <p class="n seats" data-seats-line>&nbsp;</p>
         </div>
         <a class="go" href="#signup">
           <span data-go>報名{cohort.name}</span>
@@ -740,6 +743,8 @@ const endX = 0.965;
         if (row.matches('.su-seats')) row.hidden = !show;
       });
       if (bar) { bar.textContent = full || few ? label : ''; bar.hidden = !(full || few); }
+      const line = document.querySelector('[data-seats-line]');
+      if (line) { line.textContent = full || few ? label : '\u00a0'; line.classList.toggle('on', full || few); }
       if (full) document.querySelectorAll('[data-go]').forEach((el) => { el.textContent = '加入候補'; });
 
       if (full) {
@@ -1129,6 +1134,7 @@ const endX = 0.965;
     color: var(--dawn);
   }
   .su-fee .k [data-eb] { color: var(--terra); }
+  .op-bar .n.seats.on,
   .sb .sb-seats {
     color: var(--dawn);
   }
