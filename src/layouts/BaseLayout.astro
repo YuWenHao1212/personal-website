@@ -123,7 +123,25 @@ const lang = getLangFromUrl(Astro.url);
          site (mobile menu included) is dead until the container wakes. -->
     {/* 10/9: data-domains — only the real site is counted. Before, local previews and *.pages.dev previews were recorded too
         (the week of 10/2–10/8 shows 8 "visitors" from localhost, and events that exist only in the redesign branch). */}
-    <script async src="https://analytics.yu-wenhao.com/script.js" data-website-id="dd3449c5-95e2-4c5e-8f19-ec99000f9010" data-domains="yu-wenhao.com,www.yu-wenhao.com"></script>
+    {/* 10/10 (ISS-360): the address sent to Umami keeps only the parameters we read numbers from — utm_* and ref.
+        Everything else is dropped before it leaves the browser: fbclid, translation-proxy noise, and above all access keys
+        (the partner page takes one in its address, and Umami had been storing it). The page itself still sees the full address.
+        The function always hands the record back, so a problem here can never stop a page view from being counted. */}
+    <script is:inline>
+      window.umamiKeepKnownParams = function (type, payload) {
+        try {
+          if (payload && payload.url) {
+            var u = new URL(payload.url, location.origin);
+            var keep = new URLSearchParams();
+            u.searchParams.forEach(function (v, k) { if (/^utm_/.test(k) || k === 'ref') keep.append(k, v); });
+            u.search = keep.toString();
+            payload.url = u.toString();
+          }
+        } catch (e) {}
+        return payload;
+      };
+    </script>
+    <script async src="https://analytics.yu-wenhao.com/script.js" data-website-id="dd3449c5-95e2-4c5e-8f19-ec99000f9010" data-domains="yu-wenhao.com,www.yu-wenhao.com" data-before-send="umamiKeepKnownParams"></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <!-- Skip Link for Accessibility -->

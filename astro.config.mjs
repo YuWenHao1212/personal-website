@@ -82,6 +82,7 @@ export default defineConfig({
         !page.includes('/thank-you') && // 10/9: nothing for a search engine on a thank-you page (the page is noindex too)
         !page.includes('/admin') &&
         !page.includes('/partner') &&
+        !page.includes('/flux-upgrade') && // 10/10: the page is noindex; it was the one such page still announced here
         !page.includes('/sonice/') &&
         !page.includes('/studio-a/') &&
         !page.includes('/taichung/'),
