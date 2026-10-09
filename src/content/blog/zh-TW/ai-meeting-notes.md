@@ -3,6 +3,7 @@ title: "我花四小時做了一個 AI 會議記錄工具，成本不到十塊�
 description: "四小時做出 AI 會議記錄工具：錄音轉文字用 Qwen3-ASR、AI 語音轉文字後自動產出逐字稿和會議摘要，還有即時 AI 戰術顧問。一小時成本不到十塊台幣。"
 pubDate: 2026-03-09
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "meeting", "agentic coding", "Claude Code", "building-in-public", "語音轉文字", "錄音轉文字"]
 lang: zh-TW
 translationKey: ai-meeting-notes

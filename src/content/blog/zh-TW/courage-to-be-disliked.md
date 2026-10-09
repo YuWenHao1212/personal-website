@@ -3,6 +3,7 @@ title: "被討厭的勇氣"
 description: "阿德勒心理學認為人人都可以改變，你之所以無法改變、之所以不幸，並不是過去或環境造成的，更不是因為能力不足，只是「勇氣」不夠而已。"
 pubDate: 2021-02-07
 category: life-learning
+topics: ["growth"]
 tags: ["幸福", "被討厭的勇氣", "阿德勒心理學"]
 lang: zh-TW
 featured: false
@@ -127,5 +128,3 @@ heroImage: /images/blog/courage-to-be-disliked/hero.webp
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -3,6 +3,7 @@ title: "為什麼要使用Jira管理專案"
 description: "Jira 是由 Atlassian 開發的專案管理工具，支援議題追蹤、Scrum/Kanban 敏捷開發、即時儀表板，解決傳統專案管理中會議時間浪費、工具效率不足、團隊主動性下降等問題。"
 pubDate: 2021-02-27
 category: productivity
+topics: ["growth"]
 tags: ["專案管理", "專案管理工具", "Jira"]
 lang: zh-TW
 featured: false
@@ -143,5 +144,3 @@ Jira是一套功能強大且自由度很高的軟體。適合5人以上的專案
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

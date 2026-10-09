@@ -3,6 +3,7 @@ title: "一人創業與獨立開發者必學：用Persona找到你的1000位付�
 description: "透過建立詳細的用戶畫像（User Persona），幫助獨立開發者克服自我參照偏誤、指導功能優先級、統一團隊認知。找到並精準服務 1000 位願意付費的用戶，就能創造可觀收入。"
 pubDate: 2025-03-18
 category: building-products
+topics: ["ai-practice"]
 tags: ["No-Code", "Bubble", "一人創業", "no-code development"]
 lang: zh-TW
 featured: false
@@ -170,5 +171,3 @@ Bubble平台提供了豐富的功能可能性，很容易陷入「功能過度�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -3,6 +3,7 @@ title: "Claude Code 教學：5 分鐘完成安裝與第一個任務"
 description: "Claude Code 安裝教學與使用心得。5 分鐘完成安裝和第一個任務。讓 AI 不只對話，還能讀寫檔案、執行指令、串接 API、開發產品。非工程師也能上手。"
 pubDate: 2026-03-04
 category: building-products
+topics: ["ai-practice"]
 tags: ["claude code 教學", "claude code 使用心得", "claude code 安裝"]
 lang: zh-TW
 featured: true
@@ -141,7 +142,7 @@ Desktop Cowork 也能處理檔案，但 Claude Code 可以做更多——例如�
 
 現在每天起床，手機就有一則訊息告訴我今天該做什麼。
 
-想看完整的系統怎麼運作，可以參考我的另一篇文章：[我的 AI 工作流系統](/zh-TW/blog/personal-panopticon)。
+想看完整的系統怎麼運作，可以參考我的另一篇文章：[我的 AI 工作流系統](/zh-TW/blog/personal-panopticon/)。
 
 **情境三：不會寫程式也能開發產品**
 
@@ -157,7 +158,7 @@ Desktop Cowork 也能處理檔案，但 Claude Code 可以做更多——例如�
 
 用 Claude Code，我花兩天建立了個人網站（是的，你現在看的這個網站）。
 
-還做了一個 <a href="/zh-TW/products/ai-resume-advisor" target="_blank">SaaS 產品</a>和一個 <a href="/zh-TW/products/linkedin-resume-checker" target="_blank">Chrome Extension</a>。
+還做了一個 <a href="/zh-TW/products/ai-resume-advisor/" target="_blank">SaaS 產品</a>和一個 <a href="/zh-TW/products/linkedin-resume-checker/" target="_blank">Chrome Extension</a>。
 
 這不是未來，是現在正在發生的事。
 
@@ -306,5 +307,3 @@ Cursor 是 IDE（整合開發環境），一般是工程師用來開發軟體產
 *學完 Claude Code 之後，整套系統長怎樣？看 [我教 12 個學員從零建 FLUX 個人指揮中心的紀錄 →](/zh-TW/blog/flux-direction-system-leverage/)*
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -3,6 +3,7 @@ title: "用了 5 年 Roam Research，為什麼在 AI 時代我最後選擇 Obsid
 description: "花 500 美金買 Roam Research 五年會員、還投資了這家公司。5 年後，AI 讓我轉向 Obsidian。從卡片盒筆記法到現代 PKM 工具——為什麼筆記格式比工具更重要。"
 pubDate: 2026-01-27
 category: productivity
+topics: ["growth"]
 tags: ["知識管理", "個人知識管理", "數位工具", "筆記方法", "Roam Research", "Obsidian", "AI"]
 lang: zh-TW
 featured: false
@@ -316,5 +317,3 @@ Obsidian 迅速建立起龐大的社群和外掛生態系統。
 - *[我的 AI 工作流：打造個人 AI 助理系統](/zh-TW/blog/personal-panopticon/)* — 目標管理、郵件自動化、會議記錄、Daily Brief 的完整實戰整合
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

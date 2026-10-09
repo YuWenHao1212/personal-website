@@ -3,6 +3,7 @@ title: "Agentic Coding 完全指南：定義、工具比較、實戰框架與入
 description: "Agentic Coding 是什麼？這篇完全指南涵蓋定義、與 Vibe Coding 的差異、5 大工具比較、產品成熟度框架與入門路徑。幫你判斷該用什麼方法，從零開始建立工作流。"
 pubDate: 2026-02-14
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "一人公司", "Claude Code", "agentic coding", "vibe coding", "developer-tools"]
 lang: zh-TW
 translationKey: agentic-coding-guide
@@ -399,5 +400,3 @@ Agent 不只能寫程式碼，還能串接你日常用的工具。例如：讓 A
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

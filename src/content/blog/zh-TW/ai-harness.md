@@ -3,6 +3,7 @@ title: "Harness：決定 AI Agent 成敗的不是模型，是這個東西"
 description: "同一個 AI 模型，只換外面的系統，排名從 30 名外跳到 Top 5。2026 年 AI 圈最重要的共識不是哪個模型最強，而是 Harness — 包在模型外面、把原始能力轉化為可靠產出的那套系統。這篇文章用馬具的比喻，解釋什麼是 Harness、為什麼它比模型更重要。"
 pubDate: 2026-03-16
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "agent harness", "harness engineering", "agentic harness", "agentic coding", "Claude Code", "AI Agent"]
 keywords: ["agent harness", "harness engineering", "agentic harness", "what is agent harness", "AI harness", "agentic coding best practices"]
 lang: zh-TW

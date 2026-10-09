@@ -1,42 +1,243 @@
 ---
+// Rewritten 10/8 with the author, in the redesign folder only (the live page is unchanged until this branch ships).
+// Before: 「想聊聊？」 + one sentence (Vibe Coding、AI 產品開發、合作邀約…) + three social icons + "1-2 個工作天內回覆".
+// Now: the page behind the header's 「合作邀約」 pill. One job — talks, interviews, collaboration → write to him.
+//   A company looking to adopt AI and a person who wants to learn are each sent on with one small row.
+//   No promise of how fast he replies (author's word, 10/8). Wording is Claude's draft.
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SocialLinks from '../../components/SocialLinks.astro';
-import { useTranslations } from '../../i18n/utils';
 
-const t = useTranslations('zh-TW');
-
-const title = t('contact.title');
-const description = t('contact.description');
+const title = '合作邀約｜余文皓';
+const description = '邀請余文皓演講、授課、採訪或合作，請寫信到 mail@yu-wenhao.com。';
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="py-12 md:py-16 lg:py-20">
-    <div class="max-w-6xl mx-auto px-6">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
 
-      <!-- Header -->
-      <div class="text-center mb-10 md:mb-14">
-        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 tracking-tight text-ink-900">
-          {title}
-        </h1>
-        <p class="text-base md:text-lg text-ink-500">
-          {description}
-        </p>
+  <div class="ct">
+    <section class="co">
+      <img class="co-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" fetchpriority="high" />
+      <div class="co-in">
+        <p class="kick"><i></i>合作邀約</p>
+        <h1>演講、採訪、合作，<br />寫信給我。</h1>
+        <p class="co-sub">信裡請寫：是什麼樣的場合、對象是誰、大概什麼時候。</p>
+        <a class="co-go" href="mailto:mail@yu-wenhao.com" data-umami-event="contact_click_email">
+          <span>mail@yu-wenhao.com</span>
+          <b aria-hidden="true">→</b>
+        </a>
+        <ul class="co-way">
+          <li>
+            <span>公司要導入 AI</span>
+            <a href="https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=contact" target="_blank" rel="noopener" data-umami-event="contact_click_confluence">到匯流顧問找我們 ↗</a>
+          </li>
+          <li>
+            <span>個人想學這套做法</span>
+            <a href="/zh-TW/workshop/" data-umami-event="contact_click_workshop">一日的公開班 →</a>
+          </li>
+        </ul>
       </div>
-
-      <!-- Social Links -->
-      <div class="mb-10 md:mb-14">
-        <div class="rounded-xl p-6 md:p-8 bg-cream-50">
-          <h2 class="text-lg md:text-xl font-semibold mb-2 text-ink-900">
-            {t('contact.social.title')}
-          </h2>
-          <p class="text-sm md:text-base text-ink-500 mb-6">
-            {t('contact.social.description')}（{t('contact.response')}）
-          </p>
-          <SocialLinks />
-        </div>
-      </div>
-
-    </div>
+      <p class="co-foot">
+        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
   </div>
-
 </BaseLayout>
+
+<style>
+  /* Tokens are the home page's (index.astro .hp). */
+  .ct {
+    --night: #0d0b09;
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --terra: #c25b3f;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+  }
+  .ct a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ct :is(h1, p) {
+    margin: 0;
+  }
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .kick i {
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+  .co {
+    --line: rgba(246, 241, 232, 0.22);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    min-height: 100svh;
+    margin-top: -6rem; /* slide under the header, as the other night covers do */
+    padding: 11rem var(--gx) 9rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .co-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 40%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 40%, #000 100%);
+    pointer-events: none;
+  }
+  .co-in {
+    position: relative;
+    max-width: 46rem;
+  }
+  .co h1 {
+    margin-top: 2.2rem;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.38;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+  }
+  .ct .co-sub {
+    margin-top: 1.8rem;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.95;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.72);
+  }
+  .ct a.co-go {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2.5rem;
+    width: min(34rem, 100%);
+    margin-top: 2.8rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--dawn);
+    color: var(--dawn);
+  }
+  .co-go span {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .co-go b {
+    font-weight: 300;
+    font-size: 1.4rem;
+    transition: transform 0.3s;
+  }
+  .co-go:hover b {
+    transform: translateX(6px);
+  }
+  .co-way {
+    list-style: none;
+    margin: 5rem 0 0;
+    padding: 0;
+    width: min(34rem, 100%);
+    border-top: 1px solid var(--line);
+  }
+  .co-way li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+  }
+  .co-way span {
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .ct .co-way a {
+    color: rgba(246, 241, 232, 0.9);
+    transition: color 0.2s;
+  }
+  .ct .co-way a:hover {
+    color: var(--dawn);
+  }
+  .co-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .co-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .ct .co-foot a:hover {
+    color: var(--dawn);
+  }
+  /* phone, 10/9: the heading's first line (9 characters) was a hair too wide and broke inside 「合作」. One size down, two lines. */
+  @media (max-width: 640px) {
+    .co h1 { font-size: 2rem; }
+  }
+</style>
+
+<style is:global>
+  /* The page is one night screen; the shared footer is replaced by its last line, and the header sits on the sky. */
+  body:has(.ct .co-sky) footer.bg-cream-200 {
+    display: none;
+  }
+  body:has(.ct .co-sky) > header,
+  body:has(.ct .co-sky) header.sticky {
+    background: transparent !important;
+  }
+  /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
+     Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
+  body:has(.ct .co-sky) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
+  body:has(.ct .co-sky) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.ct .co-sky) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.ct .co-sky) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.ct .co-sky) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.ct .co-sky) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  body:has(.ct .co-sky) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.ct .co-sky) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>

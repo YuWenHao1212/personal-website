@@ -3,6 +3,7 @@ title: "AI 時代的套利機會：程式碼從昂貴變便宜"
 description: "AI 讓程式碼變便宜，這是時代套利。以前學幾年的技能，現在幾天就能上手。但窗口不會永遠開著——當所有人都會時，套利就結束了。現在開始建立數位資產。"
 pubDate: 2026-01-23
 category: life-learning
+topics: ["growth", "ai-practice"]
 tags: ["AI Coding", "一人創業", "數位資產", "個人成長", "長期主義"]
 lang: zh-TW
 featured: false
@@ -145,7 +146,7 @@ AI 讓程式碼從昂貴變便宜。
 
 工具的話，現在最常見的選擇是 Cursor、Claude Code、GitHub Copilot。各有優缺點，但核心邏輯差不多：用自然語言描述需求，AI 幫忙生成程式碼。
 
-更完整的比較和實際經驗，可以參考這篇：[離開工程師 14 年，我用 AI 做出一個完整產品](/zh-TW/blog/nocode-to-ai-coding)。而如果你想看一個完整的日常 AI工作流系統長什麼樣——從目標管理到知識庫到自動化——[可以看這篇](/zh-TW/blog/personal-panopticon/)。
+更完整的比較和實際經驗，可以參考這篇：[離開工程師 14 年，我用 AI 做出一個完整產品](/zh-TW/blog/nocode-to-ai-coding/)。而如果你想看一個完整的日常 AI工作流系統長什麼樣——從目標管理到知識庫到自動化——[可以看這篇](/zh-TW/blog/personal-panopticon/)。
 
 ## 結語
 
@@ -158,5 +159,3 @@ AI 讓程式碼從昂貴變便宜。
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

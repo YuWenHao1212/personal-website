@@ -3,6 +3,7 @@ title: "Minerva MDA畢業典禮之旅"
 description: "文化差異、慢活哲學與世界公民責任。曾經無數次想像踏上美國土地參加 Minerva MDA 畢業典禮的那一刻，但真的來到這片土地上時，真實的體驗還是超出了所有預期。"
 pubDate: 2025-06-03
 category: life-learning
+topics: ["growth"]
 tags: ["Minerva", "MDA", "Graduation", "文化觀察"]
 lang: zh-TW
 featured: false
@@ -34,5 +35,3 @@ heroImage: /images/blog/minerva-graduation/hero.webp
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

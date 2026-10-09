@@ -3,6 +3,7 @@ title: "No-Code 開發思維：三大核心元素如何轉化創意為應用"
 description: "No-Code 思維將應用構建視為組裝過程，將每個功能拆解為界面、數據和流程三個維度。掌握這套思維框架，你就能把任何應用想法轉化為實際產品。"
 pubDate: 2025-03-04
 category: building-products
+topics: ["ai-practice"]
 tags: ["No-Code", "Bubble", "Bubble教學", "應用開發"]
 lang: zh-TW
 featured: false
@@ -172,5 +173,3 @@ No-Code 開發最大的思維轉變在於從「如何編寫代碼」變成「如
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -11,6 +11,9 @@ const blogCollection = defineCollection({
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
     category: z.enum(['building-products', 'productivity', 'life-learning']),
+    // 10/9: the Chinese site's two topics (AI 與實作 / 效率與成長). One by default, two when readers of both would look for the piece.
+    // `category` above stays: the English pages, the RSS feeds and the shared cards still read it. See i18n/topics.ts.
+    topics: z.array(z.enum(['ai-practice', 'growth'])).min(1).max(2).optional(),
     tags: z.array(z.string()).default([]),
     lang: z.enum(['zh-TW', 'en']),
     translationKey: z.string().optional(),

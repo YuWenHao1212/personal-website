@@ -3,6 +3,7 @@ title: "省時省力，學習更有效率：使用Readwise Reader來收集你的
 description: "Readwise Reader 是一個強大的數位閱讀平台，能直接連接到使用者的數位筆記本。核心功能包括：瀏覽器一鍵收藏、訂閱電子報和 RSS、存儲 PDF 和電子書，並支援跨裝置使用。最大優勢是簡化知識輸入流程——在 Reader 中的閱讀標註會自動匯出到數位筆記本。"
 pubDate: 2023-04-23
 category: productivity
+topics: ["growth"]
 tags: ["readwise", "學習", "筆紀方法", "個人知識管理", "數位工具", "知識管理"]
 lang: zh-TW
 featured: false
@@ -94,5 +95,3 @@ Reader 是屬於 Readwise Full Plan 的一部份，Readwise Full Plan 的訂閱�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -4,6 +4,7 @@ description: "2026 年 3 月更新。OpenClaw 裝完了不知道怎麼設定？�
 pubDate: 2026-02-05
 updatedDate: 2026-03-17
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "一人公司", "OpenClaw", "self-hosted AI", "數位工具"]
 lang: zh-TW
 translationKey: openclaw-tools-skills-tutorial
@@ -32,7 +33,7 @@ OpenClaw 裝完了，然後呢？
 
 Tools 散在不同文件，Skills 預設自動載入——你甚至不知道有些東西已經開了。全開怕出事，全關等於白裝，但要自己從文件和 codebase 拼出全貌，還是得花點時間。
 
-這篇是我自己裝完之後的研究筆記——從 [OpenClaw 官方文件](https://docs.openclaw.ai/tools) 和 [GitHub 原始碼](https://github.com/openclaw/openclaw) 整理出 26 個 Tools 和 53 個官方 bundled Skills 各是什麼、該不該開、我怎麼配、為什麼這樣配（社群另有 13,700+ 個第三方 Skills，不在這篇範圍）。安全面的分析在<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">上一篇</a>，這篇講每個 Tool 和 Skill 在幹嘛、以及怎麼根據需求配置。
+這篇是我自己裝完之後的研究筆記——從 [OpenClaw 官方文件](https://docs.openclaw.ai/tools) 和 [GitHub 原始碼](https://github.com/openclaw/openclaw) 整理出 26 個 Tools 和 53 個官方 bundled Skills 各是什麼、該不該開、我怎麼配、為什麼這樣配（社群另有 13,700+ 個第三方 Skills，不在這篇範圍）。安全面的分析在<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">上一篇</a>，這篇講每個 Tool 和 Skill 在幹嘛、以及怎麼根據需求配置。
 
 ---
 
@@ -128,7 +129,7 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 這個 Tool 我有開，但只用來讓 OpenClaw 傳訊息給我自己——不讓它代替我跟任何人溝通。原因很簡單：AI 用你的名義發出去的訊息，收回不了。萬一它理解錯意思、語氣不對、甚至被 Prompt Injection 騙去發訊息，後果是你自己承擔。
 
-我用 OpenClaw 當作<a href="/zh-TW/blog/personal-panopticon" target="_blank">整套 AI 工作流</a>的手機入口，而啟用 `message` 是讓它可以主動傳訊息給我——每天推送 Daily Brief、任務通知、待辦提醒，全部都是發給我自己。
+我用 OpenClaw 當作<a href="/zh-TW/blog/personal-panopticon/" target="_blank">整套 AI 工作流</a>的手機入口，而啟用 `message` 是讓它可以主動傳訊息給我——每天推送 Daily Brief、任務通知、待辦提醒，全部都是發給我自己。
 
 ### 硬體控制：nodes
 
@@ -140,7 +141,7 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 `cron` 設定定時任務，`gateway` 讓它能重啟自己。
 
-每天早上 6:47，我的 Telegram 會收到 OpenClaw 整理好的 Daily Brief——今天要做什麼、有哪些待回覆的訊息、天氣預報。這就是 `cron` 搭配 `message` 的效果——不在電腦前也能掌握狀況，OpenClaw 就是我<a href="/zh-TW/blog/personal-panopticon" target="_blank">整套 AI 工作流</a>跟手機之間的橋樑。
+每天早上 6:47，我的 Telegram 會收到 OpenClaw 整理好的 Daily Brief——今天要做什麼、有哪些待回覆的訊息、天氣預報。這就是 `cron` 搭配 `message` 的效果——不在電腦前也能掌握狀況，OpenClaw 就是我<a href="/zh-TW/blog/personal-panopticon/" target="_blank">整套 AI 工作流</a>跟手機之間的橋樑。
 
 ### Agent 通訊：agents_list
 
@@ -164,7 +165,7 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 **重要：bundled Skills 預設會自動載入**——只要對應的 CLI 工具已安裝在系統上，該 Skill 就會自動啟用。不是「不裝就沒有」，而是「不關就全開」。如果你不想讓某個 Skill 被啟用，需要用 `skills.allowBundled` 白名單模式，只保留你需要的（設定範例見下方「我的設定」段落）。
 
-ClawHub 社群另有 13,700+ 個第三方 Skills。2026 年 2 月起 ClawHub 已整合 VirusTotal 自動掃描，惡意 Skill 會被阻擋下載，但仍建議安裝前自行審查（見<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">安全指南</a>）。
+ClawHub 社群另有 13,700+ 個第三方 Skills。2026 年 2 月起 ClawHub 已整合 VirusTotal 自動掃描，惡意 Skill 會被阻擋下載，但仍建議安裝前自行審查（見<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">安全指南</a>）。
 
 以下按使用場景分類。
 
@@ -269,13 +270,11 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 2. **能力越大，管控越嚴**——`exec` 開審批，`message` 只傳給自己
 3. **最後一哩自己來**——結帳、發訊息、發文，收不回來的操作不交給 AI
 
-我的配置可以直接當起點，複製上去再根據自己的需求刪減。安全設定搭配<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">安全指南</a>一起看，部署成本搭配<a href="/zh-TW/blog/2026-02-01-openclaw-deploy-cost-guide" target="_blank">部署成本全攻略</a>了解費用。
+我的配置可以直接當起點，複製上去再根據自己的需求刪減。安全設定搭配<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">安全指南</a>一起看，部署成本搭配<a href="/zh-TW/blog/2026-02-01-openclaw-deploy-cost-guide/" target="_blank">部署成本全攻略</a>了解費用。
 
 OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個團隊事情的基礎建設。
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
 
 ---
 

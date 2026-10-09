@@ -32,7 +32,7 @@ You've installed OpenClaw. Now what?
 
 Tools are scattered across different docs. Skills auto-load by default — some are already active and you don't even know it. Enable everything and you're exposed. Disable everything and you've wasted the install. Piecing together the full picture from docs and source code takes real effort.
 
-This is my research notes after setting up OpenClaw — compiled from the [official docs](https://docs.openclaw.ai/tools) and [GitHub source code](https://github.com/openclaw/openclaw), covering what each of the 26 Tools and 53 official bundled Skills does, whether to enable it, how I configured mine, and why. Security analysis is covered in the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>. This article focuses on what each Tool and Skill does and how to configure them for your needs.
+This is my research notes after setting up OpenClaw — compiled from the [official docs](https://docs.openclaw.ai/tools) and [GitHub source code](https://github.com/openclaw/openclaw), covering what each of the 26 Tools and 53 official bundled Skills does, whether to enable it, how I configured mine, and why. Security analysis is covered in the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">security guide</a>. This article focuses on what each Tool and Skill does and how to configure them for your needs.
 
 (There are 13,700+ third-party Skills on ClawHub — those are outside the scope of this guide.)
 
@@ -130,7 +130,7 @@ Lets OpenClaw send messages to Discord, Slack, Telegram, WhatsApp, iMessage.
 
 I have this enabled but only for sending messages to myself — never for communicating with others on my behalf. The reason is simple: messages sent in your name by AI can't be unsent. If it misunderstands the context, uses the wrong tone, or gets tricked by Prompt Injection into sending something, you bear the consequences.
 
-I use OpenClaw as the mobile gateway to my <a href="/en/blog/ai-second-brain" target="_blank">entire AI second brain</a> — enabling `message` lets it proactively push notifications to me: Daily Briefs, task reminders, and to-do alerts, all sent to myself.
+I use OpenClaw as the mobile gateway to my <a href="/en/blog/ai-second-brain/" target="_blank">entire AI second brain</a> — enabling `message` lets it proactively push notifications to me: Daily Briefs, task reminders, and to-do alerts, all sent to myself.
 
 ### Hardware Control: nodes
 
@@ -142,7 +142,7 @@ When I first saw this Tool, I asked myself: when would I need AI to open my came
 
 `cron` sets up scheduled tasks. `gateway` lets OpenClaw restart itself.
 
-Every morning at 6:47, my Telegram receives a Daily Brief prepared by OpenClaw — what I need to do today, pending messages to reply to, and the weather forecast. That's `cron` plus `message` in action, — OpenClaw is the bridge between my <a href="/en/blog/ai-second-brain" target="_blank">entire AI second brain</a> and my phone, so I stay in the loop even away from my computer.
+Every morning at 6:47, my Telegram receives a Daily Brief prepared by OpenClaw — what I need to do today, pending messages to reply to, and the weather forecast. That's `cron` plus `message` in action, — OpenClaw is the bridge between my <a href="/en/blog/ai-second-brain/" target="_blank">entire AI second brain</a> and my phone, so I stay in the loop even away from my computer.
 
 ### Agent Communication: agents_list
 
@@ -166,7 +166,7 @@ If you're not using a workflow engine, skip both.
 
 **Important: bundled Skills auto-load by default** — if the corresponding CLI tool is installed on the system, the Skill activates automatically. It's not "nothing unless installed" but "everything unless disabled." To control which Skills are active, use `skills.allowBundled` in whitelist mode (config example in the "My Config" section below).
 
-ClawHub has 13,700+ third-party Skills. Since February 2026, ClawHub has integrated VirusTotal automatic scanning to block malicious Skill downloads, but reviewing before installing is still recommended (see the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>).
+ClawHub has 13,700+ third-party Skills. Since February 2026, ClawHub has integrated VirusTotal automatic scanning to block malicious Skill downloads, but reviewing before installing is still recommended (see the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">security guide</a>).
 
 Organized by use case below.
 
@@ -290,7 +290,7 @@ You don't need all 26 Tools. The 53 bundled Skills default to all-on — use `al
 2. **More capability, more control** — enable approval for `exec`, only message yourself
 3. **The last mile is always manual** — checkout, sending messages, posting publicly — anything irreversible stays with you
 
-My config above works as a starting point. Copy it, then trim to fit your needs. For security settings, read it alongside the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide" target="_blank">security guide</a>. For deployment costs, see the <a href="/en/blog/2026-02-01-openclaw-deploy-cost-guide" target="_blank">deploy cost guide</a>.
+My config above works as a starting point. Copy it, then trim to fit your needs. For security settings, read it alongside the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">security guide</a>. For deployment costs, see the <a href="/en/blog/2026-02-01-openclaw-deploy-cost-guide/" target="_blank">deploy cost guide</a>.
 
 ---
 

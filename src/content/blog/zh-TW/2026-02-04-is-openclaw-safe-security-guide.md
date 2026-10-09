@@ -4,6 +4,7 @@ description: "2026 年 3 月更新。OpenClaw 安全嗎？一鍵被駭漏洞（�
 pubDate: 2026-02-04
 updatedDate: 2026-03-17
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "一人公司", "資訊安全", "OpenClaw", "self-hosted AI"]
 lang: zh-TW
 translationKey: openclaw-security-guide
@@ -536,8 +537,6 @@ Cisco 說它是「安全惡夢」，Palo Alto 說它是「致命三合一」—�
 5 個防護做完之後，下一步是搞懂 26 個 Tools 和 53 個 Skills 該怎麼配——開哪些、關哪些、為什麼。我把這部分寫在 [Tools & Skills 完整指南](/zh-TW/blog/openclaw-tools-skills-tutorial/) 裡，包含我自己的完整設定。
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
 
 ---
 

@@ -3,6 +3,7 @@ title: "1個我找了10年才找到的記帳工具 - YNAB"
 description: "YNAB (You Need A Budget) 是一個讓你重新掌控金錢的理財工具。透過帳戶管理、預算規劃、即時現況追蹤，讓你用上帝視角看待個人財務，主動讓每一塊錢為你工作。"
 pubDate: 2021-10-01
 category: productivity
+topics: ["growth"]
 tags: ["個人成長", "財務管理", "記帳工具"]
 lang: zh-TW
 featured: false
@@ -176,5 +177,3 @@ YNAB 目前是採取訂閱制，月付 11.99 美金或是年付 84 美金（7 �
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

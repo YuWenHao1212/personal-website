@@ -3,6 +3,7 @@ title: "Minerva MDA與我的成長"
 description: "21個月改變人生的學習旅程。從困在舒適圈邊緣的迷惘，到掌握主動創造可能性的能力。"
 pubDate: 2025-05-16
 category: life-learning
+topics: ["growth"]
 tags: ["Minerva", "MDA", "學習", "成長"]
 lang: zh-TW
 featured: false
@@ -166,5 +167,3 @@ Diamond 教授的三門 Computer Science 課，為我奠定基礎。
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

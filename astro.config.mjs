@@ -77,7 +77,8 @@ export default defineConfig({
       // Unlisted student-only pages (sonice/studio-a/taichung) must stay out of
       // the sitemap — they rely on noindex, and the sitemap would announce them.
       filter: (page) =>
-        !page.includes('/workshop') &&
+        // 10/9: the public workshop page (/zh-TW/workshop/) is listed now; /workshop/thanks, /workshop-setup* and /admin/workshop stay out.
+        (!page.includes('/workshop') || /\/zh-TW\/workshop\/$/.test(page)) &&
         !page.includes('/admin') &&
         !page.includes('/partner') &&
         !page.includes('/sonice/') &&

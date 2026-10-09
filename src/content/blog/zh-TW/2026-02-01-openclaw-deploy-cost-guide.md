@@ -4,6 +4,7 @@ description: "2026 年 3 月更新。OpenClaw 雲端部署成本完整分析：V
 pubDate: 2026-02-01
 updatedDate: 2026-03-17
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "獨立開發者", "數位工具", "OpenClaw", "self-hosted AI"]
 lang: zh-TW
 translationKey: openclaw-deploy-cost-guide
@@ -373,7 +374,7 @@ Heartbeat 就像是你請的咖啡師每隔一段時間主動巡一圈：「有�
 
 我自己用的是 **Azure B2s（2 vCPU + 4GB RAM）+ Azure OpenAI GPT-5.2**。
 
-為什麼不選更便宜的 Oracle 或 Hetzner？因為我透過 [Microsoft for Startups](/zh-TW/blog/free-azure-startup-credits) 拿到了 **$25,000 美元的免費 Azure 額度**（效期一年）——雲端主機和 LLM API 全部涵蓋，目前**月成本 $0**。
+為什麼不選更便宜的 Oracle 或 Hetzner？因為我透過 [Microsoft for Startups](/zh-TW/blog/free-azure-startup-credits/) 拿到了 **$25,000 美元的免費 Azure 額度**（效期一年）——雲端主機和 LLM API 全部涵蓋，目前**月成本 $0**。
 
 如果你是獨立開發者或早期創業者，這條路線值得考慮：硬體 + LLM 成本直接歸零。
 
@@ -440,8 +441,6 @@ Heartbeat 是 OpenClaw 預設開啟的背景機制，每 30 分鐘自動送一�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
 
 ---
 

@@ -3,6 +3,7 @@ title: "離開工程師 14 年，我用 AI 做出一個完整產品"
 description: "離開工程師 14 年，我花半年學 Bubble，卻發現 No-Code 的致命問題：每換一個工具，從零開始。直到遇見 Claude Code，一切改變了。半年內，我做出後端 API、前端 App、Chrome Extension，一個完整的 SaaS 產品。差別在哪？No-Code 學的是工具，AI Coding 學的是溝通。這個技能不會歸零。"
 pubDate: 2026-01-06
 category: building-products
+topics: ["ai-practice"]
 lang: zh-TW
 featured: false
 heroImage: /images/blog/nocode-to-ai-coding.webp
@@ -105,5 +106,3 @@ Vibe Coding，你學的是「跟 AI 溝通」。今天用 Claude，明天用 GPT
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

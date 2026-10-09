@@ -110,7 +110,7 @@ The concept sounds abstract, but it breaks down into six concrete layers:
 | 5. Verification | Self-checks | Runs tests, checks syntax, self-reviews after completing work |
 | 6. Constraints | Has boundaries | What it can't do, which files it can't touch, spending limits |
 
-**All six layers are systems engineering improvements, not model improvements.** No need to wait for the next generation of models — just build a better harness. I've written about how [your tools set your ceiling](/en/blog/fix-your-tools) — the harness framework explains exactly why.
+**All six layers are systems engineering improvements, not model improvements.** No need to wait for the next generation of models — just build a better harness. I've written about how [your tools set your ceiling](/en/blog/fix-your-tools/) — the harness framework explains exactly why.
 
 OpenClaw is a great example. OpenClaw isn't a model — it runs Claude, GPT, or other LLMs under the hood. What OpenClaw actually sells is a complete harness: SOUL.md defines the agent's role and constraints (layer six), a Memory system maintains context across conversations (layer four), an Agent Loop keeps it running continuously (layer one), and shell/API tools let it take real action (layer two). Harnesses can also stack. OpenClaw provides the base harness, and users can add their own layer on top via SKILL.md — encoding workflows as SOPs so the AI executes established patterns instead of interpreting ambiguous instructions from scratch every time. The more precise the SKILL.md, the more stable the AI's output — that's harness design in action.
 
@@ -165,7 +165,7 @@ But the harness perspective tells us: **the fastest change isn't upgrading the b
 
 Put the phone in another room and focus improves immediately. Not because willpower got stronger, but because the environment's constraints (layer six of the harness) changed. Design a daily writing routine at a fixed time and output stabilizes. Not because of sudden talent, but because a loop (layer one of the harness) was established.
 
-Without designing our own harness, we live inside systems designed by others. Social media algorithms, corporate KPI structures, phone notification systems — all harnesses designed by someone else, and not for our goals. I wrote about this idea in [building an AI second brain](/en/blog/ai-second-brain) — the core concept is the same: actively designing our own information environment rather than passively accepting what's fed to us.
+Without designing our own harness, we live inside systems designed by others. Social media algorithms, corporate KPI structures, phone notification systems — all harnesses designed by someone else, and not for our goals. I wrote about this idea in [building an AI second brain](/en/blog/ai-second-brain/) — the core concept is the same: actively designing our own information environment rather than passively accepting what's fed to us.
 
 ---
 

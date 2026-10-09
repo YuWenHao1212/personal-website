@@ -128,7 +128,9 @@ const lang = getLangFromUrl(Astro.url);
          tracker cold-starts (Azure scale-to-zero, 10-30s), a deferred script.js
          stalls that whole queue: page renders but every click handler on the
          site (mobile menu included) is dead until the container wakes. -->
-    <script async src="https://analytics.yu-wenhao.com/script.js" data-website-id="dd3449c5-95e2-4c5e-8f19-ec99000f9010"></script>
+    {/* 10/9: data-domains — only the real site is counted. Before, local previews and *.pages.dev previews were recorded too
+        (the week of 10/2–10/8 shows 8 "visitors" from localhost, and events that exist only in the redesign branch). */}
+    <script async src="https://analytics.yu-wenhao.com/script.js" data-website-id="dd3449c5-95e2-4c5e-8f19-ec99000f9010" data-domains="yu-wenhao.com,www.yu-wenhao.com"></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <!-- Skip Link for Accessibility -->
@@ -184,6 +186,12 @@ const lang = getLangFromUrl(Astro.url);
           });
         });
       });
+    </script>
+
+    <!-- 10/9: remember which 「訂閱電子報」 entrance a reader used, so a subscription can be traced back to it (scripts/track.ts) -->
+    <script>
+      import { rememberNewsletterEntrance } from '../scripts/track';
+      rememberNewsletterEntrance();
     </script>
 
     <!-- Scroll fade-in animation -->

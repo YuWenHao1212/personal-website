@@ -3,6 +3,7 @@ title: "我教一個 48 歲的心理師用 Claude Code"
 description: "48 歲臨床心理師、零工程背景，15 週用 Claude Code 做出 8 件事。這篇是我從教學者視角的紀錄 —— 不教指令，教一套可以用的作業系統。"
 pubDate: 2026-04-10
 category: building-products
+topics: ["ai-practice"]
 tags: ["claude code", "非工程師學 AI", "成人教育", "教學", "AI 與心理學"]
 lang: zh-TW
 featured: true

@@ -3,6 +3,7 @@ title: "2025/04/27 我的AWS黑客松筆記"
 description: "第一次帶學生參加 Amazon Hackathon，在兩天黑客松過程中的兩個啟發：站在AI浪潮的前緣、技術只是實現願景的橋樑。"
 pubDate: 2025-04-30
 category: building-products
+topics: ["ai-practice"]
 tags: ["No-Code", "Bubble", "AWS", "Hackathon", "AI"]
 lang: zh-TW
 featured: false
@@ -97,5 +98,3 @@ AI 和 No-Code 的出現，把技術門檻降到不可思議的程度。
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

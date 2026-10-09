@@ -3,6 +3,7 @@ title: "No-Code開發者指南：使用 HTTP Trigger 自建 API 擴展你的應�
 description: "當你的應用需要超越現有 API 限制或處理特定業務邏輯時，自建 HTTP Trigger API 提供了理想的解決方案。藉助 ChatGPT 等 AI 開發工具，這個門檻已經大幅降低。"
 pubDate: 2025-02-24
 category: building-products
+topics: ["ai-practice"]
 tags: ["API", "No-Code", "HTTP Trigger", "Serverless", "Azure Functions"]
 lang: zh-TW
 featured: false
@@ -96,5 +97,3 @@ Azure Functions 採用精確的按量計費模式，只對超出免費額度的�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

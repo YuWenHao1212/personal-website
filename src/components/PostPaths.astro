@@ -1,0 +1,36 @@
+---
+// End-of-article exits (zh-TW). Replaces the per-post "看看我的服務" line now that the
+// services page is being retired: every article offers the same two ways forward —
+// companies → Confluence Partners, individuals → the public workshop.
+// Deliberately quiet: two sentences, not a call-to-action box. Same wording as the homepage colophon.
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=article&utm_content=${encodeURIComponent(slug)}`;
+---
+
+<p class="pp">
+  公司要導入 AI，到<a href={confluence} target="_blank" rel="noopener" data-umami-event="blog_click_confluence" data-umami-event-slug={slug}>匯流顧問 ↗</a>找我們。
+  個人想學這套做法，有<a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug={slug}>一日的公開班</a>。
+</p>
+
+<style>
+  .pp {
+    margin: 3rem 0 0;
+    padding-top: 1.6rem;
+    border-top: 1px solid #e2d8c9;
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: #71655c;
+  }
+  .pp a {
+    color: #241b18;
+    text-decoration: none;
+    border-bottom: 1px solid #c25b3f;
+    padding-bottom: 0.05rem;
+  }
+  .pp a:hover {
+    color: #c25b3f;
+  }
+</style>
