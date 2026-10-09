@@ -314,6 +314,10 @@ const endX = 0.965;
           )}
         </div>
       </div>
+      {/* Phone and tablet only (10/9, the author's call): the row is swiped by hand there, and with one card filling the screen
+          nothing said there were more. So the next card shows at the edge, and this line counts where the reader is.
+          The hint 「左右滑看其他學員」 is Claude's draft. */}
+      <p class="vl-count" aria-hidden="true"><b data-vl-now>1</b> / {rest.length}<span>左右滑看其他學員</span></p>
     </section>
 
     <!-- ============ 6. The day's timetable: one arc, morning to afternoon ============ -->
@@ -616,6 +620,27 @@ const endX = 0.965;
       addEventListener('scroll', sync, { passive: true });
       addEventListener('resize', sync);
       sync();
+    }
+
+    // phone and tablet: which testimonial is at the left edge of the hand-swiped row
+    const vlView = document.querySelector('.wp .vl-view') as HTMLElement | null;
+    const vlNow = document.querySelector('[data-vl-now]') as HTMLElement | null;
+    if (vlView && vlNow) {
+      const cards = [...vlView.querySelectorAll<HTMLElement>("figure:not([aria-hidden='true'])")];
+      let waiting = false;
+      vlView.addEventListener('scroll', () => {
+        if (waiting) return;
+        waiting = true;
+        requestAnimationFrame(() => {
+          waiting = false;
+          const edge = vlView.getBoundingClientRect().left + parseFloat(getComputedStyle(vlView).scrollPaddingLeft || '0');
+          let best = 0;
+          cards.forEach((c, i) => {
+            if (Math.abs(c.getBoundingClientRect().left - edge) < Math.abs(cards[best].getBoundingClientRect().left - edge)) best = i;
+          });
+          vlNow.textContent = String(best + 1);
+        });
+      }, { passive: true });
     }
 
     // the low-key refund note beside the fee
@@ -1510,6 +1535,9 @@ const endX = 0.965;
   @keyframes vl-move {
     to { transform: translateX(-50%); }
   }
+  .vl-count {
+    display: none;
+  }
   /* phone / tablet, 10/9: no pointer to rest on the row, so it never stopped and a quote slid away mid-sentence.
      Here the row stands still and is swiped by hand, one card at a time; the second copy (only there for the seamless loop) is dropped. */
   @media (max-width: 900px) {
@@ -1520,6 +1548,22 @@ const endX = 0.965;
     .vl figure { scroll-snap-align: start; }
     .vl figure[aria-hidden='true'] { display: none; }
     .vl { padding-bottom: 4.5rem; }
+    /* a card is narrower than the screen, so the next one shows at the right edge: the cue that the row goes on */
+    .wp .vl figure { width: min(82vw, 23rem); padding: 0.2rem 1.5rem 0.4rem 1.3rem; }
+    .wp .vl figure:first-child { padding-left: 0; border-left: 0; }
+    .wp .vl-view { -webkit-mask-image: linear-gradient(90deg, #000 0, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, #000 0, #000 88%, transparent 100%); }
+    .wp .vl-count {
+      display: flex;
+      align-items: baseline;
+      gap: 0.35em;
+      margin-top: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      color: rgba(36, 27, 24, 0.55);
+    }
+    .wp .vl-count b { font-weight: 500; color: var(--ink); }
+    .wp .vl-count span { margin-left: auto; font-family: inherit; letter-spacing: 0.08em; }
   }
   .vl blockquote {
     margin: 0;
@@ -1535,6 +1579,7 @@ const endX = 0.965;
     align-items: center;
     gap: 0.9rem;
     margin-top: 1.3rem;
+    text-align: left; /* the shared stylesheet centres captions; the name then sat to the right of the line under it */
   }
   .vl figcaption img {
     width: 40px;
@@ -2118,8 +2163,14 @@ const endX = 0.965;
     letter-spacing: 0.06em;
     color: var(--muted);
   }
+  /* the two halves of this line stay whole: on a phone the link drops to its own line instead of breaking inside 「驗證」 */
+  .su-cert i {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.1em;
+  }
   .su-cert u {
-    margin-left: 1.1em;
+    white-space: nowrap;
     text-decoration: none;
     color: var(--terra);
   }
@@ -2291,6 +2342,13 @@ const endX = 0.965;
   }
   .su-f ::placeholder {
     color: var(--faint);
+  }
+  /* phone: the longest example line was cut off at the field's edge. Only the grey example shrinks; what the reader types stays 16px+ */
+  @media (max-width: 640px) {
+    .su-f input[name='role']::placeholder {
+      font-size: 0.75rem;
+      letter-spacing: 0;
+    }
   }
   .su-f small {
     display: block;
