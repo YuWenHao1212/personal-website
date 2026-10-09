@@ -7,7 +7,8 @@ export function track(name: string, data?: Record<string, string | number>) {
   let tries = 0;
   (function go() {
     const u = (window as any).umami;
-    if (u?.track) u.track(name, data);
+    // every event carries the page's language (Chinese and English pages share event names)
+    if (u?.track) u.track(name, { lang: document.documentElement.lang || '', ...data });
     else if (tries++ < 20) setTimeout(go, 250);
   })();
 }

@@ -174,8 +174,11 @@ const lang = getLangFromUrl(Astro.url);
             if (m) data[m[1]] = a.getAttribute(attr) || '';
           });
           a.removeAttribute('data-umami-event');
+          // 10/9: every event carries the page's language. Chinese and English pages share event names (home_click_tool …),
+          // and without this a count could not be split by language.
+          data.lang = document.documentElement.lang || '';
           a.addEventListener('click', () => {
-            (window as any).umami?.track(name, Object.keys(data).length ? data : undefined);
+            (window as any).umami?.track(name, data);
           });
         });
       });

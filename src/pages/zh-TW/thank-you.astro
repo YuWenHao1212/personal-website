@@ -54,7 +54,7 @@ const description = '訂閱電子報的最後一步：到信箱點確認信裡�
       try { from = sessionStorage.getItem('nl_done'); sessionStorage.removeItem('nl_done'); sessionStorage.removeItem('nl_from'); } catch {}
       if (!from) return;
       let k = 0;
-      (function go() { if (window.umami?.track) window.umami.track('newsletter_success', { from }); else if (k++ < 20) setTimeout(go, 250); })();
+      (function go() { if (window.umami?.track) window.umami.track('newsletter_success', { from, lang: document.documentElement.lang || '' }); else if (k++ < 20) setTimeout(go, 250); })();
     })();
   </script>
 </BaseLayout>
