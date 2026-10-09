@@ -18,7 +18,9 @@ import { testimonials } from '../../data/testimonials';
 // 10/9: moved here from workshop-sky.astro — this is now the workshop page of the branch. Title and description approved by the author on 10/9.
 // The date and city in the description follow data/cohorts, as on the old page.
 const title = 'Claude Code 一日實作課程｜用 AI 建你的個人指揮中心';
-const description = `${cohort.dateShort}（${cohort.weekday}）${cohort.city}。課前線上一對一，加上一天 6 小時實作，在自己的電腦上建好一套 AI 工作系統：管目標、管知識、把常做的流程教給 AI。不用會寫程式。講師余文皓，Claude 認證架構師。前三班全滿。`;
+// 2026-10-10, with the author (ISS-359): nothing in the search summary depends on the class. It used to open with the date
+// and end with 「前三班全滿」; the date went stale between classes and the count after every class. Dates and seats are on the page, live.
+const description = '用最有效率的方式學會把 Claude Code 用起來，帶進你自己的工作和生活。課前線上一對一，加上一天 6 小時實作，不用會寫程式。台北實體課。';
 const price = PRICING_DEFAULTS.priceRegular.toLocaleString('en-US');
 
 // Same switch as the live page: the local API in dev, production otherwise.
@@ -110,7 +112,7 @@ const lunchX = 0.225; // between station 2 and station 3
 const endX = 0.965;
 ---
 
-<BaseLayout title={title} description={description} hideLanguageSwitcher={true} hasAlternate={false}>
+<BaseLayout title={title} description={description} image="/images/og-workshop.jpg" hideLanguageSwitcher={true} hasAlternate={false}>
   <script type="application/ld+json" set:html={JSON.stringify(courseLd)} />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
 
