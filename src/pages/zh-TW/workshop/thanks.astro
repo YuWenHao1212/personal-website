@@ -1,18 +1,23 @@
 ---
 // 10/9, with the author: the page a student lands on right after paying on Stripe, in the site's new look.
 // Before: a green tick in a circle, two white rounded cards on cream (已收到付款／接下來), brown numbered dots.
-// Every sentence is the one the page already had. Only the frame changed (previous file: git history, commit 0ae1d28 and earlier).
+// Every sentence is the one the page already had, except the receipt line (see below). Only the frame changed (previous file: git history, commit 0ae1d28 and earlier).
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { CURRENT_COHORT as cohort } from '../../../data/cohorts';
 
 const title = '報名成功 — AI Cockpit Workshop';
 const description = `感謝你報名 ${cohort.dateShort} AI Cockpit Workshop。我會在 1-2 天內透過 LINE 聯繫你。`;
 
-const received = ['付款已收到、收據已寄到你的 email', '名額已 lock'];
+// 10/9: was 「付款已收到、收據已寄到你的 email」. Stripe's receipt e-mails are switched off on this account (the author checked
+// Settings → Business → Customer emails: Successful payments = off) and the backend sends none, so no receipt was ever sent.
+const received = ['付款已收到', '名額已保留']; // 10/9: was 「名額已 lock」
 const next = [
-  { t: '1-2 天內 LINE 聯繫', d: '我會主動聯繫你，安排課前 1:1 session' },
-  { t: '課前 1:1 session（線上、約 1 小時）', d: '聊聊你的狀態和目標，我會根據你的情境調整課程設計' },
-  { t: `${cohort.dateShort}（${cohort.weekday}）09:00 ${cohort.city}見`, d: '具體場地確認後會在 1:1 session 告知' },
+  { t: '1-2 天內 LINE 聯繫', d: '我會主動聯繫你，安排課前一對一' },
+  // 10/9, the author: the hour is for checking the setup, getting started, and hearing what the student needs — and it is 45 minutes,
+  // as the workshop page says in four places. Title and line now match the workshop page's own wording.
+  // Before: 課前 1:1 session（線上、約 1 小時）／聊聊你的狀態和目標，我會根據你的情境調整課程設計
+  { t: '課前線上一對一（45 分鐘）', d: '把環境裝好、實際用起來，也聊聊你想做什麼' },
+  { t: `${cohort.dateShort}（${cohort.weekday}）09:00 ${cohort.city}見`, d: '具體場地確認後會在課前一對一時告知' }, // the author, 10/9: this line stays — at signup time the venue is usually not fixed yet. Only 「1:1 session」 → 「課前一對一」.
 ];
 ---
 
