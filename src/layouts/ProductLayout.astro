@@ -1,0 +1,450 @@
+---
+// 10/9, with the author: the six product pages (three products × two languages) in the site's new look.
+// Before: each page was its own centred Tailwind page (bold title, rounded screenshot with a shadow, a cream call-to-action box).
+// The words on every page are the ones that were already there — title, lead, story, button labels. Only the frame is new.
+// Reading styles are the article page's (styles/reading.css), so a product page reads like an article with one action.
+// The product overview pages (/products/) are gone: the home page's 「我做的東西」 section does that job, and old links are redirected.
+import BaseLayout from './BaseLayout.astro';
+import '../styles/reading.css';
+
+interface Link {
+  href: string;
+  label: string;
+  event?: string;
+  data?: Record<string, string>;
+}
+interface Props {
+  lang: 'zh-TW' | 'en';
+  slug: 'neatoolkit' | 'ai-resume-advisor' | 'linkedin-resume-checker';
+  title: string;
+  description: string;
+  name: string;
+  lead: string;
+  image: string;
+  imageAlt: string;
+  cta: { heading: string; text?: string; links: Link[]; note?: string };
+  related?: { label: string; href: string; text: string };
+}
+
+const { lang, slug, title, description, name, lead, image, imageAlt, cta, related } = Astro.props;
+const zh = lang === 'zh-TW';
+const products = [
+  { slug: 'neatoolkit', name: 'NeatToolkit' },
+  { slug: 'ai-resume-advisor', name: 'AI Resume Advisor' },
+  { slug: 'linkedin-resume-checker', name: 'LinkedIn Resume Checker' },
+];
+const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).map(([k, v]) => [`data-umami-event-${k}`, v]));
+---
+
+<BaseLayout title={title} description={description}>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@500&family=Newsreader:opsz,wght@6..72,500&display=swap" />
+
+  <div class:list={['ar', 'pd', { 'pd-en': !zh }]}>
+    <article class="pd-grid">
+      <aside class="pd-rail">
+        <p class="pd-kick">{zh ? '我做的東西' : "What I've built"}</p>
+        <nav aria-label={zh ? '我做的東西' : "What I've built"}>
+          <ol>
+            {products.map((p) => (
+              <li><a href={`/${lang}/products/${p.slug}/`} aria-current={p.slug === slug ? 'page' : undefined}>{p.name}</a></li>
+            ))}
+          </ol>
+        </nav>
+      </aside>
+
+      <header class="pd-head">
+        <h1>{name}</h1>
+        <p class="pd-lead">{lead}</p>
+        <p class="pd-go">
+          {cta.links.map((l) => (
+            <a href={l.href} data-umami-event={l.event} {...dataAttrs(l)} data-umami-event-where="top">
+              <span>{l.label}</span><b aria-hidden="true">↗</b>
+            </a>
+          ))}
+        </p>
+      </header>
+
+      <figure class="pd-cover">
+        <img src={image} alt={imageAlt} fetchpriority="high" />
+      </figure>
+
+      <div class="ar-body prose prose-lg max-w-none">
+        <slot />
+      </div>
+
+      <section class="pd-cta">
+        <h2>{cta.heading}</h2>
+        {cta.text && <p class="t">{cta.text}</p>}
+        <p class="pd-go">
+          {cta.links.map((l) => (
+            <a href={l.href} data-umami-event={l.event} {...dataAttrs(l)} data-umami-event-where="bottom">
+              <span>{l.label}</span><b aria-hidden="true">↗</b>
+            </a>
+          ))}
+        </p>
+        {cta.note && <p class="n">{cta.note}</p>}
+      </section>
+
+      {related && (
+        <p class="pd-rel">
+          <span>{related.label}</span>
+          <a href={related.href}>{related.text} →</a>
+        </p>
+      )}
+
+      <a class="pd-back" href={`/${lang}/`}>{zh ? '← 首頁' : '← Home'}</a>
+    </article>
+
+    <section class="pd-end">
+      <img class="pd-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      <p class="pd-foot">
+        <span>© {new Date().getFullYear()} {zh ? '余文皓 WenHao Yu' : 'Yu Wen-Hao'}</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          {zh && <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>}
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pd {
+    --paper: #fbf9f5;
+    --ink: #241b18;
+    --text: #2b211c;
+    --muted: #71655c;
+    --faint: #a99a8d;
+    --hair: #e2d8c9;
+    --terra: #c25b3f;
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+    background: var(--paper);
+    color: var(--text);
+  }
+  .pd a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .pd :is(h1, h2, p, ol, figure) {
+    margin: 0;
+  }
+  .pd ol {
+    list-style: none;
+    padding: 0;
+  }
+
+  .pd-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+    column-gap: clamp(2.5rem, 6vw, 7rem);
+    align-items: start;
+    width: min(82rem, 100% - 2 * var(--gx));
+    margin: 0 auto;
+    padding: clamp(3rem, 7vh, 6rem) 0 clamp(5rem, 9vw, 9rem);
+  }
+  .pd-grid > * {
+    grid-column: 2;
+    min-width: 0;
+  }
+  .pd-grid > .pd-rail {
+    grid-column: 1;
+    grid-row: 1 / span 20;
+    position: sticky;
+    top: 7.5rem;
+    padding-top: 0.9rem;
+    border-top: 1.5px solid var(--ink);
+  }
+  .pd-kick {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+  }
+  .pd-rail nav {
+    margin-top: 1.8rem;
+  }
+  .pd-rail li a {
+    display: block;
+    padding: 0.5rem 0 0.5rem 0.9rem;
+    border-left: 1px solid var(--hair);
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .pd .pd-rail li a:hover {
+    color: var(--ink);
+  }
+  .pd .pd-rail li a[aria-current] {
+    color: var(--ink);
+    border-left-color: var(--terra);
+  }
+
+  .pd-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .pd .pd-lead {
+    margin-top: clamp(1.6rem, 2.6vw, 2.4rem);
+    padding-top: clamp(1.3rem, 2vw, 1.8rem);
+    border-top: 1px solid var(--hair);
+    max-width: 40em;
+    font-family: var(--serif);
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.95;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  /* the one action of the page: a line you can press, top and bottom */
+  .pd .pd-go {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 2.6rem;
+    margin-top: 1.8rem;
+  }
+  .pd .pd-go a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--terra);
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 1.5vw, 1.375rem);
+    letter-spacing: 0.04em;
+    color: var(--terra);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .pd .pd-go a b {
+    font-weight: 400;
+    transition: transform 0.3s;
+  }
+  .pd .pd-go a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+  .pd .pd-go a:hover b {
+    transform: translate(3px, -3px);
+  }
+  .pd .pd-cover {
+    margin-top: clamp(2.5rem, 4vw, 4rem);
+    border: 1px solid var(--hair);
+  }
+  .pd-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pd-cta {
+    max-width: 44rem;
+    margin-top: clamp(4rem, 6vw, 6rem);
+    padding-top: 2.2rem;
+    border-top: 1.5px solid var(--ink);
+  }
+  .pd-cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.2vw, 2.05rem);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .pd .pd-cta .t {
+    margin-top: 0.8rem;
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 2;
+    letter-spacing: 0.03em;
+  }
+  .pd .pd-cta .n {
+    margin-top: 1.4rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .pd .pd-rel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem 2rem;
+    max-width: 44rem;
+    margin-top: 3.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+  }
+  .pd-rel span {
+    color: var(--muted);
+  }
+  .pd .pd-rel a {
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .pd .pd-rel a:hover {
+    color: var(--terra);
+  }
+  .pd a.pd-back {
+    display: inline-block;
+    margin-top: 3rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .pd a.pd-back:hover {
+    color: var(--terra);
+  }
+
+  .pd-end {
+    position: relative;
+    overflow: hidden;
+    height: 11rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .pd-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, #000 100%);
+    pointer-events: none;
+  }
+  .pd .pd-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .pd-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .pd .pd-foot a:hover {
+    color: var(--dawn);
+  }
+
+  /* English: no tracking between letters, tighter lines */
+  .pd-en .pd-head h1 {
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+  .pd-en .pd-lead,
+  .pd-en .pd-go a,
+  .pd-en .pd-cta h2,
+  .pd-en .pd-cta .t,
+  .pd-en .pd-rel {
+    letter-spacing: 0;
+  }
+  .pd-en .pd-lead {
+    line-height: 1.7;
+  }
+
+  @media (max-width: 1023px) {
+    .pd-grid {
+      grid-template-columns: minmax(0, 1fr);
+      padding-top: 2rem;
+    }
+    .pd-grid > *,
+    .pd-grid > .pd-rail {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .pd-grid > .pd-rail {
+      position: static;
+      margin-bottom: 1.6rem;
+      padding-top: 0;
+      border-top: 0;
+    }
+    .pd-rail nav {
+      display: none;
+    }
+  }
+  @media (max-width: 640px) {
+    .pd-head h1 {
+      font-size: 2rem;
+    }
+    .pd .pd-cover {
+      margin-inline: calc(-1 * var(--gx));
+      border-inline: 0;
+    }
+    .pd-end {
+      height: 9rem;
+    }
+  }
+</style>
+
+<style is:global>
+  /* The shared footer is replaced by this page's last line; the header stays light, as on article pages. */
+  body:has(.pd .pd-end) footer.bg-cream-200 {
+    display: none;
+  }
+  body:has(.pd .pd-end) > header,
+  body:has(.pd .pd-end) header.sticky {
+    background: #fbf9f5 !important;
+  }
+  /* Inside the text, the old pages used rounded cream boxes for groups of links (NeatToolkit's four tool groups). Here: ruled columns. */
+  .pd .ar-body .not-prose {
+    gap: 2rem 3rem;
+    margin: 2.2rem 0 2.6rem;
+  }
+  .pd .ar-body .not-prose > div {
+    padding: 1rem 0 0;
+    border-top: 1.5px solid #241b18;
+    border-radius: 0;
+    background: none;
+  }
+  .pd .ar-body .not-prose h3 {
+    margin: 0 0 0.6rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    color: #71655c;
+  }
+  .pd .ar-body .not-prose ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pd .ar-body .not-prose li {
+    margin: 0;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #e2d8c9;
+  }
+  .pd .ar-body .not-prose li a {
+    border-bottom: 0;
+    text-decoration: none;
+  }
+  .pd-en .ar-body p,
+  .pd-en .ar-body li {
+    letter-spacing: 0;
+    line-height: 1.8;
+  }
+  .pd-en .ar-body :is(h2, h3) {
+    letter-spacing: 0;
+  }
+</style>

@@ -1,0 +1,295 @@
+/* The reading styles: how text written as Markdown or plain HTML is set inside `.ar .ar-body`.
+   Moved out of layouts/ArticleLayout.astro on 2026-10-09 so the product pages (layouts/ProductLayout.astro) read the same way.
+   Nothing in the rules changed in the move. */
+
+/* ---------- the article text (written in Markdown, so these rules are global, fenced by .ar-body) ---------- */
+.ar .ar-body {
+  margin-top: clamp(3rem, 5vw, 5rem);
+  padding-top: clamp(2.2rem, 3.4vw, 3.4rem);
+  border-top: 1.5px solid #241b18;
+  color: #2b211c;
+}
+/* reading measure for text; tables, figures and code may use the whole column */
+.ar .ar-body > * {
+  max-width: 44rem;
+}
+.ar .ar-body > :is(.ar-tbl, table, figure, pre, p:has(> img), div) {
+  max-width: none;
+}
+.ar .ar-body > :first-child {
+  margin-top: 0;
+}
+/* 10/9: the text is set in the site's own serif (the one its headings use) — the author's pick after comparing with
+   the Confluence articles. Before: the sans the rest of the site uses for small print (Satoshi / Noto Sans TC), 17px. */
+.ar .ar-body p {
+  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 2.1;
+  letter-spacing: 0.03em;
+  color: #2b211c;
+}
+.ar .ar-body :is(h2, h3, h4) {
+  scroll-margin-top: 7rem;
+  color: #241b18;
+}
+.ar .ar-body h2 {
+  margin: clamp(4rem, 6vw, 6rem) 0 1.6rem;
+  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.05rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+/* a short rule above each chapter: the page's one repeated mark */
+/* The mark above a chapter is a short rule; a numbered chapter (chapterCss, written per article) puts its number before it. */
+.ar .ar-body h2 {
+  position: relative;
+  padding-top: 2.1rem;
+}
+.ar .ar-body h2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 0.8125rem;
+  padding-right: 2.4rem;
+  background: linear-gradient(#c25b3f, #c25b3f) right center / 2.4rem 1.5px no-repeat;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: #c25b3f;
+}
+.ar .ar-body h3 {
+  margin: 3rem 0 1rem;
+  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-size: clamp(1.25rem, 1.6vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+.ar .ar-body h4 {
+  margin: 2.2rem 0 0.8rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.ar .ar-body a {
+  color: #241b18;
+  font-weight: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid #c25b3f;
+  padding-bottom: 0.05rem;
+  transition: color 0.2s;
+}
+.ar .ar-body a:hover {
+  color: #c25b3f;
+}
+.ar .ar-body strong {
+  font-weight: 600;
+  color: #241b18;
+}
+.ar .ar-body :is(ul, ol) {
+  margin: 1.4rem 0;
+  padding-left: 1.4rem;
+}
+.ar .ar-body ul {
+  list-style: disc;
+}
+.ar .ar-body ol {
+  list-style: decimal;
+}
+.ar .ar-body li {
+  margin: 0.5rem 0;
+  padding-left: 0.3rem;
+  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 2;
+  letter-spacing: 0.03em;
+}
+.ar .ar-body li::marker {
+  color: #c25b3f;
+}
+.ar .ar-body ol > li::marker {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.8125rem;
+}
+/* a quotation: a bar on the left, larger serif. No italics (slanted Chinese reads badly), no added quote marks. */
+.ar .ar-body blockquote {
+  margin: 2.4rem 0;
+  padding: 0.2rem 0 0.2rem 1.6rem;
+  border-left: 2px solid #c25b3f;
+  border-radius: 0;
+  background: none;
+  font-style: normal;
+  font-weight: 400;
+  quotes: none;
+  color: #241b18;
+}
+.ar .ar-body blockquote p {
+  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-size: 1.1875rem;
+  line-height: 1.95;
+  letter-spacing: 0.04em;
+}
+.ar .ar-body blockquote p::before,
+.ar .ar-body blockquote p::after {
+  content: none;
+}
+/* a break inside the text: one small diamond, the same mark as the page labels */
+.ar .ar-body hr {
+  width: 6px;
+  height: 6px;
+  margin: clamp(3rem, 5vw, 4.5rem) 0;
+  border: 0;
+  background: #c25b3f;
+  transform: rotate(45deg);
+}
+/* almost every article puts a break before each chapter; there the chapter's own rule is the mark */
+.ar .ar-body hr:has(+ h2),
+.ar .ar-body > hr:last-child {
+  display: none;
+}
+/* tables: a heavy rule on top, hairlines between rows, small spaced headings */
+.ar .ar-body .ar-tbl {
+  margin: 2.4rem 0;
+  overflow-x: auto;
+}
+.ar .ar-body table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  border-top: 1.5px solid #241b18;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+.ar .ar-body > table {
+  margin: 2.4rem 0;
+}
+.ar .ar-body thead {
+  border-bottom: 1px solid #241b18;
+}
+.ar .ar-body th {
+  padding: 0.85rem 1.2rem 0.85rem 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-align: left;
+  vertical-align: bottom;
+  color: #71655c;
+}
+.ar .ar-body td {
+  padding: 0.9rem 1.2rem 0.9rem 0;
+  border-bottom: 1px solid #e2d8c9;
+  vertical-align: top;
+  letter-spacing: 0.02em;
+  color: #2b211c;
+}
+.ar .ar-body tbody tr {
+  border-bottom: 0;
+}
+.ar .ar-body td:first-child {
+  color: #241b18;
+  font-weight: 500;
+}
+/* code: a night block; inline code a quiet tint, without the added backticks */
+.ar .ar-body .expressive-code {
+  margin: 2rem 0;
+}
+.ar .ar-body > pre {
+  margin: 2rem 0;
+  padding: 1.4rem 1.6rem;
+  border-radius: 0;
+  background: #14100e !important;
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.8438rem;
+  line-height: 1.85;
+  overflow-x: auto;
+}
+.ar .ar-body :not(pre) > code {
+  padding: 0.12em 0.4em;
+  border-radius: 2px;
+  background: #f4efe7;
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.875em;
+  font-weight: 400;
+  color: #241b18;
+}
+.ar .ar-body code::before,
+.ar .ar-body code::after {
+  content: none;
+}
+.ar .ar-body img {
+  border-radius: 0;
+}
+.ar .ar-body figure:not(.frame) {
+  margin: 2.6rem 0;
+}
+.ar .ar-body figure:not(.frame) > figcaption {
+  margin-top: 0.9rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  text-align: left;
+  color: #a99a8d;
+}
+.ar .ar-body iframe {
+  max-width: 100%;
+}
+/* English text: see the note in the scoped block above */
+.ar[data-lang='en'] .ar-body p,
+.ar[data-lang='en'] .ar-body li {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+.ar[data-lang='en'] .ar-body li {
+  margin: 0.35rem 0;
+}
+.ar[data-lang='en'] .ar-body h2 {
+  line-height: 1.22;
+  letter-spacing: -0.005em;
+}
+.ar[data-lang='en'] .ar-body h3 {
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+.ar[data-lang='en'] .ar-body h4 {
+  letter-spacing: 0;
+}
+.ar[data-lang='en'] .ar-body blockquote p {
+  font-size: 1.3125rem;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+.ar[data-lang='en'] .ar-body th {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ar[data-lang='en'] .ar-body td {
+  letter-spacing: 0;
+}
+@media (max-width: 640px) {
+  .ar .ar-body p,
+  .ar .ar-body li {
+    font-size: 1.0625rem;
+    line-height: 2;
+  }
+  .ar[data-lang='en'] .ar-body p,
+  .ar[data-lang='en'] .ar-body li {
+    font-size: 1.125rem;
+    line-height: 1.68;
+  }
+  .ar[data-lang='en'] .ar-body blockquote p {
+    font-size: 1.1875rem;
+  }
+  .ar .ar-body table {
+    font-size: 0.875rem;
+  }
+  .ar .ar-body th,
+  .ar .ar-body td {
+    padding-right: 0.9rem;
+  }
+}
