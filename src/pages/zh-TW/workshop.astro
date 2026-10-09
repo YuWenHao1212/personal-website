@@ -106,6 +106,16 @@ const faq = [
   { q: '兩個人一起報名有優惠嗎？', a: [`有。兩人以上，每人 NT$${PRICING_DEFAULTS.priceDuo.toLocaleString('en-US')}。`] },
   // 「臨時不能來怎麼辦？」 removed 10/8 at the author's word. The live page keeps that text as a low-key link beside the fee.
 ];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a.join(' ') },
+  })),
+};
 const duo = PRICING_DEFAULTS.priceDuo.toLocaleString('en-US');
 const save = (PRICING_DEFAULTS.priceRegular - PRICING_DEFAULTS.priceDuo).toLocaleString('en-US');
 const lunchX = 0.225; // between station 2 and station 3
@@ -114,6 +124,9 @@ const endX = 0.965;
 
 <BaseLayout title={title} description={description} image="/images/og-workshop.jpg" hideLanguageSwitcher={true} hasAlternate={false}>
   <script type="application/ld+json" set:html={JSON.stringify(courseLd)} />
+  {/* The five questions below, marked up as questions and answers for search engines and AI search (2026-10-10, ISS-359).
+      Built from the same `faq` list the page shows, so the two cannot drift apart. */}
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
 
   <div class="wp">
