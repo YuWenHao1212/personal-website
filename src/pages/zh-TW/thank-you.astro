@@ -1,46 +1,53 @@
 ---
+// Rewritten 10/9 with the author. The page a reader lands on right after leaving an e-mail address on the home page.
+// Before: a green tick, 「訂閱成功！」, 「感謝你訂閱我的電子報。我會不定期分享產品開發、AI 應用和人生思考。」,
+//         「請檢查你的信箱，確認訂閱郵件。」, a link back to the home page.
+// What changed and why:
+//   - Kit sends a confirmation e-mail and the subscription only counts once the reader clicks it (the author, 10/9).
+//     So the page's first job is that one step, said plainly — the old page said "success" and mentioned the e-mail in small print.
+//   - The old sentence listed the site's former subjects (產品開發、AI 應用、人生思考). Gone; no promise of how often a letter comes
+//     (the author's own line on 10/8: he cannot promise a frequency).
+//   - One thing to do while waiting: the home page's 「第一次來，照這個順序讀」.
+//   - noindex, and out of the sitemap (astro.config.mjs): a thank-you page has nothing for a search engine.
+// Wording is Claude's draft.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = '訂閱成功';
-const description = '感謝你訂閱電子報';
+const title = '還差一步：到信箱點確認信';
+const description = '訂閱電子報的最後一步：到信箱點確認信裡的連結。';
 ---
 
-<BaseLayout title={title} description={description}>
-  <section class="py-16 md:py-24 lg:py-32">
-    <div class="container-narrow text-center">
-      <div class="mb-8">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      </div>
+<BaseLayout title={title} description={description} noindex={true} hideLanguageSwitcher={true} hasAlternate={false}>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
 
-      <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-ink-900 mb-4">
-        訂閱成功！
-      </h1>
-
-      <p class="text-lg text-ink-600 mb-8 max-w-md mx-auto">
-        感謝你訂閱我的電子報。我會不定期分享產品開發、AI 應用和人生思考。
-      </p>
-
-      <div class="space-y-4">
-        <p class="text-sm text-ink-500">
-          請檢查你的信箱，確認訂閱郵件。
-        </p>
-
-        <a
-          href="/zh-TW/"
-          class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          回到首頁
+  {/* `ct` and `co-sky` are the contact page's markers: the header's night-page rules (gold logo, gutters) already key on them. */}
+  <div class="ct ty">
+    <section class="ty-in">
+      <img class="co-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" fetchpriority="high" />
+      <div class="ty-box">
+        <p class="kick"><i></i>電子報</p>
+        <h1>還差一步，<br />到信箱點確認信。</h1>
+        <p class="ty-sub">我寄了一封確認信給你。點信裡的連結，訂閱才算完成。沒看到的話，找一下垃圾信匣。</p>
+        <p class="ty-sub">確認之後，下一封信寫好就會寄到你的信箱。</p>
+        <a class="ty-go" href="/zh-TW/#articles" data-umami-event="thankyou_click_path">
+          <span class="k">等信的時候</span>
+          <span class="t">先讀這幾篇</span>
+          <b aria-hidden="true">→</b>
         </a>
       </div>
-    </div>
-  </section>
-  {/* 10/9: a subscription that went through is recorded here, once, with the entrance the reader used.
-      Only after a real submit (the home form sets nl_done), so opening this page directly counts nothing. */}
+      <p class="ty-foot">
+        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
+  </div>
+
+  {/* A subscription that was sent is recorded here, once, with the entrance the reader used (scripts/track.ts has the naming rule).
+      Only after a real submit — the home form sets nl_done — so opening this page directly counts nothing.
+      "Sent", not "confirmed": whether the reader clicks the confirmation e-mail is known only to Kit. */}
   <script is:inline>
     (function () {
       let from = null;
@@ -51,3 +58,183 @@ const description = '感謝你訂閱電子報';
     })();
   </script>
 </BaseLayout>
+
+<style>
+  .ty {
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --terra: #c25b3f;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+  }
+  .ty a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ty :is(h1, p) {
+    margin: 0;
+  }
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .kick i {
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+  .ty-in {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    min-height: 100svh;
+    margin-top: -6rem; /* slide under the header, as the other night covers do */
+    padding: 11rem var(--gx) 9rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .co-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 40%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 40%, #000 100%);
+    pointer-events: none;
+  }
+  .ty-box {
+    position: relative;
+    max-width: 46rem;
+  }
+  .ty h1 {
+    margin-top: 2.2rem;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.38;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+  }
+  .ty .ty-sub {
+    max-width: 34rem;
+    margin-top: 1.8rem;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.95;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.78);
+  }
+  .ty .ty-sub + .ty-sub {
+    margin-top: 0.6rem;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .ty a.ty-go {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 0.4rem 2.5rem;
+    width: min(34rem, 100%);
+    margin-top: 3.6rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(246, 241, 232, 0.3);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .ty-go .k {
+    grid-column: 1 / -1;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .ty-go .t {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .ty-go b {
+    font-weight: 300;
+    font-size: 1.4rem;
+    transition: transform 0.3s;
+  }
+  .ty a.ty-go:hover {
+    color: var(--dawn);
+    border-bottom-color: var(--dawn);
+  }
+  .ty-go:hover b {
+    transform: translateX(6px);
+  }
+  .ty-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .ty-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .ty .ty-foot a:hover {
+    color: var(--dawn);
+  }
+  @media (max-width: 640px) {
+    .ty h1 {
+      font-size: 2rem;
+    }
+    .ty-in {
+      padding-top: 9.5rem;
+    }
+  }
+</style>
+
+<style is:global>
+  /* One night screen: the shared footer is replaced by the page's last line, and the header sits on the sky (same rules as the contact page). */
+  body:has(.ty) footer.bg-cream-200 {
+    display: none;
+  }
+  body:has(.ty) > header,
+  body:has(.ty) header.sticky {
+    background: transparent !important;
+  }
+  body:has(.ty) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  body:has(.ty) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.ty) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.ty) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.ty) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.ty) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  body:has(.ty) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.ty) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>
