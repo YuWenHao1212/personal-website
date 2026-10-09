@@ -100,3 +100,11 @@
 /2023/*  /zh-TW/blog/  301
 /2024/*  /zh-TW/blog/  301
 /2025/*  /zh-TW/blog/  301
+
+# 2026-10-09: the product overview and the tool list pages are gone (nothing links to them in the new site).
+# Both go to the home page, which lists the three products and the two tool articles. (No #section in the target: not verified that
+# Cloudflare Pages keeps a fragment in _redirects, and a rule it rejects would leave the old address broken.)
+/zh-TW/products/  /zh-TW/  301
+/en/products/  /en/  301
+/zh-TW/picks/  /zh-TW/  301
+/en/picks/  /en/  301
