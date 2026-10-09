@@ -19,7 +19,7 @@ const description = '邀請余文皓演講、授課、採訪或合作，請寫�
       <div class="co-in">
         <p class="kick"><i></i>合作邀約</p>
         <h1>演講、採訪、合作，<br />寫信給我。</h1>
-        <p class="co-sub">信裡請寫：是什麼樣的場合、對象是誰、大概什麼時候。</p>
+        <p class="co-sub">信裡請寫：是什麼樣的場合、對象是誰、<span class="nb">大概什麼時候。</span></p>
         <a class="co-go" href="mailto:mail@yu-wenhao.com" data-umami-event="contact_click_email">
           <span>mail@yu-wenhao.com</span>
           <b aria-hidden="true">→</b>
@@ -198,6 +198,8 @@ const description = '邀請余文皓演講、授課、採訪或合作，請寫�
   .ct .co-foot a:hover {
     color: var(--dawn);
   }
+  /* keeps a phrase whole: on a phone 「大／概」 was split across two lines */
+  .ct .nb { white-space: nowrap; }
   /* phone, 10/9: the heading's first line (9 characters) was a hair too wide and broke inside 「合作」. One size down, two lines. */
   @media (max-width: 640px) {
     .co h1 { font-size: 2rem; }
