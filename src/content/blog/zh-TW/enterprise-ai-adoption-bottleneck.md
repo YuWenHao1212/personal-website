@@ -207,4 +207,4 @@ SOP 的問題不是「沒寫」，是寫的不是真正在做的事。
 
 導入 AI 時另一個常見的擔心是資料安全——[公司用 AI，資料會外洩嗎？](/zh-TW/blog/enterprise-ai-data-security/)拆解了三種部署方式（訂閱制、雲端託管、自建）的資安差異，幫你選出適合公司的路。
 
-*我幫企業做 AI 工作流導入——從流程盤點到自動化落地。讀完覺得「我們公司也是這樣」？[直接寫信聊聊](mailto:mail@yu-wenhao.com?subject=企業%20AI%20工作流導入諮詢)，或[看看服務內容](/zh-TW/services/)。*
+*我幫企業做 AI 工作流導入——從流程盤點到自動化落地。讀完覺得「我們公司也是這樣」？[直接寫信聊聊](mailto:mail@yu-wenhao.com?subject=企業%20AI%20工作流導入諮詢)，或到[匯流顧問](https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=article&utm_content=enterprise-ai-adoption-bottleneck)看企業 AI 導入怎麼做。*
