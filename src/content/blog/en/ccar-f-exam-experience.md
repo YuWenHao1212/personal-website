@@ -232,6 +232,4 @@ The difference I actually feel is in day-to-day work. For every architecture dec
 
 These used to be calls I made on instinct. Now I can name the mechanism behind them.
 
-*If this sparked an idea, [subscribe to my newsletter](/en/). I write about AI workflows and the things I figure out along the way.*
-
 ---

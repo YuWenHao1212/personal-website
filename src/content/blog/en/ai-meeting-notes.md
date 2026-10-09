@@ -185,9 +185,3 @@ Before the meeting, AI prepares the playbook — I decide which goals stay. Duri
 Judgment and direction are my job. Everything else is the system's.
 
 My AI workflow already covers email, goal management, knowledge base, and content creation — I call it my [AI second brain](/en/blog/ai-second-brain/). But after every meeting, I still had to write up notes manually. That gap was always leaking. A four-hour prototype plugged it.
-
-I built this for myself. After showing it to a few friends, some asked if it could work for their teams, others wanted it for personal use. Turning it into a product is a completely different game: more use cases, edge cases, stability, deployment. I don't want to build a product just for the sake of building one. But if you want this too — [let me know](mailto:mail@yu-wenhao.com). Enough people, and we'll make it happen together.
-
----
-
-*If this sparked an idea, [subscribe to my weekly letter](/en/) — I write about AI workflows and the things I figure out along the way.*

@@ -1,79 +1,275 @@
 ---
+// 10/9, with the author: the page a student lands on right after paying on Stripe, in the site's new look.
+// Before: a green tick in a circle, two white rounded cards on cream (已收到付款／接下來), brown numbered dots.
+// Every sentence is the one the page already had. Only the frame changed (previous file: git history, commit 0ae1d28 and earlier).
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { CURRENT_COHORT as cohort } from '../../../data/cohorts';
 
 const title = '報名成功 — AI Cockpit Workshop';
 const description = `感謝你報名 ${cohort.dateShort} AI Cockpit Workshop。我會在 1-2 天內透過 LINE 聯繫你。`;
+
+const received = ['付款已收到、收據已寄到你的 email', '名額已 lock'];
+const next = [
+  { t: '1-2 天內 LINE 聯繫', d: '我會主動聯繫你，安排課前 1:1 session' },
+  { t: '課前 1:1 session（線上、約 1 小時）', d: '聊聊你的狀態和目標，我會根據你的情境調整課程設計' },
+  { t: `${cohort.dateShort}（${cohort.weekday}）09:00 ${cohort.city}見`, d: '具體場地確認後會在 1:1 session 告知' },
+];
 ---
 
 <BaseLayout title={title} description={description} hideLanguageSwitcher={true} noindex={true}>
-  <section class="py-20 md:py-28 bg-[#F5F1EB] min-h-screen">
-    <div class="max-w-2xl mx-auto px-6">
-      <!-- Success icon -->
-      <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#D1FAE5] mb-6">
-          <svg class="w-10 h-10 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-          </svg>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  {/* `ct` and `co-sky` are the contact page's markers: the header's night-page rules (gold logo, gutters) already key on them. */}
+  <div class="ct wt">
+    <section class="wt-in">
+      <img class="co-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" fetchpriority="high" />
+      <div class="wt-box">
+        <p class="kick"><i></i>{cohort.dateShort} {cohort.city} · AI Cockpit Workshop</p>
+        <h1>報名成功！</h1>
+
+        <div class="wt-cols">
+          <div>
+            <h2>已收到付款</h2>
+            <ul>
+              {received.map((r) => <li>{r}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h2>接下來</h2>
+            <ol>
+              {next.map((n, i) => (
+                <li>
+                  <span class="n">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="b"><span class="t">{n.t}</span><span class="d">{n.d}</span></span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
-        <h1 class="text-[2rem] md:text-[2.5rem] font-bold text-[#2C2416] leading-tight mb-3">
-          報名成功！
-        </h1>
-        <p class="text-lg text-[#5C5144]">
-          {cohort.dateShort} {cohort.city} · AI Cockpit Workshop
-        </p>
-      </div>
 
-      <!-- Confirmation -->
-      <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 mb-6">
-        <h2 class="text-lg font-semibold text-[#2C2416] mb-4">已收到付款</h2>
-        <ul class="space-y-3 text-base text-[#5C5144]">
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-[#059669] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-            <span>付款已收到、收據已寄到你的 email</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-[#059669] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-            <span>名額已 lock</span>
-          </li>
-        </ul>
+        <p class="wt-q">有問題？寫信給 <a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a></p>
+        <a class="wt-back" href="/zh-TW/">← 回到首頁</a>
       </div>
-
-      <!-- Next steps -->
-      <div class="bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 mb-6">
-        <h2 class="text-lg font-semibold text-[#2C2416] mb-4">接下來</h2>
-        <ol class="space-y-4 text-base text-[#5C5144]">
-          <li class="flex gap-3">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[#B8926A] text-white text-sm font-bold flex items-center justify-center">1</span>
-            <div class="pt-0.5">
-              <p class="text-[#2C2416] font-medium">1-2 天內 LINE 聯繫</p>
-              <p class="text-sm text-[#5C5144] mt-1">我會主動聯繫你，安排課前 1:1 session</p>
-            </div>
-          </li>
-          <li class="flex gap-3">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[#B8926A] text-white text-sm font-bold flex items-center justify-center">2</span>
-            <div class="pt-0.5">
-              <p class="text-[#2C2416] font-medium">課前 1:1 session（線上、約 1 小時）</p>
-              <p class="text-sm text-[#5C5144] mt-1">聊聊你的狀態和目標，我會根據你的情境調整課程設計</p>
-            </div>
-          </li>
-          <li class="flex gap-3">
-            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[#B8926A] text-white text-sm font-bold flex items-center justify-center">3</span>
-            <div class="pt-0.5">
-              <p class="text-[#2C2416] font-medium">{cohort.dateShort}（{cohort.weekday}）09:00 {cohort.city}見</p>
-              <p class="text-sm text-[#5C5144] mt-1">具體場地確認後會在 1:1 session 告知</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-
-      <!-- Contact -->
-      <div class="text-center text-sm text-[#8B7355]">
-        <p>有問題？寫信給 <a href="mailto:mail@yu-wenhao.com" class="text-[#B8926A] hover:underline">mail@yu-wenhao.com</a></p>
-        <p class="mt-3">
-          <a href="/zh-TW/" class="text-[#B8926A] hover:underline">← 回到首頁</a>
-        </p>
-      </div>
-    </div>
-  </section>
+      <p class="wt-foot">
+        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .wt {
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --terra: #c25b3f;
+    --line: rgba(246, 241, 232, 0.22);
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+  }
+  .wt a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .wt :is(h1, h2, p, ul, ol) {
+    margin: 0;
+  }
+  .wt :is(ul, ol) {
+    list-style: none;
+    padding: 0;
+  }
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .kick i {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+  .wt-in {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    min-height: 100svh;
+    margin-top: -6rem; /* slide under the header, as the other night covers do */
+    padding: 11rem var(--gx) 9rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .co-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.6;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 50%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 50%, #000 100%);
+    pointer-events: none;
+  }
+  .wt-box {
+    position: relative;
+    max-width: 62rem;
+  }
+  .wt h1 {
+    margin-top: 2.2rem;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.38;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+  }
+  .wt-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 2.5rem clamp(2.5rem, 6vw, 6rem);
+    margin-top: 3.4rem;
+  }
+  .wt h2 {
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(246, 241, 232, 0.5);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.7);
+  }
+  .wt-cols li {
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 1rem;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    color: rgba(246, 241, 232, 0.9);
+  }
+  .wt-cols ol li {
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+  .wt-cols .n {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--dawn);
+  }
+  .wt-cols .t {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.1875rem;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+  }
+  .wt-cols .d {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.875rem;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .wt .wt-q {
+    margin-top: 3rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .wt .wt-q a {
+    color: var(--dawn);
+    border-bottom: 1px solid rgba(222, 144, 112, 0.5);
+  }
+  .wt a.wt-back {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .wt a.wt-back:hover,
+  .wt .wt-q a:hover {
+    color: var(--cream);
+  }
+  .wt-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .wt-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .wt .wt-foot a:hover {
+    color: var(--dawn);
+  }
+  @media (max-width: 800px) {
+    .wt-cols {
+      grid-template-columns: 1fr;
+      margin-top: 2.6rem;
+    }
+    .wt h1 {
+      font-size: 2.2rem;
+    }
+    .wt-in {
+      padding-top: 9.5rem;
+      padding-bottom: 8rem;
+    }
+  }
+</style>
+
+<style is:global>
+  /* One night screen: the shared footer is replaced by the page's last line, and the header sits on the sky (same rules as the contact page). */
+  body:has(.wt) footer.bg-cream-200 {
+    display: none;
+  }
+  body:has(.wt) > header,
+  body:has(.wt) header.sticky {
+    background: transparent !important;
+  }
+  body:has(.wt) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  body:has(.wt) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.wt) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.wt) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.wt) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.wt) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  body:has(.wt) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.wt) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>
