@@ -365,4 +365,4 @@ Claude 不只安全，在企業導入上也是目前的市場領導者：
 
 ---
 
-*我幫企業評估 AI 部署方案和工作流導入。還在猶豫選哪條路？[直接寫信聊聊](mailto:mail@yu-wenhao.com?subject=企業%20AI%20部署方案諮詢)，或[看看服務內容](/zh-TW/services/)。*
+*我幫企業評估 AI 部署方案和工作流導入。還在猶豫選哪條路？[直接寫信聊聊](mailto:mail@yu-wenhao.com?subject=企業%20AI%20部署方案諮詢)，或到[匯流顧問](https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=article&utm_content=enterprise-ai-data-security)看企業 AI 導入怎麼做。*

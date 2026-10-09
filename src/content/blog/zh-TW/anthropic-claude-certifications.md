@@ -152,6 +152,6 @@ AI 服務市場的專業分工，開始有了書面形式。
 
 *想考這幾張證照、卡在沒有報名管道或不知道從哪開始？→ [留下聯絡方式](https://ccarf-contact.pages.dev/)，我會親自回覆。*
 
-*想學好 Claude Code？參考我的公開班教學。→ [公開班資訊](https://yu-wenhao.com/zh-TW/workshop/)*
+*想用最有效率的方式學好 Claude Code？參考我的公開班教學。→ [公開班資訊](https://yu-wenhao.com/zh-TW/workshop/)*
 
-*有企業 AI 導入需求？→ [服務頁面](https://yu-wenhao.com/zh-TW/services)*
+*有企業 AI 導入需求？→ [匯流顧問](https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=article&utm_content=anthropic-claude-certifications)*
