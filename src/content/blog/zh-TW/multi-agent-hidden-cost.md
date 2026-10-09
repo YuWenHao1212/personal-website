@@ -3,6 +3,7 @@ title: "我建了一間 AI Agent 公司，第一天就想解散它"
 description: "6 個 AI agent、OKR、簽核流程全到位。第一天就發現：管理成本比執行成本還高。做了 10 年 PM 被流程卡過無數次，沒想到自己又建了一遍。"
 pubDate: 2026-03-28
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI agent", "multi agent", "Paperclip AI", "agentic coding", "AI 自動化"]
 author: "余文皓"
 keywords: ["multi agent", "AI agent", "Paperclip AI", "multi agent system", "AI 自動化", "AI agent 管理", "multi agent 成本"]

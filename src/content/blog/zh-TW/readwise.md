@@ -3,6 +3,7 @@ title: "Readwise: 自動同步閱讀的重點到筆記本"
 description: "Readwise 能自動同步散在網路上各個閱讀 App（Kindle、Instapaper 等）的畫線重點，並自動匯出到 Roam Research、Notion、Evernote 等數位筆記本中，是知識工作者的生產力神器。"
 pubDate: 2020-12-26
 category: productivity
+topics: ["growth"]
 tags: ["readwise", "學習", "筆紀方法", "知識管理"]
 lang: zh-TW
 featured: false
@@ -113,5 +114,3 @@ Readwise 支援匯出的筆記軟體有 Evernote、Notion 和 Roam Research。
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -4,6 +4,7 @@ description: "年度目標年年失敗、郵件堆成山、會議記不住——
 pubDate: 2026-01-14
 updatedDate: 2026-03-09
 category: productivity
+topics: ["growth", "ai-practice"]
 tags: ["AI工作流", "Claude Code", "Obsidian", "目標管理", "AI 自動化", "AI 筆記", "第二大腦", "效率系統", "building-in-public"]
 lang: zh-TW
 focusKeyphrase: "AI工作流"
@@ -341,5 +342,3 @@ AI 讓我能建立一套屬於自己的系統。不是買來的 App，不是套�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -3,6 +3,7 @@ title: "公司用 AI，資料會外洩嗎？自架 LLM、雲端託管、訂閱�
 description: "企業導入 AI 最常卡在資安問題。這篇文章拆解三種部署方式：API 訂閱制、雲端託管（AWS Bedrock / Azure OpenAI）、自建開源模型，比較成本、資料處理流程、前端可用性，附完整引用來源，幫你選出最適合的路。"
 pubDate: 2026-03-18
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "企業AI", "LLM部署", "Claude API", "AWS Bedrock", "Azure OpenAI", "資安", "local LLM", "自架LLM"]
 keywords: ["自架 LLM", "local llm", "企業 AI 部署", "claude api", "aws bedrock", "azure openai", "地端 AI", "vllm", "企業 AI 資安", "LLM 部署方式比較"]
 lang: zh-TW

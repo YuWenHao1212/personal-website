@@ -11,19 +11,35 @@ const { hideLanguageSwitcher = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const navItems = [
-  ...(lang === 'zh-TW' ? [{ href: `/${lang}/services/`, label: t('nav.services') }] : []),
-  { href: `/${lang}/products/`, label: t('nav.products') },
-  { href: `/${lang}/blog/`, label: t('nav.blog') },
-  // { href: `/${lang}/picks/`, label: t('nav.picks') }, // Hidden until more content
-  { href: `/${lang}/about/`, label: t('nav.about') },
-  { href: `/${lang}/contact/`, label: t('nav.contact') },
-];
+// zh-TW (10/8, with the author): four items, in the order readers look for them —
+//   new readers: 文章, 關於 · occasional readers: 課程 · a company looking to adopt AI: out to the Confluence site.
+//   Gone from the nav: 服務 (page retiring), 產品 (pages stay, linked from the home page), 聯繫 (email sits in every page's last line).
+// English nav is unchanged.
+type NavItem = { href: string; label: string; external?: boolean };
+const navItems: NavItem[] = lang === 'zh-TW'
+  ? [
+      { href: '/zh-TW/blog/', label: '文章' },
+      { href: '/zh-TW/workshop/', label: '課程' },
+      { href: '/zh-TW/about/', label: '關於' },
+      { href: 'https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=nav', label: '企業導入', external: true },
+    ]
+  : [
+      { href: `/${lang}/products/`, label: t('nav.products') },
+      { href: `/${lang}/blog/`, label: t('nav.blog') },
+      // { href: `/${lang}/picks/`, label: t('nav.picks') }, // Hidden until more content
+      { href: `/${lang}/about/`, label: t('nav.about') },
+      { href: `/${lang}/contact/`, label: t('nav.contact') },
+    ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-[#FAF8F5]">
+{/* 10/9: one behaviour on every page (the author's call). Scrolling down, the bar slides away so the page keeps the whole screen;
+    scrolling up even a little, it comes back — no need to return to the top to reach the nav.
+    data-scrolled = past the first stretch of the page (pages with a night cover give the bar a solid ground from there on);
+    data-hide = slid out of view. When shown the transform is `none`, not translateY(0): the mobile menu inside is position:fixed,
+    and a transformed ancestor would become its containing block. */}
+<header class="sticky top-0 z-50 bg-[#FAF8F5]" data-nav>
   <nav class="max-w-6xl mx-auto px-6">
     <div class="flex items-center justify-between h-24">
       <!-- Logo -->
@@ -43,9 +59,12 @@ const currentPath = Astro.url.pathname;
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center gap-10">
         <div class="flex items-center gap-8">
-          {navItems.map(({ href, label }) => (
+          {navItems.map(({ href, label, external }) => (
             <a
               href={href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener' : undefined}
+              data-umami-event={external ? 'nav_click_confluence' : undefined}
               class:list={[
                 'text-xl font-medium transition-colors',
                 currentPath.startsWith(href)
@@ -53,15 +72,28 @@ const currentPath = Astro.url.pathname;
                   : 'text-[#5C5144] hover:text-[#2C2416]',
               ]}
             >
-              {label}
+              {label}{external && <span aria-hidden="true"> ↗</span>}
             </a>
           ))}
         </div>
+
+        <!-- Invitations (zh-TW only): talks, interviews, collaboration. Outlined, so the newsletter stays the main action. -->
+        {lang === 'zh-TW' && (
+          <a
+            href={`/${lang}/contact/`}
+            data-pill="invite"
+            data-umami-event="nav_click_invite"
+            class="-mr-6 px-5 py-2.5 border border-[#B9AE9F] text-[#2C2416] text-base font-medium rounded-full hover:border-[#2C2416] transition-colors"
+          >
+            合作邀約
+          </a>
+        )}
 
         <!-- Newsletter CTA Button (zh-TW only) -->
         {lang === 'zh-TW' && (
           <a
             href={`/${lang}/#newsletter-form`}
+            data-umami-event="nav_click_newsletter"
             class="px-5 py-2.5 bg-[#E8E4DD] text-[#2C2416] text-base font-medium rounded-full hover:bg-[#D9D4CB] transition-colors"
           >
             {t('header.subscribe')}
@@ -112,9 +144,12 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile Navigation Overlay -->
   <div class="hidden md:hidden fixed inset-0 top-24 bg-[#FAF8F5] z-40" id="mobile-menu">
     <div class="flex flex-col gap-1 px-6 pt-6">
-      {navItems.map(({ href, label }) => (
+      {navItems.map(({ href, label, external }) => (
         <a
           href={href}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener' : undefined}
+          data-umami-event={external ? 'nav_click_confluence' : undefined}
           class:list={[
             'py-4 text-lg font-medium transition-colors border-b border-[#E8E4DD]',
             currentPath.startsWith(href)
@@ -122,7 +157,7 @@ const currentPath = Astro.url.pathname;
               : 'text-[#5C5144] hover:text-[#2C2416]',
           ]}
         >
-          {label}
+          {label}{external && <span aria-hidden="true"> ↗</span>}
         </a>
       ))}
       {!hideLanguageSwitcher && (
@@ -132,9 +167,18 @@ const currentPath = Astro.url.pathname;
       )}
       <!-- Mobile Newsletter CTA (zh-TW only) -->
       {lang === 'zh-TW' && (
-        <div class="py-4">
+        <div class="py-4 flex flex-wrap gap-3">
+          <a
+            href={`/${lang}/contact/`}
+            data-pill="invite"
+            data-umami-event="nav_click_invite"
+            class="inline-block px-5 py-2.5 border border-[#B9AE9F] text-[#2C2416] text-base font-medium rounded-full hover:border-[#2C2416] transition-colors"
+          >
+            合作邀約
+          </a>
           <a
             href={`/${lang}/#newsletter-form`}
+            data-umami-event="nav_click_newsletter"
             class="inline-block px-5 py-2.5 bg-[#E8E4DD] text-[#2C2416] text-base font-medium rounded-full hover:bg-[#D9D4CB] transition-colors"
           >
             {t('header.subscribe')}
@@ -144,6 +188,40 @@ const currentPath = Astro.url.pathname;
     </div>
   </div>
 </header>
+
+<style is:global>
+  header[data-nav] {
+    transition: transform 0.32s ease, background-color 0.25s ease;
+  }
+  header[data-nav][data-hide] {
+    transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    header[data-nav] { transition: none; }
+  }
+</style>
+
+<script>
+  // Hide on the way down, show on the way up.
+  const nav = document.querySelector<HTMLElement>('header[data-nav]');
+  if (nav) {
+    const PAST = 120; // px from the top before the bar may hide or take its solid ground
+    const STEP = 6; // ignore jitter smaller than this
+    let last = window.scrollY;
+    let queued = false;
+    const sync = () => {
+      queued = false;
+      const y = window.scrollY;
+      nav.toggleAttribute('data-scrolled', y > PAST);
+      if (y <= PAST) nav.removeAttribute('data-hide');
+      else if (y > last + STEP) nav.setAttribute('data-hide', '');
+      else if (y < last - STEP) nav.removeAttribute('data-hide');
+      if (Math.abs(y - last) > STEP) last = y;
+    };
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(sync); } }, { passive: true });
+    sync();
+  }
+</script>
 
 <script>
   const menuBtn = document.getElementById('mobile-menu-btn');
@@ -172,13 +250,6 @@ const currentPath = Astro.url.pathname;
       iconOpen?.classList.remove('hidden');
       iconClose?.classList.add('hidden');
       document.body.style.overflow = '';
-    });
-  });
-
-  // Umami: track nav clicks to services (fire-and-forget, never block navigation)
-  document.querySelectorAll('header a[href*="/services/"]').forEach((a) => {
-    a.addEventListener('click', () => {
-      (window as any).umami?.track('nav_click_services');
     });
   });
 </script>

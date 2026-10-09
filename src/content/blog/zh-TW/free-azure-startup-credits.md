@@ -3,6 +3,7 @@ title: "獨立開發者必知：Microsoft for Startups 免費 Azure 額度申請
 description: "Microsoft for Startups 提供最高 $5,000 美元的免費 Azure credits，可用於 OpenAI API、雲端服務等。本文分享申請流程、驗證方式，以及如何最大化這些資源的價值。"
 pubDate: 2026-01-09
 category: building-products
+topics: ["ai-practice"]
 tags: ["Microsoft", "Azure", "Startup", "獨立開發者", "免費資源", "OpenAI"]
 lang: zh-TW
 featured: false
@@ -68,7 +69,7 @@ Self-Service 路徑的額度分兩階段：
 
 ## 我怎麼用這些資源
 
-我用這些資源做了 [AI Resume Advisor](/zh-TW/products/ai-resume-advisor)。
+我用這些資源做了 [AI Resume Advisor](/zh-TW/products/ai-resume-advisor/)。
 
 後端用 Container Apps 跑容器化 API，資料庫是 PostgreSQL，用 Redis 做快取。AI 分析用 Azure OpenAI Service，PDF 解析用 Document Intelligence。檔案存在 Blob Storage。
 
@@ -97,5 +98,3 @@ Self-Service 路徑的額度分兩階段：
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

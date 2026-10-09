@@ -370,7 +370,7 @@ What's your budget?
 
 I personally use **Azure B2s (2 vCPU + 4GB RAM) + Azure OpenAI GPT-5.2**.
 
-Why not the cheaper Oracle or Hetzner options? Because I got **$25,000 in free Azure credits** (valid for one year) through [Microsoft for Startups](/en/blog/free-azure-startup-credits)—covering both cloud hosting and LLM API. My current **monthly cost is $0**.
+Why not the cheaper Oracle or Hetzner options? Because I got **$25,000 in free Azure credits** (valid for one year) through [Microsoft for Startups](/en/blog/free-azure-startup-credits/)—covering both cloud hosting and LLM API. My current **monthly cost is $0**.
 
 If you're an indie hacker or early-stage founder, this path is worth considering: zero cost for both hardware and LLM.
 

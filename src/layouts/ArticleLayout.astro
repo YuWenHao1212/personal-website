@@ -1,0 +1,1071 @@
+---
+// 10/9, with the author: the Chinese article page. English articles stay on BlogLayout.astro, untouched.
+// Reference he asked for: the Confluence insight articles (confluence-partners.ai/insights/…) — a fixed rail on the left
+// (topic + contents), a reading column on the right (title, summary, byline, a heavy rule, then the text), an author block at the end.
+// Colours and type are this site's own (index.astro .hp tokens), not Confluence's.
+// The reader this page is for: someone who arrived from search. Can this solve my problem (summary, contents) /
+// who wrote it (byline, author block) / what next (related, newsletter, two exits).
+// Kept for search, exactly as BlogLayout passes them: <title>/seoTitle, description, canonical, Article + FAQ data, hreflang,
+// the H1 text, the article HTML, the FAQ block, tags, the updated date. Added, nothing removed: summary under the title, byline, contents.
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import { getRelatedPosts } from '../utils/relatedPosts';
+import { topicNames, topicsOf } from '../i18n/topics';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  readingTime?: number;
+  headings?: { depth: number; slug: string; text: string }[];
+}
+
+const { post, readingTime, headings = [] } = Astro.props;
+const { title, seoTitle, description, pubDate, updatedDate, heroImage, tags = [], translationKey, faq } = post.data;
+const slug = post.id.split('/').pop()!;
+const postTopics = topicsOf(post.data);
+
+const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
+const translated = translationKey
+  ? allPosts.find((p) => p.data.translationKey === translationKey && p.data.lang === 'en')
+  : undefined;
+const related = getRelatedPosts({ currentPost: post, allPosts, limit: 3 }).map((p) => ({
+  href: `/zh-TW/blog/${p.id.split('/').pop()}/`,
+  title: p.data.title,
+  image: p.data.heroImage,
+  date: p.data.pubDate,
+  topics: topicsOf(p.data),
+}));
+
+// Contents: the article's own H2/H3. Short pieces (fewer than three H2) get none.
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const hasToc = toc.filter((h) => h.depth === 2).length >= 3;
+
+// Titles break where the author already put a colon, bar or question mark — not wherever the line happens to end
+// (「5 分／鐘」 was split). The H1's text is unchanged; the second half is only a block-level span.
+const cut = title.search(/[：｜|？]/);
+const cutEnd = cut < 0 ? -1 : cut + 1;
+const titleParts = cut >= 4 && title.length - cutEnd >= 4 ? [title.slice(0, cutEnd).trim(), title.slice(cutEnd).trim()] : [title];
+
+// Chapter numbers, 10/9 (the author: the Confluence articles feel more finished — one reason is their numbered chapters).
+// Only the article's real chapters are counted: openers and closers (前言、結語、常見問題…) are left bare, and an article
+// whose own headings already carry numbers (「1. …」「第一個…」「Step 1」) gets none, so nothing is numbered twice.
+const h2s = headings.filter((h) => h.depth === 2);
+const selfNumbered = h2s.filter((h) => /^(\d+[\.、:：\s]|第[一二三四五六七八九十\d]|Step\s*\d|步驟|[一二三四五六七八九十]+[、．.])/i.test(h.text.trim())).length >= 2; // two or more, so one heading like 「第一個任務」 does not switch numbering off
+const unnumbered = /^(前言|結語|結論|總結|小結|最後|寫在最後|常見問題|FAQ|延伸閱讀|資料來源|參考資料|參考來源|TL;?DR|推薦註冊|下一步)/i;
+const chapterNo = new Map<string, string>();
+if (!selfNumbered && h2s.length >= 3) {
+  let n = 0;
+  for (const h of h2s) if (!unnumbered.test(h.text.trim())) chapterNo.set(h.slug, String(++n).padStart(2, '0'));
+}
+const chapterCss = [...chapterNo].map(([id, no]) => `.ar .ar-body h2[id=${JSON.stringify(id)}]::before{content:"${no}";padding-right:3.4rem}`).join('');
+
+const fmtDay = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=article&utm_content=${encodeURIComponent(slug)}`;
+---
+
+<BaseLayout title={seoTitle || title} description={description} image={heroImage} article={true} publishedTime={pubDate.toISOString()} modifiedTime={updatedDate?.toISOString()} hideLanguageSwitcher={!translated} hasAlternate={!!translated} ogTitle={seoTitle ? title : undefined} faq={faq}>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@500&family=Newsreader:opsz,wght@6..72,500&display=swap" />
+  {chapterCss && <style is:inline set:html={chapterCss}></style>}
+
+  <div class="ar">
+    <article class="ar-grid">
+      <!-- ============ rail: topic + contents (fixed while reading; on a phone it folds into the column) ============ -->
+      <aside class="ar-rail">
+        <p class="ar-kick">
+          {postTopics.map((tp, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">・</span>}
+              <a href={`/zh-TW/blog/?category=${tp}`}>{topicNames[tp]}</a>
+            </>
+          ))}
+        </p>
+        {hasToc && (
+          <nav class="ar-toc" aria-label="本文目錄">
+            <ol>
+              {toc.map((h) => (
+                <li class={`lv${h.depth}`}><a href={`#${h.slug}`}>{chapterNo.has(h.slug) && <i>{chapterNo.get(h.slug)}</i>}{h.text}</a></li>
+              ))}
+            </ol>
+          </nav>
+        )}
+      </aside>
+
+      <!-- ============ head ============ -->
+      <header class="ar-head">
+        <h1>{titleParts.length === 2 ? <><span>{titleParts[0]}</span><span>{titleParts[1]}</span></> : title}</h1>
+        <p class="ar-dek">{description}</p>
+        <p class="ar-by">
+          <span>文｜<a href="/zh-TW/about/" rel="author" data-umami-event="blog_click_author" data-umami-event-slug={slug}>余文皓</a></span>
+          <time datetime={pubDate.toISOString()}>{fmtDay(pubDate)}</time>
+          {readingTime && <span>{readingTime} 分鐘</span>}
+          {translated && <a class="en" href={`/en/blog/${translated.id.split('/').pop()}/`} hreflang="en">Read in English →</a>}
+        </p>
+      </header>
+
+      {heroImage && (
+        <figure class="ar-cover">
+          <img src={heroImage} alt={title} fetchpriority="high" />
+        </figure>
+      )}
+
+      {hasToc && (
+        <details class="ar-toc-m">
+          <summary>目錄</summary>
+          <ol>
+            {toc.map((h) => (
+              <li class={`lv${h.depth}`}><a href={`#${h.slug}`}>{chapterNo.has(h.slug) && <i>{chapterNo.get(h.slug)}</i>}{h.text}</a></li>
+            ))}
+          </ol>
+        </details>
+      )}
+
+      <!-- ============ the text ============ -->
+      <div class="ar-body prose prose-lg max-w-none">
+        <slot />
+      </div>
+
+      <div class="ar-after">
+        {updatedDate && <p class="ar-upd">最後更新：{fmtDay(updatedDate)}</p>}
+
+        {faq && faq.length > 0 && (
+          <section class="ar-faq">
+            <h2>常見問題</h2>
+            <dl>
+              {faq.map((item) => (
+                <div>
+                  <dt>{item.question}</dt>
+                  <dd>{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
+        {tags.length > 0 && (
+          <p class="ar-tags">
+            {tags.map((tag) => (
+              <span>#{tag}</span>
+            ))}
+          </p>
+        )}
+
+        {/* Who wrote it. Text is the About page's approved description, word for word. */}
+        <section class="ar-author">
+          <img src="/images/hero.webp" alt="余文皓" width="400" height="400" loading="lazy" />
+          <div>
+            <p class="n">余文皓<span>Yu Wen-Hao</span></p>
+            <p class="b">科技業二十年，Nokia、聯詠科技、友達光電，做過工程師、PM、事業單位主管的幕僚。現在是企業 AI 導入顧問、AI 講師，Claude 認證架構師，匯流顧問創辦人。</p>
+            <a href="/zh-TW/about/" data-umami-event="blog_click_about" data-umami-event-slug={slug}>關於我 →</a>
+          </div>
+        </section>
+
+        {related.length > 0 && (
+          <section class="ar-rel">
+            <p class="ar-lab">相關文章</p>
+            <ol>
+              {related.map((r) => (
+                <li>
+                  <a href={r.href} data-umami-event="blog_click_related" data-umami-event-slug={slug} data-umami-event-to={r.href.replace(/^\/zh-TW\/blog\//, '').replace(/\/$/, '')}>
+                    <span class="pic">{r.image && <img src={r.image} alt="" loading="lazy" decoding="async" />}</span>
+                    <span class="body">
+                      <span class="meta"><time datetime={r.date.toISOString()}>{fmtDay(r.date)}</time><span class="tp">{r.topics.map((t) => topicNames[t]).join('・')}</span></span>
+                      <span class="t">{r.title}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        <a class="ar-back" href="/zh-TW/blog/">← 全部文章</a>
+      </div>
+    </article>
+
+    <!-- ============ ending: the next article by mail, the two exits, the last line ============ -->
+    <section class="ar-end">
+      <img class="ar-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      <div class="ar-end-in">
+        <a class="ar-nl" href="/zh-TW/#newsletter-form" data-umami-event="blog_click_newsletter" data-umami-event-slug={slug} data-umami-event-where="ending">
+          <span class="k">想讓新的文章寄給你</span>
+          <span class="t">訂閱電子報</span>
+          <b aria-hidden="true">→</b>
+        </a>
+        {/* Same two sentences every article ended on (components/PostPaths.astro), as two rows. Event names unchanged. */}
+        <ul class="ar-way">
+          <li>
+            <span>公司要導入 AI</span>
+            <a href={confluence} target="_blank" rel="noopener" data-umami-event="blog_click_confluence" data-umami-event-slug={slug} data-umami-event-where="ending">到匯流顧問找我們 ↗</a>
+          </li>
+          <li>
+            <span>個人想學這套做法</span>
+            <a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug={slug} data-umami-event-where="ending">一日的公開班 →</a>
+          </li>
+        </ul>
+      </div>
+      <p class="ar-foot">
+        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
+  </div>
+
+  <!-- Lightbox (as in BlogLayout) -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button id="lightbox-close" class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors" aria-label="Close">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl" src="" alt="" />
+  </div>
+
+  <script>
+    import { trackArticle } from '../scripts/track';
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    function openLightbox(src: string, alt: string) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox!.classList.remove('hidden');
+      lightbox!.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox!.classList.add('hidden');
+      lightbox!.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    // Every link in the text is recorded by kind (affiliate / another article / workshop / newsletter / Confluence / outbound),
+    // and reading to the author block counts as read to the end. See scripts/track.ts.
+    trackArticle({ body: '.ar-body', end: '.ar-author' });
+
+    document.querySelectorAll('.ar-body img').forEach((img) => {
+      const el = img as HTMLImageElement;
+      el.style.cursor = 'zoom-in';
+      el.addEventListener('click', () => openLightbox(el.src, el.alt));
+    });
+    lightbox!.addEventListener('click', (e) => {
+      if (e.target !== lightboxImg) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Wide tables scroll inside their own box instead of pushing the page sideways.
+    document.querySelectorAll('.ar-body > table').forEach((t) => {
+      const w = document.createElement('div');
+      w.className = 'ar-tbl';
+      t.parentNode!.insertBefore(w, t);
+      w.appendChild(t);
+    });
+
+    // Contents: mark the section being read.
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('.ar-toc a')];
+    if (links.length) {
+      const byId = new Map(links.map((a) => [decodeURIComponent(a.hash.slice(1)), a]));
+      const heads = [...document.querySelectorAll<HTMLElement>('.ar-body h2[id], .ar-body h3[id]')].filter((h) => byId.has(h.id));
+      const mark = () => {
+        let cur = heads[0];
+        for (const h of heads) if (h.getBoundingClientRect().top < 160) cur = h;
+        links.forEach((a) => a.classList.toggle('is-current', a === byId.get(cur?.id)));
+      };
+      addEventListener('scroll', mark, { passive: true });
+      mark();
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  /* Tokens are the home page's (index.astro .hp). */
+  .ar {
+    --paper: #fbf9f5;
+    --paper-2: #f4efe7;
+    --ink: #241b18;
+    --text: #2b211c;
+    --muted: #71655c;
+    --faint: #a99a8d;
+    --hair: #e2d8c9;
+    --terra: #c25b3f;
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+    background: var(--paper);
+    color: var(--text);
+  }
+  .ar a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ar :is(h1, p, ol, ul, figure, dl, dd) {
+    margin: 0;
+  }
+  .ar :is(ol, ul) {
+    list-style: none;
+    padding: 0;
+  }
+
+  /* ---------- two columns: rail left, reading right ---------- */
+  .ar-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+    column-gap: clamp(2.5rem, 6vw, 7rem);
+    align-items: start;
+    width: min(82rem, 100% - 2 * var(--gx));
+    margin: 0 auto;
+    padding: clamp(3rem, 7vh, 6rem) 0 clamp(5rem, 9vw, 9rem);
+  }
+  .ar-grid > * {
+    grid-column: 2;
+    min-width: 0;
+  }
+  .ar-grid > .ar-rail {
+    grid-column: 1;
+    grid-row: 1 / span 20;
+    position: sticky;
+    top: 7.5rem;
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding-top: 0.9rem;
+    border-top: 1.5px solid var(--ink);
+  }
+  .ar-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .ar-kick {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+  }
+  .ar .ar-kick a:hover {
+    color: var(--ink);
+  }
+  .ar-toc {
+    margin-top: 1.8rem;
+  }
+  .ar-toc li a {
+    display: block;
+    padding: 0.42rem 0 0.42rem 0.9rem;
+    border-left: 1px solid var(--hair);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .ar-toc li a i,
+  .ar-toc-m li a i {
+    margin-right: 0.8em;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--terra);
+  }
+  .ar-toc li.lv3 a {
+    padding-left: 1.9rem;
+    font-size: 0.75rem;
+    color: var(--faint);
+  }
+  .ar .ar-toc li a:hover {
+    color: var(--ink);
+  }
+  .ar .ar-toc li a.is-current {
+    color: var(--ink);
+    border-left-color: var(--terra);
+  }
+
+  /* ---------- head ---------- */
+  .ar-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 500; /* 10/9: was the lightest cut; on paper it read weak next to the Confluence titles */
+    line-height: 1.42;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .ar-head h1 span {
+    display: block;
+  }
+  .ar .ar-dek {
+    margin-top: clamp(1.8rem, 3vw, 2.8rem);
+    padding-top: clamp(1.4rem, 2.2vw, 2rem);
+    border-top: 1px solid var(--hair);
+    max-width: 40em;
+    font-family: var(--serif);
+    font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+    line-height: 2.05;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .ar .ar-by {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.8rem;
+    margin-top: 1.6rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--faint);
+  }
+  .ar .ar-by a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--terra);
+    padding-bottom: 0.1rem;
+  }
+  .ar .ar-by a.en {
+    color: var(--muted);
+    border-bottom-color: var(--hair);
+  }
+  .ar .ar-by a:hover {
+    color: var(--terra);
+  }
+  .ar .ar-cover {
+    margin-top: clamp(2.5rem, 4vw, 4rem);
+  }
+  .ar-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .ar-toc-m {
+    display: none;
+  }
+
+  /* ---------- after the text ---------- */
+  .ar-after {
+    max-width: 44rem;
+  }
+  .ar .ar-upd {
+    margin-top: 3rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--faint);
+  }
+  .ar-faq {
+    margin-top: 4.5rem;
+    padding-top: 2.2rem;
+    border-top: 1.5px solid var(--ink);
+  }
+  .ar-faq h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.1vw, 1.9rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .ar-faq dl > div {
+    padding: 1.7rem 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .ar-faq dt {
+    font-family: var(--serif);
+    font-size: 1.1875rem;
+    font-weight: 500;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+  .ar-faq dd {
+    margin-top: 0.7rem;
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 2;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+  }
+  .ar .ar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    margin-top: 3rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+  }
+  .ar-author {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 1.8rem;
+    align-items: start;
+    margin-top: 4.5rem;
+    padding-top: 2.2rem;
+    border-top: 1.5px solid var(--ink);
+  }
+  .ar-author img {
+    width: 5.5rem;
+    height: 5.5rem;
+    object-fit: cover;
+    filter: grayscale(0.15);
+  }
+  .ar-author .n {
+    font-family: var(--serif);
+    font-size: 1.375rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+  .ar-author .n span {
+    margin-left: 1rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .ar-author .b {
+    margin-top: 0.7rem;
+    font-size: 0.9375rem;
+    line-height: 1.95;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .ar .ar-author a {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    color: var(--terra);
+  }
+  .ar .ar-author a:hover {
+    color: var(--ink);
+  }
+  .ar-rel {
+    margin-top: 4.5rem;
+  }
+  .ar .ar-lab {
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .ar-rel li {
+    border-bottom: 1px solid var(--hair);
+  }
+  .ar-rel li a {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 1.6rem;
+    align-items: center;
+    padding: 1.2rem 0;
+  }
+  .ar-rel .pic {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .ar-rel .pic img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .ar-rel li a:hover .pic img {
+    transform: scale(1.04);
+  }
+  .ar-rel .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    color: var(--faint);
+  }
+  .ar-rel .meta .tp {
+    color: var(--terra);
+  }
+  .ar-rel .t {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--serif);
+    font-size: 1.1875rem;
+    line-height: 1.55;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .ar-rel li a:hover .t {
+    color: var(--terra);
+  }
+  .ar a.ar-back {
+    display: inline-block;
+    margin-top: 3.5rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .ar a.ar-back:hover {
+    color: var(--terra);
+  }
+
+  /* ---------- ending ---------- */
+  .ar-end {
+    --line: rgba(246, 241, 232, 0.22);
+    position: relative;
+    overflow: hidden;
+    padding: 6.5rem var(--gx) 8rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .ar-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 45%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 45%, #000 100%);
+    pointer-events: none;
+  }
+  .ar-end-in {
+    position: relative;
+    width: min(40rem, 100%);
+  }
+  .ar a.ar-nl {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 0.4rem 2.5rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(246, 241, 232, 0.3);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .ar-nl .k {
+    grid-column: 1 / -1;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .ar-nl .t {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .ar-nl b {
+    font-weight: 300;
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+  }
+  .ar a.ar-nl:hover {
+    color: var(--dawn);
+    border-bottom-color: var(--dawn);
+  }
+  .ar-nl:hover b {
+    transform: translateX(6px);
+  }
+  .ar-way {
+    margin-top: 3.5rem !important;
+    border-top: 1px solid var(--line);
+  }
+  .ar-way li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+  }
+  .ar-way span {
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .ar .ar-way a {
+    color: rgba(246, 241, 232, 0.9);
+    transition: color 0.2s;
+  }
+  .ar .ar-way a:hover {
+    color: var(--dawn);
+  }
+  .ar-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .ar-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .ar .ar-foot a:hover {
+    color: var(--dawn);
+  }
+
+  /* ---------- one column: tablet and phone ---------- */
+  @media (max-width: 1023px) {
+    .ar-grid {
+      grid-template-columns: minmax(0, 1fr);
+      padding-top: 2rem;
+    }
+    .ar-grid > *,
+    .ar-grid > .ar-rail {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .ar-grid > .ar-rail {
+      position: static;
+      max-height: none;
+      margin-bottom: 1.4rem;
+      padding-top: 0;
+      border-top: 0;
+    }
+    .ar-toc {
+      display: none;
+    }
+    .ar-toc-m {
+      display: block;
+      margin-top: 2.2rem;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+    }
+    .ar-toc-m summary {
+      padding: 0.95rem 0;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .ar-toc-m ol {
+      padding-bottom: 1rem;
+    }
+    .ar-toc-m li a {
+      display: block;
+      padding: 0.45rem 0;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .ar-toc-m li.lv3 a {
+      padding-left: 1.1rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+  }
+  @media (max-width: 640px) {
+    .ar-head h1 {
+      font-size: 1.75rem;
+      line-height: 1.5;
+    }
+    .ar .ar-cover {
+      margin-inline: calc(-1 * var(--gx));
+    }
+    .ar-author {
+      grid-template-columns: 4rem minmax(0, 1fr);
+      gap: 1.2rem;
+    }
+    .ar-author img {
+      width: 4rem;
+      height: 4rem;
+    }
+    .ar-author .n span {
+      display: block;
+      margin: 0.2rem 0 0;
+    }
+    .ar-rel li a {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      gap: 1.1rem;
+    }
+    .ar-rel .pic {
+      aspect-ratio: 1;
+    }
+    .ar-rel .meta .tp {
+      display: none;
+    }
+    .ar-rel .t {
+      font-size: 1.0625rem;
+    }
+    .ar-end {
+      padding: 4.5rem var(--gx) 8rem;
+    }
+  }
+</style>
+
+<style is:global>
+  /* The shared footer is replaced by this page's last line (as on the other new pages). The header stays light here. */
+  body:has(.ar .ar-end) footer.bg-cream-200 {
+    display: none;
+  }
+  body:has(.ar .ar-end) > header,
+  body:has(.ar .ar-end) header.sticky {
+    background: #fbf9f5 !important;
+  }
+
+  /* ---------- the article text (written in Markdown, so these rules are global, fenced by .ar-body) ---------- */
+  .ar .ar-body {
+    margin-top: clamp(3rem, 5vw, 5rem);
+    padding-top: clamp(2.2rem, 3.4vw, 3.4rem);
+    border-top: 1.5px solid #241b18;
+    color: #2b211c;
+  }
+  /* reading measure for text; tables, figures and code may use the whole column */
+  .ar .ar-body > * {
+    max-width: 44rem;
+  }
+  .ar .ar-body > :is(.ar-tbl, table, figure, pre, p:has(> img), div) {
+    max-width: none;
+  }
+  .ar .ar-body > :first-child {
+    margin-top: 0;
+  }
+  /* 10/9: the text is set in the site's own serif (the one its headings use) — the author's pick after comparing with
+     the Confluence articles. Before: the sans the rest of the site uses for small print (Satoshi / Noto Sans TC), 17px. */
+  .ar .ar-body p {
+    font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+    font-size: 1.125rem;
+    line-height: 2.1;
+    letter-spacing: 0.03em;
+    color: #2b211c;
+  }
+  .ar .ar-body :is(h2, h3, h4) {
+    scroll-margin-top: 7rem;
+    color: #241b18;
+  }
+  .ar .ar-body h2 {
+    margin: clamp(4rem, 6vw, 6rem) 0 1.6rem;
+    font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+    font-size: clamp(1.6rem, 2.2vw, 2.05rem);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+  }
+  /* a short rule above each chapter: the page's one repeated mark */
+  /* The mark above a chapter is a short rule; a numbered chapter (chapterCss, written per article) puts its number before it. */
+  .ar .ar-body h2 {
+    position: relative;
+    padding-top: 2.1rem;
+  }
+  .ar .ar-body h2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 0.8125rem;
+    padding-right: 2.4rem;
+    background: linear-gradient(#c25b3f, #c25b3f) right center / 2.4rem 1.5px no-repeat;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    color: #c25b3f;
+  }
+  .ar .ar-body h3 {
+    margin: 3rem 0 1rem;
+    font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+    font-size: clamp(1.25rem, 1.6vw, 1.4rem);
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+  .ar .ar-body h4 {
+    margin: 2.2rem 0 0.8rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .ar .ar-body a {
+    color: #241b18;
+    font-weight: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid #c25b3f;
+    padding-bottom: 0.05rem;
+    transition: color 0.2s;
+  }
+  .ar .ar-body a:hover {
+    color: #c25b3f;
+  }
+  .ar .ar-body strong {
+    font-weight: 600;
+    color: #241b18;
+  }
+  .ar .ar-body :is(ul, ol) {
+    margin: 1.4rem 0;
+    padding-left: 1.4rem;
+  }
+  .ar .ar-body ul {
+    list-style: disc;
+  }
+  .ar .ar-body ol {
+    list-style: decimal;
+  }
+  .ar .ar-body li {
+    margin: 0.5rem 0;
+    padding-left: 0.3rem;
+    font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+    font-size: 1.125rem;
+    line-height: 2;
+    letter-spacing: 0.03em;
+  }
+  .ar .ar-body li::marker {
+    color: #c25b3f;
+  }
+  .ar .ar-body ol > li::marker {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+  }
+  /* a quotation: a bar on the left, larger serif. No italics (slanted Chinese reads badly), no added quote marks. */
+  .ar .ar-body blockquote {
+    margin: 2.4rem 0;
+    padding: 0.2rem 0 0.2rem 1.6rem;
+    border-left: 2px solid #c25b3f;
+    border-radius: 0;
+    background: none;
+    font-style: normal;
+    font-weight: 400;
+    quotes: none;
+    color: #241b18;
+  }
+  .ar .ar-body blockquote p {
+    font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+    font-size: 1.1875rem;
+    line-height: 1.95;
+    letter-spacing: 0.04em;
+  }
+  .ar .ar-body blockquote p::before,
+  .ar .ar-body blockquote p::after {
+    content: none;
+  }
+  /* a break inside the text: one small diamond, the same mark as the page labels */
+  .ar .ar-body hr {
+    width: 6px;
+    height: 6px;
+    margin: clamp(3rem, 5vw, 4.5rem) 0;
+    border: 0;
+    background: #c25b3f;
+    transform: rotate(45deg);
+  }
+  /* almost every article puts a break before each chapter; there the chapter's own rule is the mark */
+  .ar .ar-body hr:has(+ h2),
+  .ar .ar-body > hr:last-child {
+    display: none;
+  }
+  /* tables: a heavy rule on top, hairlines between rows, small spaced headings */
+  .ar .ar-body .ar-tbl {
+    margin: 2.4rem 0;
+    overflow-x: auto;
+  }
+  .ar .ar-body table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    border-top: 1.5px solid #241b18;
+    font-size: 0.9375rem;
+    line-height: 1.8;
+  }
+  .ar .ar-body > table {
+    margin: 2.4rem 0;
+  }
+  .ar .ar-body thead {
+    border-bottom: 1px solid #241b18;
+  }
+  .ar .ar-body th {
+    padding: 0.85rem 1.2rem 0.85rem 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-align: left;
+    vertical-align: bottom;
+    color: #71655c;
+  }
+  .ar .ar-body td {
+    padding: 0.9rem 1.2rem 0.9rem 0;
+    border-bottom: 1px solid #e2d8c9;
+    vertical-align: top;
+    letter-spacing: 0.02em;
+    color: #2b211c;
+  }
+  .ar .ar-body tbody tr {
+    border-bottom: 0;
+  }
+  .ar .ar-body td:first-child {
+    color: #241b18;
+    font-weight: 500;
+  }
+  /* code: a night block; inline code a quiet tint, without the added backticks */
+  .ar .ar-body .expressive-code {
+    margin: 2rem 0;
+  }
+  .ar .ar-body > pre {
+    margin: 2rem 0;
+    padding: 1.4rem 1.6rem;
+    border-radius: 0;
+    background: #14100e !important;
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.8438rem;
+    line-height: 1.85;
+    overflow-x: auto;
+  }
+  .ar .ar-body :not(pre) > code {
+    padding: 0.12em 0.4em;
+    border-radius: 2px;
+    background: #f4efe7;
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.875em;
+    font-weight: 400;
+    color: #241b18;
+  }
+  .ar .ar-body code::before,
+  .ar .ar-body code::after {
+    content: none;
+  }
+  .ar .ar-body img {
+    border-radius: 0;
+  }
+  .ar .ar-body figure:not(.frame) {
+    margin: 2.6rem 0;
+  }
+  .ar .ar-body figure:not(.frame) > figcaption {
+    margin-top: 0.9rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    line-height: 1.8;
+    letter-spacing: 0.06em;
+    text-align: left;
+    color: #a99a8d;
+  }
+  .ar .ar-body iframe {
+    max-width: 100%;
+  }
+  @media (max-width: 640px) {
+    .ar .ar-body p,
+    .ar .ar-body li {
+      font-size: 1.0625rem;
+      line-height: 2;
+    }
+    .ar .ar-body table {
+      font-size: 0.875rem;
+    }
+    .ar .ar-body th,
+    .ar .ar-body td {
+      padding-right: 0.9rem;
+    }
+  }
+</style>

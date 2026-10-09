@@ -2,9 +2,11 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
+import PostPaths from '../components/PostPaths.astro';
 import LanguageVersionLink from '../components/LanguageVersionLink.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { categoryNames } from '../i18n/categories';
+import { topicNames, topicsOf } from '../i18n/topics';
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 
@@ -59,12 +61,24 @@ function formatDate(date: Date): string {
       <!-- Header -->
       <header class="mb-8 md:mb-10">
         <div class="flex items-center gap-2 mb-3 md:mb-4">
-          <a
-            href={`/${lang}/blog?category=${category}`}
-            class="text-sm font-medium text-accent hover:text-accent-hover transition-colors"
-          >
-            {categoryNames[category][lang]}
-          </a>
+          {/* 10/9: Chinese articles show the two new topics (one or two per article); English keeps its three categories. */}
+          {lang === 'zh-TW' ? (
+            topicsOf(post.data).map((tp) => (
+              <a
+                href={`/zh-TW/blog/?category=${tp}`}
+                class="text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+              >
+                {topicNames[tp]}
+              </a>
+            ))
+          ) : (
+            <a
+              href={`/${lang}/blog/?category=${category}`}
+              class="text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+            >
+              {categoryNames[category][lang]}
+            </a>
+          )}
           <span class="text-ink-300">·</span>
           <time datetime={pubDate.toISOString()} class="text-sm text-ink-500">
             {formatDate(pubDate)}
@@ -99,6 +113,12 @@ function formatDate(date: Date): string {
       <div class="prose prose-lg max-w-none">
         <slot />
       </div>
+
+      {/* marks the end of the text for the "read to the end" event; takes no space */}
+      <div id="article-end" aria-hidden="true" style="height:1px"></div>
+
+      {/* Two exits: company → Confluence, individual → workshop (replaces the old services line) */}
+      {lang === 'zh-TW' && <PostPaths slug={post.id.split('/').pop()!} />}
 
       <!-- Tags -->
       {tags.length > 0 && (
@@ -142,7 +162,7 @@ function formatDate(date: Date): string {
       <!-- Back to Blog -->
       <div class="mt-10 md:mt-12">
         <a
-          href={`/${lang}/blog`}
+          href={`/${lang}/blog/`}
           class="inline-flex items-center gap-2 text-accent hover:text-accent-hover font-medium transition-colors"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,6 +185,7 @@ function formatDate(date: Date): string {
   </div>
 
   <script>
+    import { trackArticle } from '../scripts/track';
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
 
@@ -182,24 +203,9 @@ function formatDate(date: Date): string {
       document.body.style.overflow = '';
     }
 
-    // Umami: track blog CTA clicks with slug (fire-and-forget, never block navigation)
-    const slug = window.location.pathname.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '');
-    const lang = window.location.pathname.split('/')[1] || '';
-    document.querySelectorAll('.prose a').forEach((a) => {
-      const href = a.getAttribute('href') || '';
-      const eventName = href.includes('/services/')
-        ? 'blog_click_services'
-        : href.startsWith('mailto:')
-          ? 'blog_click_email'
-          : href.includes('ccarf-contact.pages.dev')
-            ? 'blog_click_ccarf_form'
-            : null;
-      if (eventName) {
-        a.addEventListener('click', () => {
-          (window as any).umami?.track(eventName, { slug, lang });
-        });
-      }
-    });
+    // 10/9: the same link tracking as the Chinese article page (scripts/track.ts). Tracking only — the page looks the same.
+    // Before: only links to /services/, mailto: and the CCAR-F form were recorded.
+    trackArticle({ body: '.prose', end: '#article-end' });
 
     document.querySelectorAll('.prose img').forEach((img) => {
       const el = img as HTMLImageElement;

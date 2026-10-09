@@ -3,6 +3,7 @@ title: "讓英語不再成為溝通和學習的障礙 | Otter.AI"
 description: "Otter.ai 是利用 AI 即時產生英文逐字稿的工具。無論是英語會議、學習 Podcast 或線上課程，都能快速產生逐字稿，方便定位重聽、編輯校正、保存筆記或翻譯成中文。"
 pubDate: 2021-03-21
 category: productivity
+topics: ["growth"]
 tags: ["otter", "數位工具", "知識管理"]
 lang: zh-TW
 featured: false
@@ -82,5 +83,3 @@ Otter.ai 支援 iOS、Android 和網頁版（雲端同步）。我個人偏好�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

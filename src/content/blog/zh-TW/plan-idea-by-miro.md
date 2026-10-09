@@ -3,6 +3,7 @@ title: "Miro - 快速規劃並畫出想法的線上工具"
 description: "Miro 是一個整合流程圖、心智圖、時間軸、組織架構的線上協作白板工具。提供 60+ 模板，支援即時遠程協作，讓 PM、工程師、設計師可以在同一平台上溝通想法。"
 pubDate: 2020-11-28
 category: productivity
+topics: ["growth"]
 tags: ["flow chart", "mindmap", "miro app", "plan", "visualize", "數位工具"]
 lang: zh-TW
 featured: false
@@ -95,5 +96,3 @@ Miro提供免費和不同金額的付費方案。免費版本提供3個無限大
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -4,6 +4,7 @@ description: "台灣 vibe coder 想收美金訂閱，Stripe 不支援台灣。�
 pubDate: 2026-04-17
 author: "余文皓"
 category: building-products
+topics: ["ai-practice"]
 tags: ["vibe-coding", "美國-llc", "wyoming", "stripe", "claude-code", "solo-operator"]
 lang: zh-TW
 translationKey: vibe-coder-wyoming-llc-guide
@@ -797,5 +798,3 @@ $139 的成立費、$309/年的維護費，換的是**一勞永逸的收款能�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/) — 我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

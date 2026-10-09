@@ -3,6 +3,7 @@ title: "No-Code革命：零基礎入門Bubble.io全攻略"
 description: "在數位創新浪潮中，Bubble.io 無程式碼平台正徹底改變應用開發模式。本系列第一篇文章將帶您穿越技術障礙，從零基礎邁向 Bubble 開發者之路。透過系統化的學習藍圖，您將掌握無需程式碼即可建立專業應用的關鍵技能，快速將商業構想轉化為現實產品。"
 pubDate: 2025-03-20
 category: building-products
+topics: ["ai-practice"]
 tags: ["No-Code", "Bubble.io", "Bubble教學", "Bubble", "bubble平台", "no-code開發", "no-code development"]
 lang: zh-TW
 featured: false
@@ -11,7 +12,7 @@ heroImage: /images/blog/no-code-bubble-complete-beginners-tutorial.webp
 
 > **2026 年更新**：這篇文章寫於 2025 年初，當時 AI Coding 尚未成熟。如今 AI 工具如 Claude Code、Cursor 已大幅降低程式開發門檻，效率遠超 No-Code 平台。如果你是從零開始，我建議直接學習 AI Coding。
 >
-> 👉 推薦閱讀：[離開工程師 14 年，我用 AI 做出一個完整產品](/zh-TW/blog/nocode-to-ai-coding)
+> 👉 推薦閱讀：[離開工程師 14 年，我用 AI 做出一個完整產品](/zh-TW/blog/nocode-to-ai-coding/)
 
 ---
 
@@ -130,5 +131,3 @@ Bubble.io 最大的突破在於將這些原本需要不同專業人員和技術�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

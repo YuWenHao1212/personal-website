@@ -39,4 +39,15 @@ const description = '感謝你訂閱電子報';
       </div>
     </div>
   </section>
+  {/* 10/9: a subscription that went through is recorded here, once, with the entrance the reader used.
+      Only after a real submit (the home form sets nl_done), so opening this page directly counts nothing. */}
+  <script is:inline>
+    (function () {
+      let from = null;
+      try { from = sessionStorage.getItem('nl_done'); sessionStorage.removeItem('nl_done'); sessionStorage.removeItem('nl_from'); } catch {}
+      if (!from) return;
+      let k = 0;
+      (function go() { if (window.umami?.track) window.umami.track('newsletter_success', { from }); else if (k++ < 20) setTimeout(go, 250); })();
+    })();
+  </script>
 </BaseLayout>

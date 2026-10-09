@@ -4,6 +4,7 @@ seoTitle: "AI 工作流實戰：三次修好工具，每天省下一小時"
 description: "大多數人遇到工具問題時，選擇繞過去。但繞過去的代價，是每天多花 30 分鐘做不該做的事。我用 Claude Code、MCP、Obsidian 建了一套 AI 工作流，分享三次修好工具的經驗和判斷標準。"
 pubDate: 2026-02-23
 category: productivity
+topics: ["growth", "ai-practice"]
 tags: ["Claude Code", "AI 工作流", "Obsidian", "效率系統", "知識管理"]
 lang: zh-TW
 featured: false
@@ -117,5 +118,3 @@ Cockpit 是我的指揮中心，管每日規劃和跨專案協調。Claude Code 
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

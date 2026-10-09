@@ -3,6 +3,7 @@ title: "我受不了了，所以自己做了一個免費工具站"
 description: "受不了廣告蓋板和浮水印？我做了 NeatToolkit——免費線上工具站，不用註冊，打開就用。"
 pubDate: 2026-02-12
 category: building-products
+topics: ["ai-practice"]
 tags: ["一人公司", "Side Project", "免費工具", "neatoolkit"]
 lang: zh-TW
 translationKey: neatoolkit-launch
@@ -85,6 +86,3 @@ Facebook 貼文排版就是一個。我習慣用 Markdown 寫東西（和 AI 一
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
-

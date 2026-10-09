@@ -33,8 +33,10 @@ const year = new Date().getFullYear();
         WenHao Yu
       </a>
       <p class="mt-2 text-sm text-ink-600">
+        {/* 10/9: was 「打造自己的 AI 工作流，每天往前走一步。分享 AI 實戰、效率系統與人生思考。」 — the three names were the old
+            categories, which no longer exist. Now the first half of the home page's approved description. */}
         {lang === 'zh-TW'
-          ? '打造自己的 AI 工作流，每天往前走一步。分享 AI 實戰、效率系統與人生思考。'
+          ? '我寫怎麼讓 AI 進到工作和生活裡，也分享給願意動手的人。'
           : 'Building products, systems, and a life with AI. Sharing AI in practice, productivity & life lessons.'}
       </p>
 
@@ -58,9 +60,9 @@ const year = new Date().getFullYear();
     <!-- Copyright -->
     <div class="mt-12 pt-8 border-t border-cream-300">
       <p class="text-sm text-ink-500 text-center">
+        {/* 10/9: the Admin link that sat here is removed at the author's word. It showed under every article; he only ever enters
+            from the bottom of the home page, where the link now lives (pages/zh-TW/index.astro). */}
         {t('footer.copyright')}
-        <span class="mx-1 text-ink-300">·</span>
-        <a href="/admin/" class="text-ink-300 hover:text-ink-500 transition-colors">Admin</a>
       </p>
     </div>
   </div>

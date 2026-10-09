@@ -3,6 +3,7 @@ title: "Claude Skills 教學：從零開始打造你的 AI 自動化工作流"
 description: "這篇 Claude Skills 教學從實際案例出發，帶你理解 Skill 的運作原理、三層載入架構、觸發機制、設計模式，以及 Anthropic 官方的 Skill 寫作哲學。附實戰經驗和上手指南。"
 pubDate: 2026-03-07
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "Claude Code", "agentic coding", "Claude Skills", "developer-tools"]
 lang: zh-TW
 translationKey: claude-skills-guide
@@ -324,5 +325,3 @@ Agent Skills 本身不難——就是 Markdown 加上一些結構。但它代表
 *Skills 是零件、不是系統。[整套 FLUX 是怎麼跑的 →](/zh-TW/blog/flux-direction-system-leverage/)*
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -3,6 +3,7 @@ title: "Karpathy LLM Wiki 是什麼？一個卡片盒筆記法使用者的實測
 description: "Karpathy 的 LLM Wiki pattern 被 AI 圈洗版。身為 Obsidian + LYT 的知識管理使用者，我用他的方法研究他的方法 —— 跑完發現真正的分歧是分類決策：folder、tag、wiki page，三個容器問題形狀一模一樣。"
 pubDate: 2026-04-10
 category: building-products
+topics: ["growth", "ai-practice"]
 tags: ["karpathy", "llm", "obsidian", "知識管理", "zettelkasten", "lyt", "ai 工作流", "卡片盒筆記法", "ai筆記", "筆記軟體"]
 lang: zh-TW
 featured: false
@@ -178,5 +179,3 @@ Karpathy 其實在 gist 裡有預先反駁這點：
 想看我怎麼把 LYT + Claude Code 串成一套完整的 AI 工作流？[這篇是完整介紹](/zh-TW/blog/personal-panopticon/)——從每天早上的「開工」到知識庫、郵件、會議、目標管理全部串起來。
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

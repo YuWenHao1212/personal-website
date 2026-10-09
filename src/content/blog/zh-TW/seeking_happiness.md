@@ -3,6 +3,7 @@ title: "為什麼追求幸福反而讓你不幸福？TED演講的3個啟示"
 description: "十年前我們心心念念的那些期盼，大部份都實現了吧。現在我們幸福了嗎？一部TED演講改變了我對幸福的看法。"
 pubDate: 2020-11-24
 category: life-learning
+topics: ["growth"]
 tags: ["幸福", "個人成長"]
 lang: zh-TW
 featured: false
@@ -86,5 +87,3 @@ heroImage: /images/blog/seeking-happiness/hero.webp
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

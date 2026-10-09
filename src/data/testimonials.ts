@@ -28,7 +28,7 @@ export interface Testimonial {
   /** optional 延伸閱讀 links (profile cards) */
   links?: { label: string; href: string }[];
   /** which pages show this card; omit = all pages */
-  pages?: Array<'services' | 'workshop'>;
+  pages?: Array<'services' | 'workshop' | 'home'>;
 }
 
 export const testimonials: Testimonial[] = [
@@ -143,6 +143,47 @@ export const testimonials: Testimonial[] = [
       '可以重新拿回人生／工作的主導權。',
   },
   {
+    // 2026-08-22 梯 3 課後問卷（同上授權範圍：姓名職稱＋第 3 題原句，逐字照登）。2026-10-08 作者要求補上。
+    variant: 'compact',
+    name: '蔡明勳',
+    title: '創業家',
+    pages: ['workshop'],
+    quote:
+      '這是 AI 作業系統完整的解決方案',
+  },
+  {
+    // 2026-08-22 梯 3 課後問卷（同上授權範圍）。2026-10-08 作者要求補上。
+    variant: 'compact',
+    name: '蔡亦昀',
+    title: '太湖水產有限公司 特助',
+    pages: ['workshop'],
+    quote:
+      '非常推薦來上老師這門課，學到的比想像中得更多更多！',
+  },
+  {
+    // 5/16 梯 1 學員，2026-05-30 LINE 群組心得。作者 2026-10-08 表示本人已同意公開。
+    // 節錄：原文第 3 段整段，一字未改。全文（含 WAM 29% → 63% 的經過）見 FLUX Vault：
+    // efforts/areas/personal-brand/social-proof/2026-05-16-ai-cockpit-taipei-vista-feedback.md
+    // ⚠️ 節錄哪一段是 Claude 選的，作者尚未看過；職稱未知，先比照延宗寫梯次。
+    variant: 'compact',
+    name: '蓋瑞 Gary',
+    title: '5/16 學員',
+    pages: ['workshop'],
+    quote:
+      '對我來說最有感的一點是——意志力會削弱，但系統不會。我本來就知道自己執行力不穩，所以很需要一套東西來幫我，剛好就出現這套系統。',
+  },
+  {
+    // 5/16 梯 1 學員，2026-05-18 私訊。作者 2026-10-08 表示本人已同意公開。
+    // 節錄：原文第 2 段整段；內層引號依排版慣例由「」改為『』，其餘一字未改。全文見上面同一份紀錄。
+    // ⚠️ 節錄哪一段是 Claude 選的，作者尚未看過；任職單位不顯示，職稱先寫梯次。
+    variant: 'compact',
+    name: '胡小瑋',
+    title: '5/16 學員',
+    pages: ['workshop'],
+    quote:
+      'FLUX 這套系統對我來說不只是一個工具，它讓我第一次覺得，混亂是可以被整理的。我以前的問題不是不努力，而是沒有一個框架可以讓我知道『現在這一步做完，下一步是什麼』。工作坊給了我這個框架，也給了我真正開始的勇氣。',
+  },
+  {
     // Quote already public on workshop page + blog 開課紀錄 since May.
     variant: 'compact',
     name: '延宗',
@@ -162,7 +203,22 @@ export const testimonials: Testimonial[] = [
     avatar: '/images/workshop/wu-bingqian.jpg',
     quote:
       '我是一個拖延症很嚴重的人，總是利用各種假努力，逃避真正該做的事。使用了文皓的 FLUX 系統之後，最大的改變不是『效率變高』，而是『我開始做真正重要的事』。每一天做的每一件事，像導航一樣劍指你的人生方向。每一個行動一滴一點，像教練一樣提醒不要偏離初衷。每當卡住、提不起勁的時候，系統會幫我復盤、分析、給出具體反饋，讓我重新聚焦重點。習慣建立、睡眠分析、行動追蹤——不是說說而已，是像有個人陪你一起練。這不只是工具，更像是一個懂你節奏的陪練夥伴。',
-    pages: ['workshop'],
+    // 2026-10-06 作者決定放寬到首頁（services 頁仍不顯示）。
+    pages: ['workshop', 'home'],
+  },
+  {
+    // 蔡品客 — Claude Code 一對一學員（非公開班梯次）。2026-10-06 作者提供 LINE 證言。
+    // 引言照原文，只省略第一句自我介紹（與署名重複）。原文兩處疑似筆誤未改。
+    // ⚠️ 上線前待確認：具名／照片／可放頁面的授權範圍；頭像是從他的品牌宣傳圖裁的。
+    // 紀錄：FLUX Vault efforts/areas/personal-brand/social-proof/2026-10-06-cai-pinke-testimonial.md
+    variant: 'compact',
+    name: '蔡品客',
+    title: '「簡單粗暴蝦皮學院」創辦人',
+    avatar: '/images/workshop/cai-pinke.jpg',
+    // 2026-10-08 作者要求工作坊頁也要放（首頁已不放整面學員見證）。上面的待確認事項仍未處理。
+    pages: ['home', 'workshop'],
+    quote:
+      '我一直想做一個訂閱制網站，把蝦皮、電商工具和自己的內容整合在一起，但我完全沒有工程背景，以前會覺得有夠難，而且市面AI課也不少，但總是沒有辦法讓我做出符合我預期『結果的』，實際學習『文皓老師』的AI課程之後，我發現整個過程非常精簡、簡單，甚至有點粗暴，讓我實踐做出我要的商品。尤其每次在操作卡住時，文皓老師都可以很精準地找到問題、直接解決。讓我在AI資訊，對處都有的路上，真正實踐：原來我沒有工程背景，我也可以把腦中的商業想法真正做出來。',
   },
   {
     variant: 'profile',

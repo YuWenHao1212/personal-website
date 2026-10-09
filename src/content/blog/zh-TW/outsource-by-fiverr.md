@@ -3,6 +3,7 @@ title: "Fiverr: 外包你的工作, 賺回你的時間"
 description: "Fiverr 是一個買賣雙方自由發案/接案平台，服務範圍涵蓋圖形設計、數位行銷、寫作與翻譯、影片及動畫、音樂及音頻、程式與科技等。上面有世界各國的專家，費用低廉，大大節省寶貴的時間。"
 pubDate: 2020-12-05
 category: building-products
+topics: ["ai-practice"]
 tags: ["fiverr", "outsource", "外包", "數位工具"]
 lang: zh-TW
 featured: false
@@ -106,5 +107,3 @@ heroImage: /images/blog/fiverr/hero.webp
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

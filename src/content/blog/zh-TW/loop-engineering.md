@@ -3,6 +3,7 @@ title: "凌晨兩點半的無人流程：一個工作者的迴圈工程（Loop E
 description: "凌晨兩點半，一台 Mac mini 自動醒來，替我維護系統、生產工作、還自己檢查，全程我沒下一道指令。這篇記錄迴圈工程（Loop Engineering）落在一個用 Claude Code 一人經營事業的工作者身上：人如何一步步退出、AI 能接手到哪、界線又畫在哪。"
 pubDate: 2026-07-08
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "迴圈工程", "loop engineering", "harness", "Claude Code", "agentic coding", "一人公司", "AI 自動化"]
 lang: zh-TW
 focusKeyphrase: "迴圈工程"
@@ -115,5 +116,3 @@ faq:
 ---
 
 *如果這篇讓你有了想法，[訂閱我的電子報](/zh-TW/)。我寫 AI 工作流，也寫一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

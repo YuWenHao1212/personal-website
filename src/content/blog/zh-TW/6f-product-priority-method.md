@@ -3,6 +3,7 @@ title: "No-Code 開發思維：6F方法建立產品功能優先級框架"
 description: "從用戶畫像到功能開發：透過 6F 方法（Find需求 → Form故事 → Function功能 → Filter篩選 → Focus排序 → Fast驗證）系統性地建立產品功能優先級框架，有效避免功能蔓延，打造真正符合用戶需求的產品。"
 pubDate: 2025-06-12
 category: building-products
+topics: ["ai-practice"]
 tags: ["No-Code", "Bubble", "no-code開發", "bubble平台"]
 lang: zh-TW
 featured: false
@@ -105,5 +106,3 @@ heroImage: /images/blog/6f-product-priority-method/hero.webp
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

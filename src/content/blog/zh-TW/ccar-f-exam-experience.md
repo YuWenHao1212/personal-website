@@ -3,6 +3,7 @@ title: "2026 Anthropic 架構師證照 CCAR-F 考試心得：備考方法與考�
 description: "Anthropic 架構師認證 CCAR-F（早期通稱 CCA-F／CCAF）的第一手考試心得：2026 年 8 月以 882 分通過。考什麼、沒有考古題怎麼準備、用 Claude 自己出題的方法、考場實況與報名資格門檻，一篇寫完。"
 pubDate: 2026-08-29
 category: life-learning
+topics: ["ai-practice", "growth"]
 tags: ["CCAR-F", "Anthropic 認證", "Claude 證照", "AI 證照", "Claude Code"]
 lang: zh-TW
 featured: true
@@ -138,8 +139,11 @@ CCAR-F 沒有考古題：考試合約明寫禁止散布、複製、公開任何�
 > Your codebase has distinct areas with different coding conventions: React components use functional style with hooks, API handlers use async/await with specific error handling, and database models follow a repository pattern. Test files are spread throughout the codebase alongside the code they test (e.g., Button.test.tsx next to Button.tsx), and you want all tests to follow the same conventions regardless of location. What's the most maintainable way to ensure Claude automatically applies the correct conventions when generating code?
 >
 > A) Create rule files in .claude/rules/ with YAML frontmatter specifying glob patterns to conditionally apply conventions based on file paths
+>
 > B) Consolidate all conventions in the root CLAUDE.md file under headers for each area, relying on Claude to infer which section applies
+>
 > C) Create skills in .claude/skills/ for each code type that include the relevant conventions in their SKILL.md files
+>
 > D) Place a separate CLAUDE.md file in each subdirectory containing that area's specific conventions
 
 正解是 A。這題穿的情境外衣是「測試檔案該放哪」，底下考的是一條規則什麼時候該用路徑條件自動套用、什麼時候該放進永遠載入的設定檔。
@@ -151,8 +155,11 @@ B 靠模型自己猜不保證，C 要手動叫跟「自動套用」的要求矛�
 > A Claude Code agent has been working on a feature branch for 45 minutes and has accumulated extensive context about the codebase. The developer notices that several tool results from early in the session (file reads from 40 minutes ago) are now stale because a colleague pushed changes to those files. The agent is making recommendations based on the outdated file contents. What is the best recovery strategy?
 >
 > A) Continue in the current session and simply ask the agent to re-read the files a colleague changed, so it picks up the latest contents
+>
 > B) Start a completely new session with no context from the previous session
+>
 > C) Start a fresh session with a summary of the key findings and decisions, then read the changed files for current state
+>
 > D) Use fork_session to create a new branch that excludes the stale tool results
 
 正解是 C。我兩次都選了 A，而且兩次都是同一種直覺：叫它重讀檔案，agent 應該就跟著更新了。

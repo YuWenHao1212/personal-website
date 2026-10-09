@@ -1,179 +1,708 @@
 ---
+// About page (was the prototype about-sky.astro) — in the home page's voice (night sky, thin serif, restraint). Started 10/8 with the author.
+// Reader (CCN): NEW — someone who landed on an article or asked a search engine who this person is.
+//   His questions: who is this, on what grounds, what has it to do with me. After reading: read a chosen article, or subscribe.
+//   So the page answers first, proves second, tells the story third. (Casual readers are served by the workshop page; core → Confluence.)
+// Planned sections: 1 opening (who / what) · 2 the facts (on what grounds) · 3 the story (short, in prose — no timeline,
+//   the home page has one) · 4 what he believes · 5 ending: where to start reading + small ways out
+// The previous about page is in git history (src/pages/zh-TW/about.astro before the redesign).
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import MotionLayer from '../../components/MotionLayer.astro';
 
-const title = '關於我';
-const description = '我是文皓，企業 AI 導入顧問。我用 AI 改變自己的工作方式，把過程寫下來，現在也幫企業把 AI 真正導入流程。';
+// The ending's four ways out, one per kind of reader. Left labels are Claude's draft (10/9).
+const ways = [
+  { k: '想先讀幾篇', t: '看文章', href: '/zh-TW/blog/', ev: 'about_click_articles' },
+  { k: '想讓新的文章寄給你', t: '訂閱電子報', href: '/zh-TW/#newsletter-form', ev: 'about_click_subscribe' },
+  { k: '個人想學這套做法', t: '一日的公開班', href: '/zh-TW/workshop/', ev: 'about_click_workshop' },
+  { k: '公司要導入 AI', t: '到匯流顧問找我們', href: 'https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=about', ev: 'about_click_confluence', out: true },
+];
 
+// 10/9: moved here from about-sky.astro — this is now the about page of the branch. Title and description approved by the author on 10/9.
+const title = '關於余文皓｜企業 AI 導入顧問、AI 講師';
+const description = '科技業二十年，Nokia、聯詠科技、友達光電，做過工程師、PM、事業單位主管的幕僚。現在是企業 AI 導入顧問、AI 講師，Claude 認證架構師，匯流顧問創辦人。';
 ---
 
 <BaseLayout title={title} description={description} profilePage={true}>
-  <!-- Hero -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-        <img
-          src="/images/hero.webp"
-          alt="WenHao Yu"
-          width="240"
-          height="240"
-          class="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-lg flex-shrink-0"
-        />
-        <div>
-          <h1 class="sv-hero-title text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-4">
-            <span class="ln"><span class="ln-i">我是文皓</span></span>
-          </h1>
-          <p class="rv text-xl md:text-2xl leading-relaxed text-[#5C5144] mb-6">
-            我用 AI 改變自己的工作方式，把過程寫下來。<br class="hidden md:block" />
-            現在也以企業 AI 導入顧問的身份，幫團隊把 AI 真正用起來。
-          </p>
-          <div class="rv flex flex-wrap gap-3 text-sm text-[#8B7355]">
-            <a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#B8926A]/10 rounded-full hover:bg-[#B8926A]/20 transition-colors" data-umami-event="about_click_credly">Claude 認證架構師</a>
-            <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">獨立開發者</span>
-            <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">企業 AI 導入顧問</span>
-            <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">產品人 × 10 年</span>
-            <span class="px-3 py-1 bg-[#B8926A]/10 rounded-full">每月 15 萬讀者</span>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <div class="ab">
+    <!-- ============ 1. Opening: who this is and what he does ============ -->
+    {/* 10/8 draft. The two sentences are the live page's own, unchanged. The identity line is the one fixed on the home page.
+        Before: 「我是文皓」 + five tags (Claude 認證架構師／獨立開發者／企業 AI 導入顧問／產品人 × 10 年／每月 15 萬讀者). */}
+    <section class="op">
+      <div class="op-sky">
+        <picture>
+          <source media="(max-width: 1400px)" srcset="/images/sky/startrails-1920.webp" />
+          <img src="/images/sky/startrails-2912.webp" alt="" aria-hidden="true" width="2912" height="1632" fetchpriority="high" />
+        </picture>
+        <div class="op-scrim"></div>
+        <div class="op-txt">
+          <p class="kick"><i></i>關於我</p>
+          <div class="op-who">
+            <img src="/images/hero.webp" alt="余文皓" width="400" height="400" />
+            <h1>余文皓<span>WenHao Yu</span></h1>
           </div>
+          {/* 10/9: 「AI 講師」 added at the author's word. No page on the site called him a 講師 (only the workshop page's block titles),
+              and the site-wide Person data says 企業 AI 工作流導入顧問 only — so a search for an AI 講師 had nothing to match.
+              Two sentences: what he does / what backs it. 「AI 講師」 is kept as one unbroken term. Wording is Claude's draft, his pick.
+              TODO at launch: the same goes into this page's title, description and the Person jobTitle in components/SEO.astro. */}
+          <p class="idl">企業 AI 導入顧問、AI 講師。<br />Claude 認證架構師，匯流顧問創辦人。</p>
+          <p class="lead">我寫怎麼和 AI 一起工作，也帶<span class="nb">個人</span>和企業把它用進每天的工作。</p>
+          {/* 10/9: one sentence saying what he does (writes; works with individuals and companies). The two-line version repeated the story's own
+              phrases (「把過程寫下來」「進企業」「帶團隊」). Live page: 我用 AI 改變自己的工作方式，把過程寫下來。／現在也以企業 AI 導入顧問的身份，幫團隊把 AI 真正用起來。 */}
+          {/* 10/9 voice pass: second line was 「現在也以企業 AI 導入顧問的身份，幫團隊把 AI 真正用起來。」 (live page) — "以…的身份" reads like a form.
+              「進企業」「帶團隊」 are his own words further down the story. Claude's draft. */}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Story -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl">
-        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-8 md:mb-10">
-          這條路我走過
-        </h2>
-        <div class="space-y-5 text-base md:text-lg lg:text-xl leading-relaxed text-[#5C5144]">
-          <p>我在科技業待了二十年：七年工程師、十年 PM、三年數據分析與 BU Head 幕僚。產品規劃、商業決策、跨部門協調——該會的都碰過，遇到什麼事大概知道下一步該怎麼走。</p>
+    <!-- ============ 2. What he believes: the one thing a new reader should remember ============ -->
+    {/* 10/8. Both the two-sentence line and the paragraph are the live about page's, unchanged.
+        The link wording is the one the workshop prototype uses for the same article. */}
+    <section class="bl">
+      <p class="kick"><i></i>我相信的事</p>
+      <div class="bl-in">
+        <h2>方向比速度重要。<br />系統比目標重要。</h2>
+        <div class="bl-tx">
+          {/* 10/9 voice pass: was 「大部分人追工具，但不知道要拿來做什麼。我反過來：先想清楚方向，再建一套會複利的工作流，讓 AI 當槓桿。重複做簡單的事，讓時間幫你。」
+              — speaks about "most people" from above. Now his own years of chasing tools (article flux-direction-system-leverage; the first
+              clause is his sentence, the author liked it on 10/9). This paragraph was tried on the home page and moved here: back-story belongs on this page.
+              Last sentence kept from the live page. */}
+          {/* 10/9: the tool-chasing paragraph moved up into the story (one origin, told once). This is the live page's sentence again,
+              without 「大部分人追工具…我反過來」. */}
+          <p>我對生產力工具有一種執念，Notion、Obsidian、ChatGPT 都搬過去用過，沒有一個留下來。每次都期待新的工具會帶我去某個地方，後來才明白，是我自己沒有先想清楚要去哪裡。於是我把順序倒過來：先定方向，再建一套每天在用的系統，最後才讓 AI 當槓桿。</p>
+          <a href="/zh-TW/blog/flux-direction-system-leverage/" data-umami-event="about_click_method">完整的思路：〈不是教 AI 工具、<span class="nb">是教一個系統〉 →</span></a>
+        </div>
+      </div>
+    </section>
+    {/* 10/9: moved here from after the story, at the author's word. The story now closes on 「現在有答案了」 and hands straight to the ending;
+        with this section after it the page had two endings (it starts again from the tool-chasing years).
+        Up here it also gives a reader who stops after two screens the stance, not just the start of the story. */}
+    <!-- ============ 3. The story, in his own telling — with the facts as a narrow column beside it ============ -->
+    {/* 10/8. First try was a full-screen table of credentials (industry / degree / certificate…). The author asked why it
+        was not the old page's narrative; he was right: the opening already answers "who", and a table reads like a company
+        profile, not a person. So: the live page's narrative is the body, and the facts shrink to a side column.
+        TEXT = the live about page's story, with these edits only (Claude's, per the 10/8 inventory; not yet read line by line by the author):
+          · P1  + 「Nokia、聯詠科技、友達光電」 (the home page names them)
+          · P3  「一邊工作，一邊唸」→「我去唸」; 「我離開公司」→「我回到第一線，自己動手做」 (home page wording); 「用它一個人做產品」→「用它做產品」
+          · P4  「全部一個人包」→「每一段都自己走過」
+        Everything else, including the certificate paragraph (wording fixed 9/1) and 「每月超過 15 萬次閱讀」 (not re-checked), is unchanged. */}
+    <section class="st">
+      <div class="st-main">
+        <p class="kick"><i></i>我的故事</p>
+        <h2>這條路我走過</h2>
+        <div class="st-tx">
+          {/* 10/9: the whole story re-run in one pass after reading it top to bottom with the author. What changed and why:
+                · roles are introduced once (first paragraph); later paragraphs use them without listing them again
+                · 2025: 「我離開公司」 is said — without it the reader could not tell how study turned into full-time building
+                · one origin for his way of working: the twenty years are the base, chasing tools is the wrong turn, the order reversed is how they met
+                  (that paragraph moved here from 「我相信的事」)
+                · the same "before X, now AI" sentence is no longer used twice
+                · it ends on where he is going (the 2020 diary question; the sentence he chose for the home page), not on the certificate
+              The previous version is saved in the session scratchpad as about-sky.before-restory.astro.
+              Facts are his (articles, ABOUT-ME, and what he said on 10/9). Still Claude's reading, unconfirmed: 「什麼時候該求快、什麼時候一步都不能省，我分得出來」.
+              Not re-checked: 每月超過 15 萬次閱讀／三個月內／四個月做了 AI Resume Advisor／5 月上線時是第一批使用者. */}
+          <p>我在科技業待了二十年，Nokia、聯詠科技、友達光電：七年工程師、十年 PM、三年數據分析與事業單位主管（BU Head）的幕僚。PM 那十年，我管過時程很趕的手機，也負責過時程長、開發嚴謹的車用電子，那是兩個很不一樣的生態。產品規劃、商業決策、跨部門協調，該會的都碰過，遇到什麼事大概知道下一步該怎麼走。</p>
           <p>但做越久越覺得在原地踏步。能力在長，可是每天的精力都花在讓別人同意我做事上面。</p>
-          <p class="text-lg md:text-xl lg:text-2xl font-semibold text-[#2C2416] py-2">
-            2023 年，我決定打掉重練。
-          </p>
-          <p>一邊工作，一邊唸 Minerva University 的碩士，重新學怎麼做決策。2025 年，我離開公司 — 剛好 Claude Code 在那年 5 月上線，我是第一批使用者，開始用它一個人做產品：四個月做了 <a href="https://airesumeadvisor.com/zh-TW/" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">AI Resume Advisor</a>，三天做了 <a href="https://www.neatoolkit.com/zh-TW" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline">NeatToolkit</a>（上線第一天四千人來用）。</p>
-          <p>從產品概念、開發、到上線推廣，全部一個人包。做的過程中，我慢慢摸出一套自己的工作方式——怎麼用 AI 拆任務、怎麼串工具、怎麼讓整個流程跑得動。</p>
-          <p class="text-lg md:text-xl lg:text-2xl font-semibold text-[#2C2416] py-2">
-            我把這些過程寫下來。
-          </p>
-          <p>發在 Facebook 和 Blog，三個月內，Blog 每月超過 15 萬次閱讀。愈來愈多人寫信來問：「你這套系統是怎麼建起來的？可以教我嗎？」我把大家最容易卡住的那段路，做成了<a href="/zh-TW/workshop/" class="text-[#B8926A] hover:underline">「用 AI 建你的個人指揮中心」一日實作工作坊</a>。</p>
-          <p>同時，也有企業主管來問：「我們公司也能這樣做嗎？」</p>
-          <p>能，我自己就在做 —— 進企業上工作坊、帶團隊把流程接起來。後來成立<a href="https://confluence-partners.ai" target="_blank" rel="noopener noreferrer" class="text-[#B8926A] hover:underline" data-umami-event="about_to_confluence">匯流顧問</a>，除了我，也集合各產業裡最早把 AI 用起來的一批人，一起接導入專案、做企業內訓。</p>
-          <p>一年多用下來，我也把自己對 Claude 架構的理解，拿去對了一次官方的尺——考過 Anthropic 的 Claude 認證架構師 CCAR-F（<a href="/zh-TW/blog/ccar-f-exam-experience/" class="text-[#B8926A] hover:underline">考試過程我寫成一篇</a>），量的是整套原廠知識體系。</p>
-        </div>
-
-        <!-- Belief -->
-        <div class="rv mt-10 md:mt-14 pl-6 md:pl-8 py-4 md:py-6 border-l-4 border-[#B8926A]">
-          <p class="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] font-bold text-[#2C2416] leading-[1.2] tracking-[-0.02em] mb-4">
-            方向比速度重要。系統比目標重要。
-          </p>
-          <p class="text-lg md:text-xl leading-relaxed text-[#5C5144]">
-            大部分人追工具，但不知道要拿來做什麼。我反過來——先想清楚方向，再建一套會複利的工作流，讓 AI 當槓桿。重複做簡單的事，讓時間幫你。
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What I Do Now: Dual Track -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em] mb-12 md:mb-16">
-        現在在做的事
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-        <!-- Track 1: Writing & Sharing -->
-        <div class="rv bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex flex-col">
-          <span class="self-start inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">寫作 & 分享</span>
-          <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-4">
-            把一路上學到的，寫給也在這條路上的人
-          </h3>
-          <div class="space-y-3 text-base md:text-lg leading-relaxed text-[#5C5144] mb-6">
-            <p>AI 工作流怎麼設計、工具怎麼串、一個人怎麼做產品——我把每一步都寫下來，不藏私。</p>
-            <p>有想通的事，就寫成一封信寄給你。</p>
-          </div>
-          <div class="mt-auto flex flex-wrap gap-3">
-            <a href="/zh-TW/blog/" class="text-[#B8926A] hover:underline font-medium">→ 看文章</a>
-            <a href="/zh-TW/#newsletter-form" class="text-[#B8926A] hover:underline font-medium">→ 訂閱電子報</a>
-          </div>
-        </div>
-
-        <!-- Track 2: Workshop -->
-        <div class="rv bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex flex-col">
-          <span class="self-start inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">教學</span>
-          <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-4">
-            帶你把自己的系統，一天建起來
-          </h3>
-          <div class="space-y-3 text-base md:text-lg leading-relaxed text-[#5C5144] mb-6">
-            <p>最多人卡在第一步的建置。一日實作工作坊，6 小時把目標、知識、AI 工作流一次建好帶回家。</p>
-            <p>不用會寫程式，用說的就好。</p>
-          </div>
-          <a href="/zh-TW/workshop/" class="mt-auto self-start text-[#B8926A] hover:underline font-medium">→ 看工作坊</a>
-        </div>
-
-        <!-- Track 3: Enterprise -->
-        <div class="rv bg-white border border-[#E8E4DD] rounded-xl p-6 md:p-8 flex flex-col">
-          <span class="self-start inline-block px-3 py-1 text-sm font-medium bg-[#B8926A]/10 text-[#B8926A] rounded-full mb-5">企業合作</span>
-          <h3 class="text-xl md:text-2xl font-bold text-[#2C2416] mb-4">
-            幫企業把 AI 從「買了帳號」變成「真的在用」
-          </h3>
-          <div class="space-y-3 text-base md:text-lg leading-relaxed text-[#5C5144] mb-6">
-            <p>從流程盤點、工作流設計、到內訓落地——不用花數百萬導大系統，從一個流程開始跑通就好。</p>
-            <p>這件事我做了十年，只是以前叫「導系統」。</p>
-          </div>
-          <a href="/zh-TW/services/#enterprise" class="mt-auto self-start text-[#B8926A] hover:underline font-medium">→ 看完整服務內容</a>
+          <p>2019 年，公司把整個手機部門搬去中國，我選擇不去，十年累積的人脈和成就幾乎歸零。隔年我開始寫日記，第一天寫下的問題是：「明知當前生活並非理想，如何鼓起勇氣脫離舒適圈？」</p>
+          <p class="pull">2023 年，我決定回去當學生。</p>
+          <p>我去唸 Minerva University 的碩士，重新學怎麼做決策。2025 年，我離開公司，剛好 Claude Code 在那年 5 月上線。我是第一批使用者，開始用它做產品：四個月做了 <a href="https://airesumeadvisor.com/zh-TW/" target="_blank" rel="noopener noreferrer">AI Resume Advisor</a>，三天做了 <a href="https://www.neatoolkit.com/zh-TW" target="_blank" rel="noopener noreferrer">NeatToolkit</a>。</p>
+          <p>一開始我只拿它做產品，從概念、開發到上線推廣，每一段都自己走過。後來目標、每天的工作、學到的東西、客戶、生活，一塊一塊都搬了上去。</p>
+          {/* 10/9: this was one eight-line paragraph — "還是很長，沒有呼吸感". Now a lead sentence and three short "before / now" pairs,
+              set a little closer together so they read as one group. Third pair, the author's correction: say 事業單位主管的幕僚 (not 經營管理部門), and the work was strategy recommendations backed by data. Then corrected again: the order is data → insight → strategy; 「提策略建議，並且拿數據支撐它」 read as strategy first, data found afterwards. The 'now' half was then lifted from the weekly score ("層次太低") to the same level as the 'before' half: numbers first, then where to put his effort. Then lifted once more: the three named numbers (articles read, sign-ups, where time goes) are real but "太具體" — the 'now' half now sits at the same level as the 'before' half. Shortened on the way: 「第一件事」 and the unconfirmed
+              「以前跟工程師約好什麼叫做完」 are gone. */}
+          <p>做這些事的方法，是過去二十年練出來的。</p>
+          <p class="ex">以前開專案，要先寫 Project Charter，一份講清楚為什麼做、要做到哪裡的文件。現在不管是一個產品還是這一季的目標，我一樣先把它寫清楚。</p>
+          <p class="ex">定義問題、拆解需求、驗收產出，是 PM 每天在做的事。以前對象是工程師，現在是 AI。</p>
+          <p class="ex">以前當事業單位主管的幕僚，我的工作是從數據裡找出洞見，再形成策略建議。現在對自己的事業也是這樣，先從數據裡看出發生了什麼，再決定往哪裡走。</p>
+          <p class="ex">以前在公司裡，我主導過 Jira、Polarion 的導入，也訂過專案管理、問題解決和變更的流程，知道理想和實務的落差會出現在哪裡。現在帶團隊把 AI 接進流程，用的是同一份經驗。</p>
+          {/* 10/9, the author's correction. Claude had written 「這二十年教會我怎麼把事情做出來，卻沒有教我先想清楚要去哪裡」 to join two paragraphs —
+              wrong, and invented. His account: a PM starts from a Project Charter, which IS the direction; so his system starts from goals too;
+              these are methods he already had, and they sit naturally in a working environment shared with AI.
+              Also his: gloss "Project Charter" in plain words; 「我的系統也是從這些方法來的」 was too crude.
+              The last clause (AI takes the doing; direction and acceptance stay with him) is from his article agentic-coding-guide.
+              The tool-chasing paragraph went back to 「我相信的事」. The unconfirmed phones/automotive "so I can tell…" sentence is gone. */}
+          {/* 10/9 again: the separate paragraph about "my work system" is removed at the author's word ("不要去講另外一套工作系統…
+              用例子來補充，讓上面這一段變得更豐滿"). The point is only: what he did before, he now does with AI. So the paragraph above carries
+              one example per habit — the charter (his, 10/9), agreeing what "done" means (article loop-engineering), the weekly numbers (personal-panopticon).
+              10/9 later: the scope was too narrow (read as "a man who builds products with AI"). The product is where it started; goals, daily work,
+              what he learns, clients and life followed — his own list (article flux-direction-system-leverage). The author confirmed this reading.
+              10/9 later: 「看數字下判斷」 did not say which numbers or which judgement. Now: before = testing which strategy has better odds
+              (his article 數據分析師); now = the weekly score, how much of the week's commitments got done, and what he decides from it
+              (articles 12-week-year-guide, personal-panopticon). Other numbers he may want here instead (traffic, sign-ups) — asked, not yet answered.
+              Removed text: 我現在每天用的那套工作系統，骨架是 PM 的方法。PM 做專案，一開始要寫 Project Charter…方向和驗收還是照原來的方法走。 */}
+          <p class="pull">我把這些過程寫下來。</p>
+          {/* 10/9: everything from here to the end of the story rewritten after talking it through with the author. He read the old version as
+              contrived — written to sell. His account: AI and productivity are what he is interested in anyway; he is glad to share the road and the
+              pitfalls (the articles ARE the sharing); he built his own products first, but what people asked about was his AI working environment,
+              his workflow and how he uses AI; that sharing later became income of its own accord; interest + helping people + income is the life
+              he wants — the direction is right, he is still getting closer (not "arrived").
+              Removed: the two planted questions, 「三個月內…每月超過 15 萬次閱讀」, 「能。…我以前就做過。」, 「各產業裡最早把 AI 用起來的一批人」,
+              「對了一次官方的尺／量的是整套原廠知識體系」, and the closing line borrowed from the home page.
+              PARTNER STATUS — DO NOT ADD YET: he wants 「（Anthropic 的台灣認證合作夥伴）」 after 匯流顧問. Certified approval had not arrived on 10/9
+              (he wrote to ask on 10/8). Add it only once approved, and in the wording the approval allows.
+              Previous version: session scratchpad, about-sky.before-sharing-rewrite.astro. */}
+          {/* 10/9 later: the purpose of this last part was settled with the author — it closes the story (why he writes; the life he has now).
+              It is not where the offers are listed: the side column and the ending already carry them, and listing them here kept reading as sales copy.
+              So: the course is two characters (開課) with no link, companies are told once, the certificate is left to the side column,
+              Jira / Polarion moved up as the fourth "before / now" example, and the closing three sentences stand alone.
+              The fourth example's second half (「現在帶團隊把 AI 接進流程，用的是同一份經驗」) is Claude's wording; the author agreed to it on 10/9.
+              Ending, the author's word (10/9): first "方向對了、還在靠近", then "我覺得已經是過理想的生活了" — so the story ends on having arrived.
+              「現在有答案了」 echoes his article minerva-mda-growth. The home page still says 「更靠近自己想過的生活」, on purpose.
+              PARTNER STATUS still not to be added after 匯流顧問 until Certified is approved (see the note above).
+              Previous version: session scratchpad, about-sky.before-ending-purpose.astro. */}
+          <p>研究 AI 和生產力，本來就是我有興趣的事。走過的路、踩過的坑，我很樂意講出去，就寫成文章發在 Facebook 和 Blog。</p>
+          <p>我先做的是自己的產品，但寫出去之後，大家來問的是另一件事：我的 AI 工作環境長什麼樣、流程怎麼排、我是怎麼用 AI 的。我就接著寫這些。</p>
+          <p>後來有人想跟著做，有公司想導入，我開始<a href="/zh-TW/workshop/" data-umami-event="about_click_workshop_story">開課</a>、進企業帶團隊，也和幾位夥伴成立了<a href="https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=about" target="_blank" rel="noopener" data-umami-event="about_click_confluence">匯流顧問</a>。這些事自然成了我的收入。</p>
+          <p>做自己喜歡的事，時間自由，也能幫助別人，這就是我想過的生活。2020 年日記第一天的那個問題，現在有答案了。</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Social Proof -->
-  <section class="py-20 md:py-28 lg:py-32 bg-[#FFFDF9]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-        <div class="rv">
-          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2"><span class="cnt">15</span> 萬+</p>
-          <p class="text-base md:text-lg text-[#5C5144]">每月 Blog 閱讀</p>
-        </div>
-        <div class="rv">
-          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2"><span class="cnt">20</span>+</p>
-          <p class="text-base md:text-lg text-[#5C5144]">年科技業經驗</p>
-        </div>
-        <div class="rv">
-          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2"><span class="cnt">4</span> 個</p>
-          <p class="text-base md:text-lg text-[#5C5144]">獨立開發產品</p>
-        </div>
-        <div class="rv">
-          <p class="text-[2.5rem] md:text-[3rem] font-bold text-[#2C2416] leading-none mb-2">Day 1</p>
-          <p class="text-base md:text-lg text-[#5C5144]">Claude Code 使用者</p>
-        </div>
+      <aside class="st-side" aria-label="經歷與資格">
+        <p class="kick"><i></i>經歷與資格</p>
+        <ul>
+          <li>
+            <span class="k">產業</span>
+            <b>科技業二十年</b>
+            <span class="n">Nokia、聯詠科技、友達光電</span>
+          </li>
+          <li>
+            <span class="k">學位</span>
+            <b>決策分析碩士</b>
+            <span class="n">Minerva University，2023 — 2025</span>
+          </li>
+          <li>
+            <span class="k">認證</span>
+            <b>Claude 認證架構師</b>
+            <span class="n">Anthropic 的官方認證</span>
+            <a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly">在 Credly 驗證 ↗</a>
+          </li>
+          <li>
+            <span class="k">公司</span>
+            <b>匯流顧問創辦人</b>
+            <span class="n">企業 AI 導入與員工內訓</span>
+            <a href="https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=about" target="_blank" rel="noopener" data-umami-event="about_click_confluence">confluence-partners.ai ↗</a>
+          </li>
+          <li>
+            <span class="k">教學</span>
+            <b>一日實作課程</b>
+            <span class="n">公開班三班全滿</span>
+            <a href="/zh-TW/workshop/" data-umami-event="about_click_workshop">看課程 →</a>
+          </li>
+        </ul>
+      </aside>
+    </section>
+    <!-- ============ 4. Ending, back at night: where a new reader starts ============ -->
+    {/* 10/8 draft (Claude's wording). Replaces the live page's 「現在在做的事」 three blocks, the four figures and the newsletter
+        button: a new reader's next step is one more article. Teaching and company work are one small row each.
+        The shared footer is hidden on this page; its three links sit in the last line here (as on the home and workshop pages). */}
+    <section class="co">
+      <img class="co-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      <div class="co-in">
+        {/* 10/9: the three "start here" articles and 「第一次來，從這三篇開始。」 are gone at the author's word — the home page has the same
+            block (「第一次來，照這個順序讀」), and the section just above already tells direction → system → leverage and links one article.
+            What a reader of this page needs next is one of four ways out; they were small print under the articles, now they are the ending.
+            Heading (Claude's draft, his pick) only sorts the reader; the story already closed on 「現在有答案了」.
+            Previous version: session scratchpad, about-sky.before-ending-three-reads.astro. */}
+        <p class="kick"><i></i>接下來</p>
+        <h2>看你想從<br />哪裡開始。</h2>
+        <ol class="co-rd">
+          {ways.map((w) => (
+            <li>
+              <a href={w.href} data-umami-event={w.ev} target={w.out ? '_blank' : undefined} rel={w.out ? 'noopener' : undefined}>
+                <span class="k">{w.k}</span>
+                <span class="t">{w.t}</span>
+                <b aria-hidden="true">{w.out ? '↗' : '→'}</b>
+              </a>
+            </li>
+          ))}
+        </ol>
       </div>
-    </div>
-  </section>
-
-  <!-- Closing CTA: single action for readers who finished the story -->
-  <section class="py-20 md:py-28 lg:py-32">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-2xl mx-auto text-center">
-        <p class="rv text-xl md:text-2xl font-bold text-[#2C2416] leading-relaxed mb-3">
-          這個網站的每篇文章、每個系統，都是這套方法每天跑出來的。
-        </p>
-        <p class="text-base md:text-lg text-[#5C5144] mb-8 leading-relaxed">
-          想跟著走一段 — 訂閱我的電子報，我把想通的事寫成信寄給你。
-        </p>
-        <a
-          href="/zh-TW/#newsletter-form"
-          class="inline-flex items-center justify-center px-8 py-4 bg-[#B8926A] text-white text-base md:text-lg font-medium rounded-full hover:bg-[#A67D55] hover:shadow-lg hover:scale-105 transition-all duration-200"
-          data-umami-event="about_click_subscribe"
-        >
-          訂閱電子報
-        </a>
-        <p class="text-sm text-[#8B7355] mt-6">
-          企業合作或其他事？寫信到 <a href="mailto:mail@yu-wenhao.com" class="text-[#B8926A] hover:underline" data-umami-event="about_click_mailto">mail@yu-wenhao.com</a>
-        </p>
-      </div>
-    </div>
-  </section>
-  <MotionLayer />
+      <p class="co-foot">
+        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  /* Tokens are the home page's (index.astro .hp), so the pages read as one site. */
+  .ab {
+    --paper: #fbf9f5;
+    --paper-2: #f4efe7;
+    --ink: #241b18;
+    --text: #2b211c;
+    --muted: #71655c;
+    --faint: #a99a8d;
+    --hair: #e2d8c9;
+    --terra: #c25b3f;
+    --night: #0d0b09;
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+    background: var(--paper);
+    color: var(--text);
+  }
+  .ab section {
+    padding-inline: var(--gx);
+  }
+  .ab a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ab :is(h1, h2, h3, p, figure) {
+    margin: 0;
+  }
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .kick i {
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+
+  /* ============ 1 opening ============ */
+  .ab .op {
+    min-height: 88svh;
+    display: grid;
+    margin-top: -6rem; /* slide under the header, as the home cover does */
+    padding: 0;
+    background: var(--night);
+    color: var(--cream);
+  }
+  .op-sky {
+    position: relative;
+    display: grid;
+    align-content: end;
+    padding: 10rem var(--gx) 5.5rem;
+    overflow: hidden;
+  }
+  .op-sky picture img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 86% 34%; /* the right of the picture: the pole star and the tight rings around it */
+  }
+  .op-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(13, 11, 9, 0.72) 0%, rgba(13, 11, 9, 0.36) 48%, rgba(13, 11, 9, 0) 76%),
+      linear-gradient(180deg, rgba(13, 11, 9, 0.55) 0%, rgba(13, 11, 9, 0) 26%),
+      linear-gradient(0deg, rgba(13, 11, 9, 0.6) 0%, rgba(13, 11, 9, 0) 34%);
+  }
+  .op-txt {
+    position: relative;
+    max-width: 60rem;
+  }
+  .ab .op .kick {
+    color: rgba(246, 241, 232, 0.66);
+  }
+  .op-who {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2.2rem;
+  }
+  .op-who img {
+    flex: none;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(246, 241, 232, 0.35);
+  }
+  .op h1 {
+    font-family: var(--serif);
+    font-size: clamp(3.4rem, 7.6vw, 7.2rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+  }
+  .op h1 span {
+    display: block;
+    margin-top: 0.9rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .ab .op .idl {
+    margin-top: 2.6rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    color: rgba(246, 241, 232, 0.72);
+  }
+  .ab .op .lead {
+    margin-top: 1.1rem;
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 1.75vw, 1.6rem);
+    text-wrap: balance;
+    font-weight: 300;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+  }
+  /* ============ 2 the story + the facts beside it ============ */
+  .st {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: 7vw;
+    align-items: start;
+    padding-block: 6.5rem 7rem;
+  }
+  .st-main {
+    max-width: 44rem;
+  }
+  .st h2 {
+    margin-top: 1.6rem;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.6vw, 4.4rem);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .st-tx {
+    margin-top: 3rem;
+  }
+  .ab .st-tx p {
+    margin-top: 1.5rem;
+    font-size: 1.0625rem;
+    line-height: 2.15;
+    letter-spacing: 0.03em;
+    color: var(--text);
+  }
+  /* the three before / now pairs: one group, each with a hairline to its left */
+  .ab .st-tx p.ex {
+    margin-top: 1.1rem;
+    padding-left: 1.2rem;
+    border-left: 1px solid var(--hair);
+  }
+  .ab .st-tx p.ex + p:not(.ex):not(.pull) {
+    margin-top: 2rem;
+  }
+  .ab .st-tx p.pull {
+    margin-top: 3.4rem;
+    margin-bottom: 2.2rem;
+    padding-left: 1.4rem;
+    border-left: 2px solid var(--terra);
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .ab .st-tx a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--terra);
+    transition: color 0.2s;
+  }
+  .ab .st-tx a:hover {
+    color: var(--terra);
+  }
+  .st-side {
+    position: sticky;
+    top: 3rem;
+    padding-top: 0.2rem;
+  }
+  .st-side ul {
+    list-style: none;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .st-side li {
+    padding: 1.15rem 0 1.25rem;
+    border-bottom: 1px solid var(--hair);
+  }
+  .st-side .k {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    color: var(--terra);
+  }
+  .st-side b {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+  .st-side .n {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .ab .st-side a {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    color: var(--terra);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .ab .st-side a:hover {
+    border-color: var(--terra);
+  }
+  /* One column: the facts go between the story's heading and its text, not after it — after it they sat between the story's last
+     line (「現在有答案了」) and the ending, which the page order was arranged to join (10/9, the author's word). */
+  @media (max-width: 900px) {
+    .st { grid-template-columns: 1fr; gap: 0; }
+    .st-main { display: contents; }
+    .st-main > .kick { order: 1; }
+    .st-main > h2 { order: 2; }
+    .st-side { order: 3; position: static; margin-top: 2.8rem; }
+    .st-main > .st-tx { order: 4; }
+    /* five facts in two columns, so the story's first line is not a whole screen below its heading */
+    .st-side ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; }
+    .st-side b { font-size: 1rem; }
+  }
+  /* ============ 3 what he believes ============ */
+  .bl {
+    padding-block: 7rem 7.5rem;
+    background: var(--paper-2);
+  }
+  .bl-in {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 6vw;
+    align-items: end;
+    margin-top: 2rem;
+  }
+  .bl h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 5.6vw, 5.4rem);
+    font-weight: 300;
+    line-height: 1.32;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .bl-tx {
+    padding-top: 1.4rem;
+    padding-bottom: 0.8rem;
+    border-top: 1px solid var(--ink);
+  }
+  .bl-tx p {
+    font-size: 1rem;
+    line-height: 2.05;
+    letter-spacing: 0.03em;
+    color: var(--text);
+  }
+  .ab .bl-tx a {
+    display: inline-block;
+    margin-top: 1.4rem;
+    padding-bottom: 0.2rem;
+    font-size: 0.9375rem;
+    color: var(--terra);
+    border-bottom: 1px solid var(--terra);
+  }
+  @media (max-width: 900px) {
+    .bl-in { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  /* ============ 4 ending, by night (same build as the home page's ending) ============ */
+  .co {
+    --line: rgba(246, 241, 232, 0.22);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    min-height: 92svh;
+    padding-block: 7rem 9rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .co-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 40%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 40%, #000 100%);
+    pointer-events: none;
+  }
+  .co-in {
+    position: relative;
+    max-width: 50rem;
+  }
+  .ab .co .kick {
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .co h2 {
+    margin-top: 2.2rem;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.8vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+  }
+  .co-rd {
+    list-style: none;
+    margin: 2.8rem 0 0;
+    padding: 0;
+    border-top: 1px solid rgba(246, 241, 232, 0.55);
+  }
+  .co-rd li {
+    border-bottom: 1px solid var(--line);
+  }
+  .ab .co-rd a {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.25rem 0 1.3rem;
+    color: var(--cream);
+    transition: color 0.2s;
+  }
+  .co-rd .k {
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .co-rd .t {
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: 0.04em;
+  }
+  .co-rd b {
+    font-weight: 300;
+    transition: transform 0.3s;
+  }
+  .ab .co-rd a:hover {
+    color: var(--dawn);
+  }
+  .co-rd a:hover b {
+    transform: translateX(6px);
+  }
+  .co-way {
+    list-style: none;
+    margin: 4.5rem 0 0;
+    padding: 0;
+    width: min(34rem, 100%);
+    border-top: 1px solid var(--line);
+  }
+  .co-way li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+  }
+  .co-way span {
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .ab .co-way a {
+    color: rgba(246, 241, 232, 0.9);
+    transition: color 0.2s;
+  }
+  .ab .co-way a:hover {
+    color: var(--dawn);
+  }
+  .co-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .co-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .ab .co-foot a:hover {
+    color: var(--dawn);
+  }
+  @media (max-width: 640px) {
+    .ab .co-rd a { grid-template-columns: 1fr auto; }
+    .co-rd .k { grid-column: 1 / -1; }
+  }
+  /* keeps a word, or a link's last words and its arrow, on one line (phone: 「個／人」 was split, the arrow sat alone on a line) */
+  .ab .nb { white-space: nowrap; }
+  @media (max-width: 640px) {
+    /* phone: the two paper sections' paddings added up to half a screen of nothing between them */
+    .bl { padding-block: 4.5rem; }
+    .st { padding-block: 4.5rem 5rem; }
+    .op-who { gap: 1.2rem; }
+    .op-who img { width: 76px; height: 76px; }
+    .ab .op .lead br { display: none; }
+  }
+</style>
+
+<style is:global>
+  /* the page ends at night; the shared footer is replaced by one line inside .co. */
+  body:has(.ab .op-sky) footer.bg-cream-200 {
+    display: none;
+  }
+  /* let the shared header sit on the night cover (same trick as the home page). */
+  body:has(.ab .op-sky) > header,
+  body:has(.ab .op-sky) header.sticky {
+    background: transparent !important;
+  }
+  /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
+     Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
+  body:has(.ab .op-sky) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
+  body:has(.ab .op-sky) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.ab .op-sky) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.ab .op-sky) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.ab .op-sky) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.ab .op-sky) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  body:has(.ab .op-sky) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.ab .op-sky) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>

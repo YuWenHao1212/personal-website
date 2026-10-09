@@ -3,6 +3,7 @@ title: "No-Code 開發實作：Bubble 操作基礎與動態數據"
 description: "介紹 Bubble 平台的應用定位和核心優勢 Dynamic Data（動態數據），讓應用能根據即時資料、使用者狀態或特定條件動態改變內容和行為，建立真正「活著」的應用程式。"
 pubDate: 2021-09-05
 category: building-products
+topics: ["ai-practice"]
 tags: ["No-Code", "Bubble", "Bubble.io", "Bubble教學", "no-code development"]
 lang: zh-TW
 featured: false
@@ -63,5 +64,3 @@ Dynamic Data（動態數據）是 Bubble 最強大的功能之一，它讓應用
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

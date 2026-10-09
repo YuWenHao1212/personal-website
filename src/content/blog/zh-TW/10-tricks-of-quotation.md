@@ -3,6 +3,7 @@ title: "產品報價: 10個提高說服力的建議"
 description: "產品報價並不是成本計算。成功的報價應讓賣方獲得足夠利潤，同時讓買方認為價格公道。本文分享成本分拆表的組成與10個提高報價說服力的建議。"
 pubDate: 2020-11-22
 category: building-products
+topics: ["ai-practice"]
 tags: ["Automotive", "Project Cost Calculation", "Quotation", "Cost Breakdown", "成本分拆表", "產品報價", "車用產品"]
 lang: zh-TW
 featured: false
@@ -13,7 +14,7 @@ heroImage: /images/blog/10-tricks-of-quotation/hero.webp
 
 隨著汽車產品導入愈來愈多的電子設備，許多原本生產消費性產品的廠商進入了汽車電子領域，例如電子儀錶板、停車輔助系統。然而相較於消費性產品量大、快速量產、生命週期短，車用產品有少量多樣生命週期長的特性。每一個專案都需要被細緻的規劃與執行。報價（quotation）則是在專案規劃階段中最重要的活動之一。因為一旦被接受，產品才有進一步量產的機會，同時也能招募更多成員進入專案。
 
-但是**產品報價並不是成本計算**（[這篇](/zh-TW/blog/project-cost-calculation)）。成功的報價能讓賣方得到足夠的利潤，同時讓買方認為價格公道。讓雙方都能夠舒服的完成這個交易。達到這個目的的關鍵在於「成本分拆表」（Cost Breakdown）是否被妥善的填寫。
+但是**產品報價並不是成本計算**（[這篇](/zh-TW/blog/project-cost-calculation/)）。成功的報價能讓賣方得到足夠的利潤，同時讓買方認為價格公道。讓雙方都能夠舒服的完成這個交易。達到這個目的的關鍵在於「成本分拆表」（Cost Breakdown）是否被妥善的填寫。
 
 由於此時主要接洽者是買方的採購工程師，若換位到客人採購工程師的立場來思考，可以知道其目標有：
 
@@ -24,7 +25,7 @@ heroImage: /images/blog/10-tricks-of-quotation/hero.webp
 
 ## 成本分拆表的組成
 
-成本分拆表與計算成本（[這篇](/zh-TW/blog/project-cost-calculation)）的結構是相同的，也就是區分「**專案開發成本**」、「**單位生產成本**」和「**利潤**」。並把其中的各項再細拆列出。
+成本分拆表與計算成本（[這篇](/zh-TW/blog/project-cost-calculation/)）的結構是相同的，也就是區分「**專案開發成本**」、「**單位生產成本**」和「**利潤**」。並把其中的各項再細拆列出。
 
 - **「利潤」** 是單位售價和單位生產成本之間的差距。
 - **「專案開發成本」** 即常聽到的一次性工程費用（Non-recurring engineering Expense，NRE Expense），包含開發的人力工時、驗証費用...等等在專案開發前和客人預收的一次性費用。
@@ -99,10 +100,8 @@ BOM是我方採購各項材料後給客人的**報價**，製造費用是材料�
 
 ## 延伸閱讀
 
-- [車用電子產品成本計算](/zh-TW/blog/project-cost-calculation)
+- [車用電子產品成本計算](/zh-TW/blog/project-cost-calculation/)
 
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

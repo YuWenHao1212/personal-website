@@ -1,97 +1,576 @@
 ---
+// Rewritten 10/9 with the author, in the redesign folder only (the live page is unchanged until this branch ships).
+// Before: tab title "Blog", heading 「所有文章」, three category pills (AI 實戰／效率系統／人生思考), 60 picture cards three to a row.
+//   Previous file: session scratchpad, blog-list/index.before-redesign.astro.
+// Now: the page for a returning reader — what is new, and one of two topics. One row per article, picture on the left (the author's
+//   pick: pictures stay), grouped by year, the newest one large. Two topics (i18n/topics.ts); six articles sit in both.
+// Kept for search: the URL, every one of the 60 article links in the HTML (the filter only hides rows), article URLs.
+// Changed for search (Claude's drafts, to be confirmed by the author): tab title and description.
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import BlogCard from '../../../components/BlogCard.astro';
-import CategoryFilter from '../../../components/CategoryFilter.astro';
-import { useTranslations } from '../../../i18n/utils';
+import { topics, topicNames, topicsOf, legacyToTopic } from '../../../i18n/topics';
 
-const t = useTranslations('zh-TW');
-
-// Get all posts for zh-TW (exclude drafts)
 const allPosts = await getCollection('blog', ({ data }) => data.lang === 'zh-TW' && (import.meta.env.DEV || data.draft !== true));
+const posts = allPosts
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .map((p) => ({
+    slug: p.id.split('/').pop()!,
+    title: p.data.title,
+    description: p.data.description,
+    date: p.data.pubDate,
+    image: p.data.heroImage,
+    topics: topicsOf(p.data),
+  }));
 
-// Sort by date (newest first) — featured/pinned only affects homepage
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const years = [...new Set(posts.map((p) => p.date.getFullYear()))];
+const byYear = years.map((y) => ({ y, rows: posts.filter((p) => p.date.getFullYear() === y) }));
+const counts = Object.fromEntries(topics.map((t) => [t, posts.filter((p) => p.topics.includes(t)).length]));
+const fmtDay = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 
-const title = 'Blog';
-const description = '分享 AI 實戰、效率系統與人生思考的文章';
+const title = '文章｜余文皓';
+const description = '余文皓的文章：Claude Code、AI 工作流、效率系統、知識管理，和一路上想通的道理。';
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="py-10 md:py-14 lg:py-16">
-    <div class="container-wide">
-      <!-- Header -->
-      <div class="text-center mb-8 md:mb-10">
-        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-ink-900 mb-3">
-          {t('blog.allPosts')}
-        </h1>
-        <p class="text-base md:text-lg text-ink-500">
-          {description}
-        </p>
-      </div>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
 
-      <!-- Category Filter -->
-      <div class="mb-8 md:mb-10">
-        <CategoryFilter />
+  <div class="wl">
+    <!-- ============ 0. A low night band, not a full cover: this is a page to scan ============ -->
+    <section class="wl-top">
+      <img class="wl-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" fetchpriority="high" />
+      <div class="wl-top-in">
+        <p class="kick"><i></i>文章</p>
+        <h1>全部文章</h1>
+        <p class="wl-sub">Claude Code、AI 工作流、效率系統、知識管理，<span class="nb">和一路上想通的道理。</span></p>
       </div>
+    </section>
 
-      <!-- Posts Grid -->
-      <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {sortedPosts.map((post) => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            heroImage={post.data.heroImage}
-            category={post.data.category}
-            slug={post.id.split('/').pop()!}
-            lang="zh-TW"
-            featured={post.data.featured}
-          />
+    <!-- ============ 1. Filter + list ============ -->
+    <section class="wl-main">
+      <div class="wl-filter" id="wl-filter" role="group" aria-label="依主題篩選">
+        <button type="button" data-topic="all" aria-pressed="true" data-umami-event="category_click" data-umami-event-category="all">
+          全部<span>{posts.length}</span>
+        </button>
+        {topics.map((t) => (
+          <button type="button" data-topic={t} aria-pressed="false" data-umami-event="category_click" data-umami-event-category={t}>
+            {topicNames[t]}<span>{counts[t]}</span>
+          </button>
         ))}
       </div>
 
-      <!-- Empty state (shown via JS when no posts match) -->
-      <div id="empty-state" class="hidden bg-cream-50 rounded-xl p-8 md:p-12 text-center text-ink-500">
-        <p>目前此分類沒有文章</p>
-        <button id="show-all-btn" class="mt-4 inline-block text-accent hover:text-accent-hover font-medium">
-          查看所有文章
-        </button>
-      </div>
-    </div>
+      {byYear.map(({ y, rows }, gi) => (
+        <div class="wl-year" data-year={y}>
+          <h2><span>{y}</span><i data-count>{rows.length} 篇</i></h2>
+          <ol>
+            {rows.map((p, i) => (
+              <li class:list={{ 'is-lead': gi === 0 && i === 0 }} data-topics={p.topics.join(' ')}>
+                <a href={`/zh-TW/blog/${p.slug}/`} data-umami-event="blog_list_click">
+                  <span class="pic">
+                    {p.image && (
+                      <img src={p.image} alt="" width="1200" height="675" loading={gi === 0 && i < 3 ? 'eager' : 'lazy'} decoding="async" />
+                    )}
+                  </span>
+                  <span class="body">
+                    <span class="meta">
+                      <time datetime={p.date.toISOString()}>{fmtDay(p.date)}</time>
+                      <span class="tp">{p.topics.map((t) => topicNames[t]).join('・')}</span>
+                    </span>
+                    <span class="t">{p.title}</span>
+                    <span class="x">{p.description}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </section>
+
+    <!-- ============ 2. Ending: one way to get the next article, and the last line ============ -->
+    <section class="wl-end">
+      <img class="wl-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      <a class="wl-nl" href="/zh-TW/#newsletter-form" data-umami-event="blog_list_click_newsletter">
+        <span class="k">想讓新的文章寄給你</span>
+        <span class="t">訂閱電子報</span>
+        <b aria-hidden="true">→</b>
+      </a>
+      <p class="wl-foot">
+        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
   </div>
 </BaseLayout>
 
-<script>
-  // Handle empty state visibility
-  function checkEmptyState() {
-    const grid = document.getElementById('posts-grid');
-    const emptyState = document.getElementById('empty-state');
-    const showAllBtn = document.getElementById('show-all-btn');
+<script is:inline define:vars={{ LEGACY: legacyToTopic, TOPICS: [...topics] }}>
+  // The filter only hides rows; all 60 links stay in the HTML. Old links (?category=building-products …) land on the new topic.
+  (function () {
+    const bar = document.getElementById('wl-filter');
+    if (!bar) return;
+    const buttons = [...bar.querySelectorAll('button')];
+    const groups = [...document.querySelectorAll('.wl-year')];
 
-    if (!grid || !emptyState) return;
-
-    const visibleCards = grid.querySelectorAll('[data-post-category]:not([style*="display: none"])');
-
-    if (visibleCards.length === 0) {
-      emptyState.classList.remove('hidden');
-    } else {
-      emptyState.classList.add('hidden');
+    function read() {
+      const raw = new URLSearchParams(location.search).get('category') || 'all';
+      const t = LEGACY[raw] || raw;
+      return TOPICS.includes(t) ? t : 'all';
     }
-
-    // Handle show all button
-    showAllBtn?.addEventListener('click', () => {
-      const allBtn = document.querySelector('[data-category="all"]') as HTMLButtonElement;
-      allBtn?.click();
-    });
-  }
-
-  // Observer to watch for filter changes
-  const observer = new MutationObserver(checkEmptyState);
-  const grid = document.getElementById('posts-grid');
-  if (grid) {
-    observer.observe(grid, { attributes: true, subtree: true, attributeFilter: ['style'] });
-  }
-
-  checkEmptyState();
+    function apply(topic) {
+      let lead = null;
+      groups.forEach((g) => {
+        let shown = 0;
+        g.querySelectorAll('li').forEach((li) => {
+          const on = topic === 'all' || li.dataset.topics.split(' ').includes(topic);
+          li.hidden = !on;
+          li.classList.remove('is-lead');
+          if (on) {
+            shown += 1;
+            if (!lead) lead = li;
+          }
+        });
+        g.hidden = shown === 0;
+        g.querySelector('[data-count]').textContent = shown + ' 篇';
+      });
+      if (lead) lead.classList.add('is-lead');
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.topic === topic)));
+    }
+    buttons.forEach((b) =>
+      b.addEventListener('click', () => {
+        const topic = b.dataset.topic;
+        const url = new URL(location.href);
+        if (topic === 'all') url.searchParams.delete('category');
+        else url.searchParams.set('category', topic);
+        history.pushState({}, '', url);
+        apply(topic);
+      })
+    );
+    window.addEventListener('popstate', () => apply(read()));
+    apply(read());
+  })();
 </script>
+
+<style>
+  /* Tokens are the home page's (index.astro .hp). */
+  .wl {
+    --paper: #fbf9f5;
+    --paper-2: #f4efe7;
+    --ink: #241b18;
+    --text: #2b211c;
+    --muted: #71655c;
+    --faint: #a99a8d;
+    --hair: #e2d8c9;
+    --terra: #c25b3f;
+    --night: #0d0b09;
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+    background: var(--paper);
+    color: var(--text);
+  }
+  .wl a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .wl :is(h1, h2, p, ol) {
+    margin: 0;
+  }
+  .wl ol {
+    list-style: none;
+    padding: 0;
+  }
+  .wl .nb {
+    white-space: nowrap;
+  }
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .kick i {
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+
+  /* ---------- top band ---------- */
+  .wl-top {
+    position: relative;
+    overflow: hidden;
+    margin-top: -6rem; /* slide under the header, as the other night covers do */
+    padding: 12rem var(--gx) 4.5rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .wl-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 45%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 45%, #000 100%);
+    pointer-events: none;
+  }
+  .wl-top-in {
+    position: relative;
+  }
+  .wl-top h1 {
+    margin-top: 1.8rem;
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+  }
+  .wl .wl-sub {
+    margin-top: 1.4rem;
+    max-width: 38rem;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.95;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.72);
+  }
+
+  /* ---------- filter ---------- */
+  .wl-main {
+    padding: 3rem var(--gx) 7rem;
+    max-width: 78rem;
+    margin: 0 auto;
+    box-sizing: content-box;
+  }
+  .wl-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 2.4rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--hair);
+  }
+  .wl-filter button {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.55em;
+    padding: 0.5rem 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: none;
+    font: inherit;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .wl-filter button span {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+  }
+  .wl-filter button:hover {
+    color: var(--ink);
+  }
+  .wl-filter button[aria-pressed='true'] {
+    color: var(--ink);
+    border-bottom-color: var(--terra);
+  }
+  .wl-filter button[aria-pressed='true'] span {
+    color: var(--terra);
+  }
+
+  /* ---------- year groups ---------- */
+  .wl-year {
+    margin-top: 4.5rem;
+  }
+  .wl-year:first-of-type {
+    margin-top: 3rem;
+  }
+  .wl-year h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .wl-year h2 i {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--faint);
+  }
+
+  /* ---------- one row per article ---------- */
+  .wl-year li {
+    border-bottom: 1px solid var(--hair);
+  }
+  .wl-year li a {
+    display: grid;
+    grid-template-columns: clamp(11rem, 19vw, 15rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.8rem);
+    align-items: center;
+    padding: 1.6rem 0;
+  }
+  .wl-year .pic {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .wl-year .pic img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .wl-year li a:hover .pic img {
+    transform: scale(1.04);
+  }
+  .wl-year .body {
+    display: block;
+    min-width: 0;
+  }
+  .wl-year .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.4rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    color: var(--faint);
+  }
+  .wl-year .meta .tp {
+    color: var(--terra);
+  }
+  .wl-year .t {
+    display: block;
+    margin-top: 0.7rem;
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    text-wrap: pretty;
+    transition: color 0.2s;
+  }
+  .wl-year li a:hover .t {
+    color: var(--terra);
+  }
+  .wl-year .x {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 0.6rem;
+    max-width: 44rem;
+    font-size: 0.9375rem;
+    line-height: 1.85;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  /* the newest visible article is large */
+  .wl-year li.is-lead a {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4.5vw, 4.5rem);
+    padding: 2.6rem 0 3rem;
+  }
+  .wl-year li.is-lead .pic {
+    aspect-ratio: 16 / 9;
+  }
+  .wl-year li.is-lead .t {
+    margin-top: 1.1rem;
+    font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.45;
+  }
+  .wl-year li.is-lead .x {
+    -webkit-line-clamp: 4;
+    margin-top: 1.1rem;
+    font-size: 1rem;
+  }
+
+  /* ---------- ending ---------- */
+  .wl-end {
+    position: relative;
+    overflow: hidden;
+    padding: 6.5rem var(--gx) 7.5rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .wl a.wl-nl {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 0.4rem 2.5rem;
+    width: min(40rem, 100%);
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(246, 241, 232, 0.3);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .wl-nl .k {
+    grid-column: 1 / -1;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .wl-nl .t {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .wl-nl b {
+    font-weight: 300;
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+  }
+  .wl a.wl-nl:hover {
+    color: var(--dawn);
+    border-bottom-color: var(--dawn);
+  }
+  .wl-nl:hover b {
+    transform: translateX(6px);
+  }
+  .wl-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .wl-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .wl .wl-foot a:hover {
+    color: var(--dawn);
+  }
+
+  /* ---------- phone: small square picture, title beside it, no summary ---------- */
+  @media (max-width: 700px) {
+    .wl-top {
+      padding: 9.5rem var(--gx) 3rem;
+    }
+    .wl-main {
+      padding-top: 2rem;
+      padding-bottom: 4.5rem;
+    }
+    .wl-filter {
+      gap: 0.2rem 1.6rem;
+    }
+    .wl-filter button {
+      font-size: 0.9375rem;
+    }
+    .wl-year {
+      margin-top: 3.2rem;
+    }
+    .wl-year li a {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      gap: 1.1rem;
+      align-items: start;
+      padding: 1.2rem 0;
+    }
+    .wl-year .pic {
+      aspect-ratio: 1;
+    }
+    .wl-year .meta .tp {
+      display: none;
+    }
+    .wl-year .t {
+      margin-top: 0.4rem;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+    }
+    .wl-year .x {
+      display: none;
+    }
+    .wl-year li.is-lead a {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      padding: 1.6rem 0 2rem;
+    }
+    .wl-year li.is-lead .pic {
+      aspect-ratio: 16 / 9;
+    }
+    .wl-year li.is-lead .meta .tp {
+      display: inline;
+    }
+    .wl-year li.is-lead .t {
+      margin-top: 0.7rem;
+      font-size: 1.5rem;
+    }
+    .wl-year li.is-lead .x {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      font-size: 0.9375rem;
+    }
+    .wl-end {
+      padding: 4.5rem var(--gx) 8rem;
+    }
+  }
+</style>
+
+<style is:global>
+  /* The top band is night; the shared footer is replaced by this page's last line, and the header sits on the sky
+     (same treatment as the home, about, workshop and contact pages). */
+  body:has(.wl .wl-sky) footer.bg-cream-200 {
+    display: none;
+  }
+  body:has(.wl .wl-sky) > header,
+  body:has(.wl .wl-sky) header.sticky {
+    background: transparent !important;
+  }
+  body:has(.wl .wl-sky) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  body:has(.wl .wl-sky) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.wl .wl-sky) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.wl .wl-sky) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.wl .wl-sky) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.wl .wl-sky) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  body:has(.wl .wl-sky) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.wl .wl-sky) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>

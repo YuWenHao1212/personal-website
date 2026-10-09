@@ -3,6 +3,7 @@ title: "企業導入 AI 工作流，為什麼總是卡在第一步？"
 description: "企業導入 AI 工作流最常卡在「流程沒人寫下來」。這篇從顧問現場實錄出發，拆解傳統 SOP 為什麼沒用、什麼是真正的 AI 工作流、三個部門的跨部門驗證，以及主管現在就能問的三個問題。"
 pubDate: 2026-03-30
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "企業AI", "數位轉型", "流程優化", "AI工作流"]
 keywords: ["AI 工作流", "企業 AI 導入", "企業數位轉型", "流程自動化", "AI 導入瓶頸", "企業 AI"]
 lang: zh-TW

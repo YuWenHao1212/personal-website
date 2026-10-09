@@ -3,6 +3,7 @@ title: "Coursera 自學指南：善用線上資源打造職涯實力"
 description: "Coursera 由吳恩達和 Daphne Koller 於 2012 年創立，與 350 多所頂尖學府和企業合作，提供從單一課程到完整學位的多元學習選擇。熱門領域包括數據分析、程式設計和人工智能。Coursera 不只是學習平台，更是彌補技能差距、提升職場競爭力的有效工具。"
 pubDate: 2025-02-20
 category: productivity
+topics: ["growth"]
 tags: ["Coursera", "線上學習", "職涯發展", "專業證照", "技能培訓", "轉職策略"]
 lang: zh-TW
 featured: false
@@ -140,5 +141,3 @@ Coursera 為彌補這些技能差距提供了理想解決方案。平台上還�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

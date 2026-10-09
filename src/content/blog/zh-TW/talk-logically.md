@@ -3,6 +3,7 @@ title: "講話沒重點嗎？邏輯表達三角"
 description: "工作上常遇到溝通很累的同事？還是自己就是那個被說講話沒重點的人？透過邏輯表達三角框架，學習如何有結構地表達主張，讓溝通更有效率。"
 pubDate: 2021-12-18
 category: productivity
+topics: ["growth"]
 tags: ["專案管理", "知識管理", "個人成長", "溝通技巧"]
 lang: zh-TW
 featured: false
@@ -99,5 +100,3 @@ heroImage: /images/blog/talk-logically/hero.webp
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -3,6 +3,7 @@ title: "一堂Coursera課程觸發的職場新旅程：從產品經理到數據�
 description: "改變的契機，往往就存在於那個簡單的起心動念。一個看似微小的學習決定，如何在三年內徹底改變我的職涯軌跡。"
 pubDate: 2025-02-18
 category: life-learning
+topics: ["growth"]
 tags: ["Coursera", "數據分析", "職涯轉換", "個人成長", "Python"]
 lang: zh-TW
 featured: false
@@ -117,5 +118,3 @@ Just do it.
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

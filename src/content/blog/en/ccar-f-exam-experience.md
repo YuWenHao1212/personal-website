@@ -140,8 +140,11 @@ The first is straight from the CCAR-F Exam Guide's 12 public sample questions (Q
 > Your codebase has distinct areas with different coding conventions: React components use functional style with hooks, API handlers use async/await with specific error handling, and database models follow a repository pattern. Test files are spread throughout the codebase alongside the code they test (e.g., Button.test.tsx next to Button.tsx), and you want all tests to follow the same conventions regardless of location. What's the most maintainable way to ensure Claude automatically applies the correct conventions when generating code?
 >
 > A) Create rule files in .claude/rules/ with YAML frontmatter specifying glob patterns to conditionally apply conventions based on file paths
+>
 > B) Consolidate all conventions in the root CLAUDE.md file under headers for each area, relying on Claude to infer which section applies
+>
 > C) Create skills in .claude/skills/ for each code type that include the relevant conventions in their SKILL.md files
+>
 > D) Place a separate CLAUDE.md file in each subdirectory containing that area's specific conventions
 
 The correct answer is A. The scenario dressing here is "where should test files live," but the actual thing being tested is when a rule should apply automatically based on file path versus live in a config file that's always loaded.
@@ -153,8 +156,11 @@ The second is from [CCG](https://claudecertificationguide.com/)'s question bank 
 > A Claude Code agent has been working on a feature branch for 45 minutes and has accumulated extensive context about the codebase. The developer notices that several tool results from early in the session (file reads from 40 minutes ago) are now stale because a colleague pushed changes to those files. The agent is making recommendations based on the outdated file contents. What is the best recovery strategy?
 >
 > A) Continue in the current session and simply ask the agent to re-read the files a colleague changed, so it picks up the latest contents
+>
 > B) Start a completely new session with no context from the previous session
+>
 > C) Start a fresh session with a summary of the key findings and decisions, then read the changed files for current state
+>
 > D) Use fork_session to create a new branch that excludes the stale tool results
 
 The correct answer is C. I picked A both times, and both times it was the same instinct: tell it to re-read the files and the agent should just pick up the update.

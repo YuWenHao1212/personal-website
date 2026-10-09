@@ -4,6 +4,7 @@ description: "多數人學 AI 的順序反了——先碰工具，再想做什�
 pubDate: 2026-05-19
 tags: ['FLUX', '系統思維', 'AI 工作流', '12 Week Year', 'Claude Code', '個人指揮中心', 'AI Cockpit']
 category: 'productivity'
+topics: ["growth", "ai-practice"]
 lang: 'zh-TW'
 draft: false
 translationKey: 'flux-direction-system-leverage'

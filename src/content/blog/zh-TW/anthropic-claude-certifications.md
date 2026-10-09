@@ -3,6 +3,7 @@ title: "Claude 證照是什麼？Anthropic 四張官方認證怎麼考、和免�
 description: "台灣的 AI 證照地圖 2026 年多了一格：模型原廠自己發證。第一家跑完整套的不是 OpenAI，是 Anthropic — 四張 Claude 證照，$99 到 $175，Pearson VUE 監考。這篇從 iPAS 講到 Anthropic，把四張各是什麼、怎麼考、和「免費 Claude 證書」差在哪，一次講清楚。"
 pubDate: 2026-07-20
 category: building-products
+topics: ["ai-practice"]
 tags: ["Anthropic 認證", "Claude 證照", "CCAR-F", "CCAO-F", "AI 證照", "iPAS", "企業 AI"]
 lang: zh-TW
 featured: false

@@ -157,7 +157,7 @@ I've done this myself.
 
 With Claude Code, I built my personal website in two days (yes, the one you're reading right now).
 
-I also built a <a href="/en/products/ai-resume-advisor" target="_blank">SaaS product</a> and a <a href="/en/products/linkedin-resume-checker" target="_blank">Chrome Extension</a>.
+I also built a <a href="/en/products/ai-resume-advisor/" target="_blank">SaaS product</a> and a <a href="/en/products/linkedin-resume-checker/" target="_blank">Chrome Extension</a>.
 
 This isn't the future. It's happening right now.
 

@@ -3,6 +3,7 @@ title: "或許是知識管理的終極方案 | Roam Research + MyMind"
 description: "結合 Roam Research 的智能搜尋「未連結引用」功能，與 MyMind 的 AI 自動標記圖片影片功能，打造無摩擦的個人知識管理系統。解決信息輸入時分類的認知負擔問題。"
 pubDate: 2021-06-20
 category: productivity
+topics: ["growth"]
 tags: ["個人知識管理", "數位工具", "知識管理"]
 lang: zh-TW
 featured: false
@@ -77,5 +78,3 @@ MyMind 將自己定位為個人知識儲存庫，具有「基於內容分析自�
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*

@@ -1,207 +1,1911 @@
 ---
+// Home page (was the prototype home-sky.astro, v5) — night cover (star trails) → daylight pages.
+// Cover = one real image + emptiness + quiet type; reading sections stay bright.
+// A person's homepage: who he is → what he writes → others did it too → where to go.
+// The FLUX rings are no longer "the method explained" (that's the workshop page);
+// they are the map of this site: each ring files the articles of one layer.
+// The previous home page is in git history (src/pages/zh-TW/index.astro before the redesign).
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/Hero.astro';
-import MotionLayer from '../../components/MotionLayer.astro';
-import FeaturedPosts from '../../components/FeaturedPosts.astro';
+import { elsewhere } from '../../data/elsewhere';
+import { topicNames, topicsOf } from '../../i18n/topics';
 
-const title = '打造自己的 AI 工作流';
-const ogTitle = 'WenHao Yu - 打造自己的 AI 工作流';
-const description = '聊怎麼把 AI 用在真實生活和工作裡 — AI 寫程式、效率系統、知識管理，和一路上想通的道理。';
+// 10/9: moved here from home-sky.astro — this is now the home page of the branch. Title and description approved by the author on 10/9.
+const title = '余文皓｜企業 AI 導入顧問、AI 講師';
+const description = '我是余文皓，企業 AI 導入顧問、AI 講師，Claude 認證架構師。我寫怎麼讓 AI 進到工作和生活裡，也分享給願意動手的人：Claude Code、效率系統、知識管理，和一路上想通的道理。';
 
-const pillars = [
+// Which articles sit under which layer is a provisional pick for the prototype.
+const groups = [
   {
-    emoji: '🚀',
-    title: 'AI 實戰',
-    description: '用白話聊 AI，搞懂工具、看懂趨勢、學了就能用',
-    href: '/zh-TW/blog/?category=building-products',
-    event: 'ai-practice',
+    key: 'focus', n: '01', zh: '方向', en: 'FOCUS', q: '先想清楚要去哪裡',
+    slugs: ['12-week-year-guide', 'flux-direction-system-leverage', 'ai-coding-arbitrage'],
   },
   {
-    emoji: '⚡',
-    title: '效率系統',
-    description: '目標管理、知識系統、用 AI 放大每一步',
-    href: '/zh-TW/blog/?category=productivity',
-    event: 'efficiency',
+    key: 'system', n: '02', zh: '系統', en: 'LEARN / UPGRADE', q: '把「想做」變成「今天就做」',
+    slugs: ['personal-panopticon', 'lyt-framework-guide', 'karpathy-zettelkasten-comparison'],
   },
   {
-    emoji: '🌱',
-    title: '人生思考',
-    description: '書籍心得、價值觀、長期主義',
-    href: '/zh-TW/blog/?category=life-learning',
-    event: 'life-thinking',
+    key: 'lever', n: '03', zh: '槓桿', en: 'EXECUTE', q: '讓 AI 讀得懂你，替你跑',
+    slugs: ['claude-code-tutorial', 'claude-skills-guide', 'loop-engineering'],
   },
 ];
 
-const products = [
+const posts = await getCollection('blog', ({ data }) => data.lang === 'zh-TW' && data.draft !== true);
+const bySlug = new Map(posts.map((p) => [p.id.split('/').pop(), p]));
+const fmt = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+const filed = groups.map((g) => ({
+  ...g,
+  items: g.slugs.map((s) => ({ slug: s, post: bySlug.get(s) })).filter((x) => x.post),
+}));
+
+// Kept from the current homepage (names, one-liners, links, images unchanged).
+const made = [
+  { name: 'NeatToolkit', d: '免費線上工具站，打開就用', href: '/zh-TW/products/neatoolkit/', img: '/images/blog/neatoolkit-launch.webp' },
+  { name: 'AI Resume Advisor', d: 'AI 履歷診斷，投前就知道勝算', href: '/zh-TW/products/ai-resume-advisor/', img: '/images/products/ai-resume-advisor.webp' },
+  { name: 'LinkedIn Resume Checker', d: '一鍵分析職缺匹配度', href: '/zh-TW/products/linkedin-resume-checker/', img: '/images/products/linkedin-resume-checker.webp' },
+];
+const tools = [
   {
-    name: 'NeatToolkit',
-    description: '免費線上工具站，打開就用',
-    href: '/zh-TW/products/neatoolkit/',
-    image: '/images/blog/neatoolkit-launch.webp',
+    t: '台灣人用 Stripe 收美金：開一家美國公司的 2 年實戰心得',
+    d: 'Stripe 不支援台灣，最務實的解是開美國公司。$139 設立費 + $309/年維護，2 年實戰拆解。',
+    href: '/zh-TW/blog/stripe-taiwan-us-llc-guide/', img: '/images/blog/vibe-coder-wyoming-llc-guide.webp',
   },
   {
-    name: 'AI Resume Advisor',
-    description: 'AI 履歷診斷，投前就知道勝算',
-    href: '/zh-TW/products/ai-resume-advisor/',
-    image: '/images/products/ai-resume-advisor.webp',
-  },
-  {
-    name: 'LinkedIn Resume Checker',
-    description: '一鍵分析職缺匹配度',
-    href: '/zh-TW/products/linkedin-resume-checker/',
-    image: '/images/products/linkedin-resume-checker.webp',
+    t: 'Microsoft for Startups：免費 Azure 額度申請攻略',
+    d: '最高 $5,000 美元的免費 Azure credits，可用於 OpenAI API、雲端服務等。個人開發者也能申請。',
+    href: '/zh-TW/blog/free-azure-startup-credits/', img: '/images/blog/free-azure-startup-credits.webp',
   },
 ];
+
+// Latest writing, by date — the sign that the site is alive.
+// Own posts + up to 2 articles written elsewhere (Confluence), merged and sorted; 5 rows.
+const ownRows = posts.map((p) => ({
+  date: p.data.pubDate,
+  title: p.data.title,
+  description: p.data.description,
+  href: `/zh-TW/blog/${p.id.split('/').pop()}/`,
+  label: topicNames[topicsOf(p.data)[0]], // 10/9: the two new topics; a post in both shows its first
+  external: false,
+}));
+const elsewhereRows = [...elsewhere]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 2)
+  .map((e) => ({
+    date: new Date(e.date),
+    title: e.title,
+    description: e.description,
+    href: `${e.url}?utm_source=yu-wenhao.com&utm_medium=home_latest`,
+    label: e.where,
+    external: true,
+  }));
+const latest = [...ownRows, ...elsewhereRows].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 5);
+// One chosen piece gets a whole screen; the rest is a quiet list.
+// (Chosen by hand for now — later this can read the post's `pinned` flag.)
+const FEATURE_SLUG = 'loop-engineering';
+const featurePost = bySlug.get(FEATURE_SLUG);
+const latestRows = [...ownRows, ...elsewhereRows]
+  .filter((r) => !r.href.includes(`/blog/${FEATURE_SLUG}/`))
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
+  .slice(0, 5);
+
+// Career drawn as one star trail: time accumulating along an arc, oldest at left, now at right.
+const TJ = { w: 1200, h: 430 };
+// x in 0..1 (slightly beyond on both ends so the line runs off the stage); sign-safe power
+const arcY = (x: number, lift = 0) => 250 - lift - 185 * Math.sign(x) * Math.pow(Math.abs(x), 1.7);
+const arcPath = (lift: number, x0 = -0.03, x1 = 1.03) =>
+  Array.from({ length: 61 }, (_, i) => {
+    const x = x0 + ((x1 - x0) * i) / 60;
+    return `${i ? 'L' : 'M'}${(x * TJ.w).toFixed(1)} ${arcY(x, lift).toFixed(1)}`;
+  }).join(' ');
+const fmtDay = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+// Career, newest first, stated flatly. Every line is already public on the About page,
+// the Confluence site, or in published posts.
+// 10/8 draft with the author: six points → four. The twenty years carry the weight (company names shown);
+// the certificate is a line under the last point, not a point of its own.
+// Before: 科技業二十年／Minerva University 碩士（在職唸完，重新學怎麼做決策）／一個人做產品（離開公司。Claude Code 上線那個月開始用）／
+//         企業內訓與公開工作坊／匯流顧問 創辦人／Claude 認證架構師
+// OPEN (author to confirm): first range is 2003–2023 or 2003–2025.
+// 10/9: the 2025 title was 「回到第一線，自己動手做」; the author removed that phrase from the about page's story, so it follows —
+// now 「離開公司」 only (the author's pick): the two lines under it already say what he built.
+const career = [
+  { y: '2003 — 2023', t: '科技業二十年', c: 'Nokia、聯詠科技、友達光電', d: ['七年工程師、十年 PM', '三年數據分析', '與事業單位主管（BU Head）的幕僚'], x: 0.05, w: 20, lead: true },
+  { y: '2023 — 2025', t: 'Minerva University', t2: '決策分析碩士', d: [], x: 0.29, w: 20 },
+  { y: '2025', t: '離開公司', d: ['Claude Code 上線那個月開始用', '把想法做成上線的產品'], x: 0.53, w: 20 },
+  { y: '2026', t: '成立匯流顧問', d: ['帶顧問夥伴做企業 AI 導入與內訓'], cert: true, x: 0.77, w: 18 },
+].map((c) => ({ ...c, yPx: arcY(c.x) }));
+const nowX = 0.955;
+
+const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
 ---
 
-<BaseLayout title={title} description={description} ogTitle={ogTitle}>
-  <!-- Hero with Newsletter -->
-  <Hero />
+<BaseLayout title={title} description={description}>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
 
-  <!-- Featured Posts + Content Pillars (unified section) -->
-  <section class="py-24 md:py-32 bg-[#F5F1EB]">
-    <div class="max-w-6xl mx-auto px-6">
-      <!-- Author context -->
-      <p class="text-xl md:text-2xl font-medium text-[#2C2416] mb-12 md:mb-14 leading-[1.6]">
-        科技業 20 年，前 PM。用 AI 建立可複利的系統，讓工作和生活每天好一點。這裡是完整記錄。
-      </p>
+  <div class="hp">
+    <!-- ============ 0. Cover: the night sky ============ -->
+    <div class="cv-track" id="cover">
+    <section class="cv">
+      <picture>
+        <source media="(max-width: 700px)" srcset="/images/sky/startrails-1200.webp" />
+        <source media="(max-width: 1400px)" srcset="/images/sky/startrails-1920.webp" />
+        <img class="cv-sky" src="/images/sky/startrails-2912.webp" alt="繞著北極星的星軌，地平線有天亮前的光" width="2912" height="1632" fetchpriority="high" />
+      </picture>
+      <div class="cv-scrim"></div>
 
-      <!-- Content Pillars (category navigation) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-5 mb-16 md:mb-20 pb-16 md:pb-20 border-b border-[#E0DBD3]">
-        {pillars.map((pillar) => (
-          <a
-            href={pillar.href}
-            class="block rounded-lg p-4 md:p-5 bg-white border border-[#E8E4DD] hover:shadow-md hover:border-[#B8926A]/50 transition-all"
-            data-umami-event="content_pillar_click"
-            data-umami-event-pillar={pillar.event}
-          >
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-xl md:text-2xl">{pillar.emoji}</span>
-              <span class="font-semibold text-sm md:text-base text-[#2C2416]">{pillar.title}</span>
-            </div>
-            <div class="text-xs md:text-sm leading-relaxed text-[#5C5144]">{pillar.description}</div>
-          </a>
-        ))}
+      <!-- the one fixed point, labelled the way the Confluence landscape labels its tree -->
+      <div class="cv-star" aria-hidden="true">
+        <i></i>
+        <span class="n"><b>方向</b>NORTH STAR</span>
+        <svg class="d" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 L14.6 9.4 L23 12 L14.6 14.6 L12 23 L9.4 14.6 L1 12 L9.4 9.4 Z" /></svg>
+        <span class="d"><b>方向</b>NORTH STAR</span>
       </div>
 
-      <!-- Section header -->
-      <div class="flex items-baseline justify-between mb-10 md:mb-12">
-        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
-          精選文章
-        </h2>
-        <a
-          href="/zh-TW/blog/"
-          class="text-sm md:text-base font-medium text-[#5C5144] hover:text-[#2C2416] transition-colors flex items-center gap-1"
-        >
-          查看全部
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
+      <div class="cv-copy">
+        {/* 10/8 draft B: job title moved off the cover. Before: 余文皓 WENHAO YU · 企業 AI 導入顧問 */}
+        <p class="cv-kick">余文皓 WENHAO YU</p>
+        <h1>方向比速度重要。</h1>
+        <p class="cv-sub">讓複利帶你走遠。</p>
       </div>
 
-      <!-- Post cards -->
-      <FeaturedPosts limit={6} />
-    </div>
-  </section>
+      <!-- dawn: first light rises from the horizon, then the page becomes paper -->
+      <div class="cv-glow" aria-hidden="true"></div>
+      <div class="cv-day" aria-hidden="true"></div>
 
-  <!-- Products (social proof) -->
-  <section class="py-24 md:py-32 bg-[#FFFDF9]">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
-        我做的東西
-      </h2>
-      <p class="mt-4 text-lg md:text-xl text-[#5C5144] mb-12 md:mb-16">
-        從想法到上線，全部一個人用 AI 完成。
-      </p>
+      <!-- by day the sky is still there, as a faint chart on the paper -->
+      <img class="cv-ghost" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" />
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-        {products.map((product) => (
-          <a
-            href={product.href}
-            class="group block bg-white border border-[#E8E4DD] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300"
-            data-umami-event="product_click"
-            data-umami-event-product={product.name}
-          >
-            <div class="relative overflow-hidden aspect-[16/10]">
-              <img
-                src={product.image}
-                alt={product.name}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                loading="lazy"
-              />
-            </div>
-            <div class="p-5 md:p-6">
-              <h3 class="text-base md:text-lg font-semibold text-[#2C2416] mb-2 group-hover:text-[#B8926A] transition-colors">
-                {product.name}
-              </h3>
-              <p class="text-sm text-[#5C5144] leading-relaxed">
-                {product.description}
-              </p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Recommended Tools -->
-  <section class="py-24 md:py-32 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-12 md:mb-16">
-        <h2 class="rv text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold text-[#2C2416] leading-[1.1] tracking-[-0.02em]">
-          推薦工具
-        </h2>
-        <p class="mt-4 text-lg text-[#5C5144]">
-          我實際用過、覺得值得推薦的工具和資源。
+      <!-- the person appears out of the daylight, in place -->
+      <div class="cv-who">
+        <h2>我是余文皓。</h2>
+        {/* 10/8 draft B (not yet approved by the author). Draft A, kept for comparison:
+          lead:  企業 AI 導入顧問，Claude 認證架構師，匯流顧問的創辦人。我帶一群顧問夥伴，幫企業把 AI 帶進日常的工作裡。
+          lead2: 我相信一個人把方向想清楚、建起自己的系統，AI 才幫得上忙。我自己先這樣做，把過程和一路上想通的道理寫在這裡，也教給願意動手的人。工具會換，做法不變，現在用得最深的是 Claude 生態系。
+        */}
+        {/* 10/9: same line as the about page — 「AI 講師」 added, two sentences on two lines (what he does / what backs it). */}
+        <p class="idl">企業 AI 導入顧問、AI 講師。<br />Claude 認證架構師，匯流顧問創辦人。</p>
+        {/* 10/8 evening, voice pass (after reading all 60 articles): say what he did, including the wrong turn, instead of the conclusion.
+            Tool names and 「沒有一個留下來」 come from his article flux-direction-system-leverage. Claude's draft, not yet approved.
+            Before (approved earlier the same day):
+              lead:  我先把自己的方向想清楚，建了一套每天在用的工作系統，再讓 AI 進來幫忙。過程和一路上想通的道理，我寫在這裡，也教給願意動手的人。
+              lead2: 工具會換，做法不變。現在用得最深的是 Claude 生態系。 */}
+        {/* 10/9: the author kept the first clause and lead2, and said the turn was missing ("才把順序弄對" — how?).
+            The turn now says what happened, from the same article: the other tools had a shape he adapted to; Claude Code had none,
+            so his goals went in first, then the daily log, mail and calendar. 「只好先講清楚自己要去哪裡」 is Claude's wording of that. 
+            10/9 later: that version was rejected — too low a level (tool mechanics, and it made Claude Code the subject; "我又不是只有談 Claude Code").
+            The turn is now about him: he kept waiting for a tool to take him somewhere, then saw he had not decided where to go.
+            (「每次都期待這次的工具會帶我去某個地方」「沒有方向、沒有想清楚要拿來做什麼」 are his, same article.) 
+            10/9 later still: rejected as a whole — "整段的描述還是太低了，這是首頁，不是關於頁". The back-story (tools tried, the turn)
+            belongs on the about page. The lead is back to the text the author approved on 10/8. Last tried version, for the about page:
+              我對生產力工具有一種執念，Notion、Obsidian、ChatGPT 都搬過去用過，沒有一個留下來。每次都期待新的工具會帶我去某個地方，
+              後來才明白，是我自己沒有先想清楚要去哪裡。於是我把順序倒過來：先定方向，再建一套每天在用的系統，最後才讓 AI 進來。 */}
+        <p class="lead">
+          我讓 AI 進到工作和生活裡，為的是更自由，更靠近自己想過的生活。過程和一路上想通的道理，我寫在這裡，也分享給願意動手的人。
         </p>
+        {/* 10/9: the author found even the 10/8 sentence too low a level ("層次太低 太細節") and asked for the purpose instead:
+            「如何讓 AI 讓自己更自由，更靠近自己的理想生活」. The method (方向 → 系統 → AI) is no longer in this paragraph; it is on the cover
+            line and in the reading map. Also his word: 分享, not 教. First sentence: the author picked this wording on 10/9 out of four (before it: 我在試著用 AI 讓自己更自由，…).
+            Before: 我先把自己的方向想清楚，建了一套每天在用的工作系統，再讓 AI 進來幫忙。過程和一路上想通的道理，我寫在這裡，也教給願意動手的人。
+            NOTE: the ending's headline is 「我在靠近自己想過的生活。」 — the same phrase now appears at both ends of the page. 
+            10/9 later: 「為的是更自由，更靠近自己想過的生活」 → 「過自己想過的生活：做喜歡的事，時間自由，也能幫助別人」. The author said he is
+            already living it (his three things, word for word), and the about page's story now ends that way; "更靠近" said he was not there yet. 
+            Put back the same day at the author's word ("首頁可以回到原本的"): the home page keeps 「為的是更自由，更靠近自己想過的生活」.
+            The about page's story still ends on having arrived — the two pages differ on purpose now; do not "align" them again. */}
+        <p class="lead2">
+          工具會換，做法不變。現在用得最深的是 Claude 生態系。
+        </p>
+        <div class="sig">
+          <img src="/images/hero.webp" alt="余文皓 WenHao Yu" width="400" height="400" />
+          <p>
+            <a href="#articles">讀文章 ↓</a>
+            <a href="/zh-TW/about/">我的故事 →</a>
+          </p>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <a
-          href="/zh-TW/blog/stripe-taiwan-us-llc-guide/"
-          class="group block bg-white border border-[#E8E4DD] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300"
-        >
-          <div class="relative overflow-hidden aspect-[16/9]">
-            <img
-              src="/images/blog/vibe-coder-wyoming-llc-guide.webp"
-              alt="台灣人用 Stripe 收美金：開一家美國公司的 2 年實戰心得"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
-            />
-          </div>
-          <div class="p-5">
-            <h3 class="text-base font-semibold text-[#2C2416] mb-2 group-hover:text-[#B8926A] transition-colors line-clamp-2">
-              台灣人用 Stripe 收美金：開一家美國公司的 2 年實戰心得
-            </h3>
-            <p class="text-sm text-[#5C5144] leading-relaxed line-clamp-2">
-              Stripe 不支援台灣，最務實的解是開美國公司。$139 設立費 + $309/年維護，2 年實戰拆解。
-            </p>
-          </div>
-        </a>
-        <a
-          href="/zh-TW/blog/free-azure-startup-credits/"
-          class="group block bg-white border border-[#E8E4DD] rounded-xl overflow-hidden hover:shadow-lg hover:border-[#B8926A]/30 hover:-translate-y-1 transition-all duration-300"
-        >
-          <div class="relative overflow-hidden aspect-[16/9]">
-            <img
-              src="/images/blog/free-azure-startup-credits.webp"
-              alt="Microsoft for Startups：免費 Azure 額度申請攻略"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
-            />
-          </div>
-          <div class="p-5">
-            <h3 class="text-base font-semibold text-[#2C2416] mb-2 group-hover:text-[#B8926A] transition-colors line-clamp-2">
-              Microsoft for Startups：免費 Azure 額度申請攻略
-            </h3>
-            <p class="text-sm text-[#5C5144] leading-relaxed line-clamp-2">
-              最高 $5,000 美元的免費 Azure credits，可用於 OpenAI API、雲端服務等。個人開發者也能申請。
-            </p>
-          </div>
-        </a>
-      </div>
+      <p class="cv-cue"><span></span>往下，天亮了</p>
+    </section>
     </div>
-  </section>
-  <MotionLayer />
+
+    <!-- ============ 1d. Writing, by night: one piece gets the screen, the rest is a quiet list ============ -->
+    <section class="nt">
+      <img class="nt-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      <p class="kick"><i></i>文章</p>
+
+      {featurePost && (
+        <a class="nt-feat" href={`/zh-TW/blog/${FEATURE_SLUG}/`} data-umami-event="home_feature_click">
+          <div class="pic">
+            <img src={featurePost.data.heroImage} alt="" loading="lazy" />
+          </div>
+          <div class="txt">
+            <p class="meta">{fmtDay(featurePost.data.pubDate)}<b>/</b>{topicNames[topicsOf(featurePost.data)[0]]}</p>
+            <h3>{featurePost.data.title}</h3>
+            <p class="x">{featurePost.data.description}</p>
+            <span class="g">讀這篇 →</span>
+          </div>
+        </a>
+      )}
+
+      <div class="nt-list">
+        <p class="kick"><i></i>最新</p>
+        <ol>
+          {latestRows.map((r) => (
+            <li>
+              <a
+                href={r.href}
+                target={r.external ? '_blank' : undefined}
+                rel={r.external ? 'noopener' : undefined}
+                data-umami-event={r.external ? 'home_latest_click_confluence' : 'home_latest_click'}
+              >
+                <span class="d">{fmtDay(r.date)}</span>
+                <span class="t">{r.title}</span>
+                <span class:list={['l', { ext: r.external }]}>{r.label}{r.external && ' ↗'}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+        <a class="more" href="/zh-TW/blog/">全部文章 →</a>
+      </div>
+    </section>
+
+    <!-- ============ 1c. Career, drawn as one star trail (10/8: moved below the writing section) ============ -->
+    <section class="tj">
+      <p class="kick"><i></i>經歷</p>
+      <div class="tj-stage" style={`--h:${TJ.h}`}>
+        <svg viewBox={`0 0 ${TJ.w} ${TJ.h}`} preserveAspectRatio="none" aria-hidden="true">
+          <path class="f" d={arcPath(46)} />
+          <path class="f" d={arcPath(92)} />
+          <path class="f" d={arcPath(-44)} />
+          <path class="m" d={arcPath(0, -0.03, nowX)} />
+        </svg>
+        <ol>
+          {career.map((c) => (
+            <li class:list={[{ lead: c.lead }]} style={`left:${(c.x * 100).toFixed(2)}%; top:${((c.yPx / TJ.h) * 100).toFixed(2)}%; width:${c.w}%`}>
+              <i></i>
+              <span class="y">{c.y}</span>
+              <span class="t">{c.t}{c.t2 && <><br />{c.t2}</>}</span>
+              {c.c && <span class="c">{c.c}</span>}
+              {c.d.length > 0 && <span class="d">{c.d.map((line) => <span class="ln">{line}</span>)}</span>}
+              {c.cert && (
+                <span class="d">
+                  Claude 認證架構師
+                  <a class="cert" href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer">在 Credly 驗證 ↗</a>
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+        <div class="tj-now" style={`left:${nowX * 100}%; top:${((arcY(nowX) / TJ.h) * 100).toFixed(2)}%`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 L14.6 9.4 L23 12 L14.6 14.6 L12 23 L9.4 14.6 L1 12 L9.4 9.4 Z" /></svg>
+          <span>現在</span>
+        </div>
+      </div>
+      <a class="more" href="/zh-TW/about/">完整的故事 →</a>
+    </section>
+
+    <!-- ============ 2. What he writes — filed by layer ============ -->
+    <section class="s2" id="articles">
+      <header class="hd">
+        <p class="kick"><i></i>文章</p>
+        <h2>第一次來，<span class="nb">照這個順序讀</span></h2>
+        <p class="hd-sub">先有方向、再建系統，AI 才是槓桿。</p>
+      </header>
+
+      <div class="s2-grid">
+        <div class="s2-map">
+          <svg viewBox="0 0 600 600" role="img" aria-label="方向在中心，系統在中間，槓桿在最外圈">
+            <circle class="hit" data-layer="lever" cx="300" cy="300" r="245" />
+            <circle class="hit" data-layer="system" cx="300" cy="300" r="160" />
+            <circle class="hit" data-layer="focus" cx="300" cy="300" r="78" />
+
+            <circle class="ring" data-ring="lever" cx="300" cy="300" r="245" />
+            <circle class="ring" data-ring="system" cx="300" cy="300" r="160" />
+            <circle class="ring" data-ring="focus" cx="300" cy="300" r="78" />
+            <g class="ticks">
+              {ticks.map((a) => <line x1="300" y1="222" x2="300" y2="214" transform={`rotate(${a} 300 300)`} />)}
+            </g>
+            <g class="orbit"><circle cx="300" cy="55" r="4.5" /></g>
+            <path class="star" d="M300 277 L305.5 294.5 L323 300 L305.5 305.5 L300 323 L294.5 305.5 L277 300 L294.5 294.5 Z" />
+
+            <g class="lab" data-lab="focus">
+              <text x="300" y="350" class="zh">方向</text>
+              <text x="300" y="366" class="en">01 · FOCUS</text>
+            </g>
+            <g class="lab" data-lab="system">
+              <rect x="232" y="124" width="136" height="42" />
+              <text x="300" y="143" class="zh">系統</text>
+              <text x="300" y="159" class="en">02 · LEARN / UPGRADE</text>
+            </g>
+            <g class="lab" data-lab="lever">
+              <rect x="250" y="39" width="100" height="42" />
+              <text x="300" y="58" class="zh">槓桿</text>
+              <text x="300" y="74" class="en">03 · EXECUTE</text>
+            </g>
+          </svg>
+          <p class="s2-hint">點圖上的任一圈</p>
+        </div>
+
+        <div class="s2-list">
+          <div class="tabs" role="tablist">
+            {filed.map((g, i) => (
+              <button role="tab" data-layer={g.key} aria-selected={i === 0 ? 'true' : 'false'}>
+                <span>{g.n}</span>{g.zh}
+              </button>
+            ))}
+          </div>
+          {filed.map((g, i) => (
+            <div class="panel" data-panel={g.key} hidden={i !== 0}>
+              <p class="panel-q">{g.q}</p>
+              <ol>
+                {g.items.map(({ slug, post }, n) => (
+                  <li>
+                    <a href={`/zh-TW/blog/${slug}/`} data-umami-event="home_click_path" data-umami-event-layer={g.key} data-umami-event-order={String(n + 1)} data-umami-event-slug={slug}>
+                      <span class="d">{fmt(post!.data.pubDate)}</span>
+                      <span class="t">{post!.data.title}</span>
+                      <span class="x">{post!.data.description}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+          <a class="more" href="/zh-TW/blog/">全部文章 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3b. Recommended tools (kept: carries affiliate revenue) ============ -->
+    <section class="tl">
+      <header class="hd">
+        <p class="kick"><i></i>推薦工具</p>
+        <h2>我實際用過、覺得值得推薦的</h2>
+      </header>
+      <div class="tl-grid">
+        {tools.map((x) => (
+          <a href={x.href} data-umami-event="home_click_tool" data-umami-event-item={x.href.replace(/^\/zh-TW\/blog\//, '').replace(/\/$/, '')}>
+            <img src={x.img} alt="" loading="lazy" />
+            <span class="b">
+              <span class="t">{x.t}</span>
+              <span class="x">{x.d}</span>
+              <span class="g">讀這篇 →</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ 1b. Proof he builds it himself ============ -->
+    <section class="mk">
+      <div class="mk-hd">
+        <p class="kick"><i></i>我做的東西</p>
+{/* 10/9: the author keeps this line. (Tried 10/8 evening and put back: 這幾個工具的起點都一樣：自己需要，現有的不滿意，就自己做。) */}
+        <p class="mk-say">我不只談 AI，也自己動手做。從想法到上線，全部一個人用 AI 完成。</p>
+      </div>
+      <div class="mk-grid">
+        {made.map((m) => (
+          <a href={m.href} data-umami-event="home_click_product" data-umami-event-item={m.name}>
+            <img src={m.img} alt={m.name} loading="lazy" />
+            <span class="t">{m.name}</span>
+            <span class="x">{m.d}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ 4. Ending, back at night: the newsletter is the one main action ============ -->
+    {/* 10/8 draft (not yet approved by the author). Before: two sentences + a one-line newsletter row on paper:
+        公司要導入 AI，到匯流顧問 ↗找我們。個人想學這套做法，有一日的公開班。／電子報每月一封，整理當月的文章。 */}
+    <section class="co">
+      <img class="co-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      <div class="co-in">
+        <p class="kick"><i></i>電子報</p>
+        {/* 10/8: headline changed with the author. Before (his 7/5 newsletter line): 我寫 AI 工作流，也寫一路上想通的事。 */}
+        {/* 10/8 draft 5 — approved by the author 10/8 (headline and the line below it): the end he is pursuing, in first person; AI is the means, in the small line.
+            Draft 4: 怎麼和 AI 一起工作。 */}
+        {/* 10/9: the page's opening paragraph now carries 「更靠近自己想過的生活」, so this headline no longer repeats it.
+            It says what the letter is, in words he has used himself (live about page: 「有想通的事，就寫成一封信寄給你。」;
+            the foot of every article: 「一路上想通的事」). Claude's draft, not yet approved.
+            Before (approved 10/8): 我在靠近／自己想過的生活。 */}
+        <h2>想通的事，<br />我寫成信寄給你。</h2>
+        {/* 10/8 draft 3 (not yet approved).
+            Draft 1: 留下信箱，新的信寫好就寄過去。
+            Draft 2 (meant for the welcome email instead): 信是我自己寫的，像寫給朋友那樣。我沒辦法承諾多久寄一封。有想清楚、覺得值得講的事，才會寄到信箱。 */}
+        {/* Draft 3 of this line: 不定期寄出。有想清楚、值得講的事才寫。 */}
+        <p class="co-sub">
+          怎麼和 AI 一起工作，讓做的事影響更多人、時間留給自己。試了什麼、哪裡卡住、後來怎麼想通，都寫在信裡。
+        </p>
+        {/* 10/9 draft: reworked to follow the new headline. Before (approved 10/8):
+            做法是和 AI 一起工作：讓做的事影響更多人，時間留給自己。一路上試了什麼、想通什麼，我寫下來，寄到信箱。 */}
+        {/* 10/9: a real form now (it was two spans drawn as a field). Same fields, endpoint and thank-you page as the live home page's
+            form (components/Hero.astro): email_address, the hidden `website` trap for bots, POST /api/newsletter/subscribe-form.
+            id="newsletter-form" is what every 「訂閱電子報」 link on the site already points at (/zh-TW/#newsletter-form) —
+            until now no element had that id, so those links only reached the top of the home page.
+            The Umami event keeps the live form's name so the reports do not break, although the form is no longer in the hero. */}
+        <form class="nl-f" id="newsletter-form" data-thank-you-url="/zh-TW/thank-you">
+          <input type="email" name="email_address" required autocomplete="email" placeholder="輸入你的 Email" aria-label="Email" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="nl-trap" />
+          <button type="submit">訂閱 <b aria-hidden="true">→</b></button>
+        </form>
+
+        <ul class="co-way">
+          <li>
+            <span>公司要導入 AI</span>
+            <a href="https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=home" target="_blank" rel="noopener" data-umami-event="home_click_confluence">到匯流顧問找我們 ↗</a>
+          </li>
+          <li>
+            <span>個人想學這套做法</span>
+            <a href="/zh-TW/workshop/" data-umami-event="home_click_workshop">一日的公開班 →</a>
+          </li>
+        </ul>
+      </div>
+      {/* 10/8 draft: the shared footer is hidden on this page (see global style); this line replaces it here only */}
+      <p class="co-foot">
+        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+          {/* 10/9: the author enters the admin pages from the bottom of the home page. The shared footer (which carried this link)
+              is hidden on this page, so the link lives here — on the home page only, at his word. */}
+          <a href="/admin/workshop/" rel="nofollow">Admin</a>
+        </span>
+      </p>
+    </section>
+  </div>
+
+  <script>
+    // The cover image is object-fit: cover; find where the pole star actually lands on screen.
+    const sky = document.querySelector('.cv-sky') as HTMLImageElement | null;
+    const starEl = document.querySelector('.cv-star') as HTMLElement | null;
+    const STAR = { x: 0.745, y: 0.166 }; // pole star position in the source image
+    const POS = { x: 0.8, y: 0.0 }; // must match object-position below
+    const place = () => {
+      if (!sky || !starEl) return;
+      const bw = sky.clientWidth, bh = sky.clientHeight, ir = 2912 / 1632;
+      const scale = Math.max(bw / 2912, bh / 1632);
+      const w = 2912 * scale, h = 1632 * scale;
+      const ox = (bw - w) * POS.x, oy = (bh - h) * POS.y;
+      starEl.style.left = `${ox + w * STAR.x}px`;
+      starEl.style.top = `${oy + h * STAR.y}px`;
+    };
+    place();
+    window.addEventListener('resize', place);
+
+    // Dawn: scroll progress through the cover track drives --p (0 = night, 1 = paper).
+    const track = document.querySelector('.cv-track') as HTMLElement | null;
+    let ticking = false;
+    const dawn = () => {
+      ticking = false;
+      if (!track) return;
+      const span = track.offsetHeight - window.innerHeight;
+      const p = span > 0 ? Math.min(1, Math.max(0, (window.scrollY - track.offsetTop) / span)) : 0;
+      track.style.setProperty('--p', p.toFixed(4));
+      track.classList.toggle('is-day', p > 0.85);
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(dawn); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    dawn();
+    // Reduced motion: no dawn — put the intro below the cover as a normal block.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const who = document.querySelector('.cv-who');
+      if (who && track) { who.classList.add('is-static'); track.after(who); }
+    }
+
+    // Rings / tabs → swap the article panel
+    const root = document.querySelector('.s2');
+    const pick = (key: string) => {
+      root?.querySelectorAll('[role=tab]').forEach((b) => b.setAttribute('aria-selected', String((b as HTMLElement).dataset.layer === key)));
+      root?.querySelectorAll('[data-panel]').forEach((p) => ((p as HTMLElement).hidden = (p as HTMLElement).dataset.panel !== key));
+      root?.querySelectorAll('[data-ring]').forEach((r) => r.classList.toggle('on', (r as SVGElement).dataset.ring === key));
+      root?.querySelectorAll('[data-lab]').forEach((r) => r.classList.toggle('on', (r as SVGElement).dataset.lab === key));
+    };
+    root?.querySelectorAll('[role=tab], .hit').forEach((el) =>
+      el.addEventListener('click', () => pick((el as HTMLElement).dataset.layer!)),
+    );
+    pick('focus');
+
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
+      { threshold: 0.2 },
+    );
+    document.querySelectorAll('.tj').forEach((el) => io.observe(el));
+    document.querySelectorAll('.rvl').forEach((el, i) => {
+      (el as HTMLElement).style.transitionDelay = `${(i % 4) * 70}ms`;
+      io.observe(el);
+    });
+  </script>
+  {/* Subscribe: the live form's script (components/Hero.astro), with one change — the live one always calls the production API;
+      here local preview calls the local API, so a test from a dev machine cannot add an address to the real list. */}
+  <script is:inline define:vars={{ NL_API: import.meta.env.DEV ? 'http://localhost:8000' : 'https://api.yu-wenhao.com' }}>
+    // 10/9 events (scripts/track.ts has the naming rule). Before: the form carried data-umami-event="newsletter_signup_hero",
+    // which counted clicks on the form, not subscriptions. Now: submit and failure are recorded with the entrance the reader
+    // came through (nav / home / about / blog_list / article …); success is recorded on the thank-you page.
+    const tk = (n, d) => { let k = 0; (function go() { if (window.umami?.track) window.umami.track(n, d); else if (k++ < 20) setTimeout(go, 250); })(); };
+    const nl = document.getElementById('newsletter-form');
+    nl?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let from = 'home';
+      try { from = sessionStorage.getItem('nl_from') || 'home'; sessionStorage.setItem('nl_done', from); } catch {}
+      tk('newsletter_submit', { from });
+      const data = new FormData(nl);
+      const email = data.get('email_address');
+      const website = data.get('website') || '';
+      const btn = nl.querySelector('button');
+      btn.disabled = true;
+      // keepalive lets the request outlive the navigation; the 4s race caps how long a cold API can hold the reader on the form
+      const req = fetch(`${NL_API}/api/newsletter/subscribe-form?email=${encodeURIComponent(email)}&website=${encodeURIComponent(website)}`, {
+        method: 'POST',
+        keepalive: true,
+      })
+        .then((res) => { if (res && !res.ok) { tk('newsletter_error', { from, reason: 'http_' + res.status }); try { sessionStorage.removeItem('nl_done'); } catch {} } })
+        .catch((error) => { console.error('Newsletter subscription failed:', error); tk('newsletter_error', { from, reason: 'network' }); try { sessionStorage.removeItem('nl_done'); } catch {} });
+      await Promise.race([req, new Promise((r) => setTimeout(r, 4000))]);
+      window.location.href = nl.dataset.thankYouUrl || '/zh-TW/thank-you';
+    });
+    // Arriving from a 「訂閱電子報」 link: go to the form and put the cursor in the field. Done by hand once the page has loaded,
+    // because this page changes height while it loads (the cover's scroll track, lazy images) and the browser's own jump lands short.
+    const toField = () => {
+      if (location.hash !== '#newsletter-form' || !nl) return;
+      nl.scrollIntoView({ behavior: 'instant', block: 'start' });
+      nl.querySelector('input[type=email]')?.focus({ preventScroll: true });
+    };
+    addEventListener('hashchange', toField);
+    if (document.readyState === 'complete') toField();
+    else addEventListener('load', toField);
+  </script>
 </BaseLayout>
+
+<style>
+  .hp {
+    --paper: #fbf9f5;
+    --paper-2: #f4efe7;
+    --ink: #241b18;
+    --text: #2b211c;
+    --muted: #71655c;
+    --faint: #a99a8d;
+    --hair: #e2d8c9;
+    --terra: #c25b3f;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+    background: var(--paper);
+    color: var(--text);
+  }
+  .hp section {
+    padding-inline: var(--gx);
+  }
+  .hp a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .kick i {
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+  .kick b {
+    font-weight: 400;
+    color: var(--faint);
+  }
+  .hd {
+    margin-bottom: 3.5rem;
+  }
+  .hd h2 {
+    margin: 1.1rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 3.4vw, 3.2rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .hd-sub {
+    margin: 1rem 0 0;
+    font-size: 1.0625rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .more {
+    display: inline-block;
+    margin-top: 2.2rem;
+    padding-bottom: 0.3rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--terra);
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .more:hover {
+    color: var(--terra);
+  }
+
+  /* ============ 0 cover ============ */
+  .cv-track {
+    --p: 0;
+    position: relative;
+    height: 210svh; /* 100 = the cover itself, 110 = the length of the dawn */
+    margin-top: -6rem; /* slide under the header */
+  }
+  .cv {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 620px;
+    padding: 0 !important;
+    overflow: hidden;
+    background: #0d0b09;
+    color: #f6f1e8;
+  }
+  .cv-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 80% 0%;
+  }
+  .cv-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(13, 11, 9, 0.62) 0%, rgba(13, 11, 9, 0.28) 38%, rgba(13, 11, 9, 0) 62%),
+      linear-gradient(180deg, rgba(13, 11, 9, 0.5) 0%, rgba(13, 11, 9, 0) 22%);
+    pointer-events: none;
+  }
+  /* first light: brightens the sky but leaves the ridge a silhouette */
+  .cv-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg,
+      rgba(255, 226, 190, 1) 0%,
+      rgba(255, 196, 150, 0.95) 16%,
+      rgba(236, 150, 110, 0.7) 38%,
+      rgba(170, 100, 90, 0.35) 62%,
+      rgba(60, 40, 50, 0) 100%);
+    mix-blend-mode: screen;
+    opacity: clamp(0, calc(var(--p) * 1.9), 1);
+    transform-origin: 50% 100%;
+    transform: scaleY(calc(0.45 + var(--p) * 1.3));
+    pointer-events: none;
+  }
+  /* day: everything resolves into the paper of the next section */
+  .cv-day {
+    position: absolute;
+    inset: 0;
+    background: var(--paper);
+    opacity: clamp(0, calc((var(--p) - 0.42) * 1.9), 1);
+    pointer-events: none;
+  }
+  .cv {
+    --w: clamp(0, calc((var(--p) - 0.72) * 4.2), 1); /* 0 = still dawn, 1 = full day */
+  }
+  .cv-ghost {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 80% 0%;
+    filter: grayscale(1) invert(1) contrast(1.35);
+    mix-blend-mode: multiply;
+    opacity: calc(var(--w) * 0.16);
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 42%, #000 70%);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 42%, #000 70%);
+    pointer-events: none;
+  }
+  .cv-who {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: grid;
+    align-content: center;
+    padding: 6rem var(--gx) 3rem;
+    opacity: var(--w);
+    transform: translateY(calc((1 - var(--w)) * 18px));
+    color: var(--text);
+    pointer-events: none;
+  }
+  .cv-track.is-day .cv-who {
+    pointer-events: auto;
+  }
+  .cv-who h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4.6vw, 4.4rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .cv-who .idl {
+    margin: 1.6rem 0 0;
+    font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .cv-who .lead {
+    margin: 1.6rem 0 0;
+    max-width: 42rem;
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 1.75vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .cv-who .lead2 {
+    margin: 1.4rem 0 0;
+    max-width: 40rem;
+    font-size: clamp(1rem, 1.25vw, 1.125rem);
+    line-height: 1.95;
+    color: var(--muted);
+  }
+  .cv-who .sig {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-top: 2.4rem;
+  }
+  .cv-who .sig img {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .cv-who .sig p {
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+  }
+  .cv-who .sig a {
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--hair);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .cv-who .sig a:first-child {
+    border-color: var(--terra);
+  }
+  .cv-who .sig a:hover {
+    color: var(--terra);
+    border-color: var(--terra);
+  }
+  .cv-who.is-static {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    background: var(--paper);
+    padding-block: 6rem;
+  }
+  .cv-copy,
+  .cv-cue {
+    opacity: clamp(0, calc(1 - (var(--p) - 0.26) * 4), 1);
+  }
+  .cv-star {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 4;
+  }
+  .cv-star i,
+  .cv-star .n {
+    opacity: clamp(0, calc(1 - var(--p) * 2.2), 1);
+  }
+  .cv-star .d {
+    opacity: var(--w);
+  }
+  .cv-star svg.d {
+    position: absolute;
+    left: -9px;
+    top: -9px;
+    width: 18px;
+    height: 18px;
+    fill: var(--terra);
+  }
+  .cv-star span.d {
+    color: var(--muted);
+  }
+  .cv-star span.d::before {
+    background: var(--faint);
+  }
+  .cv-star span.d b {
+    color: var(--ink);
+  }
+  .cv-star i {
+    position: absolute;
+    left: -34px;
+    top: -34px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 236, 214, 0.5) 0%, rgba(255, 220, 190, 0.12) 38%, rgba(255, 220, 190, 0) 70%);
+  }
+  .cv-star span {
+    position: absolute;
+    left: 20px;
+    top: 26px;
+    padding-left: 34px;
+    white-space: nowrap;
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.22em;
+    color: rgba(246, 241, 232, 0.7);
+  }
+  .cv-star span::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 26px;
+    height: 1px;
+    background: rgba(246, 241, 232, 0.55);
+    transform: rotate(0deg);
+    transform-origin: left;
+  }
+  .cv-star b {
+    display: block;
+    margin-bottom: 0.35em;
+    font-family: var(--serif);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    color: #f6f1e8;
+  }
+  .cv-copy {
+    position: absolute;
+    left: var(--gx);
+    bottom: 26%;
+    max-width: 44rem;
+  }
+  .cv-kick {
+    margin: 0 0 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.26em;
+    color: rgba(246, 241, 232, 0.72);
+  }
+  .cv-kick span {
+    margin: 0 0.9em;
+    opacity: 0.6;
+  }
+  .cv h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    line-height: 1.32;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: #f6f1e8;
+  }
+  .cv-sub {
+    margin: 1.8rem 0 0;
+    font-size: clamp(0.95rem, 1.2vw, 1.125rem);
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.82);
+  }
+  .cv-cue {
+    position: absolute;
+    left: var(--gx);
+    bottom: 7%;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.26em;
+    color: rgba(246, 241, 232, 0.75);
+  }
+  .cv-cue span {
+    width: 48px;
+    height: 1px;
+    background: rgba(246, 241, 232, 0.6);
+    transform-origin: left;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cv-sky { animation: cv-sky 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .cv-copy > *, .cv-cue > *, .cv-star span { animation: cv-in 1.2s ease-out 0.5s both; }
+
+
+  }
+  @keyframes cv-sky {
+    from { opacity: 0; transform: scale(1.05); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cv-track { height: auto; }
+    .cv { position: relative; }
+    .cv-glow, .cv-day, .cv-ghost, .cv-star .d { display: none; }
+  }
+  @keyframes cv-in {
+    from { opacity: 0; transform: translateY(8px); }
+  }
+  @keyframes cv-breathe {
+    0%, 100% { opacity: 0.55; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+  @keyframes cv-cue {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(0.4); }
+  }
+
+  /* ============ 1 ============ */
+  .s1 {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: 5vw;
+    padding-block: 0;
+    overflow: hidden;
+  }
+  .s1-h {
+    margin: 2rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.2vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .s1 h1 {
+    margin: 2.2rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 5vw, 4.9rem);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .s1 h1 span {
+    color: var(--terra);
+  }
+  .s1-sub {
+    margin: 1.6rem 0 0;
+    font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+    letter-spacing: 0.02em;
+  }
+  .s1-sub em {
+    font-style: normal;
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--terra);
+  }
+  .s1-me {
+    margin: 2.2rem 0 0;
+    padding-top: 1.6rem;
+    max-width: 34rem;
+    border-top: 1px solid var(--ink);
+    font-size: 1.1875rem;
+    line-height: 1.85;
+    color: var(--text);
+  }
+  .s1-cert {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 2rem;
+    max-width: 34rem;
+  }
+  .s1-cert img {
+    flex: none;
+    width: 76px;
+    height: 76px;
+  }
+  .s1-cert span {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .s1-cert b {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .s1-cert i {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .s1-cert u {
+    text-decoration: none;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--terra);
+  }
+  .s1-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 1.8rem 0 0;
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+  }
+  .s1-links a {
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--hair);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .s1-links a:first-child {
+    border-color: var(--terra);
+  }
+  .s1-links a:hover {
+    color: var(--terra);
+    border-color: var(--terra);
+  }
+
+  /* the person is the subject; the star sits beside him, on the reader's side */
+  .s1-fig {
+    position: relative;
+    justify-self: end;
+    width: min(100%, 25rem);
+  }
+  .s1-fig img {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+  .mini {
+    position: absolute;
+    left: -50%;
+    top: -4%;
+    width: 74%;
+    overflow: visible;
+  }
+  .mini .ring,
+  .s2-map .ring {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+  .mini .ring {
+    opacity: 0.45;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+  .star {
+    fill: var(--terra);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .orbit {
+    transform-box: view-box;
+  }
+  .mini .orbit { transform-origin: 200px 200px; }
+  .s2-map .orbit { transform-origin: 300px 300px; }
+  .orbit circle {
+    fill: var(--ink);
+  }
+
+  /* ============ 1b made ============ */
+  .mk {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+    gap: 5vw;
+    align-items: start;
+    padding-block: 3.5rem 5rem;
+    border-top: 1px solid var(--hair);
+  }
+  .mk-say {
+    margin: 1.4rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .mk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .mk-grid a {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
+  .mk-grid img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 1px solid var(--hair);
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s;
+  }
+  .mk-grid .t {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .mk-grid .x {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .mk-grid a:hover img { border-color: var(--terra); }
+  .mk-grid a:hover .t { color: var(--terra); }
+
+  /* ============ 3b tools ============ */
+  .tl {
+    padding-block: 7rem;
+    background: var(--paper-2);
+  }
+  .tl-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem 4vw;
+    padding-top: 2.6rem;
+    border-top: 1px solid var(--ink);
+  }
+  .tl-grid a {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 1.6rem;
+    align-items: start;
+  }
+  .tl-grid img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--hair);
+    border-radius: 2px;
+  }
+  .tl-grid .b {
+    display: grid;
+    gap: 0.7rem;
+  }
+  .tl-grid .t {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .tl-grid .x {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .tl-grid .g {
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    color: var(--terra);
+  }
+  .tl-grid a:hover .t { color: var(--terra); }
+
+  /* ============ 2 ============ */
+  .s2 {
+    padding-block: 7rem;
+    background: var(--paper-2);
+  }
+  .s2-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 6vw;
+    align-items: start;
+  }
+  .s2-map {
+    position: sticky;
+    top: 7rem;
+    max-width: 30rem;
+  }
+  .s2-map svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+  .s2-map .hit {
+    fill: transparent;
+    cursor: pointer;
+  }
+  .s2-map .ring {
+    opacity: 0.35;
+    pointer-events: none;
+    transition: opacity 0.3s, stroke 0.3s, stroke-width 0.3s;
+  }
+  .s2-map .ring.on {
+    opacity: 1;
+    stroke: var(--terra);
+    stroke-width: 2;
+  }
+  .s2-map .ticks line {
+    stroke: var(--ink);
+    opacity: 0.4;
+    vector-effect: non-scaling-stroke;
+  }
+  .s2-map .lab {
+    pointer-events: none;
+  }
+  .s2-map .lab rect {
+    fill: var(--paper-2);
+  }
+  .s2-map text {
+    text-anchor: middle;
+  }
+  .s2-map .zh {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    fill: var(--muted);
+    letter-spacing: 0.08em;
+    transition: fill 0.3s;
+  }
+  .s2-map .en {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    fill: var(--faint);
+  }
+  .s2-map .lab.on .zh {
+    fill: var(--ink);
+  }
+  .s2-map .lab.on .en {
+    fill: var(--terra);
+  }
+  .s2-hint {
+    margin: 1.2rem 0 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    color: var(--faint);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 2.4rem;
+    border-bottom: 1px solid var(--ink);
+  }
+  .tabs button {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7em;
+    padding: 0 0 1rem;
+    margin-bottom: -1px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+    font-weight: 600;
+    color: var(--faint);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tabs button span {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+  }
+  .tabs button[aria-selected='true'] {
+    color: var(--ink);
+    border-color: var(--terra);
+  }
+  .tabs button[aria-selected='true'] span {
+    color: var(--terra);
+  }
+  .panel-q {
+    margin: 1.8rem 0 0.4rem;
+    font-size: 1.0625rem;
+    color: var(--muted);
+  }
+  .panel ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .panel li a {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 0.5rem 1.5rem;
+    padding: 1.7rem 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .panel .d {
+    padding-top: 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--faint);
+  }
+  .panel .t {
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .panel .x {
+    grid-column: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .panel li a:hover .t {
+    color: var(--terra);
+  }
+  .panel:not([hidden]) {
+    animation: hp-swap 0.35s ease-out;
+  }
+  @keyframes hp-swap {
+    from { opacity: 0; transform: translateY(6px); }
+  }
+
+  /* ============ 1c career as a star trail ============ */
+  .tj {
+    padding-block: 5rem 6rem;
+    overflow: hidden;
+  }
+  .tj-stage {
+    position: relative;
+    height: calc(var(--h) * 1px);
+    margin-top: 1rem;
+  }
+  .tj-stage > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .tj-stage path {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+  .tj-stage .f {
+    stroke: var(--hair);
+    stroke-width: 1;
+  }
+  /* the main trail is revealed left → right by a clip, not a dash (dashes break when the svg is stretched) */
+  .tj-stage .m {
+    stroke: var(--ink);
+    stroke-width: 1.2;
+    clip-path: inset(-50% 100% -50% -5%);
+    transition: clip-path 2.4s cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  .tj.in .tj-stage .m {
+    clip-path: inset(-50% -5% -50% -5%);
+  }
+  .tj-stage ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .tj-stage li {
+    position: absolute;
+    min-width: 9.5rem;
+    padding-top: 1.4rem;
+    display: grid;
+    gap: 0.3rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .tj.in .tj-stage li {
+    opacity: 1;
+    transform: none;
+  }
+  .tj.in .tj-stage li:nth-child(1) { transition-delay: 0.3s; }
+  .tj.in .tj-stage li:nth-child(2) { transition-delay: 0.8s; }
+  .tj.in .tj-stage li:nth-child(3) { transition-delay: 1.3s; }
+  .tj.in .tj-stage li:nth-child(4) { transition-delay: 1.8s; }
+  .tj-stage li i {
+    position: absolute;
+    left: -3.5px;
+    top: -3.5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+  .tj-stage .y {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--faint);
+  }
+  .tj-stage .t {
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .tj-stage .d {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  /* the twenty years carry the weight: larger title, company names in ink */
+  .tj-stage li.lead .t {
+    font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  }
+  .tj-stage .c {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  /* no one- or two-character last lines */
+  .tj-stage .t,
+  .tj-stage .c,
+  .tj-stage .d {
+    text-wrap: balance;
+  }
+  .tj-stage li {
+    padding-right: 1.5rem;
+    box-sizing: border-box;
+  }
+  /* description lines break where the meaning breaks, not where the box ends */
+  .tj-stage .d .ln {
+    display: block;
+  }
+  .tj-stage .cert {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--terra);
+  }
+  .tj-now {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.8s ease-out 2.1s;
+  }
+  .tj.in .tj-now {
+    opacity: 1;
+  }
+  .tj-now svg {
+    position: absolute;
+    left: -11px;
+    top: -11px;
+    width: 22px;
+    height: 22px;
+    fill: var(--terra);
+  }
+  /* `.tj-stage path { fill: none }` above would otherwise blank the star */
+  .tj-stage .tj-now path {
+    fill: var(--terra);
+  }
+  .tj-now span {
+    position: absolute;
+    left: -1em;
+    top: -2.6rem;
+    font-family: var(--serif);
+    font-size: 0.9375rem;
+    letter-spacing: 0.3em;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+
+  /* ============ 1d writing, by night ============ */
+  .nt {
+    --line: rgba(246, 241, 232, 0.2);
+    position: relative;
+    overflow: hidden;
+    padding-block: 8rem 7rem;
+    background: #14100e;
+    color: #f6f1e8;
+  }
+  .nt-sky {
+    position: absolute;
+    right: -22%;
+    top: -34%;
+    width: 92%;
+    max-width: none;
+    opacity: 0.3;
+    -webkit-mask-image: radial-gradient(ellipse at 62% 22%, #000 0%, rgba(0, 0, 0, 0.5) 34%, transparent 62%);
+    mask-image: radial-gradient(ellipse at 62% 22%, #000 0%, rgba(0, 0, 0, 0.5) 34%, transparent 62%);
+    pointer-events: none;
+  }
+  .nt > .kick,
+  .nt-feat,
+  .nt-list {
+    position: relative;
+  }
+  .nt .kick {
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .nt-feat {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 5vw;
+    align-items: end;
+    margin-top: 3rem;
+  }
+  .nt-feat .pic {
+    overflow: hidden;
+  }
+  .nt-feat .pic img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 0;
+    transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .nt-feat:hover .pic img {
+    transform: scale(1.03);
+  }
+  .nt-feat .meta {
+    margin: 0 0 1.6rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .nt-feat .meta b {
+    margin: 0 0.8em;
+    font-weight: 400;
+    opacity: 0.5;
+  }
+  .nt-feat h3 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.2vw, 3.1rem);
+    font-weight: 300;
+    line-height: 1.38;
+    letter-spacing: 0.02em;
+    color: #f6f1e8;
+  }
+  .nt-feat .x {
+    margin: 1.6rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: rgba(246, 241, 232, 0.62);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  .nt-feat .g {
+    display: inline-block;
+    margin-top: 2rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #de9070;
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+    color: #de9070;
+  }
+  .nt-list {
+    margin-top: 7rem;
+  }
+  .nt-list ol {
+    list-style: none;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .nt-list li a {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .nt-list .d {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: rgba(246, 241, 232, 0.45);
+  }
+  .nt-list .t {
+    font-family: var(--serif);
+    font-size: clamp(1rem, 1.3vw, 1.1875rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(246, 241, 232, 0.9);
+    transition: color 0.2s;
+  }
+  .nt-list .l {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    color: rgba(246, 241, 232, 0.4);
+  }
+  .nt-list .l.ext {
+    color: #de9070;
+  }
+  .nt-list li a:hover .t {
+    color: #de9070;
+  }
+  .nt .more {
+    color: #f6f1e8;
+    border-color: #de9070;
+  }
+
+  /* ============ 4 ending, by night ============ */
+  .co {
+    --line: rgba(246, 241, 232, 0.22);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+    min-height: 92svh;
+    padding-block: 8rem 10rem;
+    background: #14100e;
+    color: #f6f1e8;
+  }
+  /* the same sky, cropped to the horizon: first light at the bottom edge */
+  .co-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 40%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 40%, #000 100%);
+    pointer-events: none;
+  }
+  .co-in {
+    position: relative;
+    max-width: 46rem;
+  }
+  .co .kick {
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .co h2 {
+    margin: 2.2rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.8vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    color: #f6f1e8;
+  }
+  .co-sub {
+    margin: 1.8rem 0 0;
+    max-width: 34rem;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.95;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.72);
+  }
+  .nl-f {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    width: min(34rem, 100%);
+    margin-top: 3rem;
+    border-bottom: 1px solid rgba(246, 241, 232, 0.7);
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    scroll-margin-top: 45vh; /* a link that jumps here lands with the heading in view, not the field at the very top */
+    transition: border-color 0.2s;
+  }
+  .nl-f:focus-within {
+    border-color: #de9070;
+  }
+  .nl-f input[type='email'] {
+    flex: 1;
+    min-width: 0;
+    padding: 1.1rem 0;
+    border: 0;
+    outline: 0;
+    border-radius: 0;
+    background: transparent;
+    font: inherit;
+    color: var(--cream);
+  }
+  .nl-f input[type='email']::placeholder {
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .nl-f .nl-trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+  .nl-f button {
+    flex: none;
+    padding: 1.1rem 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    letter-spacing: 0.06em;
+    color: #de9070;
+    cursor: pointer;
+  }
+  .nl-f button b {
+    display: inline-block;
+    font-weight: inherit;
+    transition: transform 0.3s;
+  }
+  .nl-f button:hover b {
+    transform: translateX(5px);
+  }
+  .nl-f button:focus-visible {
+    outline: 1px solid #de9070;
+    outline-offset: 4px;
+  }
+  .nl-f button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .co-way {
+    list-style: none;
+    margin: 6.5rem 0 0;
+    padding: 0;
+    width: min(34rem, 100%);
+    border-top: 1px solid var(--line);
+  }
+  .co-way li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+  }
+  .co-way span {
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .co-way a {
+    color: rgba(246, 241, 232, 0.9);
+    transition: color 0.2s;
+  }
+  .co-way a:hover {
+    color: #de9070;
+  }
+  .co-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .co-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .co-foot a {
+    transition: color 0.2s;
+  }
+  .co-foot a:hover {
+    color: #de9070;
+  }
+
+  /* ---------- motion: there on arrival; rings draw once; small responses only ---------- */
+  .rvl {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .rvl.in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mini .star { animation: hp-star 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) 0.25s both; }
+    .mini .ring { animation: hp-draw 0.8s cubic-bezier(0.6, 0, 0.2, 1) both; }
+    .mini .ring:nth-of-type(3) { animation-delay: 0.35s; }
+    .mini .ring:nth-of-type(2) { animation-delay: 0.5s; }
+    .mini .ring:nth-of-type(1) { animation-delay: 0.65s; }
+    .orbit { animation: hp-orbit 90s linear infinite; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rvl { opacity: 1; transform: none; transition: none; }
+  }
+  @keyframes hp-in {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+  @keyframes hp-star {
+    from { opacity: 0; transform: scale(0.2) rotate(-45deg); }
+  }
+  @keyframes hp-draw {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes hp-orbit {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Phone: not designed yet — keep it readable only */
+  @media (max-width: 860px) {
+    /* phone: by day the star's label (方向 / NORTH STAR) ran into 「我是余文皓。」 — keep the star, drop the label (10/9, the author's word).
+       The night label on the first screen stays. */
+    .cv-star span.d { display: none; }
+    /* phone, 10/9: a last character alone on a line (「順序／讀」, the featured title's 「現／場」), ring captions too small to read,
+       and half a screen of nothing where two same-coloured sections meet. */
+    .hp .nb { white-space: nowrap; }
+    .nt-feat h3 { text-wrap: balance; }
+    .s2-map .lab .en { display: none; }
+    .s2 { padding-bottom: 3.5rem; }
+    .tl { padding-top: 3.5rem; }
+    .s1, .s2-grid, .mk, .mk-grid, .tl-grid, .tl-grid a { grid-template-columns: 1fr; }
+    .tj-stage { height: auto; }
+    .tj-stage > svg, .tj-now { display: none; }
+    .tj-stage li { position: static; width: auto !important; opacity: 1; transform: none; padding: 1rem 0; border-top: 1px solid var(--hair); }
+    .tj-stage li i { display: none; }
+    .nt-feat { grid-template-columns: 1fr; }
+    .nt-list li a { grid-template-columns: 1fr; gap: 0.3rem; }
+    .s1 { min-height: 0; padding-block: 2.5rem 3.5rem; }
+    .s1-fig { justify-self: start; width: 70%; order: -1; }
+    .kick { flex-wrap: wrap; }
+    .s2-map { position: static; max-width: 22rem; margin-inline: auto; }
+    .tabs { gap: 1.4rem; }
+    .panel li a { grid-template-columns: 1fr; }
+    .panel .x { grid-column: 1; }
+  }
+</style>
+
+<style is:global>
+  /* the page ends at night; the shared footer is replaced by one line inside .co */
+  body:has(.cv) footer {
+    display: none;
+  }
+  /* let the shared header sit on the night cover. */
+  body:has(.cv) > header,
+  body:has(.cv) header.sticky {
+    background: transparent !important;
+  }
+  /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
+     Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
+  body:has(.cv) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
+  body:has(.cv) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.cv) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.cv) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.cv) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.cv) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  /* No logo on the night cover — the name already sits above the headline. */
+  body:has(.cv) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.cv) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>

@@ -3,6 +3,7 @@ title: "API是什麼？從生活案例理解API的運作"
 description: "API（應用程式介面）是一組規則和方法，允許不同的應用程式或服務之間進行通訊。它就像一座橋樑，幫助系統互相交流和交換資料。"
 pubDate: 2025-02-24
 category: building-products
+topics: ["ai-practice"]
 tags: ["API", "API例子"]
 lang: zh-TW
 featured: false
@@ -51,5 +52,3 @@ API的運作包含以下關鍵步驟：
 ---
 
 *如果這篇讓你有了想法，[訂閱電子報](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
-
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
