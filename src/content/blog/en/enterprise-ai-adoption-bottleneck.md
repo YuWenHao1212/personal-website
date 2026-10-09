@@ -3,6 +3,7 @@ title: "Why Enterprise AI Workflow Adoption Gets Stuck at Step One"
 description: "The real bottleneck in enterprise AI workflow adoption isn't tools or budget — it's that most business processes have never been documented. A real case study, why traditional SOPs don't work, and the three questions managers can ask today."
 pubDate: 2026-03-30
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "enterprise AI", "digital transformation", "process automation", "AI adoption"]
 keywords: ["enterprise AI adoption", "AI workflow", "AI implementation", "enterprise AI", "process automation", "AI adoption"]
 lang: en

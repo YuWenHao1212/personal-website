@@ -3,6 +3,7 @@ title: "How to Use Claude Code: From Setup to Your First Task"
 description: "Learn how to use Claude Code in 5 minutes. A beginner-friendly guide to setup, installation, and completing your first task. Let AI do the work—not just talk about it."
 pubDate: 2026-03-04
 category: building-products
+topics: ["ai-practice"]
 tags: ["how to use claude code", "claude code tutorial", "claude code setup"]
 lang: en
 featured: true

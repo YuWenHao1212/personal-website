@@ -3,6 +3,7 @@ title: "Agent Harness: What Actually Determines Whether AI Delivers or Disappoin
 description: "Same AI model, different system wrapped around it — ranking jumps from outside Top 30 to Top 5. The most important consensus in AI for 2026 isn't which model is best. It's the agent harness — the system that turns raw intelligence into reliable output. Here's what it is and why it matters more than the model."
 pubDate: 2026-03-16
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "agent harness", "harness engineering", "agentic harness", "agentic coding", "Claude Code", "AI Agent"]
 keywords: ["agent harness", "harness engineering", "agentic harness", "what is agent harness", "AI harness", "agentic coding best practices"]
 lang: en

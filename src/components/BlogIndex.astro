@@ -1,0 +1,651 @@
+---
+// Rewritten 10/9 with the author, in the redesign folder only (the live page is unchanged until this branch ships).
+// Before: tab title "Blog", heading 「所有文章」, three category pills (AI 實戰／效率系統／人生思考), 60 picture cards three to a row.
+//   Previous file: session scratchpad, blog-list/index.before-redesign.astro.
+// Now: the page for a returning reader — what is new, and one of two topics. One row per article, picture on the left (the author's
+//   pick: pictures stay), grouped by year, the newest one large. Two topics (i18n/topics.ts); six articles sit in both.
+// Kept for search: the URL, every one of the 60 article links in the HTML (the filter only hides rows), article URLs.
+// Changed for search (Claude's drafts, to be confirmed by the author): tab title and description.
+//
+// 10/9, later the same day: moved here from pages/zh-TW/blog/index.astro so the English list (pages/en/blog/) is the same page.
+// The Chinese output is unchanged. English strings are Claude's drafts; the English ending goes to LinkedIn, not the newsletter
+// (the author's call: the newsletter is in Chinese).
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { topics, topicNamesFor, topicsOf, legacyToTopic } from '../i18n/topics';
+
+interface Props {
+  lang: 'zh-TW' | 'en';
+}
+const { lang } = Astro.props;
+const en = lang === 'en';
+const topicNames = topicNamesFor(lang);
+const sep = en ? ' · ' : '・';
+const nArticles = (n: number) => (en ? `${n} ${n === 1 ? 'article' : 'articles'}` : `${n} 篇`);
+
+const allPosts = await getCollection('blog', ({ data }) => data.lang === lang && (import.meta.env.DEV || data.draft !== true));
+const posts = allPosts
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .map((p) => ({
+    slug: p.id.split('/').pop()!,
+    title: p.data.title,
+    description: p.data.description,
+    date: p.data.pubDate,
+    image: p.data.heroImage,
+    topics: topicsOf(p.data),
+  }));
+
+const years = [...new Set(posts.map((p) => p.date.getFullYear()))];
+const byYear = years.map((y) => ({ y, rows: posts.filter((p) => p.date.getFullYear() === y) }));
+const counts = Object.fromEntries(topics.map((t) => [t, posts.filter((p) => p.topics.includes(t)).length]));
+const fmtDay = (d: Date) =>
+  en
+    ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
+    : `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+// English: the tab title stays 'Blog' as it was. The description was 'Articles on AI in practice, productivity & life'
+// (the three old categories); the new one is a draft.
+const title = en ? 'Blog' : '文章｜余文皓';
+const description = en
+  ? 'Articles by WenHao Yu on Claude Code, AI workflows, knowledge management and productivity.'
+  : '余文皓的文章：Claude Code、AI 工作流、效率系統、知識管理，和一路上想通的道理。';
+---
+
+<BaseLayout title={title} description={description}>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <div class="wl" data-lang={lang}>
+    <!-- ============ 0. A low night band, not a full cover: this is a page to scan ============ -->
+    <section class="wl-top">
+      <img class="wl-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" fetchpriority="high" />
+      <div class="wl-top-in">
+        <p class="kick"><i></i>{en ? 'Blog' : '文章'}</p>
+        <h1>{en ? 'All articles' : '全部文章'}</h1>
+        {en ? (
+          <p class="wl-sub">Claude Code, AI workflows, knowledge management, and what I worked out along the way.</p>
+        ) : (
+          <p class="wl-sub">Claude Code、AI 工作流、效率系統、知識管理，<span class="nb">和一路上想通的道理。</span></p>
+        )}
+      </div>
+    </section>
+
+    <!-- ============ 1. Filter + list ============ -->
+    <section class="wl-main">
+      <div class="wl-filter" id="wl-filter" role="group" aria-label={en ? 'Filter by topic' : '依主題篩選'}>
+        <button type="button" data-topic="all" aria-pressed="true" data-umami-event="category_click" data-umami-event-category="all">
+          {en ? 'All' : '全部'}<span>{posts.length}</span>
+        </button>
+        {topics.map((t) => (
+          <button type="button" data-topic={t} aria-pressed="false" data-umami-event="category_click" data-umami-event-category={t}>
+            {topicNames[t]}<span>{counts[t]}</span>
+          </button>
+        ))}
+      </div>
+
+      {byYear.map(({ y, rows }, gi) => (
+        <div class="wl-year" data-year={y}>
+          <h2><span>{y}</span><i data-count>{nArticles(rows.length)}</i></h2>
+          <ol>
+            {rows.map((p, i) => (
+              <li class:list={{ 'is-lead': gi === 0 && i === 0 }} data-topics={p.topics.join(' ')}>
+                <a href={`/${lang}/blog/${p.slug}/`} data-umami-event="blog_list_click">
+                  <span class="pic">
+                    {p.image && (
+                      <img src={p.image} alt="" width="1200" height="675" loading={gi === 0 && i < 3 ? 'eager' : 'lazy'} decoding="async" />
+                    )}
+                  </span>
+                  <span class="body">
+                    <span class="meta">
+                      <time datetime={p.date.toISOString()}>{fmtDay(p.date)}</time>
+                      <span class="tp">{p.topics.map((t) => topicNames[t]).join(sep)}</span>
+                    </span>
+                    <span class="t">{p.title}</span>
+                    <span class="x">{p.description}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </section>
+
+    <!-- ============ 2. Ending: one way to get the next article, and the last line ============ -->
+    <section class="wl-end">
+      <img class="wl-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
+      {en ? (
+        <a class="wl-nl" href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me" data-umami-event="blog_list_click_linkedin">
+          <span class="k">Questions, or something to work on together?</span>
+          <span class="t">Find me on LinkedIn</span>
+          <b aria-hidden="true">↗</b>
+        </a>
+      ) : (
+        <a class="wl-nl" href="/zh-TW/#newsletter-form" data-umami-event="blog_list_click_newsletter">
+          <span class="k">想讓新的文章寄給你</span>
+          <span class="t">訂閱電子報</span>
+          <b aria-hidden="true">→</b>
+        </a>
+      )}
+      <p class="wl-foot">
+        <span>© {new Date().getFullYear()} {en ? 'WenHao Yu' : '余文皓 WenHao Yu'}</span>
+        <span class="lk">
+          <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
+          {en ? (
+            <a href="https://github.com/YuWenHao1212" target="_blank" rel="noopener me">GitHub</a>
+          ) : (
+            <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          )}
+          <a href="mailto:mail@yu-wenhao.com">Email</a>
+        </span>
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline define:vars={{ LEGACY: legacyToTopic, TOPICS: [...topics], EN: en }}>
+  // The filter only hides rows; every article link stays in the HTML. Old links (?category=building-products …) land on the new topic.
+  (function () {
+    const bar = document.getElementById('wl-filter');
+    if (!bar) return;
+    const buttons = [...bar.querySelectorAll('button')];
+    const groups = [...document.querySelectorAll('.wl-year')];
+
+    function read() {
+      const raw = new URLSearchParams(location.search).get('category') || 'all';
+      const t = LEGACY[raw] || raw;
+      return TOPICS.includes(t) ? t : 'all';
+    }
+    function apply(topic) {
+      let lead = null;
+      groups.forEach((g) => {
+        let shown = 0;
+        g.querySelectorAll('li').forEach((li) => {
+          const on = topic === 'all' || li.dataset.topics.split(' ').includes(topic);
+          li.hidden = !on;
+          li.classList.remove('is-lead');
+          if (on) {
+            shown += 1;
+            if (!lead) lead = li;
+          }
+        });
+        g.hidden = shown === 0;
+        g.querySelector('[data-count]').textContent = EN ? shown + (shown === 1 ? ' article' : ' articles') : shown + ' 篇';
+      });
+      if (lead) lead.classList.add('is-lead');
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.topic === topic)));
+    }
+    buttons.forEach((b) =>
+      b.addEventListener('click', () => {
+        const topic = b.dataset.topic;
+        const url = new URL(location.href);
+        if (topic === 'all') url.searchParams.delete('category');
+        else url.searchParams.set('category', topic);
+        history.pushState({}, '', url);
+        apply(topic);
+      })
+    );
+    window.addEventListener('popstate', () => apply(read()));
+    apply(read());
+  })();
+</script>
+
+<style>
+  /* Tokens are the home page's (index.astro .hp). */
+  .wl {
+    --paper: #fbf9f5;
+    --paper-2: #f4efe7;
+    --ink: #241b18;
+    --text: #2b211c;
+    --muted: #71655c;
+    --faint: #a99a8d;
+    --hair: #e2d8c9;
+    --terra: #c25b3f;
+    --night: #0d0b09;
+    --cream: #f6f1e8;
+    --dawn: #de9070;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+    --gx: max(6vw, 1.5rem);
+    background: var(--paper);
+    color: var(--text);
+  }
+  .wl a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .wl :is(h1, h2, p, ol) {
+    margin: 0;
+  }
+  .wl ol {
+    list-style: none;
+    padding: 0;
+  }
+  .wl .nb {
+    white-space: nowrap;
+  }
+  .kick {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: rgba(246, 241, 232, 0.6);
+  }
+  .kick i {
+    width: 6px;
+    height: 6px;
+    background: var(--terra);
+    transform: rotate(45deg);
+  }
+
+  /* ---------- top band ---------- */
+  .wl-top {
+    position: relative;
+    overflow: hidden;
+    margin-top: -6rem; /* slide under the header, as the other night covers do */
+    padding: 12rem var(--gx) 4.5rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .wl-sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 100%;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 45%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 45%, #000 100%);
+    pointer-events: none;
+  }
+  .wl-top-in {
+    position: relative;
+  }
+  .wl-top h1 {
+    margin-top: 1.8rem;
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+  }
+  .wl .wl-sub {
+    margin-top: 1.4rem;
+    max-width: 38rem;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.95;
+    letter-spacing: 0.06em;
+    color: rgba(246, 241, 232, 0.72);
+  }
+
+  /* ---------- filter ---------- */
+  .wl-main {
+    padding: 3rem var(--gx) 7rem;
+    max-width: 78rem;
+    margin: 0 auto;
+    box-sizing: content-box;
+  }
+  .wl-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 2.4rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--hair);
+  }
+  .wl-filter button {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.55em;
+    padding: 0.5rem 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: none;
+    font: inherit;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .wl-filter button span {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+  }
+  .wl-filter button:hover {
+    color: var(--ink);
+  }
+  .wl-filter button[aria-pressed='true'] {
+    color: var(--ink);
+    border-bottom-color: var(--terra);
+  }
+  .wl-filter button[aria-pressed='true'] span {
+    color: var(--terra);
+  }
+
+  /* ---------- year groups ---------- */
+  .wl-year {
+    margin-top: 4.5rem;
+  }
+  .wl-year:first-of-type {
+    margin-top: 3rem;
+  }
+  .wl-year h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .wl-year h2 i {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--faint);
+  }
+
+  /* ---------- one row per article ---------- */
+  .wl-year li {
+    border-bottom: 1px solid var(--hair);
+  }
+  .wl-year li a {
+    display: grid;
+    grid-template-columns: clamp(11rem, 19vw, 15rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.8rem);
+    align-items: center;
+    padding: 1.6rem 0;
+  }
+  .wl-year .pic {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .wl-year .pic img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .wl-year li a:hover .pic img {
+    transform: scale(1.04);
+  }
+  .wl-year .body {
+    display: block;
+    min-width: 0;
+  }
+  .wl-year .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.4rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    color: var(--faint);
+  }
+  .wl-year .meta .tp {
+    color: var(--terra);
+  }
+  .wl-year .t {
+    display: block;
+    margin-top: 0.7rem;
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    text-wrap: pretty;
+    transition: color 0.2s;
+  }
+  .wl-year li a:hover .t {
+    color: var(--terra);
+  }
+  .wl-year .x {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 0.6rem;
+    max-width: 44rem;
+    font-size: 0.9375rem;
+    line-height: 1.85;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  /* the newest visible article is large */
+  .wl-year li.is-lead a {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4.5vw, 4.5rem);
+    padding: 2.6rem 0 3rem;
+  }
+  .wl-year li.is-lead .pic {
+    aspect-ratio: 16 / 9;
+  }
+  .wl-year li.is-lead .t {
+    margin-top: 1.1rem;
+    font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.45;
+  }
+  .wl-year li.is-lead .x {
+    -webkit-line-clamp: 4;
+    margin-top: 1.1rem;
+    font-size: 1rem;
+  }
+
+  /* ---------- ending ---------- */
+  .wl-end {
+    position: relative;
+    overflow: hidden;
+    padding: 6.5rem var(--gx) 7.5rem;
+    background: #14100e;
+    color: var(--cream);
+  }
+  .wl a.wl-nl {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 0.4rem 2.5rem;
+    width: min(40rem, 100%);
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(246, 241, 232, 0.3);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .wl-nl .k {
+    grid-column: 1 / -1;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    color: rgba(246, 241, 232, 0.55);
+  }
+  .wl-nl .t {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .wl-nl b {
+    font-weight: 300;
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+  }
+  .wl a.wl-nl:hover {
+    color: var(--dawn);
+    border-bottom-color: var(--dawn);
+  }
+  .wl-nl:hover b {
+    transform: translateX(6px);
+  }
+  .wl-foot {
+    position: absolute;
+    left: var(--gx);
+    right: var(--gx);
+    bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: rgba(246, 241, 232, 0.5);
+  }
+  .wl-foot .lk {
+    display: flex;
+    gap: 2.2rem;
+  }
+  .wl .wl-foot a:hover {
+    color: var(--dawn);
+  }
+
+  /* ---------- English: tighter type (the Chinese settings are open on purpose; Latin text set that way falls apart) ---------- */
+  .wl[data-lang='en'] .kick,
+  .wl[data-lang='en'] .wl-year .meta,
+  .wl[data-lang='en'] .wl-year h2 i {
+    text-transform: uppercase;
+  }
+  .wl[data-lang='en'] .wl-top h1 {
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .wl[data-lang='en'] .wl-sub {
+    max-width: 30rem;
+    line-height: 1.6;
+    letter-spacing: 0.005em;
+    text-wrap: balance;
+  }
+  .wl[data-lang='en'] .wl-filter button {
+    letter-spacing: 0.01em;
+  }
+  .wl[data-lang='en'] .wl-year .t {
+    line-height: 1.28;
+    letter-spacing: -0.003em;
+  }
+  .wl[data-lang='en'] .wl-year li.is-lead .t {
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+  }
+  .wl[data-lang='en'] .wl-year .x {
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+  .wl[data-lang='en'] .wl-nl .k {
+    letter-spacing: 0.01em;
+  }
+  .wl[data-lang='en'] .wl-nl .t {
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- phone: small square picture, title beside it, no summary ---------- */
+  @media (max-width: 700px) {
+    .wl-top {
+      padding: 9.5rem var(--gx) 3rem;
+    }
+    .wl-main {
+      padding-top: 2rem;
+      padding-bottom: 4.5rem;
+    }
+    .wl-filter {
+      gap: 0.2rem 1.6rem;
+    }
+    .wl-filter button {
+      font-size: 0.9375rem;
+    }
+    .wl-year {
+      margin-top: 3.2rem;
+    }
+    .wl-year li a {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      gap: 1.1rem;
+      align-items: start;
+      padding: 1.2rem 0;
+    }
+    .wl-year .pic {
+      aspect-ratio: 1;
+    }
+    .wl-year .meta .tp {
+      display: none;
+    }
+    .wl-year .t {
+      margin-top: 0.4rem;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+    }
+    .wl-year .x {
+      display: none;
+    }
+    .wl-year li.is-lead a {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      padding: 1.6rem 0 2rem;
+    }
+    .wl-year li.is-lead .pic {
+      aspect-ratio: 16 / 9;
+    }
+    .wl-year li.is-lead .meta .tp {
+      display: inline;
+    }
+    .wl-year li.is-lead .t {
+      margin-top: 0.7rem;
+      font-size: 1.5rem;
+    }
+    .wl-year li.is-lead .x {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      font-size: 0.9375rem;
+    }
+    .wl-end {
+      padding: 4.5rem var(--gx) 8rem;
+    }
+  }
+</style>
+
+<style is:global>
+  /* The top band is night; the shared footer is replaced by this page's last line, and the header sits on the sky
+     (same treatment as the home, about, workshop and contact pages). */
+  body:has(.wl .wl-sky) footer.bg-cream-200 {
+    display: none;
+  }
+  body:has(.wl .wl-sky) > header,
+  body:has(.wl .wl-sky) header.sticky {
+    background: transparent !important;
+  }
+  body:has(.wl .wl-sky) header.sticky[data-scrolled] {
+    background: rgba(13, 11, 9, 0.94) !important;
+  }
+  body:has(.wl .wl-sky) #mobile-menu {
+    background: #0d0b09 !important;
+  }
+  body:has(.wl .wl-sky) #mobile-menu a.border-b {
+    border-color: rgba(246, 241, 232, 0.16) !important;
+  }
+  body:has(.wl .wl-sky) header a {
+    color: rgba(246, 241, 232, 0.88) !important;
+  }
+  body:has(.wl .wl-sky) header a[href*='newsletter'] {
+    background: rgba(246, 241, 232, 0.14) !important;
+  }
+  body:has(.wl .wl-sky) header a[data-pill='invite'] {
+    border-color: rgba(246, 241, 232, 0.5) !important;
+  }
+  body:has(.wl .wl-sky) header a:has(img[src*='logo']) {
+    visibility: hidden;
+  }
+  body:has(.wl .wl-sky) header svg {
+    color: rgba(246, 241, 232, 0.88);
+  }
+</style>

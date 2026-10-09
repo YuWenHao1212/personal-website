@@ -1,5 +1,8 @@
 ---
-// 10/9, with the author: the Chinese article page. English articles stay on BlogLayout.astro, untouched.
+// 10/9, with the author: the article page. First built for Chinese; the same day he asked for the English site to follow, so the
+// page now takes the article's language (strings in `T` below, English type settings under .ar[data-lang='en']).
+// English differs in three places he decided: no newsletter and no workshop at the end (the newsletter is in Chinese, there is
+// no English class) — the ending is one line out to LinkedIn; the author block is the agreed English identity sentence.
 // Reference he asked for: the Confluence insight articles (confluence-partners.ai/insights/…) — a fixed rail on the left
 // (topic + contents), a reading column on the right (title, summary, byline, a heavy rule, then the text), an author block at the end.
 // Colours and type are this site's own (index.astro .hp tokens), not Confluence's.
@@ -11,7 +14,7 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import { getRelatedPosts } from '../utils/relatedPosts';
-import { topicNames, topicsOf } from '../i18n/topics';
+import { topicNamesFor, topicsOf } from '../i18n/topics';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -23,13 +26,48 @@ const { post, readingTime, headings = [] } = Astro.props;
 const { title, seoTitle, description, pubDate, updatedDate, heroImage, tags = [], translationKey, faq } = post.data;
 const slug = post.id.split('/').pop()!;
 const postTopics = topicsOf(post.data);
+const lang = post.data.lang;
+const en = lang === 'en';
+const otherLang = en ? 'zh-TW' : 'en';
+const topicNames = topicNamesFor(lang);
+
+// Every English string below is Claude's draft unless marked; the author reads them one area at a time.
+const T = en
+  ? {
+      toc: 'Contents',
+      by: 'By ',
+      name: 'WenHao Yu',
+      mins: (n: number) => `${n} min read`,
+      other: '中文版 →',
+      updated: 'Last updated: ',
+      faq: 'FAQ', // the heading the English articles already had
+      // agreed with the author 10/9, word for word. "through consulting and training" was added the same day: he wants an AI asked
+      // for an AI trainer (AI 講師) to find him in English too, and this sentence is the one every English article carries.
+      bio: 'Claude Certified Architect. Founder of Confluence Partners, helping companies adopt AI through consulting and training.',
+      about: 'About →',
+      related: 'Related articles',
+      back: '← All articles',
+    }
+  : {
+      toc: '目錄',
+      by: '文｜',
+      name: '余文皓',
+      mins: (n: number) => `${n} 分鐘`,
+      other: 'Read in English →',
+      updated: '最後更新：',
+      faq: '常見問題',
+      bio: '科技業二十年，Nokia、聯詠科技、友達光電，做過工程師、PM、事業單位主管的幕僚。現在是企業 AI 導入顧問、AI 講師，Claude 認證架構師，匯流顧問創辦人。',
+      about: '關於我 →',
+      related: '相關文章',
+      back: '← 全部文章',
+    };
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
 const translated = translationKey
-  ? allPosts.find((p) => p.data.translationKey === translationKey && p.data.lang === 'en')
+  ? allPosts.find((p) => p.data.translationKey === translationKey && p.data.lang === otherLang)
   : undefined;
 const related = getRelatedPosts({ currentPost: post, allPosts, limit: 3 }).map((p) => ({
-  href: `/zh-TW/blog/${p.id.split('/').pop()}/`,
+  href: `/${lang}/blog/${p.id.split('/').pop()}/`,
   title: p.data.title,
   image: p.data.heroImage,
   date: p.data.pubDate,
@@ -42,16 +80,25 @@ const hasToc = toc.filter((h) => h.depth === 2).length >= 3;
 
 // Titles break where the author already put a colon, bar or question mark — not wherever the line happens to end
 // (「5 分／鐘」 was split). The H1's text is unchanged; the second half is only a block-level span.
-const cut = title.search(/[：｜|？]/);
+// English: the same idea, at a colon or question mark followed by a space, and only when both halves are a real phrase.
+const cut = en ? title.search(/[:?](?=\s)/) : title.search(/[：｜|？]/);
 const cutEnd = cut < 0 ? -1 : cut + 1;
-const titleParts = cut >= 4 && title.length - cutEnd >= 4 ? [title.slice(0, cutEnd).trim(), title.slice(cutEnd).trim()] : [title];
+const minPart = en ? 12 : 4;
+const titleParts = cut >= minPart && title.length - cutEnd >= minPart ? [title.slice(0, cutEnd).trim(), title.slice(cutEnd).trim()] : [title];
 
 // Chapter numbers, 10/9 (the author: the Confluence articles feel more finished — one reason is their numbered chapters).
 // Only the article's real chapters are counted: openers and closers (前言、結語、常見問題…) are left bare, and an article
 // whose own headings already carry numbers (「1. …」「第一個…」「Step 1」) gets none, so nothing is numbered twice.
 const h2s = headings.filter((h) => h.depth === 2);
-const selfNumbered = h2s.filter((h) => /^(\d+[\.、:：\s]|第[一二三四五六七八九十\d]|Step\s*\d|步驟|[一二三四五六七八九十]+[、．.])/i.test(h.text.trim())).length >= 2; // two or more, so one heading like 「第一個任務」 does not switch numbering off
-const unnumbered = /^(前言|結語|結論|總結|小結|最後|寫在最後|常見問題|FAQ|延伸閱讀|資料來源|參考資料|參考來源|TL;?DR|推薦註冊|下一步)/i;
+// The English list of words is longer (Part 1, Tip 3 …). It is kept apart on purpose: two Chinese articles have headings that begin
+// 「Part 1：」 and are numbered 01, 02 on top of that today — the author has seen those pages, so Chinese behaviour is left as it was.
+const ownNumber = en
+  ? /^(\d+[\.:\)\s]|(Step|Part|Phase|Stage|Level|Tip|Rule|Lesson|Mistake|Reason)\s*\d)/i
+  : /^(\d+[\.、:：\s]|第[一二三四五六七八九十\d]|Step\s*\d|步驟|[一二三四五六七八九十]+[、．.])/i;
+const selfNumbered = h2s.filter((h) => ownNumber.test(h.text.trim())).length >= 2; // two or more, so one heading like 「第一個任務」 does not switch numbering off
+const unnumbered = en
+  ? /^(Introduction|Intro\b|Conclusion|Closing|Final (Thoughts|Words)|Wrapping Up|Wrap[- ]Up|Summary|Key Takeaways|Takeaways|FAQ|Frequently Asked|Further Reading|Related Reading|References|Sources|Resources|TL;?DR|Next Steps?|What'?s Next|Where to Go)/i
+  : /^(前言|結語|結論|總結|小結|最後|寫在最後|常見問題|FAQ|延伸閱讀|資料來源|參考資料|參考來源|TL;?DR|推薦註冊|下一步)/i;
 const chapterNo = new Map<string, string>();
 if (!selfNumbered && h2s.length >= 3) {
   let n = 0;
@@ -59,7 +106,10 @@ if (!selfNumbered && h2s.length >= 3) {
 }
 const chapterCss = [...chapterNo].map(([id, no]) => `.ar .ar-body h2[id=${JSON.stringify(id)}]::before{content:"${no}";padding-right:3.4rem}`).join('');
 
-const fmtDay = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+const fmtDay = (d: Date) =>
+  en
+    ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
+    : `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=article&utm_content=${encodeURIComponent(slug)}`;
 ---
 
@@ -67,20 +117,20 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@500&family=Newsreader:opsz,wght@6..72,500&display=swap" />
   {chapterCss && <style is:inline set:html={chapterCss}></style>}
 
-  <div class="ar">
+  <div class="ar" data-lang={lang}>
     <article class="ar-grid">
       <!-- ============ rail: topic + contents (fixed while reading; on a phone it folds into the column) ============ -->
       <aside class="ar-rail">
         <p class="ar-kick">
           {postTopics.map((tp, i) => (
             <>
-              {i > 0 && <span aria-hidden="true">・</span>}
-              <a href={`/zh-TW/blog/?category=${tp}`}>{topicNames[tp]}</a>
+              {i > 0 && <span aria-hidden="true">{en ? ' · ' : '・'}</span>}
+              <a href={`/${lang}/blog/?category=${tp}`}>{topicNames[tp]}</a>
             </>
           ))}
         </p>
         {hasToc && (
-          <nav class="ar-toc" aria-label="本文目錄">
+          <nav class="ar-toc" aria-label={en ? 'Contents' : '本文目錄'}>
             <ol>
               {toc.map((h) => (
                 <li class={`lv${h.depth}`}><a href={`#${h.slug}`}>{chapterNo.has(h.slug) && <i>{chapterNo.get(h.slug)}</i>}{h.text}</a></li>
@@ -95,10 +145,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
         <h1>{titleParts.length === 2 ? <><span>{titleParts[0]}</span><span>{titleParts[1]}</span></> : title}</h1>
         <p class="ar-dek">{description}</p>
         <p class="ar-by">
-          <span>文｜<a href="/zh-TW/about/" rel="author" data-umami-event="blog_click_author" data-umami-event-slug={slug}>余文皓</a></span>
+          <span>{T.by}<a href={`/${lang}/about/`} rel="author" data-umami-event="blog_click_author" data-umami-event-slug={slug}>{T.name}</a></span>
           <time datetime={pubDate.toISOString()}>{fmtDay(pubDate)}</time>
-          {readingTime && <span>{readingTime} 分鐘</span>}
-          {translated && <a class="en" href={`/en/blog/${translated.id.split('/').pop()}/`} hreflang="en">Read in English →</a>}
+          {readingTime && <span>{T.mins(readingTime)}</span>}
+          {translated && <a class="en" href={`/${otherLang}/blog/${translated.id.split('/').pop()}/`} hreflang={otherLang}>{T.other}</a>}
         </p>
       </header>
 
@@ -110,7 +160,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
 
       {hasToc && (
         <details class="ar-toc-m">
-          <summary>目錄</summary>
+          <summary>{T.toc}</summary>
           <ol>
             {toc.map((h) => (
               <li class={`lv${h.depth}`}><a href={`#${h.slug}`}>{chapterNo.has(h.slug) && <i>{chapterNo.get(h.slug)}</i>}{h.text}</a></li>
@@ -125,11 +175,11 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
       </div>
 
       <div class="ar-after">
-        {updatedDate && <p class="ar-upd">最後更新：{fmtDay(updatedDate)}</p>}
+        {updatedDate && <p class="ar-upd">{T.updated}{fmtDay(updatedDate)}</p>}
 
         {faq && faq.length > 0 && (
           <section class="ar-faq">
-            <h2>常見問題</h2>
+            <h2>{T.faq}</h2>
             <dl>
               {faq.map((item) => (
                 <div>
@@ -149,26 +199,26 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
           </p>
         )}
 
-        {/* Who wrote it. Text is the About page's approved description, word for word. */}
+        {/* Who wrote it. Chinese: the About page's approved description, word for word. English: the agreed identity sentence. */}
         <section class="ar-author">
-          <img src="/images/hero.webp" alt="余文皓" width="400" height="400" loading="lazy" />
+          <img src="/images/hero.webp" alt={T.name} width="400" height="400" loading="lazy" />
           <div>
-            <p class="n">余文皓<span>Yu Wen-Hao</span></p>
-            <p class="b">科技業二十年，Nokia、聯詠科技、友達光電，做過工程師、PM、事業單位主管的幕僚。現在是企業 AI 導入顧問、AI 講師，Claude 認證架構師，匯流顧問創辦人。</p>
-            <a href="/zh-TW/about/" data-umami-event="blog_click_about" data-umami-event-slug={slug}>關於我 →</a>
+            <p class="n">{en ? <>WenHao Yu<span>余文皓</span></> : <>余文皓<span>Yu Wen-Hao</span></>}</p>
+            <p class="b">{T.bio}</p>
+            <a href={`/${lang}/about/`} data-umami-event="blog_click_about" data-umami-event-slug={slug}>{T.about}</a>
           </div>
         </section>
 
         {related.length > 0 && (
           <section class="ar-rel">
-            <p class="ar-lab">相關文章</p>
+            <p class="ar-lab">{T.related}</p>
             <ol>
               {related.map((r) => (
                 <li>
-                  <a href={r.href} data-umami-event="blog_click_related" data-umami-event-slug={slug} data-umami-event-to={r.href.replace(/^\/zh-TW\/blog\//, '').replace(/\/$/, '')}>
+                  <a href={r.href} data-umami-event="blog_click_related" data-umami-event-slug={slug} data-umami-event-to={r.href.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '')}>
                     <span class="pic">{r.image && <img src={r.image} alt="" loading="lazy" decoding="async" />}</span>
                     <span class="body">
-                      <span class="meta"><time datetime={r.date.toISOString()}>{fmtDay(r.date)}</time><span class="tp">{r.topics.map((t) => topicNames[t]).join('・')}</span></span>
+                      <span class="meta"><time datetime={r.date.toISOString()}>{fmtDay(r.date)}</time><span class="tp">{r.topics.map((t) => topicNames[t]).join(en ? ' · ' : '・')}</span></span>
                       <span class="t">{r.title}</span>
                     </span>
                   </a>
@@ -178,7 +228,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
           </section>
         )}
 
-        <a class="ar-back" href="/zh-TW/blog/">← 全部文章</a>
+        <a class="ar-back" href={`/${lang}/blog/`}>{T.back}</a>
       </div>
     </article>
 
@@ -186,28 +236,44 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     <section class="ar-end">
       <img class="ar-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
       <div class="ar-end-in">
-        <a class="ar-nl" href="/zh-TW/#newsletter-form" data-umami-event="blog_click_newsletter" data-umami-event-slug={slug} data-umami-event-where="ending">
-          <span class="k">想讓新的文章寄給你</span>
-          <span class="t">訂閱電子報</span>
-          <b aria-hidden="true">→</b>
-        </a>
-        {/* Same two sentences every article ended on (components/PostPaths.astro), as two rows. Event names unchanged. */}
-        <ul class="ar-way">
-          <li>
-            <span>公司要導入 AI</span>
-            <a href={confluence} target="_blank" rel="noopener" data-umami-event="blog_click_confluence" data-umami-event-slug={slug} data-umami-event-where="ending">到匯流顧問找我們 ↗</a>
-          </li>
-          <li>
-            <span>個人想學這套做法</span>
-            <a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug={slug} data-umami-event-where="ending">一日的公開班 →</a>
-          </li>
-        </ul>
+        {en ? (
+          /* English (10/9, the author): one link, straight to LinkedIn — the easiest way for a possible partner to reach him and
+             to see his background. Both lines are Claude's draft. New event: blog_click_linkedin. */
+          <a class="ar-nl" href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me" data-umami-event="blog_click_linkedin" data-umami-event-slug={slug} data-umami-event-where="ending">
+            <span class="k">Questions, or something to work on together?</span>
+            <span class="t">Find me on LinkedIn</span>
+            <b aria-hidden="true">↗</b>
+          </a>
+        ) : (
+          <>
+            <a class="ar-nl" href="/zh-TW/#newsletter-form" data-umami-event="blog_click_newsletter" data-umami-event-slug={slug} data-umami-event-where="ending">
+              <span class="k">想讓新的文章寄給你</span>
+              <span class="t">訂閱電子報</span>
+              <b aria-hidden="true">→</b>
+            </a>
+            {/* Same two sentences every article ended on (components/PostPaths.astro), as two rows. Event names unchanged. */}
+            <ul class="ar-way">
+              <li>
+                <span>公司要導入 AI</span>
+                <a href={confluence} target="_blank" rel="noopener" data-umami-event="blog_click_confluence" data-umami-event-slug={slug} data-umami-event-where="ending">到匯流顧問找我們 ↗</a>
+              </li>
+              <li>
+                <span>個人想學這套做法</span>
+                <a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug={slug} data-umami-event-where="ending">一日的公開班 →</a>
+              </li>
+            </ul>
+          </>
+        )}
       </div>
       <p class="ar-foot">
-        <span>© {new Date().getFullYear()} 余文皓 WenHao Yu</span>
+        <span>© {new Date().getFullYear()} {en ? 'WenHao Yu' : '余文皓 WenHao Yu'}</span>
         <span class="lk">
           <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me">LinkedIn</a>
-          <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          {en ? (
+            <a href="https://github.com/YuWenHao1212" target="_blank" rel="noopener me">GitHub</a>
+          ) : (
+            <a href="https://www.facebook.com/wenhao.yu.116026" target="_blank" rel="noopener me">Facebook</a>
+          )}
           <a href="mailto:mail@yu-wenhao.com">Email</a>
         </span>
       </p>
@@ -718,6 +784,66 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     color: var(--dawn);
   }
 
+  /* ---------- English: the Chinese settings are open (tall lines, wide tracking) because Chinese needs air; Latin text
+     set that way falls apart. Same page, tighter type. ---------- */
+  .ar[data-lang='en'] :is(.ar-kick, .ar-lab, .ar-toc-m summary, .ar-rel .meta, .ar-upd) {
+    text-transform: uppercase;
+  }
+  .ar[data-lang='en'] .ar-toc li a {
+    letter-spacing: 0.005em;
+    line-height: 1.45;
+  }
+  .ar[data-lang='en'] .ar-head h1 {
+    font-size: clamp(2.1rem, 3.7vw, 3.7rem);
+    line-height: 1.14;
+    letter-spacing: -0.012em;
+  }
+  .ar[data-lang='en'] .ar-dek {
+    font-size: clamp(1.125rem, 1.4vw, 1.3125rem);
+    line-height: 1.62;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-by {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .ar[data-lang='en'] .ar-faq h2 {
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-faq dt {
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-faq dd {
+    line-height: 1.7;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-author .n {
+    letter-spacing: 0.005em;
+  }
+  .ar[data-lang='en'] .ar-author .n span {
+    letter-spacing: 0.08em;
+  }
+  .ar[data-lang='en'] .ar-author .b {
+    font-size: 1rem;
+    line-height: 1.65;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-author a,
+  .ar[data-lang='en'] a.ar-back {
+    letter-spacing: 0.02em;
+  }
+  .ar[data-lang='en'] .ar-rel .t {
+    line-height: 1.32;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-nl .k {
+    letter-spacing: 0.01em;
+  }
+  .ar[data-lang='en'] .ar-nl .t {
+    letter-spacing: -0.005em;
+  }
+
   /* ---------- one column: tablet and phone ---------- */
   @media (max-width: 1023px) {
     .ar-grid {
@@ -788,6 +914,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     .ar-author .n span {
       display: block;
       margin: 0.2rem 0 0;
+    }
+    .ar[data-lang='en'] .ar-head h1 {
+      font-size: 1.9rem;
+      line-height: 1.16;
     }
     .ar-rel li a {
       grid-template-columns: 5.5rem minmax(0, 1fr);
@@ -1054,11 +1184,52 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar .ar-body iframe {
     max-width: 100%;
   }
+  /* English text: see the note in the scoped block above */
+  .ar[data-lang='en'] .ar-body p,
+  .ar[data-lang='en'] .ar-body li {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-body li {
+    margin: 0.35rem 0;
+  }
+  .ar[data-lang='en'] .ar-body h2 {
+    line-height: 1.22;
+    letter-spacing: -0.005em;
+  }
+  .ar[data-lang='en'] .ar-body h3 {
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-body h4 {
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-body blockquote p {
+    font-size: 1.3125rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+  .ar[data-lang='en'] .ar-body th {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .ar[data-lang='en'] .ar-body td {
+    letter-spacing: 0;
+  }
   @media (max-width: 640px) {
     .ar .ar-body p,
     .ar .ar-body li {
       font-size: 1.0625rem;
       line-height: 2;
+    }
+    .ar[data-lang='en'] .ar-body p,
+    .ar[data-lang='en'] .ar-body li {
+      font-size: 1.125rem;
+      line-height: 1.68;
+    }
+    .ar[data-lang='en'] .ar-body blockquote p {
+      font-size: 1.1875rem;
     }
     .ar .ar-body table {
       font-size: 0.875rem;

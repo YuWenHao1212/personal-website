@@ -3,6 +3,7 @@ title: "What Is Karpathy's LLM Wiki? A Zettelkasten User's Honest Review"
 description: "Karpathy's LLM Wiki pattern went viral in the AI community. As an Obsidian + LYT user, I ran his method on his own method — and found the real divide is about classification: folders, tags, wiki pages, same container problem in different skin."
 pubDate: 2026-04-10
 category: building-products
+topics: ["growth", "ai-practice"]
 tags: ["karpathy", "llm", "obsidian", "knowledge management", "zettelkasten", "lyt", "ai workflow", "personal knowledge base"]
 lang: en
 featured: false

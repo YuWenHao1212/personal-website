@@ -3,6 +3,7 @@ title: "2:30 A.M., Nobody at the Keyboard: Loop Engineering From One Desk"
 description: "At 2:30 a.m. a Mac mini wakes on its own and works: maintaining my system, producing drafts, checking itself, all with no instruction from me. A ground-level look at loop engineering: how one person running a business on Claude Code steps back, what the AI can take over, and where the line still holds."
 pubDate: 2026-07-08
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "loop engineering", "loopcraft", "harness", "Claude Code", "agentic coding", "solopreneur", "AI automation"]
 keywords: ["loop engineering", "what is loop engineering", "loopcraft", "designing loops that prompt agents", "overnight AI automation", "AI agent loop"]
 lang: en

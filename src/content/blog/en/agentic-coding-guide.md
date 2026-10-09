@@ -3,6 +3,7 @@ title: "Agentic Coding: A Practical Guide to Tools, Workflows, and Getting Start
 description: "A practical agentic coding guide: 5-tool comparison, product maturity framework, real workflows, and a step-by-step path from vibe coding to production."
 pubDate: 2026-02-14
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "solo founder", "Claude Code", "agentic coding", "vibe coding", "developer-tools"]
 lang: en
 translationKey: agentic-coding-guide

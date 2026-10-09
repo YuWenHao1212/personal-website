@@ -3,6 +3,7 @@ title: "I Built an AI Agent Company and Wanted to Shut It Down on Day One"
 description: "6 AI agents, OKRs, approval workflows, budget controls. Everything in place. Day one, I realized: management overhead outweighed the output. A lesson from 10 years as a PM."
 pubDate: 2026-03-28
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI agent", "multi agent", "Paperclip AI", "agentic coding", "AI automation"]
 author: "Yu Wen-Hao"
 keywords: ["multi agent", "AI agent", "Paperclip AI", "multi agent system", "AI automation", "AI agent management", "multi agent cost"]

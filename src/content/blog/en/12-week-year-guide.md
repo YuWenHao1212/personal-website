@@ -3,6 +3,7 @@ title: "12 Week Year Guide: 3 Concepts to Finally Achieve Your Goals"
 description: "Why do annual goals fail? Not willpower—the time unit. Learn Lead vs Lag indicators, Weekly Execution Score, and WAM to get 4 fresh starts per year."
 pubDate: 2026-01-17
 category: productivity
+topics: ["growth"]
 tags: ["personal growth", "goal setting", "time management", "12 Week Year", "productivity"]
 lang: en
 featured: false

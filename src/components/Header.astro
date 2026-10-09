@@ -14,7 +14,10 @@ const t = useTranslations(lang);
 // zh-TW (10/8, with the author): four items, in the order readers look for them —
 //   new readers: 文章, 關於 · occasional readers: 課程 · a company looking to adopt AI: out to the Confluence site.
 //   Gone from the nav: 服務 (page retiring), 產品 (pages stay, linked from the home page), 聯繫 (email sits in every page's last line).
-// English nav is unchanged.
+// en (10/9, with the author): the English reader is someone who arrived from search, or a possible partner (a client, or Anthropic).
+//   Blog, About, out to the Confluence site's English pages, and one button: Get in touch.
+//   Before: Products / Blog / About / Contact. Gone from the nav: Products (pages stay, linked from the About page).
+//   No newsletter button: the newsletter is written in Chinese.
 type NavItem = { href: string; label: string; external?: boolean };
 const navItems: NavItem[] = lang === 'zh-TW'
   ? [
@@ -24,12 +27,11 @@ const navItems: NavItem[] = lang === 'zh-TW'
       { href: 'https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=nav', label: '企業導入', external: true },
     ]
   : [
-      { href: `/${lang}/products/`, label: t('nav.products') },
-      { href: `/${lang}/blog/`, label: t('nav.blog') },
-      // { href: `/${lang}/picks/`, label: t('nav.picks') }, // Hidden until more content
-      { href: `/${lang}/about/`, label: t('nav.about') },
-      { href: `/${lang}/contact/`, label: t('nav.contact') },
+      { href: '/en/blog/', label: 'Blog' },
+      { href: '/en/about/', label: 'About' },
+      { href: 'https://confluence-partners.ai/en/?utm_source=yu-wenhao.com&utm_medium=nav', label: 'Confluence Partners', external: true },
     ];
+const invite = lang === 'zh-TW' ? '合作邀約' : 'Get in touch';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -54,6 +56,11 @@ const currentPath = Astro.url.pathname;
           height="56"
           class="h-16 w-auto"
         />
+        {/* 10/9, the author: on the pages that open on the night sky there was nothing to press to get back to the home page —
+            those pages hide the logo (its black brushstroke does not read on the sky). First fix: the name as plain type.
+            He asked what the logo itself would look like there: this is the same mark without the brushstroke, gold line only
+            (public/images/logo-gold.png, cut down from the 10/6 trial file logo-dark.png). */}
+        <img class="nav-gold" src="/images/logo-gold.png" alt="WenHao Yu" width="420" height="201" />
       </a>
 
       <!-- Desktop Navigation -->
@@ -77,17 +84,19 @@ const currentPath = Astro.url.pathname;
           ))}
         </div>
 
-        <!-- Invitations (zh-TW only): talks, interviews, collaboration. Outlined, so the newsletter stays the main action. -->
-        {lang === 'zh-TW' && (
-          <a
-            href={`/${lang}/contact/`}
-            data-pill="invite"
-            data-umami-event="nav_click_invite"
-            class="-mr-6 px-5 py-2.5 border border-[#B9AE9F] text-[#2C2416] text-base font-medium rounded-full hover:border-[#2C2416] transition-colors"
-          >
-            合作邀約
-          </a>
-        )}
+        <!-- Invitations: talks, interviews, collaboration. Outlined, so on the Chinese site the newsletter stays the main action;
+             on the English site it is the only button. -->
+        <a
+          href={`/${lang}/contact/`}
+          data-pill="invite"
+          data-umami-event="nav_click_invite"
+          class:list={[
+            'px-5 py-2.5 border border-[#B9AE9F] text-[#2C2416] text-base font-medium rounded-full hover:border-[#2C2416] transition-colors',
+            lang === 'zh-TW' && '-mr-6',
+          ]}
+        >
+          {invite}
+        </a>
 
         <!-- Newsletter CTA Button (zh-TW only) -->
         {lang === 'zh-TW' && (
@@ -165,17 +174,17 @@ const currentPath = Astro.url.pathname;
           <LanguageSwitcher />
         </div>
       )}
-      <!-- Mobile Newsletter CTA (zh-TW only) -->
-      {lang === 'zh-TW' && (
-        <div class="py-4 flex flex-wrap gap-3">
-          <a
-            href={`/${lang}/contact/`}
-            data-pill="invite"
-            data-umami-event="nav_click_invite"
-            class="inline-block px-5 py-2.5 border border-[#B9AE9F] text-[#2C2416] text-base font-medium rounded-full hover:border-[#2C2416] transition-colors"
-          >
-            合作邀約
-          </a>
+      <!-- Mobile: the invitation button, and on the Chinese site the newsletter one -->
+      <div class="py-4 flex flex-wrap gap-3">
+        <a
+          href={`/${lang}/contact/`}
+          data-pill="invite"
+          data-umami-event="nav_click_invite"
+          class="inline-block px-5 py-2.5 border border-[#B9AE9F] text-[#2C2416] text-base font-medium rounded-full hover:border-[#2C2416] transition-colors"
+        >
+          {invite}
+        </a>
+        {lang === 'zh-TW' && (
           <a
             href={`/${lang}/#newsletter-form`}
             data-umami-event="nav_click_newsletter"
@@ -183,13 +192,57 @@ const currentPath = Astro.url.pathname;
           >
             {t('header.subscribe')}
           </a>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   </div>
 </header>
 
 <style is:global>
+  /* The way home on night pages: the usual logo is hidden there (each page's own rule sets the link to visibility:hidden);
+     the gold version inside the same link is switched on. One list of the night pages — add a page's marker here when it gets a night cover. */
+  header[data-nav] .nav-gold {
+    display: none;
+  }
+  body:is(:has(.cv), :has(.wl .wl-sky), :has(.ab .op-sky), :has(.wp .op-sky), :has(.ct .co-sky)) header[data-nav] a:has(img[src*='logo.webp']) img[src*='logo.webp'] {
+    display: none;
+  }
+  body:is(:has(.cv), :has(.wl .wl-sky), :has(.ab .op-sky), :has(.wp .op-sky), :has(.ct .co-sky)) header[data-nav] .nav-gold {
+    display: block;
+    visibility: visible;
+    height: 3.5rem;
+    width: auto;
+    transition: opacity 0.2s;
+  }
+  body:is(:has(.cv), :has(.wl .wl-sky), :has(.ab .op-sky), :has(.wp .op-sky), :has(.ct .co-sky)) header[data-nav] a:hover .nav-gold {
+    opacity: 0.8;
+  }
+  @media (max-width: 640px) {
+    body:is(:has(.cv), :has(.wl .wl-sky), :has(.ab .op-sky), :has(.wp .op-sky), :has(.ct .co-sky)) header[data-nav] .nav-gold {
+      height: 2.75rem;
+    }
+  }
+  /* 10/9, the author: the logo sat a long way in from the left on a wide screen and drew the eye ("有點搶眼"). The bar's content was
+     held in a centred column (max-w-6xl) while these pages set their text on the page's own gutter (--gx: max(6vw, 1.5rem)).
+     On night pages the bar now uses that gutter: the logo stands on the text's left edge, the language switch on its right edge.
+     Pages with a light header (articles, products) keep the centred column — their content is centred too. */
+  body:is(:has(.cv), :has(.wl .wl-sky), :has(.ab .op-sky), :has(.wp .op-sky), :has(.ct .co-sky)) header[data-nav] > nav {
+    max-width: none;
+    padding-inline: max(6vw, 1.5rem);
+  }
+  /* The logo file has a white ground (no transparency); on the paper-coloured header it showed as a paler box around the mark.
+     Multiply lets the white take the header's own colour, the black brushstroke and the gold stay as they are. (10/9, the author's OK.) */
+  header[data-nav] img[src*='logo.webp'] {
+    mix-blend-mode: multiply;
+  }
+  /* Article pages (10/9, the author asked for the same there): their text sits in a centred column of its own
+     (ArticleLayout .ar-grid: min(82rem, 100% - 2 gutters)), so the bar takes that column — the logo stands over the left rail,
+     the language switch over the right edge of the text. Not the screen's edge: the logo would hang far to the left of everything. */
+  body:has(.ar .ar-end) header[data-nav] > nav {
+    max-width: none;
+    width: min(82rem, 100% - 2 * max(6vw, 1.5rem));
+    padding-inline: 0;
+  }
   header[data-nav] {
     transition: transform 0.32s ease, background-color 0.25s ease;
   }

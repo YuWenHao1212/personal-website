@@ -4,6 +4,7 @@ description: "New Year goals fail every year, emails pile up, meetings blur toge
 pubDate: 2026-01-14
 updatedDate: 2026-03-09
 category: productivity
+topics: ["growth"]
 tags: ["AI second brain", "Claude Code", "Obsidian", "goal management", "AI automation", "AI notes", "second brain", "productivity system", "building-in-public"]
 lang: en
 focusKeyphrase: "AI second brain"

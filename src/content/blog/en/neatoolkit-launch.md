@@ -3,6 +3,7 @@ title: "I Got Fed Up, So I Built a Free Tools Site"
 description: "Tired of ads and watermarks? I built NeatToolkit — free online tools, no signup required, just open and use."
 pubDate: 2026-02-12
 category: building-products
+topics: ["ai-practice"]
 tags: ["solopreneur", "Side Project", "free tools", "neatoolkit"]
 lang: en
 translationKey: neatoolkit-launch

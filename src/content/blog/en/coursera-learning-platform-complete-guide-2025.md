@@ -3,6 +3,7 @@ title: "Coursera Self-Learning Guide: Leverage Online Resources to Build Your Ca
 description: "Founded in 2012 by Andrew Ng and Daphne Koller, Coursera partners with 350+ top universities and companies, offering everything from individual courses to full degrees. Popular fields include data analytics, programming, and AI. Coursera isn't just a learning platform—it's an effective tool for bridging skill gaps and boosting your competitiveness."
 pubDate: 2025-02-20
 category: productivity
+topics: ["growth"]
 tags: ["Coursera", "Online Learning", "Career Development", "Professional Certificates", "Skill Training", "Career Change"]
 lang: en
 featured: false

@@ -4,6 +4,7 @@ description: "Finished installing OpenClaw but unsure what to enable? This resea
 pubDate: 2026-02-05
 updatedDate: 2026-03-17
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "indie hacker", "OpenClaw", "self-hosted AI", "developer tools"]
 lang: en
 translationKey: openclaw-tools-skills-tutorial

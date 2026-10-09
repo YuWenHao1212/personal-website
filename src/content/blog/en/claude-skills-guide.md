@@ -3,6 +3,7 @@ title: "Claude Skills Guide: Build AI Workflow Automation From Scratch"
 description: "A practical Claude Skills guide with real examples. Learn how skills work, the three-layer loading architecture, trigger mechanics, design patterns, and Anthropic's official writing philosophy. Includes hands-on experience and getting started tips."
 pubDate: 2026-03-07
 category: building-products
+topics: ["ai-practice"]
 tags: ["AI", "Claude Code", "agentic coding", "Claude Skills", "developer-tools"]
 lang: en
 translationKey: claude-skills-guide

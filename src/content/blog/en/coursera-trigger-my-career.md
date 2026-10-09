@@ -3,6 +3,7 @@ title: "How a Coursera Course Triggered My Career Transformation: From Product M
 description: "The catalyst for change often lies in a simple decision to begin. How one small learning choice completely transformed my career trajectory in three years."
 pubDate: 2025-02-18
 category: life-learning
+topics: ["growth"]
 tags: ["Coursera", "Data Analysis", "Career Change", "Personal Growth", "Python"]
 lang: en
 featured: false
