@@ -127,7 +127,7 @@ const description = 'WenHao Yu is a Claude Certified Architect, an AI adoption c
           <li>
             <span class="k">Teaching</span>
             <b>AI trainer</b>
-            <span class="n">In-house training for companies, and one-day public workshops in Taiwan</span>
+            <span class="n">In-house training for companies, and <a href="/zh-TW/workshop/" hreflang="zh-TW" data-umami-event="about_click_workshop" data-umami-event-where="en_facts">one-day public workshops</a> in Taiwan (in Mandarin)</span>
           </li>
           <li>
             <span class="k">Industry</span>
@@ -439,6 +439,22 @@ const description = 'WenHao Yu is a Claude Certified Architect, an AI adoption c
     font-size: 0.8125rem;
     line-height: 1.7;
     color: var(--muted);
+  }
+  /* a link inside a note line reads as part of the sentence (the workshop link, 2026-10-10) */
+  .ab .st-side .n a {
+    display: inline;
+    margin: 0;
+    font-size: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--terra);
+    text-underline-offset: 0.2em;
+    box-shadow: none;
+    padding: 0;
+    border: 0;
+  }
+  .ab .st-side .n a:hover {
+    color: var(--terra);
   }
   .ab .st-side a {
     display: inline-block;

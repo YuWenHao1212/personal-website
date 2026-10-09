@@ -40,7 +40,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const alternateURL = new URL(await getAlternatePath(Astro.url), Astro.site);
 const ogImage = new URL(image, Astro.site);
 // Dimensions are only known for the default OG image; per-post hero images vary.
-const isDefaultOgImage = image === '/images/og-default.jpg';
+// pages whose share image is one of the site's own 1200×630 cards (the default, and the workshop's since 2026-10-10)
+const isDefaultOgImage = image === '/images/og-default.jpg' || image === '/images/og-workshop.jpg';
 
 const siteName = 'WenHao Yu';
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
