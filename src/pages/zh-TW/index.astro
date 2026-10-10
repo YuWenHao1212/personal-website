@@ -8,6 +8,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { elsewhere } from '../../data/elsewhere';
+import { coverSet } from '../../utils/cover';
 import { topicNames, topicsOf } from '../../i18n/topics';
 
 // 10/9: moved here from home-sky.astro — this is now the home page of the branch. Title and description approved by the author on 10/9.
@@ -215,7 +216,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
       {featurePost && (
         <a class="nt-feat" href={`/zh-TW/blog/${FEATURE_SLUG}/`} data-umami-event="home_feature_click">
           <div class="pic">
-            <img src={featurePost.data.heroImage} alt="" loading="lazy" />
+            <img src={featurePost.data.heroImage} alt="" loading="lazy" {...coverSet(featurePost.data.heroImage, '(max-width: 900px) 100vw, 700px')} />
           </div>
           <div class="txt">
             <p class="meta">{fmtDay(featurePost.data.pubDate)}<b>/</b>{topicNames[topicsOf(featurePost.data)[0]]}</p>
@@ -1582,6 +1583,20 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     margin: 0 0.8em;
     font-weight: 400;
     opacity: 0.5;
+  }
+  /* 10/11 trial: every article title on this page in 昭源宋體 at its heaviest cut, the same face as the article page's headings */
+  /* later the same day: the page's own headings too (they were the light cut, 300); the small titles in the 最新 list one cut lighter */
+  .hp :is(h1, h2),
+  .nt-feat h3,
+  .nt-list .t,
+  .panel .t,
+  .tl-grid .t {
+    font-family: 'Chiron Sung HK', 'Noto Serif TC', serif !important;
+    font-weight: 900 !important;
+    font-synthesis: none;
+  }
+  .nt-list .t {
+    font-weight: 700 !important;
   }
   .nt-feat h3 {
     margin: 0;

@@ -41,12 +41,52 @@ function rehypeAllLinksNewTab() {
   };
 }
 
+// 10/10: ✅ / ❌ / ⚠️ are colour emoji — the one thing on an article page outside its two colours. In the published
+// HTML they become one-colour marks (styled in src/styles/reading.css, .mk); the Markdown files keep the emoji.
+const MARKS = { '✅': ['✓', 'y', '可以'], '✔': ['✓', 'y', '可以'], '❌': ['✕', 'n', '不行'], '✖': ['✕', 'n', '不行'], '⚠': ['!', 'w', '注意'] };
+const MARK_RE = /([✅✔❌✖⚠])\uFE0F?/gu;
+function rehypeMarks() {
+  return (tree) => {
+    visit(tree, 'text', (node, index, parent) => {
+      if (!parent || index == null || ['code', 'pre', 'script', 'style'].includes(parent.tagName)) return;
+      if (!/[✅✔❌✖⚠]/u.test(node.value)) return;
+      const out = [];
+      let last = 0;
+      for (const m of node.value.matchAll(MARK_RE)) {
+        if (m.index > last) out.push({ type: 'text', value: node.value.slice(last, m.index) });
+        const [glyph, kind, label] = MARKS[m[1]];
+        out.push({ type: 'element', tagName: 'span', properties: { className: ['mk', `mk-${kind}`], role: 'img', ariaLabel: label }, children: [{ type: 'text', value: glyph }] });
+        last = m.index + m[0].length;
+      }
+      if (last < node.value.length) out.push({ type: 'text', value: node.value.slice(last) });
+      parent.children.splice(index, 1, ...out);
+      return index + out.length;
+    });
+  };
+}
+
+// 10/11: a video in an article loads when the reader scrolls near it, not with the page. On a slow connection a YouTube
+// player at the top of the queue held the cover image back by more than a second.
+function rehypeLazyFrames() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'iframe' && !node.properties?.loading) node.properties = { ...node.properties, loading: 'lazy' };
+    });
+    // an iframe written as raw HTML in Markdown arrives as one text block, not as an element
+    visit(tree, 'raw', (node) => {
+      node.value = node.value.replace(/<iframe(?![^>]*\sloading=)/gi, '<iframe loading="lazy"');
+    });
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [
       rehypeAllLinksNewTab,
+      rehypeMarks,
+      rehypeLazyFrames,
       [rehypeMermaid, {
         strategy: 'img-svg',
         mermaidConfig: {
@@ -68,8 +108,12 @@ export default defineConfig({
   integrations: [
     expressiveCode({
       themes: ['github-dark', 'github-light'],
+      // 10/10: square corners, no shadow, no window dots, the site's own night colour — the page is all hairlines and right angles elsewhere.
+      defaultProps: { frame: 'none' },
       styleOverrides: {
-        borderRadius: '0.5rem',
+        borderRadius: '0',
+        codeBackground: '#14100e',
+        frames: { frameBoxShadowCssValue: 'none' },
       },
     }),
     tailwind(),
