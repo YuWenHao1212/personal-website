@@ -105,7 +105,7 @@ if (!selfNumbered && h2s.length >= 3) {
   let n = 0;
   for (const h of h2s) if (!unnumbered.test(h.text.trim())) chapterNo.set(h.slug, String(++n).padStart(2, '0'));
 }
-const chapterCss = [...chapterNo].map(([id, no]) => `.ar .ar-body h2[id=${JSON.stringify(id)}]::before{content:"${no}";padding-right:3.4rem}`).join('');
+const chapterCss = [...chapterNo].map(([id, no]) => `.ar .ar-body h2[id=${JSON.stringify(id)}]::before{content:"${no}"}`).join('');
 
 const fmtDay = (d: Date) =>
   en
@@ -115,8 +115,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={heroImage} article={true} publishedTime={pubDate.toISOString()} modifiedTime={updatedDate?.toISOString()} hideLanguageSwitcher={!translated} hasAlternate={!!translated} ogTitle={seoTitle ? title : undefined} faq={faq}>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@500&family=Newsreader:opsz,wght@6..72,500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@500&family=Chiron+Sung+HK:wght@900&family=Newsreader:opsz,wght@6..72,500&display=swap" />
   {chapterCss && <style is:inline set:html={chapterCss}></style>}
+  {/* 10/11: this article's own two files of the text face (scripts/article-font.mjs builds them; the build stops if they are out of date) */}
+  {!en && <style is:inline set:html={[['400', '400 500'], ['600', '600 700']].map(([w, range]) => `@font-face{font-family:'pw-genwan';src:url('/fonts/a/${encodeURIComponent(slug)}-${w}.woff2') format('woff2');font-weight:${range};font-display:swap}`).join('')}></style>}
 
   <div class="ar" data-lang={lang}>
     <article class="ar-grid">
@@ -330,6 +332,15 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
       w.className = 'ar-tbl';
       t.parentNode!.insertBefore(w, t);
       w.appendChild(t);
+      // 10/10: on a narrow screen a wide table scrolls sideways; say so under it.
+      const hint = document.createElement('p');
+      hint.className = 'ar-tbl-hint';
+      hint.setAttribute('aria-hidden', 'true');
+      hint.textContent = document.documentElement.lang.startsWith('en') ? 'Scroll sideways for the full table →' : '左右滑動看完整表格 →';
+      w.after(hint);
+      const fit = () => w.classList.toggle('is-wide', w.scrollWidth > w.clientWidth + 2);
+      fit();
+      addEventListener('resize', fit, { passive: true });
     });
 
     // Contents: mark the section being read.
@@ -366,6 +377,14 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     --gx: max(6vw, 1.5rem);
     background: var(--paper);
     color: var(--text);
+  }
+  /* 10/11 trial: the Chinese article faces (see the note at the top of styles/reading.css) */
+  .ar:not([data-lang='en']) {
+    --ar-text: 'pw-genwan', 'Noto Serif TC', serif;
+    --ar-head: 'Chiron Sung HK', 'Noto Serif TC', serif;
+    --ar-head-w: 900;
+    --serif: var(--ar-text);
+    font-synthesis: none;
   }
   .ar a {
     color: inherit;
@@ -453,9 +472,9 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
 
   /* ---------- head ---------- */
   .ar-head h1 {
-    font-family: var(--serif);
+    font-family: var(--ar-head, var(--serif));
     font-size: clamp(2rem, 3.5vw, 3.5rem);
-    font-weight: 500; /* 10/9: was the lightest cut; on paper it read weak next to the Confluence titles */
+    font-weight: var(--ar-head-w, 500); /* 10/9: was the lightest cut; on paper it read weak next to the Confluence titles */
     line-height: 1.42;
     letter-spacing: 0.03em;
     color: var(--ink);
@@ -501,6 +520,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     margin-top: clamp(2.5rem, 4vw, 4rem);
   }
   .ar-cover img {
+    border-radius: 0;
     display: block;
     width: 100%;
     height: auto;
@@ -513,6 +533,9 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar-after {
     max-width: 44rem;
   }
+  .ar:not([data-lang='en']) .ar-after {
+    max-width: none; /* 10/10: the same right edge as the text above */
+  }
   .ar .ar-upd {
     margin-top: 3rem;
     font-family: var(--mono);
@@ -524,6 +547,11 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     margin-top: 4.5rem;
     padding-top: 2.2rem;
     border-top: 1.5px solid var(--ink);
+  }
+  /* 10/11 trial: the titles after the text (FAQ heading, related articles, the newsletter line) follow the article headings */
+  .ar:not([data-lang='en']) :is(.ar-faq h2, .ar-rel .t, .ar-nl .t) {
+    font-family: var(--ar-head);
+    font-weight: 900;
   }
   .ar-faq h2 {
     margin: 0;

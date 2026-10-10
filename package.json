@@ -8,7 +8,9 @@
     "postbuild": "npm run check:seo",
     "check:seo": "node scripts/check-hreflang.js",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prebuild": "node scripts/article-font.mjs --check",
+    "fonts": "node scripts/article-font.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
