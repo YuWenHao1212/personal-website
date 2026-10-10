@@ -14,6 +14,7 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import '../styles/reading.css';
+import coverVariants from '../data/cover-variants.json';
 import { getRelatedPosts } from '../utils/relatedPosts';
 import { topicNamesFor, topicsOf } from '../i18n/topics';
 
@@ -26,6 +27,7 @@ interface Props {
 const { post, readingTime, headings = [] } = Astro.props;
 const { title, seoTitle, description, pubDate, updatedDate, heroImage, tags = [], translationKey, faq } = post.data;
 const slug = post.id.split('/').pop()!;
+const cover = heroImage ? (coverVariants as Record<string, { small: string; w: number; h: number }>)[heroImage] : undefined;
 const postTopics = topicsOf(post.data);
 const lang = post.data.lang;
 const en = lang === 'en';
@@ -157,7 +159,8 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
 
       {heroImage && (
         <figure class="ar-cover">
-          <img src={heroImage} alt={title} fetchpriority="high" />
+          {/* 10/11: a phone is offered the 800-pixel copy (scripts/cover-variants.mjs) — the cover is what a reader on a slow connection waits for */}
+          <img src={heroImage} alt={title} fetchpriority="high" {...(cover ? { srcset: `${cover.small} 800w, ${heroImage} ${cover.w}w`, sizes: '(max-width: 900px) 100vw, 860px', width: cover.w, height: cover.h } : {})} />
         </figure>
       )}
 

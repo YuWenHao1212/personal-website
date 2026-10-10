@@ -65,6 +65,20 @@ function rehypeMarks() {
   };
 }
 
+// 10/11: a video in an article loads when the reader scrolls near it, not with the page. On a slow connection a YouTube
+// player at the top of the queue held the cover image back by more than a second.
+function rehypeLazyFrames() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'iframe' && !node.properties?.loading) node.properties = { ...node.properties, loading: 'lazy' };
+    });
+    // an iframe written as raw HTML in Markdown arrives as one text block, not as an element
+    visit(tree, 'raw', (node) => {
+      node.value = node.value.replace(/<iframe(?![^>]*\sloading=)/gi, '<iframe loading="lazy"');
+    });
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   markdown: {
@@ -72,6 +86,7 @@ export default defineConfig({
     rehypePlugins: [
       rehypeAllLinksNewTab,
       rehypeMarks,
+      rehypeLazyFrames,
       [rehypeMermaid, {
         strategy: 'img-svg',
         mermaidConfig: {
