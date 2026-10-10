@@ -115,7 +115,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={heroImage} article={true} publishedTime={pubDate.toISOString()} modifiedTime={updatedDate?.toISOString()} hideLanguageSwitcher={!translated} hasAlternate={!!translated} ogTitle={seoTitle ? title : undefined} faq={faq}>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@500&family=Chiron+Sung+HK:wght@900&family=Newsreader:opsz,wght@6..72,500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@500&family=Newsreader:opsz,wght@6..72,500&display=swap" />
   {chapterCss && <style is:inline set:html={chapterCss}></style>}
   {/* 10/11: this article's own two files of the text face (scripts/article-font.mjs builds them; the build stops if they are out of date) */}
   {!en && <style is:inline set:html={[['400', '400 500'], ['600', '600 700']].map(([w, range]) => `@font-face{font-family:'pw-genwan';src:url('/fonts/a/${encodeURIComponent(slug)}-${w}.woff2') format('woff2');font-weight:${range};font-display:swap}`).join('')}></style>}
