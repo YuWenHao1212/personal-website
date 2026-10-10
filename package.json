@@ -9,8 +9,9 @@
     "check:seo": "node scripts/check-hreflang.js",
     "preview": "astro preview",
     "astro": "astro",
-    "prebuild": "node scripts/article-font.mjs --check",
-    "fonts": "node scripts/article-font.mjs"
+    "prebuild": "node scripts/article-font.mjs --check && node scripts/cover-variants.mjs",
+    "fonts": "node scripts/article-font.mjs",
+    "covers": "node scripts/cover-variants.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
