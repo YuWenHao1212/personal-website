@@ -1,6 +1,6 @@
 ---
 title: "Claude Certified Architect & Anthropic's 4 Certifications: Cost, Format, and How to Register (2026)"
-description: "Anthropic has become the first frontier AI lab to ship a complete proctored certification program: four credentials from $99 to $175, third-party proctored through Pearson VUE. Here is what each exam covers, who it is for, and what the free Skilljar course certificates are not."
+description: "You cannot register for a Claude certification with a personal email. Who is eligible, which of the 4 exams fits your role, and what each costs."
 pubDate: 2026-07-20
 category: building-products
 topics: ["ai-practice"]
