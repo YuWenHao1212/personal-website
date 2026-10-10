@@ -26,6 +26,7 @@
 - **新增或改過 `src/content/blog/zh-TW/` 的文章後，commit 前跑 `npm run fonts`**，把產出的字型檔和 `src/data/article-font-chars.json` 跟文章一起 commit。它只重做內容有變動的文章。
 - 沒跑的話 `npm run build` 會停下來並列出是哪幾篇。Cloudflare 的建置也一樣會失敗：網站停在上一個成功的版本，**沒有通知**。
 - 所以 push 後一定要確認新文章的網址打得開（上面的 curl 輪詢）。回 404 或內容沒變，先去 Cloudflare 看建置紀錄。
+- 標題字體（昭源宋體）也是自己裁的，全站中文頁共用兩個檔：`public/fonts/head-900.woff2`、`head-700.woff2`。**改了中文頁面的標題文字、或文章的標題與小標，同樣要跑 `npm run fonts`**，檢查機制是同一個。
 - 做法與原因寫在 `scripts/article-font.mjs` 開頭。
 
 ---
