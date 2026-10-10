@@ -240,3 +240,18 @@
     transform: none !important;
   }
 }
+
+/* 10/11 trial (the author's pick on the comparison page): on the Chinese pages every page heading is set in 昭源宋體
+   (Chiron Sung HK, SIL OFL) at its heaviest cut — the same face as the article headings.
+   Listed by each page's wrapper so the student set-up pages and the admin page keep their own look.
+   The home page and the article list carry the same rule in their own files. */
+/* The face is served from this site, cut down to the characters the Chinese pages' headings and article titles use
+   (scripts/article-font.mjs builds both files; the build stops if they are out of date). From Google it cost the home
+   page 1.5 MB in sixteen files, and every page a large stylesheet. */
+@font-face { font-family: 'Chiron Sung HK'; src: url('/fonts/head-900.woff2') format('woff2'); font-weight: 800 900; font-display: swap; }
+@font-face { font-family: 'Chiron Sung HK'; src: url('/fonts/head-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+html[lang='zh-TW'] :is(.ab, .ct, .wp, .pd, .ty-box, .wt-box) :is(h1, h2) {
+  font-family: 'Chiron Sung HK', 'Noto Serif TC', serif !important;
+  font-weight: 900 !important;
+  font-synthesis: none;
+}
