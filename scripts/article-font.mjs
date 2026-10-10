@@ -48,7 +48,7 @@ for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f)).sort()) {
   want[f.replace(/\.mdx?$/, '')] = { r: uniq(text + layout + ALWAYS), b: uniq(boldText(text) + ALWAYS) };
 }
 // the heading face: titles, the articles' own headings, and the Chinese page files
-const PAGES = ['src/pages/zh-TW/index.astro', 'src/pages/zh-TW/about.astro', 'src/pages/zh-TW/workshop.astro', 'src/pages/zh-TW/contact.astro', 'src/pages/zh-TW/thank-you.astro', 'src/pages/zh-TW/workshop/thanks.astro', 'src/components/BlogIndex.astro', 'src/layouts/ArticleLayout.astro', 'src/layouts/ProductLayout.astro', ...fs.readdirSync(path.join(ROOT, 'src/pages/zh-TW/products')).map((f) => 'src/pages/zh-TW/products/' + f)];
+const PAGES = ['src/pages/zh-TW/index.astro', 'src/pages/zh-TW/about.astro', 'src/pages/zh-TW/workshop.astro', 'src/pages/zh-TW/contact.astro', 'src/pages/zh-TW/thank-you.astro', 'src/pages/zh-TW/workshop/thanks.astro', 'src/components/BlogIndex.astro', 'src/layouts/ArticleLayout.astro', 'src/layouts/ProductLayout.astro', 'src/data/elsewhere.ts', 'src/i18n/topics.ts', ...fs.readdirSync(path.join(ROOT, 'src/pages/zh-TW/products')).map((f) => 'src/pages/zh-TW/products/' + f)];
 let titles = '', heads = '';
 for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f))) {
   const text = fs.readFileSync(path.join(POSTS, f), 'utf8');
@@ -56,7 +56,7 @@ for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f))) {
   heads += [...text.matchAll(/^#{2,3}\s+(.*)$/gm)].map((m) => m[1]).join('');
 }
 const HEAD = '_headings';
-want[HEAD] = { r: uniq(titles + heads + PAGES.map((f) => fs.readFileSync(path.join(ROOT, f), 'utf8')).join('') + ALWAYS), b: uniq(titles + fs.readFileSync(path.join(ROOT, 'src/pages/zh-TW/index.astro'), 'utf8') + ALWAYS) }; // 700: the home page's list — article titles and the entries written in the home page itself
+want[HEAD] = { r: uniq(titles + heads + PAGES.map((f) => fs.readFileSync(path.join(ROOT, f), 'utf8')).join('') + ALWAYS), b: uniq(titles + ['src/pages/zh-TW/index.astro', 'src/data/elsewhere.ts'].map((f) => fs.readFileSync(path.join(ROOT, f), 'utf8')).join('') + ALWAYS) }; // 700: the home page's list — article titles, and the pieces published elsewhere (data/elsewhere.ts)
 const HEAD_FILES = [path.join(ROOT, 'public/fonts/head-900.woff2'), path.join(ROOT, 'public/fonts/head-700.woff2')];
 
 const have = fs.existsSync(LIST) ? JSON.parse(fs.readFileSync(LIST, 'utf8')) : {};
