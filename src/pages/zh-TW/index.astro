@@ -8,6 +8,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { elsewhere } from '../../data/elsewhere';
+import { coverSet } from '../../utils/cover';
 import { topicNames, topicsOf } from '../../i18n/topics';
 
 // 10/9: moved here from home-sky.astro — this is now the home page of the branch. Title and description approved by the author on 10/9.
@@ -215,7 +216,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
       {featurePost && (
         <a class="nt-feat" href={`/zh-TW/blog/${FEATURE_SLUG}/`} data-umami-event="home_feature_click">
           <div class="pic">
-            <img src={featurePost.data.heroImage} alt="" loading="lazy" />
+            <img src={featurePost.data.heroImage} alt="" loading="lazy" {...coverSet(featurePost.data.heroImage, '(max-width: 900px) 100vw, 700px')} />
           </div>
           <div class="txt">
             <p class="meta">{fmtDay(featurePost.data.pubDate)}<b>/</b>{topicNames[topicsOf(featurePost.data)[0]]}</p>

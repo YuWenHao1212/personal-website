@@ -1,3 +1,5 @@
+// (Also a 400-pixel copy in public/images/cover-400/, for the small pictures in the article list, the home page and
+// "related articles" — see utils/cover.ts.)
 // A phone does not need the 1200-pixel-wide cover image: on a slow connection that image is what the reader waits for
 // (it is the page's "largest contentful paint"). For every article cover this writes an 800-pixel-wide WebP copy to
 // public/images/cover-800/ and lists it in src/data/cover-variants.json; layouts/ArticleLayout.astro then offers both
@@ -35,7 +37,14 @@ for (const src of [...covers].sort()) {
       await sharp(from).resize({ width: W }).webp({ quality: 76 }).toFile(to);
       made++;
     }
-    if (fs.statSync(to).size < fs.statSync(from).size * 0.85) out[src] = { small, w: meta.width, h: meta.height }; // keep it only if it really is lighter
+    const thumb = small.replace('/cover-800/', '/cover-400/');
+    const toThumb = path.join(ROOT, 'public', thumb);
+    if (!fs.existsSync(toThumb) || fs.statSync(toThumb).mtimeMs < fs.statSync(from).mtimeMs) {
+      fs.mkdirSync(path.dirname(toThumb), { recursive: true });
+      await sharp(from).resize({ width: 400 }).webp({ quality: 74 }).toFile(toThumb);
+      made++;
+    }
+    if (fs.statSync(to).size < fs.statSync(from).size * 0.85) out[src] = { small, thumb, w: meta.width, h: meta.height }; // keep it only if it really is lighter
   } catch (e) { console.warn('cover-variants: skipped', src, e.message); }
 }
 fs.mkdirSync(path.dirname(LIST), { recursive: true });
