@@ -52,7 +52,7 @@ const description = en
 ---
 
 <BaseLayout title={title} description={description}>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Chiron+Sung+HK:wght@700;900&display=swap" />
 
   <div class="wl" data-lang={lang}>
     <!-- ============ 0. A low night band, not a full cover: this is a page to scan ============ -->
@@ -396,6 +396,13 @@ const description = en
   }
   .wl-year .meta .tp {
     color: var(--terra);
+  }
+  /* 10/11 trial: Chinese article titles in 昭源宋體 at its heaviest cut, the same face as the article page's headings */
+  .wl:not([data-lang='en']) :is(.wl-top h1, .wl-year h2, .wl-nl .t),
+  .wl:not([data-lang='en']) .wl-year .t {
+    font-family: 'Chiron Sung HK', 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-synthesis: none;
   }
   .wl-year .t {
     display: block;

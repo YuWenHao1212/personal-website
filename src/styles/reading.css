@@ -2,6 +2,12 @@
    Moved out of layouts/ArticleLayout.astro on 2026-10-09 so the product pages (layouts/ProductLayout.astro) read the same way.
    Nothing in the rules changed in the move. */
 
+/* 10/11 (the author's pick on a comparison page): Chinese articles are set in 源雲明體 (GenWanMin TW, SIL OFL) for text and
+   Latin alike, with headings in 昭源宋體 (Chiron Sung HK, Google Fonts) at its heaviest cut. The faces are switched on in
+   layouts/ArticleLayout.astro through --ar-text / --ar-head / --ar-head-w; without them every rule below falls back to the
+   site serif, so product pages and English articles are unchanged. The text face is too large to send whole: each article
+   has its own two small files, built by scripts/article-font.mjs (see the note at the top of that file). */
+
 /* ---------- the article text (written in Markdown, so these rules are global, fenced by .ar-body) ---------- */
 .ar .ar-body {
   margin-top: clamp(3rem, 5vw, 5rem);
@@ -16,13 +22,23 @@
 .ar .ar-body > :is(.ar-tbl, table, figure, pre, p:has(> img), div) {
   max-width: none;
 }
+/* 10/10: Chinese pages keep one right edge — text, tables, code and figures all run the full column (about 46 characters
+   a line), and paragraphs are set flush on both sides. English stays at the narrower measure: a full column is too long a line. */
+.ar:not([data-lang='en']):not(.pd-en) .ar-body > * {
+  max-width: none;
+}
+@media (min-width: 641px) {
+  .ar:not([data-lang='en']):not(.pd-en) .ar-body > p {
+    text-align: justify;
+  }
+}
 .ar .ar-body > :first-child {
   margin-top: 0;
 }
 /* 10/9: the text is set in the site's own serif (the one its headings use) — the author's pick after comparing with
    the Confluence articles. Before: the sans the rest of the site uses for small print (Satoshi / Noto Sans TC), 17px. */
 .ar .ar-body p {
-  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
   font-size: 1.125rem;
   line-height: 2.1;
   letter-spacing: 0.03em;
@@ -33,39 +49,35 @@
   color: #241b18;
 }
 .ar .ar-body h2 {
-  margin: clamp(4rem, 6vw, 6rem) 0 1.6rem;
-  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
-  font-size: clamp(1.6rem, 2.2vw, 2.05rem);
-  font-weight: 500;
-  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55em;
+  margin: clamp(5rem, 9vw, 8rem) 0 1.8rem;
+  padding-top: clamp(1.4rem, 2vw, 1.9rem);
+  border-top: 1.5px solid #241b18;
+  font-family: var(--ar-head, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: clamp(1.7rem, 2.9vw, 2.6rem);
+  font-weight: var(--ar-head-w, 500);
+  line-height: 1.4;
   letter-spacing: 0.04em;
 }
-/* a short rule above each chapter: the page's one repeated mark */
-/* The mark above a chapter is a short rule; a numbered chapter (chapterCss, written per article) puts its number before it. */
-.ar .ar-body h2 {
-  position: relative;
-  padding-top: 2.1rem;
-}
+/* 10/10: a chapter opens with a heavy rule and, when the article's chapters are numbered (chapterCss, written per article),
+   a large numeral beside the heading. Before: a 13px number and a short rule above a 32px heading — too quiet for a chapter. */
 .ar .ar-body h2::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-height: 0.8125rem;
-  padding-right: 2.4rem;
-  background: linear-gradient(#c25b3f, #c25b3f) right center / 2.4rem 1.5px no-repeat;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.8125rem;
+  content: none;
+  flex: none;
+  font-family: Newsreader, Georgia, serif;
+  font-size: 1.12em;
   font-weight: 400;
   line-height: 1;
-  letter-spacing: 0.12em;
+  letter-spacing: 0;
   color: #c25b3f;
 }
 .ar .ar-body h3 {
   margin: 3rem 0 1rem;
-  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-family: var(--ar-head, Newsreader, 'Noto Serif TC', Georgia, serif);
   font-size: clamp(1.25rem, 1.6vw, 1.4rem);
-  font-weight: 500;
+  font-weight: var(--ar-head-w, 500);
   line-height: 1.6;
   letter-spacing: 0.04em;
 }
@@ -90,6 +102,10 @@
   font-weight: 600;
   color: #241b18;
 }
+/* 10/10: Chinese has no italic cut — the browser slants the upright one, and it reads badly. Emphasis stays upright. */
+.ar:not([data-lang='en']):not(.pd-en) .ar-body em {
+  font-style: normal;
+}
 .ar .ar-body :is(ul, ol) {
   margin: 1.4rem 0;
   padding-left: 1.4rem;
@@ -103,7 +119,7 @@
 .ar .ar-body li {
   margin: 0.5rem 0;
   padding-left: 0.3rem;
-  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
   font-size: 1.125rem;
   line-height: 2;
   letter-spacing: 0.03em;
@@ -128,7 +144,7 @@
   color: #241b18;
 }
 .ar .ar-body blockquote p {
-  font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
   font-size: 1.1875rem;
   line-height: 1.95;
   letter-spacing: 0.04em;
@@ -161,8 +177,9 @@
   margin: 0;
   border-collapse: collapse;
   border-top: 1.5px solid #241b18;
-  font-size: 0.9375rem;
-  line-height: 1.8;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: 1.0625rem;
+  line-height: 1.75;
 }
 .ar .ar-body > table {
   margin: 2.4rem 0;
@@ -171,13 +188,13 @@
   border-bottom: 1px solid #241b18;
 }
 .ar .ar-body th {
-  padding: 0.85rem 1.2rem 0.85rem 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  padding: 0.85rem 1.2rem 0.75rem 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-align: left;
   vertical-align: bottom;
-  color: #71655c;
+  color: #241b18;
 }
 .ar .ar-body td {
   padding: 0.9rem 1.2rem 0.9rem 0;
@@ -191,7 +208,68 @@
 }
 .ar .ar-body td:first-child {
   color: #241b18;
+  font-weight: 600;
+}
+/* a table wider than the screen scrolls in its box; the line under it says so (added by the script in ArticleLayout) */
+.ar .ar-body .ar-tbl-hint {
+  display: none;
+  margin: -1.6rem 0 2.4rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-align: right;
+  color: #a99a8d;
+}
+.ar .ar-body .ar-tbl.is-wide + .ar-tbl-hint {
+  display: block;
+}
+/* ✅ / ❌ in the text become one-colour marks at build time (astro.config.mjs, rehypeMarks) */
+.ar .ar-body .mk {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 1.2em;
   font-weight: 500;
+  line-height: 1;
+}
+.ar .ar-body .mk-y {
+  color: #241b18;
+}
+.ar .ar-body .mk-n {
+  color: #a99a8d;
+}
+.ar .ar-body .mk-w {
+  color: #c25b3f;
+}
+/* a fold-out note: hairlines above and below, the question in the text face */
+.ar .ar-body details {
+  margin: 2rem 0;
+  border-top: 1px solid #e2d8c9;
+  border-bottom: 1px solid #e2d8c9;
+}
+.ar .ar-body summary {
+  padding: 0.9rem 0;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  color: #241b18;
+  cursor: pointer;
+  list-style: none;
+}
+.ar .ar-body summary::-webkit-details-marker {
+  display: none;
+}
+.ar .ar-body summary::before {
+  content: '+';
+  display: inline-block;
+  width: 1.4em;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: #c25b3f;
+}
+.ar .ar-body details[open] > summary::before {
+  content: '−';
+}
+.ar .ar-body details > :last-child {
+  margin-bottom: 1.4rem;
 }
 /* code: a night block; inline code a quiet tint, without the added backticks */
 .ar .ar-body .expressive-code {
@@ -286,10 +364,244 @@
     font-size: 1.1875rem;
   }
   .ar .ar-body table {
+    font-size: 0.9375rem;
+  }
+  .ar .ar-body th {
     font-size: 0.875rem;
+  }
+  .ar .ar-body :is(th, td) {
+    min-width: 5.5em;
+  }
+  .ar .ar-body :is(th, td):first-child {
+    min-width: 4.5em;
   }
   .ar .ar-body th,
   .ar .ar-body td {
     padding-right: 0.9rem;
+  }
+}
+
+/* ---------- figures made of type and rules (10/11) ----------
+   Four pieces an article can use where a number, a comparison or a sequence says more than a paragraph. They are written
+   as plain HTML inside the Markdown file (keep each block free of blank lines); a copy-and-change sample of every piece is
+   src/content/blog/zh-TW/fg-demo.md (a draft: it shows in the local preview only, never on the site).
+     fg-bars   rows of label / bar / value          — one number compared across a few things
+     fg-cols   two to four columns side by side     — options or parts that stand next to each other
+     fg-steps  numbered steps in order              — a sequence
+     fg-key    a dark block                         — the few lines the reader should leave with
+   Same two colours as the page: ink and the one accent (.is-em marks the row or column the text is about). */
+.ar .ar-body .fg {
+  margin: 3.4rem 0;
+  padding: 1.9rem 0 1.5rem;
+  border-top: 1px solid #e2d8c9;
+  border-bottom: 1px solid #e2d8c9;
+}
+.ar .ar-body .fg p {
+  margin: 0;
+  text-align: left;
+}
+.ar .ar-body .fg .fg-h {
+  margin-bottom: 1.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: 0.14em;
+  color: #c25b3f;
+}
+.ar .ar-body .fg .fg-note {
+  margin-top: 1.3rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  color: #a99a8d;
+}
+/* bars */
+.ar .ar-body .fg-bars .row {
+  display: grid;
+  grid-template-columns: minmax(7em, 14em) minmax(0, 1fr) 4.2em;
+  align-items: center;
+  gap: 0 1.4rem;
+  padding: 0.55rem 0;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: #2b211c;
+}
+.ar .ar-body .fg-bars .bar {
+  height: 0.5rem;
+  background: linear-gradient(#241b18, #241b18) left / calc(var(--v) * 1%) 100% no-repeat #e9e1d4;
+}
+.ar .ar-body .fg-bars .n {
+  font-family: Newsreader, Georgia, serif;
+  font-size: 1.7rem;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: right;
+  color: #241b18;
+}
+.ar .ar-body .fg-bars .n small {
+  margin-left: 0.15em;
+  font-size: 0.5em;
+  color: #71655c;
+}
+.ar .ar-body .fg-bars .is-em .bar {
+  background-image: linear-gradient(#c25b3f, #c25b3f);
+}
+.ar .ar-body .fg-bars .is-em :is(.l, .n) {
+  color: #c25b3f;
+}
+.ar .ar-body .fg-bars .is-em .l {
+  font-weight: 600;
+}
+/* columns */
+.ar .ar-body .fg-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  padding: 0;
+  border-top: 1.5px solid #241b18;
+}
+.ar .ar-body .fg-cols > .fg-h,
+.ar .ar-body .fg-cols > .fg-note {
+  grid-column: 1 / -1;
+  margin: 1.4rem 0 0;
+}
+.ar .ar-body .fg-cols > .fg-note {
+  margin: 0 0 1.3rem;
+}
+.ar .ar-body .fg-cols .c {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.5rem 1.7rem 0;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  letter-spacing: 0.03em;
+}
+.ar .ar-body .fg-cols .c + .c {
+  padding-left: 1.5rem;
+  border-left: 1px solid #e2d8c9;
+}
+.ar .ar-body .fg-cols .c b {
+  font-family: Newsreader, Georgia, serif;
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #a99a8d;
+}
+.ar .ar-body .fg-cols .c strong {
+  margin-top: 1.1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.ar .ar-body .fg-cols .c span {
+  margin-top: 0.6rem;
+  font-size: 0.9688rem;
+  line-height: 1.85;
+  color: #71655c;
+}
+.ar .ar-body .fg-cols .c em {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  color: #a99a8d;
+}
+.ar .ar-body .fg-cols .c.is-em b,
+.ar .ar-body .fg-cols .c.is-em em {
+  color: #c25b3f;
+}
+/* steps */
+.ar .ar-body .fg-steps {
+  counter-reset: fg-step;
+}
+.ar .ar-body .fg-steps .s {
+  counter-increment: fg-step;
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  padding: 1rem 0;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  letter-spacing: 0.03em;
+}
+.ar .ar-body .fg-steps .s + .s {
+  border-top: 1px solid #efe8dc;
+}
+.ar .ar-body .fg-steps .s::before {
+  content: counter(fg-step, decimal-leading-zero);
+  grid-row: 1 / span 2;
+  font-family: Newsreader, Georgia, serif;
+  font-size: 1.7rem;
+  line-height: 1.15;
+  color: #c25b3f;
+}
+.ar .ar-body .fg-steps .s strong {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.7;
+}
+.ar .ar-body .fg-steps .s span {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #71655c;
+}
+/* the dark block */
+.ar .ar-body .fg-key {
+  counter-reset: fg-key;
+  padding: clamp(1.8rem, 3.4vw, 2.8rem) clamp(1.5rem, 3.6vw, 3rem);
+  border: 0;
+  background: #14100e;
+}
+.ar .ar-body .fg-key .fg-h {
+  color: #de9070;
+}
+.ar .ar-body .fg-key .k {
+  counter-increment: fg-key;
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  padding: 0.55rem 0;
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: 1.0938rem;
+  line-height: 1.95;
+  letter-spacing: 0.03em;
+  color: #f6f1e8;
+}
+.ar .ar-body .fg-key .k::before {
+  content: counter(fg-key) '.';
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.8125rem;
+  line-height: 2.6;
+  color: #de9070;
+}
+.ar .ar-body .fg-key .fg-note {
+  color: rgba(246, 241, 232, 0.5);
+}
+@media (max-width: 640px) {
+  .ar .ar-body .fg-bars .row {
+    grid-template-columns: minmax(0, 1fr) 4.2em;
+    gap: 0.35rem 1rem;
+  }
+  .ar .ar-body .fg-bars .l {
+    grid-column: 1 / -1;
+  }
+  .ar .ar-body .fg-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ar .ar-body .fg-cols .c {
+    padding: 1.3rem 1rem 1.4rem 0;
+    border-bottom: 1px solid #e2d8c9;
+  }
+  .ar .ar-body .fg-cols .c + .c {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .ar .ar-body .fg-cols .c:nth-of-type(even) {
+    padding-left: 1rem;
+    border-left: 1px solid #e2d8c9;
+  }
+  .ar .ar-body .fg-cols .c:last-of-type:nth-of-type(odd) {
+    grid-column: 1 / -1;
+    border-bottom: 0;
   }
 }
