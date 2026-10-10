@@ -15,6 +15,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import '../styles/reading.css';
 import coverVariants from '../data/cover-variants.json';
+import { coverSet } from '../utils/cover';
 import { getRelatedPosts } from '../utils/relatedPosts';
 import { topicNamesFor, topicsOf } from '../i18n/topics';
 
@@ -222,7 +223,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
               {related.map((r) => (
                 <li>
                   <a href={r.href} data-umami-event="blog_click_related" data-umami-event-slug={slug} data-umami-event-to={r.href.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '')}>
-                    <span class="pic">{r.image && <img src={r.image} alt="" loading="lazy" decoding="async" />}</span>
+                    <span class="pic">{r.image && <img src={r.image} alt="" loading="lazy" decoding="async" {...coverSet(r.image, '(max-width: 640px) 88px, 180px')} />}</span>
                     <span class="body">
                       <span class="meta"><time datetime={r.date.toISOString()}>{fmtDay(r.date)}</time><span class="tp">{r.topics.map((t) => topicNames[t]).join(en ? ' · ' : '・')}</span></span>
                       <span class="t">{r.title}</span>
