@@ -23,6 +23,10 @@ const AFFILIATE = [
   /[?&](ref|via|aff|affiliate)=/i,
 ];
 
+// Headings that open a list of sources. A click on a link under one is a reader checking a source, not leaving for
+// something else, so it gets its own event (blog_click_source) and is not counted with the other outbound clicks (10/11).
+const SOURCES = /^(sources?|references?|further reading|資料來源|參考資料|參考來源|延伸閱讀|來源)/i;
+
 const hostOf = (href: string) => {
   try {
     return new URL(href, location.href).hostname.replace(/^www\./, '');
@@ -39,6 +43,20 @@ export function trackArticle(opts: { body: string; end?: string }) {
   const slug = location.pathname.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '');
   const lang = location.pathname.split('/')[1] || '';
   const base = { slug, lang };
+
+  // Where a link sits: the heading above it and which third of the article. Read at click time, when the layout is final.
+  const bodyEl = document.querySelector<HTMLElement>(opts.body);
+  const heads = bodyEl ? Array.from(bodyEl.querySelectorAll<HTMLElement>('h2, h3')) : [];
+  const place = (a: HTMLAnchorElement) => {
+    let sec = '';
+    for (const h of heads) {
+      if (h.compareDocumentPosition(a) & Node.DOCUMENT_POSITION_FOLLOWING) sec = (h.textContent || '').trim();
+      else break;
+    }
+    const box = bodyEl?.getBoundingClientRect();
+    const at = box && box.height ? (a.getBoundingClientRect().top - box.top) / box.height : 0;
+    return { sec: sec.slice(0, 40), pos: at < 1 / 3 ? 'top' : at < 2 / 3 ? 'mid' : 'end' };
+  };
 
   document.querySelectorAll<HTMLAnchorElement>(`${opts.body} a[href]`).forEach((a) => {
     const href = a.getAttribute('href') || '';
@@ -59,7 +77,20 @@ export function trackArticle(opts: { body: string; end?: string }) {
     else if (internal) (name = 'blog_click_internal'), (data.to = path.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '') || path);
     else (name = 'blog_click_outbound'), (data.host = host);
 
-    a.addEventListener('click', () => track(name, data));
+    // Links that leave the site also say exactly where they go, what the link says and where it sits (10/11, the author):
+    // the domain alone cannot tell one course page from another, or which product an affiliate link is for.
+    const leaves = name === 'blog_click_outbound' || name === 'blog_click_affiliate';
+    a.addEventListener('click', () => {
+      if (!leaves) return track(name, data);
+      const p = place(a);
+      let to = host;
+      try {
+        to = (host + new URL(href, location.href).pathname).slice(0, 120); // no query string: it can carry ids
+      } catch {}
+      const text = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+      const checking = name === 'blog_click_outbound' && SOURCES.test(p.sec);
+      track(checking ? 'blog_click_source' : name, { ...data, to, text, ...p });
+    });
   });
 
   // Read to the end: once per page view, when the end marker comes into view.
@@ -68,7 +99,9 @@ export function trackArticle(opts: { body: string; end?: string }) {
     const io = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
         io.disconnect();
-        track('blog_read_end', base);
+        // secs: how long the page had been open when the end came into view (10/11, the author) — a quick scroll to the
+        // bottom also counts as read to the end, and this number lets that be told apart later.
+        track('blog_read_end', { ...base, secs: Math.round(performance.now() / 1000) });
       }
     });
     io.observe(end);
