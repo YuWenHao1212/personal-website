@@ -1432,6 +1432,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     line-height: 1.38;
     letter-spacing: 0.02em;
     color: var(--cream);
+    text-wrap: balance; /* 10/12: at every width, not only on a phone — a long title left one character alone on its last line */
   }
   .nt-feat .x {
     margin: var(--space-5) 0 0;
@@ -1708,7 +1709,6 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     /* phone, 10/9: a last character alone on a line (「順序／讀」, the featured title's 「現／場」), ring captions too small to read,
        and half a screen of nothing where two same-coloured sections meet. */
     .hp .nb { white-space: nowrap; }
-    .nt-feat h3 { text-wrap: balance; }
     .s2-map .lab .en { display: none; }
     .s2 { padding-bottom: var(--space-7); }
     .tl { padding-top: var(--space-7); }
