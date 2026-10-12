@@ -2,7 +2,7 @@
 title: "OpenClaw 教學：26 個 Tools + 53 個 Skills 完整指南"
 description: "2026 年 3 月更新。OpenClaw 裝完了不知道怎麼設定？這篇研究筆記整理了 26 個 Tools 和 53 個官方 Skills 的功能、風險和配置建議。附完整清單和可直接複製的 JSON 設定檔。"
 pubDate: 2026-02-05
-updatedDate: 2026-03-17
+updatedDate: 2026-10-12
 category: building-products
 topics: ["ai-practice"]
 tags: ["AI", "一人公司", "OpenClaw", "self-hosted AI", "數位工具"]
@@ -34,6 +34,8 @@ OpenClaw 裝完了，然後呢？
 Tools 散在不同文件，Skills 預設自動載入——你甚至不知道有些東西已經開了。全開怕出事，全關等於白裝，但要自己從文件和 codebase 拼出全貌，還是得花點時間。
 
 這篇是我自己裝完之後的研究筆記——從 [OpenClaw 官方文件](https://docs.openclaw.ai/tools) 和 [GitHub 原始碼](https://github.com/openclaw/openclaw) 整理出 26 個 Tools 和 53 個官方 bundled Skills 各是什麼、該不該開、我怎麼配、為什麼這樣配（社群另有 13,700+ 個第三方 Skills，不在這篇範圍）。安全面的分析在<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">上一篇</a>，這篇講每個 Tool 和 Skill 在幹嘛、以及怎麼根據需求配置。
+
+> **2026-10-12 更新**：內容已對齊 OpenClaw v2026.10.1（2026-10-10 發布）的官方文件。跟 3 月的版本比，會讓舊設定出錯的有四處：`image` 改名成 `view_image`；`canvas`、`llm-task`、`lobster` 改由外掛提供；`coding-agent` 要手動打開；`approvals.exec` 不再決定要不要先問你。3 月照抄過設定的人，直接看「我怎麼配置 Tools 和 Skills？」那一段。
 
 ---
 
@@ -67,6 +69,8 @@ OpenClaw 要用 Skill 幫你做事，有三個條件要滿足。拿「幫你讀 
 - **Layer 2 進階能力（18 Tools）**：瀏覽器、記憶、多 Session、自動化、語音。按需開啟。
 - **Layer 3 知識層（53 Skills）**：教 OpenClaw 操作 Google、Obsidian、Slack 等服務。用什麼裝什麼。
 
+26 是我 2026 年 3 月整理時的數字。到 v2026.10.1，官方文件不再給工具一個總數，改成分類表，再分成 tools、skills、plugins 三層。光是[工具群組表](https://docs.openclaw.ai/gateway/config-tools/tool-policy)就列了 55 個工具 id。這篇逐一講的還是這 26 個，後來新增的整理在下面「v2026.10.1 多了哪些 Tools？」那一段。
+
 ![OpenClaw 同心圓架構：Layer 1 核心工具（read、write、exec）、Layer 2 進階工具（browser、memory、automation）、Layer 3 知識層含 53 個 Skills 依場景分類](/images/blog/openclaw-tools-skills-tutorial/openclaw-tools-skills-architecture.webp)
 
 ---
@@ -83,15 +87,20 @@ OpenClaw 要用 Skill 幫你做事，有三個條件要滿足。拿「幫你讀 
 
 `exec` 讓 OpenClaw 執行任何 shell 命令——安裝套件、跑腳本、操作系統。「任何」是關鍵字：它能幫你裝套件，也能 `rm -rf`（刪除所有檔案）你的整台機器。不開 `exec`，大部分任務都做不了；開了但不設防，等於把 root 權限交出去。
 
-所以我強烈建議開 `exec` 的同時開審批——每個命令執行前，OpenClaw 會先顯示它要跑什麼，你確認了才會執行：
+所以我強烈建議開 `exec` 的同時開審批——不在允許清單裡的命令，OpenClaw 會先顯示它要跑什麼，你確認了才會執行。v2026.10.1 這件事分成兩個設定：`tools.exec.mode` 決定要不要問，`approvals.exec` 把詢問轉送到你的聊天頻道（例如 Telegram）：
 
 ```json
 {
+  "tools": {
+    "exec": { "mode": "ask" }
+  },
   "approvals": {
     "exec": { "enabled": true }
   }
 }
 ```
+
+只寫 `approvals.exec` 不會讓它開始問你：`exec` 在 gateway 主機上預設是不問就跑。
 
 會不會很煩？老實說會。但這是最基本的保護——萬一哪天 AI 誤判或被 Prompt Injection 攻擊，這道關卡就是你的最後防線。
 
@@ -107,11 +116,13 @@ OpenClaw 要用 Skill 幫你做事，有三個條件要滿足。拿「幫你讀 
 
 Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Tools 讓 OpenClaw 從一個指令執行器變成真正的助理——記得你的偏好、能操作瀏覽器、會定時推送訊息。但每多開一個，攻擊面就多一塊，要自己判斷值不值得。
 
-### 瀏覽器：browser、canvas、image
+### 瀏覽器：browser、canvas、view_image
 
 `browser` 讓 OpenClaw 操作 Chrome——點按鈕、填表單、截圖。v2026.3.13 新增 Chrome DevTools attach mode，可以直接連接已登入的 Chrome session，不需安裝任何擴充套件。我會讓它幫我上網比價、整理規格、把東西加到購物車，但結帳一定自己來。涉及付款的「最後一哩」不交給 AI，這是我的底線。
 
-`canvas` 是視覺化工作區，畫流程圖、架構圖。`image` 讓 OpenClaw「看懂」圖片。
+`canvas` 現在改由外掛提供（外掛隨 OpenClaw 一起安裝），用途是在配對的 macOS 面板上顯示小工具和儀表板內容。
+
+`view_image` 讓 OpenClaw「看懂」圖片。它就是以前的 `image`：舊設定裡寫 `image` 的地方都要改名，跑一次 `openclaw doctor --fix` 會幫你改。
 
 ### 記憶：memory_search、memory_get
 
@@ -151,11 +162,35 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 `tts`（text-to-speech）讓 OpenClaw 把回覆轉成語音訊息——在 Telegram 上會變成圓形的語音氣泡。支援 ElevenLabs、OpenAI TTS 和 Edge TTS。預設關閉，可以在設定裡開啟自動語音回覆，或用 `/tts on` 按需啟用。
 
-### Extension Tools：llm_task、lobster
+### 外掛工具：llm-task、lobster
 
-`lobster` 是工作流引擎，定義多步驟流程。`llm_task` 在工作流中插入 LLM 處理步驟。
+`lobster` 是工作流引擎，定義多步驟流程。`llm-task` 在工作流中插入 LLM 處理步驟。
 
-如果沒有用工作流引擎，這兩個不需要開。
+這兩個現在都是外掛提供的選用工具，預設不會出現。`lobster` 要先跑 `openclaw plugins install @openclaw/lobster` 安裝。`llm-task` 隨 OpenClaw 附帶，但要在 `plugins.entries` 把它設成 `enabled: true`。裝好之後，還要把工具名稱加進 `tools.alsoAllow` 才叫得到。
+
+如果沒有用工作流引擎，這兩個不用管。
+
+---
+
+## v2026.10.1 多了哪些 Tools？
+
+上面 26 個是 3 月的清單。之後官方陸續加了新工具，下面照[官方總覽頁](https://docs.openclaw.ai/tools)的分類整理，只列這篇前面沒講到的：
+
+| 分類 | 新工具 | 做什麼 |
+|------|--------|--------|
+| 執行 | `terminal`、`code_execution` | 共用的操作終端機；由模型供應商代跑的 Python |
+| 向人要輸入 | `ask_user`、`secrets` | 停下來等你做決定；取得憑證，但 agent 自己看不到內容 |
+| 網路 | `x_search` | 搜尋 X 上的貼文 |
+| 操作介面 | `screen`、`theme` | 排 Control UI 的窗格；選或建立外觀主題 |
+| 進度 | `progress_card` | 更新主 session 的進度卡，子 agent 不能用 |
+| 外掛管理 | `plugins` | 查看、安裝、啟用、停用、移除、重新載入外掛 |
+| 媒體 | `image_generate`、`music_generate`、`video_generate` | 產生圖片、音樂、影片 |
+
+另外有兩件事跟設定有關。
+
+**Tool profile**：`tools.profile` 可以先選一組基本工具（`minimal`、`coding`、`messaging`、`full`），再用 `tools.allow` 和 `tools.deny` 調整。想在 profile 上多加幾個工具，用 `tools.alsoAllow`。`allow` 和 `alsoAllow` 不能同時設，設定檢查會擋下來。
+
+**Tool Search 和 Code Mode 是實驗性功能**：工具一多，把每個工具的定義都塞給模型很佔空間。這兩個功能讓模型先搜尋，要用的時候才載入。官方文件把兩個都標成實驗性（experimental）。OpenClaw 內建的 agent 在沒設定時會自動用 Tool Search，想關掉就設 `tools.toolSearch: false`。
 
 ---
 
@@ -165,7 +200,29 @@ Layer 1 是「能不能用」，Layer 2 是「好不好用」。這一層的 Too
 
 **重要：bundled Skills 預設會自動載入**——只要對應的 CLI 工具已安裝在系統上，該 Skill 就會自動啟用。不是「不裝就沒有」，而是「不關就全開」。如果你不想讓某個 Skill 被啟用，需要用 `skills.allowBundled` 白名單模式，只保留你需要的（設定範例見下方「我的設定」段落）。
 
+有一個例外：`coding-agent` 現在要手動打開。要在設定檔寫 `skills.entries.coding-agent.enabled: true`，而且機器上要有登入好的 `claude`、`codex` 或 `opencode` 這類 CLI。
+
 ClawHub 社群另有 13,700+ 個第三方 Skills。2026 年 2 月起 ClawHub 已整合 VirusTotal 自動掃描，惡意 Skill 會被阻擋下載，但仍建議安裝前自行審查（見<a href="/zh-TW/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">安全指南</a>）。
+
+### Skills 從哪裡載入：七層來源
+
+同名的 Skill 可能同時出現在好幾個地方。OpenClaw 照下面的順序決定用哪一份，越上面越優先：
+
+| 順序 | 來源 | 位置 |
+|------|------|------|
+| 1（最優先） | Workspace skills | `<workspace>/skills` |
+| 2 | Project agent skills | `<workspace>/.agents/skills` |
+| 3 | Personal agent skills | `~/.agents/skills` |
+| 4 | Managed／local skills | `<state-dir>/skills` |
+| 5 | Workshop skills | `<state-dir>/agents/<agentId>/agent/workshop-skills` |
+| 6 | Bundled skills | 隨安裝附帶 |
+| 7（最後） | Extra directories | `skills.load.extraDirs` 和外掛帶的 Skills |
+
+實際影響有兩個。第一，你在 workspace 放一個跟官方同名的 Skill，官方那份就被蓋掉。第二，`allowBundled` 只管第 6 層，其他層不受它限制。
+
+跑多個 agent 的話，可以用 `agents.defaults.skills` 設共用清單，再用 `agents.entries.<agent>.skills` 幫個別 agent 另外指定。個別 agent 一旦列了清單，就是**整份取代**共用清單，不是合併。設成 `[]` 代表這個 agent 一個 Skill 都看不到。
+
+v2026.10.1 還多了「已安裝 Skill 搜尋」。Skills 太多、提示詞放不下的時候，agent 可以用 `skills_search` 找相關的 Skill，再用 `skills_read` 讀完整內容。它只搜你已經裝的，不會去 ClawHub 找，也不會幫你安裝。
 
 以下按使用場景分類。
 
@@ -196,7 +253,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 
 我有裝 `github`、`tmux`、`session-logs`。寫程式碼在本地用 Claude Code，但 OpenClaw 隨時都能透過 Telegram 操作——例如人在外面，CI/CD 突然掛了，直接在手機問「幫我看一下這個 PR 為什麼 build fail」，它就會去查 GitHub Actions 的 error log，告訴你原因。
 
-`coding-agent` 目前沒裝，但這塊潛力很大——可以在 OpenClaw 的 VM 上安裝 Claude Code，讓 OpenClaw 在背景調用它處理編程任務。想像一下：你在 Telegram 跟 OpenClaw 說「我在 GitHub 上看到這個 repo 很有趣，幫我 clone 下來、研究一下、做成一個可以 demo 的網站」，它就自動啟動 Claude Code 執行，完成後推送通知給你。等於讓 AI 協調 AI。我還沒深入研究，有空再來試試能不能整合到工作流。
+`coding-agent` 目前沒裝，但這塊潛力很大——可以在 OpenClaw 的 VM 上安裝 Claude Code，讓 OpenClaw 在背景調用它處理編程任務。想像一下：你在 Telegram 跟 OpenClaw 說「我在 GitHub 上看到這個 repo 很有趣，幫我 clone 下來、研究一下、做成一個可以 demo 的網站」，它就自動啟動 Claude Code 執行，完成後推送通知給你。等於讓 AI 協調 AI。我還沒深入研究，有空再來試試能不能整合到工作流。要試的話記得先打開它：v2026.10.1 的 `coding-agent` 不會自動啟用。
 
 ### 🔐 密碼管理
 
@@ -227,12 +284,13 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
       "read", "write", "edit", "apply_patch",
       "exec", "process",
       "web_search", "web_fetch",
-      "browser", "image", "tts",
+      "browser", "view_image", "tts",
       "memory_search", "memory_get",
       "sessions_list", "sessions_history", "sessions_send", "sessions_spawn", "session_status",
       "message", "cron", "gateway", "agents_list"
     ],
-    "deny": ["nodes", "canvas", "llm_task", "lobster"]
+    "deny": ["nodes", "canvas"],
+    "exec": { "mode": "ask" }
   },
   "approvals": {
     "exec": { "enabled": true }
@@ -240,7 +298,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 }
 ```
 
-**開了 22 個，關了 4 個**：`nodes`（想不到場景）、`canvas`（用不到）、`llm_task` / `lobster`（沒用工作流引擎）。`sessions_yield` 和 `subagents` 是多 agent 協作用的，目前沒用到所以沒列。`exec` 開審批，`message` 只用來傳給自己。
+**開了 22 個，明確擋掉 2 個**：`nodes`（想不到場景）、`canvas`（用不到）。`llm-task` 和 `lobster` 現在是外掛，沒安裝、沒啟用就不存在，不用再寫進 deny。`sessions_yield` 和 `subagents` 是多 agent 協作用的，目前沒用到所以沒列。`exec` 開審批，`message` 只用來傳給自己。
 
 ### Skills（53 個只開 9 個）
 
@@ -264,7 +322,7 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 
 ## 怎麼開始設定？
 
-26 個 Tools 不用全開，53 個 bundled Skills 預設全開——用 `allowBundled` 只留你需要的。打開你的 `openclaw.json`，從這三個原則開始：
+26 個 Tools 不用全開，53 個 bundled Skills 預設全開（`coding-agent` 除外）——用 `allowBundled` 只留你需要的。打開你的 `openclaw.json`，從這三個原則開始：
 
 1. **想不到場景的就不開**
 2. **能力越大，管控越嚴**——`exec` 開審批，`message` 只傳給自己
@@ -293,8 +351,8 @@ OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個�
 | 1 | `web_search` | 搜尋 | 🟢 低 |
 | 1 | `web_fetch` | 抓取網頁 | 🟡 中 |
 | 2 | `browser` | 瀏覽器操作 | 🟠 高 |
-| 2 | `canvas` | 視覺化工作區 | 🟢 低 |
-| 2 | `image` | 圖片分析 | 🟢 低 |
+| 外掛 | `canvas` | macOS 面板顯示小工具 | 🟢 低 |
+| 2 | `view_image` | 圖片分析（舊名 `image`） | 🟢 低 |
 | 2 | `memory_search` | 搜尋記憶 | 🟡 中 |
 | 2 | `memory_get` | 取得記憶 | 🟡 中 |
 | 2 | `sessions_list` | 列出 session | 🟢 低 |
@@ -310,8 +368,8 @@ OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個�
 | 2 | `gateway` | Gateway 管理 | 🟠 高 |
 | 2 | `agents_list` | 列出 Agent | 🟢 低 |
 | 2 | `tts` | 文字轉語音 | 🟢 低 |
-| Ext | `llm_task` | 工作流 LLM 步驟 | 🟡 中 |
-| Ext | `lobster` | 工作流引擎 | 🟡 中 |
+| 外掛 | `llm-task` | 工作流 LLM 步驟（要啟用外掛） | 🟡 中 |
+| 外掛 | `lobster` | 工作流引擎（要另外安裝） | 🟡 中 |
 
 </details>
 
@@ -377,23 +435,25 @@ OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個�
 </details>
 
 <details>
-<summary>⚡ Tool Groups 快捷</summary>
+<summary>⚡ Tool Groups 快捷（v2026.10.1）</summary>
 
 | Group | 包含 |
 |-------|------|
+| `group:runtime` | exec, process, code_execution |
 | `group:fs` | read, write, edit, apply_patch |
-| `group:web` | web_search, web_fetch |
-| `group:ui` | browser, canvas |
+| `group:web` | web_search, x_search, web_fetch |
+| `group:ui` | browser, screen, theme, dashboard, terminal, portal, canvas, show_widget |
 | `group:memory` | memory_search, memory_get |
-| `group:sessions` | sessions_list, sessions_history, sessions_send, sessions_spawn, sessions_yield, subagents, session_status |
+| `group:sessions` | sessions, sessions_list, sessions_history, sessions_search, conversations_list, conversations_send, conversations_turn, sessions_send, sessions_spawn, sessions_yield, subagents, session_status, suggest_task, dismiss_task |
 | `group:messaging` | message |
-| `group:nodes` | nodes |
-| `group:automation` | cron, gateway |
-| `group:agents` | agents_list |
-| `group:media` | image, tts |
+| `group:nodes` | nodes, computer |
+| `group:automation` | heartbeat_respond, automations（`cron` 是它的別名）, gateway, plugins, openclaw |
+| `group:agents` | agents_list, get_goal, create_goal, update_goal, progress_card, ask_user, skill_workshop |
+| `group:media` | view_image, image_generate, music_generate, video_generate, tts, pdf |
+| `group:plugins` | 所有已載入外掛的工具 |
 
 </details>
 
 ---
 
-*最後更新：2026-03-17*
+*最後更新：2026-10-12*

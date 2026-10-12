@@ -2,7 +2,7 @@
 title: "OpenClaw Setup Guide: 26 Tools + 53 Skills Explained"
 description: "Finished installing OpenClaw but unsure what to enable? This research-backed guide breaks down all 26 Tools and 53 official Skills — what they do, the risks, and how to configure them. Includes my full config you can copy."
 pubDate: 2026-02-05
-updatedDate: 2026-03-17
+updatedDate: 2026-10-12
 category: building-products
 topics: ["ai-practice"]
 tags: ["AI", "indie hacker", "OpenClaw", "self-hosted AI", "developer tools"]
@@ -37,6 +37,8 @@ This is my research notes after setting up OpenClaw — compiled from the [offic
 
 (There are 13,700+ third-party Skills on ClawHub — those are outside the scope of this guide.)
 
+> **Updated 2026-10-12**: This guide now matches the official docs for OpenClaw v2026.10.1 (released 2026-10-10). Four things from the March version will break an older config: `image` was renamed to `view_image`; `canvas`, `llm-task`, and `lobster` are now provided by plugins; `coding-agent` has to be turned on by hand; and `approvals.exec` no longer decides whether OpenClaw asks before running a command. If you copied my config in March, go straight to "How Do I Configure My Tools and Skills?".
+
 ---
 
 ## What's the Difference Between Tools and Skills?
@@ -69,6 +71,8 @@ Listing all 26 Tools and 53 Skills flat would be overwhelming. I organize them i
 - **Layer 2 — Advanced Capabilities (18 Tools)**: Browser control, memory, multi-session, automation. Enable as needed.
 - **Layer 3 — Knowledge Layer (53 Skills)**: Teaches OpenClaw to work with Google, Obsidian, Slack, etc. Install what you use.
 
+The 26 is the count from when I compiled this in March 2026. As of v2026.10.1, the official docs no longer give a single total for tools. They use a category table instead, split across three layers: tools, skills, and plugins. The [tool groups table](https://docs.openclaw.ai/gateway/config-tools/tool-policy) alone lists 55 tool ids. This guide still walks through the original 26, and the newer ones are collected in "Which Tools Are New in v2026.10.1?" below.
+
 ![OpenClaw concentric circle architecture: Layer 1 core tools (read, write, exec), Layer 2 advanced tools (browser, memory, automation), Layer 3 knowledge layer with 53 skills grouped by category](/images/blog/openclaw-tools-skills-tutorial/openclaw-tools-skills-architecture.webp)
 
 ---
@@ -85,15 +89,20 @@ These 8 Tools are OpenClaw's foundation. With only these enabled, OpenClaw is re
 
 `exec` lets OpenClaw run any shell command — install packages, run scripts, manage the system. "Any" is the key word: it can install dependencies for you, but it can also `rm -rf` your entire machine. Without `exec`, most tasks fail. With `exec` and no safeguards, you've handed over root access.
 
-That's why I strongly recommend enabling approval alongside `exec` — every command is shown to you first, and only runs after you confirm:
+That's why I strongly recommend enabling approval alongside `exec` — any command that isn't on the allowlist is shown to you first, and only runs after you confirm. In v2026.10.1 this takes two settings: `tools.exec.mode` decides whether OpenClaw asks, and `approvals.exec` forwards the prompt to your chat channel (Telegram, for example):
 
 ```json
 {
+  "tools": {
+    "exec": { "mode": "ask" }
+  },
   "approvals": {
     "exec": { "enabled": true }
   }
 }
 ```
+
+`approvals.exec` on its own does not make OpenClaw ask. On a gateway host, `exec` runs without asking by default.
 
 Is it annoying? Honestly, yes. But it's the most basic protection — if the AI ever misjudges or gets hit by a Prompt Injection attack, this gate is your last line of defense.
 
@@ -109,11 +118,13 @@ Is it annoying? Honestly, yes. But it's the most basic protection — if the AI 
 
 Layer 1 is "can it work at all." Layer 2 is "does it work well." These Tools transform OpenClaw from a command executor into a real assistant — one that remembers your preferences, controls a browser, and sends scheduled notifications. But each additional Tool expands the attack surface, so evaluate whether the trade-off is worth it.
 
-### Browser: browser, canvas, image
+### Browser: browser, canvas, view_image
 
 `browser` lets OpenClaw control Chrome — click buttons, fill forms, take screenshots. v2026.3.13 added Chrome DevTools attach mode, letting it connect directly to your signed-in Chrome session without any extensions. I use it for price comparisons, spec research, and adding items to shopping carts. But I always check out myself. The "last mile" involving payments never goes to AI — that's my line.
 
-`canvas` is a visual workspace for diagrams and flowcharts. `image` lets OpenClaw "understand" images.
+`canvas` is now provided by a plugin (the plugin ships with OpenClaw). It presents widgets and dashboard content on paired macOS panels.
+
+`view_image` lets OpenClaw "understand" images. It is the tool that used to be called `image`: any older config that names `image` has to be renamed, and running `openclaw doctor --fix` once does it for you.
 
 ### Memory: memory_search, memory_get
 
@@ -153,11 +164,35 @@ Lists available Agent IDs. OpenClaw supports multi-agent architectures, but offi
 
 `tts` (text-to-speech) converts OpenClaw's replies into voice messages — on Telegram, they appear as round voice note bubbles. Supports ElevenLabs, OpenAI TTS, and Edge TTS. Disabled by default; enable auto-voice in config with `messages.tts.auto` or toggle per session with `/tts on`.
 
-### Extension Tools: llm_task, lobster
+### Plugin Tools: llm-task, lobster
 
-`lobster` is a workflow engine for defining multi-step processes. `llm_task` inserts LLM processing steps into workflows.
+`lobster` is a workflow engine for defining multi-step processes. `llm-task` inserts LLM processing steps into workflows.
+
+Both are now optional tools provided by plugins, so neither shows up by default. `lobster` has to be installed first with `openclaw plugins install @openclaw/lobster`. `llm-task` ships with OpenClaw, but you have to set it to `enabled: true` under `plugins.entries`. After that, add the tool name to `tools.alsoAllow` before the agent can call it.
 
 If you're not using a workflow engine, skip both.
+
+---
+
+## Which Tools Are New in v2026.10.1?
+
+The 26 above are the March list. OpenClaw has added tools since then. The table below follows the categories on the [official overview page](https://docs.openclaw.ai/tools) and only lists tools this guide hasn't covered yet:
+
+| Category | New tools | What they do |
+|----------|-----------|--------------|
+| Runtime | `terminal`, `code_execution` | A shared operator terminal; Python run by the model provider |
+| Human input | `ask_user`, `secrets` | Pause for a decision from you; obtain a credential without the agent seeing it |
+| Web | `x_search` | Search posts on X |
+| Operator UI | `screen`, `theme` | Arrange Control UI panes; pick or create appearance themes |
+| Progress | `progress_card` | Update the parent session's progress card; not available to sub-agents |
+| Plugin lifecycle | `plugins` | Inspect, install, enable, disable, remove, or reload plugins |
+| Media | `image_generate`, `music_generate`, `video_generate` | Generate images, music, and video |
+
+Two more things affect how you configure tools.
+
+**Tool profiles.** `tools.profile` picks a base set of tools (`minimal`, `coding`, `messaging`, or `full`), and `tools.allow` and `tools.deny` adjust it from there. To add a few tools on top of a profile, use `tools.alsoAllow`. You can't set `allow` and `alsoAllow` together. Config validation rejects it.
+
+**Tool Search and Code Mode are experimental.** With a large catalog, sending every tool definition to the model takes up a lot of room. These two features let the model search first and load a tool only when it needs one. The official docs label both as experimental. OpenClaw's built-in agent runs use Tool Search automatically when it isn't configured. Set `tools.toolSearch: false` to turn it off.
 
 ---
 
@@ -167,7 +202,29 @@ If you're not using a workflow engine, skip both.
 
 **Important: bundled Skills auto-load by default** — if the corresponding CLI tool is installed on the system, the Skill activates automatically. It's not "nothing unless installed" but "everything unless disabled." To control which Skills are active, use `skills.allowBundled` in whitelist mode (config example in the "My Config" section below).
 
+There is one exception: `coding-agent` is now opt-in. Set `skills.entries.coding-agent.enabled: true` in your config, and make sure a CLI such as `claude`, `codex`, or `opencode` is installed and signed in on the machine.
+
 ClawHub has 13,700+ third-party Skills. Since February 2026, ClawHub has integrated VirusTotal automatic scanning to block malicious Skill downloads, but reviewing before installing is still recommended (see the <a href="/en/blog/2026-02-04-is-openclaw-safe-security-guide/" target="_blank">security guide</a>).
+
+### Where Skills Load From: Seven Sources
+
+A Skill with the same name can exist in several places at once. OpenClaw picks which copy to use in this order, highest priority first:
+
+| Priority | Source | Path |
+|----------|--------|------|
+| 1 (highest) | Workspace skills | `<workspace>/skills` |
+| 2 | Project agent skills | `<workspace>/.agents/skills` |
+| 3 | Personal agent skills | `~/.agents/skills` |
+| 4 | Managed / local skills | `<state-dir>/skills` |
+| 5 | Workshop skills | `<state-dir>/agents/<agentId>/agent/workshop-skills` |
+| 6 | Bundled skills | Shipped with the install |
+| 7 (lowest) | Extra directories | `skills.load.extraDirs` plus plugin skills |
+
+This matters in two ways. First, if you put a Skill in your workspace with the same name as an official one, the official copy is overridden. Second, `allowBundled` only controls tier 6. The other tiers are not affected by it.
+
+If you run several agents, `agents.defaults.skills` sets a shared list and `agents.entries.<agent>.skills` sets a list for one agent. Once an agent has its own list, that list **replaces** the shared one. It does not merge with it. Setting it to `[]` means that agent sees no Skills at all.
+
+v2026.10.1 also adds installed-skill search. When you have more Skills than fit in the prompt, the agent can call `skills_search` to find a relevant one and `skills_read` to load its full instructions. It only searches Skills you already have. It does not look on ClawHub and it does not install anything.
 
 Organized by use case below.
 
@@ -198,7 +255,7 @@ I haven't installed any of them. The last step in external communication is alwa
 
 I have `github`, `tmux`, and `session-logs` installed. I write code locally with Claude Code, but OpenClaw is always reachable via Telegram — if CI/CD breaks while I'm out, I just ask "check why this PR build failed" on my phone, and it pulls the GitHub Actions error log and tells me the cause.
 
-I haven't installed `coding-agent` yet, but the potential is significant — you could install Claude Code on OpenClaw's VM and let it dispatch coding tasks in the background. Imagine telling OpenClaw via Telegram: "I found this interesting repo on GitHub — clone it, study it, and build a demo site." It launches Claude Code, executes autonomously, and pushes a notification when done. AI orchestrating AI. I haven't explored this deeply yet, but it's on my list.
+I haven't installed `coding-agent` yet, but the potential is significant — you could install Claude Code on OpenClaw's VM and let it dispatch coding tasks in the background. Imagine telling OpenClaw via Telegram: "I found this interesting repo on GitHub — clone it, study it, and build a demo site." It launches Claude Code, executes autonomously, and pushes a notification when done. AI orchestrating AI. I haven't explored this deeply yet, but it's on my list. If you try it, turn it on first: in v2026.10.1, `coding-agent` no longer enables itself.
 
 ### Password Management
 
@@ -229,13 +286,14 @@ My rule is simple: **if I can't think of a use case, it stays off.**
       "read", "write", "edit", "apply_patch",
       "exec", "process",
       "web_search", "web_fetch",
-      "browser", "image",
+      "browser", "view_image",
       "memory_search", "memory_get",
       "sessions_list", "sessions_history", "sessions_send", "sessions_spawn", "session_status",
       "tts",
       "message", "cron", "gateway", "agents_list"
     ],
-    "deny": ["nodes", "canvas", "llm_task", "lobster"]
+    "deny": ["nodes", "canvas"],
+    "exec": { "mode": "ask" }
   },
   "approvals": {
     "exec": { "enabled": true }
@@ -243,7 +301,7 @@ My rule is simple: **if I can't think of a use case, it stays off.**
 }
 ```
 
-**22 enabled, 4 disabled**: `nodes` (can't think of a scenario), `canvas` (don't need it), `llm_task` / `lobster` (not using workflow engine). `sessions_yield` and `subagents` are for multi-agent orchestration — not using them yet so they're not listed. `exec` has approval enabled. `message` only sends to myself.
+**22 enabled, 2 explicitly denied**: `nodes` (can't think of a scenario) and `canvas` (don't need it). `llm-task` and `lobster` are plugins now. If you haven't installed or enabled them they don't exist, so they no longer belong in `deny`. `sessions_yield` and `subagents` are for multi-agent orchestration — not using them yet so they're not listed. `exec` has approval enabled. `message` only sends to myself.
 
 ### Skills (9 of 53 enabled)
 
@@ -285,7 +343,7 @@ The setup isn't complicated. Each automation is a `cron` entry that triggers a p
 
 ## How Do You Get Started?
 
-You don't need all 26 Tools. The 53 bundled Skills default to all-on — use `allowBundled` to keep only what you need. Open your `openclaw.json` and start with three principles:
+You don't need all 26 Tools. The 53 bundled Skills default to all-on (except `coding-agent`) — use `allowBundled` to keep only what you need. Open your `openclaw.json` and start with three principles:
 
 1. **If you can't think of a use case, leave it off**
 2. **More capability, more control** — enable approval for `exec`, only message yourself
@@ -311,8 +369,8 @@ My config above works as a starting point. Copy it, then trim to fit your needs.
 | 1 | `web_search` | Web search | Low |
 | 1 | `web_fetch` | Fetch web pages | Medium |
 | 2 | `browser` | Browser control | High |
-| 2 | `canvas` | Visual workspace | Low |
-| 2 | `image` | Image analysis | Low |
+| Plugin | `canvas` | Widgets on macOS panels | Low |
+| 2 | `view_image` | Image analysis (formerly `image`) | Low |
 | 2 | `memory_search` | Search memory | Medium |
 | 2 | `memory_get` | Get memory | Medium |
 | 2 | `sessions_list` | List sessions | Low |
@@ -328,8 +386,8 @@ My config above works as a starting point. Copy it, then trim to fit your needs.
 | 2 | `gateway` | Gateway management | High |
 | 2 | `agents_list` | List agents | Low |
 | 2 | `tts` | Text-to-speech | Low |
-| Ext | `llm_task` | Workflow LLM step | Medium |
-| Ext | `lobster` | Workflow engine | Medium |
+| Plugin | `llm-task` | Workflow LLM step (enable the plugin) | Medium |
+| Plugin | `lobster` | Workflow engine (separate install) | Medium |
 
 </details>
 
@@ -395,25 +453,27 @@ My config above works as a starting point. Copy it, then trim to fit your needs.
 </details>
 
 <details>
-<summary>Tool Groups (shortcuts)</summary>
+<summary>Tool Groups (shortcuts, v2026.10.1)</summary>
 
 | Group | Includes |
 |-------|----------|
+| `group:runtime` | exec, process, code_execution |
 | `group:fs` | read, write, edit, apply_patch |
-| `group:web` | web_search, web_fetch |
-| `group:ui` | browser, canvas |
+| `group:web` | web_search, x_search, web_fetch |
+| `group:ui` | browser, screen, theme, dashboard, terminal, portal, canvas, show_widget |
 | `group:memory` | memory_search, memory_get |
-| `group:sessions` | sessions_list, sessions_history, sessions_send, sessions_spawn, sessions_yield, subagents, session_status |
+| `group:sessions` | sessions, sessions_list, sessions_history, sessions_search, conversations_list, conversations_send, conversations_turn, sessions_send, sessions_spawn, sessions_yield, subagents, session_status, suggest_task, dismiss_task |
 | `group:messaging` | message |
-| `group:nodes` | nodes |
-| `group:automation` | cron, gateway |
-| `group:agents` | agents_list |
-| `group:media` | image, tts |
+| `group:nodes` | nodes, computer |
+| `group:automation` | heartbeat_respond, automations (`cron` is its alias), gateway, plugins, openclaw |
+| `group:agents` | agents_list, get_goal, create_goal, update_goal, progress_card, ask_user, skill_workshop |
+| `group:media` | view_image, image_generate, music_generate, video_generate, tts, pdf |
+| `group:plugins` | Every tool owned by a loaded plugin |
 
 </details>
 
 ---
 
-*Last updated: 2026-03-17*
+*Last updated: 2026-10-12*
 
 *Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*
