@@ -72,9 +72,9 @@ const description = '訂閱電子報的最後一步：到信箱點確認信裡�
     align-items: center;
     gap: 0.8em;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .kick i {
     width: 6px;
@@ -88,9 +88,9 @@ const description = '訂閱電子報的最後一步：到信箱點確認信裡�
     display: grid;
     align-content: center;
     min-height: 100svh;
-    margin-top: -6rem; /* slide under the header, as the other night covers do */
-    padding: 11rem var(--gx) 9rem;
-    background: #14100e;
+    margin-top: calc(-1 * var(--space-9)); /* slide under the header, as the other night covers do */
+    padding: var(--space-10) var(--gx) var(--space-10);
+    background: var(--night-2);
     color: var(--cream);
   }
   .co-sky {
@@ -110,9 +110,9 @@ const description = '訂閱電子報的最後一步：到信箱點確認信裡�
     max-width: 46rem;
   }
   .ty h1 {
-    margin-top: 2.2rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.38;
     letter-spacing: 0.04em;
@@ -120,42 +120,42 @@ const description = '訂閱電子報的最後一步：到信箱點確認信裡�
   }
   .ty .ty-sub {
     max-width: 34rem;
-    margin-top: 1.8rem;
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    margin-top: var(--space-6);
+    font-size: var(--t-body);
     line-height: 1.95;
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.78);
+    color: color-mix(in srgb, var(--cream) 78%, transparent);
   }
   .ty .ty-sub + .ty-sub {
-    margin-top: 0.6rem;
-    color: rgba(246, 241, 232, 0.55);
+    margin-top: var(--space-2);
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .ty a.ty-go {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: baseline;
-    gap: 0.4rem 2.5rem;
+    gap: var(--space-2) var(--space-7);
     width: min(34rem, 100%);
-    margin-top: 3.6rem;
-    padding-bottom: 1.1rem;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.3);
+    margin-top: var(--space-7);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 30%, transparent);
     transition: color 0.2s, border-color 0.2s;
   }
   .ty-go .k {
     grid-column: 1 / -1;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.08em;
-    color: rgba(246, 241, 232, 0.55);
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .ty-go .t {
     font-family: var(--serif);
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-size: var(--t-h3);
     font-weight: 300;
     letter-spacing: 0.05em;
   }
   .ty-go b {
     font-weight: 300;
-    font-size: 1.4rem;
+    font-size: var(--t-h4);
     transition: transform 0.3s;
   }
   .ty a.ty-go:hover {
@@ -173,32 +173,32 @@ const description = '訂閱電子報的最後一步：到信箱點確認信裡�
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: var(--space-2) var(--space-6);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .ty-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .ty .ty-foot a:hover {
     color: var(--dawn);
   }
   @media (max-width: 640px) {
     .ty h1 {
-      font-size: 2rem;
+      font-size: var(--t-h3);
     }
     .ty-in {
-      padding-top: 9.5rem;
+      padding-top: var(--space-10);
     }
   }
 </style>
 
 <style is:global>
   /* One night screen: the shared footer is replaced by the page's last line, and the header sits on the sky (same rules as the contact page). */
-  body:has(.ty) footer.bg-cream-200 {
+  body:has(.ty) footer.site-foot {
     display: none;
   }
   body:has(.ty) > header,
@@ -206,27 +206,27 @@ const description = '訂閱電子報的最後一步：到信箱點確認信裡�
     background: transparent !important;
   }
   body:has(.ty) header.sticky[data-scrolled] {
-    background: rgba(13, 11, 9, 0.94) !important;
+    background: color-mix(in srgb, var(--night) 94%, transparent) !important;
   }
   body:has(.ty) #mobile-menu {
-    background: #0d0b09 !important;
+    background: var(--night) !important;
   }
   body:has(.ty) #mobile-menu a.border-b {
-    border-color: rgba(246, 241, 232, 0.16) !important;
+    border-color: color-mix(in srgb, var(--cream) 16%, transparent) !important;
   }
   body:has(.ty) header a {
-    color: rgba(246, 241, 232, 0.88) !important;
+    color: color-mix(in srgb, var(--cream) 88%, transparent) !important;
   }
   body:has(.ty) header a[href*='newsletter'] {
-    background: rgba(246, 241, 232, 0.14) !important;
+    background: color-mix(in srgb, var(--cream) 14%, transparent) !important;
   }
   body:has(.ty) header a[data-pill='invite'] {
-    border-color: rgba(246, 241, 232, 0.5) !important;
+    border-color: color-mix(in srgb, var(--cream) 50%, transparent) !important;
   }
   body:has(.ty) header a:has(img[src*='logo']) {
     visibility: hidden;
   }
   body:has(.ty) header svg {
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
 </style>

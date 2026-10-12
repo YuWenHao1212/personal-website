@@ -6,8 +6,8 @@
 //    the new pages' last line carries no sentence, so neither does this one.)
 // Who still sees it: the pages that have not been given their own ending — the student manuals, the partner report,
 //   the services page, the admin pages. The new pages hide it and draw their own last line.
-// The class `bg-cream-200` stays on the element only as a marker: ten pages hide the shared footer with
-//   `body:has(…) footer.bg-cream-200 { display: none }`. Do not remove it without changing those rules.
+// The class `site-foot` is also the marker the new pages use to hide this footer:
+//   `body:has(…) footer.site-foot { display: none }`. (Until 10/12 the marker was a leftover Tailwind colour class.)
 // The Admin link that once sat here lives on the home page only (pages/zh-TW/index.astro).
 import { getLangFromUrl } from '../i18n/utils';
 
@@ -16,7 +16,7 @@ const zh = lang === 'zh-TW';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-cream-200 site-foot">
+<footer class="site-foot">
   <img src="/images/sky/startrails-1200.webp" alt="" aria-hidden="true" loading="lazy" />
   <p>
     <span>© {year} {zh ? '余文皓 WenHao Yu' : 'Yu Wen-Hao'}</span>
@@ -33,8 +33,8 @@ const year = new Date().getFullYear();
     position: relative;
     overflow: hidden;
     height: 11rem;
-    background: #14100e;
-    color: #f6f1e8;
+    background: var(--night-2);
+    color: var(--cream);
   }
   .site-foot img {
     position: absolute;
@@ -56,16 +56,16 @@ const year = new Date().getFullYear();
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: var(--space-2) var(--space-6);
     margin: 0;
     font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.55);
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .site-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .site-foot a {
     color: inherit;
@@ -73,7 +73,7 @@ const year = new Date().getFullYear();
     transition: color 0.2s;
   }
   .site-foot a:hover {
-    color: #de9070;
+    color: var(--dawn);
   }
   @media (max-width: 640px) {
     .site-foot {

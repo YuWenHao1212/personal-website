@@ -15,6 +15,8 @@
 //   size     font-size that is not var(--t-*), a relative value (em, %) or inherit
 //   spacing  margin, padding, gap (and their -top / -inline / row- / column- forms) whose parts are not
 //            var(--space-*), var(--gx), 0, auto, 1px, 2px, a relative value (em, %) or a calc() of those
+//   A line that ends with /* ds-local: why */ is left alone: one page's own value (an oversized title, a drawn glow).
+//   Masks (mask-image) are not checked for colour.
 //   palette  a class such as bg-cream-200, text-ink-600, border-accent (tailwind.config.mjs's older colours)
 //
 // The exempt list (scripts/check-tokens-exempt.json) holds the files that existed before the scales did.
@@ -75,6 +77,11 @@ const spaceOk = (part) =>
 
 function cssProblems(css, lineOf) {
   const found = [];
+  // A declaration followed on its line by /* ds-local: why */ is that page's own value and is not checked.
+  const local = new Set();
+  css.split('\n').forEach((text, i) => {
+    if (/\/\*\s*ds-local:/.test(text)) local.add(lineOf(css.split('\n').slice(0, i).join('\n').length + (i ? 1 : 0)));
+  });
   const noComments = css.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
   const decl = /(^|[;{\s])(-{0,2}[a-z][\w-]*)\s*:\s*([^;{}]+)(?=[;}])/g;
   let m;
@@ -82,7 +89,9 @@ function cssProblems(css, lineOf) {
     const prop = m[2];
     const value = m[3].replace(/!important/g, '').replace(/\s+/g, ' ').trim();
     const line = lineOf(m.index + m[1].length);
-    if (/#[0-9a-fA-F]{3,8}\b/.test(value) || /\b(rgb|rgba|hsl|hsla)\(/.test(value)) {
+    if (local.has(line)) continue;
+    // A mask is drawn in black and alpha; those are not colours of the page.
+    if (!/mask/.test(prop) && (/#[0-9a-fA-F]{3,8}\b/.test(value) || /\b(rgb|rgba|hsl|hsla)\(/.test(value))) {
       found.push({ line, kind: 'colour', text: `${prop}: ${value}` });
     }
     if (prop === 'font-size' && !(/^var\(--t-[\w-]+\)$/.test(value) || relative.test(value) || value === 'inherit')) {

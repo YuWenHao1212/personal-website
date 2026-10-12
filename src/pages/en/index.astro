@@ -445,7 +445,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     gap: 0.8em;
     margin: 0;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
     color: var(--muted);
   }
@@ -460,27 +460,27 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     color: var(--faint);
   }
   .hd {
-    margin-bottom: 3.5rem;
+    margin-bottom: var(--space-7);
   }
   .hd h2 {
-    margin: 1.1rem 0 0;
+    margin: var(--space-4) 0 0;
     font-family: var(--serif);
-    font-size: clamp(1.9rem, 3.4vw, 3.2rem);
+    font-size: var(--t-h1);
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--ink);
   }
   .hd-sub {
-    margin: 1rem 0 0;
-    font-size: 1.0625rem;
+    margin: var(--space-4) 0 0;
+    font-size: var(--t-body);
     letter-spacing: 0.04em;
     color: var(--muted);
   }
   .more {
     display: inline-block;
-    margin-top: 2.2rem;
-    padding-bottom: 0.3rem;
-    font-size: 0.9375rem;
+    margin-top: var(--space-6);
+    padding-bottom: var(--space-1);
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
     border-bottom: 1px solid var(--terra);
     color: var(--ink);
@@ -495,7 +495,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     --p: 0;
     position: relative;
     height: 210svh; /* 100 = the cover itself, 110 = the length of the dawn */
-    margin-top: -6rem; /* slide under the header */
+    margin-top: calc(-1 * var(--space-9)); /* slide under the header */
   }
   .cv {
     position: sticky;
@@ -504,8 +504,8 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     min-height: 620px;
     padding: 0 !important;
     overflow: hidden;
-    background: #0d0b09;
-    color: #f6f1e8;
+    background: var(--night);
+    color: var(--cream);
   }
   .cv-sky {
     position: absolute;
@@ -519,15 +519,15 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgba(13, 11, 9, 0.62) 0%, rgba(13, 11, 9, 0.28) 38%, rgba(13, 11, 9, 0) 62%),
-      linear-gradient(180deg, rgba(13, 11, 9, 0.5) 0%, rgba(13, 11, 9, 0) 22%);
+      linear-gradient(90deg, color-mix(in srgb, var(--night) 62%, transparent) 0%, color-mix(in srgb, var(--night) 28%, transparent) 38%, transparent 62%),
+      linear-gradient(180deg, color-mix(in srgb, var(--night) 50%, transparent) 0%, transparent 22%);
     pointer-events: none;
   }
   /* first light: brightens the sky but leaves the ridge a silhouette */
   .cv-glow {
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg,
+    background: /* ds-local: drawn light, this page only */ linear-gradient(0deg,
       rgba(255, 226, 190, 1) 0%,
       rgba(255, 196, 150, 0.95) 16%,
       rgba(236, 150, 110, 0.7) 38%,
@@ -571,7 +571,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     z-index: 3;
     display: grid;
     align-content: center;
-    padding: 6rem var(--gx) 3rem;
+    padding: var(--space-9) var(--gx) var(--space-7);
     opacity: var(--w);
     transform: translateY(calc((1 - var(--w)) * 18px));
     color: var(--text);
@@ -583,39 +583,39 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .cv-who h2 {
     margin: 0;
     font-family: var(--serif);
-    font-size: clamp(2.4rem, 4.6vw, 4.4rem);
+    font-size: var(--t-hero);
     font-weight: 300;
     letter-spacing: 0.04em;
     color: var(--ink);
   }
   .cv-who .idl {
-    margin: 1.6rem 0 0;
-    font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+    margin: var(--space-5) 0 0;
+    font-size: var(--t-body);
     letter-spacing: 0.06em;
     color: var(--muted);
   }
   .cv-who .lead {
-    margin: 1.6rem 0 0;
+    margin: var(--space-5) 0 0;
     max-width: 42rem;
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 1.75vw, 1.6rem);
+    font-size: var(--t-h4);
     font-weight: 400;
     line-height: 1.85;
     letter-spacing: 0.02em;
     color: var(--ink);
   }
   .cv-who .lead2 {
-    margin: 1.4rem 0 0;
+    margin: var(--space-5) 0 0;
     max-width: 40rem;
-    font-size: clamp(1rem, 1.25vw, 1.125rem);
+    font-size: var(--t-read);
     line-height: 1.95;
     color: var(--muted);
   }
   .cv-who .sig {
     display: flex;
     align-items: center;
-    gap: 1.6rem;
-    margin-top: 2.4rem;
+    gap: var(--space-5);
+    margin-top: var(--space-6);
   }
   .cv-who .sig img {
     width: 92px;
@@ -625,13 +625,13 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .cv-who .sig p {
     display: flex;
-    gap: 2rem;
+    gap: var(--space-6);
     margin: 0;
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
   }
   .cv-who .sig a {
-    padding-bottom: 0.25rem;
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--hair);
     transition: border-color 0.2s, color 0.2s;
   }
@@ -648,7 +648,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     transform: none;
     pointer-events: auto;
     background: var(--paper);
-    padding-block: 6rem;
+    padding-block: var(--space-9);
   }
   .cv-copy,
   .cv-cue {
@@ -691,18 +691,18 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     width: 68px;
     height: 68px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 236, 214, 0.5) 0%, rgba(255, 220, 190, 0.12) 38%, rgba(255, 220, 190, 0) 70%);
+    background: radial-gradient(circle, rgba(255, 236, 214, 0.5) 0%, rgba(255, 220, 190, 0.12) 38%, rgba(255, 220, 190, 0) 70%); /* ds-local: the glow around the star, drawn here only */
   }
   .cv-star span {
     position: absolute;
     left: 20px;
     top: 26px;
-    padding-left: 34px;
+    padding-left: var(--space-6);
     white-space: nowrap;
     font-family: var(--mono);
-    font-size: 0.625rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.22em;
-    color: rgba(246, 241, 232, 0.7);
+    color: color-mix(in srgb, var(--cream) 70%, transparent);
   }
   .cv-star span::before {
     content: '';
@@ -711,7 +711,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     top: 0.6em;
     width: 26px;
     height: 1px;
-    background: rgba(246, 241, 232, 0.55);
+    background: color-mix(in srgb, var(--cream) 55%, transparent);
     transform: rotate(0deg);
     transform-origin: left;
   }
@@ -719,10 +719,10 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     display: block;
     margin-bottom: 0.35em;
     font-family: var(--serif);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     font-weight: 400;
     letter-spacing: 0.3em;
-    color: #f6f1e8;
+    color: var(--cream);
   }
   .cv-copy {
     position: absolute;
@@ -731,11 +731,11 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     max-width: 44rem;
   }
   .cv-kick {
-    margin: 0 0 2rem;
+    margin: 0 0 var(--space-6);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.26em;
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
   .cv-kick span {
     margin: 0 0.9em;
@@ -744,17 +744,17 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .cv h1 {
     margin: 0;
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    font-size: var(--t-display);
     line-height: 1.32;
     font-weight: 300;
     letter-spacing: 0.04em;
-    color: #f6f1e8;
+    color: var(--cream);
   }
   .cv-sub {
-    margin: 1.8rem 0 0;
-    font-size: clamp(0.95rem, 1.2vw, 1.125rem);
+    margin: var(--space-6) 0 0;
+    font-size: var(--t-body);
     letter-spacing: 0.14em;
-    color: rgba(246, 241, 232, 0.82);
+    color: color-mix(in srgb, var(--cream) 82%, transparent);
   }
   .cv-cue {
     position: absolute;
@@ -765,14 +765,14 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     gap: 1em;
     margin: 0;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.26em;
-    color: rgba(246, 241, 232, 0.75);
+    color: color-mix(in srgb, var(--cream) 75%, transparent);
   }
   .cv-cue span {
     width: 48px;
     height: 1px;
-    background: rgba(246, 241, 232, 0.6);
+    background: color-mix(in srgb, var(--cream) 60%, transparent);
     transform-origin: left;
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -807,22 +807,22 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     align-items: center;
-    gap: 5vw;
+    gap: var(--space-gap);
     padding-block: 0;
     overflow: hidden;
   }
   .s1-h {
-    margin: 2rem 0 0;
+    margin: var(--space-6) 0 0;
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.2vw, 4rem);
+    font-size: var(--t-display);
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--ink);
   }
   .s1 h1 {
-    margin: 2.2rem 0 0;
+    margin: var(--space-6) 0 0;
     font-family: var(--serif);
-    font-size: clamp(2.4rem, 5vw, 4.9rem);
+    font-size: var(--t-hero);
     line-height: 1.2;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -832,8 +832,8 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     color: var(--terra);
   }
   .s1-sub {
-    margin: 1.6rem 0 0;
-    font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+    margin: var(--space-5) 0 0;
+    font-size: var(--t-h4);
     letter-spacing: 0.02em;
   }
   .s1-sub em {
@@ -843,19 +843,19 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     color: var(--terra);
   }
   .s1-me {
-    margin: 2.2rem 0 0;
-    padding-top: 1.6rem;
+    margin: var(--space-6) 0 0;
+    padding-top: var(--space-5);
     max-width: 34rem;
     border-top: 1px solid var(--ink);
-    font-size: 1.1875rem;
+    font-size: var(--t-lead);
     line-height: 1.85;
     color: var(--text);
   }
   .s1-cert {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
-    margin-top: 2rem;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
     max-width: 34rem;
   }
   .s1-cert img {
@@ -865,37 +865,37 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .s1-cert span {
     display: grid;
-    gap: 0.25rem;
+    gap: var(--space-1);
   }
   .s1-cert b {
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     font-weight: 600;
     color: var(--ink);
   }
   .s1-cert i {
     font-style: normal;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.06em;
     color: var(--muted);
   }
   .s1-cert u {
     text-decoration: none;
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     letter-spacing: 0.04em;
     color: var(--terra);
   }
   .s1-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
-    margin: 1.8rem 0 0;
-    font-size: 0.9375rem;
+    gap: var(--space-6);
+    margin: var(--space-6) 0 0;
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
   }
   .s1-links a {
-    padding-bottom: 0.25rem;
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--hair);
     transition: border-color 0.2s, color 0.2s;
   }
@@ -958,15 +958,15 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .mk {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
-    gap: 5vw;
+    gap: var(--space-gap);
     align-items: start;
-    padding-block: 3.5rem 5rem;
+    padding-block: var(--space-7) var(--space-8);
     border-top: 1px solid var(--hair);
   }
   .mk-say {
-    margin: 1.4rem 0 0;
+    margin: var(--space-5) 0 0;
     font-family: var(--serif);
-    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-size: var(--t-h4);
     font-weight: 600;
     line-height: 1.6;
     color: var(--ink);
@@ -974,11 +974,11 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .mk-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2rem;
+    gap: var(--space-6);
   }
   .mk-grid a {
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
     align-content: start;
   }
   .mk-grid img {
@@ -987,18 +987,18 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     object-fit: cover;
     border: 1px solid var(--hair);
     border-radius: 2px;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
     transition: border-color 0.2s;
   }
   .mk-grid .t {
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     font-weight: 600;
     color: var(--ink);
     transition: color 0.2s;
   }
   .mk-grid .x {
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     line-height: 1.65;
     color: var(--muted);
   }
@@ -1007,20 +1007,20 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
 
   /* ============ 3b tools ============ */
   .tl {
-    padding-block: 7rem;
+    padding-block: var(--space-9);
     background: var(--paper-2);
   }
   .tl-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3rem 4vw;
-    padding-top: 2.6rem;
+    gap: var(--space-7) var(--space-gap);
+    padding-top: var(--space-7);
     border-top: 1px solid var(--ink);
   }
   .tl-grid a {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 1.6rem;
+    gap: var(--space-5);
     align-items: start;
   }
   .tl-grid img {
@@ -1032,23 +1032,23 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .tl-grid .b {
     display: grid;
-    gap: 0.7rem;
+    gap: var(--space-3);
   }
   .tl-grid .t {
     font-family: var(--serif);
-    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    font-size: var(--t-lead);
     font-weight: 600;
     line-height: 1.45;
     color: var(--ink);
     transition: color 0.2s;
   }
   .tl-grid .x {
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     line-height: 1.7;
     color: var(--muted);
   }
   .tl-grid .g {
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.04em;
     color: var(--terra);
   }
@@ -1056,13 +1056,13 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
 
   /* ============ 2 ============ */
   .s2 {
-    padding-block: 7rem;
+    padding-block: var(--space-9);
     background: var(--paper-2);
   }
   .s2-grid {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: 6vw;
+    gap: var(--gx);
     align-items: start;
   }
   .s2-map {
@@ -1105,7 +1105,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .s2-map .zh {
     font-family: var(--serif);
-    font-size: 18px;
+    font-size: var(--t-read);
     font-weight: 600;
     fill: var(--muted);
     letter-spacing: 0.08em;
@@ -1113,7 +1113,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .s2-map .en {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
     fill: var(--faint);
   }
@@ -1124,30 +1124,30 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     fill: var(--terra);
   }
   .s2-hint {
-    margin: 1.2rem 0 0;
+    margin: var(--space-4) 0 0;
     text-align: center;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.18em;
     color: var(--faint);
   }
 
   .tabs {
     display: flex;
-    gap: 2.4rem;
+    gap: var(--space-6);
     border-bottom: 1px solid var(--ink);
   }
   .tabs button {
     display: flex;
     align-items: baseline;
     gap: 0.7em;
-    padding: 0 0 1rem;
+    padding: 0 0 var(--space-4);
     margin-bottom: -1px;
     border: 0;
     border-bottom: 2px solid transparent;
     background: none;
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+    font-size: var(--t-h4);
     font-weight: 600;
     color: var(--faint);
     cursor: pointer;
@@ -1155,7 +1155,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .tabs button span {
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     font-weight: 400;
     letter-spacing: 0.16em;
   }
@@ -1167,8 +1167,8 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     color: var(--terra);
   }
   .panel-q {
-    margin: 1.8rem 0 0.4rem;
-    font-size: 1.0625rem;
+    margin: var(--space-6) 0 var(--space-2);
+    font-size: var(--t-body);
     color: var(--muted);
   }
   .panel ol {
@@ -1179,20 +1179,20 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .panel li a {
     display: grid;
     grid-template-columns: 5.5rem 1fr;
-    gap: 0.5rem 1.5rem;
-    padding: 1.7rem 0;
+    gap: var(--space-2) var(--space-5);
+    padding: var(--space-5) 0;
     border-bottom: 1px solid var(--hair);
   }
   .panel .d {
-    padding-top: 0.45rem;
+    padding-top: var(--space-2);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.1em;
     color: var(--faint);
   }
   .panel .t {
     font-family: var(--serif);
-    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-size: var(--t-h4);
     font-weight: 600;
     line-height: 1.4;
     color: var(--ink);
@@ -1204,7 +1204,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     line-height: 1.7;
     color: var(--muted);
   }
@@ -1220,13 +1220,13 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
 
   /* ============ 1c career as a star trail ============ */
   .tj {
-    padding-block: 5rem 6rem;
+    padding-block: var(--space-8) var(--space-9);
     overflow: hidden;
   }
   .tj-stage {
     position: relative;
     height: calc(var(--h) * 1px);
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
   .tj-stage > svg {
     position: absolute;
@@ -1261,9 +1261,9 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .tj-stage li {
     position: absolute;
     min-width: 9.5rem;
-    padding-top: 1.4rem;
+    padding-top: var(--space-5);
     display: grid;
-    gap: 0.3rem;
+    gap: var(--space-1);
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.7s ease-out, transform 0.7s ease-out;
@@ -1287,28 +1287,28 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .tj-stage .y {
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.08em;
     color: var(--faint);
   }
   .tj-stage .t {
     font-family: var(--serif);
-    font-size: 1.0625rem;
+    font-size: var(--t-body);
     font-weight: 600;
     line-height: 1.4;
     color: var(--ink);
   }
   .tj-stage .d {
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     line-height: 1.65;
     color: var(--muted);
   }
   /* the twenty years carry the weight: larger title, company names in ink */
   .tj-stage li.lead .t {
-    font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+    font-size: var(--t-h3);
   }
   .tj-stage .c {
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     line-height: 1.6;
     letter-spacing: 0.02em;
     color: var(--ink);
@@ -1320,7 +1320,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     text-wrap: balance;
   }
   .tj-stage li {
-    padding-right: 1.5rem;
+    padding-right: var(--space-5);
     box-sizing: border-box;
   }
   /* description lines break where the meaning breaks, not where the box ends */
@@ -1329,7 +1329,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .tj-stage .cert {
     display: block;
-    margin-top: 0.3rem;
+    margin-top: var(--space-1);
     color: var(--terra);
   }
   .tj-now {
@@ -1357,7 +1357,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     left: -1em;
     top: -2.6rem;
     font-family: var(--serif);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     letter-spacing: 0.3em;
     white-space: nowrap;
     color: var(--ink);
@@ -1365,12 +1365,12 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
 
   /* ============ 1d writing, by night ============ */
   .nt {
-    --line: rgba(246, 241, 232, 0.2);
+    --line: color-mix(in srgb, var(--cream) 20%, transparent);
     position: relative;
     overflow: hidden;
-    padding-block: 8rem 7rem;
-    background: #14100e;
-    color: #f6f1e8;
+    padding-block: var(--space-9) var(--space-9);
+    background: var(--night-2);
+    color: var(--cream);
   }
   .nt-sky {
     position: absolute;
@@ -1389,14 +1389,14 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     position: relative;
   }
   .nt .kick {
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .nt-feat {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: 5vw;
+    gap: var(--space-gap);
     align-items: end;
-    margin-top: 3rem;
+    margin-top: var(--space-7);
   }
   .nt-feat .pic {
     overflow: hidden;
@@ -1413,11 +1413,11 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     transform: scale(1.03);
   }
   .nt-feat .meta {
-    margin: 0 0 1.6rem;
+    margin: 0 0 var(--space-5);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
-    color: rgba(246, 241, 232, 0.55);
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .nt-feat .meta b {
     margin: 0 0.8em;
@@ -1427,17 +1427,17 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .nt-feat h3 {
     margin: 0;
     font-family: var(--serif);
-    font-size: clamp(1.8rem, 3.2vw, 3.1rem);
+    font-size: var(--t-h2);
     font-weight: 300;
     line-height: 1.38;
     letter-spacing: 0.02em;
-    color: #f6f1e8;
+    color: var(--cream);
   }
   .nt-feat .x {
-    margin: 1.6rem 0 0;
-    font-size: 0.9375rem;
+    margin: var(--space-5) 0 0;
+    font-size: var(--t-ui);
     line-height: 1.9;
-    color: rgba(246, 241, 232, 0.62);
+    color: color-mix(in srgb, var(--cream) 62%, transparent);
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
@@ -1445,72 +1445,72 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .nt-feat .g {
     display: inline-block;
-    margin-top: 2rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 1px solid #de9070;
-    font-size: 0.9375rem;
+    margin-top: var(--space-6);
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid var(--dawn);
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
-    color: #de9070;
+    color: var(--dawn);
   }
   .nt-list {
-    margin-top: 7rem;
+    margin-top: var(--space-9);
   }
   .nt-list ol {
     list-style: none;
-    margin: 1.4rem 0 0;
+    margin: var(--space-5) 0 0;
     padding: 0;
     border-top: 1px solid var(--line);
   }
   .nt-list li a {
     display: grid;
     grid-template-columns: 7.5rem 1fr auto;
-    gap: 1.5rem;
+    gap: var(--space-5);
     align-items: baseline;
-    padding: 1.15rem 0;
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--line);
   }
   .nt-list .d {
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.08em;
-    color: rgba(246, 241, 232, 0.45);
+    color: color-mix(in srgb, var(--cream) 45%, transparent);
   }
   .nt-list .t {
     font-family: var(--serif);
-    font-size: clamp(1rem, 1.3vw, 1.1875rem);
+    font-size: var(--t-read);
     font-weight: 400;
     letter-spacing: 0.02em;
-    color: rgba(246, 241, 232, 0.9);
+    color: color-mix(in srgb, var(--cream) 90%, transparent);
     transition: color 0.2s;
   }
   .nt-list .l {
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.1em;
     white-space: nowrap;
-    color: rgba(246, 241, 232, 0.4);
+    color: color-mix(in srgb, var(--cream) 40%, transparent);
   }
   .nt-list .l.ext {
-    color: #de9070;
+    color: var(--dawn);
   }
   .nt-list li a:hover .t {
-    color: #de9070;
+    color: var(--dawn);
   }
   .nt .more {
-    color: #f6f1e8;
-    border-color: #de9070;
+    color: var(--cream);
+    border-color: var(--dawn);
   }
 
   /* ============ 4 ending, by night ============ */
   .co {
-    --line: rgba(246, 241, 232, 0.22);
+    --line: color-mix(in srgb, var(--cream) 22%, transparent);
     position: relative;
     overflow: hidden;
     display: grid;
     align-content: center;
     min-height: 92svh;
-    padding-block: 8rem 10rem;
-    background: #14100e;
-    color: #f6f1e8;
+    padding-block: var(--space-9) var(--space-10);
+    background: var(--night-2);
+    color: var(--cream);
   }
   /* the same sky, cropped to the horizon: first light at the bottom edge */
   .co-sky {
@@ -1530,45 +1530,45 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     max-width: 46rem;
   }
   .co .kick {
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .co h2 {
-    margin: 2.2rem 0 0;
+    margin: var(--space-6) 0 0;
     font-family: var(--serif);
-    font-size: clamp(2rem, 3.8vw, 3.6rem);
+    font-size: var(--t-h1);
     font-weight: 300;
     line-height: 1.4;
     letter-spacing: 0.04em;
-    color: #f6f1e8;
+    color: var(--cream);
   }
   .co-sub {
-    margin: 1.8rem 0 0;
+    margin: var(--space-6) 0 0;
     max-width: 34rem;
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-size: var(--t-body);
     line-height: 1.95;
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
   .nl-f {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2rem;
+    gap: var(--space-6);
     width: min(34rem, 100%);
-    margin-top: 3rem;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.7);
-    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    margin-top: var(--space-7);
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 70%, transparent);
+    font-size: var(--t-lead);
     scroll-margin-top: 45vh; /* a link that jumps here lands with the heading in view, not the field at the very top */
     transition: border-color 0.2s;
   }
   .nl-f:focus-within {
-    border-color: #de9070;
+    border-color: var(--dawn);
   }
   .nl-f input[type='email'] {
     flex: 1;
     min-width: 0;
-    padding: 1.1rem 0;
+    padding: var(--space-4) 0;
     border: 0;
     outline: 0;
     border-radius: 0;
@@ -1577,7 +1577,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     color: var(--cream);
   }
   .nl-f input[type='email']::placeholder {
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .nl-f .nl-trap {
     position: absolute;
@@ -1588,12 +1588,12 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .nl-f button {
     flex: none;
-    padding: 1.1rem 0;
+    padding: var(--space-4) 0;
     border: 0;
     background: none;
     font: inherit;
     letter-spacing: 0.06em;
-    color: #de9070;
+    color: var(--dawn);
     cursor: pointer;
   }
   .nl-f button b {
@@ -1605,7 +1605,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     transform: translateX(5px);
   }
   .nl-f button:focus-visible {
-    outline: 1px solid #de9070;
+    outline: 1px solid var(--dawn);
     outline-offset: 4px;
   }
   .nl-f button:disabled {
@@ -1614,7 +1614,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .co-way {
     list-style: none;
-    margin: 6.5rem 0 0;
+    margin: var(--space-9) 0 0;
     padding: 0;
     width: min(34rem, 100%);
     border-top: 1px solid var(--line);
@@ -1623,21 +1623,21 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2rem;
-    padding: 0.95rem 0;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--line);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.06em;
   }
   .co-way span {
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .co-way a {
-    color: rgba(246, 241, 232, 0.9);
+    color: color-mix(in srgb, var(--cream) 90%, transparent);
     transition: color 0.2s;
   }
   .co-way a:hover {
-    color: #de9070;
+    color: var(--dawn);
   }
   .co-foot {
     position: absolute;
@@ -1647,22 +1647,22 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: var(--space-2) var(--space-6);
     margin: 0;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .co-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .co-foot a {
     transition: color 0.2s;
   }
   .co-foot a:hover {
-    color: #de9070;
+    color: var(--dawn);
   }
 
   /* ---------- motion: there on arrival; rings draw once; small responses only ---------- */
@@ -1710,20 +1710,23 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     .hp .nb { white-space: nowrap; }
     .nt-feat h3 { text-wrap: balance; }
     .s2-map .lab .en { display: none; }
-    .s2 { padding-bottom: 3.5rem; }
-    .tl { padding-top: 3.5rem; }
+    .s2 { padding-bottom: var(--space-7); }
+    .tl { padding-top: var(--space-7); }
     .s1, .s2-grid, .mk, .mk-grid, .tl-grid, .tl-grid a { grid-template-columns: 1fr; }
     .tj-stage { height: auto; }
     .tj-stage > svg, .tj-now { display: none; }
-    .tj-stage li { position: static; width: auto !important; opacity: 1; transform: none; padding: 1rem 0; border-top: 1px solid var(--hair); }
+    .tj-stage li { position: static; width: auto !important; opacity: 1; transform: none; padding: var(--space-4) 0; border-top: 1px solid var(--hair); }
     .tj-stage li i { display: none; }
     .nt-feat { grid-template-columns: 1fr; }
-    .nt-list li a { grid-template-columns: 1fr; gap: 0.3rem; }
-    .s1 { min-height: 0; padding-block: 2.5rem 3.5rem; }
+    .nt-list li a { grid-template-columns: 1fr; gap: var(--space-1); }
+    .s1 { min-height: 0; padding-block: var(--space-7) var(--space-7); }
     .s1-fig { justify-self: start; width: 70%; order: -1; }
     .kick { flex-wrap: wrap; }
     .s2-map { position: static; max-width: 22rem; margin-inline: auto; }
-    .tabs { gap: 1.4rem; }
+    /* 10/12: the three English tab names did not fit a phone (the row ran 24px past the edge and took the list with it);
+       smaller names and tighter gaps keep the row inside the page. The Chinese names are short and were never affected. */
+    .tabs { gap: var(--space-4); }
+    .tabs button { gap: 0.4em; font-size: var(--t-body); }
     .panel li a { grid-template-columns: 1fr; }
     .panel .x { grid-column: 1; }
   }
@@ -1768,7 +1771,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     letter-spacing: -0.01em;
   }
   .hp[data-lang='en'] .nt-feat .x {
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 1.6;
   }
   .hp[data-lang='en'] .nt-list .t {
@@ -1779,7 +1782,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   /* English lines under the first point run a little longer than the Chinese ones and reached the link below the trail */
   .hp[data-lang='en'] .tj .more {
-    margin-top: 2.4rem;
+    margin-top: var(--space-6);
   }
   .hp[data-lang='en'] .tj-now span {
     letter-spacing: 0.08em;
@@ -1813,21 +1816,21 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2.5rem;
+    gap: var(--space-7);
     width: min(34rem, 100%);
-    margin-top: 2.8rem;
-    padding: 1.1rem 0;
-    border-bottom: 1px solid #de9070;
-    color: #de9070;
+    margin-top: var(--space-7);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--dawn);
+    color: var(--dawn);
   }
   .hp .co-go span {
     font-family: var(--serif);
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-size: var(--t-h3);
     font-weight: 300;
   }
   .hp .co-go b {
     font-weight: 300;
-    font-size: 1.4rem;
+    font-size: var(--t-h4);
     transition: transform 0.3s;
   }
   .hp .co-go:hover b {
@@ -1849,29 +1852,29 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
      Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
   body:has(.cv) header.sticky[data-scrolled] {
-    background: rgba(13, 11, 9, 0.94) !important;
+    background: color-mix(in srgb, var(--night) 94%, transparent) !important;
   }
   /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
   body:has(.cv) #mobile-menu {
-    background: #0d0b09 !important;
+    background: var(--night) !important;
   }
   body:has(.cv) #mobile-menu a.border-b {
-    border-color: rgba(246, 241, 232, 0.16) !important;
+    border-color: color-mix(in srgb, var(--cream) 16%, transparent) !important;
   }
   body:has(.cv) header a {
-    color: rgba(246, 241, 232, 0.88) !important;
+    color: color-mix(in srgb, var(--cream) 88%, transparent) !important;
   }
   body:has(.cv) header a[href*='newsletter'] {
-    background: rgba(246, 241, 232, 0.14) !important;
+    background: color-mix(in srgb, var(--cream) 14%, transparent) !important;
   }
   body:has(.cv) header a[data-pill='invite'] {
-    border-color: rgba(246, 241, 232, 0.5) !important;
+    border-color: color-mix(in srgb, var(--cream) 50%, transparent) !important;
   }
   /* No logo on the night cover — the name already sits above the headline. */
   body:has(.cv) header a:has(img[src*='logo']) {
     visibility: hidden;
   }
   body:has(.cv) header svg {
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
 </style>

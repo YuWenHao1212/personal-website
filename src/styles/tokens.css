@@ -5,8 +5,8 @@
  *
  * History: until 10/12 each page carried its own copy of the colours. The type and spacing scales were
  * added the same day, drawn from what the pages already used (421 font sizes in 89 spellings, 778 spacing
- * values in 83). The pages that existed then were not moved onto the scales; they are listed in
- * scripts/check-tokens-exempt.json and keep their own values until one of them is reworked.
+ * values in 83), and the pages of the current look were moved onto them: each value went to its nearest step.
+ * The pages still on the older look are listed in scripts/check-tokens-exempt.json.
  *
  * Names follow the Confluence design system (vault: efforts/areas/confluence-brand/design-system/tokens.css)
  * where the values are close enough to share later: colours, --t-display … --t-h4, --t-body, --t-small,
@@ -23,6 +23,7 @@
   --paper: #fbf9f5;
   --paper-2: #f4efe7;
   --night: #0d0b09;
+  --night-2: #14100e; /* the dark band at the foot of a page, code blocks */
   --cream: #f6f1e8;
 
   /* text */
@@ -75,7 +76,9 @@
   --space-9: 7rem; /* 112 */
   --space-10: 10rem; /* 160 */
 
-  /* the two spacings that follow the window */
+  /* the four spacings that follow the window */
   --gx: max(6vw, 1.5rem); /* page gutter, left and right: 24 → 86 */
   --space-section: clamp(5rem, 9vw, 8rem); /* above and below a section: 80 → 128 */
+  --space-block: clamp(3rem, 5vw, 4.5rem); /* between blocks inside a section: 48 → 72 */
+  --space-gap: clamp(1.5rem, 4.5vw, 4.5rem); /* between columns: 24 → 65 */
 }

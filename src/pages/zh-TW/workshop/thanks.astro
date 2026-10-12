@@ -69,7 +69,7 @@ const next = [
 
 <style>
   .wt {
-    --line: rgba(246, 241, 232, 0.22);
+    --line: color-mix(in srgb, var(--cream) 22%, transparent);
   }
   .wt a {
     color: inherit;
@@ -87,9 +87,9 @@ const next = [
     align-items: center;
     gap: 0.8em;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .kick i {
     flex: none;
@@ -104,9 +104,9 @@ const next = [
     display: grid;
     align-content: center;
     min-height: 100svh;
-    margin-top: -6rem; /* slide under the header, as the other night covers do */
-    padding: 11rem var(--gx) 9rem;
-    background: #14100e;
+    margin-top: calc(-1 * var(--space-9)); /* slide under the header, as the other night covers do */
+    padding: var(--space-10) var(--gx) var(--space-10);
+    background: var(--night-2);
     color: var(--cream);
   }
   .co-sky {
@@ -126,9 +126,9 @@ const next = [
     max-width: 62rem;
   }
   .wt h1 {
-    margin-top: 2.2rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.38;
     letter-spacing: 0.04em;
@@ -137,25 +137,25 @@ const next = [
   .wt-cols {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-    gap: 2.5rem clamp(2.5rem, 6vw, 6rem);
-    margin-top: 3.4rem;
+    gap: var(--space-7) var(--space-block);
+    margin-top: var(--space-7);
   }
   .wt h2 {
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 50%, transparent);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     font-weight: 400;
     letter-spacing: 0.14em;
-    color: rgba(246, 241, 232, 0.7);
+    color: color-mix(in srgb, var(--cream) 70%, transparent);
   }
   .wt-cols li {
-    padding: 0.95rem 0;
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--line);
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 1.8;
     letter-spacing: 0.05em;
-    color: rgba(246, 241, 232, 0.9);
+    color: color-mix(in srgb, var(--cream) 90%, transparent);
   }
   .wt-cols ol li {
     display: grid;
@@ -164,39 +164,39 @@ const next = [
   }
   .wt-cols .n {
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.1em;
     color: var(--dawn);
   }
   .wt-cols .t {
     display: block;
     font-family: var(--serif);
-    font-size: 1.1875rem;
+    font-size: var(--t-lead);
     letter-spacing: 0.04em;
     color: var(--cream);
   }
   .wt-cols .d {
     display: block;
-    margin-top: 0.2rem;
-    font-size: 0.875rem;
-    color: rgba(246, 241, 232, 0.6);
+    margin-top: var(--space-1);
+    font-size: var(--t-small);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .wt .wt-q {
-    margin-top: 3rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-7);
+    font-size: var(--t-small);
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .wt .wt-q a {
     color: var(--dawn);
-    border-bottom: 1px solid rgba(222, 144, 112, 0.5);
+    border-bottom: 1px solid color-mix(in srgb, var(--dawn) 50%, transparent);
   }
   .wt a.wt-back {
     display: inline-block;
-    margin-top: 1rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-4);
+    font-size: var(--t-small);
     letter-spacing: 0.1em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .wt a.wt-back:hover,
   .wt .wt-q a:hover {
@@ -210,15 +210,15 @@ const next = [
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: var(--space-2) var(--space-6);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .wt-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .wt .wt-foot a:hover {
     color: var(--dawn);
@@ -226,21 +226,21 @@ const next = [
   @media (max-width: 800px) {
     .wt-cols {
       grid-template-columns: 1fr;
-      margin-top: 2.6rem;
+      margin-top: var(--space-7);
     }
     .wt h1 {
-      font-size: 2.2rem;
+      font-size: var(--t-h2);
     }
     .wt-in {
-      padding-top: 9.5rem;
-      padding-bottom: 8rem;
+      padding-top: var(--space-10);
+      padding-bottom: var(--space-9);
     }
   }
 </style>
 
 <style is:global>
   /* One night screen: the shared footer is replaced by the page's last line, and the header sits on the sky (same rules as the contact page). */
-  body:has(.wt) footer.bg-cream-200 {
+  body:has(.wt) footer.site-foot {
     display: none;
   }
   body:has(.wt) > header,
@@ -248,27 +248,27 @@ const next = [
     background: transparent !important;
   }
   body:has(.wt) header.sticky[data-scrolled] {
-    background: rgba(13, 11, 9, 0.94) !important;
+    background: color-mix(in srgb, var(--night) 94%, transparent) !important;
   }
   body:has(.wt) #mobile-menu {
-    background: #0d0b09 !important;
+    background: var(--night) !important;
   }
   body:has(.wt) #mobile-menu a.border-b {
-    border-color: rgba(246, 241, 232, 0.16) !important;
+    border-color: color-mix(in srgb, var(--cream) 16%, transparent) !important;
   }
   body:has(.wt) header a {
-    color: rgba(246, 241, 232, 0.88) !important;
+    color: color-mix(in srgb, var(--cream) 88%, transparent) !important;
   }
   body:has(.wt) header a[href*='newsletter'] {
-    background: rgba(246, 241, 232, 0.14) !important;
+    background: color-mix(in srgb, var(--cream) 14%, transparent) !important;
   }
   body:has(.wt) header a[data-pill='invite'] {
-    border-color: rgba(246, 241, 232, 0.5) !important;
+    border-color: color-mix(in srgb, var(--cream) 50%, transparent) !important;
   }
   body:has(.wt) header a:has(img[src*='logo']) {
     visibility: hidden;
   }
   body:has(.wt) header svg {
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
 </style>

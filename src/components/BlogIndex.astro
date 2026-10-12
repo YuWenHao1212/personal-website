@@ -217,7 +217,7 @@ const description = en
     font-family: var(--mono);
     font-size: var(--t-label);
     letter-spacing: 0.14em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .kick i {
     width: 6px;
@@ -230,9 +230,9 @@ const description = en
   .wl-top {
     position: relative;
     overflow: hidden;
-    margin-top: -6rem; /* slide under the header, as the other night covers do */
-    padding: 12rem var(--gx) var(--space-8);
-    background: #14100e;
+    margin-top: calc(-1 * var(--space-9)); /* slide under the header, as the other night covers do */
+    padding: var(--space-10) var(--gx) var(--space-8);
+    background: var(--night-2);
     color: var(--cream);
   }
   .wl-sky {
@@ -251,21 +251,21 @@ const description = en
     position: relative;
   }
   .wl-top h1 {
-    margin-top: 1.8rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+    font-size: var(--t-hero);
     font-weight: 300;
     line-height: 1.3;
     letter-spacing: 0.06em;
     color: var(--cream);
   }
   .wl .wl-sub {
-    margin-top: 1.4rem;
+    margin-top: var(--space-5);
     max-width: 38rem;
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-size: var(--t-body);
     line-height: 1.95;
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
 
   /* ---------- filter ---------- */
@@ -278,8 +278,8 @@ const description = en
   .wl-filter {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 2.4rem;
-    padding-bottom: 1.1rem;
+    gap: var(--space-2) var(--space-6);
+    padding-bottom: var(--space-4);
     border-bottom: 1px solid var(--hair);
   }
   .wl-filter button {
@@ -291,7 +291,7 @@ const description = en
     border-bottom: 1px solid transparent;
     background: none;
     font: inherit;
-    font-size: 1rem;
+    font-size: var(--t-body);
     letter-spacing: 0.08em;
     color: var(--muted);
     cursor: pointer;
@@ -324,11 +324,11 @@ const description = en
   .wl-year h2 {
     display: flex;
     align-items: baseline;
-    gap: 1.2rem;
-    padding-bottom: 0.9rem;
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
     border-bottom: 1px solid var(--hair);
     font-family: var(--serif);
-    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+    font-size: var(--t-h2);
     font-weight: 300;
     letter-spacing: 0.04em;
     color: var(--ink);
@@ -348,9 +348,9 @@ const description = en
   .wl-year li a {
     display: grid;
     grid-template-columns: clamp(11rem, 19vw, 15rem) minmax(0, 1fr);
-    gap: clamp(1.5rem, 3vw, 2.8rem);
+    gap: var(--space-gap);
     align-items: center;
-    padding: 1.6rem 0;
+    padding: var(--space-5) 0;
   }
   .wl-year .pic {
     display: block;
@@ -375,7 +375,7 @@ const description = en
   .wl-year .meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.2rem 1.4rem;
+    gap: var(--space-1) var(--space-5);
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.14em;
@@ -393,9 +393,9 @@ const description = en
   }
   .wl-year .t {
     display: block;
-    margin-top: 0.7rem;
+    margin-top: var(--space-3);
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    font-size: var(--t-h4);
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0.03em;
@@ -411,7 +411,7 @@ const description = en
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-top: 0.6rem;
+    margin-top: var(--space-2);
     max-width: 44rem;
     font-size: var(--t-ui);
     line-height: 1.85;
@@ -422,30 +422,30 @@ const description = en
   /* the newest visible article is large */
   .wl-year li.is-lead a {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: clamp(2rem, 4.5vw, 4.5rem);
-    padding: 2.6rem 0 var(--space-7);
+    gap: var(--space-gap);
+    padding: var(--space-7) 0 var(--space-7);
   }
   .wl-year li.is-lead .pic {
     aspect-ratio: 16 / 9;
   }
   .wl-year li.is-lead .t {
-    margin-top: 1.1rem;
-    font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+    margin-top: var(--space-4);
+    font-size: var(--t-h2);
     font-weight: 300;
     line-height: 1.45;
   }
   .wl-year li.is-lead .x {
     -webkit-line-clamp: 4;
-    margin-top: 1.1rem;
-    font-size: 1rem;
+    margin-top: var(--space-4);
+    font-size: var(--t-body);
   }
 
   /* ---------- ending ---------- */
   .wl-end {
     position: relative;
     overflow: hidden;
-    padding: 6.5rem var(--gx) 7.5rem;
-    background: #14100e;
+    padding: var(--space-9) var(--gx) var(--space-9);
+    background: var(--night-2);
     color: var(--cream);
   }
   .wl a.wl-nl {
@@ -453,27 +453,27 @@ const description = en
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: baseline;
-    gap: 0.4rem 2.5rem;
+    gap: var(--space-2) var(--space-7);
     width: min(40rem, 100%);
-    padding-bottom: 1.2rem;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.3);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 30%, transparent);
     transition: color 0.2s, border-color 0.2s;
   }
   .wl-nl .k {
     grid-column: 1 / -1;
     font-size: var(--t-small);
     letter-spacing: 0.08em;
-    color: rgba(246, 241, 232, 0.55);
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .wl-nl .t {
     font-family: var(--serif);
-    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-size: var(--t-h2);
     font-weight: 300;
     letter-spacing: 0.05em;
   }
   .wl-nl b {
     font-weight: 300;
-    font-size: 1.5rem;
+    font-size: var(--t-h4);
     transition: transform 0.3s;
   }
   .wl a.wl-nl:hover {
@@ -491,15 +491,15 @@ const description = en
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem var(--space-6);
+    gap: var(--space-2) var(--space-6);
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .wl-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .wl .wl-foot a:hover {
     color: var(--dawn);
@@ -533,7 +533,7 @@ const description = en
     letter-spacing: -0.01em;
   }
   .wl[data-lang='en'] .wl-year .x {
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 1.6;
     letter-spacing: 0;
   }
@@ -547,26 +547,26 @@ const description = en
   /* ---------- phone: small square picture, title beside it, no summary ---------- */
   @media (max-width: 700px) {
     .wl-top {
-      padding: 9.5rem var(--gx) var(--space-7);
+      padding: var(--space-10) var(--gx) var(--space-7);
     }
     .wl-main {
       padding-top: var(--space-6);
       padding-bottom: var(--space-8);
     }
     .wl-filter {
-      gap: 0.2rem 1.6rem;
+      gap: var(--space-1) var(--space-5);
     }
     .wl-filter button {
       font-size: var(--t-ui);
     }
     .wl-year {
-      margin-top: 3.2rem;
+      margin-top: var(--space-7);
     }
     .wl-year li a {
       grid-template-columns: 5.5rem minmax(0, 1fr);
-      gap: 1.1rem;
+      gap: var(--space-4);
       align-items: start;
-      padding: 1.2rem 0;
+      padding: var(--space-4) 0;
     }
     .wl-year .pic {
       aspect-ratio: 1;
@@ -575,7 +575,7 @@ const description = en
       display: none;
     }
     .wl-year .t {
-      margin-top: 0.4rem;
+      margin-top: var(--space-2);
       font-size: var(--t-body);
       line-height: 1.55;
     }
@@ -584,8 +584,8 @@ const description = en
     }
     .wl-year li.is-lead a {
       grid-template-columns: 1fr;
-      gap: 1.2rem;
-      padding: 1.6rem 0 var(--space-6);
+      gap: var(--space-4);
+      padding: var(--space-5) 0 var(--space-6);
     }
     .wl-year li.is-lead .pic {
       aspect-ratio: 16 / 9;
@@ -594,8 +594,8 @@ const description = en
       display: inline;
     }
     .wl-year li.is-lead .t {
-      margin-top: 0.7rem;
-      font-size: 1.5rem;
+      margin-top: var(--space-3);
+      font-size: var(--t-h4);
     }
     .wl-year li.is-lead .x {
       display: -webkit-box;
@@ -603,7 +603,7 @@ const description = en
       font-size: var(--t-ui);
     }
     .wl-end {
-      padding: var(--space-8) var(--gx) 8rem;
+      padding: var(--space-8) var(--gx) var(--space-9);
     }
   }
 </style>
@@ -611,7 +611,7 @@ const description = en
 <style is:global>
   /* The top band is night; the shared footer is replaced by this page's last line, and the header sits on the sky
      (same treatment as the home, about, workshop and contact pages). */
-  body:has(.wl .wl-sky) footer.bg-cream-200 {
+  body:has(.wl .wl-sky) footer.site-foot {
     display: none;
   }
   body:has(.wl .wl-sky) > header,
@@ -619,27 +619,27 @@ const description = en
     background: transparent !important;
   }
   body:has(.wl .wl-sky) header.sticky[data-scrolled] {
-    background: rgba(13, 11, 9, 0.94) !important;
+    background: color-mix(in srgb, var(--night) 94%, transparent) !important;
   }
   body:has(.wl .wl-sky) #mobile-menu {
-    background: #0d0b09 !important;
+    background: var(--night) !important;
   }
   body:has(.wl .wl-sky) #mobile-menu a.border-b {
-    border-color: rgba(246, 241, 232, 0.16) !important;
+    border-color: color-mix(in srgb, var(--cream) 16%, transparent) !important;
   }
   body:has(.wl .wl-sky) header a {
-    color: rgba(246, 241, 232, 0.88) !important;
+    color: color-mix(in srgb, var(--cream) 88%, transparent) !important;
   }
   body:has(.wl .wl-sky) header a[href*='newsletter'] {
-    background: rgba(246, 241, 232, 0.14) !important;
+    background: color-mix(in srgb, var(--cream) 14%, transparent) !important;
   }
   body:has(.wl .wl-sky) header a[data-pill='invite'] {
-    border-color: rgba(246, 241, 232, 0.5) !important;
+    border-color: color-mix(in srgb, var(--cream) 50%, transparent) !important;
   }
   body:has(.wl .wl-sky) header a:has(img[src*='logo']) {
     visibility: hidden;
   }
   body:has(.wl .wl-sky) header svg {
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
 </style>

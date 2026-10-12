@@ -925,7 +925,7 @@ const endX = 0.965;
     align-items: center;
     gap: 0.8em;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
     color: var(--muted);
   }
@@ -941,7 +941,7 @@ const endX = 0.965;
     display: grid;
     grid-template-rows: 1fr auto;
     min-height: 100svh;
-    margin-top: -6rem; /* slide under the header, as the home cover does */
+    margin-top: calc(-1 * var(--space-9)); /* slide under the header, as the home cover does */
     padding: 0 !important;
     background: var(--night);
     color: var(--cream);
@@ -951,7 +951,7 @@ const endX = 0.965;
     display: grid;
     align-content: end;
     min-height: 30rem;
-    padding: 9rem var(--gx) 4.5rem;
+    padding: var(--space-10) var(--gx) var(--space-8);
     overflow: hidden;
   }
   .op-sky img {
@@ -966,50 +966,50 @@ const endX = 0.965;
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgba(13, 11, 9, 0.66) 0%, rgba(13, 11, 9, 0.3) 46%, rgba(13, 11, 9, 0) 72%),
-      linear-gradient(180deg, rgba(13, 11, 9, 0.55) 0%, rgba(13, 11, 9, 0) 26%),
-      linear-gradient(0deg, rgba(13, 11, 9, 0.5) 0%, rgba(13, 11, 9, 0) 30%);
+      linear-gradient(90deg, color-mix(in srgb, var(--night) 66%, transparent) 0%, color-mix(in srgb, var(--night) 30%, transparent) 46%, transparent 72%),
+      linear-gradient(180deg, color-mix(in srgb, var(--night) 55%, transparent) 0%, transparent 26%),
+      linear-gradient(0deg, color-mix(in srgb, var(--night) 50%, transparent) 0%, transparent 30%);
     pointer-events: none;
   }
   .op-txt {
     position: relative;
   }
   .op .kick {
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
   .op h1 {
-    margin-top: 2rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2.6rem, 6vw, 5.8rem);
+    font-size: clamp(2.6rem, 6vw, 5.8rem); /* ds-local: this page's own oversized line */
     font-weight: 300;
     line-height: 1.24;
     letter-spacing: 0.04em;
     color: var(--cream);
   }
   .op .lead {
-    margin-top: 2.2rem;
+    margin-top: var(--space-6);
     max-width: 34rem;
-    font-size: clamp(1rem, 1.3vw, 1.1875rem);
+    font-size: var(--t-read);
     line-height: 1.95;
     letter-spacing: 0.04em;
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
   .op .lead2 {
-    margin-top: 0.6rem;
-    font-size: 0.9375rem;
+    margin-top: var(--space-2);
+    font-size: var(--t-ui);
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   /* the facts, set as figures, on the dark ground under the horizon */
   .op-bar {
-    --line: rgba(246, 241, 232, 0.2);
+    --line: color-mix(in srgb, var(--cream) 20%, transparent);
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.1fr);
     border-top: 1px solid var(--line);
     background: var(--night);
   }
   .op-bar .fig {
-    padding: 1.7rem 1.5rem 1.9rem 2.2rem;
+    padding: var(--space-5) var(--space-5) var(--space-6) var(--space-6);
     border-right: 1px solid var(--line);
   }
   .op-bar .fig:first-child {
@@ -1017,14 +1017,14 @@ const endX = 0.965;
   }
   .op-bar .k {
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.2em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .op-bar .v {
-    margin-top: 0.7rem;
+    margin-top: var(--space-3);
     font-family: var(--serif);
-    font-size: clamp(2.4rem, 4.4vw, 4.2rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.05;
     letter-spacing: 0.01em;
@@ -1034,42 +1034,42 @@ const endX = 0.965;
     margin-left: 0.4em;
     font-style: normal;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: var(--t-body);
     letter-spacing: 0.2em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .op-bar .n {
-    margin-top: 0.6rem;
-    font-size: 0.8125rem;
+    margin-top: var(--space-2);
+    font-size: var(--t-caption);
     letter-spacing: 0.1em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .op-bar .go {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1.7rem var(--gx) 1.9rem 2.2rem;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--gx) var(--space-6) var(--space-6);
     color: var(--dawn);
     transition: background 0.3s;
   }
   .op-bar .go span {
-    padding-bottom: 0.35rem;
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--dawn);
     font-family: var(--serif);
-    font-size: clamp(1.5rem, 2.3vw, 2.2rem);
+    font-size: var(--t-h3);
     font-weight: 300;
     line-height: 1.2;
     letter-spacing: 0.06em;
   }
   .op-bar .go b {
     font-weight: 300;
-    font-size: clamp(1.5rem, 2.3vw, 2.2rem);
+    font-size: var(--t-h3);
     line-height: 1.5;
     transition: transform 0.3s;
   }
   .op-bar .go:hover {
-    background: rgba(222, 144, 112, 0.1);
+    background: color-mix(in srgb, var(--dawn) 10%, transparent);
   }
   .op-bar .go:hover b {
     transform: translateX(6px);
@@ -1085,11 +1085,11 @@ const endX = 0.965;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
-    padding: 0.95rem var(--gx);
+    gap: var(--space-5);
+    padding: var(--space-4) var(--gx);
     background: var(--night);
-    border-top: 1px solid rgba(246, 241, 232, 0.16);
-    color: rgba(246, 241, 232, 0.72);
+    border-top: 1px solid color-mix(in srgb, var(--cream) 16%, transparent);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
     transform: translateY(100%);
     visibility: hidden;
     transition: transform 0.45s ease, visibility 0s 0.45s;
@@ -1100,20 +1100,20 @@ const endX = 0.965;
     transition: transform 0.45s ease, visibility 0s;
   }
   .sb .sb-f {
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.1em;
   }
   /* the regular price, struck through, beside an early-bird figure */
   .op-bar .v s,
   .su-fee .v s {
     margin-left: 0.9em;
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     font-weight: 400;
     letter-spacing: 0.04em;
     text-decoration-thickness: 1px;
     vertical-align: baseline;
   }
-  .op-bar .v s { color: rgba(246, 241, 232, 0.45); }
+  .op-bar .v s { color: color-mix(in srgb, var(--cream) 45%, transparent); }
   .su-fee .v s { color: var(--faint); }
   .op-bar .k [data-eb],
   .su-fee .k [data-eb] {
@@ -1132,14 +1132,14 @@ const endX = 0.965;
   .sb .sb-f i {
     margin: 0 0.8em;
     font-style: normal;
-    color: rgba(246, 241, 232, 0.35);
+    color: color-mix(in srgb, var(--cream) 35%, transparent);
   }
   .sb .sb-go {
     flex: none;
-    padding-bottom: 0.2rem;
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--dawn);
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     font-weight: 300;
     letter-spacing: 0.08em;
     color: var(--dawn);
@@ -1154,17 +1154,17 @@ const endX = 0.965;
     transform: translateX(5px);
   }
   @media (max-width: 640px) {
-    .sb .sb-f i, .sb .sb-f { letter-spacing: 0.04em; font-size: 0.8125rem; }
+    .sb .sb-f i, .sb .sb-f { letter-spacing: 0.04em; font-size: var(--t-caption); }
     /* phone, 10/9: the bar's facts wrapped into three lines (「課前一／對一」 split, the price's dot at a line start).
        Date, city and price stay; the pre-course 1:1 is told five times on the page itself. */
     .sb .sb-mid { display: none; }
     .sb .sb-f { white-space: nowrap; }
     /* seats go under the facts on a phone: there is no room beside them */
-    .sb .sb-seats { display: block; margin-top: 0.15rem; }
+    .sb .sb-seats { display: block; margin-top: 2px; }
     .sb .sb-seats[hidden] { display: none; }
     .sb .sb-eb { display: none; }
     /* phone: no room beside the figure — the struck regular price sits on its own line under it */
-    .op-bar .v s, .su-fee .v s { display: block; margin: 0.25rem 0 0; }
+    .op-bar .v s, .su-fee .v s { display: block; margin: var(--space-1) 0 0; }
     .op-bar .v s[hidden], .su-fee .v s[hidden] { display: none; }
     .sb .sb-seats::before { content: none; }
     /* phone, 10/9: five places where a line broke inside a phrase or two things ran together.
@@ -1172,11 +1172,11 @@ const endX = 0.965;
        · the opening figures' small print: the second half goes to its own line instead of breaking mid-word
        · the form's subtotal and total: room between them
        · the fee note: the refund link on its own line */
-    .wp .st-big, .wp .sum p { font-size: 1.7rem; white-space: nowrap; }
+    .wp .st-big, .wp .sum p { font-size: var(--t-h3); white-space: nowrap; }
     .op-bar .n .sep { display: none; }
     .op-bar .n .ln { display: block; }
-    .wp .su-sum { flex-wrap: wrap; gap: 0.3rem 1rem; }
-    .wp .su-sum b { font-size: 1.125rem; }
+    .wp .su-sum { flex-wrap: wrap; gap: var(--space-1) var(--space-4); }
+    .wp .su-sum b { font-size: var(--t-read); }
     .wp .su-rf { display: block; width: fit-content; margin: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -1187,13 +1187,13 @@ const endX = 0.965;
   .st {
     display: grid;
     grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.7fr);
-    gap: 5vw;
+    gap: var(--space-gap);
     align-items: end;
-    padding-block: 9rem 8.5rem;
+    padding-block: var(--space-10) var(--space-10);
   }
   .st-big {
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.9vw, 4.7rem); /* the middle line (11 characters) must stay on one line */
+    font-size: var(--t-hero); /* the middle line (11 characters) must stay on one line */
     font-weight: 300;
     line-height: 1.42;
     letter-spacing: 0.04em;
@@ -1216,12 +1216,12 @@ const endX = 0.965;
     50% { opacity: 0; }
   }
   .st-txt {
-    padding-top: 0.4rem;
+    padding-top: var(--space-2);
     border-top: 1px solid var(--ink);
   }
   .st-txt p {
-    margin-top: 1.4rem;
-    font-size: 1rem;
+    margin-top: var(--space-5);
+    font-size: var(--t-body);
     line-height: 2;
     color: var(--muted);
   }
@@ -1231,13 +1231,13 @@ const endX = 0.965;
 
   /* ============ 3 what you leave with ============ */
   .gt {
-    padding-block: 6rem 0;
+    padding-block: var(--space-9) 0;
     background: var(--paper-2);
   }
   .gt h2 {
-    margin-top: 1.6rem;
+    margin-top: var(--space-5);
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.9vw, 4.7rem);
+    font-size: var(--t-hero);
     font-weight: 300;
     line-height: 1.3;
     letter-spacing: 0.04em;
@@ -1246,34 +1246,34 @@ const endX = 0.965;
   .gt .n {
     display: block;
     font-family: var(--serif);
-    font-size: clamp(2.6rem, 4.4vw, 4.2rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1;
     color: var(--faint);
   }
   .gt h3 {
-    margin-top: 1.6rem;
+    margin-top: var(--space-5);
     font-family: var(--serif);
-    font-size: clamp(1.3rem, 1.9vw, 1.75rem);
+    font-size: var(--t-h3);
     font-weight: 600;
     line-height: 1.45;
     letter-spacing: 0.02em;
     color: var(--ink);
   }
   .gt article p {
-    margin-top: 0.9rem;
-    font-size: 1rem;
+    margin-top: var(--space-4);
+    font-size: var(--t-body);
     line-height: 1.95;
     color: var(--muted);
   }
   .tri {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 3.4rem;
+    margin-top: var(--space-7);
     border-top: 1px solid var(--ink);
   }
   .tri article {
-    padding: 2.4rem 2.4rem 2.8rem;
+    padding: var(--space-6) var(--space-6) var(--space-7);
     border-right: 1px solid var(--hair);
   }
   .tri article:first-child {
@@ -1287,14 +1287,14 @@ const endX = 0.965;
   .duo {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: 5vw;
+    gap: var(--space-gap);
     align-items: center;
-    padding-block: 3.2rem;
+    padding-block: var(--space-7);
     border-top: 1px solid var(--hair);
   }
   .duo.rev {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-    padding-bottom: 5rem;
+    padding-bottom: var(--space-8);
   }
   /* both pictures take the same shape, so the two rows are the same height; the board is cut from its top */
   .duo .shot img {
@@ -1312,20 +1312,20 @@ const endX = 0.965;
     height: auto;
     border: 1px solid var(--hair);
     border-radius: 3px;
-    box-shadow: 0 24px 50px -30px rgba(36, 27, 24, 0.5);
+    box-shadow: 0 24px 50px -30px color-mix(in srgb, var(--ink) 50%, transparent);
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .shot:hover img {
     transform: translateY(-3px);
-    box-shadow: 0 32px 60px -30px rgba(36, 27, 24, 0.65);
+    box-shadow: 0 32px 60px -30px color-mix(in srgb, var(--ink) 65%, transparent);
   }
   .shot .cap {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
-    margin-top: 1rem;
+    gap: var(--space-5);
+    margin-top: var(--space-4);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.14em;
     color: var(--faint);
   }
@@ -1342,8 +1342,8 @@ const endX = 0.965;
     display: grid;
     align-content: center;
     min-height: 46svh;
-    padding-block: 5rem;
-    background: #14100e;
+    padding-block: var(--space-8);
+    background: var(--night-2);
     color: var(--cream);
   }
   .sum-sky {
@@ -1360,7 +1360,7 @@ const endX = 0.965;
   .sum p {
     position: relative;
     font-family: var(--serif);
-    font-size: clamp(2.1rem, 4.6vw, 4.4rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.42;
     letter-spacing: 0.04em;
@@ -1369,28 +1369,28 @@ const endX = 0.965;
 
   /* ============ 4 the room ============ */
   .rm {
-    padding-block: 7.5rem 8rem;
+    padding-block: var(--space-9) var(--space-9);
   }
   .rm-hd {
     display: grid;
     grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.7fr);
-    gap: 5vw;
+    gap: var(--space-gap);
     align-items: end;
   }
   .rm h2 {
-    margin-top: 1.6rem;
+    margin-top: var(--space-5);
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.9vw, 4.7rem);
+    font-size: var(--t-hero);
     font-weight: 300;
     line-height: 1.3;
     letter-spacing: 0.04em;
     color: var(--ink);
   }
   .rm-sub {
-    padding-top: 1.4rem;
-    padding-bottom: 0.9rem;
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-4);
     border-top: 1px solid var(--ink);
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 2;
     color: var(--ink);
   }
@@ -1399,8 +1399,8 @@ const endX = 0.965;
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-rows: repeat(2, clamp(15rem, 23vw, 21rem));
-    gap: 0.75rem;
-    margin-top: 4.5rem;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
   }
   .rm-grid > * {
     display: block;
@@ -1420,11 +1420,11 @@ const endX = 0.965;
 
   /* ============ 5 those who took it ============ */
   .vo {
-    --line: rgba(246, 241, 232, 0.22);
+    --line: color-mix(in srgb, var(--cream) 22%, transparent);
     position: relative;
     overflow: hidden;
-    padding-block: 8rem 7.5rem;
-    background: #14100e;
+    padding-block: var(--space-9) var(--space-9);
+    background: var(--night-2);
     color: var(--cream);
   }
   .vo-sky {
@@ -1445,15 +1445,15 @@ const endX = 0.965;
     position: relative;
   }
   .vo .kick {
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .vo blockquote {
-    margin: 3.2rem 0 0;
+    margin: var(--space-7) 0 0;
     max-width: 66rem;
   }
   .vo blockquote p {
     font-family: var(--serif);
-    font-size: clamp(1.45rem, 2.5vw, 2.4rem);
+    font-size: var(--t-h3);
     font-weight: 300;
     line-height: 1.75;
     letter-spacing: 0.03em;
@@ -1463,8 +1463,8 @@ const endX = 0.965;
   .vo footer {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
-    margin-top: 3rem;
+    gap: var(--space-4);
+    margin-top: var(--space-7);
   }
   .vo footer img {
     width: 60px;
@@ -1476,23 +1476,23 @@ const endX = 0.965;
   .vo footer span,
   .vl figcaption span {
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
   }
   .vo footer b {
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     font-weight: 600;
     letter-spacing: 0.06em;
   }
   .vo footer i {
     font-style: normal;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .vo-more {
     list-style: none;
-    margin: 3.4rem 0 0;
+    margin: var(--space-7) 0 0;
     padding: 0;
     max-width: 44rem;
     border-top: 1px solid var(--line);
@@ -1502,30 +1502,30 @@ const endX = 0.965;
   }
   .vo-more a {
     display: block;
-    padding: 0.95rem 0;
-    font-size: 0.9375rem;
+    padding: var(--space-4) 0;
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
-    color: rgba(246, 241, 232, 0.86);
+    color: color-mix(in srgb, var(--cream) 86%, transparent);
     transition: color 0.2s;
   }
   .vo-more a:hover {
     color: var(--dawn);
   }
   .vl {
-    padding-block: 6rem 7.5rem;
+    padding-block: var(--space-9) var(--space-9);
   }
   .vl-sub {
-    padding-bottom: 1.4rem;
+    padding-bottom: var(--space-5);
     border-bottom: 1px solid var(--ink);
     font-family: var(--serif);
-    font-size: clamp(1.3rem, 1.9vw, 1.75rem);
+    font-size: var(--t-h3);
     font-weight: 300;
     letter-spacing: 0.06em;
     color: var(--ink);
   }
   /* one slow row, bleeding off both edges */
   .vl-view {
-    margin: 0.4rem calc(-1 * var(--gx)) 0;
+    margin: var(--space-2) calc(-1 * var(--gx)) 0;
     overflow: hidden;
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
     mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
@@ -1534,13 +1534,13 @@ const endX = 0.965;
     display: flex;
     align-items: flex-start;
     width: max-content;
-    padding-block: 2.6rem 1rem;
+    padding-block: var(--space-7) var(--space-4);
   }
   .vl figure {
     flex: none;
     width: 25rem;
     margin: 0;
-    padding: 0.2rem 2.6rem 0.4rem;
+    padding: var(--space-1) var(--space-7) var(--space-2);
     border-left: 1px solid var(--hair);
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -1565,20 +1565,20 @@ const endX = 0.965;
     .vl-track { padding-inline: var(--gx); }
     .vl figure { scroll-snap-align: start; }
     .vl figure[aria-hidden='true'] { display: none; }
-    .vl { padding-bottom: 4.5rem; }
+    .vl { padding-bottom: var(--space-8); }
     /* a card is narrower than the screen, so the next one shows at the right edge: the cue that the row goes on */
-    .wp .vl figure { width: min(82vw, 23rem); padding: 0.2rem 1.5rem 0.4rem 1.3rem; }
+    .wp .vl figure { width: min(82vw, 23rem); padding: var(--space-1) var(--space-5) var(--space-2) var(--space-5); }
     .wp .vl figure:first-child { padding-left: 0; border-left: 0; }
     .wp .vl-view { -webkit-mask-image: linear-gradient(90deg, #000 0, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, #000 0, #000 88%, transparent 100%); }
     .wp .vl-count {
       display: flex;
       align-items: baseline;
       gap: 0.35em;
-      margin-top: 0.6rem;
+      margin-top: var(--space-2);
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: var(--t-label);
       letter-spacing: 0.14em;
-      color: rgba(36, 27, 24, 0.55);
+      color: color-mix(in srgb, var(--ink) 55%, transparent);
     }
     .wp .vl-count b { font-weight: 500; color: var(--ink); }
     .wp .vl-count span { margin-left: auto; font-family: inherit; letter-spacing: 0.08em; }
@@ -1586,7 +1586,7 @@ const endX = 0.965;
   .vl blockquote {
     margin: 0;
     font-family: var(--serif);
-    font-size: 1.0625rem;
+    font-size: var(--t-body);
     line-height: 1.95;
     letter-spacing: 0.02em;
     text-indent: -0.5em;
@@ -1595,8 +1595,8 @@ const endX = 0.965;
   .vl figcaption {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
-    margin-top: 1.3rem;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
     text-align: left; /* the shared stylesheet centres captions; the name then sat to the right of the line under it */
   }
   .vl figcaption img {
@@ -1612,21 +1612,21 @@ const endX = 0.965;
     font-style: normal; /* the shared stylesheet slants quotes and captions */
   }
   .vl figcaption b {
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     font-weight: 600;
     letter-spacing: 0.06em;
     color: var(--ink);
   }
   .vl figcaption i {
     font-style: normal;
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     letter-spacing: 0.04em;
     color: var(--muted);
   }
 
   /* ============ 6 the six hours ============ */
   .dy {
-    padding-block: 5.5rem 4.5rem;
+    padding-block: var(--space-8) var(--space-8);
     background: var(--paper-2);
     overflow: hidden;
   }
@@ -1634,14 +1634,14 @@ const endX = 0.965;
   .dy .dy-pre {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: 3.4rem 0 0;
+    margin: var(--space-7) 0 0;
     padding: 0;
     list-style: none;
     border-top: 1px solid var(--ink);
     border-bottom: 1px solid var(--hair);
   }
   .dy .dy-pre li {
-    padding: 2.2rem 2.4rem 2.6rem;
+    padding: var(--space-6) var(--space-6) var(--space-7);
     border-right: 1px solid var(--hair);
   }
   .dy .dy-pre li:first-child {
@@ -1654,59 +1654,59 @@ const endX = 0.965;
   .dy .dy-pre .k {
     display: block;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.2em;
     color: var(--terra);
   }
   .dy .dy-pre h3 {
-    margin-top: 1.1rem;
+    margin-top: var(--space-4);
     font-family: var(--serif);
-    font-size: clamp(1.3rem, 1.9vw, 1.75rem);
+    font-size: var(--t-h3);
     font-weight: 600;
     line-height: 1.45;
     letter-spacing: 0.02em;
     color: var(--ink);
   }
   .dy .dy-pre p {
-    margin-top: 0.8rem;
-    font-size: 1rem;
+    margin-top: var(--space-3);
+    font-size: var(--t-body);
     line-height: 1.95;
     color: var(--muted);
   }
   .dy .dy-k2 {
-    margin-top: 4rem;
+    margin-top: var(--space-8);
   }
   @media (max-width: 900px) {
     .dy .dy-pre { grid-template-columns: 1fr; }
-    .dy .dy-pre li, .dy .dy-pre li:first-child, .dy .dy-pre li:last-child { padding: 1.7rem 0 1.9rem; border-right: 0; border-bottom: 1px solid var(--hair); }
+    .dy .dy-pre li, .dy .dy-pre li:first-child, .dy .dy-pre li:last-child { padding: var(--space-5) 0 var(--space-6); border-right: 0; border-bottom: 1px solid var(--hair); }
   }
   .dy-hd {
     display: grid;
     grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.7fr);
-    gap: 5vw;
+    gap: var(--space-gap);
     align-items: end;
   }
   .dy h2 {
-    margin-top: 1.6rem;
+    margin-top: var(--space-5);
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.9vw, 4.7rem);
+    font-size: var(--t-hero);
     font-weight: 300;
     line-height: 1.3;
     letter-spacing: 0.04em;
     color: var(--ink);
   }
   .dy-sub {
-    padding-top: 1.4rem;
-    padding-bottom: 0.9rem;
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-4);
     border-top: 1px solid var(--ink);
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 2;
     color: var(--ink);
   }
   .dy-stage {
     position: relative;
     height: calc(var(--h) * 1px);
-    margin-top: 2.5rem;
+    margin-top: var(--space-7);
   }
   .dy-stage > svg {
     position: absolute;
@@ -1735,7 +1735,7 @@ const endX = 0.965;
   .dy-stage li {
     position: absolute;
     width: 12.6%;
-    padding-top: 1.4rem;
+    padding-top: var(--space-5);
   }
   .dy-stage li > i,
   .dy-lunch i {
@@ -1750,15 +1750,15 @@ const endX = 0.965;
   .dy-stage .k {
     display: block;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
     color: var(--terra);
   }
   .dy-stage .t {
     display: block;
-    margin-top: 0.7rem;
+    margin-top: var(--space-3);
     font-family: var(--serif);
-    font-size: clamp(1.3rem, 1.9vw, 1.8rem); /* 「Vibe coding」 must fit inside one station's width */
+    font-size: var(--t-h3); /* 「Vibe coding」 must fit inside one station's width */
     font-weight: 300;
     line-height: 1.15;
     letter-spacing: 0.03em;
@@ -1766,26 +1766,26 @@ const endX = 0.965;
     color: var(--ink);
   }
   .dy-stage h3 {
-    margin-top: 0.7rem;
+    margin-top: var(--space-3);
     font-family: inherit;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     font-weight: 400;
     line-height: 1.7;
     letter-spacing: 0.02em;
     color: var(--muted);
   }
   .dy-stage li p {
-    margin-top: 0.6rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-2);
+    font-size: var(--t-small);
     line-height: 1.85;
     color: var(--muted);
   }
   .dy-stage .dy-lunch { /* two classes: the page-wide "p { margin: 0 }" would otherwise win */
     position: absolute;
-    margin-top: -2.1rem; /* the label sits above the line, clear of the blocks hanging below it */
-    padding: 0 0 0 0.9rem;
+    margin-top: calc(-1 * var(--space-6)); /* the label sits above the line, clear of the blocks hanging below it */
+    padding: 0 0 0 var(--space-4);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
     white-space: nowrap;
     color: var(--muted);
@@ -1798,7 +1798,7 @@ const endX = 0.965;
     background: var(--muted);
   }
   .dy-stage .dy-end {
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
     color: var(--ink);
   }
   .dy-end svg {
@@ -1815,7 +1815,7 @@ const endX = 0.965;
 
   /* ============ 7 the method ============ */
   .me {
-    --line: rgba(246, 241, 232, 0.22);
+    --line: color-mix(in srgb, var(--cream) 22%, transparent);
     /* where the pole star sits in this section, and how wide the picture is drawn */
     --sx: 72vw;
     --sy: 23vw;
@@ -1823,7 +1823,7 @@ const endX = 0.965;
     position: relative;
     overflow: hidden;
     min-height: 58vw;
-    padding-block: 8rem 7.5rem;
+    padding-block: var(--space-9) var(--space-9);
     background: var(--night);
     color: var(--cream);
   }
@@ -1860,18 +1860,18 @@ const endX = 0.965;
   }
   .me-sky circle {
     fill: none;
-    stroke: rgba(246, 241, 232, 0.42);
+    stroke: color-mix(in srgb, var(--cream) 42%, transparent);
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }
   .me-sky .lb {
     position: absolute;
-    padding-left: 34px;
+    padding-left: var(--space-6);
     white-space: nowrap;
     font-family: var(--mono);
-    font-size: 0.625rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.22em;
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
   .me-sky .lb::before {
     content: '';
@@ -1880,13 +1880,13 @@ const endX = 0.965;
     top: 0.6em;
     width: 26px;
     height: 1px;
-    background: rgba(246, 241, 232, 0.55);
+    background: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .me-sky .lb b {
     display: block;
     margin-bottom: 0.35em;
     font-family: var(--serif);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     font-weight: 400;
     letter-spacing: 0.3em;
     color: var(--cream);
@@ -1899,12 +1899,12 @@ const endX = 0.965;
     max-width: 34rem;
   }
   .me .kick {
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .me h2 {
-    margin-top: 1.8rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2.1rem, 4.4vw, 4.2rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.34;
     letter-spacing: 0.04em;
@@ -1912,56 +1912,56 @@ const endX = 0.965;
     color: var(--cream);
   }
   .me-org {
-    margin-top: 2.4rem;
-    font-size: 1rem;
+    margin-top: var(--space-6);
+    font-size: var(--t-body);
     line-height: 2;
-    color: rgba(246, 241, 232, 0.78);
+    color: color-mix(in srgb, var(--cream) 78%, transparent);
   }
   .me dl {
-    margin: 2.8rem 0 0;
+    margin: var(--space-7) 0 0;
     border-top: 1px solid var(--line);
   }
   .me dl div {
     display: grid;
     grid-template-columns: 4.5rem 1fr;
-    gap: 1rem;
+    gap: var(--space-4);
     align-items: baseline;
-    padding: 1rem 0;
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--line);
   }
   .me dt {
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     font-weight: 600;
     letter-spacing: 0.2em;
     color: var(--cream);
   }
   .me dd {
     margin: 0;
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     line-height: 1.8;
-    color: rgba(246, 241, 232, 0.8);
+    color: color-mix(in srgb, var(--cream) 80%, transparent);
   }
   .me-more {
     display: inline-block;
-    margin-top: 2.4rem;
-    padding-bottom: 0.3rem;
+    margin-top: var(--space-6);
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--dawn);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
     color: var(--dawn) !important;
   }
 
   /* ============ 8 who / faq ============ */
   .wq {
-    padding-block: 2rem 3rem;
+    padding-block: var(--space-6) var(--space-7);
   }
   .wq-row {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
-    gap: 6vw;
+    gap: var(--gx);
     align-items: start;
-    padding-block: 5.5rem 4.5rem;
+    padding-block: var(--space-8) var(--space-8);
   }
   /* who: the heading runs across, the five situations sit under it as a field — three, then two wider */
   .wq-row.who {
@@ -1970,23 +1970,23 @@ const endX = 0.965;
   .wq-row.who header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
-    gap: 5vw;
+    gap: var(--space-gap);
     align-items: end;
   }
   .wq-row.who .wq-sub {
     margin-top: 0;
-    padding-top: 1.1rem;
+    padding-top: var(--space-4);
     border-top: 1px solid var(--ink);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
   }
   .wq-row.who .wq-who {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    margin-top: 3.4rem;
+    margin-top: var(--space-7);
   }
   .wq-row.who .wq-who li {
     grid-column: span 2;
-    padding: 2.2rem 2.4rem 2.5rem;
+    padding: var(--space-6) var(--space-6) var(--space-7);
     border-right: 1px solid var(--hair);
   }
   .wq-row.who .wq-who li:nth-child(n + 4) {
@@ -2011,18 +2011,18 @@ const endX = 0.965;
     border-top: 1px solid var(--hair);
   }
   .wq h2 {
-    margin-top: 1.6rem;
+    margin-top: var(--space-5);
     font-family: var(--serif);
-    font-size: clamp(2rem, 3.9vw, 3.7rem);
+    font-size: var(--t-h1);
     font-weight: 300;
     line-height: 1.34;
     letter-spacing: 0.04em;
     color: var(--ink);
   }
   .wq-sub {
-    margin-top: 1.8rem;
+    margin-top: var(--space-6);
     max-width: 26rem;
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 2;
     color: var(--muted);
   }
@@ -2034,20 +2034,20 @@ const endX = 0.965;
     border-top: 1px solid var(--ink);
   }
   .wq-who li {
-    padding: 1.7rem 0 1.8rem;
+    padding: var(--space-5) 0 var(--space-6);
     border-bottom: 1px solid var(--hair);
   }
   .wq-who h3 {
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    font-size: var(--t-h4);
     font-weight: 600;
     line-height: 1.5;
     letter-spacing: 0.02em;
     color: var(--ink);
   }
   .wq-who p {
-    margin-top: 0.5rem;
-    font-size: 0.9375rem;
+    margin-top: var(--space-2);
+    font-size: var(--t-ui);
     line-height: 1.9;
     color: var(--muted);
   }
@@ -2058,12 +2058,12 @@ const endX = 0.965;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2rem;
-    padding: 1.5rem 0;
+    gap: var(--space-6);
+    padding: var(--space-5) 0;
     list-style: none;
     cursor: pointer;
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    font-size: var(--t-h4);
     font-weight: 600;
     line-height: 1.5;
     letter-spacing: 0.02em;
@@ -2077,7 +2077,7 @@ const endX = 0.965;
     content: '＋';
     flex: none;
     font-family: var(--mono);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     font-weight: 400;
     color: var(--terra);
   }
@@ -2089,32 +2089,32 @@ const endX = 0.965;
   }
   .wq-faq details p {
     max-width: 38rem;
-    padding-bottom: 1.1rem;
-    font-size: 1rem;
+    padding-bottom: var(--space-4);
+    font-size: var(--t-body);
     line-height: 2;
     color: var(--text);
   }
   .wq-faq details p:last-child {
-    padding-bottom: 1.9rem;
+    padding-bottom: var(--space-6);
   }
 
   /* ============ 9 instructor / fee / form ============ */
   .su {
     display: grid;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 6vw;
+    gap: var(--gx);
     align-items: start;
-    padding-block: 7.5rem 8rem;
+    padding-block: var(--space-9) var(--space-9);
     background: var(--paper-2);
   }
   .su .k2 {
-    margin-top: 4.5rem;
+    margin-top: var(--space-8);
   }
   .su-me {
     display: flex;
     align-items: center;
-    gap: 1.6rem;
-    margin-top: 2rem;
+    gap: var(--space-5);
+    margin-top: var(--space-6);
   }
   .su-me img {
     width: 104px;
@@ -2124,7 +2124,7 @@ const endX = 0.965;
   }
   .su-me h3 {
     font-family: var(--serif);
-    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    font-size: var(--t-h2);
     font-weight: 300;
     line-height: 1.2;
     letter-spacing: 0.08em;
@@ -2133,23 +2133,23 @@ const endX = 0.965;
   .su-me h3 span {
     margin-left: 0.9em;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.2em;
     color: var(--faint);
   }
   .su-me .id {
-    margin-top: 0.7rem;
-    font-size: 0.9375rem;
+    margin-top: var(--space-3);
+    font-size: var(--t-ui);
     letter-spacing: 0.06em;
     color: var(--muted);
   }
   .wp a.su-cert {
     display: flex;
     align-items: center;
-    gap: 1.1rem;
+    gap: var(--space-4);
     width: fit-content;
-    margin-top: 1.7rem;
-    padding: 0.8rem 1.4rem 0.8rem 0.9rem;
+    margin-top: var(--space-5);
+    padding: var(--space-3) var(--space-5) var(--space-3) var(--space-4);
     border: 1px solid var(--hair);
     border-radius: 3px;
     background: var(--paper);
@@ -2168,16 +2168,16 @@ const endX = 0.965;
   .su-cert b {
     display: block;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     font-weight: 400;
     letter-spacing: 0.12em;
     color: var(--ink);
   }
   .su-cert i {
     display: block;
-    margin-top: 0.35rem;
+    margin-top: var(--space-1);
     font-style: normal;
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     letter-spacing: 0.06em;
     color: var(--muted);
   }
@@ -2193,75 +2193,75 @@ const endX = 0.965;
     color: var(--terra);
   }
   .su .su-bio {
-    margin-top: 1.6rem;
+    margin-top: var(--space-5);
     max-width: 32rem;
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 2;
     color: var(--text);
   }
   .su-run {
-    margin-top: 0.8rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-3);
+    font-size: var(--t-small);
     letter-spacing: 0.04em;
     color: var(--muted);
   }
   .su-about {
     display: inline-block;
-    margin-top: 1.4rem;
-    padding-bottom: 0.25rem;
+    margin-top: var(--space-5);
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--terra);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
   }
   .su-facts {
-    margin: 1.6rem 0 0;
+    margin: var(--space-5) 0 0;
     border-top: 1px solid var(--ink);
   }
   .su-facts div {
     display: grid;
     grid-template-columns: 6.5rem 1fr;
-    gap: 1rem;
+    gap: var(--space-4);
     align-items: baseline;
-    padding: 1rem 0;
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--hair);
   }
   .su-facts dt {
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.18em;
     color: var(--faint);
   }
   .su-facts dd {
     margin: 0;
     font-family: var(--serif);
-    font-size: 1.0625rem;
+    font-size: var(--t-body);
     letter-spacing: 0.02em;
     color: var(--ink);
   }
   .su-facts small {
     display: block;
-    margin-top: 0.2rem;
+    margin-top: var(--space-1);
     font-family: inherit;
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     letter-spacing: 0.02em;
     color: var(--muted);
   }
   .su-fee {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 2.2rem;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
   }
   .su-fee .k {
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.18em;
     color: var(--faint);
   }
   .su-fee .v {
-    margin-top: 0.6rem;
+    margin-top: var(--space-2);
     font-family: var(--serif);
-    font-size: clamp(2.4rem, 4.2vw, 4rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.05;
     color: var(--ink);
@@ -2269,22 +2269,22 @@ const endX = 0.965;
   .su-fee .v i {
     margin-left: 0.4em;
     font-style: normal;
-    font-size: 1rem;
+    font-size: var(--t-body);
     letter-spacing: 0.2em;
     color: var(--muted);
   }
   .su-note {
-    margin-top: 1.2rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-4);
+    font-size: var(--t-small);
     color: var(--muted);
   }
   .su-rf-row {
-    margin-top: 1.1rem;
-    font-size: 0.8125rem;
+    margin-top: var(--space-4);
+    font-size: var(--t-caption);
   }
   .su-rf {
     margin-left: 0;
-    padding: 0 0 0.15rem;
+    padding: 0 0 2px;
     border: 0;
     border-bottom: 1px solid var(--hair);
     background: none;
@@ -2297,11 +2297,11 @@ const endX = 0.965;
     border-color: var(--terra);
   }
   .su-half {
-    margin-top: 2.4rem;
-    padding-top: 1.4rem;
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
     max-width: 32rem;
     border-top: 1px solid var(--hair);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     line-height: 1.95;
     color: var(--muted);
   }
@@ -2315,27 +2315,27 @@ const endX = 0.965;
   }
   /* the form: on paper, lines instead of boxes */
   .su-f {
-    padding: 3rem 3.2rem 3.2rem;
+    padding: var(--space-7) var(--space-7) var(--space-7);
     background: var(--paper);
     border: 1px solid var(--hair);
     border-radius: 3px;
   }
   .su-f h2 {
     font-family: var(--serif);
-    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    font-size: var(--t-h2);
     font-weight: 300;
     letter-spacing: 0.06em;
     color: var(--ink);
   }
   .su-f-sub {
-    margin-top: 0.6rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-2);
+    font-size: var(--t-small);
     color: var(--muted);
   }
   .su-f label {
     display: block;
-    margin-top: 1.7rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-5);
+    font-size: var(--t-small);
     letter-spacing: 0.04em;
     color: var(--ink);
   }
@@ -2347,14 +2347,14 @@ const endX = 0.965;
   .su-f :is(input, select, textarea) {
     display: block;
     width: 100%;
-    margin-top: 0.4rem;
-    padding: 0.55rem 0;
+    margin-top: var(--space-2);
+    padding: var(--space-2) 0;
     border: 0;
     border-bottom: 1px solid var(--ink);
     border-radius: 0;
     background: transparent;
     font: inherit;
-    font-size: 1rem;
+    font-size: var(--t-body);
     color: var(--ink);
     outline: none;
   }
@@ -2368,49 +2368,49 @@ const endX = 0.965;
   /* phone: the longest example line was cut off at the field's edge. Only the grey example shrinks; what the reader types stays 16px+ */
   @media (max-width: 640px) {
     .su-f input[name='role']::placeholder {
-      font-size: 0.75rem;
+      font-size: var(--t-label);
       letter-spacing: 0;
     }
   }
   .su-f small {
     display: block;
-    margin-top: 0.4rem;
-    font-size: 0.75rem;
+    margin-top: var(--space-2);
+    font-size: var(--t-label);
     color: var(--muted);
   }
   .su-f .two {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: var(--space-6);
   }
   .su-sum {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-top: 1.2rem;
-    padding: 0.9rem 1.1rem;
+    margin-top: var(--space-4);
+    padding: var(--space-4) var(--space-4);
     background: var(--paper-2);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     color: var(--muted);
   }
   .su-sum b {
     font-family: var(--serif);
-    font-size: 1.25rem;
+    font-size: var(--t-lead);
     font-weight: 600;
     color: var(--ink);
   }
   .su-grp {
-    margin-top: 2.6rem;
-    padding-bottom: 0.6rem;
+    margin-top: var(--space-7);
+    padding-bottom: var(--space-2);
     border-bottom: 1px solid var(--hair);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.18em;
     color: var(--faint);
   }
   #companions-wrapper {
-    margin-top: 2.2rem;
-    padding-top: 1.6rem;
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
     border-top: 1px solid var(--hair);
   }
   #companions-count-hint {
@@ -2427,12 +2427,12 @@ const endX = 0.965;
     border: 1px solid currentColor;
     border-radius: 999px;
     font-family: var(--sans, inherit);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     font-weight: 500;
     line-height: 1.3;
     letter-spacing: 0.08em;
     color: var(--terra);
-    background: rgba(194, 91, 63, 0.07);
+    background: color-mix(in srgb, var(--terra) 7%, transparent);
     white-space: nowrap;
   }
   .seats-pill::before {
@@ -2443,14 +2443,14 @@ const endX = 0.965;
     background: currentColor;
   }
   .seats-pill.last {
-    color: #fff;
+    color: var(--cream);
     background: var(--terra);
     border-color: var(--terra);
   }
   .seats-pill.full {
-    color: var(--cream, #f6f1e8);
-    background: var(--ink, #241b18);
-    border-color: var(--ink, #241b18);
+    color: var(--cream, var(--cream));
+    background: var(--ink, var(--ink));
+    border-color: var(--ink, var(--ink));
   }
   @media (prefers-reduced-motion: no-preference) {
     .seats-pill.last::before { animation: seats-pulse 1.6s ease-in-out infinite; }
@@ -2464,7 +2464,7 @@ const endX = 0.965;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem 1rem;
+    gap: var(--space-2) var(--space-4);
   }
   .su-f-head h2 {
     margin: 0;
@@ -2473,16 +2473,16 @@ const endX = 0.965;
     margin: 0;
   }
   .su-f-head + .su-f-sub {
-    margin-top: 0.9rem;
+    margin-top: var(--space-4);
   }
   .su-avail {
-    margin-top: 2rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-6);
+    font-size: var(--t-small);
     text-align: center;
     color: var(--terra);
   }
   .su-avail + .su-go {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
   .wp .su-avail a,
   .wp .su-err a {
@@ -2490,11 +2490,11 @@ const endX = 0.965;
     border-bottom: 1px solid currentColor;
   }
   .su-err {
-    margin-top: 1.2rem;
-    padding: 0.9rem 1.1rem;
+    margin-top: var(--space-4);
+    padding: var(--space-4) var(--space-4);
     border-left: 2px solid var(--terra);
     background: var(--paper-2);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     line-height: 1.8;
     color: var(--ink);
   }
@@ -2507,8 +2507,8 @@ const endX = 0.965;
     justify-content: space-between;
     align-items: baseline;
     width: 100%;
-    margin-top: 2.6rem;
-    padding: 1.2rem 1.6rem;
+    margin-top: var(--space-7);
+    padding: var(--space-4) var(--space-5);
     border: 0;
     border-radius: 2px;
     background: var(--ink);
@@ -2519,13 +2519,13 @@ const endX = 0.965;
   }
   .su-go span {
     font-family: var(--serif);
-    font-size: 1.375rem;
+    font-size: var(--t-h4);
     font-weight: 300;
     letter-spacing: 0.12em;
   }
   .su-go b {
     font-weight: 300;
-    font-size: 1.375rem;
+    font-size: var(--t-h4);
     transition: transform 0.25s;
   }
   .su-go:hover {
@@ -2535,55 +2535,55 @@ const endX = 0.965;
     transform: translateX(6px);
   }
   .su-after {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
     text-align: center;
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     color: var(--muted);
   }
   .rf {
     width: min(92vw, 34rem);
-    padding: 2.4rem 2.6rem 2.2rem;
+    padding: var(--space-6) var(--space-7) var(--space-6);
     border: 0;
     border-radius: 4px;
-    background: #fbf9f5;
-    color: #2b211c;
+    background: var(--paper);
+    color: var(--text);
   }
   .rf::backdrop {
-    background: rgba(13, 11, 9, 0.7);
+    background: color-mix(in srgb, var(--night) 70%, transparent);
   }
   .rf h3 {
     font-family: Newsreader, 'Noto Serif TC', Georgia, serif;
-    font-size: 1.5rem;
+    font-size: var(--t-h4);
     font-weight: 600;
     letter-spacing: 0.04em;
   }
   .rf p {
-    margin: 1.2rem 0 0;
-    font-size: 0.9375rem;
+    margin: var(--space-4) 0 0;
+    font-size: var(--t-ui);
     line-height: 2;
-    color: #2b211c;
+    color: var(--text);
   }
   .rf button {
-    margin-top: 1.8rem;
-    padding: 0.2rem 0;
+    margin-top: var(--space-6);
+    padding: var(--space-1) 0;
     border: 0;
-    border-bottom: 1px solid #c25b3f;
+    border-bottom: 1px solid var(--terra);
     background: none;
     font: inherit;
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     cursor: pointer;
   }
 
   /* ============ 10 ways out, by night (same as the home page's ending) ============ */
   .co {
-    --line: rgba(246, 241, 232, 0.22);
+    --line: color-mix(in srgb, var(--cream) 22%, transparent);
     position: relative;
     overflow: hidden;
     display: grid;
     align-content: center;
     min-height: 92svh;
-    padding-block: 8rem 10rem;
-    background: #14100e;
+    padding-block: var(--space-9) var(--space-10);
+    background: var(--night-2);
     color: var(--cream);
   }
   .co-sky {
@@ -2603,36 +2603,36 @@ const endX = 0.965;
     max-width: 46rem;
   }
   .co .kick {
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .co h2 {
-    margin-top: 2.2rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2rem, 3.8vw, 3.6rem);
+    font-size: var(--t-h1);
     font-weight: 300;
     line-height: 1.4;
     letter-spacing: 0.04em;
     color: var(--cream);
   }
   .co-sub {
-    margin-top: 1.8rem;
+    margin-top: var(--space-6);
     max-width: 34rem;
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-size: var(--t-body);
     line-height: 1.95;
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
   .nl-f {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 3rem;
+    gap: var(--space-7);
     width: min(34rem, 100%);
-    margin-top: 3rem;
-    padding: 1.1rem 0;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.7);
-    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
-    color: rgba(246, 241, 232, 0.5);
+    margin-top: var(--space-7);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 70%, transparent);
+    font-size: var(--t-lead);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .nl-f em {
     font-style: normal;
@@ -2644,16 +2644,16 @@ const endX = 0.965;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2.5rem;
+    gap: var(--space-7);
     width: min(40rem, 100%);
-    margin-top: 2.8rem;
-    padding: 1.1rem 0;
+    margin-top: var(--space-7);
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--dawn);
     color: var(--dawn);
   }
   .co-go span {
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+    font-size: var(--t-h4);
     font-weight: 300;
     line-height: 1.5;
     letter-spacing: 0.05em;
@@ -2661,22 +2661,22 @@ const endX = 0.965;
   .co-go b {
     flex: none;
     font-weight: 300;
-    font-size: 1.4rem;
+    font-size: var(--t-h4);
     transition: transform 0.3s;
   }
   .co-go:hover b {
     transform: translateX(6px);
   }
   .co .co-back {
-    margin-top: 1.5rem;
-    font-size: 0.9375rem;
+    margin-top: var(--space-5);
+    font-size: var(--t-ui);
     line-height: 1.9;
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .co-way {
     list-style: none;
-    margin: 5rem 0 0;
+    margin: var(--space-8) 0 0;
     padding: 0;
     width: min(34rem, 100%);
     border-top: 1px solid var(--line);
@@ -2685,17 +2685,17 @@ const endX = 0.965;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2rem;
-    padding: 0.95rem 0;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--line);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.06em;
   }
   .co-way span {
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .co-way a {
-    color: rgba(246, 241, 232, 0.9);
+    color: color-mix(in srgb, var(--cream) 90%, transparent);
     transition: color 0.2s;
   }
   .co-way a:hover {
@@ -2709,15 +2709,15 @@ const endX = 0.965;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: var(--space-2) var(--space-6);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .co-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .co-foot a {
     transition: color 0.2s;
@@ -2731,14 +2731,14 @@ const endX = 0.965;
     width: min(94vw, 1500px);
     max-width: none;
     max-height: 94vh;
-    padding: 1rem 1rem 0.9rem;
+    padding: var(--space-4) var(--space-4) var(--space-4);
     border: 0;
     border-radius: 4px;
-    background: #fbf9f5;
+    background: var(--paper);
     cursor: zoom-out;
   }
   .zm::backdrop {
-    background: rgba(13, 11, 9, 0.84);
+    background: color-mix(in srgb, var(--night) 84%, transparent);
   }
   .zm img {
     display: block;
@@ -2748,43 +2748,43 @@ const endX = 0.965;
   }
   .zm p {
     display: inline-block;
-    margin: 0.8rem 0 0;
-    font-size: 0.8125rem;
+    margin: var(--space-3) 0 0;
+    font-size: var(--t-caption);
     letter-spacing: 0.04em;
-    color: #71655c;
+    color: var(--muted);
   }
   .zm button {
     float: right;
-    margin-top: 0.6rem;
-    padding: 0.2rem 0;
+    margin-top: var(--space-2);
+    padding: var(--space-1) 0;
     border: 0;
-    border-bottom: 1px solid #c25b3f;
+    border-bottom: 1px solid var(--terra);
     background: none;
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     letter-spacing: 0.08em;
-    color: #241b18;
+    color: var(--ink);
     cursor: pointer;
   }
 
   /* Phone: not designed yet — keep it readable only */
   @media (max-width: 900px) {
     .st, .tri, .duo, .duo.rev, .rm-hd { grid-template-columns: 1fr; }
-    .wq-row { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 4rem; }
-    .wq-row.who header { grid-template-columns: 1fr; gap: 1.8rem; }
-    .wq-row.who .wq-who { display: block; margin-top: 2.5rem; }
-    .wq-row.who .wq-who li, .wq-row.who .wq-who li:nth-child(n) { padding: 1.7rem 0 1.8rem; border-right: 0; }
+    .wq-row { grid-template-columns: 1fr; gap: var(--space-7); padding-block: var(--space-8); }
+    .wq-row.who header { grid-template-columns: 1fr; gap: var(--space-6); }
+    .wq-row.who .wq-who { display: block; margin-top: var(--space-7); }
+    .wq-row.who .wq-who li, .wq-row.who .wq-who li:nth-child(n) { padding: var(--space-5) 0 var(--space-6); border-right: 0; }
     .su { grid-template-columns: 1fr; }
-    .su-f { padding: 2rem 1.5rem; }
+    .su-f { padding: var(--space-6) var(--space-5); }
     .su-f .two { grid-template-columns: 1fr; gap: 0; }
     .me { min-height: 0; }
     .me-sky svg, .me-sky .lb { display: none; }
     .me-sky img { opacity: 0.35; }
     .me h2 { white-space: normal; }
-    .vl figure { width: 19rem; padding-inline: 1.6rem; }
+    .vl figure { width: 19rem; padding-inline: var(--space-5); }
     .dy-hd { grid-template-columns: 1fr; }
     .dy-stage { height: auto; }
     .dy-stage > svg, .dy-lunch, .dy-stage li > i { display: none; }
-    .dy-stage li { position: static; width: auto; padding: 1.6rem 0; border-top: 1px solid var(--hair); }
+    .dy-stage li { position: static; width: auto; padding: var(--space-5) 0; border-top: 1px solid var(--hair); }
     .rm-grid { grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-auto-rows: 14rem; }
     .rm-grid > * { grid-column: auto !important; grid-row: auto !important; }
     .rm-grid .a, .rm-grid .b { grid-column: 1 / -1 !important; }
@@ -2794,14 +2794,14 @@ const endX = 0.965;
     .op-bar { grid-template-columns: 1fr 1fr; }
     .op-bar .fig, .op-bar .fig:first-child { padding-left: var(--gx); }
     .op-bar .go { grid-column: 1 / -1; padding-left: var(--gx); }
-    .tri article, .tri article:first-child, .tri article:last-child { padding: 2.2rem 0; border-right: 0; border-bottom: 1px solid var(--hair); }
+    .tri article, .tri article:first-child, .tri article:last-child { padding: var(--space-6) 0; border-right: 0; border-bottom: 1px solid var(--hair); }
     .duo.rev .dx { order: 2; }
   }
 </style>
 
 <style is:global>
   /* the page ends at night; the shared footer is replaced by one line inside .co (as on the home page). */
-  body:has(.wp .op-sky) footer.bg-cream-200 { /* the site footer only — the quote in section 5 has a <footer> of its own */
+  body:has(.wp .op-sky) footer.site-foot { /* the site footer only — the quote in section 5 has a <footer> of its own */
     display: none;
   }
   /* let the shared header sit on the night cover (same trick as the home page). */
@@ -2812,28 +2812,28 @@ const endX = 0.965;
   /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
      Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
   body:has(.wp .op-sky) header.sticky[data-scrolled] {
-    background: rgba(13, 11, 9, 0.94) !important;
+    background: color-mix(in srgb, var(--night) 94%, transparent) !important;
   }
   /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
   body:has(.wp .op-sky) #mobile-menu {
-    background: #0d0b09 !important;
+    background: var(--night) !important;
   }
   body:has(.wp .op-sky) #mobile-menu a.border-b {
-    border-color: rgba(246, 241, 232, 0.16) !important;
+    border-color: color-mix(in srgb, var(--cream) 16%, transparent) !important;
   }
   body:has(.wp .op-sky) header a {
-    color: rgba(246, 241, 232, 0.88) !important;
+    color: color-mix(in srgb, var(--cream) 88%, transparent) !important;
   }
   body:has(.wp .op-sky) header a[href*='newsletter'] {
-    background: rgba(246, 241, 232, 0.14) !important;
+    background: color-mix(in srgb, var(--cream) 14%, transparent) !important;
   }
   body:has(.wp .op-sky) header a[data-pill='invite'] {
-    border-color: rgba(246, 241, 232, 0.5) !important;
+    border-color: color-mix(in srgb, var(--cream) 50%, transparent) !important;
   }
   body:has(.wp .op-sky) header a:has(img[src*='logo']) {
     visibility: hidden;
   }
   body:has(.wp .op-sky) header svg {
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
 </style>

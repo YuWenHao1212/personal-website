@@ -264,7 +264,7 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     align-items: center;
     gap: 0.8em;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
     color: var(--muted);
   }
@@ -279,7 +279,7 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   .ab .op {
     min-height: 88svh;
     display: grid;
-    margin-top: -6rem; /* slide under the header, as the home cover does */
+    margin-top: calc(-1 * var(--space-9)); /* slide under the header, as the home cover does */
     padding: 0;
     background: var(--night);
     color: var(--cream);
@@ -288,7 +288,7 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     position: relative;
     display: grid;
     align-content: end;
-    padding: 10rem var(--gx) 5.5rem;
+    padding: var(--space-10) var(--gx) var(--space-8);
     overflow: hidden;
   }
   .op-sky picture img {
@@ -303,22 +303,22 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgba(13, 11, 9, 0.72) 0%, rgba(13, 11, 9, 0.36) 48%, rgba(13, 11, 9, 0) 76%),
-      linear-gradient(180deg, rgba(13, 11, 9, 0.55) 0%, rgba(13, 11, 9, 0) 26%),
-      linear-gradient(0deg, rgba(13, 11, 9, 0.6) 0%, rgba(13, 11, 9, 0) 34%);
+      linear-gradient(90deg, color-mix(in srgb, var(--night) 72%, transparent) 0%, color-mix(in srgb, var(--night) 36%, transparent) 48%, transparent 76%),
+      linear-gradient(180deg, color-mix(in srgb, var(--night) 55%, transparent) 0%, transparent 26%),
+      linear-gradient(0deg, color-mix(in srgb, var(--night) 60%, transparent) 0%, transparent 34%);
   }
   .op-txt {
     position: relative;
     max-width: 60rem;
   }
   .ab .op .kick {
-    color: rgba(246, 241, 232, 0.66);
+    color: color-mix(in srgb, var(--cream) 66%, transparent);
   }
   .op-who {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    margin-top: 2.2rem;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
   }
   .op-who img {
     flex: none;
@@ -326,11 +326,11 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     height: 116px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid rgba(246, 241, 232, 0.35);
+    border: 1px solid color-mix(in srgb, var(--cream) 35%, transparent);
   }
   .op h1 {
     font-family: var(--serif);
-    font-size: clamp(3.4rem, 7.6vw, 7.2rem);
+    font-size: clamp(3.4rem, 7.6vw, 7.2rem); /* ds-local: this page's own oversized line */
     font-weight: 300;
     line-height: 1.1;
     letter-spacing: 0.1em;
@@ -338,21 +338,21 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   }
   .op h1 span {
     display: block;
-    margin-top: 0.9rem;
+    margin-top: var(--space-4);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.3em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .ab a.op-ver {
     display: inline-block;
-    margin-top: 0.9rem;
+    margin-top: var(--space-4);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.6);
-    border-bottom: 1px solid rgba(246, 241, 232, 0.25);
-    padding-bottom: 0.2rem;
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 25%, transparent);
+    padding-bottom: var(--space-1);
     transition: color 0.2s, border-color 0.2s;
   }
   .ab a.op-ver i {
@@ -365,15 +365,15 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     border-bottom-color: var(--dawn);
   }
   .ab .op .idl {
-    margin-top: 2.6rem;
-    font-size: 0.9375rem;
+    margin-top: var(--space-7);
+    font-size: var(--t-ui);
     letter-spacing: 0.1em;
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
   .ab .op .lead {
-    margin-top: 1.1rem;
+    margin-top: var(--space-4);
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 1.75vw, 1.6rem);
+    font-size: var(--t-h4);
     text-wrap: balance;
     font-weight: 300;
     line-height: 1.75;
@@ -384,48 +384,48 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   .st {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 17rem;
-    gap: 7vw;
+    gap: var(--gx);
     align-items: start;
-    padding-block: 6.5rem 7rem;
+    padding-block: var(--space-9) var(--space-9);
   }
   .st-main {
     max-width: 44rem;
   }
   .st h2 {
-    margin-top: 1.6rem;
+    margin-top: var(--space-5);
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.6vw, 4.4rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.3;
     letter-spacing: 0.05em;
     color: var(--ink);
   }
   .st-tx {
-    margin-top: 3rem;
+    margin-top: var(--space-7);
   }
   .ab .st-tx p {
-    margin-top: 1.5rem;
-    font-size: 1.0625rem;
+    margin-top: var(--space-5);
+    font-size: var(--t-body);
     line-height: 2.15;
     letter-spacing: 0.03em;
     color: var(--text);
   }
   /* the three before / now pairs: one group, each with a hairline to its left */
   .ab .st-tx p.ex {
-    margin-top: 1.1rem;
-    padding-left: 1.2rem;
+    margin-top: var(--space-4);
+    padding-left: var(--space-4);
     border-left: 1px solid var(--hair);
   }
   .ab .st-tx p.ex + p:not(.ex):not(.pull) {
-    margin-top: 2rem;
+    margin-top: var(--space-6);
   }
   .ab .st-tx p.pull {
-    margin-top: 3.4rem;
-    margin-bottom: 2.2rem;
-    padding-left: 1.4rem;
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-6);
+    padding-left: var(--space-5);
     border-left: 2px solid var(--terra);
     font-family: var(--serif);
-    font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+    font-size: var(--t-h2);
     font-weight: 300;
     line-height: 1.5;
     letter-spacing: 0.05em;
@@ -442,30 +442,30 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   .st-side {
     position: sticky;
     top: 3rem;
-    padding-top: 0.2rem;
+    padding-top: var(--space-1);
   }
   .st-side ul {
     list-style: none;
-    margin: 1.4rem 0 0;
+    margin: var(--space-5) 0 0;
     padding: 0;
     border-top: 1px solid var(--ink);
   }
   .st-side li {
-    padding: 1.15rem 0 1.25rem;
+    padding: var(--space-4) 0 var(--space-5);
     border-bottom: 1px solid var(--hair);
   }
   .st-side .k {
     display: block;
     font-family: var(--mono);
-    font-size: 0.625rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.24em;
     color: var(--terra);
   }
   .st-side b {
     display: block;
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     font-weight: 600;
     line-height: 1.5;
     letter-spacing: 0.03em;
@@ -473,15 +473,15 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   }
   .st-side .n {
     display: block;
-    margin-top: 0.2rem;
-    font-size: 0.8125rem;
+    margin-top: var(--space-1);
+    font-size: var(--t-caption);
     line-height: 1.7;
     color: var(--muted);
   }
   .ab .st-side a {
     display: inline-block;
-    margin-top: 0.35rem;
-    font-size: 0.8125rem;
+    margin-top: var(--space-1);
+    font-size: var(--t-caption);
     color: var(--terra);
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s;
@@ -492,9 +492,9 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   .st-side li.cert {
     display: grid;
     grid-template-columns: 5.25rem minmax(0, 1fr);
-    gap: 1.2rem;
+    gap: var(--space-4);
     align-items: center;
-    padding: 1.4rem 0 1.5rem;
+    padding: var(--space-5) 0 var(--space-5);
   }
   .ab .st-side a.bdg {
     display: block;
@@ -517,66 +517,66 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     .st-main { display: contents; }
     .st-main > .kick { order: 1; }
     .st-main > h2 { order: 2; }
-    .st-side { order: 3; position: static; margin-top: 2.8rem; }
+    .st-side { order: 3; position: static; margin-top: var(--space-7); }
     .st-main > .st-tx { order: 4; }
     /* five facts in two columns, so the story's first line is not a whole screen below its heading */
-    .st-side ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; }
-    .st-side b { font-size: 1rem; }
+    .st-side ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
+    .st-side b { font-size: var(--t-body); }
     /* the certificate takes the full width; the other four make two rows of two */
     .st-side li.cert { grid-column: 1 / -1; grid-template-columns: 4.5rem minmax(0, 1fr); }
   }
   /* ============ 3 what he believes ============ */
   .bl {
-    padding-block: 7rem 7.5rem;
+    padding-block: var(--space-9) var(--space-9);
     background: var(--paper-2);
   }
   .bl-in {
     display: grid;
     grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    gap: 6vw;
+    gap: var(--gx);
     align-items: end;
-    margin-top: 2rem;
+    margin-top: var(--space-6);
   }
   .bl h2 {
     font-family: var(--serif);
-    font-size: clamp(2.4rem, 5.6vw, 5.4rem);
+    font-size: clamp(2.4rem, 5.6vw, 5.4rem); /* ds-local: this page's own oversized line */
     font-weight: 300;
     line-height: 1.32;
     letter-spacing: 0.05em;
     color: var(--ink);
   }
   .bl-tx {
-    padding-top: 1.4rem;
-    padding-bottom: 0.8rem;
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-3);
     border-top: 1px solid var(--ink);
   }
   .bl-tx p {
-    font-size: 1rem;
+    font-size: var(--t-body);
     line-height: 2.05;
     letter-spacing: 0.03em;
     color: var(--text);
   }
   .ab .bl-tx a {
     display: inline-block;
-    margin-top: 1.4rem;
-    padding-bottom: 0.2rem;
-    font-size: 0.9375rem;
+    margin-top: var(--space-5);
+    padding-bottom: var(--space-1);
+    font-size: var(--t-ui);
     color: var(--terra);
     border-bottom: 1px solid var(--terra);
   }
   @media (max-width: 900px) {
-    .bl-in { grid-template-columns: 1fr; gap: 2.5rem; }
+    .bl-in { grid-template-columns: 1fr; gap: var(--space-7); }
   }
   /* ============ 4 ending, by night (same build as the home page's ending) ============ */
   .co {
-    --line: rgba(246, 241, 232, 0.22);
+    --line: color-mix(in srgb, var(--cream) 22%, transparent);
     position: relative;
     overflow: hidden;
     display: grid;
     align-content: center;
     min-height: 92svh;
-    padding-block: 7rem 9rem;
-    background: #14100e;
+    padding-block: var(--space-9) var(--space-10);
+    background: var(--night-2);
     color: var(--cream);
   }
   .co-sky {
@@ -596,12 +596,12 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     max-width: 50rem;
   }
   .ab .co .kick {
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .co h2 {
-    margin-top: 2.2rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2rem, 3.8vw, 3.6rem);
+    font-size: var(--t-h1);
     font-weight: 300;
     line-height: 1.4;
     letter-spacing: 0.04em;
@@ -609,9 +609,9 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   }
   .co-rd {
     list-style: none;
-    margin: 2.8rem 0 0;
+    margin: var(--space-7) 0 0;
     padding: 0;
-    border-top: 1px solid rgba(246, 241, 232, 0.55);
+    border-top: 1px solid color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .co-rd li {
     border-bottom: 1px solid var(--line);
@@ -619,20 +619,20 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   .ab .co-rd a {
     display: grid;
     grid-template-columns: 12rem minmax(0, 1fr) auto;
-    gap: 1.5rem;
+    gap: var(--space-5);
     align-items: baseline;
-    padding: 1.25rem 0 1.3rem;
+    padding: var(--space-5) 0 var(--space-5);
     color: var(--cream);
     transition: color 0.2s;
   }
   .co-rd .k {
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.06em;
-    color: rgba(246, 241, 232, 0.55);
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .co-rd .t {
     font-family: var(--serif);
-    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-size: var(--t-h4);
     font-weight: 300;
     line-height: 1.55;
     letter-spacing: 0.04em;
@@ -649,7 +649,7 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   }
   .co-way {
     list-style: none;
-    margin: 4.5rem 0 0;
+    margin: var(--space-8) 0 0;
     padding: 0;
     width: min(34rem, 100%);
     border-top: 1px solid var(--line);
@@ -658,17 +658,17 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2rem;
-    padding: 0.95rem 0;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--line);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.06em;
   }
   .co-way span {
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .ab .co-way a {
-    color: rgba(246, 241, 232, 0.9);
+    color: color-mix(in srgb, var(--cream) 90%, transparent);
     transition: color 0.2s;
   }
   .ab .co-way a:hover {
@@ -682,15 +682,15 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: var(--space-2) var(--space-6);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .co-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .ab .co-foot a:hover {
     color: var(--dawn);
@@ -703,9 +703,9 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   .ab .nb { white-space: nowrap; }
   @media (max-width: 640px) {
     /* phone: the two paper sections' paddings added up to half a screen of nothing between them */
-    .bl { padding-block: 4.5rem; }
-    .st { padding-block: 4.5rem 5rem; }
-    .op-who { gap: 1.2rem; }
+    .bl { padding-block: var(--space-8); }
+    .st { padding-block: var(--space-8) var(--space-8); }
+    .op-who { gap: var(--space-4); }
     .op-who img { width: 76px; height: 76px; }
     .ab .op .lead br { display: none; }
   }
@@ -713,7 +713,7 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
 
 <style is:global>
   /* the page ends at night; the shared footer is replaced by one line inside .co. */
-  body:has(.ab .op-sky) footer.bg-cream-200 {
+  body:has(.ab .op-sky) footer.site-foot {
     display: none;
   }
   /* let the shared header sit on the night cover (same trick as the home page). */
@@ -724,28 +724,28 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
      Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
   body:has(.ab .op-sky) header.sticky[data-scrolled] {
-    background: rgba(13, 11, 9, 0.94) !important;
+    background: color-mix(in srgb, var(--night) 94%, transparent) !important;
   }
   /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
   body:has(.ab .op-sky) #mobile-menu {
-    background: #0d0b09 !important;
+    background: var(--night) !important;
   }
   body:has(.ab .op-sky) #mobile-menu a.border-b {
-    border-color: rgba(246, 241, 232, 0.16) !important;
+    border-color: color-mix(in srgb, var(--cream) 16%, transparent) !important;
   }
   body:has(.ab .op-sky) header a {
-    color: rgba(246, 241, 232, 0.88) !important;
+    color: color-mix(in srgb, var(--cream) 88%, transparent) !important;
   }
   body:has(.ab .op-sky) header a[href*='newsletter'] {
-    background: rgba(246, 241, 232, 0.14) !important;
+    background: color-mix(in srgb, var(--cream) 14%, transparent) !important;
   }
   body:has(.ab .op-sky) header a[data-pill='invite'] {
-    border-color: rgba(246, 241, 232, 0.5) !important;
+    border-color: color-mix(in srgb, var(--cream) 50%, transparent) !important;
   }
   body:has(.ab .op-sky) header a:has(img[src*='logo']) {
     visibility: hidden;
   }
   body:has(.ab .op-sky) header svg {
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
 </style>
