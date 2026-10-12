@@ -1,0 +1,35 @@
+/*
+ * Site tokens: the one place the colours and the shared faces are defined.
+ * Every page that uses the current look reads these (home, about, workshop, contact,
+ * blog index, article and product layouts). Until 10/12 each page carried its own copy.
+ *
+ * Page-local values stay in the page: --line (hairline on dark bands, two strengths),
+ * the article faces (--ar-*) and layout maths (--p, --w, --sx, --sy).
+ * The older Tailwind palette (cream / ink / accent in tailwind.config.mjs) is still used
+ * by the install, setup, admin and NeatToolkit pages; it is not defined here.
+ */
+:root {
+  /* surfaces */
+  --paper: #fbf9f5;
+  --paper-2: #f4efe7;
+  --night: #0d0b09;
+  --cream: #f6f1e8;
+
+  /* text */
+  --ink: #241b18;
+  --text: #2b211c;
+  --muted: #71655c;
+  --faint: #a99a8d;
+
+  /* lines and accents */
+  --hair: #e2d8c9;
+  --terra: #c25b3f;
+  --dawn: #de9070;
+
+  /* faces */
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
+
+  /* page gutter */
+  --gx: max(6vw, 1.5rem);
+}
