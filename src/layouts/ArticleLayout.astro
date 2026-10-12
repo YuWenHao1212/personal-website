@@ -486,7 +486,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   }
   .ar-kick {
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
     color: var(--terra);
   }
@@ -500,7 +500,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     display: block;
     padding: 0.42rem 0 0.42rem 0.9rem;
     border-left: 1px solid var(--hair);
-    font-size: 0.8125rem;
+    font-size: var(--t-caption);
     line-height: 1.6;
     letter-spacing: 0.04em;
     color: var(--muted);
@@ -511,13 +511,13 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     margin-right: 0.8em;
     font-family: var(--mono);
     font-style: normal;
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.06em;
     color: var(--terra);
   }
   .ar-toc li.lv3 a {
     padding-left: 1.9rem;
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     color: var(--faint);
   }
   .ar .ar-toc li a:hover {
@@ -558,7 +558,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     gap: 0.4rem 1.8rem;
     margin-top: 1.6rem;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.12em;
     color: var(--faint);
   }
@@ -595,7 +595,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     max-width: none; /* 10/10: the same right edge as the text above */
   }
   .ar-faq {
-    margin-top: 4.5rem;
+    margin-top: var(--space-8);
     padding-top: 2.2rem;
     border-top: 1.5px solid var(--ink);
   }
@@ -607,7 +607,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar-faq h2 {
     margin: 0;
     font-family: var(--serif);
-    font-size: clamp(1.5rem, 2.1vw, 1.9rem);
+    font-size: var(--t-h3);
     font-weight: 400;
     letter-spacing: 0.04em;
     color: var(--ink);
@@ -618,7 +618,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   }
   .ar-faq dt {
     font-family: var(--serif);
-    font-size: 1.1875rem;
+    font-size: var(--t-lead);
     font-weight: 500;
     line-height: 1.7;
     letter-spacing: 0.03em;
@@ -627,7 +627,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar-faq dd {
     margin-top: 0.7rem;
     font-family: var(--serif);
-    font-size: 1.0625rem;
+    font-size: var(--t-body);
     line-height: 2;
     letter-spacing: 0.03em;
     color: var(--muted);
@@ -635,10 +635,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar .ar-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 1.4rem;
-    margin-top: 3rem;
+    gap: var(--space-2) 1.4rem;
+    margin-top: var(--space-7);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.06em;
     color: var(--faint);
   }
@@ -647,7 +647,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     grid-template-columns: 5.5rem minmax(0, 1fr);
     gap: 1.8rem;
     align-items: start;
-    margin-top: 4.5rem;
+    margin-top: var(--space-8);
     padding-top: 2.2rem;
     border-top: 1.5px solid var(--ink);
   }
@@ -665,14 +665,14 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     color: var(--ink);
   }
   .ar-author .n span {
-    margin-left: 1rem;
-    font-size: 0.875rem;
+    margin-left: var(--space-4);
+    font-size: var(--t-small);
     letter-spacing: 0.04em;
     color: var(--muted);
   }
   .ar-author .b {
     margin-top: 0.7rem;
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     line-height: 1.95;
     letter-spacing: 0.04em;
     color: var(--muted);
@@ -680,7 +680,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar .ar-author a {
     display: inline-block;
     margin-top: 0.9rem;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.1em;
     color: var(--terra);
   }
@@ -688,13 +688,13 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     color: var(--ink);
   }
   .ar-rel {
-    margin-top: 4.5rem;
+    margin-top: var(--space-8);
   }
   .ar .ar-lab {
     padding-bottom: 0.9rem;
     border-bottom: 1px solid var(--hair);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
     color: var(--muted);
   }
@@ -729,7 +729,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     flex-wrap: wrap;
     gap: 0.2rem 1.2rem;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.14em;
     color: var(--faint);
   }
@@ -738,9 +738,9 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   }
   .ar-rel .t {
     display: block;
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
     font-family: var(--serif);
-    font-size: 1.1875rem;
+    font-size: var(--t-lead);
     line-height: 1.55;
     letter-spacing: 0.03em;
     color: var(--ink);
@@ -752,7 +752,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar a.ar-back {
     display: inline-block;
     margin-top: 3.5rem;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.14em;
     color: var(--muted);
   }
@@ -796,7 +796,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   }
   .ar-nl .k {
     grid-column: 1 / -1;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.08em;
     color: rgba(246, 241, 232, 0.55);
   }
@@ -826,10 +826,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 2rem;
+    gap: var(--space-6);
     padding: 0.95rem 0;
     border-bottom: 1px solid var(--line);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.06em;
   }
   .ar-way span {
@@ -850,9 +850,9 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: 0.6rem var(--space-6);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
     color: rgba(246, 241, 232, 0.5);
   }
@@ -928,7 +928,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   @media (max-width: 1023px) {
     .ar-grid {
       grid-template-columns: minmax(0, 1fr);
-      padding-top: 2rem;
+      padding-top: var(--space-6);
     }
     .ar-grid > *,
     .ar-grid > .ar-rail {
@@ -954,24 +954,24 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     .ar-toc-m summary {
       padding: 0.95rem 0;
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: var(--t-label);
       letter-spacing: 0.14em;
       color: var(--muted);
       cursor: pointer;
     }
     .ar-toc-m ol {
-      padding-bottom: 1rem;
+      padding-bottom: var(--space-4);
     }
     .ar-toc-m li a {
       display: block;
       padding: 0.45rem 0;
-      font-size: 0.9375rem;
+      font-size: var(--t-ui);
       line-height: 1.6;
       color: var(--text);
     }
     .ar-toc-m li.lv3 a {
       padding-left: 1.1rem;
-      font-size: 0.875rem;
+      font-size: var(--t-small);
       color: var(--muted);
     }
   }
@@ -1010,10 +1010,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
       display: none;
     }
     .ar-rel .t {
-      font-size: 1.0625rem;
+      font-size: var(--t-body);
     }
     .ar-end {
-      padding: 4.5rem var(--gx) 8rem;
+      padding: var(--space-8) var(--gx) 8rem;
     }
   }
 </style>

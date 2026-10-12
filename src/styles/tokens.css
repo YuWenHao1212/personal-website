@@ -1,12 +1,22 @@
 /*
- * Site tokens: the one place the colours and the shared faces are defined.
- * Every page that uses the current look reads these (home, about, workshop, contact,
- * blog index, article and product layouts). Until 10/12 each page carried its own copy.
+ * Site tokens: the one place the colours, type sizes, spacing, weights and shared faces are defined.
+ * New pages and new articles use these and nothing else (rules: docs/DESIGN.md; checked before every
+ * build by scripts/check-tokens.mjs).
+ *
+ * History: until 10/12 each page carried its own copy of the colours. The type and spacing scales were
+ * added the same day, drawn from what the pages already used (421 font sizes in 89 spellings, 778 spacing
+ * values in 83). The pages that existed then were not moved onto the scales; they are listed in
+ * scripts/check-tokens-exempt.json and keep their own values until one of them is reworked.
+ *
+ * Names follow the Confluence design system (vault: efforts/areas/confluence-brand/design-system/tokens.css)
+ * where the values are close enough to share later: colours, --t-display … --t-h4, --t-body, --t-small,
+ * --t-label. Spacing is this site's own, so it is numbered (--space-1 …) and cannot collide with
+ * Confluence's --space-sm / --space-md.
  *
  * Page-local values stay in the page: --line (hairline on dark bands, two strengths),
  * the article faces (--ar-*) and layout maths (--p, --w, --sx, --sy).
  * The older Tailwind palette (cream / ink / accent in tailwind.config.mjs) is still used
- * by the install, setup, admin and NeatToolkit pages; it is not defined here.
+ * by the install, setup and admin pages; it is not defined here.
  */
 :root {
   /* surfaces */
@@ -30,6 +40,42 @@
   --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --serif: Newsreader, 'Noto Serif TC', Georgia, serif;
 
-  /* page gutter */
-  --gx: max(6vw, 1.5rem);
+  /* weights: 300 for large light titles, 600 for emphasis; 900 is the Chinese heading face (昭源宋體) only */
+  --w-light: 300;
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-strong: 600;
+  --w-heavy: 900;
+
+  /* type scale, 14 steps. clamp(phone, by width, desktop); the px in each note are phone → desktop. */
+  --t-hero: clamp(2.4rem, 5vw, 4.9rem); /* 38 → 72  the largest line on the home page */
+  --t-display: clamp(2.2rem, 4.4vw, 4.2rem); /* 35 → 63  the title at the top of a page */
+  --t-h1: clamp(2rem, 3.6vw, 3.5rem); /* 32 → 52  article title, section title */
+  --t-h2: clamp(1.7rem, 2.9vw, 2.6rem); /* 27 → 42  h2 inside an article */
+  --t-h3: clamp(1.5rem, 2.1vw, 1.9rem); /* 24 → 30  small section title, FAQ title */
+  --t-h4: clamp(1.25rem, 1.6vw, 1.4rem); /* 20 → 22  h3 inside an article, a title in a list */
+  --t-lead: 1.1875rem; /* 19  article dek, quotation, FAQ question */
+  --t-read: 1.125rem; /* 18  article text */
+  --t-body: 1.0625rem; /* 17  text on any other page, tables */
+  --t-ui: 0.9375rem; /* 15  buttons, table heads, summaries in a list */
+  --t-small: 0.875rem; /* 14  secondary text */
+  --t-caption: 0.8125rem; /* 13  contents list, numbering */
+  --t-label: 0.75rem; /* 12  kicker, byline, figure caption */
+  --t-micro: 0.6875rem; /* 11  dates, footer, the smallest labels */
+
+  /* spacing, 10 steps (this site's own; see the note at the top) */
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.5rem; /* 24 */
+  --space-6: 2rem; /* 32 */
+  --space-7: 3rem; /* 48 */
+  --space-8: 4.5rem; /* 72 */
+  --space-9: 7rem; /* 112 */
+  --space-10: 10rem; /* 160 */
+
+  /* the two spacings that follow the window */
+  --gx: max(6vw, 1.5rem); /* page gutter, left and right: 24 → 86 */
+  --space-section: clamp(5rem, 9vw, 8rem); /* above and below a section: 80 → 128 */
 }

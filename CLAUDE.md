@@ -29,6 +29,14 @@
 - 標題字體（昭源宋體）也是自己裁的，全站中文頁共用兩個檔：`public/fonts/head-900.woff2`、`head-700.woff2`。**改了中文頁面的標題文字、或文章的標題與小標，同樣要跑 `npm run fonts`**，檢查機制是同一個。
 - 做法與原因寫在 `scripts/article-font.mjs` 開頭。
 
+### Design System（2026-10-12 起）
+
+顏色、字級、間距、字重只在 `src/styles/tokens.css` 定義。**新頁面和新文章一律用那裡的變數**，不寫死色碼、字級、間距，不用 Tailwind 舊配色的樣式名。規則和各階的用途在 `docs/DESIGN.md`。
+
+- `npm run build` 前會自動跑 `scripts/check-tokens.mjs`，新檔案有寫死的值就建置失敗。
+- 被擋下來就改檔案。**不要把檔案加進 `scripts/check-tokens-exempt.json`**，那份清單只列 10/12 之前的舊檔，只能變短。
+- 文章的 Markdown 不放自己的 `<style>`。要新的版面元件，加在 `src/styles/reading.css`。
+
 ### 工作坊換梯（2026-10-12 起）
 
 - 梯次的日期、星期、城市、第幾班、開不開放報名，只住一個檔：`src/data/cohorts.ts`。**換梯只改這個檔**，檔頭有步驟。
