@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "postbuild": "npm run check:seo",
+    "postbuild": "node scripts/en-404.mjs && npm run check:seo",
     "check:seo": "node scripts/check-hreflang.js",
     "preview": "astro preview",
     "astro": "astro",

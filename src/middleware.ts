@@ -10,6 +10,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     pathname.startsWith('/api') ||
     pathname.startsWith('/admin') ||
     pathname.startsWith('/partner') ||
+    // The 404 page has no language prefix by design. Without this line the redirect at the bottom
+    // turned it into a "Redirecting to /zh-TW/404/" stub at build time, and that address does not
+    // exist either, so a visitor on a missing page was sent in a loop and never saw 404.astro.
+    pathname === '/404' ||
+    pathname === '/404/' ||
     pathname.match(/\.(css|js|svg|png|jpg|jpeg|webp|gif|ico|woff|woff2|ttf|eot)$/)
   ) {
     return next();
