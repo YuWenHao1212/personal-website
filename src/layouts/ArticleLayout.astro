@@ -15,6 +15,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import '../styles/reading.css';
 import coverVariants from '../data/cover-variants.json';
+import { CURRENT_COHORT } from '../data/cohorts';
 import { coverSet } from '../utils/cover';
 import { getRelatedPosts } from '../utils/relatedPosts';
 import { topicNamesFor, topicsOf } from '../i18n/topics';
@@ -32,6 +33,11 @@ const cover = heroImage ? (coverVariants as Record<string, { small: string; w: n
 const postTopics = topicsOf(post.data);
 const lang = post.data.lang;
 const en = lang === 'en';
+// 10/12, the author: the sentence in an article that points to the workshop says the current class's date and the seats
+// left without anyone editing the article. The date and city come from data/cohorts (the one file changed between classes);
+// the seats are asked of the bookings API when the page is read, by the same rule the workshop page uses. See the script at the end.
+const WS = { open: CURRENT_COHORT.status === 'open', date: CURRENT_COHORT.dateShort, city: CURRENT_COHORT.city, name: CURRENT_COHORT.name, weekday: CURRENT_COHORT.weekday ?? '', session: CURRENT_COHORT.sessionId ?? '' };
+const WS_API = import.meta.env.DEV ? 'http://localhost:8000' : 'https://api.yu-wenhao.com';
 const otherLang = en ? 'zh-TW' : 'en';
 const topicNames = topicNamesFor(lang);
 
@@ -43,7 +49,7 @@ const T = en
       name: 'WenHao Yu',
       mins: (n: number) => `${n} min read`,
       other: '中文版 →',
-      updated: 'Last updated: ',
+      updated: 'Updated ',
       faq: 'FAQ', // the heading the English articles already had
       // agreed with the author 10/9, word for word. "through consulting and training" was added the same day: he wants an AI asked
       // for an AI trainer (AI 講師) to find him in English too, and this sentence is the one every English article carries.
@@ -58,7 +64,7 @@ const T = en
       name: '余文皓',
       mins: (n: number) => `${n} 分鐘`,
       other: 'Read in English →',
-      updated: '最後更新：',
+      updated: '更新 ',
       faq: '常見問題',
       bio: '科技業二十年，Nokia、聯詠科技、友達光電，做過工程師、PM、事業單位主管的幕僚。現在是企業 AI 導入顧問、AI 講師，Claude 認證架構師，匯流顧問創辦人。',
       about: '關於我 →',
@@ -153,6 +159,9 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
         <p class="ar-by">
           <span>{T.by}<a href={`/${lang}/about/`} rel="author" data-umami-event="blog_click_author" data-umami-event-slug={slug}>{T.name}</a></span>
           <time datetime={pubDate.toISOString()}>{fmtDay(pubDate)}</time>
+          {/* 10/12, the author: an article that has been updated says so here, beside the day it was first published.
+              It used to be one small line after the text, where a reader deciding whether the article is current never saw it. */}
+          {updatedDate && <time datetime={updatedDate.toISOString()}>{T.updated}{fmtDay(updatedDate)}</time>}
           {readingTime && <span>{T.mins(readingTime)}</span>}
           {translated && <a class="en" href={`/${otherLang}/blog/${translated.id.split('/').pop()}/`} hreflang={otherLang}>{T.other}</a>}
         </p>
@@ -182,8 +191,6 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
       </div>
 
       <div class="ar-after">
-        {updatedDate && <p class="ar-upd">{T.updated}{fmtDay(updatedDate)}</p>}
-
         {faq && faq.length > 0 && (
           <section class="ar-faq">
             <h2>{T.faq}</h2>
@@ -296,6 +303,66 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     </button>
     <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl" src="" alt="" />
   </div>
+
+  {/* The workshop sentence (Chinese articles only). In the Markdown it is written as
+        <span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>
+      — that plain sentence is what search engines and a reader without scripts get, and what stays when no class is open.
+      Older articles keep their own sentence and carry only the status phrase: <span data-ws-status>實體工作坊</span>.
+      The link itself is never replaced (its click is recorded by scripts/track.ts); only the words around and inside it change.
+      Every phrase shown here is spelled out in this file on purpose: scripts/article-font.mjs reads this file to decide which
+      characters each article's font files hold. Cities a class may be held in, for the same reason: 台北 台中 高雄 新竹 台南。 */}
+  {!en && (
+    <script is:inline define:vars={{ WS, WS_API, IS_DEV: import.meta.env.DEV }}>
+      (function () {
+        if (!WS.open) return;
+        // 1. the full sentence (data-workshop-cta): words around and inside the link
+        const box = document.querySelector('[data-workshop-cta]');
+        const link = box && box.querySelector('a');
+        const pre = box && box.querySelector('[data-ws-pre]');
+        const post = box && box.querySelector('[data-ws-post]');
+        const sentence = !!(box && link && pre && post);
+        if (sentence) {
+          pre.textContent = '可以參考 ' + WS.date + ' 的';
+          link.textContent = WS.city + '實體工作坊';
+          post.textContent = '。';
+        }
+        // 2. the short status phrase (data-ws-status), used inside the older articles' workshop lines:
+        //    「10/24（六）台北第四班招生中」, the wording those lines had when typed by hand
+        const tags = document.querySelectorAll('[data-ws-status]');
+        const day = WS.date + (WS.weekday ? '（' + WS.weekday + '）' : '');
+        const klass = WS.city + WS.name;
+        tags.forEach((el) => (el.textContent = day + klass + '招生中'));
+        if (!sentence && !tags.length) return;
+        const show = (remaining) => {
+          if (typeof remaining !== 'number') return;
+          if (remaining <= 0) {
+            if (sentence) {
+              // 10/12, the author: a full class keeps the invitation and adds the news after it, so the tone does not break
+              pre.textContent = '可以參考我的';
+              link.textContent = '實體工作坊';
+              post.textContent = '。' + WS.date + ' 這一梯已額滿，下一梯的日期會公布在工作坊頁。';
+            }
+            tags.forEach((el) => (el.textContent = day + klass + '已額滿，下一梯日期見工作坊頁'));
+          } else if (remaining <= 5) {
+            const left = remaining === 1 ? '僅剩最後 1 個名額' : '僅剩 ' + remaining + ' 個名額';
+            if (sentence) post.textContent = '。目前' + left + '。';
+            tags.forEach((el) => (el.textContent = day + klass + '招生中，' + left));
+          }
+        };
+        // local preview only: ?seats=2 shows a state without the bookings API running
+        const test = IS_DEV ? new URLSearchParams(location.search).get('seats') : null;
+        if (test !== null) return show(parseInt(test, 10));
+        fetch(WS_API + '/api/workshop/availability')
+          .then((r) => r.json())
+          .then((j) => {
+            const d = j && j.data;
+            // a different class on the API than in data/cohorts means one of the two has not been switched yet: say nothing
+            if (d && (!WS.session || d.workshop_session_id === WS.session)) show(d.remaining);
+          })
+          .catch(() => {});
+      })();
+    </script>
+  )}
 
   <script>
     import { trackArticle } from '../scripts/track';
@@ -539,13 +606,6 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   }
   .ar:not([data-lang='en']) .ar-after {
     max-width: none; /* 10/10: the same right edge as the text above */
-  }
-  .ar .ar-upd {
-    margin-top: 3rem;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    color: var(--faint);
   }
   .ar-faq {
     margin-top: 4.5rem;
@@ -819,7 +879,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
 
   /* ---------- English: the Chinese settings are open (tall lines, wide tracking) because Chinese needs air; Latin text
      set that way falls apart. Same page, tighter type. ---------- */
-  .ar[data-lang='en'] :is(.ar-kick, .ar-lab, .ar-toc-m summary, .ar-rel .meta, .ar-upd) {
+  .ar[data-lang='en'] :is(.ar-kick, .ar-lab, .ar-toc-m summary, .ar-rel .meta) {
     text-transform: uppercase;
   }
   .ar[data-lang='en'] .ar-toc li a {

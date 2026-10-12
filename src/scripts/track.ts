@@ -93,6 +93,30 @@ export function trackArticle(opts: { body: string; end?: string }) {
     });
   });
 
+  // Copying a code block or a prompt (10/12, the author): the copy button is the code-block plugin's own; a reader who selects
+  // the text and copies it by hand counts too (how: 'select'). n / of: which block of how many, in reading order. nth: this
+  // reader's how-many-th copy on this page view — events are counts, not people, and nth = 1 is "page views with a copy".
+  const blocks = bodyEl ? Array.from(bodyEl.querySelectorAll<HTMLElement>('.expressive-code')) : [];
+  let nth = 0;
+  const copied = (i: number, how: string) => {
+    const el = blocks[i];
+    const pre = el.querySelector<HTMLElement>('pre');
+    let sec = '';
+    for (const h of heads) {
+      if (h.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) sec = (h.textContent || '').trim();
+      else break;
+    }
+    track('blog_copy_code', { ...base, n: i + 1, of: blocks.length, block: pre?.dataset.language || '', sec: sec.slice(0, 40), how, nth: ++nth });
+  };
+  blocks.forEach((el, i) => {
+    const btn = el.querySelector<HTMLButtonElement>('.copy button');
+    if (btn) {
+      if (lang.toLowerCase().startsWith('zh')) (btn.title = '複製'), (btn.dataset.copied = '已複製');
+      btn.addEventListener('click', () => copied(i, 'button'));
+    }
+    el.addEventListener('copy', () => copied(i, 'select'));
+  });
+
   // Read to the end: once per page view, when the end marker comes into view.
   const end = opts.end ? document.querySelector(opts.end) : null;
   if (end && 'IntersectionObserver' in window) {

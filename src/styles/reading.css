@@ -275,6 +275,19 @@
 .ar .ar-body .expressive-code {
   margin: 2rem 0;
 }
+/* 10/12: the copy button is always there, not only under a pointer — a reader on a phone, or one who never hovers, did not
+   know a prompt could be copied. The line keeps clear of it. */
+.ar .ar-body .expressive-code .copy button {
+  opacity: 0.85;
+}
+.ar .ar-body .expressive-code .copy button:hover,
+.ar .ar-body .expressive-code .copy button:focus-visible {
+  opacity: 1;
+}
+.ar .ar-body .expressive-code .ec-line .code {
+  padding-inline-end: 2.6rem;
+  box-sizing: border-box;
+}
 .ar .ar-body > pre {
   margin: 2rem 0;
   padding: 1.4rem 1.6rem;

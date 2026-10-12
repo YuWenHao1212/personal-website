@@ -29,6 +29,15 @@
 - 標題字體（昭源宋體）也是自己裁的，全站中文頁共用兩個檔：`public/fonts/head-900.woff2`、`head-700.woff2`。**改了中文頁面的標題文字、或文章的標題與小標，同樣要跑 `npm run fonts`**，檢查機制是同一個。
 - 做法與原因寫在 `scripts/article-font.mjs` 開頭。
 
+### 工作坊換梯（2026-10-12 起）
+
+- 梯次的日期、星期、城市、第幾班、開不開放報名，只住一個檔：`src/data/cohorts.ts`。**換梯只改這個檔**，檔頭有步驟。
+- 工作坊頁和中文文章裡指向工作坊的那一句，都讀這個檔。文章裡的寫法是 `<span data-ws-status>實體工作坊</span>`（舊文章的那一句）或 `<span data-workshop-cta>…</span>`（整句），由 `src/layouts/ArticleLayout.astro` 結尾的 script 在讀者開頁面時填字。標記裡的原文是沒有程式、搜尋引擎、沒有梯次招生時看到的字，所以不要在裡面寫日期。
+- 剩幾個名額不在這個 repo：讀者開頁面時問後端 `/api/workshop/availability`（personal-website-api）。5 個以下才顯示，額滿整句會換掉，後端沒回應就不顯示。文章和工作坊頁用同一個規則。
+- 新文章要放工作坊那一句，用上面的標記，不要手打日期和名額。
+- 本機預覽沒有後端，網址加 `?seats=2`（只在本機有效）可以看各種名額的樣子。
+- 改了 `cohorts.ts` 或 `ArticleLayout.astro` 之後一樣要跑 `npm run fonts`：字型檔會讀這兩個檔來決定要帶哪些字。
+
 ---
 
 ## Key Requirements
