@@ -382,8 +382,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     }
 
     // Every link in the text is recorded by kind (affiliate / another article / workshop / newsletter / Confluence / outbound),
-    // and reading to the author block counts as read to the end. See scripts/track.ts.
-    trackArticle({ body: '.ar-body', end: '.ar-author' });
+    // and reaching the end of the text counts as read to the end: the marker is the block right after the text, so an
+    // article with an FAQ is measured at the same point as one without (10/12; it was the author block, below the FAQ).
+    // See scripts/track.ts.
+    trackArticle({ body: '.ar-body', end: '.ar-after' });
 
     document.querySelectorAll('.ar-body img').forEach((img) => {
       const el = img as HTMLImageElement;
