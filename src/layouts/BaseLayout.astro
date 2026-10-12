@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SEO from '../components/SEO.astro';
 import '../styles/global.css';
+import '../styles/tokens.css';
 
 interface FaqItem {
   question: string;
@@ -147,7 +148,7 @@ const lang = getLangFromUrl(Astro.url);
     <!-- Skip Link for Accessibility -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--terra)] focus:text-white focus:rounded"
     >
       {lang === 'zh-TW' ? '跳到主要內容' : 'Skip to main content'}
     </a>
