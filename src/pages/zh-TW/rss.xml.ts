@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: '郝宇文 | Blog',
+    title: '余文皓 | Blog',
     description: '關於 AI、創業、生產力與人生的文章',
     site: context.site!,
     items: sortedPosts.map((post) => ({

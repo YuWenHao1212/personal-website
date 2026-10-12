@@ -15,6 +15,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     // exist either, so a visitor on a missing page was sent in a loop and never saw 404.astro.
     pathname === '/404' ||
     pathname === '/404/' ||
+    // llms.txt is one file for the whole site (built by pages/llms.txt.ts), so it has no language prefix either.
+    pathname === '/llms.txt' ||
     pathname.match(/\.(css|js|svg|png|jpg|jpeg|webp|gif|ico|woff|woff2|ttf|eot)$/)
   ) {
     return next();
