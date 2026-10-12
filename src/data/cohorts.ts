@@ -1,7 +1,10 @@
 // Workshop cohort facts — single source of truth (ISS-007 follow-up).
 //
-// 換梯 SOP：改這個檔（新增 cohort、把舊的 status 改掉、更新 PRICING_DEFAULTS），
-// 然後 grep 檢查散文段（行銷文案不吃這個檔，要手動改寫）：
+// 換梯 SOP：改這個檔（新增 cohort、把舊的 status 改掉、更新 PRICING_DEFAULTS）。
+// 2026-10-12 起，中文文章裡指向工作坊的那一句會自己跟著這個檔變（日期、星期、城市、第幾班），
+// 名額則是讀者開頁面時問後端。做法在 src/layouts/ArticleLayout.astro 結尾的 script，文章裡的寫法是
+// <span data-ws-status>實體工作坊</span> 或 <span data-workshop-cta>…</span>。所以換梯不用改那些文章。
+// 改完還是 grep 一次，抓還有沒有手打日期的散文段（頁面文案、沒接上標記的文章要手動改寫）：
 //   grep -rn "第四班\|10/24" src/pages src/content/blog
 //
 // Runtime pricing/名額的 SoT 是後端 /api/workshop/availability；

@@ -27,6 +27,7 @@ const check = process.argv.includes('--check');
 
 const ALWAYS = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~' + '，。、；：「」『』（）—…？！“”‘’–／　·・→←↑↓✓✕−';
 const layout = fs.readFileSync(path.join(ROOT, 'src/layouts/ArticleLayout.astro'), 'utf8');
+const WS_TEXT = fs.readFileSync(path.join(ROOT, 'src/data/cohorts.ts'), 'utf8') + '（）招生中，僅剩最後個名額已額滿下一梯日期見工作坊頁目前這可以參考的實體會公布在';
 const uniq = (s) => [...new Set([...s])].filter((c) => c.codePointAt(0) >= 0x20).sort().join('');
 // Semibold is used by bold text, table headings and first columns, figure labels and small headings — only those
 // pieces of the text are counted, so the semibold file stays small.
@@ -45,7 +46,10 @@ const boldText = (text) => {
 const want = {};
 for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f)).sort()) {
   const text = fs.readFileSync(path.join(POSTS, f), 'utf8');
-  want[f.replace(/\.mdx?$/, '')] = { r: uniq(text + layout + ALWAYS), b: uniq(boldText(text) + ALWAYS) };
+  // 10/12: an article that carries the workshop line (data-ws-status / data-workshop-cta) shows words the layout's script
+  // writes in at read time — the class's name and city from data/cohorts.ts and the seats phrases — some of them in bold.
+  const ws = /data-ws-status|data-workshop-cta/.test(text) ? WS_TEXT : '';
+  want[f.replace(/\.mdx?$/, '')] = { r: uniq(text + layout + ws + ALWAYS), b: uniq(boldText(text) + ws + ALWAYS) };
 }
 // the heading face: titles, the articles' own headings, and the Chinese page files
 const PAGES = ['src/pages/zh-TW/index.astro', 'src/pages/zh-TW/about.astro', 'src/pages/zh-TW/workshop.astro', 'src/pages/zh-TW/contact.astro', 'src/pages/zh-TW/thank-you.astro', 'src/pages/zh-TW/workshop/thanks.astro', 'src/components/BlogIndex.astro', 'src/layouts/ArticleLayout.astro', 'src/layouts/ProductLayout.astro', 'src/data/elsewhere.ts', 'src/i18n/topics.ts', ...fs.readdirSync(path.join(ROOT, 'src/pages/zh-TW/products')).map((f) => 'src/pages/zh-TW/products/' + f)];
