@@ -298,7 +298,7 @@ When you are done, find a moment to restart.
 
 ---
 
-## Next steps
+## Next steps: bring Claude Code into your work and life
 
 I wrote the first version of this guide early this year. Installing meant opening a terminal and pasting a command. Many people saw that black window and stopped there.
 

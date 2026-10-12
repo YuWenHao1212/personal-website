@@ -302,7 +302,7 @@ CLAUDE.md 可以放在兩種地方。放在某個資料夾裡，只有在那個�
 
 ---
 
-## 下一步
+## 下一步：把 Claude Code 帶進工作和生活
 
 這篇的第一版是今年年初寫的。那時候的安裝，是打開終端機，貼一行指令。很多人看到那個黑色視窗就停下來了。
 
@@ -315,7 +315,7 @@ CLAUDE.md 可以放在兩種地方。放在某個資料夾裡，只有在那個�
 - [先定方向，再建系統，最後才是工具](/zh-TW/blog/flux-direction-system-leverage/)
 - [我的 AI 工作流系統](/zh-TW/blog/personal-panopticon/)
 
-想把 Claude Code 帶進自己的工作和生活，讓它幫忙往想要的方向走，自己摸索也做得到，只是花時間。想用最有效率的方式走完這一段，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>
+讓它幫忙往想要的方向走，自己摸索也做得到，只是花時間。想用最有效率的方式走完這一段，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>
 
 ---
 
