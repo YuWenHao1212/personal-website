@@ -81,7 +81,9 @@ YNAB 完美的解決了傳統理財記帳的困難點，讓理財這件事能真
 
 "+ Category Group" 用來新增預算主類別，增加完預算主類別之後，滑鼠移動到各預算主類別時，會出現 "+" 號讓我們在此類別中增加預算科目。
 
-![建立預算動畫](/images/blog/ynab/create-budget.gif)
+<figure>
+<video src="/videos/blog/ynab-create-budget.mp4" poster="/images/blog/ynab/create-budget-poster.webp" width="800" height="500" autoplay muted loop playsinline controls preload="metadata" aria-label="建立預算動畫" style="display:block;max-width:100%;height:auto"></video>
+</figure>
 
 #### 六個罐子預算法
 
