@@ -1,7 +1,8 @@
 ---
 title: "How to Use Claude Code: From Setup to Your First Task"
-description: "Learn how to use Claude Code in 5 minutes. A beginner-friendly guide to setup, installation, and completing your first task. Let AI do the work—not just talk about it."
-pubDate: 2026-03-04
+description: "Learn how to use Claude Code in 5 minutes. A beginner-friendly guide to setup, installation, and your first task. Then give it a CLAUDE.md so it knows who you are."
+pubDate: 2026-01-28
+updatedDate: 2026-10-12
 category: building-products
 topics: ["ai-practice"]
 tags: ["how to use claude code", "claude code tutorial", "claude code setup"]
@@ -13,259 +14,299 @@ relatedPosts: ["claude-skills-guide.md", "lyt-framework-guide.md", "ai-second-br
 focus_keyphrase: "how to use claude code"
 ---
 
-You've used ChatGPT. You've used Claude.
+You have probably heard of Claude Code without being quite sure what it is.
 
-You know AI is powerful.
+I'll skip the explanation for now. This is what I typed into it:
 
-But every time you finish a conversation, you're still the one copying and pasting, organizing files, and executing the suggestions yourself.
+```text wrap
+My computer feels slow. Take a look for me: how much memory do I have in total, which programs are using the most of it right now, and which ones are safe to close? Also check how much disk space is left and what is taking up the most.
+```
 
-Why?
+It went and looked. It knew this machine is an M1 Max with 32 GB of memory. It knew Chrome was using at least 4.6 GB. It knew the disk is 995 GB with 521 GB free. It also found that Claude itself was using more than 7 GB, more than Chrome, and listed that too.
 
-Because these AIs are trapped in a browser—they can't touch your computer. All they can do is answer questions in a chat window.
+Then it answered: the machine was slow because memory was full, and because it had not been restarted in seventeen days.
 
-Claude Code is different.
+Ask the same thing of an AI that is not connected to my computer and it knows nothing about this machine. All it can offer is a general checklist: close unused tabs, clear temporary files, restart.
 
-It runs directly on your machine. It can read and write files, execute commands, and actually get things done.
-
-This guide shows you how to use Claude Code—from setup to your first task in 5 minutes.
+This guide shows you how to use Claude Code: how to install it and do this on your own computer, then how to make it remember who you are. It ends with an exercise: half an hour of having it tidy up your computer.
 
 ---
 
 ## What is Claude Code
 
-Claude Code is a command-line tool (CLI) from Anthropic that lets AI work directly on your computer.
+Claude Code is an AI that works inside your computer.
 
-The biggest difference from web-based Claude: the web version can only *talk*. Claude Code can *do*.
+In its early days it only ran in the terminal, the black window engineers type commands into. Now it is part of the Claude desktop app, and it is in VS Code too. Wherever you open it, it is the same Claude Code.
 
-You tell it what you want, and it reads files, runs commands, writes code, even deploys to the cloud. You just review and approve—no manual work required.
+Three things set it apart.
 
-This makes it perfect for:
-- **Batch processing**: Handle hundreds of files at once
-- **Automation**: Build systems that run automatically every day
-- **Building products**: Write code, set up databases, deploy to production—from scratch
+**It can see your computer.** The files on it, the software installed, what is running right now: it can look these up by itself. In the example above I never told it any specs. It found every number.
 
-In short, Claude Code turns AI from an "advisor" into a "doer."
+**It can act.** After it has looked, say "close those for me" and it closes them.
 
-## Claude Product Lineup
+**A second model keeps watch.** Reading and editing files inside the folder you give it, it just does. For things like running commands or reaching the internet, another model checks the action first and blocks the risky ones.
 
-Anthropic's Claude products, categorized by what they can do:
+### How it differs from regular Claude
 
-| Capability | Product | Description |
-|------------|---------|-------------|
-| Chat | Web / Desktop App | It sees what you paste |
-| Web browsing | Chrome Extension | Operates current webpage, fills forms |
-| Sandboxed execution | Desktop Cowork | A feature within Desktop App, runs commands in isolated environment |
-| Full local access | Claude Code | Access your entire computer, use your credentials to connect services |
+Open Claude, on the web at claude.ai or in the desktop app, and you will see two sides: Claude and Code.
 
-**Claude Code has two interfaces**:
-- **CLI** (Terminal)
-- **Desktop App's Code Tab** (GUI, same functionality as CLI)
+The Claude side is the one for everyday conversation. It used to be split into Chat and Cowork. They are now one.
 
-**Feature comparison**:
+Both sides can reach your computer, on the same condition: the Claude desktop app has to be installed on it. Claude on the web connects to your computer through that app. Click Code on the web and it asks you to install the app first.
 
-| | Web | Desktop App | Chrome Extension | Desktop Cowork | Claude Code |
-|---|--------|-------------|-----------------|----------------|-------------|
-| Environment | Browser | macOS/Win | Browser | Inside Desktop (sandbox) | CLI or Desktop Code Tab |
-| Access | What you paste | What you paste | Current webpage | Authorized folders | Entire computer |
-| Run commands | ❌ | ❌ | ❌ | ✅ (sandboxed) | ✅ |
-| Skills | ❌ | ❌ | ❌ | ✅ | ✅ |
-| MCP Integrations | ✅ | ✅ | ❌ | ✅ | ✅ |
-| Hooks | ❌ | ❌ | ❌ | ❌ | ✅ |
+I tried the opening question on both sides. Both could inspect this machine, and both took about five minutes. The difference is how.
 
-> **Sources** (verified 2026-03-04):
-> - [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code) — Claude Code features, Skills, MCP, Hooks
-> - [Cowork Docs](https://support.claude.com/en/articles/13345190-getting-started-with-cowork) (2026/01) — Cowork features, Skills
-> - [Claude Blog - Integrations](https://claude.com/blog/integrations) (2026/01) — Web supports MCP Integrations
-> - [First impressions of Claude Cowork](https://simonwillison.net/2026/Jan/12/claude-cowork/) - Simon Willison (2026/01/12) — Cowork runs commands in sandbox
+| | How it looked | What it was like |
+|---|---|---|
+| Claude | Operated my screen, reading one screenshot after another | Asked me before touching each program, four or five times |
+| Code (this is Claude Code) | Ran commands directly on my computer | Never stopped to ask. It answered when it was done |
 
-**Glossary**:
+Reading screenshots uses more of your plan than running commands. For the same job, the Claude side runs through your usage faster.
 
-- **Sandbox**: An isolated safe space—like a kid's sandbox. You can play however you want inside, but the sand doesn't get out. Desktop Cowork runs in a sandbox, so it can execute commands, but only within folders you've authorized. Safe, but limited.
+Code also found more. The Claude side told me memory was nearly full and which programs I could close. Code told me one more thing: this computer had not been restarted in seventeen days.
 
-- **Run commands**: Letting AI actually *do things* on your computer, not just *tell you* how. Web Claude will explain how to organize photos, but you still have to do it yourself. Tools that can run commands (Desktop Cowork, Claude Code) are different—you say "move screenshots to the Screenshots folder," and it actually does it. Batch renaming, image compression, auto-backups—all made possible by this capability.
+The rest of this guide uses Code.
 
-- **Skills**: Files that teach AI how you work. Could be SOPs (what to do in certain situations), workflows (do A then B), or best practices (articles should follow these guidelines). Once written, AI follows them. It's like documenting your expertise and preferences so AI becomes an assistant that truly "gets" you.
-
-- **MCP Integrations**: A standard protocol for connecting AI to other services. You've probably heard of APIs—every service has a different one, so connecting to ten services means writing ten different integrations. MCP is a unified standard, like USB-C. One interface connects to Slack, Google Drive, Notion, and more. For users, it means "AI can directly work with these services for you."
-
-- **Hooks**: Automatic checks before AI takes action. Like a motion sensor at your door—every time AI is about to do something, the hook checks first. You can set rules like "backup before deleting files" or "confirm with me before running commands." It's an advanced feature to make sure AI doesn't do anything you don't want.
-
-**Desktop Cowork vs Claude Code: Sandbox Limitations**
-
-Both Desktop Cowork and Claude Code can run commands, but Cowork runs in an isolated environment. It can browse the web, download files, install programs—but everything stays in the sandbox. Close it, and it's gone.
-
-| | Desktop Cowork (Sandbox) | Claude Code (Local) |
-|---|--------------------------|---------------------|
-| Organize files in authorized folders | ✅ | ✅ |
-| Browse web, download data | ✅ | ✅ |
-| Install software on your computer | ✅ (sandbox only, gone when closed) | ✅ (permanent) |
-| Push to GitHub with your SSH key | ❌ (no access to your credentials) | ✅ |
-| Connect services with your API keys | ❌ (no access to your credentials) | ✅ |
-| Modify system settings, env variables | ❌ | ✅ |
-
-**Bottom line**:
-- One-off tasks (organizing files, research, writing reports) → Desktop Cowork is enough
-- Persistent systems (daily automation, API integrations, deployment) → Use Claude Code
+The name says Code, but what it does is not limited to writing code.
 
 ---
 
-## When Do You Need Claude Code?
+## Set up and install Claude Code
 
-**Scenario 1: Process 500 photos with one command**
+One thing first: Claude Code needs a paid plan. A free account will not work. The Pro plan is $20 a month.
 
-You just got back from Japan with 500 photos, each 5MB.
+There are three ways to use Claude Code. All three give you the same Claude Code. The difference is where you talk to it from.
 
-You want to upload them to your blog, but they're too big. Pages load forever.
+- **The desktop app**: download, install, switch to Code inside it. Start here if you have never used a terminal.
+- **The terminal (CLI)**: open the terminal that comes with your computer, called Terminal on a Mac and PowerShell on Windows. Paste one command to install it, then type `claude` to start it.
+- **Inside VS Code**: VS Code is an editor many programmers use. If you already work in it, you can open Claude Code right there.
 
-Compress them one by one? Exhausting just thinking about it.
+This guide uses the desktop app.
 
-With Claude Code, one sentence:
+### With the desktop app
 
-"Compress all photos in this folder to under 500KB, keep the original filenames."
+1. Download the Claude desktop app from [claude.com/download](https://claude.com/download), install it, and sign in.
+2. At the top left there are two icons. The speech bubble is regular Claude. **</>** is Code. Click **</>**.
+3. Above the message box there are two buttons. On the first one, choose **Local**.
+4. The second one is the folder. It starts as "No folder". You can leave it that way and start right away. To set it, click it and pick an existing folder, or create a new one from there.
 
-It runs terminal commands (the stuff engineers type in that black window with white text), and finishes 500 photos in minutes.
+<figure>
+<img src="/images/blog/claude-code-tutorial-new-session-en.webp" alt="The Code side of the Claude desktop app: the two icons at the top left switch between Claude and Code, Local and No folder sit above the message box, and Auto mode is below it" loading="lazy" />
+<figcaption>Click the image to enlarge.</figcaption>
+</figure>
 
-Desktop Cowork can handle files too, but Claude Code can do more—like automatically upload the processed photos to the cloud, or write a script so you can do this with one click next time.
+Local means it runs on this computer. If you choose the cloud option, it works on a machine in the cloud and cannot touch your computer.
 
-**Scenario 2: Build an automated goal management system**
+I did every step in this guide without choosing a folder. One thing to know: when no folder is chosen, the files it creates go to a temporary place and disappear when the conversation is deleted. If you want it to create files you will keep, choose a folder when you start the conversation.
 
-This is a real example from my own life.
+That is the whole installation. No terminal, nothing else to install.
 
-I needed a system to pull together scattered information (Google Calendar, Tasks, emails) and push a summary to my phone every morning.
+Below the message box, on the left, there is a menu for the permission mode. It starts on **Auto**, and you can begin with that. If you want to see each step and approve each one yourself, switch to **Manual**.
 
-Web Claude could help me *plan* this system, but couldn't *build* it.
+### Other ways to install
 
-With Claude Code, I told it what I wanted, and it:
-- Wrote the API integration code
-- Set up automated scheduling
-- Deployed to the cloud, running every morning at 6:45
+If you already use VS Code, search for "Claude Code" in the Extensions panel and install it.
 
-Now every morning I wake up to a message telling me what I need to do today.
+<details>
+<summary>Prefer the terminal (CLI)? Open this for the commands</summary>
 
-Want to see how the full system works? Check out my other article: [How I Built an AI Second Brain](/en/blog/ai-second-brain/).
+If you want to type `claude` in a terminal, that is a separate install. The desktop app does not do it for you.
 
-**Scenario 3: Build products without knowing how to code**
+**Mac**
 
-You have an app idea.
-
-Before, you'd need to hire an engineer, outsource, or learn to code yourself.
-
-Now, you can use Claude Code.
-
-Tell it what you want, and it writes the code, sets up the database, deploys to production.
-
-I've done this myself.
-
-With Claude Code, I built my personal website in two days (yes, the one you're reading right now).
-
-I also built a <a href="/en/products/ai-resume-advisor/" target="_blank">SaaS product</a> and a <a href="/en/products/linkedin-resume-checker/" target="_blank">Chrome Extension</a>.
-
-This isn't the future. It's happening right now.
-
-**Which one do you need?**
-
-- Just want to ask questions, write copy → **Web / Desktop App**
-- Want AI to browse and fill forms → **Chrome Extension**
-- One-off tasks (organize files, research) → **Desktop Cowork**
-- Batch processing, API integrations, building products → **Claude Code** (CLI or Desktop Code Tab)
-
----
-
-## Setup (2 minutes)
-
-### Mac / Linux
-
-Open your terminal and paste this:
+1. Open Terminal, paste this line, and press Enter:
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-After installation, **close and reopen your terminal**.
+Nothing shows progress while it installs. Wait for it to finish.
 
-Here's the full walkthrough:
+2. When it is done, paste these two lines to set the path:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+3. **Close Terminal and open it again**, then type `claude --version`. If you see a version number, it is installed.
+4. Type `claude` and follow the prompts to sign in.
+
+Here is the full walkthrough:
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/Mv5vXylks8U" title="Claude Code Setup Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### Windows
+**Windows**
 
-Open PowerShell and install Git first:
-
-```powershell
-winget install --id Git.Git -e --source winget
-```
-
-After it finishes, **close and reopen PowerShell**, then install Claude Code:
+1. Open PowerShell, paste this whole block, and run it in one go:
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
+$claudePath = "$env:USERPROFILE\.local\bin"
+$currentPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+if ($currentPath -notlike "*$claudePath*") {
+  [Environment]::SetEnvironmentVariable("Path", "$currentPath;$claudePath", "User")
+}
 ```
 
-Again, **close and reopen PowerShell**.
+2. **Close PowerShell and open it again**, then type `claude --version`. If you see a version number, it is installed.
+3. Type `claude` and follow the prompts to sign in.
 
-> Windows walkthrough video coming soon.
+Once installed, the terminal version updates itself in the background. No manual upgrades.
 
-### Login & Pricing
-
-Type `claude` and log in with your Anthropic account.
-
-Claude Code requires a paid subscription (Pro plan starts at $20/month). Free accounts can't use it.
-
-Auto-updates run in the background—no manual upgrades needed.
-
-Once logged in, you're ready to go.
+</details>
 
 ---
 
-## Your First Task: Organize Scattered Screenshots
+## Your first task: ask why your computer is slow
 
-Your screenshots are probably scattered across Desktop, Downloads, and Documents. With Claude Code, one sentence gets it done.
+Paste the opening question into it:
 
-Type this in Claude Code:
-
-```
-Organize all my screenshots scattered across Desktop, Downloads, and Documents
+```text wrap
+My computer feels slow. Take a look for me: how much memory do I have in total, which programs are using the most of it right now, and which ones are safe to close? Also check how much disk space is left and what is taking up the most.
 ```
 
-That's it.
+It starts running a few commands, and you can see what it is running. You do not need to understand them. These commands only look. They change nothing.
 
-Claude figures out how to do it: scan folders, find screenshots, move them, rename them.
+When it finishes you get a report on your machine. This was mine:
 
-You don't need to tell it every step. Just state what you want.
+| Item | What it found |
+|---|---|
+| Memory | 32 GB in total, and not enough |
+| Biggest users | Claude itself, more than 7 GB. Chrome, at least 4.6 GB |
+| Disk | 995 GB, about 521 GB free |
+| Where the space goes | My home folder, 158 GB. The largest single item in it is 39 GB |
+| Its conclusion | The disk is fine. The slowness comes from full memory and seventeen days without a restart. Restarting once will help the most |
 
-Done in seconds. Saves you 30 minutes of manual organizing.
+It ended with this: "I only read. I did not close or delete anything."
+
+Now let it act. In the same conversation, paste this:
+
+```text wrap
+Following what you just suggested, close the programs that are safe to close. Show me the list before you close anything.
+```
+
+It did not act right away. It listed the programs it planned to close, then asked me: close all of them? Name any you want to keep.
+
+I told it: keep one, close the rest.
+
+It closed several programs I was not using and left the one I named. The result:
+
+| | Before | After |
+|---|---|---|
+| Memory still available | 42% | 54% |
+| Memory used by the Logitech mouse and keyboard utility | 4.3 GB | 101 MB |
+
+It also told me, without being asked, about one thing it had not done: part of the memory still in use would only be freed by a restart.
+
+**Say the goal, not the steps.** Both messages only said what I wanted. Neither said which commands to run or where to look. How to do it is its job.
+
+**See the plan before it acts.** Looking is safe, so let it look freely. For anything that changes something, ask it to say what it plans to do, read that, then say yes. Auto mode does not stop at every step, so "show me the list before you close anything" is something you have to say yourself.
 
 ---
 
-## Tips: How to Communicate with Claude Code
+## Make it know you
 
-The most important thing when using Claude Code:
+For the tasks above, it made no difference whether it knew you. But keep using it this way and every new conversation starts with the same instructions again: explain things in plain language, ask me before deleting anything.
 
-**State the goal, not the steps.**
+When you start a new conversation, it cannot see what was said in the last one. It does keep some notes of its own about things you corrected, but you cannot count on what it kept. Anything you want it to know for certain goes in a file.
 
-❌ Don't say: "First list files on Desktop, then filter for .png, then move to..."
+That file is called CLAUDE.md. Claude Code reads it every time it starts work.
 
-✅ Just say: "Organize my screenshots."
+CLAUDE.md can live in two kinds of places. In a folder, it is read only when you start a conversation in that folder. In the global location, it is read wherever you start a conversation. Things about you as a person, like your name and your language, belong in the global one.
 
-You define the goal. AI figures out the how.
+You do not need to create the file yourself. Paste this into Claude Code:
 
-But this doesn't mean you hand over everything blindly.
+```text wrap
+Create a global CLAUDE.md for me so that you know me in every conversation, whatever folder I am in. Keep it to the basics:
 
-You can add scope ("screenshots from Desktop, Downloads, and Documents"), or ask AI to propose a plan first ("tell me what you're going to do before doing it"), then review before executing.
+- My name. Ask me.
+- The language you reply in. Ask me.
+- My time zone. Look it up from this computer's settings, then confirm it with me.
+- Explain things in plain language, without jargon, and keep it short.
+- Before deleting anything, or doing anything that is hard to undo, tell me what you plan to do and wait for me to say yes.
+- When you are not sure about something, ask me. Do not guess.
+- When you have questions for me, ask one at a time.
 
-You're the commander, not the typist.
+Show me the draft first. Save it only after I say yes.
+```
+
+When I did this, it first looked up this computer's time zone, found Taipei, and came back to ask whether that was right. Then it asked one question at a time: what to call me, and which language to reply in. After those three questions it showed me the draft and noted that it had not been saved yet. Mine was in Chinese. Answered in English, it reads like this:
+
+```text wrap
+# CLAUDE.md
+
+## About me
+
+- Name: Wen-Hao
+- Time zone: Asia/Taipei (Taipei, UTC+8)
+
+## How to talk with me
+
+- Reply to me in English.
+- Explain things in plain language, without jargon, and keep it short.
+- When you are not sure about something, ask me. Do not guess.
+- When you have questions for me, ask only one at a time.
+
+## Before you act
+
+- Before deleting anything, or doing anything that is hard to undo, tell me what you plan to do and wait for me to say yes.
+```
+
+It saves the file only after you say yes. Once it is saved, start a new conversation and ask:
+
+```text wrap
+What is my name? What time is it where I am?
+```
+
+If it gets both right, it has read the file.
+
+Later, to see or change the file, just say: "Show me my global CLAUDE.md."
+
+When it does something you do not like, add a line. But do not let the file grow into an essay. The shorter and more specific it is, the more closely Claude Code follows it.
 
 ---
 
-## Next Steps
+## Practice on your own: half an hour of tuning up your computer
 
-Setup done. First task completed.
+This computer has been in use for a few years. The software once installed, the files once downloaded, the programs that quietly start with the machine: they are all still in there. Many people buy an app to clean this up. This time, skip the app and make Claude Code your computer's caretaker. Spend half an hour with it and get the machine to where you are happy with it.
 
-Now, think of something you do every day—organizing files, backing up photos, updating reports.
+Paste this in. What you ask after that, and how far you go, is between you and it:
 
-Tell Claude Code what you want in one sentence. See how it handles it.
+```text wrap
+I want to spend half an hour with you getting this computer in order. You are my computer's caretaker.
 
-That's where the real journey begins.
+First, note where things stand now: how much memory is in use and how much disk space is free. We will compare at the end.
+
+There are three places worth looking: what is using the disk space, large files that have not been opened in a long time, and software that has not been opened in a long time. Tell me which one you suggest starting with.
+
+Rules:
+- One thing at a time. Before you change anything, show me the list and wait for me to say yes.
+- Anything to be thrown away goes to the Trash. Do not delete it outright.
+- If there is something you cannot do or do not have permission to see, tell me directly.
+
+At the end, give me a before-and-after comparison.
+```
+
+I went through this on my Mac. It found 8 files over 500 MB that had not been opened in more than a year, 8.8 GB in all. For software, it could tell when each program was last opened and how many times it had been opened in total.
+
+When you remove software, the computer may ask for your password. That is normal.
+
+It cannot scan for viruses, and it does not watch your computer for you. It acts when you ask.
+
+When you are done, find a moment to restart.
+
+---
+
+## Next steps
+
+I wrote the first version of this guide early this year. Installing meant opening a terminal and pasting a command. Many people saw that black window and stopped there.
+
+A few months later I rewrote the same guide, and installing has become downloading an app. Claude Code has moved from a tool in engineers' hands to something anyone can use.
+
+But being able to install it and being able to put it to use are two different things. It can see the computer and it can act. What to use it for, what to do first, where the results should go: it will not decide those for anyone. Once the tool is in hand, what is missing is a method.
+
+This article is how I use it myself: [How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/).
 
 ---
 
@@ -273,15 +314,23 @@ That's where the real journey begins.
 
 **Is Claude Code free? How much does it cost?**
 
-Claude Code is not free. You need a paid Anthropic subscription: Pro plan at $20/month, or Max plan at $100 or $200/month for higher usage. There's no free trial. If you're not using it for product development, the Pro plan is generally enough.
+It is not free. You need a paid Anthropic plan: Pro at $20 a month ($17 a month when billed yearly), or Max from $100 a month for higher usage. The free plan does not include Claude Code. If you are not building products with it, Pro is generally enough.
 
-**Claude Code vs Cursor: What's the difference?**
+**The desktop app or the terminal version: which should I install?**
 
-Cursor is an IDE (Integrated Development Environment)—a tool engineers use to build software products. Claude Code is a command-line tool that interacts with AI through your terminal (Terminal / PowerShell). Since the terminal has full access to your computer, Claude Code can do more than just write code—it can run commands, manage files, connect APIs, and deploy systems. You can also use both together by running Claude Code inside Cursor's terminal.
+If you have never used a terminal, install the desktop app. Claude Code is already in it. The two are the same thing, and a CLAUDE.md you write is read by both. You can add the terminal version later if you want it.
 
 **Do I need coding experience to use Claude Code?**
 
-No. Claude Code was originally built for engineers to develop software, but since it has full access to your computer, it's like having an expert living inside your machine—you tell it what you want, and if your computer can do it, Claude Code figures out how. Batch organizing files, compressing photos, turning data into reports, setting up automation—none of that requires you to write a single line of code. I personally use Claude Code to build my knowledge management system, goal management system, and of course, to develop software and products.
+No. It was first built for engineers writing software. But it can reach your whole computer, so it can organize files, turn data into reports, and set up routines that run every day, and you never write a line of code yourself. I use it to run my own knowledge management and goal tracking systems, and to build software and products.
+
+**Will Claude Code change my files on its own?**
+
+Yes. In Auto mode, the default, it reads, creates and edits files inside the folder you chose without stopping to ask. For actions outside that folder, such as running commands or reaching websites, another model checks them first and blocks the risky ones. Permanently destroying files that were already there is one of the things blocked by default.
+
+If you want to approve every step yourself, switch the permission mode to Manual.
+
+In either mode, before it deletes things or changes many files at once, ask it to list what it plans to do, read the list, then say yes.
 
 ---
 
