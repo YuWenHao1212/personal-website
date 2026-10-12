@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: 'Yu-Wen Hao | Blog',
+    title: 'WenHao Yu | Blog',
     description: 'Articles on AI, entrepreneurship, productivity & life',
     site: context.site!,
     items: sortedPosts.map((post) => ({
