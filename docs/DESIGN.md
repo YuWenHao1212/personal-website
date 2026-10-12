@@ -1,0 +1,180 @@
+# 個人站 Design System
+
+yu-wenhao.com 的顏色、字級、間距、字重、字體，只有一個地方定義：`src/styles/tokens.css`。
+新的頁面和新的文章一律用那裡的變數，不自己寫值。
+
+- 值：`src/styles/tokens.css`
+- 規則：本檔
+- 檢查：`scripts/check-tokens.mjs`（每次建置前自動跑，不合規則就建置失敗）
+- 還沒搬過來的舊檔：`scripts/check-tokens-exempt.json`
+
+建立日期 2026-10-12（卡片 ISS-392）。在這之前各頁各自寫值，顏色當天收成一份，字級和間距同一天定階。
+
+## 一、怎麼用
+
+### 寫新頁面
+
+1. 版型用 `BaseLayout`（它已經載入 `tokens.css`）。
+2. 樣式寫在頁面自己的 `<style>` 裡，值全部用變數：
+
+```css
+.pg {
+  padding: var(--space-section) var(--gx);
+  background: var(--paper);
+  color: var(--text);
+}
+.pg h1 {
+  font-family: var(--serif);
+  font-size: var(--t-display);
+  font-weight: var(--w-light);
+  color: var(--ink);
+}
+.pg p {
+  margin-top: var(--space-4);
+  font-size: var(--t-body);
+}
+```
+
+3. 不用 Tailwind 的舊配色樣式名（`bg-cream-*`、`text-ink-*`、`bg-accent` 這一類）。
+4. 寫完跑 `npm run check:tokens`，或直接 `npm run build`。
+
+可以照著抄的例子：`src/components/NotFoundPage.astro`（404 頁，整頁都在變數上）。
+
+### 寫新文章
+
+文章的樣子由兩個檔決定，文章本身不用管：
+
+- `src/styles/reading.css`：內文、標題、清單、表格、引用、程式碼、圖說
+- `src/layouts/ArticleLayout.astro`：文章標題、目錄、作者欄、文末區塊
+
+所以**文章的 Markdown 裡不要放自己的 `<style>`**。需要新的版面元件（例如一種新的圖表框），加在 `reading.css`，用變數寫，之後每篇都能用。
+
+改過或新增中文文章後要跑 `npm run fonts`（見 `CLAUDE.md`「中文文章的字型檔」）。
+
+## 二、顏色
+
+| 變數 | 值 | 用途 |
+|---|---|---|
+| `--paper` | `#fbf9f5` | 頁面底色 |
+| `--paper-2` | `#f4efe7` | 第二層底色（區塊、表格頭） |
+| `--night` | `#0d0b09` | 深色區塊的底 |
+| `--cream` | `#f6f1e8` | 深色區塊上的字 |
+| `--ink` | `#241b18` | 標題 |
+| `--text` | `#2b211c` | 內文 |
+| `--muted` | `#71655c` | 次要文字 |
+| `--faint` | `#a99a8d` | 淡註、日期 |
+| `--hair` | `#e2d8c9` | 細線 |
+| `--terra` | `#c25b3f` | 強調色：連結、按鈕、記號 |
+| `--dawn` | `#de9070` | 深色區塊上的強調色 |
+
+規則：
+
+- 一個畫面裡強調色只有 `--terra` 一種（深色區塊上用 `--dawn`）。
+- 要半透明的線或底，用 `color-mix(in srgb, var(--cream) 22%, transparent)`，不寫 `rgba()`。
+
+## 三、字級（14 階）
+
+像素是「手機 → 桌機」。前六階隨視窗寬度縮放，後八階固定。
+
+| 變數 | 像素 | 用途 |
+|---|---|---|
+| `--t-hero` | 38 → 72 | 首頁最大的那一行。一頁最多一處 |
+| `--t-display` | 35 → 63 | 各頁頁首大標 |
+| `--t-h1` | 32 → 52 | 文章標題、區塊大標 |
+| `--t-h2` | 27 → 42 | 文章內 H2、電子報區標題 |
+| `--t-h3` | 24 → 30 | 小區塊標題、FAQ 標題 |
+| `--t-h4` | 20 → 22 | 文章內 H3、列表裡的文章標題 |
+| `--t-lead` | 19 | 文章引言、引用、FAQ 問句 |
+| `--t-read` | 18 | 文章內文 |
+| `--t-body` | 17 | 其他頁面的內文、表格 |
+| `--t-ui` | 15 | 按鈕、表頭、列表摘要 |
+| `--t-small` | 14 | 次要文字 |
+| `--t-caption` | 13 | 目錄、編號 |
+| `--t-label` | 12 | 小標籤、作者列、圖說 |
+| `--t-micro` | 11 | 日期、頁尾、最小的標籤 |
+
+規則：
+
+- `font-size` 只能是 `var(--t-*)`、相對值（`em`、`%`）或 `inherit`。
+- 一般頁面的內文是 17（`--t-body`），文章內文是 18（`--t-read`）。不用 16。
+- 比 `--t-hero` 還大的字（關於頁、課程頁的特大字）是那一頁自己的設計，留在頁面裡。新頁面要用到，先問作者。
+
+## 四、間距（10 階）
+
+| 變數 | 像素 | 用途 |
+|---|---|---|
+| `--space-1` | 4 | 圖示和字之間、細線旁的微調 |
+| `--space-2` | 8 | 標籤和標題之間、清單項目內 |
+| `--space-3` | 12 | 小元件內距 |
+| `--space-4` | 16 | 段落之間、按鈕內距 |
+| `--space-5` | 24 | 標題和內文之間、卡片內距 |
+| `--space-6` | 32 | 小區塊之間 |
+| `--space-7` | 48 | 區塊內的大間隔 |
+| `--space-8` | 72 | 區塊之間（手機） |
+| `--space-9` | 112 | 區塊之間（桌機） |
+| `--space-10` | 160 | 頁首、頁尾前的大留白 |
+
+隨視窗寬度縮放的只有兩個：
+
+| 變數 | 像素 | 用途 |
+|---|---|---|
+| `--gx` | 24 → 86 | 頁面左右邊距 |
+| `--space-section` | 80 → 128 | 區塊上下留白 |
+
+規則：
+
+- `margin`、`padding`、`gap` 只能用上面的變數、`0`、`auto`、`1px`、`2px`、相對值（`em`、`%`），或由這些組成的 `calc()`。
+- 不直接寫視窗寬度的百分比（`5vw` 這種）當間距。到手機上會縮到 20 像素上下。
+
+## 五、字重和字體
+
+| 變數 | 值 | 用途 |
+|---|---|---|
+| `--w-light` | 300 | 大字級的細標題 |
+| `--w-regular` | 400 | 內文 |
+| `--w-medium` | 500 | 稍微加重 |
+| `--w-strong` | 600 | 強調、小標 |
+| `--w-heavy` | 900 | 只給中文標題字體（昭源宋體） |
+
+| 變數 | 字體 | 用途 |
+|---|---|---|
+| `--serif` | Newsreader、Noto Serif TC | 一般頁面的標題和內文 |
+| `--mono` | JetBrains Mono | 小標籤、日期、程式碼 |
+
+中文文章另外用兩個字體（源雲明體當內文、昭源宋體當標題），設定在 `ArticleLayout.astro` 的 `--ar-*`，字型檔由 `scripts/article-font.mjs` 產生。這一組只給文章頁。
+
+## 六、檢查怎麼運作
+
+`npm run build` 之前會先跑 `scripts/check-tokens.mjs`。它讀 `src/styles/*.css`、所有 `.astro` 檔和文章裡的 `<style>`，找四種寫死的值：
+
+| 種類 | 抓什麼 |
+|---|---|
+| colour | 色碼（`#c25b3f`）、`rgb()`、`rgba()`、`hsl()` |
+| size | 不是變數的 `font-size` |
+| spacing | 不是變數的 `margin`、`padding`、`gap` |
+| palette | Tailwind 舊配色的樣式名 |
+
+不在豁免清單上的檔案只要有一處，建置就失敗，訊息會列出檔名、行號和那一行。
+
+```bash
+npm run check:tokens          # 只跑檢查
+node scripts/check-tokens.mjs --all   # 連豁免清單上的檔案一起列出來，看還剩多少沒搬
+```
+
+### 豁免清單
+
+`scripts/check-tokens-exempt.json` 列的是 2026-10-12 之前就存在、還帶著寫死的值的檔案。
+
+- **清單只能變短，不能變長。** 新檔案被擋下來，改檔案，不要加進清單。
+- 清單上的檔案搬乾淨之後，檢查會提醒把它從清單拿掉。
+- 舊頁面不用特地搬。哪一頁要大改，那時順便換成變數、從清單拿掉。
+- `reading.css`、`ArticleLayout.astro`、`ProductLayout.astro`、`BlogIndex.astro` 裡剛好等於新階的值，10/12 已經換成變數（畫面不變）。剩下的是不在階上的值，還在清單上。
+
+## 七、跟匯流站 design system 的關係
+
+匯流站的 design system 在 FLUX Vault 的 `efforts/areas/confluence-brand/design-system/`。作者 2026-09-30 定的方向是之後兩站共用一套。
+
+- 現在是兩份。個人站這份照匯流那份的結構做。
+- 可以共用的部分，變數名稱跟匯流一樣：顏色，以及 `--t-display`、`--t-h1` 到 `--t-h4`、`--t-body`、`--t-small`、`--t-label`。值也很接近。
+- 個人站自己的部分：紙色、字體、間距。間距用編號命名（`--space-1`），因為匯流的 `--space-md` 是另一個值，同名會打架。
+- 這份沒有涵蓋的：行高、圓角、陰影、動畫。個人站現在的版面沒有圓角和陰影；行高各元件自己定。

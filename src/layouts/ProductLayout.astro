@@ -149,7 +149,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   }
   .pd-kick {
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
     color: var(--terra);
   }
@@ -158,9 +158,9 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   }
   .pd-rail li a {
     display: block;
-    padding: 0.5rem 0 0.5rem 0.9rem;
+    padding: var(--space-2) 0 var(--space-2) 0.9rem;
     border-left: 1px solid var(--hair);
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.03em;
     color: var(--muted);
     transition: color 0.2s, border-color 0.2s;
@@ -203,7 +203,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     display: inline-flex;
     align-items: baseline;
     gap: 1.2rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--space-2);
     border-bottom: 1px solid var(--terra);
     font-family: var(--serif);
     font-size: clamp(1.15rem, 1.5vw, 1.375rem);
@@ -249,13 +249,13 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   .pd .pd-cta .t {
     margin-top: 0.8rem;
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     line-height: 2;
     letter-spacing: 0.03em;
   }
   .pd .pd-cta .n {
     margin-top: 1.4rem;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     letter-spacing: 0.04em;
     color: var(--muted);
   }
@@ -264,13 +264,13 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: baseline;
-    gap: 0.4rem 2rem;
+    gap: 0.4rem var(--space-6);
     max-width: 44rem;
     margin-top: 3.5rem;
-    padding: 1rem 0;
+    padding: var(--space-4) 0;
     border-top: 1px solid var(--hair);
     border-bottom: 1px solid var(--hair);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     letter-spacing: 0.04em;
   }
   .pd-rel span {
@@ -285,8 +285,8 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   }
   .pd a.pd-back {
     display: inline-block;
-    margin-top: 3rem;
-    font-size: 0.875rem;
+    margin-top: var(--space-7);
+    font-size: var(--t-small);
     letter-spacing: 0.14em;
     color: var(--muted);
   }
@@ -321,9 +321,9 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: 0.6rem var(--space-6);
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
     color: rgba(246, 241, 232, 0.55);
   }
@@ -354,7 +354,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   @media (max-width: 1023px) {
     .pd-grid {
       grid-template-columns: minmax(0, 1fr);
-      padding-top: 2rem;
+      padding-top: var(--space-6);
     }
     .pd-grid > *,
     .pd-grid > .pd-rail {
@@ -396,11 +396,11 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   }
   /* Inside the text, the old pages used rounded cream boxes for groups of links (NeatToolkit's four tool groups). Here: ruled columns. */
   .pd .ar-body .not-prose {
-    gap: 2rem 3rem;
+    gap: var(--space-6) var(--space-7);
     margin: 2.2rem 0 2.6rem;
   }
   .pd .ar-body .not-prose > div {
-    padding: 1rem 0 0;
+    padding: var(--space-4) 0 0;
     border-top: 1.5px solid #241b18;
     border-radius: 0;
     background: none;
@@ -408,7 +408,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   .pd .ar-body .not-prose h3 {
     margin: 0 0 0.6rem;
     font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     font-weight: 400;
     letter-spacing: 0.14em;
     color: #71655c;

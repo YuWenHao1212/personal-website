@@ -39,7 +39,7 @@
    the Confluence articles. Before: the sans the rest of the site uses for small print (Satoshi / Noto Sans TC), 17px. */
 .ar .ar-body p {
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: 1.125rem;
+  font-size: var(--t-read);
   line-height: 2.1;
   letter-spacing: 0.03em;
   color: #2b211c;
@@ -56,7 +56,7 @@
   padding-top: clamp(1.4rem, 2vw, 1.9rem);
   border-top: 1.5px solid #241b18;
   font-family: var(--ar-head, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: clamp(1.7rem, 2.9vw, 2.6rem);
+  font-size: var(--t-h2);
   font-weight: var(--ar-head-w, 500);
   line-height: 1.4;
   letter-spacing: 0.04em;
@@ -74,16 +74,16 @@
   color: #c25b3f;
 }
 .ar .ar-body h3 {
-  margin: 3rem 0 1rem;
+  margin: var(--space-7) 0 var(--space-4);
   font-family: var(--ar-head, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: clamp(1.25rem, 1.6vw, 1.4rem);
+  font-size: var(--t-h4);
   font-weight: var(--ar-head-w, 500);
   line-height: 1.6;
   letter-spacing: 0.04em;
 }
 .ar .ar-body h4 {
   margin: 2.2rem 0 0.8rem;
-  font-size: 1.0625rem;
+  font-size: var(--t-body);
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -117,10 +117,10 @@
   list-style: decimal;
 }
 .ar .ar-body li {
-  margin: 0.5rem 0;
+  margin: var(--space-2) 0;
   padding-left: 0.3rem;
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: 1.125rem;
+  font-size: var(--t-read);
   line-height: 2;
   letter-spacing: 0.03em;
 }
@@ -129,7 +129,7 @@
 }
 .ar .ar-body ol > li::marker {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.8125rem;
+  font-size: var(--t-caption);
 }
 /* a quotation: a bar on the left, larger serif. No italics (slanted Chinese reads badly), no added quote marks. */
 .ar .ar-body blockquote {
@@ -145,7 +145,7 @@
 }
 .ar .ar-body blockquote p {
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: 1.1875rem;
+  font-size: var(--t-lead);
   line-height: 1.95;
   letter-spacing: 0.04em;
 }
@@ -178,7 +178,7 @@
   border-collapse: collapse;
   border-top: 1.5px solid #241b18;
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: 1.0625rem;
+  font-size: var(--t-body);
   line-height: 1.75;
 }
 .ar .ar-body > table {
@@ -188,8 +188,8 @@
   border-bottom: 1px solid #241b18;
 }
 .ar .ar-body th {
-  padding: 0.85rem 1.2rem 0.75rem 0;
-  font-size: 0.9375rem;
+  padding: 0.85rem 1.2rem var(--space-3) 0;
+  font-size: var(--t-ui);
   font-weight: 600;
   letter-spacing: 0.06em;
   text-align: left;
@@ -215,7 +215,7 @@
   display: none;
   margin: -1.6rem 0 2.4rem;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.75rem;
+  font-size: var(--t-label);
   letter-spacing: 0.08em;
   text-align: right;
   color: #a99a8d;
@@ -241,14 +241,14 @@
 }
 /* a fold-out note: hairlines above and below, the question in the text face */
 .ar .ar-body details {
-  margin: 2rem 0;
+  margin: var(--space-6) 0;
   border-top: 1px solid #e2d8c9;
   border-bottom: 1px solid #e2d8c9;
 }
 .ar .ar-body summary {
   padding: 0.9rem 0;
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: 1.0625rem;
+  font-size: var(--t-body);
   line-height: 1.8;
   letter-spacing: 0.03em;
   color: #241b18;
@@ -273,7 +273,7 @@
 }
 /* code: a night block; inline code a quiet tint, without the added backticks */
 .ar .ar-body .expressive-code {
-  margin: 2rem 0;
+  margin: var(--space-6) 0;
 }
 /* 10/12: the copy button is always there, not only under a pointer — a reader on a phone, or one who never hovers, did not
    know a prompt could be copied. The line keeps clear of it. */
@@ -289,7 +289,7 @@
   box-sizing: border-box;
 }
 .ar .ar-body > pre {
-  margin: 2rem 0;
+  margin: var(--space-6) 0;
   padding: 1.4rem 1.6rem;
   border-radius: 0;
   background: #14100e !important;
@@ -320,7 +320,7 @@
 .ar .ar-body figure:not(.frame) > figcaption {
   margin-top: 0.9rem;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.75rem;
+  font-size: var(--t-label);
   line-height: 1.8;
   letter-spacing: 0.06em;
   text-align: left;
@@ -365,22 +365,22 @@
 @media (max-width: 640px) {
   .ar .ar-body p,
   .ar .ar-body li {
-    font-size: 1.0625rem;
+    font-size: var(--t-body);
     line-height: 2;
   }
   .ar[data-lang='en'] .ar-body p,
   .ar[data-lang='en'] .ar-body li {
-    font-size: 1.125rem;
+    font-size: var(--t-read);
     line-height: 1.68;
   }
   .ar[data-lang='en'] .ar-body blockquote p {
-    font-size: 1.1875rem;
+    font-size: var(--t-lead);
   }
   .ar .ar-body table {
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
   }
   .ar .ar-body th {
-    font-size: 0.875rem;
+    font-size: var(--t-small);
   }
   .ar .ar-body :is(th, td) {
     min-width: 5.5em;
@@ -405,7 +405,7 @@
    Same two colours as the page: ink and the one accent (.is-em marks the row or column the text is about). */
 .ar .ar-body .fg {
   margin: 3.4rem 0;
-  padding: 1.9rem 0 1.5rem;
+  padding: 1.9rem 0 var(--space-5);
   border-top: 1px solid #e2d8c9;
   border-bottom: 1px solid #e2d8c9;
 }
@@ -414,9 +414,9 @@
   text-align: left;
 }
 .ar .ar-body .fg .fg-h {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-5);
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.75rem;
+  font-size: var(--t-label);
   line-height: 1.6;
   letter-spacing: 0.14em;
   color: #c25b3f;
@@ -424,7 +424,7 @@
 .ar .ar-body .fg .fg-note {
   margin-top: 1.3rem;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.75rem;
+  font-size: var(--t-label);
   line-height: 1.8;
   letter-spacing: 0.06em;
   color: #a99a8d;
@@ -437,7 +437,7 @@
   gap: 0 1.4rem;
   padding: 0.55rem 0;
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
-  font-size: 1.0625rem;
+  font-size: var(--t-body);
   line-height: 1.6;
   letter-spacing: 0.03em;
   color: #2b211c;
@@ -486,12 +486,12 @@
 .ar .ar-body .fg-cols .c {
   display: flex;
   flex-direction: column;
-  padding: 1.6rem 1.5rem 1.7rem 0;
+  padding: 1.6rem var(--space-5) 1.7rem 0;
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
   letter-spacing: 0.03em;
 }
 .ar .ar-body .fg-cols .c + .c {
-  padding-left: 1.5rem;
+  padding-left: var(--space-5);
   border-left: 1px solid #e2d8c9;
 }
 .ar .ar-body .fg-cols .c b {
@@ -503,7 +503,7 @@
 }
 .ar .ar-body .fg-cols .c strong {
   margin-top: 1.1rem;
-  font-size: 1.125rem;
+  font-size: var(--t-read);
   font-weight: 600;
   line-height: 1.6;
 }
@@ -515,9 +515,9 @@
 }
 .ar .ar-body .fg-cols .c em {
   margin-top: auto;
-  padding-top: 1rem;
+  padding-top: var(--space-4);
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.75rem;
+  font-size: var(--t-label);
   font-style: normal;
   letter-spacing: 0.06em;
   color: #a99a8d;
@@ -534,7 +534,7 @@
   counter-increment: fg-step;
   display: grid;
   grid-template-columns: 3.4rem minmax(0, 1fr);
-  padding: 1rem 0;
+  padding: var(--space-4) 0;
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
   letter-spacing: 0.03em;
 }
@@ -550,7 +550,7 @@
   color: #c25b3f;
 }
 .ar .ar-body .fg-steps .s strong {
-  font-size: 1.125rem;
+  font-size: var(--t-read);
   font-weight: 600;
   line-height: 1.7;
 }
@@ -583,7 +583,7 @@
 .ar .ar-body .fg-key .k::before {
   content: counter(fg-key) '.';
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.8125rem;
+  font-size: var(--t-caption);
   line-height: 2.6;
   color: #de9070;
 }
@@ -593,7 +593,7 @@
 @media (max-width: 640px) {
   .ar .ar-body .fg-bars .row {
     grid-template-columns: minmax(0, 1fr) 4.2em;
-    gap: 0.35rem 1rem;
+    gap: 0.35rem var(--space-4);
   }
   .ar .ar-body .fg-bars .l {
     grid-column: 1 / -1;
@@ -602,7 +602,7 @@
     grid-template-columns: 1fr 1fr;
   }
   .ar .ar-body .fg-cols .c {
-    padding: 1.3rem 1rem 1.4rem 0;
+    padding: 1.3rem var(--space-4) 1.4rem 0;
     border-bottom: 1px solid #e2d8c9;
   }
   .ar .ar-body .fg-cols .c + .c {
@@ -610,7 +610,7 @@
     border-left: 0;
   }
   .ar .ar-body .fg-cols .c:nth-of-type(even) {
-    padding-left: 1rem;
+    padding-left: var(--space-4);
     border-left: 1px solid #e2d8c9;
   }
   .ar .ar-body .fg-cols .c:last-of-type:nth-of-type(odd) {
