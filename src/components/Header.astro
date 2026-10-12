@@ -228,7 +228,7 @@ const currentPath = Astro.url.pathname;
      Pages with a light header (articles, products) keep the centred column — their content is centred too. */
   body:is(:has(.cv), :has(.wl .wl-sky), :has(.ab .op-sky), :has(.wp .op-sky), :has(.ct .co-sky)) header[data-nav] > nav {
     max-width: none;
-    padding-inline: max(6vw, 1.5rem);
+    padding-inline: var(--gx);
   }
   /* The logo file has a white ground (no transparency); on the paper-coloured header it showed as a paler box around the mark.
      Multiply lets the white take the header's own colour, the black brushstroke and the gold stay as they are. (10/9, the author's OK.) */
@@ -252,7 +252,7 @@ const currentPath = Astro.url.pathname;
     transition: height 0.25s ease;
   }
   header[data-nav][data-scrolled] {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-6);
   }
   header[data-nav][data-scrolled] > nav > div:first-child {
     height: 4rem;

@@ -129,11 +129,11 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   .pd-grid {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
-    column-gap: clamp(2.5rem, 6vw, 7rem);
+    column-gap: var(--space-block);
     align-items: start;
     width: min(82rem, 100% - 2 * var(--gx));
     margin: 0 auto;
-    padding: clamp(3rem, 7vh, 6rem) 0 clamp(5rem, 9vw, 9rem);
+    padding: var(--space-8) 0 var(--space-section);
   }
   .pd-grid > * {
     grid-column: 2;
@@ -144,7 +144,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     grid-row: 1 / span 20;
     position: sticky;
     top: 7.5rem;
-    padding-top: 0.9rem;
+    padding-top: var(--space-4);
     border-top: 1.5px solid var(--ink);
   }
   .pd-kick {
@@ -154,11 +154,11 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     color: var(--terra);
   }
   .pd-rail nav {
-    margin-top: 1.8rem;
+    margin-top: var(--space-6);
   }
   .pd-rail li a {
     display: block;
-    padding: var(--space-2) 0 var(--space-2) 0.9rem;
+    padding: var(--space-2) 0 var(--space-2) var(--space-4);
     border-left: 1px solid var(--hair);
     font-size: var(--t-small);
     letter-spacing: 0.03em;
@@ -175,19 +175,19 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
 
   .pd-head h1 {
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-size: var(--t-display);
     font-weight: 500;
     line-height: 1.3;
     letter-spacing: 0.02em;
     color: var(--ink);
   }
   .pd .pd-lead {
-    margin-top: clamp(1.6rem, 2.6vw, 2.4rem);
-    padding-top: clamp(1.3rem, 2vw, 1.8rem);
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
     border-top: 1px solid var(--hair);
     max-width: 40em;
     font-family: var(--serif);
-    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    font-size: var(--t-h4);
     line-height: 1.95;
     letter-spacing: 0.04em;
     color: var(--muted);
@@ -196,17 +196,17 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   .pd .pd-go {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem 2.6rem;
-    margin-top: 1.8rem;
+    gap: var(--space-2) var(--space-7);
+    margin-top: var(--space-6);
   }
   .pd .pd-go a {
     display: inline-flex;
     align-items: baseline;
-    gap: 1.2rem;
+    gap: var(--space-4);
     padding-bottom: var(--space-2);
     border-bottom: 1px solid var(--terra);
     font-family: var(--serif);
-    font-size: clamp(1.15rem, 1.5vw, 1.375rem);
+    font-size: var(--t-h4);
     letter-spacing: 0.04em;
     color: var(--terra);
     transition: color 0.2s, border-color 0.2s;
@@ -223,7 +223,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     transform: translate(3px, -3px);
   }
   .pd .pd-cover {
-    margin-top: clamp(2.5rem, 4vw, 4rem);
+    margin-top: var(--space-7);
     border: 1px solid var(--hair);
   }
   .pd-cover img {
@@ -234,27 +234,27 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
 
   .pd-cta {
     max-width: 44rem;
-    margin-top: clamp(4rem, 6vw, 6rem);
-    padding-top: 2.2rem;
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
     border-top: 1.5px solid var(--ink);
   }
   .pd-cta h2 {
     font-family: var(--serif);
-    font-size: clamp(1.6rem, 2.2vw, 2.05rem);
+    font-size: var(--t-h3);
     font-weight: 500;
     line-height: 1.5;
     letter-spacing: 0.04em;
     color: var(--ink);
   }
   .pd .pd-cta .t {
-    margin-top: 0.8rem;
+    margin-top: var(--space-3);
     font-family: var(--serif);
     font-size: var(--t-read);
     line-height: 2;
     letter-spacing: 0.03em;
   }
   .pd .pd-cta .n {
-    margin-top: 1.4rem;
+    margin-top: var(--space-5);
     font-size: var(--t-small);
     letter-spacing: 0.04em;
     color: var(--muted);
@@ -264,9 +264,9 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: baseline;
-    gap: 0.4rem var(--space-6);
+    gap: var(--space-2) var(--space-6);
     max-width: 44rem;
-    margin-top: 3.5rem;
+    margin-top: var(--space-7);
     padding: var(--space-4) 0;
     border-top: 1px solid var(--hair);
     border-bottom: 1px solid var(--hair);
@@ -298,7 +298,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     position: relative;
     overflow: hidden;
     height: 11rem;
-    background: #14100e;
+    background: var(--night-2);
     color: var(--cream);
   }
   .pd-sky {
@@ -321,15 +321,15 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem var(--space-6);
+    gap: var(--space-2) var(--space-6);
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.55);
+    color: color-mix(in srgb, var(--cream) 55%, transparent);
   }
   .pd-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .pd .pd-foot a:hover {
     color: var(--dawn);
@@ -363,7 +363,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
     }
     .pd-grid > .pd-rail {
       position: static;
-      margin-bottom: 1.6rem;
+      margin-bottom: var(--space-5);
       padding-top: 0;
       border-top: 0;
     }
@@ -373,7 +373,7 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   }
   @media (max-width: 640px) {
     .pd-head h1 {
-      font-size: 2rem;
+      font-size: var(--t-h3);
     }
     .pd .pd-cover {
       margin-inline: calc(-1 * var(--gx));
@@ -387,31 +387,31 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
 
 <style is:global>
   /* The shared footer is replaced by this page's last line; the header stays light, as on article pages. */
-  body:has(.pd .pd-end) footer.bg-cream-200 {
+  body:has(.pd .pd-end) footer.site-foot {
     display: none;
   }
   body:has(.pd .pd-end) > header,
   body:has(.pd .pd-end) header.sticky {
-    background: #fbf9f5 !important;
+    background: var(--paper) !important;
   }
   /* Inside the text, the old pages used rounded cream boxes for groups of links (NeatToolkit's four tool groups). Here: ruled columns. */
   .pd .ar-body .not-prose {
     gap: var(--space-6) var(--space-7);
-    margin: 2.2rem 0 2.6rem;
+    margin: var(--space-6) 0 var(--space-7);
   }
   .pd .ar-body .not-prose > div {
     padding: var(--space-4) 0 0;
-    border-top: 1.5px solid #241b18;
+    border-top: 1.5px solid var(--ink);
     border-radius: 0;
     background: none;
   }
   .pd .ar-body .not-prose h3 {
-    margin: 0 0 0.6rem;
+    margin: 0 0 var(--space-2);
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: var(--t-label);
     font-weight: 400;
     letter-spacing: 0.14em;
-    color: #71655c;
+    color: var(--muted);
   }
   .pd .ar-body .not-prose ul {
     margin: 0;
@@ -420,8 +420,8 @@ const dataAttrs = (l: Link) => Object.fromEntries(Object.entries(l.data ?? {}).m
   }
   .pd .ar-body .not-prose li {
     margin: 0;
-    padding: 0.45rem 0;
-    border-bottom: 1px solid #e2d8c9;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--hair);
   }
   .pd .ar-body .not-prose li a {
     border-bottom: 0;

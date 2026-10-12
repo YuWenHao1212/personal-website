@@ -64,9 +64,9 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
     align-items: center;
     gap: 0.8em;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: var(--t-label);
     letter-spacing: 0.14em;
-    color: rgba(246, 241, 232, 0.6);
+    color: color-mix(in srgb, var(--cream) 60%, transparent);
   }
   .kick i {
     width: 6px;
@@ -75,15 +75,15 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
     transform: rotate(45deg);
   }
   .co {
-    --line: rgba(246, 241, 232, 0.22);
+    --line: color-mix(in srgb, var(--cream) 22%, transparent);
     position: relative;
     overflow: hidden;
     display: grid;
     align-content: center;
     min-height: 100svh;
-    margin-top: -6rem; /* slide under the header, as the other night covers do */
-    padding: 11rem var(--gx) 9rem;
-    background: #14100e;
+    margin-top: calc(-1 * var(--space-9)); /* slide under the header, as the other night covers do */
+    padding: var(--space-10) var(--gx) var(--space-10);
+    background: var(--night-2);
     color: var(--cream);
   }
   .co-sky {
@@ -103,37 +103,37 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
     max-width: 46rem;
   }
   .co h1 {
-    margin-top: 2.2rem;
+    margin-top: var(--space-6);
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    font-size: var(--t-display);
     font-weight: 300;
     line-height: 1.12;
     letter-spacing: -0.012em;
     color: var(--cream);
   }
   .ct .co-sub {
-    margin-top: 1.8rem;
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    margin-top: var(--space-6);
+    font-size: var(--t-body);
     line-height: 1.6;
     letter-spacing: 0.005em;
-    color: rgba(246, 241, 232, 0.72);
+    color: color-mix(in srgb, var(--cream) 72%, transparent);
   }
   /* Two ways in, LinkedIn first (the author's order). Each row: a small label, the address, an arrow. */
   .ct a.co-go {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: baseline;
-    gap: 0.35rem 2.5rem;
+    gap: var(--space-1) var(--space-7);
     width: min(34rem, 100%);
-    margin-top: 2.8rem;
-    padding: 1.1rem 0;
+    margin-top: var(--space-7);
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--dawn);
     color: var(--dawn);
   }
   .ct a.co-go.alt {
-    margin-top: 0.6rem;
+    margin-top: var(--space-2);
     border-bottom-color: var(--line);
-    color: rgba(246, 241, 232, 0.9);
+    color: color-mix(in srgb, var(--cream) 90%, transparent);
     transition: color 0.2s, border-color 0.2s;
   }
   .ct a.co-go.alt:hover {
@@ -144,20 +144,20 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
     grid-column: 1 / -1;
     font-family: var(--mono);
     font-style: normal;
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .co-go span {
     font-family: var(--serif);
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-size: var(--t-h3);
     font-weight: 300;
     letter-spacing: 0;
   }
   .co-go b {
     font-weight: 300;
-    font-size: 1.4rem;
+    font-size: var(--t-h4);
     transition: transform 0.3s;
   }
   .co-go:hover b {
@@ -165,7 +165,7 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
   }
   .co-way {
     list-style: none;
-    margin: 5rem 0 0;
+    margin: var(--space-8) 0 0;
     padding: 0;
     width: min(34rem, 100%);
     border-top: 1px solid var(--line);
@@ -175,17 +175,17 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: baseline;
-    gap: 0.2rem 2rem;
-    padding: 0.95rem 0;
+    gap: var(--space-1) var(--space-6);
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--line);
-    font-size: 0.9375rem;
+    font-size: var(--t-ui);
     letter-spacing: 0.01em;
   }
   .co-way span {
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .ct .co-way a {
-    color: rgba(246, 241, 232, 0.9);
+    color: color-mix(in srgb, var(--cream) 90%, transparent);
     transition: color 0.2s;
   }
   .ct .co-way a:hover {
@@ -199,28 +199,28 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.6rem 2rem;
+    gap: var(--space-2) var(--space-6);
     margin: 0;
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.5);
+    color: color-mix(in srgb, var(--cream) 50%, transparent);
   }
   .co-foot .lk {
     display: flex;
-    gap: 2.2rem;
+    gap: var(--space-6);
   }
   .ct .co-foot a:hover {
     color: var(--dawn);
   }
   @media (max-width: 640px) {
-    .co h1 { font-size: 2.1rem; }
+    .co h1 { font-size: var(--t-h3); }
   }
 </style>
 
 <style is:global>
   /* The page is one night screen; the shared footer is replaced by its last line, and the header sits on the sky. */
-  body:has(.ct .co-sky) footer.bg-cream-200 {
+  body:has(.ct .co-sky) footer.site-foot {
     display: none;
   }
   body:has(.ct .co-sky) > header,
@@ -230,28 +230,28 @@ const description = 'Reach WenHao Yu for talks, interviews and partnerships, on 
   /* 10/9: the bar follows the page again (hide on the way down, show on the way up — see Header.astro).
      Past the first stretch it gets a night ground, so its cream links read on any section, light or dark. */
   body:has(.ct .co-sky) header.sticky[data-scrolled] {
-    background: rgba(13, 11, 9, 0.94) !important;
+    background: color-mix(in srgb, var(--night) 94%, transparent) !important;
   }
   /* 10/9: the phone menu was a cream panel under cream links (unreadable) — on these pages it is a night panel. */
   body:has(.ct .co-sky) #mobile-menu {
-    background: #0d0b09 !important;
+    background: var(--night) !important;
   }
   body:has(.ct .co-sky) #mobile-menu a.border-b {
-    border-color: rgba(246, 241, 232, 0.16) !important;
+    border-color: color-mix(in srgb, var(--cream) 16%, transparent) !important;
   }
   body:has(.ct .co-sky) header a {
-    color: rgba(246, 241, 232, 0.88) !important;
+    color: color-mix(in srgb, var(--cream) 88%, transparent) !important;
   }
   body:has(.ct .co-sky) header a[href*='newsletter'] {
-    background: rgba(246, 241, 232, 0.14) !important;
+    background: color-mix(in srgb, var(--cream) 14%, transparent) !important;
   }
   body:has(.ct .co-sky) header a[data-pill='invite'] {
-    border-color: rgba(246, 241, 232, 0.5) !important;
+    border-color: color-mix(in srgb, var(--cream) 50%, transparent) !important;
   }
   body:has(.ct .co-sky) header a:has(img[src*='logo']) {
     visibility: hidden;
   }
   body:has(.ct .co-sky) header svg {
-    color: rgba(246, 241, 232, 0.88);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
   }
 </style>

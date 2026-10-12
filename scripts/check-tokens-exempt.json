@@ -1,34 +1,19 @@
 {
   "note": "Files that carried hard-coded colours, sizes or spacing before the scales existed (10/12). Take a file off when it is moved onto the tokens. Never add one. See docs/DESIGN.md.",
   "files": [
-    "src/components/BlogIndex.astro",
-    "src/components/Footer.astro",
-    "src/components/Header.astro",
     "src/content/blog/en/non-us-resident-llc-guide.md",
     "src/content/blog/zh-TW/stripe-taiwan-us-llc-guide.md",
     "src/layouts/AdminLayout.astro",
-    "src/layouts/ArticleLayout.astro",
-    "src/layouts/ProductLayout.astro",
     "src/pages/admin/newsletter.astro",
     "src/pages/admin/survey.astro",
     "src/pages/admin/workshop.astro",
-    "src/pages/en/about.astro",
-    "src/pages/en/contact.astro",
-    "src/pages/en/index.astro",
     "src/pages/partner/index.astro",
-    "src/pages/zh-TW/about.astro",
-    "src/pages/zh-TW/contact.astro",
     "src/pages/zh-TW/flux-upgrade.astro",
-    "src/pages/zh-TW/index.astro",
     "src/pages/zh-TW/sonice/admin-setup.astro",
     "src/pages/zh-TW/sonice/install.astro",
     "src/pages/zh-TW/studio-a/install.astro",
-    "src/pages/zh-TW/thank-you.astro",
     "src/pages/zh-TW/workshop-setup-tunghai.astro",
     "src/pages/zh-TW/workshop-setup.astro",
-    "src/pages/zh-TW/workshop.astro",
-    "src/pages/zh-TW/workshop/thanks.astro",
-    "src/styles/global.css",
-    "src/styles/reading.css"
+    "src/styles/global.css"
   ]
 }
