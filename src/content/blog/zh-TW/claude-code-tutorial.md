@@ -12,6 +12,15 @@ heroImage: /images/blog/claude-code-tutorial.webp
 translationKey: claude-code-tutorial
 relatedPosts: ["claude-skills-guide.md", "lyt-framework-guide.md", "personal-panopticon.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 focus_keyphrase: "claude code 教學"
+faq:
+  - question: "Claude Code 免費嗎？多少錢？"
+    answer: "不能免費用。需要 Anthropic 的付費方案：Pro 每月 20 美元（年繳換算每月 17 美元），Max 每月 100 美元起，用量更高。免費方案不含 Claude Code。不拿來開發產品的話，Pro 的用量一般夠用。"
+  - question: "桌面 App 和終端機版，要裝哪一個？"
+    answer: "沒用過終端機，裝桌面 App 就好，裡面已經包含 Claude Code。兩邊是同一個東西，寫好的 CLAUDE.md 兩邊都讀得到。之後想在終端機裡用，再另外裝。"
+  - question: "需要會寫程式才能用 Claude Code 嗎？"
+    answer: "不需要。它最早是做給工程師寫程式用的。但它能碰到整台電腦，所以整理檔案、把資料整理成報表、建立每天自動跑的流程，這些都做得到，過程中不用自己寫任何程式碼。我自己用它架了個人知識管理系統和目標管理系統，也拿它開發程式和產品。"
+  - question: "Claude Code 會不會自己改我的檔案？"
+    answer: "會。預設的自動模式下，在你選的那個資料夾裡讀檔、建檔、改檔，它不會停下來問。資料夾以外的動作，像是跑指令、連到外面的網站，執行前有另一個模型先檢查，有風險的會被擋下。把原本就在的檔案刪到救不回來，是預設會擋的其中一種。想每一步都自己按同意，把權限模式切到手動。不管哪個模式，要它刪東西或大量改檔之前，先請它列出打算怎麼做，看過再說好。"
 ---
 
 你大概聽過 Claude Code，但不太確定它是什麼。
@@ -32,7 +41,7 @@ focus_keyphrase: "claude code 教學"
 
 ---
 
-## 什麼是 Claude Code
+## Claude Code 是什麼？
 
 Claude Code 是一個在你電腦裡工作的 AI。
 
@@ -71,9 +80,22 @@ Code 查到的也比較細。Claude 那一邊告訴我記憶體快滿了、哪�
 
 ---
 
-## 安裝 Claude Code
+## Claude Code 費用：要付多少錢？
 
-先講一件事：Claude Code 要付費方案才能用，免費帳號不行。Pro 方案每月 20 美元。
+免費帳號不能用 Claude Code。要訂 Anthropic 的付費方案，Claude Code 包在方案裡，不用另外買。
+
+| 方案 | 月費 |
+|---|---|
+| Pro | 20 美元。年繳換算每月 17 美元 |
+| Max | 100 美元起，用量更高 |
+
+不拿來開發產品的話，Pro 的用量一般夠用。先訂一個月 Pro，不夠再升級。
+
+最新價格看[官方方案頁](https://claude.com/pricing)。
+
+---
+
+## 安裝 Claude Code
 
 Claude Code 有三種用法。三種叫出來的是同一個 Claude Code，差別在你從哪裡跟它講話。
 
@@ -310,36 +332,13 @@ CLAUDE.md 可以放在兩種地方。放在某個資料夾裡，只有在那個�
 
 但裝得起來和用得上是兩件事。它看得到電腦、動得了手，可是要拿它做什麼、先做哪一件、做完的東西放哪裡，它不會替人決定。工具到手之後，缺的是方法。
 
-下面兩篇文章，是我自己的使用方式：
+下面三篇，前兩篇是我自己的使用方式，第三篇教它記住你常做的事：
 
 - [先定方向，再建系統，最後才是工具](/zh-TW/blog/flux-direction-system-leverage/)
 - [我的 AI 工作流系統](/zh-TW/blog/personal-panopticon/)
+- [Claude Skills 教學：從零開始打造你的 AI 自動化工作流](/zh-TW/blog/claude-skills-guide/)
 
 讓它幫忙往想要的方向走，自己摸索也做得到，只是花時間。想用最有效率的方式走完這一段，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>
-
----
-
-## 常見問題
-
-**Claude Code 免費嗎？多少錢？**
-
-不能免費用。需要 Anthropic 的付費方案：Pro 每月 20 美元（年繳換算每月 17 美元），Max 每月 100 美元起，用量更高。免費方案不含 Claude Code。不拿來開發產品的話，Pro 的用量一般夠用。
-
-**桌面 App 和終端機版，要裝哪一個？**
-
-沒用過終端機，裝桌面 App 就好，裡面已經包含 Claude Code。兩邊是同一個東西，寫好的 CLAUDE.md 兩邊都讀得到。之後想在終端機裡用，再另外裝。
-
-**需要會寫程式才能用 Claude Code 嗎？**
-
-不需要。它最早是做給工程師寫程式用的。但它能碰到整台電腦，所以整理檔案、把資料整理成報表、建立每天自動跑的流程，這些都做得到，過程中不用自己寫任何程式碼。我自己用它架了個人知識管理系統和目標管理系統，也拿它開發程式和產品。
-
-**Claude Code 會不會自己改我的檔案？**
-
-會。預設的自動模式下，在你選的那個資料夾裡讀檔、建檔、改檔，它不會停下來問。資料夾以外的動作，像是跑指令、連到外面的網站，執行前有另一個模型先檢查，有風險的會被擋下。把原本就在的檔案刪到救不回來，是預設會擋的其中一種。
-
-想每一步都自己按同意，把權限模式切到手動。
-
-不管哪個模式，要它刪東西或大量改檔之前，先請它列出打算怎麼做，看過再說好。
 
 ---
 

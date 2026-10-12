@@ -12,6 +12,15 @@ heroImage: /images/blog/claude-code-tutorial.webp
 translationKey: claude-code-tutorial
 relatedPosts: ["claude-skills-guide.md", "lyt-framework-guide.md", "ai-second-brain.md", "agentic-coding.md", "nocode-to-ai-coding.md", "ai-coding-arbitrage.md"]
 focus_keyphrase: "how to use claude code"
+faq:
+  - question: "Is Claude Code free? How much does it cost?"
+    answer: "It is not free. You need a paid Anthropic plan: Pro at $20 a month ($17 a month when billed yearly), or Max from $100 a month for higher usage. The free plan does not include Claude Code. If you are not building products with it, Pro is generally enough."
+  - question: "The desktop app or the terminal version: which should I install?"
+    answer: "If you have never used a terminal, install the desktop app. Claude Code is already in it. The two are the same thing, and a CLAUDE.md you write is read by both. You can add the terminal version later if you want it."
+  - question: "Do I need coding experience to use Claude Code?"
+    answer: "No. It was first built for engineers writing software. But it can reach your whole computer, so it can organize files, turn data into reports, and set up routines that run every day, and you never write a line of code yourself. I use it to run my own knowledge management and goal tracking systems, and to build software and products."
+  - question: "Will Claude Code change my files on its own?"
+    answer: "Yes. In Auto mode, the default, it reads, creates and edits files inside the folder you chose without stopping to ask. For actions outside that folder, such as running commands or reaching websites, another model checks them first and blocks the risky ones. Permanently destroying files that were already there is one of the things blocked by default. If you want to approve every step yourself, switch the permission mode to Manual. In either mode, before it deletes things or changes many files at once, ask it to list what it plans to do, read the list, then say yes."
 ---
 
 You have probably heard of Claude Code without being quite sure what it is.
@@ -32,7 +41,7 @@ This guide shows you how to use Claude Code: how to install it and do this on yo
 
 ---
 
-## What is Claude Code
+## What is Claude Code?
 
 Claude Code is an AI that works inside your computer.
 
@@ -71,9 +80,22 @@ The name says Code, but what it does is not limited to writing code.
 
 ---
 
-## Set up and install Claude Code
+## Claude Code pricing: what does it cost?
 
-One thing first: Claude Code needs a paid plan. A free account will not work. The Pro plan is $20 a month.
+A free account cannot use Claude Code. You need a paid Anthropic plan. Claude Code is included in the plan, with nothing extra to buy.
+
+| Plan | Price per month |
+|---|---|
+| Pro | $20, or $17 a month when billed yearly |
+| Max | From $100, for higher usage |
+
+If you are not building products with it, Pro is generally enough. Start with one month of Pro and upgrade if you run out.
+
+For current prices, see the [official pricing page](https://claude.com/pricing).
+
+---
+
+## Set up and install Claude Code
 
 There are three ways to use Claude Code. All three give you the same Claude Code. The difference is where you talk to it from.
 
@@ -306,31 +328,10 @@ A few months later I rewrote the same guide, and installing has become downloadi
 
 But being able to install it and being able to put it to use are two different things. It can see the computer and it can act. What to use it for, what to do first, where the results should go: it will not decide those for anyone. Once the tool is in hand, what is missing is a method.
 
-This article is how I use it myself: [How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/).
+Two articles to read next. The first is how I use it myself. The second shows how to make it remember the things you do often.
 
----
-
-## FAQ
-
-**Is Claude Code free? How much does it cost?**
-
-It is not free. You need a paid Anthropic plan: Pro at $20 a month ($17 a month when billed yearly), or Max from $100 a month for higher usage. The free plan does not include Claude Code. If you are not building products with it, Pro is generally enough.
-
-**The desktop app or the terminal version: which should I install?**
-
-If you have never used a terminal, install the desktop app. Claude Code is already in it. The two are the same thing, and a CLAUDE.md you write is read by both. You can add the terminal version later if you want it.
-
-**Do I need coding experience to use Claude Code?**
-
-No. It was first built for engineers writing software. But it can reach your whole computer, so it can organize files, turn data into reports, and set up routines that run every day, and you never write a line of code yourself. I use it to run my own knowledge management and goal tracking systems, and to build software and products.
-
-**Will Claude Code change my files on its own?**
-
-Yes. In Auto mode, the default, it reads, creates and edits files inside the folder you chose without stopping to ask. For actions outside that folder, such as running commands or reaching websites, another model checks them first and blocks the risky ones. Permanently destroying files that were already there is one of the things blocked by default.
-
-If you want to approve every step yourself, switch the permission mode to Manual.
-
-In either mode, before it deletes things or changes many files at once, ask it to list what it plans to do, read the list, then say yes.
+- [How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)
+- [Claude Skills Guide: Build AI Workflow Automation From Scratch](/en/blog/claude-skills-guide/)
 
 ---
 
