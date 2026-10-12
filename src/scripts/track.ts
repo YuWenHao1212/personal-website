@@ -37,7 +37,8 @@ const hostOf = (href: string) => {
 
 /**
  * Every link inside an article's text is recorded when clicked: which article, what kind of link, where it leads.
- * `end` is the element that marks "read to the end" (the author block on Chinese pages, the block after the text on English ones).
+ * `end` is the element that marks "read to the end": the block right after the text, in both languages (10/12; Chinese pages
+ * used the author block, which sits below the FAQ, so an article with an FAQ needed more scrolling to count).
  */
 export function trackArticle(opts: { body: string; end?: string }) {
   const slug = location.pathname.replace(/^\/[^/]+\/blog\//, '').replace(/\/$/, '');
