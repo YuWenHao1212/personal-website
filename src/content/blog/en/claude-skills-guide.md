@@ -265,7 +265,7 @@ No MCP to connect, and the notes stay in a folder on your own computer.
 
 ### Step by Step
 
-**Pick the folder first.** When you start a new conversation in the Code tab, choose your "Documents" folder. Notes go into "Video Notes" inside it; if that folder doesn't exist, Claude creates it.
+**Before you start.** Open the Claude desktop app, click **</>** at the top left to switch to the Code tab, start a new conversation, and choose your "Documents" folder. Notes go into "Video Notes" inside it; if that folder doesn't exist, Claude creates it.
 
 **Step 1: do it once.** Don't rush into making a skill. Pick a YouTube video you want to watch that has subtitles, and paste this into the new conversation:
 
@@ -278,7 +278,11 @@ Use the format below and save it as a file in the "Documents/Video Notes" folder
 - How I could use this
 ```
 
-Claude first checks whether yt-dlp (a free tool that grabs YouTube subtitles) is on your computer. If not, it asks whether it can install it; just allow it. Then it grabs the subtitles and writes the notes.
+Once it's pasted, the screen looks like this. The **</>** lit up in the blue box at the top left is the Code tab. Claude splits the job into a few steps first, then works through them:
+
+![The Code tab in the Claude desktop app: the </> button at the top left is selected and boxed in blue with a "Claude Code" label; the conversation shows the video-notes prompt, and Claude has listed three steps: check yt-dlp and grab subtitles, read the subtitles for key points and timestamps, save to Documents/Video Notes](/images/blog/claude-skills-guide-code-tab.webp)
+
+The first thing it does is check whether yt-dlp (a free tool that grabs YouTube subtitles) is on your computer. If not, it asks whether it can install it; just allow it. Then it grabs the subtitles and writes the notes.
 
 I set the format for you to start with. Once the notes come out, change it to suit you: too many points, you want a section for the speaker's own words, you don't need "how I could use this." Just tell it, and adjust until you're happy.
 
@@ -294,7 +298,7 @@ Add one rule: if you can't get subtitles, stop and tell me, because notes writte
 
 For that last rule, I wrote in the reason too. Chapter 5 comes back to why.
 
-`~/.claude/skills/` is inside your home folder, and it's hidden: Finder on a Mac doesn't show it by default (chapter 2 covers how to show it). Claude builds the folder with SKILL.md, `scripts/`, and `assets/`, the same three you saw in the chapter 1 diagram. To see the note template, ask it to show you.
+`~/.claude/skills/` is inside your home folder, and it's hidden: Finder on a Mac doesn't show it by default (chapter 2 covers how to show it). Claude builds the folder with SKILL.md, `scripts/`, and `assets/`, all of which appear in the chapter 1 folder structure. To see the note template, ask it to show you.
 
 **Step 3: open a new conversation and check.** Start a new conversation in any folder. Don't explain anything; just say:
 
@@ -323,7 +327,7 @@ As the notes pile up, that folder becomes a record of what you've watched and wh
 
 Not one of my skills was written by hand.
 
-That's the path chapter 4 takes. Anthropic also has an official skill for exactly this, called `skill-creator`. Once it starts, Claude interviews you: what your workflow looks like, when it should be used, what the edge cases are, and then produces the SKILL.md.
+Chapter 4 does exactly this. Anthropic also has an official skill for exactly this, called `skill-creator`. Once it starts, Claude interviews you: what your workflow looks like, when it should be used, what the edge cases are, and then produces the SKILL.md.
 
 It can test, too: it writes test cases automatically, checks whether the skill gets used, and revises the description based on the results.
 
@@ -444,9 +448,9 @@ A skill is text you can read. People who don't code can still find what went wro
 
 ### What This Means
 
-Every new session, Claude is a newcomer who knows nothing about you. A skill is the onboarding manual you hand it—after reading, it knows your processes, your standards, your preferences. No re-training needed, ready from the first message.
+Claude knowing who you are doesn't mean it knows how you want each job done. A skill is like a stack of SOPs on a desk: one per job, saying how it's done and to what standard. When a job comes up, Claude opens that one.
 
-`/daily` is my executive assistant, the weekly review one is my meeting facilitator, and the one that helps me write is my writing coach. Each one is the senior team member who knows you best—knows your preferences, understands your processes, remembers the pitfalls from last time—not a day-one intern.
+With that stack in place, `/daily` is my executive assistant, the weekly review one is my meeting facilitator, and the one that helps me write is my writing coach. Each one is the senior team member who knows you best—knows your preferences, understands your processes, remembers the pitfalls from last time—not a day-one intern.
 
 Agent Skills aren't hard—just Markdown with some structure. But the trend they represent matters: **AI shifts from "you teach it every time" to "you teach it once."**
 

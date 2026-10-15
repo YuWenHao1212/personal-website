@@ -489,6 +489,9 @@
   padding: var(--space-5) var(--space-5) var(--space-5) 0;
   font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
   letter-spacing: 0.03em;
+  /* long paths with no spaces (~/.claude/skills/name/SKILL.md) must wrap, or they widen the page on a phone */
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .ar .ar-body .fg-cols .c + .c {
   padding-left: var(--space-5);
