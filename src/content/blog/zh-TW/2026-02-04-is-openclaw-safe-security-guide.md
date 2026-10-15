@@ -536,7 +536,7 @@ Cisco 說它是「安全惡夢」，Palo Alto 說它是「致命三合一」—�
 
 5 個防護做完之後，下一步是搞懂 26 個 Tools 和 53 個 Skills 該怎麼配——開哪些、關哪些、為什麼。我把這部分寫在 [Tools & Skills 完整指南](/zh-TW/blog/openclaw-tools-skills-tutorial/) 裡，包含我自己的完整設定。
 
-*怎麼和 AI 一起工作，讓做的事影響更多人、時間留給自己。我想通的事，都寫成信。想收到的話，可以[訂閱電子報](/zh-TW/#newsletter-form)。*
+*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*
 ---
 
 ## 資料來源
