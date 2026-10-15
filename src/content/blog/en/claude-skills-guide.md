@@ -2,6 +2,7 @@
 title: "Claude Skills Guide: Build AI Workflow Automation From Scratch"
 description: "A practical Claude Skills guide with real examples. Learn how skills work, the three-layer loading architecture, trigger mechanics, design patterns, and Anthropic's official writing philosophy. Includes hands-on experience and getting started tips."
 pubDate: 2026-03-07
+updatedDate: 2026-10-15
 category: building-products
 topics: ["ai-practice"]
 tags: ["AI", "Claude Code", "agentic coding", "Claude Skills", "developer-tools"]
@@ -20,7 +21,11 @@ faq:
   - question: "Do I need to code to use Skills?"
     answer: "No. SKILL.md is just Markdown—no programming required. You don't even need to write it yourself. Anthropic's official skill-creator interviews you about your workflow (what it looks like, when to trigger, edge cases), then auto-generates the SKILL.md and folder structure."
   - question: "Do Skills only work with Claude Code?"
-    answer: "No. Agent Skills is an open standard launched by Anthropic in late 2025, now adopted by 30+ tools including Cursor, VS Code Copilot, Gemini CLI, OpenAI Codex, and JetBrains Junie. Skills you write are portable across platforms—your investment isn't locked into any single tool."
+    answer: "No. The Claude apps (web and desktop), Claude Code, and the API all support Skills, but each one is installed separately. Agent Skills is also an open standard Anthropic published in December 2025, supported by 40+ tools including Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenAI Codex, and JetBrains Junie, so a skill you write can travel with you."
+  - question: "Can I use Claude Skills on the free plan?"
+    answer: "In the Claude apps, yes. Anthropic's help center lists Free, Pro, Max, Team, and Enterprise, as long as code execution is turned on under Settings > Capabilities. Claude Code itself needs a paid plan."
+  - question: "Where do I put a Skill folder?"
+    answer: "In Claude Code, personal skills go in ~/.claude/skills/<skill-name>/SKILL.md and load in every project on that machine; project skills go in .claude/skills/ inside the project. In the Claude apps there's no folder to manage: zip the skill folder and upload it under Customize > Skills."
   - question: "How long can a Skill be?"
     answer: "Keep SKILL.md under 500 lines. Beyond that, use the three-layer architecture: the cover page (name + description, ~100 tokens) loads permanently, full instructions load only when triggered, and lengthy reference material goes in a references/ folder loaded on demand. This lets 17 skills coexist without blowing up the context window."
 ---
@@ -41,11 +46,11 @@ This article covers everything from the ground up: what a skill is, how it works
 
 ---
 
-## Why You Need Skills
+## Why Do You Need Skills?
 
 Re-pasting prompts isn't just annoying—it's wasteful.
 
-Every paste eats a chunk of the context window. And the context window is finite. Even Claude Opus, the most powerful model, only has 200K tokens (roughly 150,000 words). Sounds like a lot, but system instructions, MCP tool descriptions, and conversation history all share that space. The more tools you connect, the longer the conversation, the less room for your actual instructions. In my experience, loading several MCP tools can eat half the context before the conversation even starts—leaving just 50% for real work.
+Every paste eats a chunk of the context window. And the context window is finite. Current Claude models have a 1M-token window. Sounds like a lot, but system instructions, MCP tool descriptions, and conversation history all share that space, and the fuller it gets, the easier it is for the model to lose track of what you said earlier. The more tools you connect, the longer the conversation, the less room for your actual instructions. In my experience, loading several MCP tools can eat half the context before the conversation even starts—leaving just 50% for real work.
 
 There's a subtler problem too: **inconsistency.** The same task described slightly differently on different days produces different results. Sometimes Claude adds an extra step, sometimes it skips one, sometimes the format is off. Without a standardized SOP, quality depends on luck.
 
@@ -120,7 +125,35 @@ My [AI second brain](/en/blog/ai-second-brain/) is a good example. MCP lets Clau
 
 MCP provides capability. Skills provide intelligence.
 
-Both layers now have open standards. MCP standardizes "how tools connect," Agent Skills standardizes "how tools are used." Agent Skills is an open standard launched by Anthropic in late 2025, now adopted by 30+ tools—not just Claude Code, but Cursor, VS Code Copilot, Gemini CLI, OpenAI Codex, JetBrains Junie, and more. The skills you write are portable across platforms.
+Both layers now have open standards. MCP standardizes "how tools connect," Agent Skills standardizes "how tools are used." Agent Skills is an open standard Anthropic published in December 2025, now supported by 40+ tools—not just Claude Code, but Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenAI Codex, JetBrains Junie, and more. The skills you write can travel with you.
+
+---
+
+## How to Use Claude Skills: Where They Go in the Claude Apps and in Claude Code
+
+The same skill folder works differently depending on where you put it. The Claude apps, Claude Code, and the API don't sync with each other, so install a skill wherever you plan to use it.
+
+**In the Claude apps (web and desktop)**
+
+1. Go to Settings > Capabilities and make sure code execution and file creation is on. Skills run inside that environment.
+2. Go to Customize > Skills. Anthropic's built-in skills (for slides, spreadsheets, Word documents, and PDFs) can be switched on here.
+3. For your own skill, zip the whole skill folder, then click "+" → Create skill → Upload a skill.
+4. You don't need to call it. Ask for something related and Claude decides whether to use it; if it doesn't, name the skill in your message.
+
+The free plan works too. Skills you upload are private to you by default.
+
+**In Claude Code**
+
+There's no upload step. A skill is just a folder on your computer:
+
+| Where it lives | Who gets it |
+|---------|---------|
+| `~/.claude/skills/<skill-name>/SKILL.md` | You, in every project on this machine |
+| `.claude/skills/<skill-name>/SKILL.md` inside a project | That project. Commit it and your whole team has it |
+
+Once it's there, Claude can start it on its own when relevant, or you can type `/` plus the skill name, such as `/daily`. Custom commands (`.claude/commands/`) have been merged into skills, and old command files keep working.
+
+If you haven't installed Claude Code yet, start with the [Claude Code tutorial](/en/blog/claude-code-tutorial/).
 
 ---
 
@@ -156,7 +189,7 @@ In the three-layer architecture, the Layer 1 `description` is the most critical�
 
 Claude uses this text to judge: "Does what the user just said relate to this skill?" The judgment is based on the LLM's own semantic understanding—it's not doing keyword matching, but genuinely "reading" your intent against the description, then deciding whether to activate.
 
-Sounds smart, but there's a catch: Claude errs on the side of caution. It would rather not trigger than trigger incorrectly. Testing shows that with vague descriptions, auto-trigger accuracy drops to just 55%. It's not that Claude can't understand your intent—it's that when the description is ambiguous, it chooses "when in doubt, don't activate."
+Sounds smart, but there's a catch: Claude errs on the side of caution. It would rather not trigger than trigger incorrectly. Community tests of trigger rates report anything from about 20% to over 80%, with different methods, but they agree on the direction: the vaguer the description, the less often the skill fires. It's not that Claude can't understand your intent—it's that when the description is ambiguous, it chooses "when in doubt, don't activate."
 
 How to write it right? A good description answers two things:
 
@@ -284,19 +317,21 @@ Two routes:
 
 The most natural approach. First, iterate on a workflow in conversation until Claude gets it right. Then tell it: "Turn what we just did into a skill." It auto-generates SKILL.md and sets up the folder structure. Use it for a few days, find issues, tell it to fix them.
 
-Anthropic even has an official skill for this, called `skill-creator` (major upgrade in early March 2026). Launch it in Claude Code, and Claude interviews you—what does your workflow look like, when should it trigger, what are the edge cases—then auto-generates SKILL.md based on your answers.
+Anthropic even has an official skill for this, called `skill-creator` (given a major upgrade in March 2026). Launch it in Claude Code, and Claude interviews you—what does your workflow look like, when should it trigger, what are the edge cases—then auto-generates SKILL.md based on your answers.
 
 It doesn't just generate. It also tests and optimizes:
 
 - **Eval**: Auto-generates test cases ("user says X, skill should do Y"), verifying the skill triggers correctly
-- **Improve**: Auto-optimizes description and instructions based on test results, using a 60/40 train/test split to prevent overfitting
+- **Improve**: Auto-optimizes description and instructions based on test results, when tuning the description, it holds back 40% of the test cases so it is not just memorizing the answers
 - **Benchmark**: Tracks success rate, token usage, and can even run A/B tests—two versions in a blind head-to-head
 
 **Route B: Start from the community and customize.**
 
-Pre-built skills are everywhere. The largest directory is [SkillsMP](https://skillsmp.com), aggregating 96,000+ skills from GitHub. [Anthropic's official repo](https://github.com/anthropics/skills) has fewer but quality-assured. The community also has [Awesome Agent Skills](https://github.com/VoltAgent/awesome-agent-skills), a curated list featuring official skills from Anthropic, Vercel, Stripe, Cloudflare, and more.
+Pre-built skills are everywhere. The largest directory is [SkillsMP](https://skillsmp.com), auto-indexing GitHub and now listing over 3 million skills, none of them reviewed. [Anthropic's official repo](https://github.com/anthropics/skills) has fewer but quality-assured. The community also has [Awesome Agent Skills](https://github.com/VoltAgent/awesome-agent-skills), a curated list featuring official skills from Anthropic, Vercel, Stripe, Cloudflare, and more.
 
-But note: community skills are a generic starting point, not your finish line. A generic "daily planning" skill doesn't know your project management tools, your weekly goal format, or how you prioritize. Truly useful skills are always customized to your own workflow—which is why my `/daily` took six versions to reach its current state.
+Before installing someone else's skill, read through its files, especially `scripts/`. A skill can run code and touch your files, and Anthropic's own advice is to use only skills you wrote or that come from a source you trust.
+
+Also note: community skills are a generic starting point, not your finish line. A generic "daily planning" skill doesn't know your project management tools, your weekly goal format, or how you prioritize. Truly useful skills are always customized to your own workflow—which is why my `/daily` took six versions to reach its current state.
 
 Either route, the key is the same: **get one thing right first, then package it.** Don't try to design a perfect skill from the start. A working v1 is enough—use it for a few days, find the gaps, then iterate.
 

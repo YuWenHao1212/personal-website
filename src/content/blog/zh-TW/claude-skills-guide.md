@@ -1,7 +1,8 @@
 ---
 title: "Claude Skills 教學：從零開始打造你的 AI 自動化工作流"
-description: "這篇 Claude Skills 教學從實際案例出發，帶你理解 Skill 的運作原理、三層載入架構、觸發機制、設計模式，以及 Anthropic 官方的 Skill 寫作哲學。附實戰經驗和上手指南。"
+description: "這篇 Claude Skills 教學從實際案例出發，講 Skill 是什麼、在 Claude App 和 Claude Code 裡怎麼用，再談三層載入架構、觸發機制、設計模式，以及 Anthropic 官方的 Skill 寫作哲學。附實戰經驗和上手指南。"
 pubDate: 2026-03-07
+updatedDate: 2026-10-15
 category: building-products
 topics: ["ai-practice"]
 tags: ["AI", "Claude Code", "agentic coding", "Claude Skills", "developer-tools"]
@@ -20,7 +21,11 @@ faq:
   - question: "不會寫程式也能用 Skills 嗎？"
     answer: "可以。SKILL.md 就是 Markdown，不需要寫程式碼。你甚至不用自己手寫——Anthropic 官方有一個叫 skill-creator 的 skill，啟動後 Claude 會像訪談一樣問你問題（工作流長什麼樣、什麼時候觸發、有哪些邊界條件），然後自動產出 SKILL.md 和資料夾結構。"
   - question: "Skills 只能在 Claude Code 上用嗎？"
-    answer: "不是。Agent Skills 是 Anthropic 2025 年底推出的開放標準，目前已被 Cursor、VS Code Copilot、Gemini CLI、OpenAI Codex、JetBrains Junie 等 30+ 工具採用。你寫的 skill 可以跨平台使用，不會被綁定在單一工具上。"
+    answer: "不是。Claude App（網頁和桌面）、Claude Code、API 都能用，但三邊要各自安裝。Agent Skills 也是 Anthropic 2025 年 12 月公開的開放標準，Cursor、VS Code、GitHub Copilot、Gemini CLI、OpenAI Codex、JetBrains Junie 等 40 多個工具都支援，寫好的 skill 可以帶到別的工具用。"
+  - question: "免費方案能用 Claude Skills 嗎？"
+    answer: "Claude App 裡可以。官方說明寫明免費、Pro、Max、Team、Enterprise 都能用，前提是在 Settings > Capabilities 打開程式碼執行。Claude Code 不一樣，它本身需要付費方案。"
+  - question: "Skill 要放在哪個資料夾？"
+    answer: "在 Claude Code 裡，個人用的放 ~/.claude/skills/<skill 名稱>/SKILL.md，所有專案都讀得到；只給某個專案用的放專案裡的 .claude/skills/。在 Claude App 裡不用管資料夾，把 skill 資料夾壓成 zip，從 Customize > Skills 上傳。"
   - question: "一個 Skill 能寫多長？"
     answer: "SKILL.md 建議控制在 500 行以內。超過的話用三層架構處理：封面（name + description，~100 tokens）永遠載入，完整指令被觸發時才載入，太長的參考資料拆到 references/ 資料夾按需查閱。這樣 17 個 skills 同時掛著也不會塞爆 context window。"
 ---
@@ -41,11 +46,11 @@ faq:
 
 ---
 
-## 為什麼需要 Skill
+## 為什麼需要 Skill？
 
 每次貼 prompt 的問題不只是煩——是浪費。
 
-每貼一次，就佔掉 context window 的一塊空間。而 context window 是有限的。目前最強的 Claude Opus 也只有 200K tokens（大約 15 萬字），聽起來很多，但系統指令、MCP 工具描述、對話歷史全部共用這個空間。你掛的工具越多、對話越長，能塞進去的指令就越少。我自己實測過，MCP 工具掛多一點，對話還沒開始就已經吃掉一半的 context——剩下 50% 才是你真正能工作的空間。
+每貼一次，就佔掉 context window 的一塊空間。而 context window 是有限的。現在的 Claude 模型是 1M tokens，聽起來很多，但系統指令、MCP 工具描述、對話歷史全部共用這個空間，而且對話塞得越滿，模型越容易漏看前面交代的事。你掛的工具越多、對話越長，能塞進去的指令就越少。我自己實測過，MCP 工具掛多一點，對話還沒開始就已經吃掉一半的 context——剩下 50% 才是你真正能工作的空間。
 
 還有一個更隱蔽的問題：**做法不一致。** 同樣一件事，今天你這樣解釋，明天換個說法，Claude 的做法就不一樣。有時候它會多做一步，有時候漏掉一步，有時候格式不對。沒有標準化的 SOP，品質靠運氣。
 
@@ -53,7 +58,7 @@ Skill 解決的就是這兩件事：**省 context、穩品質。** 在 Anthropic
 
 ---
 
-## Claude Skills 長什麼樣
+## Claude Skills 是什麼？長什麼樣？
 
 技術上，一個 Claude Code Skill 就是一個資料夾。核心是一份叫 `SKILL.md` 的 Markdown 檔案——你的 SOP 寫在這裡。開頭是一段 YAML 設定（告訴 Claude 這個 skill 做什麼、什麼時候該用），後面是具體的步驟和指令。
 
@@ -120,7 +125,35 @@ my-daily-planning/
 
 MCP 提供能力。Skills 提供智慧。
 
-而且這兩層都有了開放標準。MCP 統一了「工具怎麼連」，Agent Skills 統一了「工具怎麼用」。Agent Skills 是 Anthropic 在 2025 年底推出的開放標準，目前已被 30+ 工具採用——不只是 Claude Code，Cursor、VS Code Copilot、Gemini CLI、OpenAI Codex、JetBrains Junie 都支援。你寫的 skill 可以跨平台使用。
+而且這兩層都有了開放標準。MCP 統一了「工具怎麼連」，Agent Skills 統一了「工具怎麼用」。Agent Skills 是 Anthropic 在 2025 年 12 月公開的開放標準，現在 40 多個工具都支援——不只是 Claude Code，Cursor、VS Code、GitHub Copilot、Gemini CLI、OpenAI Codex、JetBrains Junie 都在名單上。你寫的 skill 可以帶到別的工具用。
+
+---
+
+## Claude Skills 怎麼用：Claude App 和 Claude Code 各放哪裡
+
+同一個 skill 資料夾，放的地方不一樣，用法也不一樣。Claude App、Claude Code、API 三邊不會自動同步，要在哪裡用，就裝在哪裡。
+
+**在 Claude App（網頁、桌面）裡**
+
+1. 到 Settings > Capabilities，確認「程式碼執行和建立檔案」是打開的。Skills 要在這個環境裡才跑得起來。
+2. 到 Customize > Skills。官方內建的 skill（像是做簡報、試算表、Word、PDF 的那幾個）在這裡打開就能用。
+3. 自己的 skill：把整個 skill 資料夾壓成 zip，按「+」→ Create skill → Upload a skill 上傳。
+4. 不用特別叫它。你提出相關的要求，Claude 會自己判斷要不要用；沒用到的話，在對話裡直接講出 skill 的名字。
+
+免費方案也能用。上傳的 skill 預設只有你自己看得到。
+
+**在 Claude Code 裡**
+
+Claude Code 沒有上傳這一步，skill 就是電腦裡的一個資料夾：
+
+| 放在哪裡 | 誰讀得到 |
+|---------|---------|
+| `~/.claude/skills/<skill 名稱>/SKILL.md` | 你自己，這台電腦上的所有專案 |
+| 專案裡的 `.claude/skills/<skill 名稱>/SKILL.md` | 這個專案。一起放進 git，團隊每個人都有 |
+
+放好之後有兩種用法：讓 Claude 看情況自己啟動，或是直接打 `/` 加上 skill 名稱，例如 `/daily`。以前的自訂指令（`.claude/commands/`）現在已經併進 skills，舊的檔案照樣能用。
+
+還沒裝 Claude Code 的話，先看 [Claude Code 教學](/zh-TW/blog/claude-code-tutorial/)。
 
 ---
 
@@ -156,7 +189,7 @@ Claude 讀這個就知道什麼時候該啟動。
 
 Claude 靠這段文字判斷：「使用者現在說的話，跟這個 skill 有關嗎？」判斷方式是 LLM 自己的語義理解——它不是在做關鍵字比對，而是真的在「讀懂」你的意圖和 description 的描述，然後決定要不要啟動。
 
-聽起來很聰明，但有一個問題：Claude 傾向保守。它寧可不觸發，也不亂觸發。有人做過實測，description 寫得模糊的時候，自動觸發準確率只有 55%。不是 Claude 讀不懂你的意圖，而是 description 寫得不夠明確時，它會選擇「不確定就不啟動」。
+聽起來很聰明，但有一個問題：Claude 傾向保守。它寧可不觸發，也不亂觸發。社群有不少人實測過觸發率，數字從兩成到八成多都有，測法也各不相同，但結論一致：description 寫得越模糊，越不容易被觸發。不是 Claude 讀不懂你的意圖，而是 description 寫得不夠明確時，它會選擇「不確定就不啟動」。
 
 怎麼寫才對？一個好的 description 要回答兩件事：
 
@@ -288,19 +321,21 @@ Anthropic 的指南裡也說了同樣的話：
 
 最自然的方式。你先在對話中反覆嘗試某個工作流，直到 Claude 做對。然後跟它說：「把剛才的流程做成一個 skill。」它會自動生成 SKILL.md、建好資料夾結構。你試用幾天，發現不對的地方再叫它改。
 
-Anthropic 官方甚至有一個專門做這件事的 skill，叫 `skill-creator`（2026 年 3 月初剛做了重大升級）。你在 Claude Code 裡啟動它，Claude 會像訪談一樣問你問題——你的工作流長什麼樣、什麼時候該觸發、有哪些邊界條件——然後根據你的回答自動產出 SKILL.md。
+Anthropic 官方甚至有一個專門做這件事的 skill，叫 `skill-creator`（2026 年 3 月做過一次大升級）。你在 Claude Code 裡啟動它，Claude 會像訪談一樣問你問題——你的工作流長什麼樣、什麼時候該觸發、有哪些邊界條件——然後根據你的回答自動產出 SKILL.md。
 
 不只是產出。它還能幫你測試和優化：
 
 - **Eval**：自動生成測試案例（「使用者說 X，skill 應該做 Y」），驗證 skill 能不能正確觸發
-- **Improve**：根據測試結果自動優化 description 和指令，用 60/40 train/test split 防止 overfitting
+- **Improve**：根據測試結果優化 description 和指令。優化 description 時，它會把測試案例分成 60% 拿來調、40% 留著驗，避免只是對著考題背答案
 - **Benchmark**：追蹤成功率、token 用量，甚至能跑 A/B test——兩個版本盲測對決
 
 **路線 B：從社群找起點再客製。**
 
-現成的 skills 到處都有。最大的目錄是 [SkillsMP](https://skillsmp.com)，收錄了 96,000+ 個從 GitHub 聚合的 skills。[Anthropic 官方 repo](https://github.com/anthropics/skills) 數量少但品質有保證。社群也有 [Awesome Agent Skills](https://github.com/VoltAgent/awesome-agent-skills) 策展清單，收錄了 Anthropic、Vercel、Stripe、Cloudflare 等官方團隊發布的 skills。
+現成的 skills 到處都有。最大的目錄是 [SkillsMP](https://skillsmp.com)，自動從 GitHub 收錄，數量已經超過 300 萬個，但沒有經過審核。[Anthropic 官方 repo](https://github.com/anthropics/skills) 數量少但品質有保證。社群也有 [Awesome Agent Skills](https://github.com/VoltAgent/awesome-agent-skills) 策展清單，收錄了 Anthropic、Vercel、Stripe、Cloudflare 等官方團隊發布的 skills。
 
-但要注意：社群 skill 是通用的起點，不是你的終點。一個通用的「每日規劃」skill 不知道你用什麼專案管理工具、你的週目標格式長什麼樣、你習慣怎麼排優先順序。真正好用的 skill 一定是根據你自己的工作流客製過的——這也是為什麼我的 `/daily` 改了六版才到現在的樣子。
+裝別人的 skill 之前，先把資料夾裡的檔案看過一遍，尤其是 `scripts/`。Skill 可以帶腳本、可以碰你的檔案，官方的建議也是只用自己寫的或來源可信的 skill。
+
+另外要注意：社群 skill 是通用的起點，不是你的終點。一個通用的「每日規劃」skill 不知道你用什麼專案管理工具、你的週目標格式長什麼樣、你習慣怎麼排優先順序。真正好用的 skill 一定是根據你自己的工作流客製過的——這也是為什麼我的 `/daily` 改了六版才到現在的樣子。
 
 不管哪條路，關鍵都一樣：**先做對一件事，再封裝。** 不要一開始就想設計一個完美的 skill。v1 能用就好，用了幾天發現漏洞再改。我的 `/daily` 改了五次才變成現在的樣子。
 
