@@ -338,9 +338,8 @@ CLAUDE.md 可以放在兩種地方。放在某個資料夾裡，只有在那個�
 - [我的 AI 工作流系統](/zh-TW/blog/personal-panopticon/)
 - [Claude Skills 教學：從零開始打造你的 AI 自動化工作流](/zh-TW/blog/claude-skills-guide/)
 
-讓它幫忙往想要的方向走，自己摸索也做得到，只是花時間。想用最有效率的方式走完這一段，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>
+讓它幫忙往想要的方向走，自己摸索也做得到，只是花時間。想用最有效率的方式走完這一段，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>要帶整個團隊導入 Claude 的話，可以找[匯流顧問](https://confluence-partners.ai/)。
 
 ---
 
-*怎麼和 AI 一起工作，讓做的事影響更多人、時間留給自己。我想通的事，都寫成信。想收到的話，可以[訂閱電子報](/zh-TW/#newsletter-form)。*
-*想在團隊裡導入 Claude，可以看[匯流顧問](https://confluence-partners.ai/)。*
+*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

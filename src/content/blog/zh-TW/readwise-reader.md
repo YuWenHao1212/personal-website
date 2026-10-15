@@ -94,4 +94,4 @@ Reader 是屬於 Readwise Full Plan 的一部份，Readwise Full Plan 的訂閱�
 
 ---
 
-*怎麼和 AI 一起工作，讓做的事影響更多人、時間留給自己。我想通的事，都寫成信。想收到的話，可以[訂閱電子報](/zh-TW/#newsletter-form)。*
+*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

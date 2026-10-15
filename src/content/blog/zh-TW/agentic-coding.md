@@ -204,4 +204,4 @@ AI 一年已經改變了太多事情。
 
 **延伸閱讀**：想要成熟度自評框架、工具比較表、Intent Spec 模板和入門 Checklist？請看 [Agentic Coding 完全指南](/zh-TW/blog/agentic-coding-guide/)——同一主題的實踐者手冊版。
 
-*怎麼和 AI 一起工作，讓做的事影響更多人、時間留給自己。我想通的事，都寫成信。想收到的話，可以[訂閱電子報](/zh-TW/#newsletter-form)。*
+*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*
