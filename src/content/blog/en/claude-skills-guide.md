@@ -1,6 +1,6 @@
 ---
-title: "Claude Skills Guide: Build AI Workflow Automation From Scratch"
-description: "A practical Claude Skills guide with real examples. Learn how skills work, the three-layer loading architecture, trigger mechanics, design patterns, and Anthropic's official writing philosophy. Includes hands-on experience and getting started tips."
+title: "Claude Skills Guide: What They Are, How to Use Them, and Your First Skill"
+description: "What are Claude Skills and how do you use them? This guide uses the Code tab in the Claude desktop app to show where skills live, how Claude picks one, and walks you through building your first skill: YouTube video notes."
 pubDate: 2026-03-07
 updatedDate: 2026-10-15
 category: building-products
@@ -15,344 +15,460 @@ focusKeyphrase: "claude skills guide"
 relatedPosts: ["enterprise-ai-adoption-bottleneck.md", "claude-code-tutorial.md", "lyt-framework-guide.md"]
 faq:
   - question: "What are Claude Skills?"
-    answer: "They solve the 'teaching AI the same thing every conversation' problem. A skill is a folder: SKILL.md (main instructions—YAML header + Markdown steps), scripts/ (executable code), references/ (docs), and assets/ (templates). Write once, auto-applied to every future conversation."
+    answer: "A skill is a folder. Its SKILL.md says how to do one thing, and Claude opens it and follows it when it needs to. It solves the 'teaching AI the same thing every conversation' problem: write the method once, and every future conversation runs on the same instructions."
+  - question: "How do I use Claude Skills?"
+    answer: "In the Code tab of the Claude desktop app, put the skill folder in ~/.claude/skills/. Claude uses it on its own when it's relevant, or you can call it directly with /name. In the chat tab of the Claude apps, go to Customize > Skills to turn on Anthropic's built-in skills or upload your own as a zip."
+  - question: "How do I add a skill to Claude?"
+    answer: "The easiest way: get one task right in a conversation first, then tell Claude 'turn what we just did into a skill and save it to ~/.claude/skills/'. It builds the folder and SKILL.md for you. In the chat tab, zip the skill folder, open Customize > Skills, click '+', choose Create skill, then Upload a skill."
+  - question: "Are Claude Skills free?"
+    answer: "In the Claude apps, yes. Anthropic's help center lists Free, Pro, Max, Team, and Enterprise, as long as code execution and file creation are turned on under Settings > Capabilities. Claude Code is different: it needs a paid plan."
   - question: "What's the difference between Claude Skills and MCP?"
-    answer: "MCP lets Claude connect to external tools and APIs (solves 'can it do this?'). Skills teach it what to do with the data (solves 'how to do it best'). Example: for my Panopticon system, MCP pulls content from Reddit, Hacker News, and Product Hunt. The skill filters for engagement scores above 4, categorizes into 5 content types, and recommends 2-3 topics."
+    answer: "MCP is the connector that lets Claude reach external tools and data; it answers 'can it do this?'. A skill describes what to do with the data; it answers 'how is this done best?'. In my content monitoring system, MCP pulls posts from Reddit and Hacker News, and the skill keeps those with an engagement score above 4, sorts them into 5 content types, and recommends 2 to 3 topics."
   - question: "Do I need to code to use Skills?"
-    answer: "No. SKILL.md is just Markdown—no programming required. You don't even need to write it yourself. Anthropic's official skill-creator interviews you about your workflow (what it looks like, when to trigger, edge cases), then auto-generates the SKILL.md and folder structure."
-  - question: "Do Skills only work with Claude Code?"
-    answer: "No. The Claude apps (web and desktop), Claude Code, and the API all support Skills, but each one is installed separately. Agent Skills is also an open standard Anthropic published in December 2025, supported by 40+ tools including Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenAI Codex, and JetBrains Junie, so a skill you write can travel with you."
-  - question: "Can I use Claude Skills on the free plan?"
-    answer: "In the Claude apps, yes. Anthropic's help center lists Free, Pro, Max, Team, and Enterprise, as long as code execution is turned on under Settings > Capabilities. Claude Code itself needs a paid plan."
-  - question: "Where do I put a Skill folder?"
-    answer: "In Claude Code, personal skills go in ~/.claude/skills/<skill-name>/SKILL.md and load in every project on that machine; project skills go in .claude/skills/ inside the project. In the Claude apps there's no folder to manage: zip the skill folder and upload it under Customize > Skills."
+    answer: "No. SKILL.md is plain Markdown. You don't have to write it by hand either: get the task right in a conversation, then ask Claude to turn it into a skill. Anthropic also has an official skill called skill-creator that interviews you and then writes the SKILL.md."
+  - question: "Do Skills only work with Claude?"
+    answer: "No. Agent Skills became an open standard in December 2025, and AI tools from OpenAI, Google, and Microsoft support it, so a skill you write for Claude also works in ChatGPT or VS Code. On the Claude side, your own skills are installed separately in the apps, Claude Code, and the API; they don't sync. Anthropic's built-in skills such as pdf and xlsx are the exception and also sync to Claude Code when you sign in with a claude.ai account."
   - question: "How long can a Skill be?"
-    answer: "Keep SKILL.md under 500 lines. Beyond that, use the three-layer architecture: the cover page (name + description, ~100 tokens) loads permanently, full instructions load only when triggered, and lengthy reference material goes in a references/ folder loaded on demand. This lets 17 skills coexist without blowing up the context window."
+    answer: "Keep SKILL.md under 500 lines. Move long reference material into a references/ folder that Claude reads only when needed. Day to day, Claude only reads each skill's name and description, about 100 tokens, so even many skills take up little context."
 ---
 
 Almost everyone who works with AI has hit the same wall: you teach it something, open a new conversation the next day, and everything resets to zero.
 
-You spend three days dialing in a workflow, going back and forth with Claude until it's perfect. Next morning, you're explaining everything from scratch. You save the prompt in your notes and paste it every time, but after a month of pasting the same 500-word instruction daily, you start wondering—is this really how AI is supposed to work?
+You spend three days dialing in a workflow, going back and forth with Claude until it's right. Next morning, you're explaining everything from scratch. You save the prompt in your notes and paste it every time, but after a month of pasting the same 500-word instruction daily, you start wondering—is this really how AI is supposed to work?
 
 It's not. There's something built specifically for this problem—Agent Skills.
 
-I use Claude Code, so this article uses Claude Skills as the example. But the same concept goes by different names elsewhere—Cursor calls them Rules, Codex calls them Instructions. The idea is the same, and the format is converging.
+I use Claude Code, so this article uses Claude Skills as the example. But the same concept goes by other names—Cursor calls them Rules, Codex uses AGENTS.md. The idea is the same, and these tools now all read the same skill format.
 
 Every morning, I type two words—"start work"—and Claude automatically runs through 8 steps: review yesterday, check weekly goals, sync four projects, build today's task list—then color-codes each task: green for AI handles it, yellow for AI prepares options and I pick, red for I handle personally, gray for skip today. Three minutes later it asks: "What should we tackle first?"
 
 Because I packaged this workflow into a skill, two words get me the same steps, the same format, every single day.
 
-This article covers everything from the ground up: what a skill is, how it works, how to create Claude code skills, and how Anthropic themselves think about this.
+This Claude Skills guide goes from what a skill is and how to use one to building your own. Along the way there are three prompts you can copy as-is. Follow them through, and you'll have a skill that turns YouTube videos into notes.
 
----
 
-## Why Do You Need Skills?
+## What Are Claude Skills?
 
-Re-pasting prompts isn't just annoying—it's wasteful.
+A Claude Skill is a folder. Inside is a write-up of how to do one thing, and it can also carry reference material, programs that run directly, and templates for the output. Claude opens it when it needs to and follows it.
 
-Every paste eats a chunk of the context window. And the context window is finite. Current Claude models have a 1M-token window. Sounds like a lot, but system instructions, MCP tool descriptions, and conversation history all share that space, and the fuller it gets, the easier it is for the model to lose track of what you said earlier. The more tools you connect, the longer the conversation, the less room for your actual instructions. In my experience, loading several MCP tools can eat half the context before the conversation even starts—leaving just 50% for real work.
+A complete skill folder looks like this:
 
-There's a subtler problem too: **inconsistency.** The same task described slightly differently on different days produces different results. Sometimes Claude adds an extra step, sometimes it skips one, sometimes the format is off. Without a standardized SOP, quality depends on luck.
+```text
+my-daily-planning/
+├── SKILL.md          ← main instructions (required)
+├── scripts/          ← executable scripts (optional)
+├── references/       ← reference docs (optional)
+└── assets/           ← templates (optional)
+```
 
-Skills solve both problems: **save context, stabilize quality.** In Anthropic's open standard, this system is called Agent Skills—it's not limited to Claude Code. Cursor, Gemini CLI, Codex all support the same format. Regardless of the name, the core idea is the same: make AI follow your defined workflow when coding, executing tasks, or running AI workflow automation.
+`SKILL.md` is the recipe itself—your workflow, steps, and decision logic live here. Claude reads it and knows what to do.
 
----
+The other three folders are the ingredients:
 
-## What Claude Code Skills Look Like
+<figure class="fg fg-cols">
+<div class="c"><b>01</b><strong>scripts/ — programs</strong><span>The parts that need code. Running a program is more accurate than asking Claude to work it out, and it runs directly without being loaded into context.</span><em>e.g. parse a CSV, compute statistics, call an external API</em></div>
+<div class="c"><b>02</b><strong>references/ — reference material</strong><span>Material too long to put in SKILL.md. Claude looks it up only when needed, so it doesn't take up context every time.</span><em>e.g. API docs, style guides, decision tables</em></div>
+<div class="c"><b>03</b><strong>assets/ — templates</strong><span>Templates and resources applied to every output, so the format never drifts.</span><em>e.g. a Markdown template for the daily note</em></div>
+</figure>
 
-Technically, a Claude Code Skill is just a folder. At its core is a Markdown file called `SKILL.md`—your SOP lives here. It starts with a YAML header (telling Claude what this skill does and when to use it), followed by the actual steps and instructions.
+See it? Each of these four solves a different problem, but they all serve the same two things: **steady quality for you, saved context for the AI.** Scripts take no context and compute accurately, references load on demand, assets standardize the output. The whole folder design revolves around those two.
+
+Write once. Every conversation after that, Claude applies it automatically. No pasting prompts, no repeating yourself.
+
+### What SKILL.md Looks Like
+
+The core is a Markdown file called `SKILL.md`—your SOP lives here. It starts with a YAML block (telling Claude what this skill does and when to use it), followed by the actual steps and instructions.
 
 A simplified example:
 
 ```markdown
 ---
-name: daily-planning
+name: daily
 description: Daily work planning workflow. Use when the user says
-  "plan my day", "daily planning", "start work", or "morning routine".
+  "plan my day", "daily planning", "good morning", or "start work".
 ---
 
 # Daily Planning
 
 ## Steps
 
-1. Check today's date and day of the week
-2. Read the last two daily notes, identify carry-overs
-3. Read weekly goals, check progress and remaining days
-4. Scan in-progress tasks across all projects
+1. Confirm today's date and day of the week
+2. Read the last two daily notes and list carry-over items
+3. Read weekly goals, check progress and days remaining
+4. Scan in-progress tasks across projects
 5. Create today's daily note
-6. Suggest today's work items based on priority
+6. Suggest today's work items by priority
 ```
 
-The YAML between the `---` markers is the cover page—Claude uses this to decide whether to activate the skill (we'll get into why this matters so much later). The Markdown below is the SOP itself. That's it.
+The YAML between the `---` lines is the cover—Claude uses it to decide whether to activate the skill (more on why that matters later). The Markdown below is the SOP itself. That's it.
 
-A complete skill folder looks like this:
+### Why You Need Skills
 
-```
-my-daily-planning/
-├── SKILL.md          ← Main instructions (required)
-├── scripts/          ← Executable scripts (optional)
-├── references/       ← Reference docs (optional)
-└── assets/           ← Templates (optional)
-```
+Pasting a prompt every time isn't just tedious. For you, it's a gamble; for the AI, it's waste.
 
-`SKILL.md` is the recipe itself—your workflow, steps, and decision logic all live here. Claude reads it and knows what to do.
+**For you, quality comes down to luck.** The problem is inconsistency. Explain the same task one way today and another way tomorrow, and Claude does it differently. Sometimes it adds a step, sometimes it skips one, sometimes the format is off. Without a standard SOP, quality is luck. And every single time, you have to find that prompt, paste it, and add a few more lines.
 
-The other three folders are supporting ingredients:
+**For the AI, it's a fight for space and attention.** Every paste takes a chunk of the context window. Claude now has 1M tokens, which sounds like a lot, but system instructions, tool descriptions, and the conversation history all share that space. When I open a new conversation, tool descriptions, config files, and memory together already take 12%, about 118K tokens, before I've said a word. The fuller it gets, the more its attention spreads, and the easier it is to miss what you said earlier.
 
-- **`scripts/`**: Parts that need to run code. A shell script to parse CSV data and calculate stats, or a Python script to call an external API. These are more accurate than asking Claude to compute things itself. Plus, scripts execute directly without loading into the context window—another win for the context scarcity problem.
-- **`references/`**: Reference material too long to fit in SKILL.md. An API doc, a style guide, or a decision matrix. Claude only reads these when needed, so they don't waste context every time.
-- **`assets/`**: Templates and materials. A Markdown template for daily notes, applied automatically when creating new files so the format never drifts.
+Skills fix both sides:
 
-See the pattern? These four components solve different problems but serve the same two goals: **save context, stabilize quality.** Scripts don't occupy context and compute accurately, references load on demand, assets standardize output. The entire skill folder is designed around these two principles.
+<figure class="fg fg-cols">
+<div class="c is-em"><b>01</b><strong>For you: easier, and steady quality</strong><span>No more finding and pasting prompts. The same task runs on the same method every time.</span><em>Just say "start work"</em></div>
+<div class="c"><b>02</b><strong>For the AI: less context, less distraction</strong><span>Day to day it only reads the short cover, and opens the full skill only when it's needed. No big block of instructions every time, so what matters doesn't get buried.</span><em>A cover is about 100 tokens</em></div>
+</figure>
 
-Write once. Every future conversation, Claude applies it automatically. No pasting prompts, no repeating yourself.
+In Anthropic's open standard, this mechanism is called Agent Skills—not just for Claude Code, but supported in the same format by Cursor, Gemini CLI, and Codex. Whatever the name, the core is the same: when AI writes code or does a task, it follows the workflow you defined, turning repetitive work into real AI automation.
 
----
+### MCP Is the Kitchen, Skills Are the Recipes
 
-## MCP is the Kitchen, Skills are the Recipes
-
-If you've used [Claude Code's](/en/blog/claude-code-tutorial/) MCP (Model Context Protocol), you've already given Claude an entire kitchen—tools, ingredients, equipment.
+If you've used MCP (Model Context Protocol, the connector that lets Claude reach external tools and data), you've already given Claude a whole kitchen—tools, ingredients, equipment.
 
 But having a kitchen doesn't mean you can cook.
 
-| MCP (Kitchen) | Skills (Recipes) |
-|---------------|-----------------|
-| Connects tools | Teaches how to use those tools |
-| Provides real-time data access | Packages workflows and best practices |
-| Solves "can it do this?" | Solves "how to do it best" |
+<figure class="fg fg-cols">
+<div class="c"><b>01</b><strong>MCP: the kitchen</strong><span>Connects tools and provides live data. Answers "can it do this?"</span><em>e.g. pull posts from Reddit and Hacker News</em></div>
+<div class="c is-em"><b>02</b><strong>Skill: the recipe</strong><span>Packages the workflow and the method. Answers "how is this done best?"</span><em>e.g. keep engagement scores above 4, categorize, recommend topics</em></div>
+</figure>
 
-My [AI second brain](/en/blog/ai-second-brain/) is a good example. MCP lets Claude connect to APIs and pull trending content from Reddit, Hacker News, and Product Hunt. But "what to do after pulling the data"—filter for engagement scores above 4, categorize into 5 content types, recommend 2-3 topics—that decision logic lives in the skill.
+My content monitoring system is a good example. MCP lets Claude call APIs to pull trending content from Reddit, Hacker News, and Product Hunt. But "what to do once it has the data"—keep posts with an engagement score above 4, sort them into 5 content types, recommend 2–3 topics—that logic lives in a skill.
 
 MCP provides capability. Skills provide intelligence.
 
-Both layers now have open standards. MCP standardizes "how tools connect," Agent Skills standardizes "how tools are used." Agent Skills is an open standard Anthropic published in December 2025, now supported by 40+ tools—not just Claude Code, but Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenAI Codex, JetBrains Junie, and more. The skills you write can travel with you.
+MCP standardized "how tools connect." Agent Skills standardized "how tools are used."
+
+And skills aren't Claude-only. Anthropic published them as an open standard in December 2025, and AI tools from OpenAI, Google, and Microsoft now support it. A skill you write in Claude also works in ChatGPT or VS Code.
+
 
 ---
 
-## How to Use Claude Skills: Where They Go in the Claude Apps and in Claude Code
 
-The same skill folder works differently depending on where you put it. The Claude apps, Claude Code, and the API don't sync with each other, so install a skill wherever you plan to use it.
+## How to Use Claude Skills
 
-**In the Claude apps (web and desktop)**
+In the Code tab of the desktop app, a skill is just a folder inside `~/.claude/skills/`. Put it there, and Claude uses it on its own when relevant, or you can call it directly with `/name`.
 
-1. Go to Settings > Capabilities and make sure code execution and file creation is on. Skills run inside that environment.
-2. Go to Customize > Skills. Anthropic's built-in skills (for slides, spreadsheets, Word documents, and PDFs) can be switched on here.
-3. For your own skill, zip the whole skill folder, then click "+" → Create skill → Upload a skill.
-4. You don't need to call it. Ask for something related and Claude decides whether to use it; if it doesn't, name the skill in your message.
+The Code tab needs a paid plan. You can still use skills on the free plan; the steps are in the FAQ at the end.
 
-The free plan works too. Skills you upload are private to you by default.
+### In the Code Tab of the Desktop App
 
-**In Claude Code**
+Open the Claude desktop app and click **</>** at the top left: that's the Code tab. It is Claude Code, and it can read and write files on your computer, which is why a skill can be files in a folder. If you haven't set it up yet, start with the [Claude Code guide](/en/blog/claude-code-tutorial/); the desktop app doesn't need the terminal.
 
-There's no upload step. A skill is just a folder on your computer:
+There are two places a skill can live:
 
-| Where it lives | Who gets it |
-|---------|---------|
-| `~/.claude/skills/<skill-name>/SKILL.md` | You, in every project on this machine |
-| `.claude/skills/<skill-name>/SKILL.md` inside a project | That project. Commit it and your whole team has it |
+<figure class="fg fg-cols">
+<div class="c"><b>01</b><strong>Personal</strong><span>In ~/.claude/skills/name/SKILL.md. Available whichever project or folder you're working in.</span><em>e.g. email, calendar</em></div>
+<div class="c"><b>02</b><strong>Project</strong><span>In .claude/skills/name/SKILL.md inside a project folder. Only available in conversations in that project; it travels with the project.</span><em>e.g. a workflow that only reads one notes folder</em></div>
+</figure>
 
-Once it's there, Claude can start it on its own when relevant, or you can type `/` plus the skill name, such as `/daily`. Custom commands (`.claude/commands/`) have been merged into skills, and old command files keep working.
+**Where is `~/.claude/skills/`?** `~` is your home folder: on a Mac, the folder with your name under Users; on Windows, `C:\Users\your-name`. `.claude` starts with a dot, which makes it a hidden folder on a Mac, so Finder doesn't show it even when you open your home folder. To see it, press `Cmd + Shift + .` (period) in Finder; press it again to hide it.
 
-If you haven't installed Claude Code yet, start with the [Claude Code tutorial](/en/blog/claude-code-tutorial/).
+Most of the time you don't need to dig for it. Just tell Claude "open my skills folder" or "list the skills I have."
+
+Here's how I split them. Things I use everywhere, like email and calendar, are personal. Things tied to one folder are project skills. `/daily` reads files in my notes folder and is useless outside it, so it lives with that project.
+
+Not sure? Start with personal. The exercise in chapter 4 goes there.
+
+### Call It with `/name`, or Let Claude Decide
+
+Once it's in place, there are two ways to use it.
+
+One is to type `/` plus the skill's name, like `/daily`. That calls it directly.
+
+The other is to type nothing special and just ask for something related, and let Claude decide whether to use the skill. How it decides is the topic of chapter 3.
 
 ---
 
-## Three-Layer Loading: How Claude Knows Which Skill to Use
 
-I currently run 17 skills simultaneously. If all of them loaded in full every time, Claude would drown in information—imagine a chef with 17 cookbooks open to every page at once.
+## How Does Claude Know Which Skill to Use?
+
+### Three-Layer Loading
+
+I currently have more than thirty skills installed. If every one loaded in full, Claude would drown in information—picture a chef opening every page of thirty-plus cookbooks at once.
 
 So skills don't load all at once. The solution is a three-layer architecture called **Progressive Disclosure**:
 
-**Layer 1: Cover Page** (always loaded, ~100 tokens/skill)
+<figure class="fg fg-flow">
+<p class="fg-h">How Claude reads a skill</p>
+<div class="grp">
+<p class="ph"><b>Case 1</b>When a new conversation starts<small>once</small></p>
+<div class="n">Layer 1: Claude reads every skill's cover<span>name + description, about 100 tokens each. Thirty-plus of them still take only a small slice.</span></div>
+</div>
+<div class="grp">
+<p class="ph"><b>Case 2</b>Every message you send<small>every time</small></p>
+<div class="q">Does this message match a cover?<span>Typing /name skips this step.</span><em><b>No match →</b> answer normally, no skill opened</em></div>
+<div class="n" data-in="match">Layer 2: open that skill's full instructions<span>The steps in the rest of SKILL.md, ideally under 500 lines.</span></div>
+<div class="q">Do the steps need extra files?<em><b>No →</b> follow the steps to the end</em></div>
+<div class="n is-em" data-in="yes">Layer 3: read references/, run scripts/, apply templates in assets/<span>Read only when needed. Scripts run directly without entering context.</span></div>
+</div>
+</figure>
 
-Like a cookbook cover, it has just two things:
-- `name`—what this skill is called
-- `description`—what it does and when to use it ("Tomato pasta, great for weekend lunch")
+The cover is like a recipe card, with just two things on it:
+- `name`—what the skill is called
+- `description`—what it does and when to use it ("tomato pasta, good for a weekend lunch")
 
-Claude reads this to know when to activate.
+That's enough for Claude to know when to activate it. The cover and the full instructions live in the same SKILL.md. The difference: the cover is read at the start of every conversation, while the full instructions are opened only when Claude decides "this task needs this recipe."
 
-**Layer 2: Full Instructions** (loaded only when relevant, recommended < 500 lines)
+This design lets thirty-plus skills coexist peacefully. When I say "good morning," only `/daily` loads in full; the rest wait quietly. Say "SEO research," and the keyword skill opens. Each skill takes up context only when it's needed.
 
-The cover page and full instructions live in the same SKILL.md file. The difference: the cover is always loaded, but Claude only reads the rest when it determines "this task needs this recipe."
+### The Description Makes or Breaks Your Skill
 
-**Layer 3: Supporting Files** (loaded on demand, no limit)
+In the three layers, the `description` on the Layer 1 cover matters most—it decides whether your skill gets triggered.
 
-Everything in `references/`, `scripts/`, `assets/`. Claude checks these only when needed. Scripts execute directly without entering the context.
+Claude uses this text to judge: "Is what the user just said related to this skill?" The judgment is the LLM's own semantic understanding—it isn't keyword matching; it actually "reads" your intent and the description, then decides whether to activate.
 
-This design lets 17 skills coexist peacefully. I say "start work" and only `/daily` loads fully—the other 16 stand by quietly. Say "write a blog post" and `/content` opens. Say "SEO research" and `/seo` opens. Each skill occupies context only when it's actually needed.
+Sounds smart, but there's a catch: Claude leans conservative. It would rather not trigger than trigger wrongly. When the description is vague, it often doesn't activate. It's not that Claude can't understand you; when the description isn't clear enough, it chooses "if unsure, don't."
 
----
-
-## The Description Makes or Breaks Your Skill
-
-In the three-layer architecture, the Layer 1 `description` is the most critical—it determines whether your skill ever gets triggered.
-
-Claude uses this text to judge: "Does what the user just said relate to this skill?" The judgment is based on the LLM's own semantic understanding—it's not doing keyword matching, but genuinely "reading" your intent against the description, then deciding whether to activate.
-
-Sounds smart, but there's a catch: Claude errs on the side of caution. It would rather not trigger than trigger incorrectly. Community tests of trigger rates report anything from about 20% to over 80%, with different methods, but they agree on the direction: the vaguer the description, the less often the skill fires. It's not that Claude can't understand your intent—it's that when the description is ambiguous, it chooses "when in doubt, don't activate."
-
-How to write it right? A good description answers two things:
+So how do you write it? A good description answers two things:
 
 1. **What this skill does**—so Claude knows its purpose
-2. **What the user will say**—specific trigger phrases
+2. **How the user will say it**—concrete trigger phrases, in every language you use
 
-A well-written description:
+<figure class="fg fg-cols">
+<div class="c"><b>✕</b><strong>A bad one</strong><span><code>description: Helps with daily work.</code></span><span>One vague purpose, no trigger phrases. Claude has no idea what you'll say to start it, so it never triggers.</span></div>
+<div class="c is-em"><b>✓</b><strong>A good one</strong><span><code>description: Daily work planning workflow. Use when the user says "plan my day", "daily planning", "good morning", or "start work".</code></span><span>What: daily work planning. How it triggers: four phrases. Claude reads "start work" and knows to activate.</span></div>
+</figure>
 
-```yaml
-description: Daily work planning workflow. Use when the user says
-  "plan my day", "daily planning", "start work", or "morning routine".
-```
+A few things to watch:
 
-What it does: daily work planning. How to trigger it: four specific phrases. Claude sees "start work" and knows to activate.
+- **Multilingual triggers**: if you mix languages like I do (Chinese and English), list trigger phrases in both. "規劃今天" and "daily planning" should both trigger the same skill.
+- **More is safer than fewer**: since Claude leans toward not triggering, listing a few extra phrases is safer than listing too few.
 
-A poorly written description:
+A description plays the same role as a product's landing page. How you describe it decides whether others (here, Claude) "click in."
 
-```yaml
-description: Helps with daily work tasks.
-```
+If your own skill isn't being used, this is the first place to look.
 
-Just one vague purpose, no trigger phrases. Claude has no idea what the user will say to invoke it, so it never triggers.
-
-A few things to keep in mind:
-
-- **Be explicit about trigger phrases**: List specific phrases users will actually say. The more variations you include, the better—Claude tends to under-trigger, so more trigger phrases is safer than fewer.
-- **Think of it like a landing page**: How you describe the skill determines whether Claude "clicks through." A clear value proposition with specific use cases beats a generic one-liner every time.
 
 ---
 
-## What Skills Can Do
 
-Skills aren't just "writing steps down." Anthropic identified 5 design patterns from early adopters:
+## Build Your First Skill: Video Notes
 
-| Pattern | What It Does | Example |
-|---------|-------------|---------|
-| Sequential execution | Ordered steps with dependencies | Daily planning: review yesterday → check weekly goals → create daily note |
-| Cross-tool orchestration | Chain multiple tools, data flows between systems | Project init: create GitHub repo → generate folders → set up CI/CD → notify Slack |
-| Iterative refinement | Draft, check, revise, check again until it meets standards | Content editing: first draft → style check → quality review → loop back if it fails |
-| Conditional branching | Same goal, different paths based on context | SEO research: based on input, look up keywords, analyze competitors, or map the industry landscape |
-| Embedded domain knowledge | Encode expertise, not just tool operations | Code review standards: naming conventions, error handling principles, test coverage—write once, apply always |
+I recommend this as your first skill, before you install anyone else's.
 
-Most effective skills combine multiple patterns. You don't need to force-fit them, but knowing the possibilities helps you write with better structure.
+Here's the idea: in a conversation, turn one YouTube video into notes you're happy with, then ask Claude to turn "how you did it" into a skill. After that, paste a link and say "summarize this YouTube video," and it writes notes in your format and saves them to "Documents/Video Notes."
+
+<figure class="fg fg-steps">
+<p class="fg-h">Three steps</p>
+<div class="s"><strong>Do it once</strong><span>Pick a video you want to watch, turn it into notes in a conversation, and adjust until you're happy.</span></div>
+<div class="s"><strong>Make it a skill</strong><span>Ask Claude to turn what you just did into a skill and save it to ~/.claude/skills/.</span></div>
+<div class="s"><strong>Check it</strong><span>Open a new conversation, paste another video's link, and see whether it follows your format.</span></div>
+</figure>
+
+### Why Video Notes
+
+A 40-minute video, turned into notes, takes a minute to read. Everyone watches videos, so practice material is always at hand.
+
+Everyone wants different notes, too. Some want three key points, some want "what can I use this for," some want the speaker's own words. A skill is how you write down "this is what my notes look like."
+
+This exercise also uses two of the ingredients from chapter 1. The program that grabs subtitles goes in `scripts/`, runs directly, and takes no context. The note format goes in `assets/` as a template; change the template, and your notes change with it.
+
+No MCP to connect, and the notes stay in a folder on your own computer.
+
+### Step by Step
+
+**Pick the folder first.** When you start a new conversation in the Code tab, choose your "Documents" folder. Notes go into "Video Notes" inside it; if that folder doesn't exist, Claude creates it.
+
+**Step 1: do it once.** Don't rush into making a skill. Pick a YouTube video you want to watch that has subtitles, and paste this into the new conversation:
+
+```text wrap
+Summarize this YouTube video for me: (paste the link)
+Just grab the subtitles with yt-dlp; don't download the video. If it isn't installed, install it for me.
+Use the format below and save it as a file in the "Documents/Video Notes" folder, creating it if needed:
+- A one-sentence summary
+- Three to five key points, each with its timestamp in the video
+- How I could use this
+```
+
+Claude first checks whether yt-dlp (a free tool that grabs YouTube subtitles) is on your computer. If not, it asks whether it can install it; just allow it. Then it grabs the subtitles and writes the notes.
+
+I set the format for you to start with. Once the notes come out, change it to suit you: too many points, you want a section for the speaker's own words, you don't need "how I could use this." Just tell it, and adjust until you're happy.
+
+**Step 2: turn it into a skill.** Once the notes are right, paste this in the same conversation:
+
+```text wrap
+Turn what we just did into a skill called video-notes, saved to ~/.claude/skills/.
+Write the subtitle-grabbing step as a program in scripts/, and save the note format as a template in assets/.
+Always save notes to the "Documents/Video Notes" folder, no matter where I start the conversation.
+In the description (the cover text), say clearly what it does and how I'll ask for it, e.g. "summarize this YouTube video", "make notes on this video", "what's this video about".
+Add one rule: if you can't get subtitles, stop and tell me, because notes written from just the title and description look real but are guesses.
+```
+
+For that last rule, I wrote in the reason too. Chapter 5 comes back to why.
+
+`~/.claude/skills/` is inside your home folder, and it's hidden: Finder on a Mac doesn't show it by default (chapter 2 covers how to show it). Claude builds the folder with SKILL.md, `scripts/`, and `assets/`, the same three you saw in the chapter 1 diagram. To see the note template, ask it to show you.
+
+**Step 3: open a new conversation and check.** Start a new conversation in any folder. Don't explain anything; just say:
+
+```text wrap
+Summarize this YouTube video: (paste another YouTube link)
+```
+
+When it's done, check three things:
+
+<figure class="fg fg-cols">
+<div class="c"><b>01</b><strong>Format</strong><span>Does it match what you settled on in step 1?</span></div>
+<div class="c"><b>02</b><strong>Timestamps</strong><span>Open the video and check: is that really the part being described?</span></div>
+<div class="c"><b>03</b><strong>Saved</strong><span>Is there a new note in "Documents/Video Notes"?</span></div>
+</figure>
+
+**Notes go to one place.** Once the skill is built, wherever you start a conversation, the notes go to "Documents/Video Notes."
+
+As the notes pile up, that folder becomes a record of what you've watched and what you care about.
 
 ---
+
 
 ## How to Write Skills Well
 
-Anthropic's `skill-creator` (the official meta-skill for creating skills) contains a line that captures the most important principle of skill writing:
+### Get It Right First, Then Have Claude Write It
+
+Not one of my skills was written by hand.
+
+That's the path chapter 4 takes. Anthropic also has an official skill for exactly this, called `skill-creator`. Once it starts, Claude interviews you: what your workflow looks like, when it should be used, what the edge cases are, and then produces the SKILL.md.
+
+It can test, too: it writes test cases automatically, checks whether the skill gets used, and revises the description based on the results.
+
+### Explain Why Instead of Giving Orders
+
+The `skill-creator` mentioned above contains a line that I think captures the most important thing about writing skills:
 
 > Try to explain to the model why things are important in lieu of heavy-handed musty MUSTs.
 
-Replace commands with reasons.
+Explain why instead of giving orders.
 
-If you find yourself writing a lot of "ALWAYS" and "NEVER" (in all caps) in your SKILL.md, that's a signal—try explaining *why* instead.
+If you notice a lot of "ALWAYS" and "NEVER" (in caps) in your SKILL.md, that's a signal—try explaining why instead.
 
-For example, you could write this in a skill:
+An example. You could write this in a skill:
 
-```
-ALWAYS show command contents before executing. NEVER execute directly.
-```
-
-Or this:
-
-```
-Show command contents before executing, because users need to verify safety.
-Executing without confirmation could cause irreversible damage.
+```text
+ALWAYS display command contents before executing. NEVER execute directly.
 ```
 
-With the first version, Claude follows these two rules. When it encounters a situation the rules don't cover (say, a command that looks safe but is actually risky), it has no basis for judgment.
+Or you could write this:
 
-With the second version, Claude understands the *why*—protect user safety. So even in gray areas the rules don't address, it leans toward caution. Reasons let the model generalize; rules only cover scenarios you thought of.
+```text
+Show the command before running it, because the user needs to confirm it's safe.
+Running without confirmation could cause irreversible damage.
+```
 
-The only exception is formatting requirements—"always use this exact template" is a mechanical spec with no "why" to explain. Just hardcode those.
+With the first, Claude just follows those two rules. When it hits a situation the rules don't cover (say, a command that looks safe but is actually risky), it doesn't know how to judge.
+
+With the second, Claude understands "why"—protecting the user. So even in gray areas the rules don't mention, it leans toward caution. Reasons let the model generalize; rules only cover the cases you thought of.
+
+The rule you added when building the skill in chapter 4 is written the same way: "if you can't get subtitles, stop and tell me," followed by the reason.
+
+The one exception is format requirements—"the output must use this template" is a mechanical requirement with no "why" to explain. Just hard-code it.
+
+### What Skills Can Do
+
+Anthropic distilled 5 design patterns from early users:
+
+- **Sequential steps**: an ordered process. e.g. planning the day each morning: review yesterday, check this week's goals, then build the list.
+- **Cross-tool coordination**: data flowing between several tools. e.g. read email, check the calendar, and combine them into today's to-do list.
+- **Iterative refinement**: draft, check, revise if it fails. e.g. an article draft goes through a quality check and gets reworked if it doesn't pass.
+- **Conditional branching**: one goal, different paths depending on the situation. e.g. SEO research that decides, by topic, whether to look up keywords, check competitors, or map the industry.
+- **Embedded expertise**: write domain knowledge in once. e.g. your company's report format and style rules.
+
+Most useful skills mix several. You don't need to force a pattern; knowing the options just gives your writing more structure.
 
 ---
 
-## Skills Don't Come Out Perfect
 
-### A Single Skill Takes Many Iterations
+## Skills Grow With You
 
-My `/daily` is now on v6. The first version was rough—unclear steps, wrong file paths, edge cases unhandled.
+### One Skill Takes Many Revisions
 
-Version 2 added content discovery system integration. Version 3 found that weekly progress calculations kept going wrong, so I added explicit calculation rules. Version 4 added auto-triggers—Tuesday reminders for weekly meetings, month-start reminders for archiving. Version 5 added iPhone lightweight mode (detect the environment, skip Python-dependent steps on mobile).
+My `/daily` is now on v8. The first version was bad—unclear steps, wrong paths, cases it didn't handle.
 
-Each version came from discovering "this isn't good enough" during actual use, then fixing it.
+Version 2 added content discovery integration. Version 3 fixed frequent errors in weekly progress calculations with explicit rules. Version 4 added automatic triggers—back then, a Tuesday reminder for the weekly review and a start-of-month reminder to archive. Version 5 added an iPhone light mode (it detects the environment and skips steps that need Python on the phone). Three more versions after that brought it to today's v8.
 
-A skill isn't a config file you write and forget—it's a living document of your workflow. Your work habits change, your needs change, the skill changes with them. Each revision deepens your understanding of your own workflow. The process itself forces you to think: "How do I actually work? Which steps truly matter?"
+Each version came from finding "this isn't good enough" during real use, then fixing it.
+
+A skill isn't a config file you write and forget—it's a living document of your workflow. The way you work changes, your needs change, and the skill changes with them. Each revision deepens your understanding of your own workflow. The process itself forces you to ask: "How do I actually work? Which steps really matter?"
 
 Anthropic's guide says the same thing:
 
-> First iterate on a specific task in conversation until Claude gets it right. Then extract the successful approach into a skill.
+> The most effective approach is to iterate on a challenging task until Claude gets it right, then extract the winning approach into a skill.
+> (paraphrased from *The Complete Guide to Building Skills for Claude*, p. 15)
 
-Don't aim for perfection on day one. Build a v1 today, discover issues over a few days, iterate to v2. Good workflows are grown, not designed.
+Don't aim for perfect on the first try. Build a v1 today, find the problems over a few days, make it v2. Good workflows grow; they aren't designed.
 
-### 17 Skills Weren't Built at Once
+### Thirty-Plus Skills Weren't Built at Once
 
-I started with a single `/daily`. After using it for a while, I noticed the weekly solo accountability meeting was also repetitive—that became `/wam`. Then keyword research kept requiring re-explaining the strategy—that became `/seo`. Then YouTube video analysis had the same API integration every time—that became `/youtube`.
+I started with a single `/daily`. After a while, I noticed my weekly one-person review was also repetitive, so it became a skill. Then I was re-explaining my keyword research strategy every time, so that became another. Then my YouTube video analysis pipeline settled down, and that became one too.
 
-Every skill was born because "I've done this too many times." Not from sitting down and planning "what skills do I need," but from daily work naturally surfacing the need.
+Every skill was born from "I've done this too many times." I never sat down to plan "which skills do I need"—they grew out of daily work.
 
-Six months later I looked back and had 17—not because I planned it, but because I use them every day and encapsulate a new one each time I hit repetition.
+Looking back, there are more than thirty now—not because I planned it, but because I use them every day and wrap up another one whenever something repeats.
 
-Here are a few I use daily, to give you a feel:
+Your first is the video notes from chapter 4. The next one grows from the small things you repeat every day:
 
-| Skill | What It Does | Why It's Worth Making a Skill |
-|-------|-------------|------------------------------|
-| `/daily` | Daily work planning (8 steps) | Run daily, many steps with dependencies |
-| `/seo` | SEO keyword research (8 sub-modes) | Fixed query flow, different parameters each time |
-| `/content` | Content creation + style editing | Writing style needs consistency, can't rely on memory |
-| `/wam` | Weekly solo accountability meeting | Fixed flow: score → review → plan next week |
-| `/youtube` | YouTube video transcript analysis | API integration + post-processing logic, don't want to rewrite each time |
+| Repeated task | Why it's worth a skill |
+|---------|---------------------|
+| Planning the day each morning | Runs daily, many steps, a set order |
+| Weekly review | Fixed process: score, review, plan next week |
+| Saving articles you read as notes | Same format as the video notes, just a web page instead of a video |
+| Email and calendar | Useful wherever you work, so they're personal skills |
 
-You don't need to build many at once. Start with one repetitive task you do every day.
+For the next one, there are two routes:
 
----
+<figure class="fg fg-cols">
+<div class="c is-em"><b>01</b><strong>Have Claude write it</strong><span>Get it right in a conversation first, then say "turn that workflow into a skill."</span><em>The route chapter 4 takes</em></div>
+<div class="c"><b>02</b><strong>Adapt an existing one</strong><span>Find an official or trustworthy skill and change it to fit your workflow.</span><em>See what a good recipe looks like first</em></div>
+</figure>
 
-## How to Create Your First Skill
+In [Anthropic's official repo](https://github.com/anthropics/skills), open the skills for slides, spreadsheets, Word, and PDF to see what a well-written skill looks like. It's a reference, not a first step.
 
-You don't need to hand-write SKILL.md. Whether it's writing code or writing skills, Claude can handle it. In fact, none of my skills were written by hand.
+Ready-made skills are everywhere. The largest directory is [SkillsMP](https://skillsmp.com), which collects them automatically from GitHub—more than 3 million, none reviewed. The official repo has far fewer, with quality you can trust.
 
-Two routes:
+I don't recommend starting by downloading a pile from a directory. There are too many, nobody reviews them, and other people's workflows aren't yours.
 
-**Route A: Let Claude write it for you.**
+Before installing someone else's skill, read through the files in the folder, especially `scripts/`. A skill can carry scripts and can touch your files. Anthropic's own advice is to use only skills you wrote or ones from a source you trust.
 
-The most natural approach. First, iterate on a workflow in conversation until Claude gets it right. Then tell it: "Turn what we just did into a skill." It auto-generates SKILL.md and sets up the folder structure. Use it for a few days, find issues, tell it to fix them.
+Community skills are a generic starting point. A generic "daily planning" skill doesn't know which project management tool you use, what your weekly goals look like, or how you prioritize. It becomes useful once it's changed to fit your workflow.
 
-Anthropic even has an official skill for this, called `skill-creator` (given a major upgrade in March 2026). Launch it in Claude Code, and Claude interviews you—what does your workflow look like, when should it trigger, what are the edge cases—then auto-generates SKILL.md based on your answers.
+### You Can Fix It Without Coding
 
-It doesn't just generate. It also tests and optimizes:
+At one of my enterprise clients, an employee who doesn't code noticed the calendar skill kept missing a meeting, and asked Claude why.
 
-- **Eval**: Auto-generates test cases ("user says X, skill should do Y"), verifying the skill triggers correctly
-- **Improve**: Auto-optimizes description and instructions based on test results, when tuning the description, it holds back 40% of the test cases so it is not just memorizing the answers
-- **Benchmark**: Tracks success rate, token usage, and can even run A/B tests—two versions in a blind head-to-head
+Claude found the cause: the skill only fetched meetings starting after "now," so anything that started earlier that day never showed up. The fix was one condition in the skill: count from midnight of the current day instead.
 
-**Route B: Start from the community and customize.**
+A skill is text you can read. People who don't code can still find what went wrong, and fix it.
 
-Pre-built skills are everywhere. The largest directory is [SkillsMP](https://skillsmp.com), auto-indexing GitHub and now listing over 3 million skills, none of them reviewed. [Anthropic's official repo](https://github.com/anthropics/skills) has fewer but quality-assured. The community also has [Awesome Agent Skills](https://github.com/VoltAgent/awesome-agent-skills), a curated list featuring official skills from Anthropic, Vercel, Stripe, Cloudflare, and more.
+<div class="fg fg-key">
+<p class="fg-h">Three things to take away</p>
+<div class="k">A skill is a written recipe: write down what you keep repeating once, and Claude opens it and follows it when needed.</div>
+<div class="k">The cover text decides whether it gets used: say what it does, then how you'll ask for it.</div>
+<div class="k">Get one task right before you turn it into a skill, and fix it whenever you see it go wrong.</div>
+</div>
 
-Before installing someone else's skill, read through its files, especially `scripts/`. A skill can run code and touch your files, and Anthropic's own advice is to use only skills you wrote or that come from a source you trust.
 
-Also note: community skills are a generic starting point, not your finish line. A generic "daily planning" skill doesn't know your project management tools, your weekly goal format, or how you prioritize. Truly useful skills are always customized to your own workflow—which is why my `/daily` took six versions to reach its current state.
+### What This Means
 
-Either route, the key is the same: **get one thing right first, then package it.** Don't try to design a perfect skill from the start. A working v1 is enough—use it for a few days, find the gaps, then iterate.
+Every new session, Claude is a newcomer who knows nothing about you. A skill is the onboarding manual you hand it—after reading, it knows your processes, your standards, your preferences. No re-training needed, ready from the first message.
 
----
-
-## What This Means
-
-Every new session, Claude is a blank slate who knows nothing about you. A skill is the onboarding manual you hand it—after reading, it knows your processes, your standards, your preferences. No re-training needed, ready to work from the first message.
-
-`/daily` is my executive assistant, `/wam` is my meeting facilitator, `/content` is my writing coach. Each one is the senior team member who knows me best—knows my preferences, understands my processes, remembers the pitfalls from last time—not a day-one intern.
+`/daily` is my executive assistant, the weekly review one is my meeting facilitator, and the one that helps me write is my writing coach. Each one is the senior team member who knows you best—knows your preferences, understands your processes, remembers the pitfalls from last time—not a day-one intern.
 
 Agent Skills aren't hard—just Markdown with some structure. But the trend they represent matters: **AI shifts from "you teach it every time" to "you teach it once."**
 
 And the standard is open. The skill you write in Claude Code today can move to Cursor, Gemini CLI, or Codex tomorrow. Your investment isn't locked into any single platform.
 
-For me, Agent Skills are what took [Agentic Coding](/en/blog/agentic-coding-guide/) from "usable" to "powerful." Tools connected (MCP), knowledge packaged (Skills)—what's left is letting AI follow your workflow, whether you use it for coding, research, or turning daily operations into AI workflow automation.
+For me, Agent Skills are the step that takes AI from "usable" to "genuinely useful." Tools connected (MCP), knowledge packaged (Skills)—what's left is letting AI work your way, whether you use it to write code, do research, or turn daily operations into AI automation.
 
 ---
 
-### Further Reading
 
-Want to bring AI workflows into your organization? [This article captures what I've seen on the ground](/en/blog/enterprise-ai-adoption-bottleneck/) — the biggest bottleneck is rarely the tools.
+## Next: From One Skill to a Whole System
+
+I started using Claude Code in June 2025, first to build products, then for my work and life as well. It helps me build this site and several products, plans my workday every morning, handles email and calendar, reviews progress on my goals each week, and files what I learn into my knowledge base.
+
+Each of those has a skill behind it. But what ties them together is a system. Goal management decides what to push this quarter and this week. Project and task management breaks that into today's list. The knowledge base remembers what I've done and learned. Skills then get the work done my way. I call this system FLUX.
+
+To keep going from here:
+
+- [How to Use Claude Code: From Setup to Your First Task](/en/blog/claude-code-tutorial/), if you haven't set up Claude Code yet
+- [Agentic Coding: A Practical Guide to Tools, Workflows, and Getting Started](/en/blog/agentic-coding-guide/), for the bigger picture of working with AI agents
+- [Why Enterprise AI Workflow Adoption Gets Stuck at Step One](/en/blog/enterprise-ai-adoption-bottleneck/), if you want to bring this to your team
+
+---
 
 *Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*

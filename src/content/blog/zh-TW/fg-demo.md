@@ -52,6 +52,20 @@ featured: false
 <div class="s"><strong>照常建置</strong><span>上一步漏跑的話，建置會停下來，並列出是哪幾篇。</span></div>
 </figure>
 
+## 流程圖
+
+適合：有判斷、會分岔的流程。實線框是動作，虛線框是判斷（右上角自動加問號）。判斷沒過的出口寫在框裡的 `<em>`，往下走的箭頭旁邊要寫字，就在下一個框加 `data-in`。每一段包在 `<div class="grp">` 裡（淺色底的區塊），開頭放 `<p class="ph"><b>情境 1</b>標題<small>頻率</small></p>`。分段之間不畫箭頭。
+
+<figure class="fg fg-flow">
+<p class="fg-h">新文章用到新的字時</p>
+<div class="grp">
+<p class="ph"><b>階段 1</b>寫完文章<small>每篇一次</small></p>
+<div class="n">存檔<span>文章放在 src/content/blog/zh-TW/。</span></div>
+<div class="q">有沒有跑 npm run fonts<em><b>沒跑 →</b> 建置會停下來，列出是哪幾篇</em></div>
+<div class="n is-em" data-in="有">照常建置</div>
+</div>
+</figure>
+
 ## 重點框
 
 適合：整篇文章希望讀者帶走的幾句話，或是文末的自我檢查清單。一篇文章最多用一次。

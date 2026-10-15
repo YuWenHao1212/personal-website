@@ -559,6 +559,106 @@
   line-height: 1.85;
   color: var(--muted);
 }
+/* flow: boxes top to bottom, questions branch out to the side */
+.ar .ar-body .fg-flow .grp {
+  padding: var(--space-5);
+  background: var(--paper-2);
+}
+.ar .ar-body .fg-flow .grp + .grp {
+  margin-top: var(--space-5);
+}
+.ar .ar-body .fg-flow .ph {
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: var(--t-read);
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+.ar .ar-body .fg-flow .ph b {
+  margin-right: var(--space-3);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: var(--t-label);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--terra);
+}
+.ar .ar-body .fg-flow .ph small {
+  margin-left: var(--space-2);
+  font-size: var(--t-ui);
+  font-weight: 400;
+  color: var(--muted);
+}
+.ar .ar-body .fg-flow :is(.n, .q) {
+  position: relative;
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: var(--t-read);
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+.ar .ar-body .fg-flow .ph + :is(.n, .q) {
+  margin-top: var(--space-3);
+}
+.ar .ar-body .fg-flow :is(.n, .q) + :is(.n, .q)::before {
+  content: '↓  ' attr(data-in);
+  position: absolute;
+  top: calc(-1 * var(--space-6));
+  left: var(--space-4);
+  font-size: var(--t-ui);
+  font-weight: 400;
+  line-height: 2.1;
+  white-space: pre;
+  color: var(--faint);
+}
+.ar .ar-body .fg-flow .q {
+  border-color: var(--terra);
+  border-style: dashed;
+}
+.ar .ar-body .fg-flow .q::after {
+  content: '?';
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-4);
+  font-family: Newsreader, Georgia, serif;
+  font-weight: 400;
+  color: var(--terra);
+}
+.ar .ar-body .fg-flow :is(.n, .q) span {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--t-ui);
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--muted);
+}
+.ar .ar-body .fg-flow .q em {
+  display: block;
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--hair);
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: var(--t-ui);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--muted);
+}
+.ar .ar-body .fg-flow .q em b {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: var(--t-label);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--terra);
+}
+.ar .ar-body .fg-flow .n.is-em {
+  border-color: var(--terra);
+}
 /* the dark block */
 .ar .ar-body .fg-key {
   counter-reset: fg-key;
