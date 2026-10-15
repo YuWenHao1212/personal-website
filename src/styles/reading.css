@@ -395,13 +395,16 @@
 }
 
 /* ---------- figures made of type and rules (10/11) ----------
-   Four pieces an article can use where a number, a comparison or a sequence says more than a paragraph. They are written
+   Five pieces an article can use where a number, a comparison or a sequence says more than a paragraph. They are written
    as plain HTML inside the Markdown file (keep each block free of blank lines); a copy-and-change sample of every piece is
    src/content/blog/zh-TW/fg-demo.md (a draft: it shows in the local preview only, never on the site).
      fg-bars   rows of label / bar / value          — one number compared across a few things
      fg-cols   two to four columns side by side     — options or parts that stand next to each other
      fg-steps  numbered steps in order              — a sequence
+     fg-flow   boxes top to bottom, questions branch — a process with decisions
      fg-key    a dark block                         — the few lines the reader should leave with
+   fg-cols / fg-steps / fg-flow / fg-key use the same HTML as confluence-partners.ai (site/insights-c.css), so a block
+   pastes across; bars differ there (.art-bars).
    Same two colours as the page: ink and the one accent (.is-em marks the row or column the text is about). */
 .ar .ar-body .fg {
   margin: var(--space-7) 0;

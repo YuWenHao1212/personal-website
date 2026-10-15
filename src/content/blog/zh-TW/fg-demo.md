@@ -1,6 +1,6 @@
 ---
-title: "圖表元件示範：四種可以直接複製的寫法"
-description: "這一頁只在本機預覽看得到，不會上線。四種圖表元件各放一個範例，寫文章時把那一段複製過去改字就能用。"
+title: "圖表元件示範：五種可以直接複製的寫法"
+description: "這一頁只在本機預覽看得到，不會上線。五種圖表元件各放一個範例，寫文章時把那一段複製過去改字就能用。"
 pubDate: 2026-10-11
 category: building-products
 topics: ["ai-practice"]
@@ -74,7 +74,7 @@ featured: false
 <p class="fg-h">這次改版改了什麼</p>
 <div class="k">文章的文字、表格、程式碼收成同一個欄寬。</div>
 <div class="k">標題換成昭源宋體，內文換成源雲明體。</div>
-<div class="k">多了四個圖表元件，就是這一頁示範的這些。</div>
+<div class="k">多了五個圖表元件，就是這一頁示範的這些。</div>
 </div>
 
 重點框後面接一般段落，看間距是否合適。
