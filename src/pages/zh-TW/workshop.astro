@@ -490,7 +490,7 @@ const endX = 0.965;
           <div><dt>日期</dt><dd>{cohort.dateFull}</dd></div>
           <div><dt>時段</dt><dd>09:00 – 16:00<small>6 小時實作 + 1 小時午餐</small></dd></div>
           <div><dt>地點</dt><dd>台北 Happ. 小樹屋<small>蒲公英 918・近捷運南京復興站。完整地址報名後提供</small></dd></div>
-          <div><dt>需要帶</dt><dd>筆電 + Claude 帳號</dd></div>
+          <div><dt>需要帶</dt><dd>筆電 + Claude Pro 帳號<small>月繳 US$20</small></dd></div>{/* 10/18 (critique): the monthly cost was only in a collapsed FAQ. Before: 筆電 + Claude 帳號 */}
           <div><dt>課前 1:1</dt><dd>線上 45 分鐘，開課前一到兩週<small>把環境裝好、實際用起來，也聊聊你想做什麼</small></dd></div>
         </dl>
         <div class="su-fee">
@@ -685,6 +685,15 @@ const endX = 0.965;
     const companionsInfoEl = document.getElementById('companions_info');
     const countHint = document.getElementById('companions-count-hint');
     const inline = document.getElementById('availability-inline');
+    // 10/18 (critique P1): on a phone #signup opens with the instructor and the fee, and the form sits ~1.9 screens below.
+    // Up to 900px wide the signup buttons jump straight to the form. A mailto (class full) is left alone.
+    const narrow = window.matchMedia('(max-width: 900px)');
+    const aimGo = () =>
+      document.querySelectorAll('a.go, a.sb').forEach((a) => {
+        if ((a.getAttribute('href') || '').startsWith('#')) a.setAttribute('href', narrow.matches ? '#signup-form' : '#signup');
+      });
+    aimGo();
+    narrow.addEventListener('change', aimGo);
     const FAIL = '送出失敗，請直接 email 給我：<a href="mailto:mail@yu-wenhao.com">mail@yu-wenhao.com</a>';
 
     let pricing = {
@@ -746,6 +755,12 @@ const endX = 0.965;
       const line = document.querySelector('[data-seats-line]');
       if (line) { line.textContent = full || few ? label : '\u00a0'; line.classList.toggle('on', full || few); }
       if (full) document.querySelectorAll('[data-go]').forEach((el) => { el.textContent = '加入候補'; });
+      // 10/18 (critique): 「加入候補」 used to land on a form whose button is disabled; the real waitlist is the mail link.
+      if (full) {
+        const wait = `mailto:mail@yu-wenhao.com?subject=${encodeURIComponent(`${COHORT_DATE_SHORT} 工作坊候補`)}`;
+        document.querySelectorAll('a.go, a.sb').forEach((a) => a.setAttribute('href', wait));
+        form.classList.add('is-full');
+      }
 
       if (full) {
         submitBtn.disabled = true;
@@ -917,9 +932,10 @@ const endX = 0.965;
     color: inherit;
     text-decoration: none;
   }
-  .wp :is(h1, h2, h3, p, figure) {
-    margin: 0;
-  }
+  /* 10/18 (critique P1): removed `.wp :is(h1, h2, h3, p, figure) { margin: 0 }`. Once Astro scoped it, it weighed (0,3,x) and
+     beat every single-class margin on the page — 12 elements in and around the signup form sat at margin-top 0. The global base
+     styles already set these elements' margins to 0, so the page needs no reset of its own (:where() did not help: Astro adds
+     its own attribute in front of it). */
   .kick {
     display: flex;
     align-items: center;
@@ -1115,9 +1131,12 @@ const endX = 0.965;
   }
   .op-bar .v s { color: color-mix(in srgb, var(--cream) 45%, transparent); }
   .su-fee .v s { color: var(--faint); }
-  .op-bar .k [data-eb],
-  .su-fee .k [data-eb] {
+  .op-bar .k [data-eb] {
     color: var(--dawn);
+  }
+  /* 10/18: on paper the early-bird date was --dawn (too light to read); dawn stays on the night opening only */
+  .su-fee .k [data-eb] {
+    color: var(--terra-deep);
   }
   .su-fee .k [data-eb] { color: var(--terra); }
   .op-bar .n.seats.on,
@@ -1249,7 +1268,7 @@ const endX = 0.965;
     font-size: var(--t-display);
     font-weight: 300;
     line-height: 1;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint, 2.4:1 on paper-2 */
   }
   .gt h3 {
     margin-top: var(--space-5);
@@ -1327,12 +1346,12 @@ const endX = 0.965;
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.14em;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint, 2.4:1 */
   }
   .shot .cap b {
     font-weight: 400;
     white-space: nowrap;
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: 11px; --terra is 3.8:1 here */
   }
 
   /* ============ the five as one, under the night sky ============ */
@@ -1656,7 +1675,7 @@ const endX = 0.965;
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.2em;
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: 11px; --terra is 3.8:1 */
   }
   .dy .dy-pre h3 {
     margin-top: var(--space-4);
@@ -1752,7 +1771,7 @@ const endX = 0.965;
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.16em;
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: 11px; --terra is 3.8:1 */
   }
   .dy-stage .t {
     display: block;
@@ -2190,7 +2209,7 @@ const endX = 0.965;
   .su-cert u {
     white-space: nowrap;
     text-decoration: none;
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: 13px; --terra is 4.1:1 */
   }
   .su .su-bio {
     margin-top: var(--space-5);
@@ -2229,7 +2248,7 @@ const endX = 0.965;
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.18em;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint, 2.4:1 */
   }
   .su-facts dd {
     margin: 0;
@@ -2256,7 +2275,7 @@ const endX = 0.965;
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.18em;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint, 2.4:1 — the labels that tell the two prices apart */
   }
   .su-fee .v {
     margin-top: var(--space-2);
@@ -2315,6 +2334,7 @@ const endX = 0.965;
   }
   /* the form: on paper, lines instead of boxes */
   .su-f {
+    scroll-margin-top: var(--space-6); /* 10/18: phone signup buttons land here */
     padding: var(--space-7) var(--space-7) var(--space-7);
     background: var(--paper);
     border: 1px solid var(--hair);
@@ -2362,8 +2382,15 @@ const endX = 0.965;
     border-bottom-color: var(--terra);
     box-shadow: 0 1px 0 var(--terra);
   }
+  /* 10/18 (critique): when the class is full the fields fade and the disabled button drops its arrow; the mail link above it is the way in */
+  .su-f.is-full :is(input, select, textarea, label) {
+    opacity: 0.5;
+  }
+  .su-f.is-full .su-go b {
+    display: none;
+  }
   .su-f ::placeholder {
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint, 2.6:1 */
   }
   /* phone: the longest example line was cut off at the field's edge. Only the grey example shrinks; what the reader types stays 16px+ */
   @media (max-width: 640px) {
@@ -2406,7 +2433,7 @@ const endX = 0.965;
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.18em;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint, 2.6:1 */
   }
   #companions-wrapper {
     margin-top: var(--space-6);
@@ -2793,7 +2820,9 @@ const endX = 0.965;
     .st-big { white-space: normal; }
     .op-bar { grid-template-columns: 1fr 1fr; }
     .op-bar .fig, .op-bar .fig:first-child { padding-left: var(--gx); }
-    .op-bar .go { grid-column: 1 / -1; padding-left: var(--gx); }
+    /* 10/18 (critique P1): was grid-column 1 / -1 — the button sat on its own row just below a phone's first screen (820px on
+       812) and left an empty cell beside the fee. It takes that cell now. */
+    .op-bar .go { padding-left: var(--space-5); }
     .tri article, .tri article:first-child, .tri article:last-child { padding: var(--space-6) 0; border-right: 0; border-bottom: 1px solid var(--hair); }
     .duo.rev .dx { order: 2; }
   }
