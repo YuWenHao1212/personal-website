@@ -482,7 +482,7 @@ const endX = 0.965;
           </span>
         </a>
         <p class="su-bio">科技業 20 年（工程師 → PM → 數據分析），Minerva University 碩士。目前為企業提供 AI 導入顧問與內訓服務。每天靠這套系統管理所有工作流。</p>
-        <p class="su-run">5/16 台北、6/7 台中、8/22 台北三班全滿。{cohort.dateShort} {cohort.name}招生中。</p>
+        <p class="su-run">5/16 台北、6/7 台中、8/22 台北三班全滿。{cohort.dateShort} {cohort.name}<span data-run-state>招生中</span>。</p>
         <a class="su-about" href="/zh-TW/about/">我的故事 →</a>
 
         <p class="kick k2"><i></i>報名資訊</p>
@@ -513,6 +513,8 @@ const endX = 0.965;
           <h2>填寫報名表</h2>
           <p class="su-seats" hidden><span class="seats-pill" data-seats-pill></span></p>
         </div>
+        {/* 10/18 (third critique): phone signup buttons jump straight here, past the facts — so the form says which class it is. */}
+        <p class="su-f-cls">{cohort.dateFull} 09:00 – 16:00・台北 Happ. 小樹屋・需要 Claude Pro 帳號</p>
         <p class="su-f-sub">送出後即可線上刷卡完成報名</p>
         <label>這次幫幾個人報名？<em>*</em>
           <select id="party_size" name="party_size" required>
@@ -755,6 +757,8 @@ const endX = 0.965;
       const line = document.querySelector('[data-seats-line]');
       if (line) { line.textContent = full || few ? label : '\u00a0'; line.classList.toggle('on', full || few); }
       if (full) document.querySelectorAll('[data-go]').forEach((el) => { el.textContent = '加入候補'; });
+      // 10/18: the line under the instructor said 「招生中」 even when the class was full
+      if (full) document.querySelectorAll('[data-run-state]').forEach((el) => { el.textContent = '已額滿'; });
       // 10/18 (critique): 「加入候補」 used to land on a form whose button is disabled; the real waitlist is the mail link.
       if (full) {
         const wait = `mailto:mail@yu-wenhao.com?subject=${encodeURIComponent(`${COHORT_DATE_SHORT} 工作坊候補`)}`;
@@ -2348,6 +2352,13 @@ const endX = 0.965;
     letter-spacing: 0.06em;
     color: var(--ink);
   }
+  .su-f-cls {
+    word-break: keep-all; /* break at ・ and spaces, not inside 「台北」 */
+    margin-top: var(--space-3);
+    font-size: var(--t-ui);
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
   .su-f-sub {
     margin-top: var(--space-2);
     font-size: var(--t-small);
@@ -2459,7 +2470,7 @@ const endX = 0.965;
     font-weight: 500;
     line-height: 1.3;
     letter-spacing: 0.08em;
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: 14px; --terra was under 4.5:1 */
     background: color-mix(in srgb, var(--terra) 7%, transparent);
     white-space: nowrap;
   }
@@ -2507,7 +2518,7 @@ const endX = 0.965;
     margin-top: var(--space-6);
     font-size: var(--t-small);
     text-align: center;
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: 14px; was --terra */
   }
   .su-avail + .su-go {
     margin-top: var(--space-4);
