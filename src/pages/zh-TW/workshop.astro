@@ -838,7 +838,9 @@ const endX = 0.965;
     // 10/9 events: each step from the signup buttons to the payment page, so the page can be judged step by step.
     // (Payment completed = views of /zh-TW/workshop/thanks/; the real count is Stripe's.)
     const tk = (n, d) => { let k = 0; const data = { lang: document.documentElement.lang || '', ...d }; (function go() { if (window.umami?.track) window.umami.track(n, data); else if (k++ < 20) setTimeout(go, 250); })(); };
-    document.querySelectorAll('a[href="#signup"]').forEach((a) => {
+    // 10/18 (third critique): matched by class, not by href — up to 900px wide aimGo() points these at #signup-form,
+    // and the old a[href="#signup"] lookup found nothing there, so phone clicks were never counted.
+    document.querySelectorAll('a.go, a.sb').forEach((a) => {
       a.addEventListener('click', () => tk('workshop_click_signup', {
         position: a.hasAttribute('data-sb') ? 'sticky' : 'hero',
         state: currentRemaining !== null && currentRemaining <= 0 ? 'waitlist' : 'open',
@@ -1138,7 +1140,6 @@ const endX = 0.965;
   .su-fee .k [data-eb] {
     color: var(--terra-deep);
   }
-  .su-fee .k [data-eb] { color: var(--terra); }
   .op-bar .n.seats.on,
   .sb .sb-seats {
     color: var(--dawn);
@@ -2822,7 +2823,9 @@ const endX = 0.965;
     .op-bar .fig, .op-bar .fig:first-child { padding-left: var(--gx); }
     /* 10/18 (critique P1): was grid-column 1 / -1 — the button sat on its own row just below a phone's first screen (820px on
        812) and left an empty cell beside the fee. It takes that cell now. */
-    .op-bar .go { padding-left: var(--space-5); }
+    .op-bar .go { padding-inline: var(--space-4); gap: var(--space-2); }
+    /* 10/18 (third critique): in the half-width cell the label broke as 「報名第／四班」 */
+    .op-bar .go span { white-space: nowrap; }
     .tri article, .tri article:first-child, .tri article:last-child { padding: var(--space-6) 0; border-right: 0; border-bottom: 1px solid var(--hair); }
     .duo.rev .dx { order: 2; }
   }
