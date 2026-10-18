@@ -150,10 +150,89 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     </section>
     </div>
 
+    <!-- ============ 2. What he writes — filed by layer (10/18: moved up, right after the cover — the first-time path comes first) ============ -->
+    <section class="s2" id="articles">
+      <header class="hd">
+        <p class="kick"><i></i>Articles</p>
+        <h2>New here? <span class="nb">Read in this order</span></h2>
+        <p class="hd-sub">Direction first, then a system. Then AI is the lever.</p>
+      </header>
+
+      <div class="s2-grid">
+        <div class="s2-map">
+          <svg viewBox="0 0 600 600" role="img" aria-label="Direction at the centre, system in the middle ring, leverage on the outer ring">
+            <circle class="hit" data-layer="lever" cx="300" cy="300" r="245" />
+            <circle class="hit" data-layer="system" cx="300" cy="300" r="160" />
+            <circle class="hit" data-layer="focus" cx="300" cy="300" r="78" />
+
+            <circle class="ring" data-ring="lever" cx="300" cy="300" r="245" />
+            <circle class="ring" data-ring="system" cx="300" cy="300" r="160" />
+            <circle class="ring" data-ring="focus" cx="300" cy="300" r="78" />
+            <g class="ticks">
+              {ticks.map((a) => <line x1="300" y1="222" x2="300" y2="214" transform={`rotate(${a} 300 300)`} />)}
+            </g>
+            <g class="orbit"><circle cx="300" cy="55" r="4.5" /></g>
+            <path class="star" d="M300 277 L305.5 294.5 L323 300 L305.5 305.5 L300 323 L294.5 305.5 L277 300 L294.5 294.5 Z" />
+
+            {/* 10/18 (critique P2, as on the Chinese page): the labels rendered at ~10px and ~6px once the 600-unit drawing
+                is scaled to the column. Text is larger now (see .s2-map .zh / .en) and the backing boxes grew with it.
+                Before: focus y 350/366; system rect 232,124 136×42, y 143/159; lever rect 250,39 100×42, y 58/74. */}
+            {/* 10/18: at the larger size "01 · FOCUS" (103 units wide) ran across the centre ring, so the centre label gets
+                a backing box like the other two; the ring's bottom arc runs under it. */}
+            <g class="lab" data-lab="focus">
+              <rect x="244" y="328" width="112" height="54" />
+              <text x="300" y="351" class="zh">Direction</text>
+              <text x="300" y="369" class="en">01 · FOCUS</text>
+            </g>
+            <g class="lab" data-lab="system">
+              <rect x="196" y="112" width="208" height="62" />
+              <text x="300" y="140" class="zh">System</text>
+              <text x="300" y="164" class="en">02 · LEARN / UPGRADE</text>
+            </g>
+            <g class="lab" data-lab="lever">
+              <rect x="226" y="26" width="148" height="62" />
+              <text x="300" y="54" class="zh">Leverage</text>
+              <text x="300" y="78" class="en">03 · EXECUTE</text>
+            </g>
+          </svg>
+          <p class="s2-hint">Click any ring</p>
+        </div>
+
+        <div class="s2-list">
+          <div class="tabs" role="tablist" aria-label="Reading order">
+            {filed.map((g, i) => (
+              <button role="tab" id={`tab-${g.key}`} aria-controls={`panel-${g.key}`} data-layer={g.key} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+                <span>{g.n}</span>{g.zh}
+              </button>
+            ))}
+          </div>
+          {filed.map((g, i) => (
+            <div class="panel" role="tabpanel" id={`panel-${g.key}`} aria-labelledby={`tab-${g.key}`} tabindex="0" data-panel={g.key} hidden={i !== 0}>
+              <p class="panel-q">{g.q}</p>
+              <ol>
+                {g.items.map(({ slug, post }, n) => (
+                  <li>
+                    <a href={`/en/blog/${slug}/`} data-umami-event="home_click_path" data-umami-event-layer={g.key} data-umami-event-order={String(n + 1)} data-umami-event-slug={slug}>
+                      <span class="d">{fmt(post!.data.pubDate)}</span>
+                      <span class="t">{post!.data.title}</span>
+                      <span class="x">{post!.data.description}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+          <a class="more" href="/en/blog/">All articles →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 1d. Writing, by night: one piece gets the screen, the rest is a quiet list ============ -->
     <section class="nt">
       <img class="nt-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
-      <p class="kick"><i></i>Writing</p>
+      {/* 10/18: a real heading (critique: .nt had none), styled exactly like the label it replaces. Text unchanged: it does not
+          repeat the reading path's label right above it ("Articles"), so it did not need the new word the Chinese page got. */}
+      <h2 class="kick"><i></i>Writing</h2>
 
       {featurePost && (
         <a class="nt-feat" href={`/en/blog/${FEATURE_SLUG}/`} data-umami-event="home_feature_click">
@@ -193,7 +272,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
 
     <!-- ============ 1c. Career, drawn as one star trail (10/8: moved below the writing section) ============ -->
     <section class="tj">
-      <p class="kick"><i></i>Path</p>
+      <h2 class="kick"><i></i>Path</h2>
       <div class="tj-stage" style={`--h:${TJ.h}`}>
         <svg viewBox={`0 0 ${TJ.w} ${TJ.h}`} preserveAspectRatio="none" aria-hidden="true">
           <path class="f" d={arcPath(46)} />
@@ -226,77 +305,6 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
       <a class="more" href="/en/about/">The full story →</a>
     </section>
 
-    <!-- ============ 2. What he writes — filed by layer ============ -->
-    <section class="s2" id="articles">
-      <header class="hd">
-        <p class="kick"><i></i>Articles</p>
-        <h2>New here? <span class="nb">Read in this order</span></h2>
-        <p class="hd-sub">Direction first, then a system. Then AI is the lever.</p>
-      </header>
-
-      <div class="s2-grid">
-        <div class="s2-map">
-          <svg viewBox="0 0 600 600" role="img" aria-label="Direction at the centre, system in the middle ring, leverage on the outer ring">
-            <circle class="hit" data-layer="lever" cx="300" cy="300" r="245" />
-            <circle class="hit" data-layer="system" cx="300" cy="300" r="160" />
-            <circle class="hit" data-layer="focus" cx="300" cy="300" r="78" />
-
-            <circle class="ring" data-ring="lever" cx="300" cy="300" r="245" />
-            <circle class="ring" data-ring="system" cx="300" cy="300" r="160" />
-            <circle class="ring" data-ring="focus" cx="300" cy="300" r="78" />
-            <g class="ticks">
-              {ticks.map((a) => <line x1="300" y1="222" x2="300" y2="214" transform={`rotate(${a} 300 300)`} />)}
-            </g>
-            <g class="orbit"><circle cx="300" cy="55" r="4.5" /></g>
-            <path class="star" d="M300 277 L305.5 294.5 L323 300 L305.5 305.5 L300 323 L294.5 305.5 L277 300 L294.5 294.5 Z" />
-
-            <g class="lab" data-lab="focus">
-              <text x="300" y="350" class="zh">Direction</text>
-              <text x="300" y="366" class="en">01 · FOCUS</text>
-            </g>
-            <g class="lab" data-lab="system">
-              <rect x="232" y="124" width="136" height="42" />
-              <text x="300" y="143" class="zh">System</text>
-              <text x="300" y="159" class="en">02 · LEARN / UPGRADE</text>
-            </g>
-            <g class="lab" data-lab="lever">
-              <rect x="250" y="39" width="100" height="42" />
-              <text x="300" y="58" class="zh">Leverage</text>
-              <text x="300" y="74" class="en">03 · EXECUTE</text>
-            </g>
-          </svg>
-          <p class="s2-hint">Click any ring</p>
-        </div>
-
-        <div class="s2-list">
-          <div class="tabs" role="tablist">
-            {filed.map((g, i) => (
-              <button role="tab" data-layer={g.key} aria-selected={i === 0 ? 'true' : 'false'}>
-                <span>{g.n}</span>{g.zh}
-              </button>
-            ))}
-          </div>
-          {filed.map((g, i) => (
-            <div class="panel" data-panel={g.key} hidden={i !== 0}>
-              <p class="panel-q">{g.q}</p>
-              <ol>
-                {g.items.map(({ slug, post }, n) => (
-                  <li>
-                    <a href={`/en/blog/${slug}/`} data-umami-event="home_click_path" data-umami-event-layer={g.key} data-umami-event-order={String(n + 1)} data-umami-event-slug={slug}>
-                      <span class="d">{fmt(post!.data.pubDate)}</span>
-                      <span class="t">{post!.data.title}</span>
-                      <span class="x">{post!.data.description}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ))}
-          <a class="more" href="/en/blog/">All articles →</a>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ 3b. Recommended tools (kept: carries affiliate revenue) ============ -->
     <section class="tl">
       <header class="hd">
@@ -320,7 +328,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     <!-- ============ 1b. Proof he builds it himself ============ -->
     <section class="mk">
       <div class="mk-hd">
-        <p class="kick"><i></i>What I've built</p>
+        <h2 class="kick"><i></i>What I've built</h2>
         <p class="mk-say">I build with AI myself. From idea to launch, each of these was made by one person working with AI.</p>
       </div>
       <div class="mk-grid">
@@ -404,7 +412,11 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     // Rings / tabs → swap the article panel
     const root = document.querySelector('.s2');
     const pick = (key: string) => {
-      root?.querySelectorAll('[role=tab]').forEach((b) => b.setAttribute('aria-selected', String((b as HTMLElement).dataset.layer === key)));
+      root?.querySelectorAll('[role=tab]').forEach((b) => {
+        const on = (b as HTMLElement).dataset.layer === key;
+        b.setAttribute('aria-selected', String(on));
+        b.setAttribute('tabindex', on ? '0' : '-1');
+      });
       root?.querySelectorAll('[data-panel]').forEach((p) => ((p as HTMLElement).hidden = (p as HTMLElement).dataset.panel !== key));
       root?.querySelectorAll('[data-ring]').forEach((r) => r.classList.toggle('on', (r as SVGElement).dataset.ring === key));
       root?.querySelectorAll('[data-lab]').forEach((r) => r.classList.toggle('on', (r as SVGElement).dataset.lab === key));
@@ -413,6 +425,18 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
       el.addEventListener('click', () => pick((el as HTMLElement).dataset.layer!)),
     );
     pick('focus');
+    // 10/18 (critique: tabs were mouse-only): arrow keys / Home / End move between tabs, as the ARIA tab pattern expects.
+    const tabs = [...(root?.querySelectorAll('[role=tab]') ?? [])] as HTMLElement[];
+    tabs.forEach((t, i) =>
+      t.addEventListener('keydown', (e) => {
+        const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (to === undefined) return;
+        e.preventDefault();
+        const next = tabs[(to + tabs.length) % tabs.length];
+        pick(next.dataset.layer!);
+        next.focus();
+      }),
+    );
 
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
@@ -446,6 +470,8 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     margin: 0;
     font-family: var(--mono);
     font-size: var(--t-label);
+    font-weight: 400;
+    line-height: inherit;
     letter-spacing: 0.14em;
     color: var(--muted);
   }
@@ -1050,7 +1076,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   .tl-grid .g {
     font-size: var(--t-small);
     letter-spacing: 0.04em;
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: --terra is 3.8:1 on paper-2 at 14px */
   }
   .tl-grid a:hover .t { color: var(--terra); }
 
@@ -1105,7 +1131,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .s2-map .zh {
     font-family: var(--serif);
-    font-size: var(--t-read);
+    font-size: 1.5em; /* in drawing units: ~13px on screen once the 600-unit drawing is scaled to ~300px. Was var(--t-read) */
     font-weight: 600;
     fill: var(--muted);
     letter-spacing: 0.08em;
@@ -1113,15 +1139,15 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
   }
   .s2-map .en {
     font-family: var(--mono);
-    font-size: var(--t-micro);
-    letter-spacing: 0.16em;
-    fill: var(--faint);
+    font-size: 0.95em; /* was var(--t-micro), ~6px on screen */
+    letter-spacing: 0.08em;
+    fill: var(--muted); /* 10/18: was --faint */
   }
   .s2-map .lab.on .zh {
     fill: var(--ink);
   }
   .s2-map .lab.on .en {
-    fill: var(--terra);
+    fill: var(--terra-deep);
   }
   .s2-hint {
     margin: var(--space-4) 0 0;
@@ -1129,7 +1155,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.18em;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint (2.4:1) */
   }
 
   .tabs {
@@ -1149,7 +1175,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     font-family: var(--serif);
     font-size: var(--t-h4);
     font-weight: 600;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint (2.4:1 on paper-2) */
     cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
   }
@@ -1164,7 +1190,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     border-color: var(--terra);
   }
   .tabs button[aria-selected='true'] span {
-    color: var(--terra);
+    color: var(--terra-deep); /* 10/18: small text; --terra is 3.8:1 here */
   }
   .panel-q {
     margin: var(--space-6) 0 var(--space-2);
@@ -1188,7 +1214,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     font-family: var(--mono);
     font-size: var(--t-label);
     letter-spacing: 0.1em;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint */
   }
   .panel .t {
     font-family: var(--serif);
@@ -1227,6 +1253,13 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     position: relative;
     height: calc(var(--h) * 1px);
     margin-top: var(--space-4);
+    /* 10/18 (critique P2): the first point's text hangs below the drawing; up to ~1250px wide it reached "The full story →". */
+    margin-bottom: var(--space-7);
+  }
+  /* 10/18: break lines at spaces; inside a word only when a word alone would not fit */
+  .tj-stage li {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
   }
   .tj-stage > svg {
     position: absolute;
@@ -1289,7 +1322,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     font-family: var(--mono);
     font-size: var(--t-micro);
     letter-spacing: 0.08em;
-    color: var(--faint);
+    color: var(--muted); /* 10/18: was --faint (2.6:1) */
   }
   .tj-stage .t {
     font-family: var(--serif);
@@ -1474,7 +1507,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     font-family: var(--mono);
     font-size: var(--t-label);
     letter-spacing: 0.08em;
-    color: color-mix(in srgb, var(--cream) 45%, transparent);
+    color: color-mix(in srgb, var(--cream) 60%, transparent); /* 10/18: was 45% (4.1:1) */
   }
   .nt-list .t {
     font-family: var(--serif);
@@ -1488,7 +1521,7 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     font-size: var(--t-label);
     letter-spacing: 0.1em;
     white-space: nowrap;
-    color: color-mix(in srgb, var(--cream) 40%, transparent);
+    color: color-mix(in srgb, var(--cream) 60%, transparent); /* 10/18: was 40% (3.5:1) */
   }
   .nt-list .l.ext {
     color: var(--dawn);
@@ -1701,6 +1734,15 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     to { transform: rotate(360deg); }
   }
 
+  /* 10/18 (critique P2): the career star-trail drawn on an arc only fits from 1100px up. Below that the first point's
+     text ran into "The full story →", so it becomes the stacked list. Before: these four rules sat in the 860px block below. */
+  @media (max-width: 1100px) {
+    .tj-stage { height: auto; margin-bottom: 0; }
+    .tj-stage > svg, .tj-now { display: none; }
+    .tj-stage li { position: static; width: auto !important; opacity: 1; transform: none; padding: var(--space-4) 0; border-top: 1px solid var(--hair); }
+    .tj-stage li i { display: none; }
+  }
+
   /* Phone: not designed yet — keep it readable only */
   @media (max-width: 860px) {
     /* phone: by day the star's label (方向 / NORTH STAR) ran into 「我是余文皓。」 — keep the star, drop the label (10/9, the author's word).
@@ -1710,13 +1752,11 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
        and half a screen of nothing where two same-coloured sections meet. */
     .hp .nb { white-space: nowrap; }
     .s2-map .lab .en { display: none; }
+    /* 10/18: without "01 · FOCUS" the centre label fits inside its ring, so its backing box would only cut the ring */
+    .s2-map .lab[data-lab='focus'] rect { display: none; }
     .s2 { padding-bottom: var(--space-7); }
     .tl { padding-top: var(--space-7); }
     .s1, .s2-grid, .mk, .mk-grid, .tl-grid, .tl-grid a { grid-template-columns: 1fr; }
-    .tj-stage { height: auto; }
-    .tj-stage > svg, .tj-now { display: none; }
-    .tj-stage li { position: static; width: auto !important; opacity: 1; transform: none; padding: var(--space-4) 0; border-top: 1px solid var(--hair); }
-    .tj-stage li i { display: none; }
     .nt-feat { grid-template-columns: 1fr; }
     .nt-list li a { grid-template-columns: 1fr; gap: var(--space-1); }
     .s1 { min-height: 0; padding-block: var(--space-7) var(--space-7); }
