@@ -521,7 +521,8 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
     // Reduced motion: no dawn — put the intro below the cover as a normal block.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const who = document.querySelector('.cv-who');
-      if (who && track) { who.classList.add('is-static'); track.after(who); }
+      // 10/18: dawn() above already ran once and made the intro inert (p = 0); as a normal block it must be usable again.
+      if (who && track) { who.classList.add('is-static'); (who as HTMLElement).inert = false; track.after(who); }
     }
 
     // Rings / tabs → swap the article panel
