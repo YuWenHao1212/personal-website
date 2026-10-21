@@ -6,7 +6,7 @@ category: building-products
 topics: ["ai-practice"]
 tags: ["claude code", "非工程師學 AI", "成人教育", "教學", "AI 與心理學"]
 lang: zh-TW
-featured: true
+featured: false
 heroImage: /images/blog/teaching-48yo-psychologist-claude-code.webp
 translationKey: teaching-48yo-psychologist-claude-code
 relatedPosts: ["claude-code-tutorial.md", "agentic-coding.md", "lyt-framework-guide.md", "personal-panopticon.md"]

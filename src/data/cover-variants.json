@@ -125,6 +125,12 @@
   "w": 1600,
   "h": 894
  },
+ "/images/blog/local-llm-mac.webp": {
+  "small": "/images/cover-800/blog/local-llm-mac.webp",
+  "thumb": "/images/cover-400/blog/local-llm-mac.webp",
+  "w": 1672,
+  "h": 941
+ },
  "/images/blog/loop-engineering.webp": {
   "small": "/images/cover-800/blog/loop-engineering.webp",
   "thumb": "/images/cover-400/blog/loop-engineering.webp",

@@ -9,7 +9,7 @@ keywords: ["loop engineering", "what is loop engineering", "loopcraft", "designi
 lang: en
 translationKey: loop-engineering
 draft: false
-featured: true
+featured: false
 heroImage: /images/blog/loop-engineering.webp
 focus_keyphrase: "loop engineering"
 relatedPosts: ["ai-harness.md", "multi-agent-hidden-cost.md", "claude-code-tutorial.md", "agentic-coding-guide.md"]
