@@ -324,4 +324,6 @@ For me, local AI hasn't reached its sweet spot. The numbers don't add up, so it 
 
 Maybe next year or the year after, once the hardware costs less and the setup is less of a hassle, I'll run the numbers on local AI again. Until then, I'm asking my 2021 MacBook Pro to hang in there a little longer.
 
+---
+
 *Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/). I’m open to collaboration, consulting, and new opportunities.*

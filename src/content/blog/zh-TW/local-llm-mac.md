@@ -322,4 +322,8 @@ Mac 的記憶體是一整塊，CPU 和 GPU 一起用。跑模型主要靠 GPU，
 
 或許明年、後年，等機器沒那麼貴、設定也沒那麼麻煩，我再來算一次地端這筆帳。在那之前，就拜託我這台 2021 年的 MacBook Pro 再多撐一陣子了。
 
-雲端 Claude 要用到位，自己摸索也做得到，想少繞一點路，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>要帶整個團隊導入 Claude 的話，可以找[匯流顧問](https://confluence-partners.ai/)。
+---
+
+*雲端 Claude 要用到位，自己摸索也做得到，想少繞一點路，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>*
+
+*要帶整個團隊導入 Claude 的話，可以找[匯流顧問](https://confluence-partners.ai/)。*
