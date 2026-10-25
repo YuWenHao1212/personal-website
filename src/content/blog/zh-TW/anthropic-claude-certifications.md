@@ -2,6 +2,7 @@
 title: "Claude 證照是什麼？Anthropic 四張官方認證怎麼考、和免費證書差在哪"
 description: "台灣的 AI 證照地圖 2026 年多了一格：模型原廠自己發證。第一家跑完整套的不是 OpenAI，是 Anthropic — 四張 Claude 證照，$99 到 $175，Pearson VUE 監考。這篇從 iPAS 講到 Anthropic，把四張各是什麼、怎麼考、和「免費 Claude 證書」差在哪，一次講清楚。"
 pubDate: 2026-07-20
+updatedDate: 2026-10-25
 category: building-products
 topics: ["ai-practice"]
 tags: ["Anthropic 認證", "Claude 證照", "CCAR-F", "CCAO-F", "AI 證照", "iPAS", "企業 AI"]
@@ -100,6 +101,8 @@ AI 服務市場的專業分工，開始有了書面形式。
 ## 官方 Exam Guide 在哪？四張都有了
 
 四張認證的官方 Exam Guide 都能在 [Partner Academy 認證總覽頁](https://anthropic-partners.skilljar.com/page/partner-certifications)下載，每份都列出領域配分與題型規格。（2026-07-22 更新：本文首發版寫只有 CCAR-F 有官方 guide，其餘三張已於 7 月開考期間陸續上架，本節與上表已同步修正。）
+
+（2026-10-25 更新：[Pearson VUE 頁面](https://www.pearsonvue.com/us/en/anthropic.html)公告，Associate - Foundations（CCAO-F）、Developer - Foundations（CCDV-F）、Architect - Professional（CCAR-P）三張從 2026-12-07 起換新的考試內容，新版 Exam Guide 2026-11-17 上架。CCAR-F 不在這次的名單裡。）
 
 以最早發布的 CCAR-F 為例。它的官方 Exam Guide（2026 年 7 月版）列出了完整規格：60 題選擇題，單選與複選混合，每題會標明要選幾個答案。
 
