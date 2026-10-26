@@ -46,7 +46,7 @@ const courseLd = {
       courseMode: 'Onsite',
       startDate: `${courseDay}T09:00:00+08:00`,
       endDate: `${courseDay}T16:00:00+08:00`,
-      location: { '@type': 'Place', name: 'Happ. 小樹屋 蒲公英 918', address: { '@type': 'PostalAddress', addressLocality: '台北市', addressCountry: 'TW' } },
+      location: { '@type': 'Place', name: '台北 中正區紹興北街', address: { '@type': 'PostalAddress', addressLocality: '台北市', addressRegion: '中正區', addressCountry: 'TW' } },
       instructor: me,
     },
     offers: { '@type': 'Offer', price: PRICING_DEFAULTS.priceRegular, priceCurrency: 'TWD', url: 'https://yu-wenhao.com/zh-TW/workshop/#signup' },
@@ -489,7 +489,7 @@ const endX = 0.965;
         <dl class="su-facts">
           <div><dt>日期</dt><dd>{cohort.dateFull}</dd></div>
           <div><dt>時段</dt><dd>09:00 – 16:00<small>6 小時實作 + 1 小時午餐</small></dd></div>
-          <div><dt>地點</dt><dd>台北 Happ. 小樹屋<small>蒲公英 918・近捷運南京復興站。完整地址報名後提供</small></dd></div>
+          <div><dt>地點</dt><dd>台北 中正區紹興北街<small>完整地址報名後提供</small></dd></div>
           <div><dt>需要帶</dt><dd>筆電 + Claude Pro 帳號<small>月繳 US$20</small></dd></div>{/* 10/18 (critique): the monthly cost was only in a collapsed FAQ. Before: 筆電 + Claude 帳號 */}
           <div><dt>課前 1:1</dt><dd>線上 45 分鐘，開課前一到兩週<small>把環境裝好、實際用起來，也聊聊你想做什麼</small></dd></div>
         </dl>
@@ -514,7 +514,7 @@ const endX = 0.965;
           <p class="su-seats" hidden><span class="seats-pill" data-seats-pill></span></p>
         </div>
         {/* 10/18 (third critique): phone signup buttons jump straight here, past the facts — so the form says which class it is. */}
-        <p class="su-f-cls">{cohort.dateFull} 09:00 – 16:00・台北 Happ. 小樹屋・需要 Claude Pro 帳號</p>
+        <p class="su-f-cls">{cohort.dateFull} 09:00 – 16:00・台北 中正區紹興北街・需要 Claude Pro 帳號</p>
         <p class="su-f-sub">送出後即可線上刷卡完成報名</p>
         <label>這次幫幾個人報名？<em>*</em>
           <select id="party_size" name="party_size" required>
