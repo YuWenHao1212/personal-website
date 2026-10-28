@@ -356,7 +356,3 @@ Your employees already use Google Workspace every day — that's cloud too, with
 | Data can't leave our servers | Self-hosted open-source | Millions to start, months to deploy |
 
 Picking the wrong path doesn't make you less secure — it means your employees wait six months and still don't have AI.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm always happy to chat about AI, systems, and building things solo.*

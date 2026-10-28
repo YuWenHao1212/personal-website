@@ -140,7 +140,3 @@ Jira是一套功能強大且自由度很高的軟體。適合5人以上的專案
 <img src="/images/blog/jira/udemy-concept.webp" alt="Understanding Jira for users, managers and admins" />
 <figcaption>Understanding Jira for users, managers and admins</figcaption>
 </figure>
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

@@ -82,7 +82,3 @@ More coming soon.
 If you're also fed up with ad-covered tool sites, give it a try: [neatoolkit.com](https://neatoolkit.com)
 
 After using it, if you feel something's missing, let me know. The next one I build might be what you need.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

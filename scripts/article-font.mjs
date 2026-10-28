@@ -48,7 +48,8 @@ for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f)).sort()) {
   const text = fs.readFileSync(path.join(POSTS, f), 'utf8');
   // 10/12: an article that carries the workshop line (data-ws-status / data-workshop-cta) shows words the layout's script
   // writes in at read time — the class's name and city from data/cohorts.ts and the seats phrases — some of them in bold.
-  const ws = /data-ws-status|data-workshop-cta/.test(text) ? WS_TEXT : '';
+  // 10/28: the workshop row after the text (layouts/ArticleLayout.astro, .ar-next) shows them on every article.
+  const ws = WS_TEXT;
   want[f.replace(/\.mdx?$/, '')] = { r: uniq(text + layout + ws + ALWAYS), b: uniq(boldText(text) + ws + ALWAYS) };
 }
 // the heading face: titles, the articles' own headings, and the Chinese page files

@@ -177,7 +177,3 @@ One agent's harness is dialed in, and the next question arrives — what if ther
 These questions sound familiar because they're exactly what every company, every team leader, every PM deals with daily. Except now, the employees are AI.
 
 I explored this in my next article — [I Built an AI Agent Company and Wanted to Shut It Down on Day One](/en/blog/multi-agent-hidden-cost/). What happens when you apply real corporate management to AI agents? Spoiler: the process itself becomes the bottleneck.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*

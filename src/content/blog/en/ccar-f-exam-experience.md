@@ -231,5 +231,3 @@ The badge isn't permanent: Anthropic's [certification FAQ](https://anthropic-par
 The difference I actually feel is in day-to-day work. For every architecture decision, I understand the reasoning behind it more clearly now: when a rule belongs in CLAUDE.md versus when it needs a hook to enforce it, what gets handed off to an isolated subagent versus what stays in the main conversation, and whether to push through a conversation once context has gone stale or start fresh with a summary.
 
 These used to be calls I made on instinct. Now I can name the mechanism behind them.
-
----

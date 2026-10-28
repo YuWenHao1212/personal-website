@@ -131,7 +131,3 @@ heroImage: /images/blog/project-cost-calculation/hero.webp
 ## 延伸閱讀
 
 - [產品報價: 10個提高說服力的建議](/zh-TW/blog/10-tricks-of-quotation/)
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

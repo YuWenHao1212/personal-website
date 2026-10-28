@@ -794,7 +794,3 @@ $139 的成立費、$309/年的維護費，換的是**一勞永逸的收款能�
 | 我的產品 | [AI Resume Advisor](https://airesumeadvisor.com/) |
 | 變現平台 | [Teachable](https://teachable.com/)（線上課程）|
 | 雲服務折扣 | [Microsoft for Startups（拿 Azure 額度）](/zh-TW/blog/free-azure-startup-credits/) |
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

@@ -89,7 +89,3 @@ If you're building a product, this resource is worth applying for.
 ---
 
 **Sources**: [Azure startup credits overview](https://learn.microsoft.com/en-us/azure/signups/overview), [Microsoft for Startups](https://www.microsoft.com/en-us/startups)
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

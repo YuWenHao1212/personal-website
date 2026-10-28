@@ -559,5 +559,3 @@ Once you've done these 5 protections, the next step is understanding which of th
 - [OpenClaw Security Practice Guide](https://github.com/slowmist/openclaw-security-practice-guide) - SlowMist
 - [OpenClaw Integrates VirusTotal Scanning](https://thehackernews.com/2026/02/openclaw-integrates-virustotal-scanning.html) - The Hacker News
 - [ToxicSkills: Malicious AI Agent Skills Supply Chain Compromise](https://snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub/) - Snyk
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

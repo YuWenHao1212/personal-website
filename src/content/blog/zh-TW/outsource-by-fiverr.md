@@ -103,7 +103,3 @@ heroImage: /images/blog/fiverr/hero.webp
 如果您有工作需要外包，可以透過以下的連結註冊 Fiverr 取得 **首筆訂單的 10% 折扣** 。相信您可以找到合適的專家來節省您寶貴的時間，並以更低廉的成本完成超過您預期的工作成果。
 
 [取得 Fiverr 10% 折扣](https://www.fiverr.com/pe/yvdkgm5)
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

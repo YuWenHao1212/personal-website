@@ -332,7 +332,3 @@ Two articles to read next. The first is how I use it myself. The second shows ho
 
 - [How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)
 - [Claude Skills Guide: Build AI Workflow Automation From Scratch](/en/blog/claude-skills-guide/)
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

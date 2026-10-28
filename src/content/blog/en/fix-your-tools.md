@@ -113,7 +113,3 @@ At first, it feels like you can't afford to stop and fix things because everythi
 My workflow still has friction. It probably always will.
 
 The difference is, now when I hit it, I ask three questions: how often? How much will it save? How much effort to fix?
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*

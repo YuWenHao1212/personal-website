@@ -130,7 +130,3 @@ heroImage: /images/blog/courage-to-be-disliked-2/hero.webp
 
 - 被討厭的勇氣：[博客來購書連結](https://www.books.com.tw/exep/assp.php/yuwenhao1212/products/0010653153?sloc=main&utm_source=yuwenhao1212&utm_medium=ap-books&utm_content=recommend&utm_campaign=ap-202105)
 - 被討厭的勇氣二部曲：[博客來購書連結](https://www.books.com.tw/exep/assp.php/yuwenhao1212/products/0010732121?sloc=main&utm_source=yuwenhao1212&utm_medium=ap-books&utm_content=recommend&utm_campaign=ap-202105)
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

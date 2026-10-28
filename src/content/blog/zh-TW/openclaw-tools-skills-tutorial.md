@@ -332,7 +332,6 @@ Email 有兩個 Skill：`gog` 和 `himalaya`。`gog` 整合整個 Google Workspa
 
 OpenClaw 對我來說不只是工具——它是讓一個人能做到一整個團隊事情的基礎建設。
 
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*
 ---
 
 ## 附錄：完整清單

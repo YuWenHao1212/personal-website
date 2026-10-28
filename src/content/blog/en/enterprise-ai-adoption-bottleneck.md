@@ -213,7 +213,3 @@ That's the starting point for change.
 ### Further Reading
 
 Another common concern is data security — [this article](/en/blog/enterprise-ai-data-security/) breaks down the security differences between three AI deployment approaches so you can choose what fits your company.
-
-*If you're bringing AI into your organization and want to talk through the approach, [reach out](mailto:mail@yu-wenhao.com?subject=Enterprise%20AI%20Adoption) — this is exactly what I work on.*
-
-*[Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm always happy to chat about AI, systems, and building things solo.*

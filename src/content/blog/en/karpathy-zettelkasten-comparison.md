@@ -177,5 +177,3 @@ I used his method to study his method. It didn't make me switch systems. But it 
 *Related reading:*
 
 - *[How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)* — The complete system: knowledge base, daily briefs, email automation, meeting notes, and goal tracking
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*

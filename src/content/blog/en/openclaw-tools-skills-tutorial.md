@@ -475,5 +475,3 @@ My config above works as a starting point. Copy it, then trim to fit your needs.
 ---
 
 *Last updated: 2026-10-12*
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m always happy to chat about AI, systems, and building things solo.*

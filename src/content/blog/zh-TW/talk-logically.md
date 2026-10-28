@@ -96,7 +96,3 @@ heroImage: /images/blog/talk-logically/hero.webp
 </figure>
 
 2. **《圖解邏輯思考全書》**（[博客來購書連結](https://www.books.com.tw/exep/assp.php/yuwenhao1212/products/0010892651)）
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

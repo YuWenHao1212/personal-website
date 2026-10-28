@@ -315,5 +315,3 @@ Obsidian 迅速建立起龐大的社群和外掛生態系統。
 *延伸閱讀：*
 
 - *[我的 AI 工作流：打造個人 AI 助理系統](/zh-TW/blog/personal-panopticon/)* — 目標管理、郵件自動化、會議記錄、Daily Brief 的完整實戰整合
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

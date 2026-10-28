@@ -102,7 +102,3 @@ Vibe Coding，你學的是「跟 AI 溝通」。今天用 Claude，明天用 GPT
 *如果你也在想做點什麼，歡迎聊聊。*
 
 *想看看我做的東西？→ [AI Resume Advisor](https://airesumeadvisor.com)*
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

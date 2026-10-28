@@ -473,9 +473,3 @@ FLUX 怎麼搭起來，寫在下面三篇。第一篇講先定方向，第二篇
 - [先定方向，再建系統，最後才是工具](/zh-TW/blog/flux-direction-system-leverage/)
 - [我的 AI 工作流：用 Claude Code + Obsidian 打造個人 AI 助理系統](/zh-TW/blog/personal-panopticon/)
 - [Claude Code 教學](/zh-TW/blog/claude-code-tutorial/)
-
-自己摸索也做得到，只是花時間。想用最有效率的方式走完這一段，<span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>要帶整個團隊導入 Claude 的話，可以找[匯流顧問](https://confluence-partners.ai/)。
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

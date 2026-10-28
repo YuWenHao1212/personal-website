@@ -83,7 +83,3 @@ heroImage: /images/blog/seeking-happiness/hero.webp
 影片在這，17分鐘。
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/1EynQpScki8" title="Plug into your hard-wired happiness | Srikumar Rao" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

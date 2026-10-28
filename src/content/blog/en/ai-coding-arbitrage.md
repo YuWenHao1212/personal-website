@@ -155,7 +155,3 @@ How long will this window stay open? Unknown.
 But when everyone can build with AI, the arbitrage ends.
 
 If there's something you've always wanted to build, now is the best time to start.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

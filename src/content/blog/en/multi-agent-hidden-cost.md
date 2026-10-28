@@ -170,7 +170,3 @@ Back to Claude Code + Harness. One session. One agent. Say what to do, it does i
 After 10 years as a PM, the most important lesson: **Process is for scale. Without scale, process is a cage.**
 
 The same principle applies whether you're managing people or AI agents. Match your tooling to your actual coordination needs — not to what looks impressive on an architecture diagram.
-
----
-
-*I write about AI workflows, agentic coding, and the engineering decisions behind systems that actually ship. [Connect on LinkedIn](https://www.linkedin.com/in/hence/) or [explore my other writing](/en/).*

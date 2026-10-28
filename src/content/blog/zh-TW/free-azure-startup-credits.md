@@ -90,11 +90,3 @@ Self-Service 路徑的額度分兩階段：
 ---
 
 **資料來源**：[Azure startup credits overview](https://learn.microsoft.com/en-us/azure/signups/overview)、[Microsoft for Startups 台灣官網](https://www.microsoft.com/zh-tw/startups)
-
----
-
-*下一篇，聊聊怎麼註冊美國公司。想少走彎路？[訂閱我的電子報](/zh-TW/#newsletter-form)，我會分享工具、流程、踩坑經驗。*
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

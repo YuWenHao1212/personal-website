@@ -111,7 +111,3 @@ This is where the shift actually means something. On the surface it's a technica
 That kind of stepping back takes design, and it takes a measure: a standard that tells the machine when to stop and ask a person. Designed well, the person steps back to just the right place, and what comes back is time and focus; designed badly, stepping away becomes losing control. Where exactly the line should fall, there's no settled answer yet; what's certain is that more and more people are starting to draw it in earnest.
 
 From my own experience, round after round of running it, I think this direction is right: that time and that focus really did come back into my hands.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/). I'm open to collaboration, consulting, and new opportunities.*

@@ -114,7 +114,3 @@ Looking back on this journey, the most important lesson I learned is:
 You don't need a perfect plan. You don't need to wait until you're ready.
 
 Just do it.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

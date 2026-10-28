@@ -794,8 +794,3 @@ If you want to compare alternatives: [Bizee](https://bizee.com/), [ZenBusiness](
 | My product | [AI Resume Advisor](https://airesumeadvisor.com/) |
 | Monetization platform | [Teachable](https://teachable.com/) (online courses) |
 | Cloud credits | [Microsoft for Startups (Azure credits)](/en/blog/free-azure-startup-credits/) |
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*
-

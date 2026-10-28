@@ -212,5 +212,3 @@ That's probably my biggest takeaway from 5 years with Roam Research.
 *Related reading:*
 
 - *[How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)* — The complete system: goal management, daily briefs, knowledge base, and more
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

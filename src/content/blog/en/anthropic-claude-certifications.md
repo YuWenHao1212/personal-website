@@ -134,5 +134,3 @@ For the cloud vendor tier (Microsoft / Google / AWS), proctored AI credentials h
 ---
 
 *Want to sit one of these exams but have no registration path? [Leave your contact here](https://ccarf-contact.pages.dev/en/), and I'll reply personally.*
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm open to collaboration, consulting, and new opportunities.*

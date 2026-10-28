@@ -174,5 +174,3 @@ WAM 讓你有機會每週停下來，問這個問題。而不是埋頭苦幹三�
 *12WY 跑了之後怎麼接 AI？我把 [12WY + Claude Code 整合成 FLUX 系統](/zh-TW/blog/flux-direction-system-leverage/)、教給 12 個學員，這是現場紀錄。*
 
 *[《12週做完一年工作》博客來](https://www.books.com.tw/products/0010974991)*
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

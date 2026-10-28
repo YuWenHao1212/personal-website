@@ -79,7 +79,3 @@ Otter.ai 提供三種訂閱方案：
 Otter.ai 支援 iOS、Android 和網頁版（雲端同步）。我個人偏好使用網頁版進行逐字稿校正，手機 App 則用於快速瀏覽。
 
 如果你有興趣嘗試，歡迎使用我的推薦連結註冊：[Otter.ai 註冊連結](https://otter.ai/referrals/51IM41TG)
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

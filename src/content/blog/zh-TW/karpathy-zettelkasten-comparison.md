@@ -177,5 +177,3 @@ Karpathy 其實在 gist 裡有預先反駁這點：
 ### 延伸閱讀
 
 想看我怎麼把 LYT + Claude Code 串成一套完整的 AI 工作流？[這篇是完整介紹](/zh-TW/blog/personal-panopticon/)——從每天早上的「開工」到知識庫、郵件、會議、目標管理全部串起來。
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

@@ -323,7 +323,3 @@ Buying a new Mac to run local AI is like buying your own car. You can go whereve
 For me, local AI hasn't reached its sweet spot. The numbers don't add up, so it isn't time to switch. My M1 Max 32GB is plenty for running Claude in the cloud. The time I would have spent tuning local settings goes into improving [the workflow that lets Claude keep working on its own](/en/blog/loop-engineering/), and the return is attention and quality. I want that workflow to become a bit more automated, so I can take on more projects or work fewer hours.
 
 Maybe next year or the year after, once the hardware costs less and the setup is less of a hassle, I'll run the numbers on local AI again. Until then, I'm asking my 2021 MacBook Pro to hang in there a little longer.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/). I’m open to collaboration, consulting, and new opportunities.*

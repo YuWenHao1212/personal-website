@@ -362,7 +362,3 @@ Claude 不只安全，在企業導入上也是目前的市場領導者：
 ### 延伸閱讀
 
 部署方式選好了，下一個問題是怎麼開始——[企業導入 AI 工作流，為什麼總是卡在第一步？](/zh-TW/blog/enterprise-ai-adoption-bottleneck/)記錄了我在企業現場做 AI 工作流導入時，實際遇到的瓶頸和突破方式。
-
----
-
-*我幫企業評估 AI 部署方案和工作流導入。還在猶豫選哪條路？[直接寫信聊聊](mailto:mail@yu-wenhao.com?subject=企業%20AI%20部署方案諮詢)，或到[匯流顧問](https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm_medium=article&utm_content=enterprise-ai-data-security)看企業 AI 導入怎麼做。*

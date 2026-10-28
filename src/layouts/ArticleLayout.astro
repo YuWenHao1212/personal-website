@@ -2,12 +2,12 @@
 // 10/9, with the author: the article page. First built for Chinese; the same day he asked for the English site to follow, so the
 // page now takes the article's language (strings in `T` below, English type settings under .ar[data-lang='en']).
 // English differs in three places he decided: no newsletter and no workshop at the end (the newsletter is in Chinese, there is
-// no English class) — the ending is one line out to LinkedIn; the author block is the agreed English identity sentence.
+// no English class) — the way on is one line out to LinkedIn (after the text since 10/28); the author block is the agreed English identity sentence.
 // Reference he asked for: the Confluence insight articles (confluence-partners.ai/insights/…) — a fixed rail on the left
 // (topic + contents), a reading column on the right (title, summary, byline, a heavy rule, then the text), an author block at the end.
 // Colours and type are this site's own (index.astro .hp tokens), not Confluence's.
 // The reader this page is for: someone who arrived from search. Can this solve my problem (summary, contents) /
-// who wrote it (byline, author block) / what next (related, newsletter, two exits).
+// who wrote it (byline, author block) / what next (two exits right after the text, related, newsletter).
 // Kept for search, exactly as BlogLayout passes them: <title>/seoTitle, description, canonical, Article + FAQ data, hreflang,
 // the H1 text, the article HTML, the FAQ block, tags, the updated date. Added, nothing removed: summary under the title, byline, contents.
 import { getCollection } from 'astro:content';
@@ -191,6 +191,38 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
       </div>
 
       <div class="ar-after">
+        {/* 10/28, the author: the exits used to wait in the ending, below the FAQ, tags, author and related articles — too far
+            from where a reader finishes. They now come right after the text, on every article; the text itself carries no
+            generic ending of its own (FLUX Vault article-publish site-matrix, CTA). Event names unchanged; where="after-text". */}
+        <section class="ar-next" aria-label={en ? 'Next' : '下一步'}>
+          <ul>
+            {en ? (
+              <li>
+                <span>Questions, or something to work on together?</span>
+                <a href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me" data-umami-event="blog_click_linkedin" data-umami-event-slug={slug} data-umami-event-where="after-text">Find me on LinkedIn ↗</a>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <span>公司要導入 AI</span>
+                  <a href={confluence} target="_blank" rel="noopener" data-umami-event="blog_click_confluence" data-umami-event-slug={slug} data-umami-event-where="after-text">到匯流顧問找我們 ↗</a>
+                </li>
+                <li class="is-ws">
+                  {/* The full workshop sentence (see the script at the end): the script writes in the class's date, city and the
+                      seats left — 「可以參考 10/31 的台北實體工作坊。目前僅剩 2 個名額。」 Since 10/28 the articles' own workshop
+                      lines are gone; this row is the one place an article invites to the class.
+                      10/28, the author, word for word: the label says the tool, the system and both outcomes, work and life
+                      (Claude Code may be in it, but never alone), not 「這套做法」 — the row sits under every article, and most of
+                      them are not what the class teaches. */}
+                  {/* in pieces, so a narrow screen breaks the line only after the punctuation (it broke 「系／統」) */}
+                  <span><i>個人想用 Claude Code</i> <i>建一套系統，</i><i>讓工作更有效率、</i><i>生活更靠近理想</i></span>
+                  <p class="ws" data-workshop-cta><span data-ws-pre>可以參考我的</span><a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug={slug} data-umami-event-where="after-text">實體工作坊</a><span data-ws-post>。</span></p>
+                </li>
+              </>
+            )}
+          </ul>
+        </section>
+
         {faq && faq.length > 0 && (
           <section class="ar-faq">
             <h2>{T.faq}</h2>
@@ -246,39 +278,20 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
       </div>
     </article>
 
-    <!-- ============ ending: the next article by mail, the two exits, the last line ============ -->
-    <section class="ar-end">
+    <!-- ============ ending: the next article by mail (Chinese), the last line ============ -->
+    {/* 10/28: the two exits (Chinese) and the LinkedIn line (English) moved up, right after the text (.ar-next).
+        English (10/9, the author) has no newsletter, so its ending is the last line only. */}
+    <section class={en ? 'ar-end is-short' : 'ar-end'}>
       <img class="ar-sky" src="/images/sky/startrails-1920.webp" alt="" aria-hidden="true" loading="lazy" />
-      <div class="ar-end-in">
-        {en ? (
-          /* English (10/9, the author): one link, straight to LinkedIn — the easiest way for a possible partner to reach him and
-             to see his background. Both lines are Claude's draft. New event: blog_click_linkedin. */
-          <a class="ar-nl" href="https://www.linkedin.com/in/hence/" target="_blank" rel="noopener me" data-umami-event="blog_click_linkedin" data-umami-event-slug={slug} data-umami-event-where="ending">
-            <span class="k">Questions, or something to work on together?</span>
-            <span class="t">Find me on LinkedIn</span>
-            <b aria-hidden="true">↗</b>
+      {!en && (
+        <div class="ar-end-in">
+          <a class="ar-nl" href="/zh-TW/#newsletter-form" data-umami-event="blog_click_newsletter" data-umami-event-slug={slug} data-umami-event-where="ending">
+            <span class="k">想讓新的文章寄給你</span>
+            <span class="t">訂閱電子報</span>
+            <b aria-hidden="true">→</b>
           </a>
-        ) : (
-          <>
-            <a class="ar-nl" href="/zh-TW/#newsletter-form" data-umami-event="blog_click_newsletter" data-umami-event-slug={slug} data-umami-event-where="ending">
-              <span class="k">想讓新的文章寄給你</span>
-              <span class="t">訂閱電子報</span>
-              <b aria-hidden="true">→</b>
-            </a>
-            {/* Same two sentences every article ended on (components/PostPaths.astro), as two rows. Event names unchanged. */}
-            <ul class="ar-way">
-              <li>
-                <span>公司要導入 AI</span>
-                <a href={confluence} target="_blank" rel="noopener" data-umami-event="blog_click_confluence" data-umami-event-slug={slug} data-umami-event-where="ending">到匯流顧問找我們 ↗</a>
-              </li>
-              <li>
-                <span>個人想學這套做法</span>
-                <a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug={slug} data-umami-event-where="ending">一日的公開班 →</a>
-              </li>
-            </ul>
-          </>
-        )}
-      </div>
+        </div>
+      )}
       <p class="ar-foot">
         <span>© {new Date().getFullYear()} {en ? 'WenHao Yu' : '余文皓 WenHao Yu'}</span>
         <span class="lk">
@@ -304,10 +317,11 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl" src="" alt="" />
   </div>
 
-  {/* The workshop sentence (Chinese articles only). In the Markdown it is written as
-        <span data-workshop-cta><span data-ws-pre>可以參考我的</span>[實體工作坊](/zh-TW/workshop/)<span data-ws-post>。</span></span>
+  {/* The workshop sentence (Chinese articles only). Since 10/28 it is written once, in the row after the text (.ar-next), as
+        <span data-workshop-cta><span data-ws-pre>可以參考我的</span><a>實體工作坊</a><span data-ws-post>。</span></span>
       — that plain sentence is what search engines and a reader without scripts get, and what stays when no class is open.
-      Older articles keep their own sentence and carry only the status phrase: <span data-ws-status>實體工作坊</span>.
+      The articles no longer carry their own (FLUX Vault article-publish site-matrix, CTA). Both forms they used are still
+      handled, every one on the page, in case one comes back: the full sentence, and the status phrase <span data-ws-status>實體工作坊</span>.
       The link itself is never replaced (its click is recorded by scripts/track.ts); only the words around and inside it change.
       Every phrase shown here is spelled out in this file on purpose: scripts/article-font.mjs reads this file to decide which
       characters each article's font files hold. Cities a class may be held in, for the same reason: 台北 台中 高雄 新竹 台南。 */}
@@ -315,37 +329,36 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
     <script is:inline define:vars={{ WS, WS_API, IS_DEV: import.meta.env.DEV }}>
       (function () {
         if (!WS.open) return;
-        // 1. the full sentence (data-workshop-cta): words around and inside the link
-        const box = document.querySelector('[data-workshop-cta]');
-        const link = box && box.querySelector('a');
-        const pre = box && box.querySelector('[data-ws-pre]');
-        const post = box && box.querySelector('[data-ws-post]');
-        const sentence = !!(box && link && pre && post);
-        if (sentence) {
-          pre.textContent = '可以參考 ' + WS.date + ' 的';
-          link.textContent = WS.city + '實體工作坊';
-          post.textContent = '。';
-        }
+        // 1. the full sentence (data-workshop-cta): words around and inside the link. Every one on the page (10/28: it was
+        //    only the first, so a sentence in an article's text would have left the row after the text unchanged).
+        const sentences = [...document.querySelectorAll('[data-workshop-cta]')]
+          .map((box) => ({ link: box.querySelector('a'), pre: box.querySelector('[data-ws-pre]'), post: box.querySelector('[data-ws-post]') }))
+          .filter((s) => s.link && s.pre && s.post);
+        sentences.forEach((s) => {
+          s.pre.textContent = '可以參考 ' + WS.date + ' 的';
+          s.link.textContent = WS.city + '實體工作坊';
+          s.post.textContent = '。';
+        });
         // 2. the short status phrase (data-ws-status), used inside the older articles' workshop lines:
         //    「10/24（六）台北第四班招生中」, the wording those lines had when typed by hand
         const tags = document.querySelectorAll('[data-ws-status]');
         const day = WS.date + (WS.weekday ? '（' + WS.weekday + '）' : '');
         const klass = WS.city + WS.name;
         tags.forEach((el) => (el.textContent = day + klass + '招生中'));
-        if (!sentence && !tags.length) return;
+        if (!sentences.length && !tags.length) return;
         const show = (remaining) => {
           if (typeof remaining !== 'number') return;
           if (remaining <= 0) {
-            if (sentence) {
-              // 10/12, the author: a full class keeps the invitation and adds the news after it, so the tone does not break
-              pre.textContent = '可以參考我的';
-              link.textContent = '實體工作坊';
-              post.textContent = '。' + WS.date + ' 這一梯已額滿，下一梯的日期會公布在工作坊頁。';
-            }
+            // 10/12, the author: a full class keeps the invitation and adds the news after it, so the tone does not break
+            sentences.forEach((s) => {
+              s.pre.textContent = '可以參考我的';
+              s.link.textContent = '實體工作坊';
+              s.post.textContent = '。' + WS.date + ' 這一梯已額滿，下一梯的日期會公布在工作坊頁。';
+            });
             tags.forEach((el) => (el.textContent = day + klass + '已額滿，下一梯日期見工作坊頁'));
           } else if (remaining <= 5) {
             const left = remaining === 1 ? '僅剩最後 1 個名額' : '僅剩 ' + remaining + ' 個名額';
-            if (sentence) post.textContent = '。目前' + left + '。';
+            sentences.forEach((s) => (s.post.textContent = '。目前' + left + '。'));
             tags.forEach((el) => (el.textContent = day + klass + '招生中，' + left));
           }
         };
@@ -596,6 +609,60 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar:not([data-lang='en']) .ar-after {
     max-width: none; /* 10/10: the same right edge as the text above */
   }
+  /* 10/28: the exits right after the text — the rows the dark ending had, on a tinted panel so they read as the way on */
+  .ar-next {
+    margin-top: var(--space-8);
+    padding: var(--space-2) var(--space-6);
+    background: var(--paper-2);
+  }
+  .ar-next ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ar-next li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-6);
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--hair);
+    font-size: var(--t-ui);
+    letter-spacing: 0.06em;
+  }
+  .ar-next li:last-child {
+    border-bottom: 0;
+  }
+  .ar-next li > span {
+    color: var(--muted);
+  }
+  .ar-next li > span i {
+    display: inline-block;
+    font-style: normal;
+  }
+  /* the workshop label is long: label above, sentence below, at every width (side by side it fit only on wide screens) */
+  .ar-next li.is-ws {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ar-next .ws {
+    margin: 0;
+    color: var(--ink);
+  }
+  .ar .ar-next .ws a {
+    border-bottom: 1px solid var(--terra);
+  }
+  .ar .ar-next a {
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .ar .ar-next a:hover {
+    color: var(--terra);
+  }
+  .ar[data-lang='en'] .ar-next li {
+    letter-spacing: 0;
+  }
   .ar-faq {
     margin-top: var(--space-8);
     padding-top: var(--space-6);
@@ -820,29 +887,10 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   .ar-nl:hover b {
     transform: translateX(6px);
   }
-  .ar-way {
-    margin-top: var(--space-7) !important;
-    border-top: 1px solid var(--line);
-  }
-  .ar-way li {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-6);
-    padding: var(--space-4) 0;
-    border-bottom: 1px solid var(--line);
-    font-size: var(--t-small);
-    letter-spacing: 0.06em;
-  }
-  .ar-way span {
-    color: color-mix(in srgb, var(--cream) 50%, transparent);
-  }
-  .ar .ar-way a {
-    color: color-mix(in srgb, var(--cream) 90%, transparent);
-    transition: color 0.2s;
-  }
-  .ar .ar-way a:hover {
-    color: var(--dawn);
+  /* English: no newsletter, so the ending is only the last line */
+  .ar-end.is-short {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
   }
   .ar-foot {
     position: absolute;

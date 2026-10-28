@@ -402,7 +402,3 @@ If you use Obsidian, Notion, or another note-taking tool, let the agent access y
 At this point you have the complete toolkit: the product maturity framework helps you choose the right method, Intent Spec helps you define goals, and engineering practices help you maintain quality. What's left is building things.
 
 As you build, you'll find the same loop — set goals, let the agent execute, review results, iterate — applies beyond coding. I use it to [run my entire AI system](/en/blog/ai-second-brain/) — goals, knowledge, and daily workflows. Coding is just the starting point.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

@@ -102,7 +102,3 @@ Still feels surreal.
 *If you're thinking about building something, let's talk.*
 
 *Want to see what I built? → [AI Resume Advisor](https://airesumeadvisor.com)*
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I’m open to collaboration, consulting, and new opportunities.*

@@ -110,7 +110,3 @@ Readwise 支援匯出的筆記軟體有 Evernote、Notion 和 Roam Research。
 如果您也有「筆記重點自動同步」需求的話，可以透過以下連結前往註冊試用 Readwise 60 天（比 Readwise 官網多 30 天的試用期）：
 
 [註冊試用 Readwise](https://readwise.io/yu-wenhao/)
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

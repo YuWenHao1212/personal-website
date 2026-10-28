@@ -40,9 +40,9 @@
 ### 工作坊換梯（2026-10-12 起）
 
 - 梯次的日期、星期、城市、第幾班、開不開放報名，只住一個檔：`src/data/cohorts.ts`。**換梯只改這個檔**，檔頭有步驟。
-- 工作坊頁和中文文章裡指向工作坊的那一句，都讀這個檔。文章裡的寫法是 `<span data-ws-status>實體工作坊</span>`（舊文章的那一句）或 `<span data-workshop-cta>…</span>`（整句），由 `src/layouts/ArticleLayout.astro` 結尾的 script 在讀者開頁面時填字。標記裡的原文是沒有程式、搜尋引擎、沒有梯次招生時看到的字，所以不要在裡面寫日期。
+- 工作坊頁和中文文章正文後 CTA 方框裡的工作坊句，都讀這個檔。方框裡的寫法是 `<span data-workshop-cta>…</span>`（整句），由 `src/layouts/ArticleLayout.astro` 結尾的 script 在讀者開頁面時填字。標記裡的原文是沒有程式、搜尋引擎、沒有梯次招生時看到的字，所以不要在裡面寫日期。
 - 剩幾個名額不在這個 repo：讀者開頁面時問後端 `/api/workshop/availability`（personal-website-api）。5 個以下才顯示，額滿整句會換掉，後端沒回應就不顯示。文章和工作坊頁用同一個規則。
-- 新文章要放工作坊那一句，用上面的標記，不要手打日期和名額。
+- 文章內文不寫工作坊句（2026-10-28 起），工作坊邀請只在版型的 CTA 方框，見下面「文章結尾（CTA）」。
 - 本機預覽沒有後端，網址加 `?seats=2`（只在本機有效）可以看各種名額的樣子。
 - 改了 `cohorts.ts` 或 `ArticleLayout.astro` 之後一樣要跑 `npm run fonts`：字型檔會讀這兩個檔來決定要帶哪些字。
 
@@ -103,19 +103,22 @@ npm run fonts    # 重做中文文章和標題的字型檔（見上面「中文�
 
 ## 文章結尾（CTA）
 
-**通用的結尾由版型自動放，文章內文不寫。** `src/layouts/ArticleLayout.astro` 的 `.ar-end` 區塊（2026-10-09 新版文章頁起）排在 FAQ、tags、作者介紹之後：
+**通用的結尾和工作坊邀請由版型自動放，文章內文不寫。** `src/layouts/ArticleLayout.astro` 在正文後、常見問題前放一個 CTA 方框（`.ar-next`，2026-10-28 起）：
 
-- 中文：「想讓新的文章寄給你 → 訂閱電子報」，下面兩行「公司要導入 AI → 到匯流顧問找我們」「個人想學這套做法 → 一日的公開班」
-- 英文：「Questions, or something to work on together? → Find me on LinkedIn」
+- 中文兩行：「公司要導入 AI → 到匯流顧問找我們」，以及「個人想用 Claude Code 建一套系統，讓工作更有效率、生活更靠近理想 → 可以參考 ○/○ 的○○實體工作坊」（日期、城市、剩餘名額由 script 帶，見上面「工作坊換梯」）
+- 英文一行：「Questions, or something to work on together? → Find me on LinkedIn」
+- 頁面最底下的深色區塊（`.ar-end`）只剩「想讓新的文章寄給你 → 訂閱電子報」（中文）；英文只剩最後一行連結
 
-所以內文**不寫**電子報、LinkedIn、泛泛的「看服務」「找匯流顧問」這類句子，舊文章改版時看到就刪。
+所以內文**不寫**電子報、LinkedIn、泛泛的「看服務」「找匯流顧問」、報名工作坊這類句子，舊文章改版時看到就刪。
 
-**這篇有特別要讀者做的事，才在內文寫一句**，而且要跟版型區塊說的不一樣，例如報名某一班課、去看某篇文章。報名工作坊用 `<span data-workshop-cta>…</span>` 的寫法（見上面「工作坊換梯」），日期和名額由版型帶，不手打。
+**這篇有特別要讀者做的事，才在內文寫一句**，而且要跟方框說的不一樣，例如去看某篇文章、留聯絡方式。
+
+工作坊那行的標籤要同時講工具和願景（可以有 Claude Code，但不能只有 Claude Code）。這行每篇都會出現，不能寫成「這套做法」，因為多數文章的主題不是工作坊教的內容。
 
 - 不用 HTML `<a>` 標籤，一律用 markdown
 - 不需要手動寫「延伸閱讀」區塊，`relatedPosts` frontmatter 會自動處理
 
-規則的正本在 FLUX Vault 的 `.claude/skills/article-publish/references/site-matrix.md`「CTA」段（2026-10-19 定），兩邊不一致時以那份為準。
+規則的正本在 FLUX Vault 的 `.claude/skills/article-publish/references/site-matrix.md`「CTA」段（2026-10-19 定，2026-10-28 改成正文後的方框），兩邊不一致時以那份為準。
 
 ---
 

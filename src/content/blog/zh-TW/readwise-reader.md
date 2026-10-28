@@ -91,7 +91,3 @@ Reader 是屬於 Readwise Full Plan 的一部份，Readwise Full Plan 的訂閱�
 如果你現在就是 Readwise 的 Full Plan 訂閱用戶，趕快去試用看看吧！而對於非 Readwise 的用戶但是有興趣試用的朋友可以透過以下連結試用看看（試用 60 天），相信你會愛上它的。
 
 [試用連結](https://readwise.io/i/yuwenhao)
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*

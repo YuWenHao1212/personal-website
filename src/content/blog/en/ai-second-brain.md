@@ -334,7 +334,3 @@ Before, we were shaped by tools. Whatever app we used, we were limited by its lo
 Now, we can shape our own tools.
 
 And finally, see ourselves.
-
----
-
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm always happy to chat about AI, systems, and building things solo.*

@@ -94,7 +94,3 @@ AI 和 No-Code 的出現，把技術門檻降到不可思議的程度。
 <img src="/images/blog/aws-hackathon-notes-2025/hackathon.webp" alt="學生回饋" />
 <figcaption>學生回饋</figcaption>
 </figure>
-
----
-
-*我把和 AI 一起工作想通的事，寫成電子報：怎麼讓做的事影響更多人，也把時間留給自己。想收到的話，可以[訂閱](/zh-TW/#newsletter-form)。*
