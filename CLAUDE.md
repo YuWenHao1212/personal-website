@@ -54,15 +54,11 @@
 
 - 繁體中文 (zh-TW) - 預設
 - English (en)
-- 自動偵測瀏覽器語言
-- URL: `/zh-TW/...` 和 `/en/...`
+- URL: `/zh-TW/...` 和 `/en/...`；`/` 一律 301 到 `/zh-TW/`（`public/_redirects`）。網站是靜態 build，不偵測瀏覽器語言
 
-### Pages (MVP)
+### 頁面
 
-- 首頁 (/)
-- About (/about)
-- Blog (/blog, /blog/[slug])
-- Contact (/contact)
+實際有哪些頁面，以 `src/pages/zh-TW/`、`src/pages/en/` 為準，這裡不另列清單。
 
 ---
 
@@ -80,8 +76,10 @@
 │   │   └── blog/
 │   │       ├── zh-TW/   ← 中文文章
 │   │       └── en/      ← 英文文章
+│   ├── data/            ← cohorts.ts（工作坊梯次）等資料檔
 │   ├── i18n/            ← 翻譯檔
-│   └── styles/          ← Global CSS
+│   └── styles/          ← tokens.css、reading.css
+├── scripts/             ← 字型裁切、tokens 檢查等建置腳本
 ├── public/              ← Static assets
 ├── docs/
 │   ├── PROJECT_CHARTER.md
@@ -96,80 +94,46 @@
 
 ```bash
 npm run dev      # Start dev server
-npm run build    # Build for production
+npm run build    # Build for production（會先跑 tokens 檢查）
 npm run preview  # Preview production build
+npm run fonts    # 重做中文文章和標題的字型檔（見上面「中文文章的字型檔」）
 ```
 
 ---
 
-## Blog CTA Rules
+## 文章結尾（CTA）
 
-每篇 blog 結尾都要放 CTA，位於 `---` 分隔線之後，格式為 italic markdown（`*...*`）。中英文各一版，全站統一，不因文章主題改動措辭。
+**通用的結尾由版型自動放，文章內文不寫。** `src/layouts/ArticleLayout.astro` 的 `.ar-end` 區塊（2026-10-09 新版文章頁起）排在 FAQ、tags、作者介紹之後：
 
-### zh-TW（電子報 + 服務頁，拆兩行）
+- 中文：「想讓新的文章寄給你 → 訂閱電子報」，下面兩行「公司要導入 AI → 到匯流顧問找我們」「個人想學這套做法 → 一日的公開班」
+- 英文：「Questions, or something to work on together? → Find me on LinkedIn」
 
-```markdown
-*如果這篇讓你有了想法，[訂閱每週一封信](/zh-TW/)——我固定寫 AI 工作流、和一路上想通的事。*
+所以內文**不寫**電子報、LinkedIn、泛泛的「看服務」「找匯流顧問」這類句子，舊文章改版時看到就刪。
 
-*想聊聊怎麼把 AI 融入你的工作流？[看看我的服務](/zh-TW/services/)。*
-```
+**這篇有特別要讀者做的事，才在內文寫一句**，而且要跟版型區塊說的不一樣，例如報名某一班課、去看某篇文章。報名工作坊用 `<span data-workshop-cta>…</span>` 的寫法（見上面「工作坊換梯」），日期和名額由版型帶，不手打。
 
-### EN（導向 LinkedIn）
-
-```markdown
-*Enjoyed this? [Connect with me on LinkedIn](https://www.linkedin.com/in/hence/) — I'm always happy to chat about AI, systems, and building things solo.*
-```
-
-### 注意事項
-
-- zh-TW 第一行：電子報 `/zh-TW/`（首頁訂閱區塊），第二行：服務頁 `/zh-TW/services/`
-- EN 連結指向 LinkedIn profile（沒有英文電子報）
 - 不用 HTML `<a>` 標籤，一律用 markdown
-- CTA 前不加「延伸閱讀」或其他導言
 - 不需要手動寫「延伸閱讀」區塊，`relatedPosts` frontmatter 會自動處理
+
+規則的正本在 FLUX Vault 的 `.claude/skills/article-publish/references/site-matrix.md`「CTA」段（2026-10-19 定），兩邊不一致時以那份為準。
 
 ---
 
 ## Backend API (personal-website-api)
 
-yu-wenhao.com 專用的輕量 FastAPI backend，獨立 Azure Container App。
+yu-wenhao.com 專用的 FastAPI 後端。
 
 - **Repo**: `~/GitHub/personal-website-api`
-- **URL**: `https://yu-wenhao-api.calmisland-ea7fe91e.japaneast.azurecontainerapps.io`
-- **Database**: PostgreSQL (`yuwenhao` database on existing server)
-- **CI/CD**: Push to main → ACR build → Container App deploy
-
-### Endpoints
-
-| Method | Path | Auth | 用途 |
-|--------|------|------|------|
-| POST | `/api/survey/submit` | Public | Survey 表單提交（dual submit with Kit） |
-| GET | `/api/survey/responses/{survey_id}` | `?key=ADMIN_KEY` | 查看 survey 回覆 |
-| GET | `/health` | Public | Health check |
-
-### Survey 雙寫架構
-
-前端表單同時送到 Kit (ConvertKit) + personal-website-api：
-- Kit：email marketing、發信用
-- Backend：完整資料備份（含 role、scenario、IP、UA）
-- Backend 失敗不影響 Kit 送出
-
----
-
-## Reference
-
-可從 Landing Page 複用：
-- `~/GitHub/airesumeadvisor-landing/src/layouts/`
-- `~/GitHub/airesumeadvisor-landing/tailwind.config.mjs`
+- **URL**: `https://api.yu-wenhao.com`（前端一律打這個網域）
+- **主機與資料庫**：Zeabur（專案 `flux-prod`，資料庫服務 `pg-yu-wenhao`，見該 repo 的 `scripts/README-db.md`）。原本在 Azure，2026-08-18 刪掉 Azure 的部署設定
+- **端點以該 repo 的程式為準**。前端用到的：工作坊名額、報名、結帳、推薦碼（`/api/workshop/*`）、電子報訂閱（`/api/newsletter/subscribe-form`）、後台讀問卷回覆和 Kit 統計（`/api/survey/responses/*`、`/api/kit/*`）
+- 問卷頁 2026-10-09 下架，前端已經不再送 `/api/survey/submit`
 
 ---
 
 ## Related
 
 - Project Charter: `docs/PROJECT_CHARTER.md`
-- Brand Strategy: `~/Cockpit/projects/personal-brand/STRATEGY.md`
-- Cockpit: `~/Cockpit/ideas/personal-website-rebuild.md`
-
----
-
-**Deadline**: 2026-01-25 (日本出遊前)
+- 設計規則：`docs/DESIGN.md`
+- 品牌策略：FLUX Vault `efforts/areas/personal-brand/BRAND-STRATEGY.md`
+- 文章從寫作到上架：FLUX Vault `efforts/projects/active/article-flow/`、`article-publish` skill
