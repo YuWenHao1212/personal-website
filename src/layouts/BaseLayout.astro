@@ -50,6 +50,9 @@ const lang = getLangFromUrl(Astro.url);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Google Search does not list SVG as a supported favicon format -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Preconnect to Google Fonts -->
