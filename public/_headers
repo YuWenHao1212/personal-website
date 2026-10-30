@@ -37,3 +37,7 @@
 
 /zh-TW/sonice/*
   X-Robots-Tag: noindex
+
+# 公開班 deck：只給拿到網址的學員，不要被收錄（頁內也有 meta noindex）
+/flux-1024/*
+  X-Robots-Tag: noindex, nofollow
