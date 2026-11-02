@@ -20,7 +20,7 @@ import { testimonials } from '../../data/testimonials';
 const title = 'Claude Code 一日實作課程｜用 AI 建你的個人指揮中心';
 // 2026-10-10, with the author (ISS-359): nothing in the search summary depends on the class. It used to open with the date
 // and end with 「前三班全滿」; the date went stale between classes and the count after every class. Dates and seats are on the page, live.
-const description = '用最有效率的方式學會把 Claude Code 用起來，帶進你自己的工作和生活。課前線上一對一，加上一天 6 小時實作，不用會寫程式。台北實體課。';
+const description = '用最有效率的方式學會把 Claude Code 用起來，帶進你自己的工作和生活。課前線上一對一，加上一天 6 小時實作，不用會寫程式。實體課。';
 const price = PRICING_DEFAULTS.priceRegular.toLocaleString('en-US');
 
 // Same switch as the live page: the local API in dev, production otherwise.
@@ -46,7 +46,7 @@ const courseLd = {
       courseMode: 'Onsite',
       startDate: `${courseDay}T09:00:00+08:00`,
       endDate: `${courseDay}T16:00:00+08:00`,
-      location: { '@type': 'Place', name: '台北 中正區紹興北街', address: { '@type': 'PostalAddress', addressLocality: '台北市', addressRegion: '中正區', addressCountry: 'TW' } },
+      location: { '@type': 'Place', name: '新竹 竹北（近高鐵新竹站）', address: { '@type': 'PostalAddress', addressLocality: '竹北市', addressRegion: '新竹縣', addressCountry: 'TW' } },
       instructor: me,
     },
     offers: { '@type': 'Offer', price: PRICING_DEFAULTS.priceRegular, priceCurrency: 'TWD', url: 'https://yu-wenhao.com/zh-TW/workshop/#signup' },
@@ -482,14 +482,14 @@ const endX = 0.965;
           </span>
         </a>
         <p class="su-bio">科技業 20 年（工程師 → PM → 數據分析），Minerva University 碩士。目前為企業提供 AI 導入顧問與內訓服務。每天靠這套系統管理所有工作流。</p>
-        <p class="su-run">5/16 台北、6/7 台中、8/22 台北三班全滿。{cohort.dateShort} {cohort.name}<span data-run-state>招生中</span>。</p>
+        <p class="su-run">5/16 台北、6/7 台中、8/22 台北三班全滿，10/31 台北第四班已上完。{cohort.dateShort} {cohort.name}<span data-run-state>招生中</span>。</p>
         <a class="su-about" href="/zh-TW/about/">我的故事 →</a>
 
         <p class="kick k2"><i></i>報名資訊</p>
         <dl class="su-facts">
           <div><dt>日期</dt><dd>{cohort.dateFull}</dd></div>
           <div><dt>時段</dt><dd>09:00 – 16:00<small>6 小時實作 + 1 小時午餐</small></dd></div>
-          <div><dt>地點</dt><dd>台北 中正區紹興北街<small>完整地址報名後提供</small></dd></div>
+          <div><dt>地點</dt><dd>新竹 竹北，近高鐵新竹站<small>完整地址報名後提供</small></dd></div>
           <div><dt>需要帶</dt><dd>筆電 + Claude Pro 帳號<small>月繳 US$20</small></dd></div>{/* 10/18 (critique): the monthly cost was only in a collapsed FAQ. Before: 筆電 + Claude 帳號 */}
           <div><dt>課前 1:1</dt><dd>線上 45 分鐘，開課前一到兩週<small>把環境裝好、實際用起來，也聊聊你想做什麼</small></dd></div>
         </dl>
@@ -514,7 +514,7 @@ const endX = 0.965;
           <p class="su-seats" hidden><span class="seats-pill" data-seats-pill></span></p>
         </div>
         {/* 10/18 (third critique): phone signup buttons jump straight here, past the facts — so the form says which class it is. */}
-        <p class="su-f-cls">{cohort.dateFull} 09:00 – 16:00・台北 中正區紹興北街・需要 Claude Pro 帳號</p>
+        <p class="su-f-cls">{cohort.dateFull} 09:00 – 16:00・新竹 竹北（近高鐵新竹站）・需要 Claude Pro 帳號</p>
         <p class="su-f-sub">送出後即可線上刷卡完成報名</p>
         <label>這次幫幾個人報名？<em>*</em>
           <select id="party_size" name="party_size" required>
