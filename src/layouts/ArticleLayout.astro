@@ -33,6 +33,9 @@ const cover = heroImage ? (coverVariants as Record<string, { small: string; w: n
 const postTopics = topicsOf(post.data);
 const lang = post.data.lang;
 const en = lang === 'en';
+// 11/2, the author: an article that invites to the workshop in its own text (the notes articles' aside, a closing line) does
+// not repeat it in the row after the text — the two sat one under the other.
+const wsInText = (post.body ?? '').includes('/zh-TW/workshop/');
 // 10/12, the author: the sentence in an article that points to the workshop says the current class's date and the seats
 // left without anyone editing the article. The date and city come from data/cohorts (the one file changed between classes);
 // the seats are asked of the bookings API when the page is read, by the same rule the workshop page uses. See the script at the end.
@@ -207,7 +210,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
                   <span>公司要導入 AI</span>
                   <a href={confluence} target="_blank" rel="noopener" data-umami-event="blog_click_confluence" data-umami-event-slug={slug} data-umami-event-where="after-text">到匯流顧問找我們 ↗</a>
                 </li>
-                <li class="is-ws">
+                {!wsInText && <li class="is-ws">
                   {/* The full workshop sentence (see the script at the end): the script writes in the class's date, city and the
                       seats left — 「可以參考 10/31 的台北實體工作坊。目前僅剩 2 個名額。」 Since 10/28 the articles' own workshop
                       lines are gone; this row is the one place an article invites to the class.
@@ -217,7 +220,7 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
                   {/* in pieces, so a narrow screen breaks the line only after the punctuation (it broke 「系／統」) */}
                   <span><i>個人想用 Claude Code</i> <i>建一套系統，</i><i>讓工作更有效率、</i><i>生活更靠近理想</i></span>
                   <p class="ws" data-workshop-cta><span data-ws-pre>可以參考我的</span><a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug={slug} data-umami-event-where="after-text">實體工作坊</a><span data-ws-post>。</span></p>
-                </li>
+                </li>}
               </>
             )}
           </ul>

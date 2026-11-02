@@ -153,6 +153,22 @@
 .ar .ar-body blockquote p::after {
   content: none;
 }
+/* 11/2: a quiet aside inside the text — a pointer a reader can skip (the workshop line in the notes articles).
+   The tinted panel of the row after the text (.ar-next), one size down and muted, so it reads as a side note, not a pitch. */
+.ar .ar-body .ar-aside {
+  margin: var(--space-6) 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--paper-2);
+  color: var(--muted);
+  font-family: var(--ar-text, Newsreader, 'Noto Serif TC', Georgia, serif);
+  font-size: var(--t-ui);
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+}
+.ar .ar-body .ar-aside a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--terra);
+}
 /* a break inside the text: one small diamond, the same mark as the page labels */
 .ar .ar-body hr {
   width: 6px;

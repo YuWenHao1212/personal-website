@@ -310,8 +310,4 @@ Obsidian 迅速建立起龐大的社群和外掛生態系統。
 
 這大概是我目前最滿意的工作流程了。
 
----
-
-*延伸閱讀：*
-
-- *[我的 AI 工作流：打造個人 AI 助理系統](/zh-TW/blog/personal-panopticon/)* — 目標管理、郵件自動化、會議記錄、Daily Brief 的完整實戰整合
+<p class="ar-aside">這套流程怎麼接上目標、郵件和會議，寫在<a href="/zh-TW/blog/personal-panopticon/">這篇</a>。想在自己的電腦上動手建一套，我也開了一天的<a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug="roam-research-to-obsidian" data-umami-event-where="body">實體工作坊</a>。</p>

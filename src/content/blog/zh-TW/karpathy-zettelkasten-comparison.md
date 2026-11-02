@@ -172,8 +172,4 @@ Karpathy 其實在 gist 裡有預先反駁這點：
 
 我用他的方法研究他的方法，結果沒讓我換系統。但讓我搞清楚一件事：兩條路的分歧不在技術，在你對分類的容忍度。
 
----
-
-### 延伸閱讀
-
-想看我怎麼把 LYT + Claude Code 串成一套完整的 AI 工作流？[這篇是完整介紹](/zh-TW/blog/personal-panopticon/)——從每天早上的「開工」到知識庫、郵件、會議、目標管理全部串起來。
+<p class="ar-aside">我怎麼把 LYT 和 Claude Code 串成一套完整的 AI 工作流，寫在<a href="/zh-TW/blog/personal-panopticon/">這篇</a>。想在自己的電腦上動手建一套，我也開了一天的<a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug="karpathy-zettelkasten-comparison" data-umami-event-where="body">實體工作坊</a>。</p>
