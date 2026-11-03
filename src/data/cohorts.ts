@@ -5,7 +5,7 @@
 // 名額則是讀者開頁面時問後端。做法在 src/layouts/ArticleLayout.astro 結尾的 script，文章裡的寫法是
 // <span data-ws-status>實體工作坊</span> 或 <span data-workshop-cta>…</span>。所以換梯不用改那些文章。
 // 改完還是 grep 一次，抓還有沒有手打日期的散文段（頁面文案、沒接上標記的文章要手動改寫）：
-//   grep -rn "第五班\|1/9" src/pages src/content/blog
+//   grep -rn "第五班\|1/17" src/pages src/content/blog
 //
 // Runtime pricing/名額的 SoT 是後端 /api/workshop/availability；
 // 這裡的 PRICING_DEFAULTS 只是頁面載入前的顯示預設值（避免閃爍）。
@@ -71,12 +71,12 @@ export const COHORTS: Cohort[] = [
     seq: 5,
     name: '第五班',
     city: '新竹',
-    dateShort: '1/9',
-    dateFull: '2027/1/9（六）',
-    weekday: '六',
+    dateShort: '1/17',
+    dateFull: '2027/1/17（日）',
+    weekday: '日',
     status: 'open',
     capacity: 12,
-    sessionId: 'workshop-2027-01-09',
+    sessionId: 'workshop-2027-01-17',
   },
 ];
 
@@ -90,9 +90,9 @@ export const PRICING_DEFAULTS = {
   priceRegular: 9800,
   priceSingle: 8800,
   priceDuo: 8000,
-  earlyBirdEnd: '2026-12-09',
+  earlyBirdEnd: '2026-12-17',
   /** 顯示用，如「9/24」 */
-  earlyBirdEndLabel: '12/9',
+  earlyBirdEndLabel: '12/17',
 };
 
 export function formatTWD(n: number): string {
