@@ -9,7 +9,6 @@ topics: ["ai-practice"]
 tags: ["AI", "Claude Code", "local LLM", "self-hosted AI"]
 lang: en
 translationKey: local-llm-mac
-featured: true
 relatedPosts: ["ai-harness.md", "claude-code-tutorial.md", "enterprise-ai-data-security.md", "loop-engineering.md"]
 faq:
   - question: "Which local LLM can my Mac run?"

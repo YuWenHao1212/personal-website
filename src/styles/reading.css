@@ -23,8 +23,9 @@
   max-width: none;
 }
 /* 10/10: Chinese pages keep one right edge — text, tables, code and figures all run the full column (about 46 characters
-   a line), and paragraphs are set flush on both sides. English stays at the narrower measure: a full column is too long a line. */
-.ar:not([data-lang='en']):not(.pd-en) .ar-body > * {
+   a line), and paragraphs are set flush on both sides. 11/4: English articles run the same width as Chinese (author's call);
+   only Chinese is set flush. */
+.ar:not(.pd-en) .ar-body > * {
   max-width: none;
 }
 @media (min-width: 641px) {

@@ -332,8 +332,9 @@ CLAUDE.md 可以放在兩種地方。放在某個資料夾裡，只有在那個�
 
 但裝得起來和用得上是兩件事。它看得到電腦、動得了手，可是要拿它做什麼、先做哪一件、做完的東西放哪裡，它不會替人決定。工具到手之後，缺的是方法。
 
-下面三篇，前兩篇是我自己的使用方式，第三篇教它記住你常做的事：
+下面四篇，前兩篇是我自己的使用方式，第三篇教它記住你常做的事，第四篇是我拿它替家裡做的小程式：
 
 - [先定方向，再建系統，最後才是工具](/zh-TW/blog/flux-direction-system-leverage/)
 - [我的 AI 工作流系統](/zh-TW/blog/personal-panopticon/)
 - [Claude Skills 教學：從零開始打造你的 AI 自動化工作流](/zh-TW/blog/claude-skills-guide/)
+- [螢幕使用時間失效之後，我用 Claude Code 讓孩子的 Wi-Fi 照家規開關](/zh-TW/blog/screen-time-limits-not-working/)

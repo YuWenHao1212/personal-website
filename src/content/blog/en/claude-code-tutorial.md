@@ -328,7 +328,8 @@ A few months later I rewrote the same guide, and installing has become downloadi
 
 But being able to install it and being able to put it to use are two different things. It can see the computer and it can act. What to use it for, what to do first, where the results should go: it will not decide those for anyone. Once the tool is in hand, what is missing is a method.
 
-Two articles to read next. The first is how I use it myself. The second shows how to make it remember the things you do often.
+Three articles to read next. The first is how I use it myself. The second shows how to make it remember the things you do often. The third is a small program I had it build for my home.
 
 - [How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)
 - [Claude Skills Guide: Build AI Workflow Automation From Scratch](/en/blog/claude-skills-guide/)
+- [Screen Time limits not working? I built my kids' Wi-Fi rules with Claude Code](/en/blog/screen-time-limits-not-working/)
