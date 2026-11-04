@@ -43,8 +43,22 @@ const boldText = (text) => {
   return out.join('');
 };
 
+// Only articles git knows about (committed or staged) are counted. A writing preview left in the folder is never
+// committed, so counting it would make the committed character list differ from the one the Cloudflare build
+// computes, and the build would stop (11/04, screen-time-limits-not-working). git add a new article before a rebuild.
+const allPosts = fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f)).sort();
+let postFiles = allPosts;
+try {
+  const tracked = new Set(execFileSync('git', ['ls-files', '-z', '--', 'src/content/blog/zh-TW'], { cwd: ROOT, encoding: 'utf8' }).split('\0').filter(Boolean).map((f) => path.basename(f)));
+  postFiles = allPosts.filter((f) => tracked.has(f));
+  const skipped = allPosts.filter((f) => !tracked.has(f));
+  if (skipped.length) console.error(`fonts: skipped ${skipped.length} file(s) not in git (git add an article to count it):\n  ${skipped.join('\n  ')}`);
+} catch {
+  // no git here: every file in the folder counts
+}
+
 const want = {};
-for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f)).sort()) {
+for (const f of postFiles) {
   const text = fs.readFileSync(path.join(POSTS, f), 'utf8');
   // 10/12: an article that carries the workshop line (data-ws-status / data-workshop-cta) shows words the layout's script
   // writes in at read time — the class's name and city from data/cohorts.ts and the seats phrases — some of them in bold.
@@ -55,7 +69,7 @@ for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f)).sort()) {
 // the heading face: titles, the articles' own headings, and the Chinese page files
 const PAGES = ['src/pages/zh-TW/index.astro', 'src/pages/zh-TW/about.astro', 'src/pages/zh-TW/workshop.astro', 'src/pages/zh-TW/contact.astro', 'src/pages/zh-TW/thank-you.astro', 'src/pages/zh-TW/workshop/thanks.astro', 'src/components/BlogIndex.astro', 'src/layouts/ArticleLayout.astro', 'src/layouts/ProductLayout.astro', 'src/data/elsewhere.ts', 'src/i18n/topics.ts', ...fs.readdirSync(path.join(ROOT, 'src/pages/zh-TW/products')).map((f) => 'src/pages/zh-TW/products/' + f)];
 let titles = '', heads = '';
-for (const f of fs.readdirSync(POSTS).filter((f) => /\.mdx?$/.test(f))) {
+for (const f of postFiles) {
   const text = fs.readFileSync(path.join(POSTS, f), 'utf8');
   titles += (text.match(/^title:\s*(.*)$/m) || [])[1] || '';
   heads += [...text.matchAll(/^#{2,3}\s+(.*)$/gm)].map((m) => m[1]).join('');
