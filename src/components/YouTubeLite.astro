@@ -3,19 +3,20 @@
 // The page shows our own poster and a play button; the YouTube iframe (youtube-nocookie) is only created when the reader
 // clicks, so nothing is fetched from YouTube before that — no extra weight on the page, no YouTube cookies on page load.
 // Same idea as the Confluence site's article videos (click to load + VideoObject markup, which the page adds itself).
-// `event` becomes the Umami event name of the click.
+// `event` becomes the Umami event name of the click; `slug` (articles) is sent with it, so each article's plays count apart.
 interface Props {
   id: string;
   title: string;
   poster: string;
   duration?: string;
   event?: string;
+  slug?: string;
 }
-const { id, title, poster, duration, event } = Astro.props;
+const { id, title, poster, duration, event, slug } = Astro.props;
 ---
 
 <div class="ytl" data-ytl={id} data-ytl-title={title}>
-  <button type="button" class="ytl-btn" aria-label={`播放影片：${title}`} data-umami-event={event}>
+  <button type="button" class="ytl-btn" aria-label={`播放影片：${title}`} data-umami-event={event} data-umami-event-slug={slug}>
     <img src={poster} alt="" width="1280" height="720" loading="lazy" decoding="async" />
     <span class="ytl-play" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z"></path></svg>

@@ -9,6 +9,7 @@ lang: 'zh-TW'
 draft: false
 translationKey: 'flux-direction-system-leverage'
 heroImage: /images/blog/flux-direction-system-leverage/hero.webp
+video: workshop-promo
 ---
 
 ## 多數人學 AI 的順序反了
@@ -192,3 +193,7 @@ Jay 給我「方向感」、小瑋給我「開始的勇氣」、Yiling 給我「
 **先有方向、再建系統，AI 才是槓桿。**
 
 多數人學 AI 的順序反了。把順序倒過來，AI 才會變成你的槓桿。
+
+---
+
+這篇講的順序，我後來做成一支 7 分鐘的影片：前面講方向、系統、槓桿怎麼一層一層接起來，最後一段是工作坊的介紹。

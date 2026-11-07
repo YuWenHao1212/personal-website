@@ -11,6 +11,7 @@ featured: false
 heroImage: /images/blog/lyt-framework/hero.webp
 translationKey: lyt-framework-guide
 relatedPosts: ["卡片盒筆記法.md", "roam-research-to-obsidian.md", "personal-panopticon.md"]
+video: workshop-promo
 ---
 
 你有多少筆記？
@@ -230,3 +231,5 @@ says: "長尾關鍵字比短關鍵字更容易排名，且轉換率更高"
 <p class="ar-aside">這套系統的完整介紹在<a href="/zh-TW/blog/personal-panopticon/">這篇</a>。我也開了一天的<a href="/zh-TW/workshop/" data-umami-event="blog_click_workshop" data-umami-event-slug="lyt-framework-guide" data-umami-event-where="body">實體工作坊</a>，帶大家在自己的電腦上從頭建一次。</p>
 
 但回到這篇文章的重點：**LYT 是很好的知識底層。** 它不會幫你完成目標，但它會讓你的每一個想法都不會消失，而且隨著時間累積，這些想法之間的連結會越來越密，價值會越來越高。你在上面要搭什麼——目標系統、寫作流程、專案管理——都可以，地基是穩的。
+
+我自己在上面搭的是目標和任務。知識、目標、任務怎麼交給 AI 一起管，我做成了一支 7 分鐘的影片，最後一段是工作坊的介紹。

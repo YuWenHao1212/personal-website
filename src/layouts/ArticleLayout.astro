@@ -16,6 +16,8 @@ import BaseLayout from './BaseLayout.astro';
 import '../styles/reading.css';
 import coverVariants from '../data/cover-variants.json';
 import { CURRENT_COHORT } from '../data/cohorts';
+import { VIDEOS, videoLd } from '../data/videos';
+import YouTubeLite from '../components/YouTubeLite.astro';
 import { coverSet } from '../utils/cover';
 import { getRelatedPosts } from '../utils/relatedPosts';
 import { topicNamesFor, topicsOf } from '../i18n/topics';
@@ -29,6 +31,10 @@ interface Props {
 const { post, readingTime, headings = [] } = Astro.props;
 const { title, seoTitle, description, pubDate, updatedDate, heroImage, tags = [], translationKey, faq } = post.data;
 const slug = post.id.split('/').pop()!;
+// 11/7 (ISS-514): `video` in the frontmatter names one of our own videos; an unknown name stops the build instead of
+// quietly showing nothing.
+const video = post.data.video ? VIDEOS[post.data.video] : undefined;
+if (post.data.video && !video) throw new Error(`${post.id}: unknown video "${post.data.video}" (see src/data/videos.ts)`);
 const cover = heroImage ? (coverVariants as Record<string, { small: string; w: number; h: number }>)[heroImage] : undefined;
 const postTopics = topicsOf(post.data);
 const lang = post.data.lang;
@@ -192,6 +198,14 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
       <div class="ar-body prose prose-lg max-w-none">
         <slot />
       </div>
+
+      {/* 11/7 (ISS-514): the article's video, right under its last paragraph (which leads into it), before the exits */}
+      {video && (
+        <section class="ar-video" aria-label={video.title}>
+          <YouTubeLite id={video.id} title={video.title} poster={video.poster} duration={video.length} event="blog_play_video" slug={slug} />
+          <script type="application/ld+json" set:html={JSON.stringify(videoLd(video))} />
+        </section>
+      )}
 
       <div class="ar-after">
         {/* 10/28, the author: the exits used to wait in the ending, below the FAQ, tags, author and related articles — too far
@@ -603,6 +617,11 @@ const confluence = `https://confluence-partners.ai/?utm_source=yu-wenhao.com&utm
   }
   .ar-toc-m {
     display: none;
+  }
+
+  /* ---------- the article's video (11/7) ---------- */
+  .ar-video {
+    margin-top: var(--space-6);
   }
 
   /* ---------- after the text ---------- */

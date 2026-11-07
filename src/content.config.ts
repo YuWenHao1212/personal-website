@@ -18,6 +18,9 @@ const blogCollection = defineCollection({
     lang: z.enum(['zh-TW', 'en']),
     translationKey: z.string().optional(),
     videoUrl: z.string().optional(),
+    // 2026-11-07 (ISS-514): a key of data/videos.ts; ArticleLayout puts that video's player right under the last paragraph,
+    // so the paragraph before it is the lead-in. Plays count as `blog_play_video` with the article's slug.
+    video: z.string().optional(),
     featured: z.boolean().default(false),
     pinned: z.boolean().default(false),
     draft: z.boolean().default(false),
