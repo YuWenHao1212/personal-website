@@ -12,6 +12,7 @@
 // The previous workshop page is in git history (src/pages/zh-TW/workshop.astro before the redesign); the signup script was ported from it.
 // 10/9: the signup form is wired exactly as on the live page (pricing API, companions, availability, Stripe checkout) — see the script at the end.
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import YouTubeLite from '../../components/YouTubeLite.astro';
 import { CURRENT_COHORT as cohort, PRICING_DEFAULTS } from '../../data/cohorts';
 import { testimonials } from '../../data/testimonials';
 
@@ -107,6 +108,23 @@ const faq = [
   // 「臨時不能來怎麼辦？」 removed 10/8 at the author's word. The live page keeps that text as a low-key link beside the fee.
 ];
 
+// The workshop promo video (2026-11-07, ISS-514), marked up for search engines. Title and description are the ones on YouTube;
+// The poster is the YouTube thumbnail (A, the question); duration is the file's own 442.3 s.
+const promo = { id: 'BmYD3RhxTpg', title: 'Claude Code 一日實作課程｜用 AI 建你的個人指揮中心', poster: '/images/workshop/promo-video.webp' };
+const videoLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: promo.title,
+  description: 'AI 工具學了一堆，事情還是自己扛？這支影片講我怎麼用 Claude Code，把目標、任務、知識交給 AI 一起管。',
+  thumbnailUrl: `https://yu-wenhao.com${promo.poster}`,
+  uploadDate: '2026-11-07',
+  duration: 'PT7M22S',
+  embedUrl: `https://www.youtube.com/embed/${promo.id}`,
+  url: `https://www.youtube.com/watch?v=${promo.id}`,
+  inLanguage: 'zh-TW',
+  author: me,
+};
+
 const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -127,6 +145,7 @@ const endX = 0.965;
   {/* The five questions below, marked up as questions and answers for search engines and AI search (2026-10-10, ISS-359).
       Built from the same `faq` list the page shows, so the two cannot drift apart. */}
   <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(videoLd)} />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
 
   <div class="wp">
@@ -171,6 +190,18 @@ const endX = 0.965;
           <b aria-hidden="true">→</b>
         </a>
       </div>
+    </section>
+
+    <!-- ============ 1b. The promo video, right under the opening (2026-11-07, ISS-514) ============ -->
+    {/* The author, 11/7: thumbnail A, near the top. First tried after section 2 — its closing answer, then A's question
+        right below it, read as two openings fighting; here A asks first and section 2 answers. Click to load: nothing
+        comes from YouTube until the reader presses play. The subline reuses the video's YouTube description. */}
+    <section class="pv" id="video">
+      <header class="pv-hd">
+        <p class="kick"><i></i>先看 7 分鐘</p>
+        <p class="pv-sub">這支影片講我怎麼用 Claude Code，把目標、任務、知識交給 AI 一起管。</p>
+      </header>
+      <YouTubeLite id={promo.id} title={promo.title} poster={promo.poster} duration="7:22" event="workshop_play_video" />
     </section>
 
     <!-- ============ 2. The stuck moment: daylight, the reader's own situation ============ -->
@@ -1251,6 +1282,30 @@ const endX = 0.965;
   }
   .st-txt p + p {
     color: var(--ink);
+  }
+
+  /* ============ 1b the promo video ============ */
+  /* top only: section 2 below brings its own space above */
+  .pv {
+    padding-block: var(--space-9) 0;
+  }
+  /* wide screens: at full width (1440) the player was 1267×713 and filled the screen; capped so heading and player fit in one view */
+  .pv-hd,
+  .pv :global(.ytl) {
+    max-width: 64rem;
+  }
+  .pv-hd {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-6);
+    margin-bottom: var(--space-5);
+  }
+  .pv-sub {
+    font-size: var(--t-body);
+    line-height: 1.9;
+    color: var(--muted);
   }
 
   /* ============ 3 what you leave with ============ */

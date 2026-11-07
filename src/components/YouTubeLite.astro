@@ -1,0 +1,123 @@
+---
+// Click-to-load YouTube player (2026-11-07, first used for the workshop promo, ISS-514).
+// The page shows our own poster and a play button; the YouTube iframe (youtube-nocookie) is only created when the reader
+// clicks, so nothing is fetched from YouTube before that — no extra weight on the page, no YouTube cookies on page load.
+// Same idea as the Confluence site's article videos (click to load + VideoObject markup, which the page adds itself).
+// `event` becomes the Umami event name of the click.
+interface Props {
+  id: string;
+  title: string;
+  poster: string;
+  duration?: string;
+  event?: string;
+}
+const { id, title, poster, duration, event } = Astro.props;
+---
+
+<div class="ytl" data-ytl={id} data-ytl-title={title}>
+  <button type="button" class="ytl-btn" aria-label={`播放影片：${title}`} data-umami-event={event}>
+    <img src={poster} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+    <span class="ytl-play" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z"></path></svg>
+    </span>
+    {duration && <span class="ytl-len" aria-hidden="true">{duration}</span>}
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-ytl]').forEach((box) => {
+    const btn = box.querySelector('button');
+    btn?.addEventListener(
+      'click',
+      () => {
+        const f = document.createElement('iframe');
+        f.src = `https://www.youtube-nocookie.com/embed/${box.dataset.ytl}?autoplay=1&rel=0&playsinline=1`;
+        f.title = box.dataset.ytlTitle ?? '';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        f.allowFullscreen = true;
+        f.referrerPolicy = 'strict-origin-when-cross-origin';
+        // swap after the click has finished bubbling, so Umami's document listener still sees the button
+        setTimeout(() => box.replaceChildren(f), 0);
+      },
+      { once: true },
+    );
+  });
+</script>
+
+<style>
+  .ytl {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--night);
+  }
+  .ytl :global(iframe),
+  .ytl-btn {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .ytl-btn {
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .ytl-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.6s ease;
+  }
+  .ytl-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--cream) 55%, transparent);
+    background: color-mix(in srgb, var(--night) 62%, transparent);
+    backdrop-filter: blur(4px);
+    transform: translate(-50%, -50%);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .ytl-play svg {
+    width: 34px;
+    height: 34px;
+    fill: var(--cream);
+  }
+  .ytl-len {
+    position: absolute;
+    right: var(--space-3);
+    bottom: var(--space-3);
+    padding: var(--space-1) var(--space-2);
+    font-family: var(--mono);
+    font-size: var(--t-micro);
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    background: color-mix(in srgb, var(--night) 72%, transparent);
+  }
+  .ytl-btn:hover .ytl-play,
+  .ytl-btn:focus-visible .ytl-play {
+    background: var(--terra);
+    border-color: var(--terra);
+  }
+  .ytl-btn:hover img {
+    filter: brightness(0.92);
+  }
+  .ytl-btn:focus-visible {
+    outline: 2px solid var(--terra);
+    outline-offset: 3px;
+  }
+  @media (max-width: 640px) {
+    .ytl-play { width: 64px; height: 64px; }
+    .ytl-play svg { width: 26px; height: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ytl-btn img, .ytl-play { transition: none; }
+  }
+</style>
