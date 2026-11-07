@@ -26,13 +26,16 @@ export function track(name: string, data?: Record<string, string | number>) {
  *     as input, so a phone reader who reads the first screen without touching it still counts. A focused iframe (the
  *     YouTube player) counts too, for at most 20 minutes in a row.
  *   each event also carries fg (seconds in front, idle included) so the 2-minute rule can be checked later.
+ *   on articles each event also carries depth (11/7, Grok review): the furthest the bottom of the screen has reached
+ *     into the article body so far, 0–100. "Read it" needs both enough active time and enough depth — active time alone
+ *     cannot tell a reader halfway down from a tab left open at the top. A tab restored at the bottom starts at 100.
  * Umami counts a visit with any custom event as "not a bounce", so after this ships Umami's bounce = one page and under
  * 10 s active. The reports compute their own "quick exit" rate instead (plan §2).
  * One instance per page, kept on window: layouts load this file from separate scripts.
  */
 const IDLE_MS = 120_000;
 const IFRAME_MAX_MS = 20 * 60_000;
-type Progress = { addArticle: (body: string, slug: string) => void; active: () => number };
+type Progress = { addArticle: (selector: string, slug: string) => void; active: () => number };
 
 export function startProgress(article?: { body: string; slug: string }): Progress {
   const w = window as any;
@@ -60,9 +63,21 @@ function createProgress(): Progress {
   let iframeSince = 0;
   let lastMove = 0;
   let extra: Record<string, string | number> = {};
+  let body: HTMLElement | null = null; // the article body, once addArticle() runs
+  let depth = 0;
+  let measuring = false;
   const marks: { at: string; ms: number }[] = [{ at: '10s', ms: 10_000 }];
   const sent = new Set<string>();
   const input = () => (lastInput = performance.now());
+  const measure = () => {
+    measuring = false;
+    if (!body) return;
+    const r = body.getBoundingClientRect();
+    if (r.height > 0) depth = Math.max(depth, Math.min(100, Math.max(0, Math.round(((window.innerHeight - r.top) / r.height) * 100))));
+  };
+  window.addEventListener('scroll', () => {
+    if (body && !measuring) (measuring = true), requestAnimationFrame(measure);
+  }, { passive: true });
 
   ['scroll', 'wheel', 'click', 'keydown', 'touchstart', 'pointerdown'].forEach((t) =>
     window.addEventListener(t, input, { passive: true, capture: true }),
@@ -86,19 +101,24 @@ function createProgress(): Progress {
     const inFrame = document.hasFocus() && document.activeElement?.tagName === 'IFRAME';
     iframeSince = inFrame ? iframeSince || now : 0;
     if (now - lastInput <= IDLE_MS || (inFrame && now - iframeSince < IFRAME_MAX_MS)) active += dt;
+    measure();
     for (const m of marks) {
       if (sent.has(m.at) || active < m.ms) continue;
       sent.add(m.at);
-      track('page_progress', { at: m.at, ...extra, fg: Math.round(fg / 1000), active: Math.round(active / 1000) });
+      track('page_progress', {
+        at: m.at, ...extra, ...(body ? { depth } : {}), fg: Math.round(fg / 1000), active: Math.round(active / 1000),
+      });
     }
   }, 1000);
 
   return {
-    addArticle(body, slug) {
-      const el = document.querySelector<HTMLElement>(body);
+    addArticle(selector, slug) {
+      const el = document.querySelector<HTMLElement>(selector);
       if (!el || extra.slug) return;
       const est = estimateSeconds(el);
       extra = { slug, est };
+      body = el;
+      measure();
       marks.push(
         { at: '30s', ms: 30_000 }, { at: '60s', ms: 60_000 }, { at: '3m', ms: 180_000 },
         { at: 'half', ms: est * 500 }, { at: 'full', ms: est * 1000 },
