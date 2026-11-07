@@ -29,6 +29,10 @@ export function track(name: string, data?: Record<string, string | number>) {
  *   on articles each event also carries depth (11/7, Grok review): the furthest the bottom of the screen has reached
  *     into the article body so far, 0–100. "Read it" needs both enough active time and enough depth — active time alone
  *     cannot tell a reader halfway down from a tab left open at the top. A tab restored at the bottom starts at 100.
+ *   depth marks (11/8, Grok confirmation): on articles, page_progress is also sent as at = d25 / d50 / d75 / d100 when
+ *     depth first reaches that share — otherwise a reader who scrolls further after the last time mark is never seen.
+ *     They wait until the 10s mark has gone, so a tab opened and closed at once sends none; short articles can reach
+ *     d50 on load, which is why the read threshold also needs active time.
  * Umami counts a visit with any custom event as "not a bounce", so after this ships Umami's bounce = one page and under
  * 10 s active. The reports compute their own "quick exit" rate instead (plan §2).
  * One instance per page, kept on window: layouts load this file from separate scripts.
@@ -102,12 +106,22 @@ function createProgress(): Progress {
     iframeSince = inFrame ? iframeSince || now : 0;
     if (now - lastInput <= IDLE_MS || (inFrame && now - iframeSince < IFRAME_MAX_MS)) active += dt;
     measure();
+    const send = (at: string) =>
+      track('page_progress', {
+        at, ...extra, ...(body ? { depth } : {}), fg: Math.round(fg / 1000), active: Math.round(active / 1000),
+      });
     for (const m of marks) {
       if (sent.has(m.at) || active < m.ms) continue;
       sent.add(m.at);
-      track('page_progress', {
-        at: m.at, ...extra, ...(body ? { depth } : {}), fg: Math.round(fg / 1000), active: Math.round(active / 1000),
-      });
+      send(m.at);
+    }
+    if (body && sent.has('10s')) {
+      for (const d of [25, 50, 75, 100]) {
+        const at = `d${d}`;
+        if (sent.has(at) || depth < d) continue;
+        sent.add(at);
+        send(at);
+      }
     }
   }, 1000);
 
