@@ -131,8 +131,35 @@ const lang = getLangFromUrl(Astro.url);
         Everything else is dropped before it leaves the browser: fbclid, translation-proxy noise, and above all access keys
         (the partner page takes one in its address, and Umami had been storing it). The page itself still sees the full address.
         The function always hands the record back, so a problem here can never stop a page view from being counted. */}
+    {/* 11/7 (ISS-520, plan: FLUX Vault efforts/areas/seo/tracking/umami/iss-520-plan.md §3.2, §4 E1/E4):
+        - ?umami=off on any page stops this browser from being counted (localStorage, one per domain); ?umami=on undoes it.
+          For the author's own browsers and the AI assistant's. Runs before the tracker loads.
+        - every record carries a tag: 'bot' for the screens / referrers on the bot list, otherwise 'h'. Only for looking at
+          Umami's own dashboard: the reports re-apply the list to raw snapshots, so a bot added later is still removed there.
+          The list mirrors the vault's .claude/global-skills/analytics/scripts/bot_rules.json — change both together.
+          A bot referrer is remembered for the tab (sessionStorage), so its later pages are tagged too. */}
     <script is:inline>
+      try {
+        var umamiSwitch = new URLSearchParams(location.search).get('umami');
+        if (umamiSwitch === 'off') localStorage.setItem('umami.disabled', '1');
+        else if (umamiSwitch === 'on') localStorage.removeItem('umami.disabled');
+      } catch (e) {}
+      window.umamiBotList = { screens: ['1280x1200', '800x600', '1600x1600'], referrers: ['aocr.org'] };
       window.umamiKeepKnownParams = function (type, payload) {
+        try {
+          if (payload) {
+            var bot = false;
+            try { bot = sessionStorage.getItem('umami_bot') === '1'; } catch (e) {}
+            if (!bot && window.umamiBotList.screens.indexOf(payload.screen) >= 0) bot = true;
+            if (!bot && payload.referrer) {
+              var refHost = '';
+              try { refHost = new URL(payload.referrer, location.origin).hostname.replace(/^www\./, ''); } catch (e) {}
+              if (window.umamiBotList.referrers.indexOf(refHost) >= 0) bot = true;
+            }
+            if (bot) { try { sessionStorage.setItem('umami_bot', '1'); } catch (e) {} }
+            payload.tag = bot ? 'bot' : 'h';
+          }
+        } catch (e) {}
         try {
           if (payload && payload.url) {
             var u = new URL(payload.url, location.origin);
@@ -208,8 +235,10 @@ const lang = getLangFromUrl(Astro.url);
 
     <!-- 10/9: remember which 「訂閱電子報」 entrance a reader used, so a subscription can be traced back to it (scripts/track.ts) -->
     <script>
-      import { rememberNewsletterEntrance } from '../scripts/track';
+      import { rememberNewsletterEntrance, startProgress } from '../scripts/track';
       rememberNewsletterEntrance();
+      // 11/7 (ISS-520): page_progress — sent when the reader's active time passes 10 s (every page; articles add more marks)
+      startProgress();
     </script>
 
     <!-- Scroll fade-in animation -->
