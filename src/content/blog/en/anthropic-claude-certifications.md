@@ -252,7 +252,7 @@ The difference is clearest next to CCAR-F, the other Architect credential:
 
 The two added domains are Governance, Safety & Risk Management and Stakeholder Communication & Lifecycle Management. They cover guardrails and regulatory compliance, requirements interviews with stakeholders, and explaining architectural trade-offs. RAG sits in the Integration domain: you need to decide how documents are chunked and indexed. CCAR-P tests something closer to an architect who leads the project, who manages requirements, communication and post-launch risk on top of how the system is built.
 
-The guide recommends having built and run at least one complete Claude solution yourself, including RAG, evaluation and monitoring.
+As preparation, the guide recommends building and running at least one complete Claude solution yourself, including RAG, evaluation and observability.
 
 ---
 

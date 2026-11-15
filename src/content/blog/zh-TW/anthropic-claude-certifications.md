@@ -262,7 +262,7 @@ CCAR-F 的指南也特別厚，39 頁，多了 4 個動手練習和 12 題範例
 
 多出來的兩個領域是「治理、安全與風險管理」（Governance, Safety & Risk Management）和「利害關係人溝通與生命週期管理」（Stakeholder Communication & Lifecycle Management），考的是護欄和法規遵循、跟利害關係人做需求訪談、說明架構上的取捨。RAG 在「整合」領域，要會決定文件怎麼切塊、怎麼建索引。CCAR-P 考的比較像帶專案的架構師：系統怎麼蓋之外，還要管需求、溝通和上線後的風險。
 
-指南建議至少親手做過、維運過一個完整的 Claude 方案，裡面要有 RAG、評估和監控。
+指南建議準備時至少親手做出並維運一個完整的 Claude 方案，裡面要有 RAG、評估和可觀測性（observability）。
 
 ---
 
