@@ -14,7 +14,7 @@ relatedPosts: ["ccar-f-exam-experience.md", "claude-code-tutorial.md", "enterpri
 focusKeyphrase: "Claude 證照"
 faq:
   - question: "個人能考 Claude 證照嗎？"
-    answer: "能考，但要透過 Anthropic 的夥伴組織報名，個人 email 報不了。官方只開放 Claude Partner Network（Anthropic 給服務商的夥伴計畫）成員報名。四張都從 Anthropic 的夥伴學習平台 Partner Academy 報名，在 Pearson VUE 排考時付款。公司不是夥伴的話，實務上要取得夥伴組織的帳號。卡在這一關，本站的 CCAR-F 考試心得文章後段有協助管道。"
+    answer: "能考，但要透過 Anthropic 的夥伴組織報名，個人 email 報不了。官方只開放 Claude Partner Network（Anthropic 給服務商的夥伴計畫）成員報名。四張都從 Anthropic 的夥伴學習平台 Partner Academy 報名，在 Pearson VUE 排考時付款。公司不是夥伴的話，實務上要取得夥伴組織的帳號。卡在這一關，可以寄信到 cert@yu-wenhao.com 問我，四張證照都可以。"
   - question: "Claude 證照要多少錢、考多久？"
     answer: "四張的報名費是 $99 到 $175 美元，每張都考 120 分鐘。CCAO-F $99，CCDV-F 和 CCAR-F 各 $125，CCAR-P $175。題數依證照不同，從 53 到 63 題，都是單選和複選混著出的選擇題。過線分數統一是 720/1000，由 Pearson VUE 監考，線上或考場都能考。"
   - question: "四張 Claude 證照要照順序考嗎？"
@@ -268,7 +268,7 @@ CCAR-F 的指南也特別厚，39 頁，多了 4 個動手練習和 12 題範例
 
 ## 公司不是 Anthropic 夥伴，能考嗎？
 
-**能考，但要透過夥伴組織報名。** 四張證照都從 Partner Academy 報名、在 Pearson VUE 排考時付款。官方只開放 Claude Partner Network（Anthropic 給服務商的夥伴計畫）成員報名，個人 email 報不了。公司不是夥伴的話，實務上要取得夥伴組織的帳號。卡在這一關，[CCAR-F 考試心得](/zh-TW/blog/ccar-f-exam-experience/)的文章後段有我提供的協助管道。
+**能考，但要透過夥伴組織報名。** 四張證照都從 Partner Academy 報名、在 Pearson VUE 排考時付款。官方只開放 Claude Partner Network（Anthropic 給服務商的夥伴計畫）成員報名，個人 email 報不了。公司不是夥伴的話，實務上要取得夥伴組織的帳號。卡在這一關，[寄信到 cert@yu-wenhao.com](mailto:cert@yu-wenhao.com?subject=Claude%20%E8%AD%89%E7%85%A7%E5%A0%B1%E5%90%8D%E8%B3%87%E6%A0%BC%E8%A9%A2%E5%95%8F&body=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E8%A9%A2%E5%95%8F%20Claude%20%E8%AD%89%E7%85%A7%E7%9A%84%E5%A0%B1%E5%90%8D%E8%B3%87%E6%A0%BC%E3%80%82%0A%0A1.%20%E6%88%91%E6%83%B3%E8%80%83%E5%93%AA%E4%B8%80%E5%BC%B5%E3%80%81%E7%9B%AE%E5%89%8D%E7%9A%84%E6%83%85%E6%B3%81%EF%BC%88%E5%B7%A5%E4%BD%9C%E3%80%81%E7%82%BA%E4%BB%80%E9%BA%BC%E6%83%B3%E8%80%83%EF%BC%89%EF%BC%9A%0A%0A2.%20%E5%AE%98%E6%96%B9%20Exam%20Guide%20%E7%9C%8B%E9%81%8E%E4%BA%86%E5%97%8E%EF%BC%9F%0A%0A3.%20%E9%A0%90%E8%A8%88%E4%BB%80%E9%BA%BC%E6%99%82%E5%80%99%E8%80%83%EF%BC%9F%0A)，四張證照都可以問。信裡有三個問題，回答完寄出，我看完會回信。
 
 **值不值得考，看你的客戶或你想去的公司用不用 Claude。** 證照的鑑別性，最終來自它背後有沒有真實的產品和市場。這正是模型原廠這一格值得盯著的原因：它才剛剛打開。
 
@@ -294,4 +294,4 @@ CCAR-F 的指南也特別厚，39 頁，多了 4 個動手練習和 12 題範例
 
 ---
 
-*想考這幾張證照、卡在沒有報名管道？[寄信到 cert@yu-wenhao.com](mailto:cert@yu-wenhao.com?subject=CCAR-F%20%E5%A0%B1%E5%90%8D%E8%B3%87%E6%A0%BC%E8%A9%A2%E5%95%8F&body=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E8%A9%A2%E5%95%8F%20CCAR-F%20%E5%A0%B1%E5%90%8D%E8%B3%87%E6%A0%BC%E3%80%82%0A%0A1.%20%E6%88%91%E7%9B%AE%E5%89%8D%E7%9A%84%E6%83%85%E6%B3%81%EF%BC%88%E5%B7%A5%E4%BD%9C%E3%80%81%E7%82%BA%E4%BB%80%E9%BA%BC%E6%83%B3%E8%80%83%EF%BC%89%EF%BC%9A%0A%0A2.%20%E5%AE%98%E6%96%B9%20Exam%20Guide%20%E7%9C%8B%E9%81%8E%E4%BA%86%E5%97%8E%EF%BC%9F%0A%0A3.%20%E9%A0%90%E8%A8%88%E4%BB%80%E9%BA%BC%E6%99%82%E5%80%99%E8%80%83%EF%BC%9F%0A)，信裡有三個問題，回答完寄出，我看完會回信。*
+*想考這幾張證照、卡在沒有報名管道？[寄信到 cert@yu-wenhao.com](mailto:cert@yu-wenhao.com?subject=Claude%20%E8%AD%89%E7%85%A7%E5%A0%B1%E5%90%8D%E8%B3%87%E6%A0%BC%E8%A9%A2%E5%95%8F&body=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E8%A9%A2%E5%95%8F%20Claude%20%E8%AD%89%E7%85%A7%E7%9A%84%E5%A0%B1%E5%90%8D%E8%B3%87%E6%A0%BC%E3%80%82%0A%0A1.%20%E6%88%91%E6%83%B3%E8%80%83%E5%93%AA%E4%B8%80%E5%BC%B5%E3%80%81%E7%9B%AE%E5%89%8D%E7%9A%84%E6%83%85%E6%B3%81%EF%BC%88%E5%B7%A5%E4%BD%9C%E3%80%81%E7%82%BA%E4%BB%80%E9%BA%BC%E6%83%B3%E8%80%83%EF%BC%89%EF%BC%9A%0A%0A2.%20%E5%AE%98%E6%96%B9%20Exam%20Guide%20%E7%9C%8B%E9%81%8E%E4%BA%86%E5%97%8E%EF%BC%9F%0A%0A3.%20%E9%A0%90%E8%A8%88%E4%BB%80%E9%BA%BC%E6%99%82%E5%80%99%E8%80%83%EF%BC%9F%0A)，信裡有三個問題，回答完寄出，我看完會回信。*
