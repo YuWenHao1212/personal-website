@@ -282,4 +282,4 @@ As preparation, the guide recommends building and running at least one complete 
 
 ---
 
-*Want to sit one of these exams but have no registration path? [Leave your contact here](https://ccarf-contact.pages.dev/en/), and I'll reply personally.*
+*Want to sit one of these exams but have no registration path? Email cert@yu-wenhao.com ([this link opens a draft with three questions](mailto:cert@yu-wenhao.com?subject=CCAR-F%20registration%20question&body=Hi%2C%20I%27d%20like%20to%20ask%20about%20CCAR-F%20registration.%0A%0A1.%20My%20situation%20%28work%2C%20why%20I%20want%20to%20take%20it%29%3A%0A%0A2.%20Have%20I%20read%20the%20official%20Exam%20Guide%3F%0A%0A3.%20When%20do%20I%20plan%20to%20sit%20the%20exam%3F%0A)), answer them, and I'll write back.*
