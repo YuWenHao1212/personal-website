@@ -197,7 +197,10 @@ export function trackArticle(opts: { body: string; end?: string }) {
 
     let name: string;
     let data: Record<string, string> = { ...base };
-    if (href.startsWith('mailto:')) name = 'blog_click_email';
+    // The article CTA is the cert@ alias (11/18: it replaced the ccarf-contact form). Counted apart from other mailto links;
+    // kind says whether the reader clicked the plain address or the prefilled-questions link.
+    if (href.startsWith('mailto:cert@')) (name = 'blog_click_cert_email'), (data.kind = href.includes('?') ? 'template' : 'address');
+    else if (href.startsWith('mailto:')) name = 'blog_click_email';
     else if (href.includes('ccarf-contact.pages.dev')) name = 'blog_click_ccarf_form';
     else if (href.includes('/services/')) name = 'blog_click_services';
     else if (AFFILIATE.some((re) => re.test(href))) (name = 'blog_click_affiliate'), (data.host = host);
