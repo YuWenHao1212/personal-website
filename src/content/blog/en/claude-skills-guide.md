@@ -472,3 +472,4 @@ To keep going from here:
 - [How to Use Claude Code: From Setup to Your First Task](/en/blog/claude-code-tutorial/), if you haven't set up Claude Code yet
 - [Agentic Coding: A Practical Guide to Tools, Workflows, and Getting Started](/en/blog/agentic-coding-guide/), for the bigger picture of working with AI agents
 - [Why Enterprise AI Workflow Adoption Gets Stuck at Step One](/en/blog/enterprise-ai-adoption-bottleneck/), if you want to bring this to your team
+- [Anthropic Certifications: the five Claude exams compared](/en/blog/anthropic-claude-certifications/), if you want a credential that tests this work

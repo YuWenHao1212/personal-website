@@ -21,7 +21,7 @@ faq:
   - question: "How do you prepare for CCAR-F with no official question bank?"
     answer: "The only official material is the Exam Guide (12 sample questions plus 4 practice exercises). A workable approach: use Claude to generate practice questions weighted to the official domain breakdown, build a disciplined wrong-answer review habit, then verify your level on a third-party mock exam site."
   - question: "What's the difference between Anthropic Academy's free course certificates and CCAR-F?"
-    answer: "The free courses give you a completion certificate for finishing an online course, with no proctoring. CCAR-F is a formal, Pearson VUE-proctored certification. They sit at different tiers entirely. I break down how all four proctored Claude certifications differ in a companion post."
+    answer: "The free courses give you a completion certificate for finishing an online course, with no proctoring. CCAR-F is a formal, Pearson VUE-proctored certification. They sit at different tiers entirely. I break down how all five proctored Claude certifications differ in a companion post."
   - question: "How many questions does CCAR-F have, how long is it, and what's the passing score?"
     answer: "60 questions in 120 minutes, a mix of single- and multiple-response items where each question states how many answers to select, scored out of 1,000 with a passing score of 720."
   - question: "Does the CCAR-F certification expire?"
@@ -46,7 +46,7 @@ It covers four core technologies: Claude Code, the Claude Agent SDK, the Claude 
 
 When this credential launched in March 2026, it didn't have an official abbreviation yet. Press and community discussion mostly called it CCA-F or CCAF, and if you searched for a "CCAF exam" page and landed here instead, that's not a mistake, it's the same credential's naming history. The formal exam code CCAR-F wasn't assigned until July, when Anthropic's program expanded to four credentials. Same exam, three names across its history.
 
-I wrote up the full story of that naming history, and how the four credentials divide up who should take which, in [another post of mine](/en/blog/anthropic-claude-certifications/). This piece skips straight to the exam itself: what it tests, how I prepared, and what the test center actually looks like.
+I wrote up the full story of that naming history, and how the five credentials divide up who should take which, in [another post of mine](/en/blog/anthropic-claude-certifications/). This piece skips straight to the exam itself: what it tests, how I prepared, and what the test center actually looks like.
 
 ---
 

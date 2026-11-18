@@ -333,3 +333,5 @@ Three articles to read next. The first is how I use it myself. The second shows 
 - [How I Built an AI Second Brain with Claude Code + Obsidian](/en/blog/ai-second-brain/)
 - [Claude Skills Guide: Build AI Workflow Automation From Scratch](/en/blog/claude-skills-guide/)
 - [Screen Time limits not working? I built my kids' Wi-Fi rules with Claude Code](/en/blog/screen-time-limits-not-working/)
+
+If you want a credential for this, Claude Code configuration is a full 20% domain of the CCAR-F exam; [all five Claude certifications compared](/en/blog/anthropic-claude-certifications/).
