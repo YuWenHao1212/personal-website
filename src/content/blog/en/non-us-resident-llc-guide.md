@@ -1,7 +1,8 @@
 ---
-title: "Stripe Doesn't Support Your Country? Open a $139 Wyoming LLC: 2-Year Guide"
+title: "Stripe Doesn't Support Your Country? Open a $142 Wyoming LLC: 2-Year Guide"
 description: "If you live in a country Stripe doesn't support, opening a US LLC is the most practical fix. This is the 2-year real-world guide — not romance, just plumbing. Cost breakdown, tax structure, and the 5-step setup that takes ~2 weeks."
 pubDate: 2026-04-25
+updatedDate: 2026-11-20
 author: "Yu Wen-Hao"
 category: building-products
 topics: ["ai-practice"]
@@ -16,9 +17,9 @@ keywords: ["non us resident llc", "non resident llc", "llc for non us residents"
 relatedPosts: ["free-azure-startup-credits.md"]
 faq:
   - question: "Can non-US residents really open a US LLC and use Stripe?"
-    answer: "Yes. A single-member LLC owned by a non-US person is treated as a disregarded entity by the IRS. As long as you have no US trade or business presence (no US office, no US employees, no dependent agent), you owe zero US federal income tax. You can open Mercury bank online from anywhere, then connect it to Stripe. The whole process is $139 upfront, ~2 weeks, fully online."
+    answer: "Yes. A single-member LLC owned by a non-US person is treated as a disregarded entity by the IRS. As long as you have no US trade or business presence (no US office, no US employees, no dependent agent), you owe zero US federal income tax. You can open Mercury bank online from anywhere, then connect it to Stripe. The whole process is $142 upfront, ~2 weeks, fully online."
   - question: "How much does a Wyoming LLC really cost per year?"
-    answer: "One-time setup: $139 (Northwest formation $39 + Wyoming state filing fee $100). Annual maintenance: ~$309 (Wyoming Annual Report $60, Northwest Annual Report service $100, Registered Agent $125, Zadarma virtual US phone $24, Form 1120 + 5472 self-filed $0). Going full DIY can drop annual cost to ~$185."
+    answer: "One-time setup: $142 (Northwest formation $39 + Wyoming state filing fee $103). Annual maintenance: ~$309 (Wyoming Annual Report $60, Northwest Annual Report service $100, Registered Agent $125, Zadarma virtual US phone $24, Form 1120 + 5472 self-filed $0). Going full DIY can drop annual cost to ~$185."
   - question: "Will I be double-taxed by both the US and my home country?"
     answer: "Probably not. On the US side, single-member LLCs are pass-through. As a non-US tax resident with no ETBUS (Effectively Connected Business in the US), you owe no US federal income tax on LLC profits. You only file informational forms (Form 1120 + Form 5472) by April 15 — no payment, just disclosure. On the home country side, your country's tax rules apply to the income that flows through to you personally. Most countries with a US tax treaty (DTAA) prevent double taxation. Verify with a local CPA — this depends entirely on your country."
   - question: "Why Wyoming, not Delaware or California?"
@@ -99,7 +100,7 @@ This misconception is the most damaging one. Owning a US LLC, getting a US work 
 
 | Item | What It Is | How Hard To Get |
 |---|---|---|
-| US LLC (Limited Liability Company) | A business entity (a payment vehicle) | Online filing, $139, ~2 weeks |
+| US LLC (Limited Liability Company) | A business entity (a payment vehicle) | Online filing, $142, ~2 weeks |
 | H-1B (work visa) / O-1 (extraordinary ability visa) | Work authorization, requires an employer to sponsor you | Self-sponsoring is nearly impossible |
 | EB-1A (extraordinary ability green card) / EB-2 NIW (national interest waiver) / E-2 (investor visa) | Green card or long-term residency paths | Lawyer fees $8K-$18K + 1-2 years, an entirely different game |
 
@@ -238,15 +239,15 @@ Connect the pipe once, attach as many faucets as you want.
 
 ---
 
-> 💡 **Want to start?** I used [Northwest](https://www.awin1.com/awclick.php?gid=573875&mid=66946&awinaffid=2731748&linkid=4625429&clickref=blog-en-us-llc) in 2024 to open my Wyoming LLC, **$139 paid once** ($39 service fee including first year of Registered Agent + $100 Wyoming state formation fee), and I had the formation certificate in under 24 hours. The 5-step guide below uses this exact path.
+> 💡 **Want to start?** I used [Northwest](https://www.awin1.com/awclick.php?gid=573875&mid=66946&awinaffid=2731748&linkid=4625429&clickref=blog-en-us-llc) in 2024 to open my Wyoming LLC, and I had the formation certificate in under 24 hours. Checkout today is **$142 paid once** ($39 service fee including first year of Registered Agent + $103 Wyoming state formation fee, as shown on the checkout page in November 2026). The 5-step guide below uses this exact path.
 >
 > *📌 This is an affiliate link, but it doesn't change your fee. Full reasoning is in the "References" section at the end.*
 
 ---
 
-## How to Set It Up: $139, 5 Steps, ~2 Weeks
+## How to Set It Up: $142, 5 Steps, ~2 Weeks
 
-From decision to Stripe accepting payments: $139 and roughly 2-3 weeks. The timeline mostly depends on which path you take for the **EIN** (Employer Identification Number, the US equivalent of a national tax ID for the company).
+From decision to Stripe accepting payments: $142 and roughly 2-3 weeks. The timeline mostly depends on which path you take for the **EIN** (Employer Identification Number, the US equivalent of a national tax ID for the company).
 
 Five steps: **Form the LLC → State approves → Apply for EIN → Open bank account → Apply for Stripe**. They must run in order — each step needs the output of the previous one. **EIN is the most likely bottleneck.**
 
@@ -639,7 +640,7 @@ padding-bottom: 14px;
 
 ### Why I Use Northwest
 
-I used Northwest to file the formation and remit Wyoming's $100 state fee. Year 1 is $39 and includes the Registered Agent (receives IRS letters and forwards them to my email); year 2+ the RA is $125/year.
+I used Northwest to file the formation and remit Wyoming's state fee. Year 1 is $39 and includes the Registered Agent (receives IRS letters and forwards them to my email); year 2+ the RA is $125/year.
 
 When I formed the AI Resume Advisor LLC in 2024, I'd read a few English reviews recommending Northwest and just placed the order — never compared others. Two years in: card-to-Articles in under 24 hours, no upsell ambushes, $125 RA renewal with no surprises.
 
@@ -649,7 +650,7 @@ This isn't a "compared 10 services" recommendation. It's a "used it for 2 years 
 
 Go to the [Northwest website](https://www.awin1.com/awclick.php?gid=573875&mid=66946&awinaffid=2731748&linkid=4625429&clickref=blog-en-us-llc) and pick the "Wyoming LLC formation" $39 plan — includes the first year of Registered Agent.
 
-Fill in the company name (your future product brand), your home address (yes, your non-US one is fine), and pay $39 by card. Northwest will automatically add Wyoming's **one-time state formation fee of $100** (not the same as the recurring $60 Annual Report fee — that's an annual maintenance cost; this is a one-time setup cost), totaling **$139 paid once**.
+Fill in the company name (your future product brand), your home address (yes, your non-US one is fine), and pay $39 by card. Northwest will automatically add Wyoming's **one-time state formation fee of $103** (not the same as the recurring $60 Annual Report fee — that's an annual maintenance cost; this is a one-time setup cost), totaling **$142 paid once**.
 
 Total time: about 30 minutes.
 
@@ -713,11 +714,11 @@ Putting all the costs together — you can match each one against the steps abov
 | Item | Cost | Paid To |
 |---|---|---|
 | Northwest LLC service fee | $39 | Northwest (includes first-year RA) |
-| Wyoming state formation fee | $100 | Wyoming Secretary of State |
+| Wyoming state formation fee | $103 | Wyoming Secretary of State |
 | EIN application (DIY fax) | $0 | IRS (free) |
-| **Total** | **$139** | **paid once** |
+| **Total** | **$142** | **paid once** |
 
-> Want it faster? Fiverr EIN service runs ~$15-50 (24-48 hours) → total $154-189. Northwest's EIN add-on ($200) only faxes — it doesn't call the IRS or block IRS follow-up — see Step 3, not recommended.
+> Want it faster? Fiverr EIN service runs ~$15-50 (24-48 hours) → total $157-192. Northwest's EIN add-on ($200) only faxes — it doesn't call the IRS or block IRS follow-up — see Step 3, not recommended.
 
 **Annual Maintenance (Year 2 onward)**
 
@@ -748,7 +749,7 @@ Set Google Calendar reminders for all three. Don't rely on memory.
 
 A US LLC isn't an entrance to a dream. It's a pipe.
 
-$139 to set up, $309/year to maintain — what you buy is **a one-time-and-done payment infrastructure**. Whatever you want to monetize next — subscriptions, consulting, courses, a newsletter — it's the same pipe, the same Stripe, the same US company.
+$142 to set up, $309/year to maintain — what you buy is **a one-time-and-done payment infrastructure**. Whatever you want to monetize next — subscriptions, consulting, courses, a newsletter — it's the same pipe, the same Stripe, the same US company.
 
 Not romantic, but necessary. Without this pipe, none of the other things are even on the table.
 

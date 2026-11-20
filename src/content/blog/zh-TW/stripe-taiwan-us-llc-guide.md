@@ -2,6 +2,7 @@
 title: "台灣人用 Stripe 收美金：開一家美國公司的 2 年實戰心得"
 description: "台灣 vibe coder 想收美金訂閱，Stripe 不支援台灣。這篇用 2 年實戰告訴你：LLC 不是國際化 / 身份 / 夢想，是變現基礎設施。包含浪漫化拆解、報稅實戰、完整成本 + 台灣金流對比、Wyoming LLC 設立 5 步驟。"
 pubDate: 2026-04-17
+updatedDate: 2026-11-20
 author: "余文皓"
 category: building-products
 topics: ["ai-practice"]
@@ -16,9 +17,9 @@ keywords: ["stripe taiwan", "stripe 台灣", "vibe coding", "美國 LLC", "Wyomi
 relatedPosts: ["free-azure-startup-credits.md", "enterprise-ai-data-security.md"]
 faq:
   - question: "Stripe 真的完全不支援台灣嗎？"
-    answer: "Stripe 不支援台灣商家直接註冊收款帳號。台灣公司或個人沒辦法用台灣身份開 Stripe 帳號。理論上可以開新加坡、香港、日本、美國公司繞道收款，對 solo vibe coder 而言美國 LLC 是最務實的選擇 — $139 開戶、全程線上、pass-through 不繳公司稅。"
+    answer: "Stripe 不支援台灣商家直接註冊收款帳號。台灣公司或個人沒辦法用台灣身份開 Stripe 帳號。理論上可以開新加坡、香港、日本、美國公司繞道收款，對 solo vibe coder 而言美國 LLC 是最務實的選擇 — $142 開戶、全程線上、pass-through 不繳公司稅。"
   - question: "Wyoming LLC 一年要花多少錢？"
-    answer: "一次性成立費 $139（Northwest 代辦 $39 + Wyoming 州成立費 $100）。第二年起年度維護費約 $309，包含 Wyoming Annual Report 規費 $60、Annual Report 代辦費 $100、Registered Agent 年費 $125、Zadarma 美國虛擬電話 $24、Form 1120 + 5472 申報 DIY $0。全 DIY 最低可壓到每年 $185。"
+    answer: "一次性成立費 $142（Northwest 代辦 $39 + Wyoming 州成立費 $103）。第二年起年度維護費約 $309，包含 Wyoming Annual Report 規費 $60、Annual Report 代辦費 $100、Registered Agent 年費 $125、Zadarma 美國虛擬電話 $24、Form 1120 + 5472 申報 DIY $0。全 DIY 最低可壓到每年 $185。"
   - question: "我會被美國和台灣雙重課稅嗎？"
     answer: "不會。美國這邊 single-member LLC 是 pass-through 穿透課稅，IRS 不對 LLC 本身收稅；台灣人非美國稅務居民、無 ETBUS（在美國有實質營業關聯），所以美國聯邦個人稅也不適用。台灣這邊看你的海外所得：< NT$100 萬免申報、NT$100-750 萬有 750 萬免稅額通常仍免稅、超過 750 萬才課 20% 最低稅負。每年只要交 Form 1120 + Form 5472 資訊揭露（不繳稅），4/15 截止。"
   - question: "為什麼選 Wyoming，不選 Delaware 或 California？"
@@ -93,7 +94,7 @@ PayPal 的好處是**今天就能用**，不用開公司。但費率高一倍、
 
 | 名目 | 是什麼 | 取得難度 |
 |---------|--------|--------------|
-| 美國公司（LLC, 有限公司）| 商業實體（收錢工具） | 線上填表 $139、約 2 週 |
+| 美國公司（LLC, 有限公司）| 商業實體（收錢工具） | 線上填表 $142、約 2 週 |
 | H-1B（一般工作簽）/ O-1（傑出人才簽）| 工作簽，要雇主 sponsor（出面擔保你來美國工作）| 自己 sponsor 自己幾乎不會過 |
 | EB-1A（傑出人才綠卡）/ EB-2 NIW（國家利益豁免綠卡）/ E-2（投資簽證）| 綠卡 / 長期居留路徑 | 律師 $8K-$18K + 1-2 年，另一套遊戲 |
 
@@ -238,15 +239,15 @@ $309/年，換的是一件事：**未來你做任何新變現嘗試，都不用�
 
 ---
 
-> 💡 **想動手了？** 我自己 2024 年用 [Northwest](https://www.awin1.com/awclick.php?gid=573875&mid=66946&awinaffid=2731748&linkid=4625429&clickref=blog-zh-us-llc) 開的 Wyoming LLC，**$139 一次付清**（$39 代辦費含第一年 Registered Agent + $100 Wyoming 州政府成立費），刷卡到拿成立證書 < 24 小時。下面 5 步驟也是用這條路寫的。
+> 💡 **想動手了？** 我自己 2024 年用 [Northwest](https://www.awin1.com/awclick.php?gid=573875&mid=66946&awinaffid=2731748&linkid=4625429&clickref=blog-zh-us-llc) 開的 Wyoming LLC，刷卡到拿成立證書 < 24 小時。現在結帳是 **$142 一次付清**（$39 代辦費含第一年 Registered Agent + $103 Wyoming 州政府成立費，2026 年 11 月結帳頁實測）。下面 5 步驟也是用這條路寫的。
 >
 > *📌 這是 affiliate 連結，但對你費用沒影響。詳細推薦理由見文末「參考資料」區塊。*
 
 ---
 
-## 實作篇：怎麼開？$139、5 步驟、2-3 週
+## 實作篇：怎麼開？$142、5 步驟、2-3 週
 
-從決定要開到 Stripe 開始收錢，花費 $139、大約 2-3 週。時程主要看 **EIN**（Employer Identification Number，美國公司統一編號，類似台灣統編）那步你選哪條路。
+從決定要開到 Stripe 開始收錢，花費 $142、大約 2-3 週。時程主要看 **EIN**（Employer Identification Number，美國公司統一編號，類似台灣統編）那步你選哪條路。
 
 五個步驟：**美國公司成立申請 → 州政府核准 → 申請 EIN → 開銀行戶 → Stripe 申請**，必須依序進行（後面要前面的產出才能開始），EIN 是最可能卡住的瓶頸。
 
@@ -639,7 +640,7 @@ padding-bottom: 14px;
 
 ### 我用的是 Northwest（美國 LLC 代辦）
 
-我用 Northwest 送美國公司成立申請、代繳州政府成立規費 $100。第一年 $39 含 Registered Agent（收 IRS 信件 + 轉寄到我 email），第二年起 RA $125/年續約。
+我用 Northwest 送美國公司成立申請、代繳州政府成立規費。第一年 $39 含 Registered Agent（收 IRS 信件 + 轉寄到我 email），第二年起 RA $125/年續約。
 
 2024 年開 AI Resume Advisor LLC 時，看幾篇英文 review 都推就下單，沒比較其他家。兩年下來：刷卡到拿 Articles 不到 24 小時、沒被硬塞 upsell、$125 續 RA 沒踩雷。
 
@@ -649,7 +650,7 @@ padding-bottom: 14px;
 
 去 [Northwest 網站](https://www.awin1.com/awclick.php?gid=573875&mid=66946&awinaffid=2731748&linkid=4625429&clickref=blog-zh-us-llc) 選「Wyoming LLC formation」$39 方案 — 包含第一年 Registered Agent。
 
-填公司名（你之後產品的品牌名）、你的台灣地址、刷卡付 $39。Northwest 會自動加收 Wyoming 州政府**一次性成立費 $100**（跟每年 $60 的 Annual Report 規費是兩回事 — 前面講的是每年維護費，這裡是開公司當下繳的設立費），合計 **$139 一次付清**。
+填公司名（你之後產品的品牌名）、你的台灣地址、刷卡付 $39。Northwest 會自動加收 Wyoming 州政府**一次性成立費 $103**（跟每年 $60 的 Annual Report 規費是兩回事 — 前面講的是每年維護費，這裡是開公司當下繳的設立費），合計 **$142 一次付清**。
 
 整個流程大約 30 分鐘。
 
@@ -713,11 +714,11 @@ Mercury 對海外創辦人友善，填表 15 分鐘送出，3-5 天會收到核�
 | 項目 | 金額 | 誰收 |
 |------|------|------|
 | Northwest LLC 代辦費 | $39 | Northwest（含第一年 RA）|
-| Wyoming 州成立費 | $100 | Wyoming Secretary of State |
+| Wyoming 州成立費 | $103 | Wyoming Secretary of State |
 | EIN 申請（DIY 傳真）| $0 | IRS（免費）|
-| **合計** | **$139** | **一次付清** |
+| **合計** | **$142** | **一次付清** |
 
-> 想省時間：Fiverr 代辦 EIN 約 $15-50（24-48 小時）→ 合計 $154-189。Northwest 也有賣外國人 EIN 加購（$200），但只代為傳真、不打 IRS、不擋 IRS 後續聯絡 — 詳見 Step 3，不推薦。
+> 想省時間：Fiverr 代辦 EIN 約 $15-50（24-48 小時）→ 合計 $157-192。Northwest 也有賣外國人 EIN 加購（$200），但只代為傳真、不打 IRS、不擋 IRS 後續聯絡 — 詳見 Step 3，不推薦。
 
 **每年維護費（第二年起）**
 
@@ -748,7 +749,7 @@ Mercury 對海外創辦人友善，填表 15 分鐘送出，3-5 天會收到核�
 
 美國公司不是夢想的入口。是一條水管。
 
-$139 的成立費、$309/年的維護費，換的是**一勞永逸的收款能力**。未來你想賣訂閱、接諮詢、開課、做 newsletter — 同一條水管、同一個 Stripe、同一家美國公司。
+$142 的成立費、$309/年的維護費，換的是**一勞永逸的收款能力**。未來你想賣訂閱、接諮詢、開課、做 newsletter — 同一條水管、同一個 Stripe、同一家美國公司。
 
 不浪漫，但必要。沒這條管子，後面什麼都談不上。
 
