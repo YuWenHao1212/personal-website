@@ -212,7 +212,7 @@ OpenWrt and SSH are the two keywords to look for when you pick a model. If you c
 
 If the computer at home is connected to this router by cable or the main Wi-Fi, it can SSH into the router directly. If it isn't on this router, the router needs to support Tailscale (a tool that lets machines on different networks reach each other), installed on both the router and that computer. Connecting home from your laptop while you're out also goes through Tailscale, so install it on the laptop and on that computer.
 
-> **The one I use at home**: <a href="https://www.amazon.com/dp/B0FX9C5QVJ?&amp;linkCode=ll2&amp;tag=yuwenhao-20&amp;linkId=d60b9045636fffa192386031fc34ec74&amp;gaOptInStatus=true&amp;ref_=as_li_ss_tl" target="_blank" rel="sponsored nofollow noopener noreferrer">GL.iNet Flint 3e (GL-BE6500)</a>. Its system is based on OpenWrt and allows SSH login, and Tailscale is built into its admin panel.
+> **The one I use at home**: <a href="https://www.awin1.com/cread.php?awinmid=80509&amp;awinaffid=2731748&amp;ued=https%3A%2F%2Fwww.gl-inet.com%2Fproducts%2Fgl-be6500%2F" target="_blank" rel="sponsored nofollow noopener noreferrer">GL.iNet Flint 3e (GL-BE6500)</a>. Its system is based on OpenWrt and allows SSH login, and Tailscale is built into its admin panel.
 
 **How much I did myself**: I bought the router on Amazon and had it shipped to Taiwan, where I live. The program itself was done in two evenings. The code, the testing, and the status page were all handed to Claude Code.
 
@@ -325,4 +325,4 @@ Security principles:
 Please first ask me what information is still missing, then propose an architecture and steps, and check with me before each step.
 ```
 
-*The Amazon link in this post is an affiliate link: if you buy through it, I earn a small commission, and your price stays the same. As an Amazon Associate I earn from qualifying purchases.*
+*The GL.iNet Flint 3e link in this post is an affiliate link to the official GL.iNet store: if you buy through it, I earn a small commission, and your price stays the same.*

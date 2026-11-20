@@ -206,7 +206,7 @@ OpenWrt 和 SSH 是挑型號時最該找的兩個關鍵字。挑出廠時系統�
 
 家裡那台電腦用網路線或主 Wi-Fi 接在這台路由器上，就能直接用 SSH 連它。沒接在這台底下，路由器就要能裝 Tailscale（讓不同網路的機器連得到彼此的工具），跟那台電腦兩邊都裝上。人在外面要用筆電連回家，也是靠 Tailscale，筆電和那台電腦都要裝。
 
-> **我家用的這台**：<a href="https://www.amazon.com/dp/B0FX9C5QVJ?&amp;linkCode=ll2&amp;tag=yuwenhao-20&amp;linkId=d60b9045636fffa192386031fc34ec74&amp;language=zh_TW&amp;gaOptInStatus=true&amp;ref_=as_li_ss_tl" target="_blank" rel="sponsored nofollow noopener noreferrer">GL.iNet Flint 3e（GL-BE6500）</a>。系統以 OpenWrt 為基礎、能用 SSH 登入，後台也內建 Tailscale。
+> **我家用的這台**：<a href="https://www.awin1.com/cread.php?awinmid=80509&amp;awinaffid=2731748&amp;ued=https%3A%2F%2Fwww.gl-inet.com%2Fproducts%2Fgl-be6500%2F" target="_blank" rel="sponsored nofollow noopener noreferrer">GL.iNet Flint 3e（GL-BE6500）</a>。系統以 OpenWrt 為基礎、能用 SSH 登入，後台也內建 Tailscale。
 
 **自己做多少**：路由器是在 Amazon 美國站買的，從加州寄來台灣，下單後九天收到。程式的部分兩個晚上就做完了。程式、測試和顯示頁，都交給 Claude Code。
 
@@ -317,4 +317,4 @@ OpenWrt 和 SSH 是挑型號時最該找的兩個關鍵字。挑出廠時系統�
 請先問我還缺哪些資訊，再提出架構和步驟，每一步動手前先跟我確認。
 ```
 
-*文中的 Amazon 連結是聯盟連結，透過它購買我會收到一點佣金，你的費用不變。As an Amazon Associate I earn from qualifying purchases.*
+*文中 GL.iNet Flint 3e 的連結是聯盟連結，連到 GL.iNet 官網。透過它購買，我會收到一點佣金，你的費用不變。*
