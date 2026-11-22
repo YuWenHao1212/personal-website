@@ -144,7 +144,7 @@ const lang = getLangFromUrl(Astro.url);
         if (umamiSwitch === 'off') localStorage.setItem('umami.disabled', '1');
         else if (umamiSwitch === 'on') localStorage.removeItem('umami.disabled');
       } catch (e) {}
-      window.umamiBotList = { screens: ['1280x1200', '800x600', '1600x1600'], referrers: ['aocr.org'] };
+      window.umamiBotList = { screens: ['1280x1200', '800x600', '1600x1600', '1280x1280'], referrers: ['aocr.org'] };
       window.umamiKeepKnownParams = function (type, payload) {
         try {
           if (payload) {
