@@ -170,24 +170,24 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
           {/* 10/9: the certificate moved from third to first, with its badge (see the note in the opening). On paper the solid badge
               reads as a seal on a document. The badge is itself the link to the Credly page. */}
           <li class="cert">
-            <a class="bdg" href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="badge" aria-label="Claude 認證架構師：在 Credly 驗證">
+            <a class="bdg" href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="badge" aria-label="Claude 架構師認證：在 Credly 驗證">
               <img src="/images/credentials/claude-certified-architect-foundations.png" alt="Claude Certified Architect – Foundations 徽章" width="604" height="604" loading="lazy" />
             </a>
             <div>
               <span class="k">認證</span>
-              <b>Claude 認證架構師</b>
-              <span class="n">Anthropic 的官方認證</span>
+              <b>Claude 架構師認證</b>
+              <span class="n">Claude Certified Architect – Foundations<br />Anthropic 的官方認證</span>
               <a href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly">在 Credly 驗證 ↗</a>
             </div>
           </li>
           <li class="cert">
-            <a class="bdg" href="https://www.credly.com/badges/6c7f8052-0967-4b67-898c-714479df1400" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="badge_ccaof" aria-label="Claude Certified Associate：在 Credly 驗證">
+            <a class="bdg" href="https://www.credly.com/badges/6c7f8052-0967-4b67-898c-714479df1400" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="badge_ccaof" aria-label="Claude 商務應用認證：在 Credly 驗證">
               <img src="/images/credentials/claude-certified-associate-foundations.png" alt="Claude Certified Associate – Foundations 徽章" width="600" height="600" loading="lazy" />
             </a>
             <div>
               <span class="k">認證</span>
-              <b>Claude Certified Associate</b>
-              <span class="n">Foundations，Anthropic 的官方認證</span>
+              <b>Claude <span class="nw">商務應用認證</span></b>
+              <span class="n">Claude Certified Associate – Foundations<br />Anthropic 的官方認證</span>
               <a href="https://www.credly.com/badges/6c7f8052-0967-4b67-898c-714479df1400" target="_blank" rel="noopener noreferrer" data-umami-event="about_click_credly" data-umami-event-where="text_ccaof">在 Credly 驗證 ↗</a>
             </div>
           </li>
@@ -499,6 +499,10 @@ const description = '科技業二十年，Nokia、聯詠科技、友達光電，
   }
   .ab .st-side a:hover {
     border-color: var(--terra);
+  }
+  /* keep 商務應用認證 on one line, so a narrow column breaks after "Claude", not before the last character */
+  .st-side .nw {
+    white-space: nowrap;
   }
   .st-side li.cert {
     display: grid;
