@@ -491,15 +491,27 @@ const endX = 0.965;
             <p class="id">企業 AI 導入顧問、AI 講師<br />Claude 認證架構師</p>
           </div>
         </div>
-        {/* 10/8: the author's own certificate (not the Confluence partner badge), with the public check. Wording stays
-            「Claude 認證架構師」 / the badge's own name — no score, no exam detail. Badge file is the one the exam article uses. */}
-        <a class="su-cert" href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="workshop_click_credly">
-          <img src="/images/blog/ccar-f-exam-experience-badge.png" alt="Claude Certified Architect, Foundations 徽章" width="604" height="604" loading="lazy" />
-          <span>
-            <b>Claude Certified Architect · Foundations</b>
-            <i>Anthropic 的官方認證<u>在 Credly 驗證 ↗</u></i>
-          </span>
-        </a>
+        {/* 11/26: two certificates (CCAR-F, CCAO-F), each named in Chinese with the official English name under it, as on the about page.
+            CCAO-F is the one closest to this workshop's people: everyday Claude use at work, no code. Wording agreed with the author:
+            「Claude 架構師認證」「Claude 商務應用認證」. */}
+        <div class="su-certs">
+          <a class="su-cert" href="https://www.credly.com/badges/476d2a2e-42ce-41a3-81b1-474c8750c044" target="_blank" rel="noopener noreferrer" data-umami-event="workshop_click_credly" data-umami-event-cert="ccar-f">
+            <img src="/images/blog/ccar-f-exam-experience-badge.png" alt="Claude Certified Architect, Foundations 徽章" width="604" height="604" loading="lazy" />
+            <span>
+              <b>Claude 架構師認證</b>
+              <em>Claude Certified Architect&nbsp;· Foundations</em>
+              <i>Anthropic 的官方認證<u>在 Credly 驗證 ↗</u></i>
+            </span>
+          </a>
+          <a class="su-cert" href="https://www.credly.com/badges/6c7f8052-0967-4b67-898c-714479df1400" target="_blank" rel="noopener noreferrer" data-umami-event="workshop_click_credly" data-umami-event-cert="ccao-f">
+            <img src="/images/credentials/claude-certified-associate-foundations.png" alt="Claude Certified Associate, Foundations 徽章" width="600" height="600" loading="lazy" />
+            <span>
+              <b>Claude 商務應用認證</b>
+              <em>Claude Certified Associate&nbsp;· Foundations</em>
+              <i>Anthropic 的官方認證<u>在 Credly 驗證 ↗</u></i>
+            </span>
+          </a>
+        </div>
         <p class="su-bio">科技業 20 年（工程師 → PM → 數據分析），Minerva University 碩士。目前為企業提供 AI 導入顧問與內訓服務。每天靠這套系統管理所有工作流。</p>
         <p class="su-run">5/16 台北、6/7 台中、8/22 台北三班全滿，10/31 台北第四班已上完。{cohort.dateShort} {cohort.name}<span data-run-state>招生中</span>。</p>
         <a class="su-about" href="/zh-TW/about/">我的故事 →</a>
@@ -2210,12 +2222,17 @@ const endX = 0.965;
     letter-spacing: 0.06em;
     color: var(--muted);
   }
+  .su-certs {
+    display: grid;
+    gap: var(--space-3);
+    width: fit-content;
+    max-width: 100%;
+    margin-top: var(--space-5);
+  }
   .wp a.su-cert {
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    width: fit-content;
-    margin-top: var(--space-5);
     padding: var(--space-3) var(--space-5) var(--space-3) var(--space-4);
     border: 1px solid var(--hair);
     border-radius: 3px;
@@ -2234,9 +2251,17 @@ const endX = 0.965;
   }
   .su-cert b {
     display: block;
+    font-size: var(--t-ui);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .su-cert em {
+    display: block;
+    margin-top: 2px;
+    font-style: normal;
     font-family: var(--mono);
     font-size: var(--t-label);
-    font-weight: 400;
     letter-spacing: 0.12em;
     color: var(--ink);
   }
